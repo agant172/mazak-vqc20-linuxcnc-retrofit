@@ -11,11 +11,14 @@
 
 | Item | Planned choice | Status |
 |---|---|---|
-| PCIe Mesa host card | 6i25 or current PCIe equivalent | Verify model/availability |
-| Analog servo/spindle card | 7i77 (7i77 vs 7i77D TBD) | Confirm variant |
-| Field I/O card | 7i84 (7i84 vs 7i84D TBD) near green breakout PCB | Confirm variant |
-| Optional expansion | 7i85/7i85S | Only if extra encoder/MPG/stepgen/4th-axis needed |
+| Primary motion/control board | Mesa 7i97T Ethernet analog servo controller | Verify part number/revision/firmware |
+| Remote field I/O | Mesa 7i84U (smart-serial) near green breakout PCB | Verify variant and connection path |
+| Control PC | LinuxCNC PC with Ethernet NIC on the 7i97T subnet | Confirm latency and static-IP setup |
 | Optional pendant | WHB04B-style USB pendant | Only after base machine is safe |
+| Optional future expansion | Additional smart-serial / expansion I/O | Only if a later need (extra encoder/MPG/4th-axis) is confirmed |
+
+> Superseded: the earlier PCIe stack (6i25 host card + 7i77 + 7i84, optional 7i85/7i85S
+> third board) is historical and is not the selected plan.
 
 Additional parts (DIN rail, wire duct, interposing relays, suppression, terminals,
-tower PC) depend on cabinet photos and coil/current measurements still to be taken.
+control PC) depend on cabinet photos and coil/current measurements still to be taken.

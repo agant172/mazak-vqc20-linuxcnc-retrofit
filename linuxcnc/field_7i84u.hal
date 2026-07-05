@@ -1,0 +1,91 @@
+# 7i84U remote field I/O for ATC, hydraulics, coolant, air, and utilities
+#
+# This assumes a 7i84U on the 7i97T smart-serial bus. Every hm2_7i97t.*.7i84.*
+# name below is an UNVERIFIED PLACEHOLDER; the exact smart-serial device tag and
+# pin names differ by firmware and smart-serial port. Use `halcmd show pin hm2`
+# after loading the actual firmware, then replace the placeholder pin names.
+
+#####################################################################
+# 7i84U TB1 assumed inputs
+#####################################################################
+
+net tool-clamped <= hm2_7i97t.0.7i84.0.0.input-00
+net tool-unclamped <= hm2_7i97t.0.7i84.0.0.input-01
+
+net atc-y-zone <= hm2_7i97t.0.7i84.0.0.input-02
+net atc-z-zone <= hm2_7i97t.0.7i84.0.0.input-03
+
+net mag-in-pos <= hm2_7i97t.0.7i84.0.0.input-04
+net tool-code-0 <= hm2_7i97t.0.7i84.0.0.input-05
+net tool-code-1 <= hm2_7i97t.0.7i84.0.0.input-06
+net tool-code-2 <= hm2_7i97t.0.7i84.0.0.input-07
+net tool-code-3 <= hm2_7i97t.0.7i84.0.0.input-08
+net tool-code-4 <= hm2_7i97t.0.7i84.0.0.input-09
+
+net coolant-low <= hm2_7i97t.0.7i84.0.0.input-10
+net air-ok <= hm2_7i97t.0.7i84.0.0.input-11
+
+# Optional / spare inputs to assign after cabinet tracing.
+# net mag-cover-closed <= hm2_7i97t.0.7i84.0.0.input-12
+# net coolant-toggle <= hm2_7i97t.0.7i84.0.0.input-13
+# net spindle-override-sel <= hm2_7i97t.0.7i84.0.0.input-14
+# net atc-home-pb <= hm2_7i97t.0.7i84.0.0.input-15
+# net chip-conveyor-fault <= hm2_7i97t.0.7i84.0.0.input-16
+
+#####################################################################
+# 7i84U TB2 assumed outputs
+#####################################################################
+
+# WARNING: verify coil/load current and voltage. Use interposing relays or
+# output modules where required. Add suppression appropriate to each coil.
+
+net tool-unclamp-sol => hm2_7i97t.0.7i84.0.0.output-00
+net mag-cw-sol => hm2_7i97t.0.7i84.0.0.output-01
+net mag-ccw-sol => hm2_7i97t.0.7i84.0.0.output-02
+
+net mag-cover-open => hm2_7i97t.0.7i84.0.0.output-03
+net mag-cover-close => hm2_7i97t.0.7i84.0.0.output-04
+
+net flood-coolant <= iocontrol.0.coolant-flood
+net flood-coolant => hm2_7i97t.0.7i84.0.0.output-05
+
+net mist-coolant <= iocontrol.0.coolant-mist
+net mist-coolant => hm2_7i97t.0.7i84.0.0.output-06
+
+net air-blast-1 => hm2_7i97t.0.7i84.0.0.output-07
+net air-blast-2 => hm2_7i97t.0.7i84.0.0.output-08
+net tap-coolant => hm2_7i97t.0.7i84.0.0.output-09
+net work-light => hm2_7i97t.0.7i84.0.0.output-10
+
+# Optional / spare outputs to assign after cabinet tracing.
+# net chip-conveyor-on => hm2_7i97t.0.7i84.0.0.output-11
+# net stack-green => hm2_7i97t.0.7i84.0.0.output-12
+# net stack-red => hm2_7i97t.0.7i84.0.0.output-13
+
+#####################################################################
+# ATC sequence placeholders
+#####################################################################
+
+# These are only named nets for a future ClassicLadder/component ATC sequence.
+# Do not energize tool clamp, magazine motion, or cover solenoids until all
+# interlocks are proven in HAL and physically verified.
+#
+# Required future logic inputs:
+# - tool-clamped
+# - tool-unclamped
+# - atc-y-zone
+# - atc-z-zone
+# - mag-in-pos
+# - tool-code-0 through tool-code-4
+# - spindle-zero-speed
+# - spindle-orient-ok or spindle-orient-complete
+# - hydraulic-ok
+# - air-ok
+#
+# Required future logic outputs:
+# - spindle-orient-cmd
+# - tool-unclamp-sol
+# - mag-cw-sol
+# - mag-ccw-sol
+# - mag-cover-open / mag-cover-close if present
+

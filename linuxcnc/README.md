@@ -2,45 +2,45 @@
 
 This is a starter wiring and HAL skeleton generated from the Mazak VQC 20/40 retrofit I/O workbook.
 
-It is meant for planning and bring-up, not direct live-machine use. Before enabling any drive, verify the actual Mesa firmware pin names, drive command polarity, encoder type, encoder scale, field I/O voltage, output current, safety-chain wiring, and normal states in the cabinet.
+It is meant for planning and bring-up, not direct live-machine use. Before enabling any drive, verify the actual Mesa firmware pin names, drive command polarity, encoder type, encoder scale, field I/O voltage, output current/sourcing behavior, safety-chain wiring, and normal states in the cabinet.
 
 ## Selected architecture
 
 The selected retrofit architecture is:
 
-- Tower PC mounted inside the Mazak cabinet, replacing the original Mazatrol rack area.
-- PCIe Mesa host card in the tower PC, likely a 6i25 or current compatible equivalent.
-- 7i77-class analog servo card for X/Y/Z analog command, spindle speed command, encoder feedback, and critical safety/motion I/O.
-- 7i84 mounted near the existing green breakout PCB / terminal area for ATC, hydraulics, coolant, air, and utility field I/O.
-- Optional 7i85/7i85S only if extra encoder, MPG, stepgen, or future 4th-axis capacity is needed.
+- LinuxCNC control PC connected to the Mesa 7i97T over Ethernet (`hm2_eth`, static IP).
+- Mesa 7i97T Ethernet analog servo controller as the primary motion/control board: X/Y/Z analog command, encoder feedback, spindle analog/digital command where appropriate, and core digital I/O (homes, limits, drive enables/faults, and critical safety/motion I/O) per the board's capabilities.
+- Mesa 7i84U remote field I/O on smart-serial, mounted near the existing green breakout PCB / terminal area for ATC, hydraulics, coolant, air, magazine, and utility field I/O.
 - Optional WHB04B-style USB pendant through LinuxCNC after the base machine is safe.
 
-The laptop + Ethernet Mesa architecture is considered a fallback only if the cabinet tower fails latency/reliability testing or PCIe Mesa hardware becomes impractical.
+> The earlier PCIe plan (tower PC + 6i25 host card + 7i77 + 7i84, optional 7i85/7i85S third board) is historical and has been superseded by the 7i97T + 7i84U Ethernet architecture.
 
 ## Assumed hardware stack
 
-- PC tower mounted inside the Mazak cabinet.
-- Mesa 6i25 PCIe host card or current compatible equivalent.
-- Mesa 7i77 for analog servo/spindle control, encoder feedback, and critical motion/safety I/O.
-- Mesa 7i84 for ATC, hydraulic, coolant, air, and utility I/O near the existing green breakout PCB.
-- Optional Mesa 7i85 or 7i85S for future encoder/stepgen expansion.
+- LinuxCNC control PC with an Ethernet NIC on the 7i97T subnet.
+- Mesa 7i97T Ethernet analog servo controller for analog servo/spindle control, encoder feedback, and core motion/safety I/O.
+- Mesa 7i84U remote field I/O (smart-serial) for ATC, hydraulic, coolant, air, and utility I/O near the existing green breakout PCB.
 - Optional WHB04B-style USB pendant through LinuxCNC HAL, not through Mesa I/O.
+
+> **Placeholder pin names:** the `hm2_7i97t.*` and `7i84u` HAL pin names in these files are
+> unverified placeholders. Confirm the exact board tag (`hm2_7i97t` vs `hm2_7i97`) and the
+> real analog/encoder/field-I/O pin structure from `readhmid` and `show pin hm2` before use.
 
 ## File guide
 
 - `mazak_vqc_20_40.ini` - placeholder INI sections for the machine, joints, spindle, and HAL file loading.
-- `mazak_vqc_20_40.hal` - main HAL loader and high-level comments.
-- `motion_7i77.hal` - analog outputs, encoder feedback placeholders, homes, limits, drive faults, drive enables, spindle enable/direction, ready/alarm outputs.
-- `field_7i84.hal` - ATC, magazine, coolant, air, and utility I/O placeholders.
+- `mazak_vqc_20_40.hal` - main HAL loader (`hm2_eth`) and high-level comments.
+- `motion_7i97t.hal` - 7i97T analog outputs, encoder feedback placeholders, homes, limits, drive faults, drive enables, spindle enable/direction, ready/alarm outputs.
+- `field_7i84u.hal` - 7i84U ATC, magazine, coolant, air, and utility I/O placeholders.
 - `pendant_whb04b.hal` - optional WHB04B-style pendant net placeholders.
 - `signal_map.csv` - CSV companion map matching the workbook signal names to the skeleton HAL nets.
-- `architecture_decision.md` - selected PCIe cabinet-tower architecture decision.
-- `mesa_firmware_checklist.md` - firmware, bitfile, smart-serial, and HAL pin information to collect before finalizing the HAL.
+- `architecture_decision.md` - selected 7i97T + 7i84U architecture decision.
+- `mesa_firmware_checklist.md` - firmware, bitfile, Ethernet/IP, smart-serial, and HAL pin information to collect before finalizing the HAL.
 - `cabinet_photo_checklist.md` - one-page photo checklist for gathering the details needed to order/configure Mesa hardware and finalize HAL pin names.
 
 ## Bring-up order
 
-1. Confirm Mesa card detection with `lspci`, `mesaflash`, and LinuxCNC HAL loading.
+1. Confirm 7i97T detection over Ethernet: host static IP, `ping`, `mesaflash`, and `hm2_eth` HAL loading.
 2. Confirm the 24 VDC P24/G24 bus, fusing, and 0 V common/reference strategy.
 3. Confirm encoder wiring with drives disabled. Verify counts, index behavior, direction, shielding, and scale.
 4. Confirm analog command wiring with drives disabled or inhibited. Verify zero command voltage and output polarity.

@@ -13,16 +13,18 @@ control to LinuxCNC using Mesa Electronics FPGA hardware.
 
 ## Selected architecture
 
-- **Tower PC inside the Mazak cabinet** with a **PCIe Mesa host card** (likely 6i25 or
-  current equivalent). This is the chosen path.
-- **7i77** analog servo card: X/Y/Z analog command, spindle analog command, encoder
-  feedback, homes/limits, drive enables/faults, and critical safety/motion I/O.
-- **7i84** near the green breakout PCB / terminal area: ATC, hydraulics, coolant, air,
-  and utility field I/O.
-- **Optional 7i85/7i85S** only if extra encoder/MPG/stepgen/future 4th-axis capacity is
-  needed.
+- **LinuxCNC control PC** driving a **Mesa 7i97T** Ethernet analog servo controller as the
+  primary motion/control board (`hm2_eth`, static IP). This is the chosen path.
+- **7i97T**: X/Y/Z analog servo command, encoder feedback, spindle analog/digital command
+  where appropriate, homes/limits, drive enables/faults, and critical safety/motion I/O
+  per the board's capabilities.
+- **7i84U** remote field I/O (smart-serial) near the green breakout PCB / terminal area:
+  ATC, hydraulics, coolant, air, magazine, utility I/O, and cabinet field wiring.
 - **Optional WHB04B-style USB pendant** after base machine safety/motion is proven.
-- **Fallback (rejected unless PCIe/tower fails):** laptop with Ethernet Mesa cards.
+- **Future/optional (TBD):** additional smart-serial or expansion I/O only if a later need
+  (extra encoders, MPG/handwheel, or a 4th axis) is confirmed — not part of the selected plan.
+- **Previous / rejected plan (historical):** PCIe tower-card stack (6i25 + 7i77 + 7i84,
+  optional 7i85/7i85S third board). Superseded by the 7i97T + 7i84U Ethernet architecture.
 
 See [`architecture_decision.md`](architecture_decision.md) for the full rationale.
 
@@ -30,7 +32,7 @@ See [`architecture_decision.md`](architecture_decision.md) for the full rational
 
 ### Completed
 - Repository created and structured.
-- PCIe cabinet-tower architecture selected.
+- 7i97T + 7i84U Ethernet architecture selected.
 - Initial I/O workbook created (`bom/Mazak_VQC_20-40_Retrofit_IO_Workbook.xlsx`).
 - HAL/INI bring-up skeleton drafted (`linuxcnc/`).
 - Mesa firmware/HAL-pin checklist drafted (`mesa/mesa_firmware_checklist.md`).
@@ -53,9 +55,10 @@ See [`architecture_decision.md`](architecture_decision.md) for the full rational
 ## TODO list
 
 ### Immediate
-- [ ] Verify exact Mesa host card choice and availability (likely 6i25 or current PCIe equivalent).
-- [ ] Confirm 6i25 connector order: which ribbon connector goes to 7i77 and whether the second connector is unused or reserved for 7i85/7i85S.
-- [ ] Confirm 7i77 vs 7i77D and 7i84 vs 7i84D variants before final output wiring.
+- [ ] Verify exact 7i97T and 7i84U part numbers, board revisions, and documentation.
+- [ ] Confirm 7i97T firmware/bitfile and the 7i84U smart-serial field-I/O connection path.
+- [ ] Confirm 7i97T Ethernet setup: static IP, `hm2_eth` `board_ip`, and host NIC config.
+- [ ] Confirm 24 V field power feed and 7i97T/7i84U I/O sourcing/sinking behavior before wiring.
 - [ ] Capture cabinet photo set using the cabinet photo checklist.
 - [ ] Capture/record X/Y/Z servo drive model labels and command/enable/fault terminal labels.
 - [ ] Capture/record Mitsubishi FR-SX spindle drive model and analog/run/direction/alarm terminals.
@@ -63,13 +66,13 @@ See [`architecture_decision.md`](architecture_decision.md) for the full rational
 - [ ] Trace E-stop, door, ready chain, and servo contactor wiring before any control rewiring.
 
 ### Next
-- [ ] Run LinuxCNC latency test on the selected tower PC.
-- [ ] Install Mesa card(s) and save `mesaflash --device 6i25 --readhmid` output as `mesa_readhmid.txt`.
+- [ ] Run LinuxCNC latency test on the selected control PC.
+- [ ] Install the 7i97T + 7i84U and save `mesaflash ... --readhmid` output as `mesa_readhmid.txt`.
 - [ ] Dump actual HAL pins after firmware load and save as `mesa_hal_pins.txt`.
-- [ ] Replace placeholder `hm2_6i25...` pin names in the HAL files using the real HAL pin dump.
+- [ ] Replace placeholder `hm2_7i97t...` / `7i84u` pin names in the HAL files using the real HAL pin dump.
 - [ ] Verify encoder type, supply voltage, pinout, index presence, and counts per unit for X/Y/Z.
 - [ ] Verify analog command polarity/scaling for X/Y/Z before enabling drives.
-- [ ] Verify FR-SX spindle analog speed mode and run/direction/enable behavior.
+- [ ] Verify FR-SX spindle command mode (analog speed and run/direction/enable behavior).
 - [ ] Verify ATC prox/solenoid labels and normal states: PRS-8/9, PRS-10/12, PRS-13, PRS-21 through PRS-25, SOL-8A/8B, SOL-10, M15/M16 if present.
 - [ ] Measure solenoid/contactor coil voltages and currents to decide interposing relay/suppression needs.
 
@@ -79,11 +82,11 @@ See [`architecture_decision.md`](architecture_decision.md) for the full rational
 - [ ] Prove homes/limits and hardware E-stop behavior.
 - [ ] Bring up spindle at low RPM with verified analog scaling.
 - [ ] Dry-run ATC/hydraulic sequence with no tool load.
-- [ ] Decide whether optional 7i85/7i85S and USB pendant are needed.
+- [ ] Decide whether any optional future expansion I/O and the USB pendant are needed.
 
 ## Bring-up order (summary)
 
-1. Confirm Mesa card detection (`lspci`, `mesaflash`, HAL load).
+1. Confirm 7i97T detection over Ethernet (host static IP, `ping`, `mesaflash`, `hm2_eth` HAL load).
 2. Confirm 24 VDC P24/G24 bus, fusing, and 0 V common/reference strategy.
 3. Confirm encoder wiring with drives disabled (counts, index, direction, scale).
 4. Confirm analog command wiring with drives disabled/inhibited (zero command, polarity).
@@ -97,8 +100,9 @@ Detailed bring-up notes: [`../linuxcnc/README.md`](../linuxcnc/README.md).
 ## Safety caveats
 
 - The `linuxcnc/` HAL/INI files and `mesa/signal_map.csv` are **skeletons**. Pin names
-  (`hm2_6i25...`), encoder scales, analog polarity/scaling, and I/O normal states are
-  **placeholders** and must be replaced with measured/verified values.
+  (`hm2_7i97t...` / 7i84u), encoder scales, analog polarity/scaling, spindle FR-SX command
+  mode, and I/O normal states are **placeholders** and must be replaced with the actual
+  generated HAL names and measured/verified values from the installed 7i97T + 7i84U.
 - Preserve or rebuild a **hardware safety chain** that removes hazardous power. Do not
   rely on LinuxCNC/HAL alone for E-stop safety.
 - Treat every `active-high`/`active-low`/`NO`/`NC` assumption as unverified until measured.

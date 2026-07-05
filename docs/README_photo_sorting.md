@@ -16,7 +16,7 @@ Use this folder structure to keep cabinet photos, Mesa firmware notes, and Linux
 |---|---|
 | `00_Inbox_To_Sort` | Unsorted photos, videos, screenshots, notes, and temporary files. |
 | `01_Cabinet_Wide_Shots` | Wide shots of the left, center, and right cabinet bays. |
-| `02_PC_Mazatrol_Rack_Area` | Photos and measurements of the old Mazatrol rack area where the tower PC may mount. |
+| `02_PC_Mazatrol_Rack_Area` | Photos and measurements of the old Mazatrol rack area where the control PC may mount. |
 | `03_Servo_Drives_XYZ` | X/Y/Z servo amplifier model plates, terminal strips, command, enable, and fault wiring. |
 | `04_Encoders_Motors_Pickups` | Encoder connectors, motor nameplates, pickup units, and feedback wiring. |
 | `05_Spindle_FRSX` | Mitsubishi FR-SX spindle controller label, terminals, analog speed input, run/direction/enable/alarm wiring. |
@@ -29,7 +29,7 @@ Use this folder structure to keep cabinet photos, Mesa firmware notes, and Linux
 | `12_Grounding_Shields_Common` | PE ground bars, 0 V common points, shield drain/clamp locations, analog/encoder shield landings. |
 | `13_DIN_Rail_Panel_Space` | Open DIN rail, wire duct, panel space, door clearance, possible Mesa card mounting spots. |
 | `14_Operator_Panel` | Cycle start, feed hold, single block, overrides, lamps, pendant-related panel notes. |
-| `15_Mesa_Cards_Firmware` | Mesa card labels, firmware/bitfile notes, 6i25 connector order, 7i77/7i84 photos. |
+| `15_Mesa_Cards_Firmware` | Mesa board labels, firmware/bitfile notes, 7i97T Ethernet/IP settings, 7i84U smart-serial connection photos. |
 | `16_Manuals_Schematics` | Mazak manuals, schematics, terminal charts, inside-door legends, printed references. |
 | `17_LinuxCNC_Config_Outputs` | LinuxCNC configs, HAL/INI files, `mesa_readhmid.txt`, `mesa_hal_pins.txt`, latency-test screenshots. |
 

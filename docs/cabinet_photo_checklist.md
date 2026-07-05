@@ -1,6 +1,6 @@
 # Mazak VQC 20/40 Cabinet Photo Checklist
 
-Use this checklist before ordering/flashing Mesa hardware. The goal is to capture enough detail to confirm the PCIe Mesa card stack, drive interfaces, encoder wiring, 24 VDC I/O, and cabinet layout.
+Use this checklist before ordering/flashing Mesa hardware. The goal is to capture enough detail to confirm the 7i97T + 7i84U setup, drive interfaces, encoder wiring, 24 VDC I/O, and cabinet layout.
 
 ## Photo rules
 
@@ -15,7 +15,7 @@ Use this checklist before ordering/flashing Mesa hardware. The goal is to captur
 | Priority | Photo | What to capture | Why it matters |
 |---|---|---|---|
 | High | Whole electrical cabinet | Left, center, right bays with doors open | Confirms available space, PC location, wire duct, and card mounting areas. |
-| High | Former Mazatrol rack / PC area | Empty/occupied rack space, mounting rails, power, airflow path | Confirms tower PC fit and service clearance. |
+| High | Former Mazatrol rack / PC area | Empty/occupied rack space, mounting rails, power, airflow path | Confirms control PC fit and service clearance. |
 | High | Axis servo amplifiers | X/Y/Z drive labels, model numbers, terminal strips, command terminals, enable/fault terminals | Confirms analog ±10 V compatibility and drive enable/fault wiring. |
 | High | Axis motor/encoder connectors | Encoder cable connectors, labels, pickup modules, motor nameplates if reachable | Confirms encoder type, supply, and pinout path. |
 | High | Spindle drive | Mitsubishi FR-SX model label, terminal strip, analog input, run/FWD/REV/enable/alarm terminals | Confirms spindle speed command and digital control wiring. |
@@ -27,9 +27,9 @@ Use this checklist before ordering/flashing Mesa hardware. The goal is to captur
 | Medium | Tool clamp / drawbar valves | Solenoid labels, coil voltage, terminal numbers, PRS-8/PRS-9 wiring | Confirms ATC tool clamp/unclamp I/O. |
 | Medium | Spindle gear shift valves | SOL-12/SOL-13 or related labels, PRS-10/PRS-12 wiring | Confirms high/low gear logic and safe spindle start interlocks. |
 | Medium | Magazine hydraulics | SOL-8A/SOL-8B, PRS-13, PRS-21 through PRS-25, cover switches/solenoids | Confirms magazine rotation and tool-position bit logic. |
-| Medium | Coolant / air / utility outputs | Coolant contactors, air blast valves, tap coolant, work light, relays | Determines which outputs need 7i84 direct output vs interposing relay. |
+| Medium | Coolant / air / utility outputs | Coolant contactors, air blast valves, tap coolant, work light, relays | Determines which outputs need 7i84U direct output vs interposing relay. |
 | Medium | Cabinet grounding/shield bars | PE bar, 0 V common bar, shield clamp areas, analog/encoder shield landings | Prevents noise and ground-loop problems. |
-| Medium | Available DIN rail / panel space | Open rail length, wire duct space, door clearance around proposed 7i77/7i84 area | Drives the parts list for DIN rail, duct, terminals, and mounting. |
+| Medium | Available DIN rail / panel space | Open rail length, wire duct space, door clearance around proposed 7i97T/7i84U area | Drives the parts list for DIN rail, duct, terminals, and mounting. |
 | Low | Operator panel wiring | Cycle start, feed hold, single block, overrides, lamps | Helps decide which original panel controls to keep. |
 | Low | Existing manuals/labels | Any cabinet schematic pockets, inside-door legends, terminal charts | May save tracing time. |
 
