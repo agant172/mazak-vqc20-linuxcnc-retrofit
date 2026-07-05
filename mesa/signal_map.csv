@@ -1,0 +1,61 @@
+Machine Signal Name,Mazak Label / Drawing Ref,Subsystem,Function,Direction,Mesa Card,Mesa Conn,Mesa Bit / Channel,LinuxCNC HAL Net,Status,Notes
+X_AXIS_CMD,,Motion,X servo analog command,ANALOG OUT,7i77,Analog TB,AO0,x-vel-cmd,Inferred / likely,Confirm velocity/torque input and polarity
+Y_AXIS_CMD,,Motion,Y servo analog command,ANALOG OUT,7i77,Analog TB,AO1,y-vel-cmd,Inferred / likely,Confirm velocity/torque input and polarity
+Z_AXIS_CMD,,Motion,Z servo analog command,ANALOG OUT,7i77,Analog TB,AO2,z-vel-cmd,Inferred / likely,Confirm velocity/torque input and polarity
+SPINDLE_SPEED_CMD,,Spindle,FR-SX analog speed reference,ANALOG OUT,7i77,Analog TB,AO3,spindle-speed-cmd,Verify in cabinet,Check 0-10 V vs +/-10 V and common reference
+X_ENCODER,,Motion,X encoder feedback,ENCODER IN,7i77,Encoder TB,ENC0,x-pos-fb,Verify in cabinet,Confirm encoder pinout and scale
+Y_ENCODER,,Motion,Y encoder feedback,ENCODER IN,7i77,Encoder TB,ENC1,y-pos-fb,Verify in cabinet,Confirm encoder pinout and scale
+Z_ENCODER,,Motion,Z encoder feedback,ENCODER IN,7i77,Encoder TB,ENC2,z-pos-fb,Verify in cabinet,Confirm encoder pinout and scale
+SPINDLE_ENCODER,,Spindle,Spindle encoder or pickup,ENCODER IN,7i77,Encoder TB,ENC3,spindle-pos-fb,Verify in cabinet,Confirm pickup/encoder type
+X_HOME,LS-42,Axis safety,X axis zero return switch,IN,7i77,TB5,IN0,home-x,Confirmed from notes,Normal state assumed
+X_LIMIT_PLUS,OT+X,Axis safety,X positive overtravel limit,IN,7i77,TB5,IN1,limit-x-plus,Verify in cabinet,May be chained
+X_LIMIT_MINUS,OT-X,Axis safety,X negative overtravel limit,IN,7i77,TB5,IN2,limit-x-minus,Verify in cabinet,May be chained
+Y_HOME,LS-52,Axis safety,Y axis zero return switch,IN,7i77,TB5,IN3,home-y,Confirmed from notes,Normal state assumed
+Y_LIMIT_PLUS,OT+Y,Axis safety,Y positive overtravel limit,IN,7i77,TB5,IN4,limit-y-plus,Verify in cabinet,May be chained
+Y_LIMIT_MINUS,OT-Y,Axis safety,Y negative overtravel limit,IN,7i77,TB5,IN5,limit-y-minus,Verify in cabinet,May be chained
+Z_HOME,LS-62,Axis safety,Z axis zero return switch,IN,7i77,TB5,IN6,home-z,Confirmed from notes,Normal state assumed
+Z_LIMIT_PLUS,OT+Z,Axis safety,Z positive overtravel limit,IN,7i77,TB5,IN7,limit-z-plus,Verify in cabinet,May be chained
+Z_LIMIT_MINUS,OT-Z,Axis safety,Z negative overtravel limit,IN,7i77,TB5,IN8,limit-z-minus,Verify in cabinet,May be chained
+X_DRIVE_FAULT,,Drive safety,X servo drive alarm/fault,IN,7i77,TB5,IN9,x-drive-fault,Verify in cabinet,Active state TBD
+Y_DRIVE_FAULT,,Drive safety,Y servo drive alarm/fault,IN,7i77,TB5,IN10,y-drive-fault,Verify in cabinet,Active state TBD
+Z_DRIVE_FAULT,,Drive safety,Z servo drive alarm/fault,IN,7i77,TB5,IN11,z-drive-fault,Verify in cabinet,Active state TBD
+SPINDLE_FAULT,,Spindle safety,FR-SX alarm/fault,IN,7i77,TB5,IN12,spindle-fault,Verify in cabinet,Active state TBD
+ESTOP_CHAIN,,Safety,External estop chain monitor,IN,7i77,TB5,IN13,estop-ext,Verify in cabinet,Hardware chain must remove hazardous power
+DOOR_CLOSED,,Safety,Door interlock,IN,7i77,TB5,IN14,door-closed,Verify in cabinet,Normal state TBD
+LUBE_OK,,Utility safety,Central lube pressure/float OK,IN,7i77,TB5,IN15,lube-ok,Verify in cabinet,Normal state TBD
+HYD_PRESS_OK,,Hydraulic safety,Hydraulic pressure OK,IN,7i77,TB5,IN16,hydraulic-ok,Verify in cabinet,Normal state TBD
+CYCLE_START_PB,,Panel,Cycle start pushbutton,IN,7i77,TB5,IN17,cycle-start-pb,Optional,Panel reuse
+FEED_HOLD_PB,,Panel,Feed hold pushbutton,IN,7i77,TB5,IN18,feed-hold-pb,Optional,Panel reuse
+SINGLE_BLOCK_SW,,Panel,Single block mode switch,IN,7i77,TB5,IN19,single-block,Optional,Panel reuse
+X_DRIVE_ENABLE,,Drive control,Enable X servo amp,OUT,7i77,TB6,OUT0,x-enable,Verify in cabinet,Interlock with estop/ready
+Y_DRIVE_ENABLE,,Drive control,Enable Y servo amp,OUT,7i77,TB6,OUT1,y-enable,Verify in cabinet,Interlock with estop/ready
+Z_DRIVE_ENABLE,,Drive control,Enable Z servo amp,OUT,7i77,TB6,OUT2,z-enable,Verify in cabinet,Interlock with estop/ready
+SPINDLE_ENABLE,,Spindle control,FR-SX enable/run permission,OUT,7i77,TB6,OUT3,spindle-enable,Verify in cabinet,Terminal mode TBD
+SPINDLE_DIR,,Spindle control,Spindle direction select,OUT,7i77,TB6,OUT4,spindle-dir,Verify in cabinet,May need separate FWD/REV outputs
+SERVO_ON_CONTACTOR,,Safety/control,Main servo power contactor,OUT,7i77,TB6,OUT5,main-servo-on,Verify in cabinet,Only if LinuxCNC controls it
+READY_LAMP,,Panel,READY lamp,OUT,7i77,TB6,OUT6,lamp-ready,Optional,Panel reuse
+ALARM_LAMP,,Panel,MACHINE FAILURE lamp,OUT,7i77,TB6,OUT7,lamp-alarm,Optional,Needs proper fault logic
+TOOL_CLAMPED,PRS-9,ATC/tool clamp,Tool clamped sensor,IN,7i84,TB1,IN0,tool-clamped,Confirmed from notes,Normal state TBD
+TOOL_UNCLAMPED,PRS-8,ATC/tool clamp,Tool unclamped sensor,IN,7i84,TB1,IN1,tool-unclamped,Confirmed from notes,Normal state TBD
+ATC_ZONE_Y,,ATC interlock,Y axis in tool-change zone,IN,7i84,TB1,IN2,atc-y-zone,Verify in cabinet,Switch may not exist
+ATC_ZONE_Z,,ATC interlock,Z axis in tool-change zone,IN,7i84,TB1,IN3,atc-z-zone,Verify in cabinet,Switch may not exist
+MAG_IN_POSITION,PRS-13,Magazine,Magazine indexed/in-position,IN,7i84,TB1,IN4,mag-in-pos,Confirmed from notes,Normal state TBD
+TOOL_BIT0,PRS-21,Magazine,Magazine tool code bit 0,IN,7i84,TB1,IN5,tool-code-0,Confirmed from notes,Normal state TBD
+TOOL_BIT1,PRS-22,Magazine,Magazine tool code bit 1,IN,7i84,TB1,IN6,tool-code-1,Confirmed from notes,Normal state TBD
+TOOL_BIT2,PRS-23,Magazine,Magazine tool code bit 2,IN,7i84,TB1,IN7,tool-code-2,Confirmed from notes,Normal state TBD
+TOOL_BIT3,PRS-24,Magazine,Magazine tool code bit 3,IN,7i84,TB1,IN8,tool-code-3,Confirmed from notes,Normal state TBD
+TOOL_BIT4,PRS-25,Magazine,Magazine tool code bit 4 if used,IN,7i84,TB1,IN9,tool-code-4,Verify in cabinet,Depends on magazine size
+COOLANT_LOW,,Coolant,Coolant tank low level,IN,7i84,TB1,IN10,coolant-low,Optional,If present
+AIR_PRESS_OK,,Pneumatic,Shop air pressure OK,IN,7i84,TB1,IN11,air-ok,Verify in cabinet,If present
+TOOL_UNCLAMP_SOL,SOL-10,ATC/tool clamp,Tool unclamp solenoid,OUT,7i84,TB2,OUT0,tool-unclamp-sol,Confirmed from notes,Verify coil current/voltage
+MAG_CW_SOL,SOL-8A,Magazine,Magazine rotate CW/forward,OUT,7i84,TB2,OUT1,mag-cw-sol,Confirmed from notes,Verify coil current/voltage
+MAG_CCW_SOL,SOL-8B,Magazine,Magazine rotate CCW/reverse,OUT,7i84,TB2,OUT2,mag-ccw-sol,Confirmed from notes,Verify coil current/voltage
+MAG_COVER_OPEN,M15,Magazine,Magazine cover open solenoid,OUT,7i84,TB2,OUT3,mag-cover-open,Verify in cabinet,Only if separate coil present
+MAG_COVER_CLOSE,M16,Magazine,Magazine cover close solenoid,OUT,7i84,TB2,OUT4,mag-cover-close,Verify in cabinet,Only if separate coil present
+FLOOD_COOLANT,M08,Coolant,Flood coolant pump contactor,OUT,7i84,TB2,OUT5,flood-coolant,Confirmed from notes,May need interposing relay
+MIST_COOLANT,M07,Coolant,Mist coolant valve,OUT,7i84,TB2,OUT6,mist-coolant,Optional,If present
+AIR_BLAST_1,M50,Air,Workpiece air blast 1,OUT,7i84,TB2,OUT7,air-blast-1,Confirmed from notes,Verify coil/load
+AIR_BLAST_2,M53,Air,Workpiece air blast 2,OUT,7i84,TB2,OUT8,air-blast-2,Confirmed from notes,Verify coil/load
+TAP_COOLANT,M52,Coolant,Tap coolant valve,OUT,7i84,TB2,OUT9,tap-coolant,Optional,If plumbed
+WORK_LIGHT,,Utility,Work light,OUT,7i84,TB2,OUT10,work-light,Optional,If reused
+

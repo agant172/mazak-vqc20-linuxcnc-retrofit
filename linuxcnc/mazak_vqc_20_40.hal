@@ -1,0 +1,62 @@
+# Mazak VQC 20/40 main HAL loader
+#
+# WARNING:
+# This is a skeleton. Verify the hm2_6i25 pin names, Mesa firmware, encoder scales,
+# drive polarity, normal states, and all safety-chain wiring before live testing.
+#
+# Selected architecture:
+# Tower PC inside the Mazak cabinet with a PCIe Mesa host card, likely 6i25 or
+# current equivalent. 7i77 handles axis/spindle analog/encoder/core I/O. 7i84
+# handles ATC, hydraulic, coolant, air, and utility field I/O near the breakout PCB.
+
+loadrt trivkins coordinates=XYZ
+loadrt motmod
+
+# Adjust num_encoders / sserial / smart-serial mode for the actual Mesa firmware.
+# 7i77 typically provides analog servo and encoder channels. 7i84 normally appears
+# on smart-serial. The exact sserial_port_* string must match the installed firmware.
+loadrt hostmot2
+loadrt hm2_pci config="num_encoders=6 num_pwmgens=0 num_stepgens=0 sserial_port_0=000000"
+
+loadrt pid names=pid.x,pid.y,pid.z
+loadrt threads name1=servo-thread period1=1000000
+
+addf hm2_6i25.0.read servo-thread
+addf motion-command-handler servo-thread
+addf motion-controller servo-thread
+addf pid.x.do-pid-calcs servo-thread
+addf pid.y.do-pid-calcs servo-thread
+addf pid.z.do-pid-calcs servo-thread
+addf hm2_6i25.0.write servo-thread
+
+# Axis PID gains are intentionally zero in the INI placeholders.
+# Tune only after encoder direction, analog output polarity, and drive enable behavior are verified.
+setp pid.x.P [JOINT_0]P
+setp pid.x.I [JOINT_0]I
+setp pid.x.D [JOINT_0]D
+setp pid.x.FF0 [JOINT_0]FF0
+setp pid.x.FF1 [JOINT_0]FF1
+setp pid.x.FF2 [JOINT_0]FF2
+setp pid.x.BIAS [JOINT_0]BIAS
+setp pid.x.DEADBAND [JOINT_0]DEADBAND
+setp pid.x.maxoutput [JOINT_0]MAX_OUTPUT
+
+setp pid.y.P [JOINT_1]P
+setp pid.y.I [JOINT_1]I
+setp pid.y.D [JOINT_1]D
+setp pid.y.FF0 [JOINT_1]FF0
+setp pid.y.FF1 [JOINT_1]FF1
+setp pid.y.FF2 [JOINT_1]FF2
+setp pid.y.BIAS [JOINT_1]BIAS
+setp pid.y.DEADBAND [JOINT_1]DEADBAND
+setp pid.y.maxoutput [JOINT_1]MAX_OUTPUT
+
+setp pid.z.P [JOINT_2]P
+setp pid.z.I [JOINT_2]I
+setp pid.z.D [JOINT_2]D
+setp pid.z.FF0 [JOINT_2]FF0
+setp pid.z.FF1 [JOINT_2]FF1
+setp pid.z.FF2 [JOINT_2]FF2
+setp pid.z.BIAS [JOINT_2]BIAS
+setp pid.z.DEADBAND [JOINT_2]DEADBAND
+setp pid.z.maxoutput [JOINT_2]MAX_OUTPUT

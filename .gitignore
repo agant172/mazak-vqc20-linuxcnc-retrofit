@@ -1,0 +1,34 @@
+# OS / editor cruft
+.DS_Store
+Thumbs.db
+*~
+*.swp
+
+# OneDrive placeholder / cache files
+*.cloud
+*.cloudf
+desktop.ini
+
+# NotebookLM / other HTML cache folders
+*_cache/
+*.nblm/
+
+# Raw photo/video media — keep these in cloud storage, not in git.
+# (photos/README.md is tracked; media files are ignored.)
+*.jpg
+*.jpeg
+*.png
+*.heic
+*.heif
+*.tif
+*.tiff
+*.mp4
+*.mov
+*.avi
+*.mkv
+
+# LinuxCNC / Mesa runtime outputs kept locally, not committed
+mesa_readhmid.txt
+mesa_hal_pins.txt
+linuxcnc.var.bak
+*.var.bak

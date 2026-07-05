@@ -1,0 +1,37 @@
+# Optional WHB04B-style USB pendant HAL placeholders
+#
+# Install and verify the exact LinuxCNC pendant driver for your WHB04B model first.
+# Then replace the left-side whb.* pin names below with the actual driver pins.
+
+# Jog controls
+# net pendant-jog-x-plus <= whb.jog.x-plus
+# net pendant-jog-x-minus <= whb.jog.x-minus
+# net pendant-jog-y-plus <= whb.jog.y-plus
+# net pendant-jog-y-minus <= whb.jog.y-minus
+# net pendant-jog-z-plus <= whb.jog.z-plus
+# net pendant-jog-z-minus <= whb.jog.z-minus
+
+# Example connection pattern after driver verification:
+# net pendant-jog-x-plus => halui.joint.0.plus
+# net pendant-jog-x-minus => halui.joint.0.minus
+# net pendant-jog-y-plus => halui.joint.1.plus
+# net pendant-jog-y-minus => halui.joint.1.minus
+# net pendant-jog-z-plus => halui.joint.2.plus
+# net pendant-jog-z-minus => halui.joint.2.minus
+
+# Overrides
+# net pendant-feed-inc <= whb.feed-inc
+# net pendant-feed-dec <= whb.feed-dec
+# net pendant-spindle-inc <= whb.spindle-inc
+# net pendant-spindle-dec <= whb.spindle-dec
+
+# Buttons
+# net pendant-cycle-start <= whb.cycle-start
+# net pendant-feed-hold <= whb.feed-hold
+# net pendant-home <= whb.home
+
+# Safety note:
+# A pendant E-stop button should not replace the hardware E-stop chain unless the
+# exact pendant and receiver are proven safety-rated and wired accordingly.
+# net pendant-estop <= whb.estop
+
