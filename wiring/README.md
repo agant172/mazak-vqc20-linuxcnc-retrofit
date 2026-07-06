@@ -13,6 +13,9 @@ folder and is mirrored conceptually here for wiring planning.
   — full I/O planning spreadsheet the skeleton was generated from.
 - Cabinet photo checklist: [`../docs/cabinet_photo_checklist.md`](../docs/cabinet_photo_checklist.md)
   — what to photograph before finalizing wiring.
+- Sister-machine wiring reference: [SRDCO MazakVQC1540 complete 2017 reference package](https://github.com/srdco/MazakVQC1540/tree/master/MAZAK-VQC1540-20170501)
+  — full 2017-05-01 config/wiring snapshot from the VQC 15/40 build; cross-check winding
+  pairs, resolver/drive wiring, and HAL nets against this before finalizing.
 
 ## Status
 

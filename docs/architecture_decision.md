@@ -172,6 +172,9 @@ feedback path can be trusted. They are buy-plan / bring-up blockers, not settled
   <http://www.mesanet.com/pdf/motion/7i49man.pdf>
 - srdco/MazakVQC1540 — LinuxCNC configs for the sister VQC 15/40 retrofit:
   <https://github.com/srdco/MazakVQC1540>
+- SRDCO MazakVQC1540 complete 2017 reference package — full 2017-05-01 config/wiring
+  snapshot from the sister VQC 15/40 build, for planning and retrofit comparison:
+  <https://github.com/srdco/MazakVQC1540/tree/master/MAZAK-VQC1540-20170501>
 - User's thread — Mesa conversion for a Mazak VQC 20/40 M2 mill:
   <https://forum.linuxcnc.org/27-driver-boards/58767-mesa-conversion-for-a-mazak-vqc-20-40-m2-mill>
 - Mitsubishi TRA-31 drive manual:

@@ -131,6 +131,8 @@ Full, checkbox-tracked TODO and progress: **[docs/project_status.md](docs/projec
 - [Servo PID tuning thread — VQC 15/40, TRA-31, HD81-12S, 7i49 @ 5 kHz](https://forum.linuxcnc.org/10-advanced-configuration/32061-servo-pid-tuning-can-t-clamp-down-on-overshoot)
   — sister-machine retrofit confirming a **plain 7i49** at 5 kHz against the 4.5 kHz spec.
 - [srdco/MazakVQC1540 configs](https://github.com/srdco/MazakVQC1540) — LinuxCNC configs for the sister VQC 15/40.
+- [SRDCO MazakVQC1540 complete 2017 reference package](https://github.com/srdco/MazakVQC1540/tree/master/MAZAK-VQC1540-20170501)
+  — full 2017-05-01 config/wiring snapshot from the sister VQC 15/40 build; use for planning and retrofit comparison.
 - [User's thread — Mesa conversion for a Mazak VQC 20/40 M2 mill](https://forum.linuxcnc.org/27-driver-boards/58767-mesa-conversion-for-a-mazak-vqc-20-40-m2-mill)
 - [Mitsubishi TRA-31 drive manual](https://us.mitsubishielectric.com/fa/en/support/technical-support/knowledge-base/getdocument/?docid=3E26SJWH3ZZR-24-3709)
 - [Meldas YM2 / Mazatrol M2 maintenance manual](https://us.mitsubishielectric.com/fa/en/support/technical-support/knowledge-base/getdocument/?docid=3E26SJWH3ZZR-24-2231)
