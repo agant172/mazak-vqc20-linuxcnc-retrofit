@@ -3,10 +3,10 @@ X_AXIS_CMD,,Motion,X servo analog command,ANALOG OUT,7i97T,Analog TB,AO0,x-vel-c
 Y_AXIS_CMD,,Motion,Y servo analog command,ANALOG OUT,7i97T,Analog TB,AO1,y-vel-cmd,Inferred / likely,Confirm velocity/torque input and polarity
 Z_AXIS_CMD,,Motion,Z servo analog command,ANALOG OUT,7i97T,Analog TB,AO2,z-vel-cmd,Inferred / likely,Confirm velocity/torque input and polarity
 SPINDLE_SPEED_CMD,,Spindle,FR-SX analog speed reference,ANALOG OUT,7i97T,Analog TB,AO3,spindle-speed-cmd,Verify in cabinet,Check 0-10 V vs +/-10 V and common reference
-X_ENCODER,,Motion,X encoder feedback,ENCODER IN,7i97T,Encoder TB,ENC0,x-pos-fb,Verify in cabinet,Confirm encoder pinout and scale
-Y_ENCODER,,Motion,Y encoder feedback,ENCODER IN,7i97T,Encoder TB,ENC1,y-pos-fb,Verify in cabinet,Confirm encoder pinout and scale
-Z_ENCODER,,Motion,Z encoder feedback,ENCODER IN,7i97T,Encoder TB,ENC2,z-pos-fb,Verify in cabinet,Confirm encoder pinout and scale
-SPINDLE_ENCODER,,Spindle,Spindle encoder or pickup,ENCODER IN,7i97T,Encoder TB,ENC3,spindle-pos-fb,Verify in cabinet,Confirm pickup/encoder type
+X_RESOLVER,,Motion,X resolver feedback (Tamagawa),RESOLVER IN,7i49,Resolver TB,RES0,x-pos-fb,Verify in cabinet,"Plain 7i49 @ 5kHz; ohmmeter RO1/RO2->RESDRV+/-, stator pairs->RESSIN/RESCOS before power; 2:1 ratio (~2V drive/~1V return)"
+Y_RESOLVER,,Motion,Y resolver feedback (Tamagawa),RESOLVER IN,7i49,Resolver TB,RES1,y-pos-fb,Verify in cabinet,Same as X; verify winding pairs and return level before power
+Z_RESOLVER,,Motion,Z resolver feedback (Tamagawa),RESOLVER IN,7i49,Resolver TB,RES2,z-pos-fb,Verify in cabinet,Same as X; models seen RT-5XA-11/RT-5XA-L1 (MS3108B 20-29P is a connector shell not a model)
+SPINDLE_FEEDBACK,,Spindle,Spindle resolver/pickup,RESOLVER IN,7i49,Resolver TB,RES3,spindle-pos-fb,Verify in cabinet,Confirm resolver vs pickup/encoder; 7i49 channel only if resolver
 X_HOME,LS-42,Axis safety,X axis zero return switch,IN,7i97T,TB5,IN0,home-x,Confirmed from notes,Normal state assumed
 X_LIMIT_PLUS,OT+X,Axis safety,X positive overtravel limit,IN,7i97T,TB5,IN1,limit-x-plus,Verify in cabinet,May be chained
 X_LIMIT_MINUS,OT-X,Axis safety,X negative overtravel limit,IN,7i97T,TB5,IN2,limit-x-minus,Verify in cabinet,May be chained

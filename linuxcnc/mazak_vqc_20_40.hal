@@ -2,27 +2,30 @@
 #
 # WARNING:
 # This is a skeleton. The hm2_7i97t.* board name, pin names, board IP, Mesa firmware,
-# encoder scales, drive polarity, normal states, and all safety-chain wiring are
+# resolver scales, drive polarity, normal states, and all safety-chain wiring are
 # UNVERIFIED PLACEHOLDERS. Confirm the exact board tag (hm2_7i97t vs hm2_7i97) and the
 # real generated HAL names from `readhmid` / `show pin hm2` before live testing.
 #
 # Selected architecture:
 # LinuxCNC control PC connected to a Mesa 7i97T Ethernet analog servo controller
 # (hm2_eth, static IP) as the primary motion/control board. The 7i97T handles X/Y/Z
-# analog command, encoder feedback, spindle command, and core motion/safety I/O. A
-# 7i84U on smart-serial handles ATC, hydraulic, coolant, air, and utility field I/O
-# near the green breakout PCB.
+# analog command, spindle command, and core motion/safety I/O. Axis position feedback
+# is RESOLVER via a plain Mesa 7i49 (5 kHz excitation baseline), reading the machine's
+# original Tamagawa resolvers - not quadrature encoders. A 7i84U on smart-serial handles
+# ATC, hydraulic, coolant, air, and utility field I/O near the green breakout PCB.
 
 loadrt trivkins coordinates=XYZ
 loadrt motmod
 
 # The 7i97T is an Ethernet board loaded via hm2_eth. Set board_ip to the confirmed
-# static IP and adjust num_encoders / sserial / smart-serial mode for the actual
-# firmware. The 7i84U normally appears on smart-serial; the exact sserial_port_*
-# string must match the installed firmware.
-# TODO: set the real board_ip and config string from the 7i97T firmware / readhmid.
+# static IP and adjust num_resolvers (7i49) / sserial / smart-serial mode for the actual
+# firmware. Axis feedback is resolver via the 7i49, so the firmware/config must expose
+# resolver channels (num_resolvers) rather than plain encoders. The 7i84U normally
+# appears on smart-serial; the exact sserial_port_* string must match the firmware.
+# TODO: set the real board_ip and config string (incl. num_resolvers) from the 7i97T
+# firmware / readhmid, and confirm how the 7i49 connects into the host FPGA.
 loadrt hostmot2
-loadrt hm2_eth board_ip="10.10.10.10" config="num_encoders=6 num_pwmgens=0 num_stepgens=0 sserial_port_0=000000"
+loadrt hm2_eth board_ip="10.10.10.10" config="num_encoders=0 num_resolvers=6 num_pwmgens=0 num_stepgens=0 sserial_port_0=000000"
 
 loadrt pid names=pid.x,pid.y,pid.z
 loadrt threads name1=servo-thread period1=1000000
@@ -36,7 +39,7 @@ addf pid.z.do-pid-calcs servo-thread
 addf hm2_7i97t.0.write servo-thread
 
 # Axis PID gains are intentionally zero in the INI placeholders.
-# Tune only after encoder direction, analog output polarity, and drive enable behavior are verified.
+# Tune only after resolver direction/scale, analog output polarity, and drive enable behavior are verified.
 setp pid.x.P [JOINT_0]P
 setp pid.x.I [JOINT_0]I
 setp pid.x.D [JOINT_0]D

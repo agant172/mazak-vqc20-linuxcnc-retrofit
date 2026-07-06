@@ -6,7 +6,7 @@ control to LinuxCNC using Mesa Electronics FPGA hardware.
 **Machine:** Mazak VQC 20/40 Vertical Quality Center
 **Original control:** Mazatrol
 **New control:** LinuxCNC
-**Interface hardware:** Mesa Electronics 7i97T Ethernet analog servo controller + 7i84U remote field I/O
+**Interface hardware:** Mesa Electronics 7i97T Ethernet analog servo controller + 7i84U remote field I/O + Mesa 7i49 resolver feedback interface
 
 > ⚠️ **Safety:** The HAL/INI files in [`linuxcnc/`](linuxcnc/) and the mappings in
 > [`mesa/signal_map.csv`](mesa/signal_map.csv) are **planning / bring-up skeletons
@@ -25,6 +25,11 @@ control to LinuxCNC using Mesa Electronics FPGA hardware.
   (homes/limits, drive enables/faults, and critical safety/motion I/O).
 - **7i84U** — remote field-I/O expansion (smart-serial) near the green breakout PCB for
   ATC, hydraulics, coolant, air, utility I/O, and cabinet field wiring.
+- **7i49 (plain, not 7i49HV)** — resolver-to-digital feedback interface for the X/Y/Z
+  (and spindle, if resolver-based) axis position feedback. The Mazak keeps its original
+  Tamagawa resolvers rather than encoders. Plain 7i49 is the working baseline; **7i49HV is
+  a contingency only** if measurements prove a signal-level or transformation-ratio
+  mismatch. See [resolver feedback](docs/architecture_decision.md#resolver-feedback-interface-mesa-7i49).
 - **Optional WHB04B-style USB pendant** after the base machine is proven safe.
 - Future/optional (TBD): additional smart-serial or expansion I/O only if a later need
   (extra encoders, MPG/handwheel, or a 4th axis) is confirmed — not part of the selected plan.
@@ -42,6 +47,7 @@ Full rationale: [docs/architecture_decision.md](docs/architecture_decision.md).
 |---|---|
 | Repo created & structured | ✅ Completed |
 | 7i97T + 7i84U Ethernet architecture selected | ✅ Completed |
+| 7i49 resolver feedback interface selected (plain, 5 kHz) | ✅ Completed |
 | I/O workbook created | ✅ Completed |
 | HAL/INI bring-up skeleton drafted | ✅ Completed |
 | Mesa firmware / photo checklists drafted | ✅ Completed |
@@ -50,7 +56,7 @@ Full rationale: [docs/architecture_decision.md](docs/architecture_decision.md).
 | Trace 24 V + safety chain | 🔄 In progress |
 | Live Mesa install | ⬜ Not started |
 | HAL pin replacement from `readhmid` | ⬜ Not started |
-| Encoder / analog measurements | ⬜ Not started |
+| Resolver / analog measurements (return signal level, pairs) | ⬜ Not started |
 | Axis bring-up | ⬜ Not started |
 | Spindle bring-up | ⬜ Not started |
 | ATC dry run | ⬜ Not started |
@@ -59,8 +65,12 @@ Full rationale: [docs/architecture_decision.md](docs/architecture_decision.md).
 
 **Immediate**
 - Verify exact 7i97T and 7i84U part numbers, board revisions, and firmware/documentation.
+- Buy a **plain Mesa 7i49** (not 7i49HV) as the resolver feedback interface; keep 7i49HV
+  on the contingency list only if measurements show a signal-level/ratio mismatch.
 - Confirm 7i97T Ethernet setup: static IP, `hm2_eth` `board_ip`, and host NIC config.
 - Confirm the 7i84U smart-serial / field-I/O connection path off the 7i97T.
+- Confirm the 7i49-to-host connection path (which 50-pin connector carries the resolver
+  interface into the FPGA) and the matching firmware `num_resolvers`/`sserial` config.
 - Confirm 24 V field power feed and 7i97T/7i84U I/O sourcing/sinking behavior before wiring.
 - Capture cabinet photo set ([checklist](docs/cabinet_photo_checklist.md)).
 - Record X/Y/Z servo drive + Mitsubishi FR-SX spindle model/terminal labels.
@@ -71,12 +81,19 @@ Full rationale: [docs/architecture_decision.md](docs/architecture_decision.md).
 - LinuxCNC latency test on the control PC.
 - Install the 7i97T + 7i84U; save `mesa_readhmid.txt` and the actual `mesa_hal_pins.txt` dump.
 - Replace placeholder `hm2_7i97t...`/`7i84u` pin names in HAL from the real pin dump.
-- Verify encoder type/scale and analog command polarity/scaling before enabling drives.
+- Set the 7i49 resolver excitation to **5 kHz** (Mitsubishi/Tamagawa spec is 4.5 kHz; the
+  7i49 offers 2.5 / 5 / 10 kHz, so 5 kHz is the closest working baseline).
+- Identify each axis resolver winding pair with an **ohmmeter before applying power**
+  (rotor pair → RESDRV±, matched stator pairs → RESSIN and RESCOS); verify, don't assume.
+- Scope the return signal level after 7i49 excitation; expect ~1 V RMS sin/cos from ~2 V
+  RMS drive on a 2:1 resolver. Only consider the W2 half-drive jumper / a divider if the
+  return is too hot; 7i49HV only if it is far too weak.
+- Verify resolver scale/orientation and analog command polarity/scaling before enabling drives.
 - Verify FR-SX spindle command mode; verify ATC prox/solenoid labels and normal states.
 - Measure coil voltages/currents to size interposing relays/suppression.
 
 **Later**
-- Encoder feedback (drives disabled) → one axis at a time (low gain/speed) → homes/limits
+- Resolver feedback via 7i49 (drives disabled) → one axis at a time (low gain/speed) → homes/limits
   and hardware E-stop → spindle at low RPM → ATC/hydraulic dry run → decide on any optional
   future expansion I/O and pendant.
 
@@ -110,5 +127,12 @@ Full, checkbox-tracked TODO and progress: **[docs/project_status.md](docs/projec
 
 - [LinuxCNC Documentation](https://linuxcnc.org/docs/)
 - [Mesa Electronics](http://www.mesanet.com/)
+- [Mesa 7i49 manual (resolver interface)](http://www.mesanet.com/pdf/motion/7i49man.pdf)
+- [Servo PID tuning thread — VQC 15/40, TRA-31, HD81-12S, 7i49 @ 5 kHz](https://forum.linuxcnc.org/10-advanced-configuration/32061-servo-pid-tuning-can-t-clamp-down-on-overshoot)
+  — sister-machine retrofit confirming a **plain 7i49** at 5 kHz against the 4.5 kHz spec.
+- [srdco/MazakVQC1540 configs](https://github.com/srdco/MazakVQC1540) — LinuxCNC configs for the sister VQC 15/40.
+- [User's thread — Mesa conversion for a Mazak VQC 20/40 M2 mill](https://forum.linuxcnc.org/27-driver-boards/58767-mesa-conversion-for-a-mazak-vqc-20-40-m2-mill)
+- [Mitsubishi TRA-31 drive manual](https://us.mitsubishielectric.com/fa/en/support/technical-support/knowledge-base/getdocument/?docid=3E26SJWH3ZZR-24-3709)
+- [Meldas YM2 / Mazatrol M2 maintenance manual](https://us.mitsubishielectric.com/fa/en/support/technical-support/knowledge-base/getdocument/?docid=3E26SJWH3ZZR-24-2231)
 - Mazak VQC 20 Maintenance Manual (60231)
 - Mazak VQC 20 Operating Manual (62625)

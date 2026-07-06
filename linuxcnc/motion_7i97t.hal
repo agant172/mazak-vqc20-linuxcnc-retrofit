@@ -3,33 +3,54 @@
 #
 # PLACEHOLDER PIN NAMES: every hm2_7i97t.* name below is an UNVERIFIED PLACEHOLDER.
 # The Mesa 7i97T is an Ethernet analog servo controller (hm2_eth). Confirm the exact
-# board tag (hm2_7i97t vs hm2_7i97) and the real analog-output, encoder, and onboard
-# field-I/O pin structure from `readhmid` and `halcmd show pin hm2` before use.
+# board tag (hm2_7i97t vs hm2_7i97) and the real analog-output, resolver (7i49), and
+# onboard field-I/O pin structure from `readhmid` and `halcmd show pin hm2` before use.
+# Axis feedback is RESOLVER via a plain Mesa 7i49, not quadrature encoder.
 
 #####################################################################
-# Encoder channels
+# Resolver feedback channels (via Mesa 7i49)
 #####################################################################
+#
+# Axis feedback on this machine is RESOLVER, not quadrature encoder. The Mazak
+# keeps its original Tamagawa resolvers (documented models RT-5XA-11 / RT-5XA-L1),
+# read through a plain Mesa 7i49 resolver-to-digital interface. Firmware must
+# include a resolver module so the hostmot2 driver exposes resolver channels.
+#
+# PLACEHOLDER: the hm2_7i97t.0.resolver.NN.* names below are UNVERIFIED. The exact
+# board tag and resolver-channel names come from `readhmid` / `show pin hm2` after
+# loading firmware that includes the 7i49 resolver module. Confirm before use.
+#
+# Bring-up before trusting feedback (see docs/architecture_decision.md):
+#  - Ohmmeter the resolver winding pairs BEFORE power: rotor pair (likely RO1/RO2)
+#    -> RESDRV+/-, matched stator pairs -> RESSIN and RESCOS. Verify, don't assume.
+#  - Set 7i49 excitation to 5 kHz (Mitsubishi/Tamagawa spec 4.5 kHz; 7i49 offers
+#    2.5/5/10 kHz). The 7i49 must be the SOLE resolver excitation source.
+#  - Scope the return level: expect ~1 V RMS sin/cos from ~2 V RMS drive on a 2:1
+#    resolver. Low signal -> position noise/sluggish; too hot -> divider or the W2
+#    half-drive jumper (field-verification option, not a default). 7i49HV only if
+#    the signal is far too weak at full drive.
 
-# TODO: set actual encoder scales after measuring counts/rev and machine units.
-setp hm2_7i97t.0.encoder.00.scale 1
-setp hm2_7i97t.0.encoder.01.scale 1
-setp hm2_7i97t.0.encoder.02.scale 1
-setp hm2_7i97t.0.encoder.03.scale 1
+# TODO: set actual resolver scales after measuring counts and machine units.
+setp hm2_7i97t.0.resolver.00.scale 1
+setp hm2_7i97t.0.resolver.01.scale 1
+setp hm2_7i97t.0.resolver.02.scale 1
+setp hm2_7i97t.0.resolver.03.scale 1
 
-net x-pos-fb <= hm2_7i97t.0.encoder.00.position
-net x-vel-fb <= hm2_7i97t.0.encoder.00.velocity
+net x-pos-fb <= hm2_7i97t.0.resolver.00.position
+net x-vel-fb <= hm2_7i97t.0.resolver.00.velocity
 net x-pos-fb => joint.0.motor-pos-fb
 
-net y-pos-fb <= hm2_7i97t.0.encoder.01.position
-net y-vel-fb <= hm2_7i97t.0.encoder.01.velocity
+net y-pos-fb <= hm2_7i97t.0.resolver.01.position
+net y-vel-fb <= hm2_7i97t.0.resolver.01.velocity
 net y-pos-fb => joint.1.motor-pos-fb
 
-net z-pos-fb <= hm2_7i97t.0.encoder.02.position
-net z-vel-fb <= hm2_7i97t.0.encoder.02.velocity
+net z-pos-fb <= hm2_7i97t.0.resolver.02.position
+net z-vel-fb <= hm2_7i97t.0.resolver.02.velocity
 net z-pos-fb => joint.2.motor-pos-fb
 
-net spindle-pos-fb <= hm2_7i97t.0.encoder.03.position
-net spindle-vel-fb <= hm2_7i97t.0.encoder.03.velocity
+# Spindle feedback source TBD (resolver channel vs. separate pickup/encoder).
+net spindle-pos-fb <= hm2_7i97t.0.resolver.03.position
+net spindle-vel-fb <= hm2_7i97t.0.resolver.03.velocity
 
 #####################################################################
 # Analog servo outputs
