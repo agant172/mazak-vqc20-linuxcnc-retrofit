@@ -1,0 +1,6 @@
+# Mazak VQC 20/40 — Post-GUI HAL
+# Loaded by mazak_vqc_20_40.ini (POSTGUI_HALFILE) AFTER the GUI starts.
+# Connect halui.* / pyvcp.* / gladevcp.* pins here — they do not exist until the GUI
+# is up, so they cannot go in the main HAL files.
+#
+# (stub — add GUI signal connections here once the panel/pendant is defined)

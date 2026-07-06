@@ -1,0 +1,7 @@
+# =============================================================================
+# Mazak VQC 20/40 — Post-GUI HAL File
+# Loaded after the GUI is initialized (AXIS/Touchy/etc.)
+# Use this file to connect halui.* and pyvcp.* pins that only exist after GUI startup.
+# =============================================================================
+
+# (stub — add GUI signal connections here)

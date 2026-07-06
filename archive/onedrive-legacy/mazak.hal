@@ -1,0 +1,447 @@
+# =============================================================================
+# Mazak VQC 20/40 — LinuxCNC HAL File
+# Hardware: Mesa 7i97T (Ethernet host) + 7i49 (resolver interface) + 7i84U (sserial I/O)
+# Firmware: 7i97t_7i78d.bin
+# !! FIRMWARE WARNING: 7i78d suffix indicates 7i78 encoder card firmware, NOT 7i49 resolver.
+#    For 7i97T + 7i49, confirm correct .bit file from Mesa downloads page before flashing.
+#    Likely: 7i97t_7i49.bit or similar — verify against Mesa 7i97T firmware table.
+# Generated: 2026-06-21  (skeleton — TODOs must be resolved before running)
+#
+# ARCHITECTURE (confirmed 2026-06-21):
+#   All three axes use Mitsubishi RT-5XA resolvers (not encoders).
+#   Motors: HD81-12S-TT-A (X, Y) and HD101-12-TT-A (Z).
+#   TB1/TB2 encoder inputs on 7i97T are NOT USED.
+#   All resolver feedback goes through 7i49 card via P1 DB25 header.
+#   7i49 assumed standard (TR ~0.5) — confirm RT-5XA nameplate before ordering.
+#
+# I/O EXPANSION (confirmed 2026-06-21):
+#   7i84U — 22/32 inputs used (10 spare: in-00..09), 13/16 outputs used (out-03/04/05 spare)
+#   Inputs: limits, homes, estop, drive faults, VFD status,
+#           tool clamp/unclamp confirm (PRS 8/9), gear verify (PRS 10/12),
+#           magazine BCD (PRS 21-25, 5-bit), door, lube, coolant,
+#           hydraulic OK, cycle-start PB, feed-hold PB, single-block SW,
+#           servo ready (in-27..31)
+#   Outputs: spindle FWD/REV/ENA, 3x drive enables, Z brake,
+#            gear-hi/lo (relay→hydraulic SOL-13/SOL-12 Fujikoshi SA-G01), tool clamp/unclamp (relay→hydraulic SOL-10 Fujikoshi SA-G01),
+#            coolant, lube, ATC fwd/rev, alarm
+#   AIR_BLAST overflows to 7i97T TB5 SSR Out-00 (→ relay → 100VAC CKD)
+#
+#   RELAY PANEL REQUIRED: gear-hi/lo = hydraulic solenoid valves (Fujikoshi SA-G01, confirm coil voltage at manifold)
+#   tool clamp/unclamp = hydraulic solenoid valves (Fujikoshi SA-G01, confirm coil voltage)
+#   NOTE: CKD 4F210-08-AC100V is AIR_BLAST (SOL-62) only, NOT gear shift
+#   solenoids operate on 100VAC. Route out-07/08/09/10 and TB5 SSR Out-00
+#   through 24VDC-coil / 120VAC-contact relay panel (DIN rail, ~8 relays).
+#
+# Pin prefix: hm2_7i97.0
+# Card IP:    192.168.1.121
+# NIC:        enp1s0f1 (192.168.1.100/24 static)
+#
+# !! PREFIX WARNING !!
+# This file uses prefix hm2_7i97.0 throughout. The correct prefix depends on
+# what the 7i97T firmware reports as its board name. It may be hm2_7i97t.0
+# (with 't'). Verify after first boot with:
+#   dmesg | grep hm2
+#   halcmd show comp | grep hm2
+# If the prefix is hm2_7i97t.0, do a global find/replace before running.
+# The wiring documentation uses hm2_7i97t.0 (with 't').
+# =============================================================================
+
+# -----------------------------------------------------------------------------
+# Load real-time components
+# -----------------------------------------------------------------------------
+loadrt trivkins coordinates=XYZ
+loadrt [EMCMOT]EMCMOT base_period_nsec=0 servo_period_nsec=[EMCMOT]SERVO_PERIOD num_joints=3
+
+loadrt hostmot2
+loadrt hm2_eth board_ip="192.168.1.121" config="num_encoders=0 num_pwmgens=4 num_stepgens=0 sserial_port_0=00000000"
+# num_encoders=0       — no encoder inputs; all feedback via 7i49 resolver
+# num_pwmgens=4        — pwmgen.00=X (TB3-4), pwmgen.01=Z (TB3-8), pwmgen.02=Y (TB3-12), pwmgen.03=spindle (TB3-16/AOUT3)
+# sserial_port_0=00000000 — enable 7i84U on sserial port 0 (TB4 RS-422); without this the 7i84U is not detected
+
+loadrt pid names=pid.x,pid.y,pid.z
+loadrt scale names=scale.spindle
+loadrt estop-latch
+
+# BCD decoder for tool magazine pocket position (PRS 21-25, in-19 through in-23)
+# bcd2s converts 5 binary inputs to a signed 32-bit integer (pocket 0-31)
+# !! bcd2s is NOT a standard LinuxCNC 2.9.x RT component — loading it will cause startup failure.
+# TODO: confirm availability first: halcmd show comp | grep bcd2s
+#       If not available, use mux16 or write a custom userspace component
+# loadrt bcd2s
+
+# -----------------------------------------------------------------------------
+# Add functions to servo thread
+# -----------------------------------------------------------------------------
+addf hm2_7i97.0.read          servo-thread
+addf motion-command-handler    servo-thread
+addf motion-controller         servo-thread
+addf pid.x.do-pid-calcs        servo-thread
+addf pid.y.do-pid-calcs        servo-thread
+addf pid.z.do-pid-calcs        servo-thread
+addf scale.spindle             servo-thread
+addf estop-latch.0             servo-thread
+addf hm2_7i97.0.write         servo-thread
+
+# =============================================================================
+# MESA 7i97T HARDWARE SETUP
+# =============================================================================
+
+# --- Watchdog ---
+setp hm2_7i97.0.watchdog.timeout_ns 5000000
+
+# --- PWMgen analog output setup ---
+# output-type 4 = Up/Down mode → 7i97T onboard DAC converts to ±10V analog
+# TB3-4  → pwmgen.00 → X axis drive
+# TB3-8  → pwmgen.01 → Z axis drive
+# TB3-12 → pwmgen.02 → Y axis drive
+# TODO: confirm physical TB3 terminal to axis assignment once wired
+setp hm2_7i97.0.pwmgen.00.output-type  4
+setp hm2_7i97.0.pwmgen.01.output-type  4
+setp hm2_7i97.0.pwmgen.02.output-type  4
+setp hm2_7i97.0.pwmgen.pwm_frequency   20000
+
+# Scale: 10.0 means value=1.0 → +10V, value=-1.0 → -10V
+setp hm2_7i97.0.pwmgen.00.scale       10.0
+setp hm2_7i97.0.pwmgen.01.scale       10.0
+setp hm2_7i97.0.pwmgen.02.scale       10.0
+
+# --- 7i84U output mode (all sourcing 24VDC, default) ---
+# Adjust bitmask per-bit if any output needs to be sinking
+# setp hm2_7i97.0.sserial.0.7i84.0.output_source 0xFFFF
+# setp hm2_7i97.0.sserial.0.7i84.0.output_sink   0x0000
+
+# =============================================================================
+# 7i49 RESOLVER CARD SETUP
+# Connects to 7i97T P1 header via IDC26→DB25 cable
+# Resolver channel assignment:
+#   resolver.00 → X axis (Mitsubishi RT-5XA on HD81-12S-TT-A)
+#   resolver.01 → Y axis (Mitsubishi RT-5XA on HD81-12S-TT-A)
+#   resolver.02 → Z axis (Mitsubishi RT-5XA on HD101-12-TT-A)
+#
+# TODO: confirm RT-5XA transformation ratio from nameplate
+#   TR ~0.5 → standard 7i49
+#   TR ~1.0 → 7i49HV
+#
+# TODO: set correct resolver scale once ballscrew pitch confirmed
+#   Formula: scale = resolver_counts_per_rev / ballscrew_pitch_inch
+#   7i49 default resolution: 65536 counts/rev (16-bit)
+#   Example 5mm pitch (0.19685"): 65536 / 0.19685 = ~332,893 counts/inch
+# =============================================================================
+
+setp hm2_7i97.0.resolver.00.scale     332893
+setp hm2_7i97.0.resolver.01.scale     332893
+setp hm2_7i97.0.resolver.02.scale     332893
+
+# =============================================================================
+# X AXIS (Joint 0)
+# Resolver: hm2_7i97.0.resolver.00  → 7i49 channel 0
+# Analog:   hm2_7i97.0.pwmgen.00    → TB3-4
+# Motor:    Mitsubishi HD81-12S-TT-A
+# =============================================================================
+
+setp pid.x.Pgain      [JOINT_0]P
+setp pid.x.Igain      [JOINT_0]I
+setp pid.x.Dgain      [JOINT_0]D
+setp pid.x.FF0        [JOINT_0]FF0
+setp pid.x.FF1        [JOINT_0]FF1
+setp pid.x.FF2        [JOINT_0]FF2
+setp pid.x.bias       [JOINT_0]BIAS
+setp pid.x.maxoutput  [JOINT_0]MAX_OUTPUT
+setp pid.x.deadband   [JOINT_0]DEADBAND
+
+net x-pos-fb        hm2_7i97.0.resolver.00.position  =>  pid.x.feedback
+net x-pos-cmd       joint.0.motor-pos-cmd            =>  pid.x.command
+net x-output        pid.x.output                     =>  hm2_7i97.0.pwmgen.00.value
+net x-pos-fb        =>  joint.0.motor-pos-fb
+net x-enable        joint.0.amp-enable-out           =>  hm2_7i97.0.pwmgen.00.enable
+net x-enable        =>  pid.x.enable
+# Drive S-ON via TB3 ENA0+ (gpio.000) — confirmed architecture 2026-06-24
+# 7i84U out-03 is NOT used for drive S-ON; see wiring map.
+net x-enable        =>  hm2_7i97.0.gpio.000.out
+net x-index-enable  joint.0.index-enable             <=> hm2_7i97.0.resolver.00.index-enable
+
+# =============================================================================
+# Y AXIS (Joint 1)
+# Resolver: hm2_7i97.0.resolver.01  → 7i49 channel 1
+# Analog:   hm2_7i97.0.pwmgen.02    → TB3-12
+# Motor:    Mitsubishi HD81-12S-TT-A
+# =============================================================================
+
+setp pid.y.Pgain      [JOINT_1]P
+setp pid.y.Igain      [JOINT_1]I
+setp pid.y.Dgain      [JOINT_1]D
+setp pid.y.FF0        [JOINT_1]FF0
+setp pid.y.FF1        [JOINT_1]FF1
+setp pid.y.FF2        [JOINT_1]FF2
+setp pid.y.bias       [JOINT_1]BIAS
+setp pid.y.maxoutput  [JOINT_1]MAX_OUTPUT
+setp pid.y.deadband   [JOINT_1]DEADBAND
+
+net y-pos-fb        hm2_7i97.0.resolver.01.position  =>  pid.y.feedback
+net y-pos-cmd       joint.1.motor-pos-cmd            =>  pid.y.command
+net y-output        pid.y.output                     =>  hm2_7i97.0.pwmgen.02.value
+net y-pos-fb        =>  joint.1.motor-pos-fb
+net y-enable        joint.1.amp-enable-out           =>  hm2_7i97.0.pwmgen.02.enable
+net y-enable        =>  pid.y.enable
+# Drive S-ON via TB3 ENA2+ (gpio.002) — confirmed architecture 2026-06-24
+net y-enable        =>  hm2_7i97.0.gpio.002.out
+net y-index-enable  joint.1.index-enable             <=> hm2_7i97.0.resolver.01.index-enable
+
+# =============================================================================
+# Z AXIS (Joint 2)
+# Resolver: hm2_7i97.0.resolver.02  → 7i49 channel 2
+# Analog:   hm2_7i97.0.pwmgen.01    → TB3-8
+# Motor:    Mitsubishi HD101-12-TT-A + brake N1J-L2-201
+# NOTE: Z brake must release before motion, engage on estop/disable
+# =============================================================================
+
+setp pid.z.Pgain      [JOINT_2]P
+setp pid.z.Igain      [JOINT_2]I
+setp pid.z.Dgain      [JOINT_2]D
+setp pid.z.FF0        [JOINT_2]FF0
+setp pid.z.FF1        [JOINT_2]FF1
+setp pid.z.FF2        [JOINT_2]FF2
+setp pid.z.bias       [JOINT_2]BIAS
+setp pid.z.maxoutput  [JOINT_2]MAX_OUTPUT
+setp pid.z.deadband   [JOINT_2]DEADBAND
+
+net z-pos-fb        hm2_7i97.0.resolver.02.position  =>  pid.z.feedback
+net z-pos-cmd       joint.2.motor-pos-cmd            =>  pid.z.command
+net z-output        pid.z.output                     =>  hm2_7i97.0.pwmgen.01.value
+net z-pos-fb        =>  joint.2.motor-pos-fb
+net z-enable        joint.2.amp-enable-out           =>  hm2_7i97.0.pwmgen.01.enable
+net z-enable        =>  pid.z.enable
+# Drive S-ON via TB3 ENA1+ (gpio.001) — confirmed architecture 2026-06-24
+net z-enable        =>  hm2_7i97.0.gpio.001.out
+net z-index-enable  joint.2.index-enable             <=> hm2_7i97.0.resolver.02.index-enable
+
+# =============================================================================
+# SPINDLE
+# FR-SX VFD: 0–10V analog speed command + FWD/REV digital via 7i84U
+# =============================================================================
+
+setp scale.spindle.gain   0.00025    # 1/4000 RPM max → 0.0 to 1.0
+# net spindle-speed-cmd  spindle.0.speed-out  =>  scale.spindle.in
+# net spindle-analog     scale.spindle.out    =>  hm2_7i97.0.pwmgen.??.value
+# TODO: assign spindle pwmgen channel — TB3-16 (AOUT3) once sserial confirmed
+
+# Spindle digital — via 7i84U (uncomment once sserial working)
+# net spindle-fwd  spindle.0.forward  =>  hm2_7i97.0.sserial.0.7i84.0.0.output-00
+# net spindle-rev  spindle.0.reverse  =>  hm2_7i97.0.sserial.0.7i84.0.0.output-01
+# net spindle-ena  spindle.0.on       =>  hm2_7i97.0.sserial.0.7i84.0.0.output-02
+
+# Spindle status feedback (uncomment once sserial working)
+# net spindle-at-spd  hm2_7i97.0.sserial.0.7i84.0.0.input-13  =>  spindle.0.at-speed
+# net spindle-fault   hm2_7i97.0.sserial.0.7i84.0.0.input-14  =>  ...
+
+# =============================================================================
+# DRIVE ENABLES — via TB3 ENA pins (gpio.000/001/002) — confirmed 2026-06-24
+# Drive S-ON is handled by TB3 ENA0+/ENA1+/ENA2+ wired directly to servo drives.
+# 7i84U out-03/04/05 are NOT used for drive S-ON; those outputs are now SPARE.
+# The gpio nets are added inline with each axis enable net above.
+# =============================================================================
+
+# =============================================================================
+# Z AXIS BRAKE — N1J-L2-201
+# 7i84U out-06 = Z_BRAKE_REL
+# Release (HIGH) before Z motion; engage (LOW) on estop/disable
+# Uncomment once sserial working
+# =============================================================================
+# net z-brake-rel  joint.2.amp-enable-out  =>  hm2_7i97.0.sserial.0.7i84.0.0.output-06
+
+# =============================================================================
+# GEAR SHIFT SOLENOIDS — via 7i84U → relay → hydraulic solenoid valves on spindle head
+# Mazak label: SOL-13 = HI gear, SOL-12 = LO gear (Fujikoshi SA-G01-E3X-C1-11)
+# Coil voltage: VERIFY at spindle head manifold before wiring relay contacts
+# Confirm requires HYD_PRESS_OK (in-27) before commanding gear shift
+# 7i84U out-07 = GEAR_HI_SOL (→ RLY-1 → SOL-13 hydraulic coil)
+# 7i84U out-08 = GEAR_LO_SOL (→ RLY-2 → SOL-12 hydraulic coil)
+# Gear confirm inputs:
+#   in-17 = GEAR_HI_CONF (PRS 10)
+#   in-18 = GEAR_LO_CONF (PRS 12)
+#
+# RELAY REQUIRED: 24VDC coil / 120VAC contacts. Wire 7i84U output through relay.
+# Uncomment once sserial working and relay panel installed
+# =============================================================================
+# net gear-hi-sol   gearchange.hi-out   =>  hm2_7i97.0.sserial.0.7i84.0.0.output-07
+# net gear-lo-sol   gearchange.lo-out   =>  hm2_7i97.0.sserial.0.7i84.0.0.output-08
+# net gear-hi-conf  hm2_7i97.0.sserial.0.7i84.0.0.input-17  =>  gearchange.hi-confirm
+# net gear-lo-conf  hm2_7i97.0.sserial.0.7i84.0.0.input-18  =>  gearchange.lo-confirm
+
+# =============================================================================
+# TOOL CLAMP / UNCLAMP — via 7i84U → relay → hydraulic solenoid valve at spindle head
+# Mazak label: SOL-10 (Fujikoshi SA-G01-A3X-C1-11)
+# Coil voltage: VERIFY at spindle head manifold before wiring relay contacts
+# Confirm requires HYD_PRESS_OK (in-27) before commanding tool clamp/unclamp
+# 7i84U out-09 = TOOL_CLAMP   (→ RLY-3 → SOL-10 hydraulic coil, tool clamped by spring, unclamp by hydraulic push)
+# 7i84U out-10 = TOOL_UNCLAMP (→ RLY-4 → SOL-10 hydraulic coil)
+# Confirm inputs:
+#   in-15 = TOOL_CLAMP_CONF   (PRS 9  — Balluff BES-516-325-D0X-3)
+#   in-16 = TOOL_UNCLAMP_CONF (PRS 8  — Yamatake FL1-2D6-E3)
+#
+# RELAY REQUIRED: 24VDC coil / 120VAC contacts.
+# Uncomment once sserial working and relay panel installed
+# =============================================================================
+# net tool-clamp        iocontrol.0.tool-change  =>  hm2_7i97.0.sserial.0.7i84.0.0.output-09
+# net tool-unclamp      iocontrol.0.tool-change  =>  hm2_7i97.0.sserial.0.7i84.0.0.output-10
+# net tool-clamp-conf   hm2_7i97.0.sserial.0.7i84.0.0.input-15  =>  iocontrol.0.tool-prepared
+# net tool-unclamp-conf hm2_7i97.0.sserial.0.7i84.0.0.input-16  =>  iocontrol.0.tool-changed
+
+# =============================================================================
+# TOOL MAGAZINE — BCD POCKET POSITION
+# PRS 21-25 → 7i84U in-19 through in-23 (5-bit BCD)
+# Decode with bcd2s component → integer pocket number 0-31
+#
+# TODO: verify bcd2s component name: halcmd show comp | grep bcd
+#       Alternative: use mux16 with manual net wiring
+#
+# Uncomment once sserial working
+# =============================================================================
+# net mag-bcd-bit0  hm2_7i97.0.sserial.0.7i84.0.0.input-19  =>  bcd2s.in-00
+# net mag-bcd-bit1  hm2_7i97.0.sserial.0.7i84.0.0.input-20  =>  bcd2s.in-01
+# net mag-bcd-bit2  hm2_7i97.0.sserial.0.7i84.0.0.input-21  =>  bcd2s.in-02
+# net mag-bcd-bit3  hm2_7i97.0.sserial.0.7i84.0.0.input-22  =>  bcd2s.in-03
+# net mag-bcd-bit4  hm2_7i97.0.sserial.0.7i84.0.0.input-23  =>  bcd2s.in-04
+# net mag-pocket    bcd2s.out  =>  atc.pocket-number
+
+# =============================================================================
+# ATC CAROUSEL DRIVE — via 7i84U
+# 7i84U out-13 = ATC_FWD
+# 7i84U out-14 = ATC_REV
+# Uncomment once sserial working
+# =============================================================================
+# net atc-fwd  atc.fwd-out  =>  hm2_7i97.0.sserial.0.7i84.0.0.output-13
+# net atc-rev  atc.rev-out  =>  hm2_7i97.0.sserial.0.7i84.0.0.output-14
+
+# =============================================================================
+# AIR BLAST — 7i97T TB5 SSR Out-00 → relay → 100VAC CKD 4F210-08-AC100V
+# Overflows from 7i84U (all 16 outputs fully allocated)
+# TB5 pins 13/14 = SSR Out-00
+#
+# RELAY REQUIRED: 24VDC coil / 120VAC contacts (same relay panel as gear/clamp).
+# TODO: confirm exact HAL GPIO pin index against 7i97T manual before wiring
+#
+# Uncomment once sserial working and relay panel installed
+# =============================================================================
+# net air-blast  airblast.out  =>  hm2_7i97.0.gpio.020.out
+
+# =============================================================================
+# TOUCH SENSOR BLAST — 7i97T TB5 SSR Out-01 → RLY-8 → 100VAC CKD GAB 412-6-AC100V-02G (SOL 35)
+# Activates air blast to clean touch probe / tool setter before measurement
+# TB5 pins 15/16 = SSR Out-01
+#
+# RELAY REQUIRED: 24VDC coil / 120VAC contacts (MY2-GS DC24, RLY-8 in relay panel).
+# TODO: confirm exact HAL GPIO pin index against 7i97T manual before wiring
+#
+# Uncomment once sserial working and relay panel installed
+# =============================================================================
+# net touch-sensor-blast  touchtool.blast-out  =>  hm2_7i97.0.gpio.021.out
+
+# =============================================================================
+# TAP COOLANT BLAST — 7i97T TB5 SSR Out-02 → RLY-9 → 100VAC CKD GAB 412-6-AC100V-02G (SOL 61)
+# Activates coolant/air blast during tapping cycles to clear chips and lubricate tap
+# TB5 pins 17/18 = SSR Out-02
+#
+# RELAY REQUIRED: 24VDC coil / 120VAC contacts (MY2-GS DC24, RLY-9 in relay panel).
+# TODO: confirm exact HAL GPIO pin index against 7i97T manual before wiring
+#
+# Uncomment once sserial working and relay panel installed
+# =============================================================================
+# net tap-coolant-blast  tap.coolant-blast-out  =>  hm2_7i97.0.gpio.022.out
+
+# =============================================================================
+# COOLANT / LUBE / ALARM — via 7i84U
+# out-11 = COOLANT_ON, out-12 = LUBE_ON, out-15 = ALARM_OUT
+# Uncomment once sserial working
+# =============================================================================
+# net coolant-on  iocontrol.0.coolant-flood  =>  hm2_7i97.0.sserial.0.7i84.0.0.output-11
+# net lube-on     lube-ctrl.out              =>  hm2_7i97.0.sserial.0.7i84.0.0.output-12
+# net alarm-out   halui.program.is-paused    =>  hm2_7i97.0.sserial.0.7i84.0.0.output-15
+
+# Level / door inputs (uncomment once sserial working)
+# net door-open     hm2_7i97.0.sserial.0.7i84.0.0.input-24  =>  ...
+# net lube-level    hm2_7i97.0.sserial.0.7i84.0.0.input-25  =>  lube-ctrl.level-ok
+# net coolant-level hm2_7i97.0.sserial.0.7i84.0.0.input-26  =>  coolant-ctrl.level-ok
+
+# =============================================================================
+# DRIVE FAULTS — via 7i84U (uncomment once sserial working)
+# in-10 = X_DRIVE_FAULT, in-11 = Y_DRIVE_FAULT, in-12 = Z_DRIVE_FAULT
+# =============================================================================
+# net x-drive-fault  hm2_7i97.0.sserial.0.7i84.0.0.input-10  =>  ...
+# net y-drive-fault  hm2_7i97.0.sserial.0.7i84.0.0.input-11  =>  ...
+# net z-drive-fault  hm2_7i97.0.sserial.0.7i84.0.0.input-12  =>  ...
+
+# =============================================================================
+# ESTOP / ENABLE
+# E-stop chain wires to TB5 IN9 (7i97T onboard gpio.017) — confirmed 2026-06-24.
+# NOT on 7i84U in-09 (that input is now spare).
+# =============================================================================
+# E-stop chain via TB5 IN9 (gpio.017) — NC contact
+# With invert_input=1: chain closed (24V) → gpio.in=0, chain open → gpio.in=1 = fault
+setp hm2_7i97.0.gpio.017.invert_input    1
+net estop-reset  iocontrol.0.user-request-enable  =>  estop-latch.0.reset
+net estop-ok     estop-latch.0.ok-out             =>  iocontrol.0.emc-enable-in
+net estop-ext    hm2_7i97.0.gpio.017.in           =>  estop-latch.0.fault-in
+
+# =============================================================================
+# LIMIT / HOME SWITCHES — via 7i97T TB5 onboard inputs (confirmed 2026-06-24)
+# NOT on 7i84U — those inputs (in-00 through in-08) are now spare.
+# TB5 pin assignments (see wiring map):
+#   IN0=X_POS_LIM  IN1=X_NEG_LIM  IN2=Y_POS_LIM  IN3=Y_NEG_LIM
+#   IN4=Z_POS_LIM  IN5=Z_NEG_LIM  IN6=X_HOME  IN7=Y_HOME  IN8=Z_HOME
+# NC limit switches: invert_input so that closed circuit (normal) = 0, open (tripped) = 1
+# NOTE: the correct parameter is invert_input, NOT invert_output
+# Home switches (gpio.014-016) are typically NO — do NOT invert them
+setp hm2_7i97.0.gpio.008.invert_input  1   # X_POS_LIM (NC)
+setp hm2_7i97.0.gpio.009.invert_input  1   # X_NEG_LIM (NC)
+setp hm2_7i97.0.gpio.010.invert_input  1   # Y_POS_LIM (NC)
+setp hm2_7i97.0.gpio.011.invert_input  1   # Y_NEG_LIM (NC)
+setp hm2_7i97.0.gpio.012.invert_input  1   # Z_POS_LIM (NC)
+setp hm2_7i97.0.gpio.013.invert_input  1   # Z_NEG_LIM (NC)
+# =============================================================================
+net x-pos-limit  hm2_7i97.0.gpio.008.in  =>  joint.0.pos-lim-sw-in
+net x-neg-limit  hm2_7i97.0.gpio.009.in  =>  joint.0.neg-lim-sw-in
+net y-pos-limit  hm2_7i97.0.gpio.010.in  =>  joint.1.pos-lim-sw-in
+net y-neg-limit  hm2_7i97.0.gpio.011.in  =>  joint.1.neg-lim-sw-in
+net z-pos-limit  hm2_7i97.0.gpio.012.in  =>  joint.2.pos-lim-sw-in
+net z-neg-limit  hm2_7i97.0.gpio.013.in  =>  joint.2.neg-lim-sw-in
+net x-home-sw    hm2_7i97.0.gpio.014.in  =>  joint.0.home-sw-in
+net y-home-sw    hm2_7i97.0.gpio.015.in  =>  joint.1.home-sw-in
+net z-home-sw    hm2_7i97.0.gpio.016.in  =>  joint.2.home-sw-in
+
+# =============================================================================
+# SPARE / PANEL / SAFETY INPUTS — 7i84U in-27..31
+# Assigned 2026-06-21. Wire when panel and safety interlocks are installed.
+# in-27 = HYD_PRESS_OK   — hydraulic pressure switch (ATC/magazine circuit)
+# in-28 = CYCLE_START_PB — operator panel cycle start pushbutton (NO momentary)
+# in-29 = FEED_HOLD_PB   — operator panel feed hold pushbutton (NO momentary)
+# in-30 = SINGLE_BLOCK   — operator panel single-block selector switch
+# in-31 = SERVO_READY    — servo drives ready feedback (from ready relay contact)
+# =============================================================================
+# net hydraulic-ok    hm2_7i97.0.sserial.0.7i84.0.0.input-27  =>  iocontrol.0.user-enable-in
+# net cycle-start-pb  hm2_7i97.0.sserial.0.7i84.0.0.input-28  =>  halui.program.run
+# net feed-hold-pb    hm2_7i97.0.sserial.0.7i84.0.0.input-29  =>  halui.program.pause
+# net single-block    hm2_7i97.0.sserial.0.7i84.0.0.input-30  =>  halui.program.step
+# net servo-ready     hm2_7i97.0.sserial.0.7i84.0.0.input-31  =>  ...
+
+# =============================================================================
+# END OF FILE
+#
+# Open items before running LinuxCNC:
+#   1.  Order 7i49 (standard) — confirm RT-5XA TR from nameplate first
+#   2.  Confirm TB3 terminal to axis assignment (pwmgen.00/01/02 vs X/Y/Z)
+#   3.  Set correct resolver scale (ballscrew pitch needed for all 3 axes)
+#   4.  Wire 7i49 via DB25 to 7i97T P1 header
+#   5.  Fix 7i84U sserial — W22 jumper on 7i84U PCB (NOT 7i97T) sets RS-422 termination; verify position against 7i84U manual before powering on + confirm CAT5e cable polarity (TB4 pins 13-20)
+#   6.  Build relay panel (8 relays, 24VDC coil/120VAC contacts) for 100VAC solenoids
+#   7.  Wire Z brake release through 7i84U output-06
+#   8.  Uncomment all sserial nets (limits/home/estop/drives/spindle/I-O)
+#   9.  Verify bcd2s component available: halcmd show comp | grep bcd — bcd2s is NOT a standard LinuxCNC 2.9.x RT component; may need mux16 or a custom comp instead; uncomment BCD magazine nets once confirmed
+#   10. Wire air-blast to 7i97T TB5 SSR Out-00; uncomment air-blast net
+#   11. Assign spindle analog channel (TB3-16) and uncomment spindle speed net
+#   12. Run latency test before first motion attempt
+#   12a. Verify HOME_USE_INDEX=YES in INI is compatible with 7i49 resolver interface — confirm 7i49 produces a usable index signal; if not, change to HOME_USE_INDEX=NO in mazak.ini for all three joints
+#   13. Investigate hydraulic system (HYD_PRESS_OK in-27) — confirm ATC/magazine hydraulic vs pneumatic
+#   14. Wire operator panel: cycle-start (in-28), feed-hold (in-29), single-block (in-30)
+#   15. Confirm servo-ready relay contact location and wire to in-31
+# =============================================================================

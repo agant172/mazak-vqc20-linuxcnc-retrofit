@@ -25,7 +25,10 @@ loadrt motmod
 # TODO: set the real board_ip and config string (incl. num_resolvers) from the 7i97T
 # firmware / readhmid, and confirm how the 7i49 connects into the host FPGA.
 loadrt hostmot2
-loadrt hm2_eth board_ip="10.10.10.10" config="num_encoders=0 num_resolvers=6 num_pwmgens=0 num_stepgens=0 sserial_port_0=000000"
+# num_pwmgens=4: the 7i97/7i97T +/-10V analog outputs ARE hostmot2 pwmgen instances
+# (there is no separate "analogout" object). Need >=4 for X/Y/Z + spindle. Confirm the
+# real count/instances against readhmid.
+loadrt hm2_eth board_ip="10.10.10.10" config="num_encoders=0 num_resolvers=6 num_pwmgens=4 num_stepgens=0 sserial_port_0=000000"
 
 loadrt pid names=pid.x,pid.y,pid.z
 loadrt threads name1=servo-thread period1=1000000

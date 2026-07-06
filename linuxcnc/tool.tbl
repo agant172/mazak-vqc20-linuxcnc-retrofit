@@ -1,0 +1,4 @@
+; Mazak VQC 20/40 — Tool Table
+; Referenced by mazak_vqc_20_40.ini (TOOL_TABLE). LinuxCNC rewrites this file when tool
+; offsets are edited in the GUI. Format: T<n> P<pocket> D<dia> Z<len offset> ; <comment>
+T0 P0 D0.0000 Z0.0000 ; no tool

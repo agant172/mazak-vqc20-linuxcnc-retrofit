@@ -1,0 +1,4 @@
+; Mazak VQC 20/40 — Tool Table
+; Format: T<n> P<pocket> D<diameter> Z<length offset> ; <comment>
+; LinuxCNC will update this file automatically when tool lengths are set.
+T0 P0 D0.0000 Z0.0000 ; no tool

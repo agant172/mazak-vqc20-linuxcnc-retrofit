@@ -53,121 +53,162 @@ net spindle-pos-fb <= hm2_7i97t.0.resolver.03.position
 net spindle-vel-fb <= hm2_7i97t.0.resolver.03.velocity
 
 #####################################################################
-# Analog servo outputs
+# Analog servo outputs (7i97T onboard DAC, driven by pwmgen)
 #####################################################################
+#
+# On the 7i97/7i97T the +/-10V analog outputs are hostmot2 PWMGEN instances feeding an
+# onboard DAC -- there is no "analogout" pin. For a bipolar +/-10V servo command:
+#   output-type 1   (PWM+DIR)
+#   offset-mode 1   (50% duty = 0V, so the DAC swings symmetrically +/-10V)
+#   scale 10        (command  1.0 => +10V,  -1.0 => -10V)
+# The pwmgen .enable pin MUST be true or the output stays parked at zero.
+#
+# TODO: confirm pwmgen instance -> axis mapping and pin names from readhmid / show pin hm2.
+# TODO: verify drive command polarity before enabling. A reversed command can cause runaway.
 
-# TODO: verify analog output pin naming and scaling for the actual 7i97T firmware.
-# TODO: verify drive polarity before enabling. A reversed command can cause runaway.
+setp hm2_7i97t.0.pwmgen.pwm_frequency 20000
+
+setp hm2_7i97t.0.pwmgen.00.output-type 1
+setp hm2_7i97t.0.pwmgen.00.offset-mode 1
+setp hm2_7i97t.0.pwmgen.00.scale 10
+setp hm2_7i97t.0.pwmgen.01.output-type 1
+setp hm2_7i97t.0.pwmgen.01.offset-mode 1
+setp hm2_7i97t.0.pwmgen.01.scale 10
+setp hm2_7i97t.0.pwmgen.02.output-type 1
+setp hm2_7i97t.0.pwmgen.02.offset-mode 1
+setp hm2_7i97t.0.pwmgen.02.scale 10
 
 net x-pos-cmd <= joint.0.motor-pos-cmd
 net x-pos-cmd => pid.x.command
 net x-pos-fb => pid.x.feedback
 net x-vel-cmd <= pid.x.output
-net x-vel-cmd => hm2_7i97t.0.analogout.00
+net x-vel-cmd => hm2_7i97t.0.pwmgen.00.value
+net x-enable => hm2_7i97t.0.pwmgen.00.enable
 
 net y-pos-cmd <= joint.1.motor-pos-cmd
 net y-pos-cmd => pid.y.command
 net y-pos-fb => pid.y.feedback
 net y-vel-cmd <= pid.y.output
-net y-vel-cmd => hm2_7i97t.0.analogout.01
+net y-vel-cmd => hm2_7i97t.0.pwmgen.01.value
+net y-enable => hm2_7i97t.0.pwmgen.01.enable
 
 net z-pos-cmd <= joint.2.motor-pos-cmd
 net z-pos-cmd => pid.z.command
 net z-pos-fb => pid.z.feedback
 net z-vel-cmd <= pid.z.output
-net z-vel-cmd => hm2_7i97t.0.analogout.02
+net z-vel-cmd => hm2_7i97t.0.pwmgen.02.value
+net z-enable => hm2_7i97t.0.pwmgen.02.enable
 
-# Spindle analog speed command to Mitsubishi FR-SX.
+# Spindle analog speed command to Mitsubishi FR-SX (pwmgen.03).
 # TODO: confirm whether the FR-SX wants 0-10 V, +/-10 V, separate FWD/REV, or another mode.
+# FR-SX speed reference is most likely 0-10V UNIPOLAR -> offset-mode 0 (0V at zero command).
+# If it turns out to want bipolar +/-10V, set offset-mode 1 to match the axis outputs above.
+setp hm2_7i97t.0.pwmgen.03.output-type 1
+setp hm2_7i97t.0.pwmgen.03.offset-mode 0
+setp hm2_7i97t.0.pwmgen.03.scale 10
 net spindle-speed-cmd <= spindle.0.speed-out
-net spindle-speed-cmd => hm2_7i97t.0.analogout.03
+net spindle-speed-cmd => hm2_7i97t.0.pwmgen.03.value
+net spindle-enable => hm2_7i97t.0.pwmgen.03.enable
 
 #####################################################################
 # 7i97T onboard field inputs (TB assignment TBD)
 #####################################################################
+#
+# Onboard field bits are hostmot2 GPIO pins: hm2_7i97t.0.gpio.NNN.in (not "input-NN";
+# that naming belongs to the 7i84 smart-serial device). The gpio.NNN INDICES BELOW ARE
+# PLACEHOLDERS -- inputs and outputs occupy separate, firmware-determined ranges. Get the
+# real indices from `halcmd show pin hm2` after loading firmware; do not wire by these
+# numbers. NC switches (limits, estop) need `setp hm2_7i97t.0.gpio.NNN.invert_input 1`
+# once the real indices and normal states are confirmed.
 
-net home-x <= hm2_7i97t.0.input-00
+net home-x <= hm2_7i97t.0.gpio.000.in
 net home-x => joint.0.home-sw-in
 
-net limit-x-plus <= hm2_7i97t.0.input-01
+net limit-x-plus <= hm2_7i97t.0.gpio.001.in
 net limit-x-plus => joint.0.pos-lim-sw-in
 
-net limit-x-minus <= hm2_7i97t.0.input-02
+net limit-x-minus <= hm2_7i97t.0.gpio.002.in
 net limit-x-minus => joint.0.neg-lim-sw-in
 
-net home-y <= hm2_7i97t.0.input-03
+net home-y <= hm2_7i97t.0.gpio.003.in
 net home-y => joint.1.home-sw-in
 
-net limit-y-plus <= hm2_7i97t.0.input-04
+net limit-y-plus <= hm2_7i97t.0.gpio.004.in
 net limit-y-plus => joint.1.pos-lim-sw-in
 
-net limit-y-minus <= hm2_7i97t.0.input-05
+net limit-y-minus <= hm2_7i97t.0.gpio.005.in
 net limit-y-minus => joint.1.neg-lim-sw-in
 
-net home-z <= hm2_7i97t.0.input-06
+net home-z <= hm2_7i97t.0.gpio.006.in
 net home-z => joint.2.home-sw-in
 
-net limit-z-plus <= hm2_7i97t.0.input-07
+net limit-z-plus <= hm2_7i97t.0.gpio.007.in
 net limit-z-plus => joint.2.pos-lim-sw-in
 
-net limit-z-minus <= hm2_7i97t.0.input-08
+net limit-z-minus <= hm2_7i97t.0.gpio.008.in
 net limit-z-minus => joint.2.neg-lim-sw-in
 
-net x-drive-fault <= hm2_7i97t.0.input-09
-net y-drive-fault <= hm2_7i97t.0.input-10
-net z-drive-fault <= hm2_7i97t.0.input-11
-net spindle-fault <= hm2_7i97t.0.input-12
+net x-drive-fault <= hm2_7i97t.0.gpio.009.in
+net y-drive-fault <= hm2_7i97t.0.gpio.010.in
+net z-drive-fault <= hm2_7i97t.0.gpio.011.in
+net spindle-fault <= hm2_7i97t.0.gpio.012.in
 
 # External safety chain monitor. Hardware safety chain must still remove hazardous power.
-net estop-ext <= hm2_7i97t.0.input-13
+net estop-ext <= hm2_7i97t.0.gpio.013.in
 net estop-ext => iocontrol.0.emc-enable-in
 
-net door-closed <= hm2_7i97t.0.input-14
-net lube-ok <= hm2_7i97t.0.input-15
-net hydraulic-ok <= hm2_7i97t.0.input-16
+net door-closed <= hm2_7i97t.0.gpio.014.in
+net lube-ok <= hm2_7i97t.0.gpio.015.in
+net hydraulic-ok <= hm2_7i97t.0.gpio.016.in
 
-net cycle-start-pb <= hm2_7i97t.0.input-17
-net feed-hold-pb <= hm2_7i97t.0.input-18
-net single-block <= hm2_7i97t.0.input-19
+net cycle-start-pb <= hm2_7i97t.0.gpio.017.in
+net feed-hold-pb <= hm2_7i97t.0.gpio.018.in
+net single-block <= hm2_7i97t.0.gpio.019.in
 
 # Optional / spare critical inputs. Assign after tracing.
-# net spindle-zero-speed <= hm2_7i97t.0.input-20
-# net servo-ready <= hm2_7i97t.0.input-21
-# net cabinet-ok <= hm2_7i97t.0.input-22
-# net rapid-override <= hm2_7i97t.0.input-23
+# net spindle-zero-speed <= hm2_7i97t.0.gpio.020.in
+# net servo-ready <= hm2_7i97t.0.gpio.021.in
+# net cabinet-ok <= hm2_7i97t.0.gpio.022.in
+# net rapid-override <= hm2_7i97t.0.gpio.023.in
 
 #####################################################################
 # 7i97T onboard field outputs (TB assignment TBD)
 #####################################################################
+#
+# Onboard outputs are hostmot2 GPIO pins: hm2_7i97t.0.gpio.NNN.out (not "output-NN").
+# These gpio.NNN INDICES ARE PLACEHOLDERS in a separate range from the inputs above --
+# get the real indices from `halcmd show pin hm2` and set `gpio.NNN.is_output` per the
+# firmware pinout before wiring. NOTE: x/y/z drive S-ON may instead belong on the 7i97T's
+# dedicated ENA (drive-enable) outputs rather than general GPIO -- confirm from readhmid.
 
 net x-enable <= joint.0.amp-enable-out
-net x-enable => hm2_7i97t.0.output-00
+net x-enable => hm2_7i97t.0.gpio.024.out
 
 net y-enable <= joint.1.amp-enable-out
-net y-enable => hm2_7i97t.0.output-01
+net y-enable => hm2_7i97t.0.gpio.025.out
 
 net z-enable <= joint.2.amp-enable-out
-net z-enable => hm2_7i97t.0.output-02
+net z-enable => hm2_7i97t.0.gpio.026.out
 
 net spindle-enable <= spindle.0.on
-net spindle-enable => hm2_7i97t.0.output-03
+net spindle-enable => hm2_7i97t.0.gpio.027.out
 
 net spindle-dir <= spindle.0.forward
-net spindle-dir => hm2_7i97t.0.output-04
+net spindle-dir => hm2_7i97t.0.gpio.028.out
 
 # Optional servo contactor / ready-chain outputs. Verify hardware chain before use.
 net main-servo-on <= iocontrol.0.user-enable-out
-net main-servo-on => hm2_7i97t.0.output-05
+net main-servo-on => hm2_7i97t.0.gpio.029.out
 
 net lamp-ready <= iocontrol.0.user-enable-out
-net lamp-ready => hm2_7i97t.0.output-06
+net lamp-ready => hm2_7i97t.0.gpio.030.out
 
 # TODO: replace with proper inverted/fault logic after estop and alarm scheme are defined.
-net lamp-alarm => hm2_7i97t.0.output-07
+net lamp-alarm => hm2_7i97t.0.gpio.031.out
 
 # Optional / spare critical outputs. Assign after tracing.
-# net spindle-orient-cmd => hm2_7i97t.0.output-08
-# net control-ready => hm2_7i97t.0.output-09
-# net hyd-pump-on => hm2_7i97t.0.output-10
-# net lube-pump-on => hm2_7i97t.0.output-11
+# net spindle-orient-cmd => hm2_7i97t.0.gpio.032.out
+# net control-ready => hm2_7i97t.0.gpio.033.out
+# net hyd-pump-on => hm2_7i97t.0.gpio.034.out
+# net lube-pump-on => hm2_7i97t.0.gpio.035.out
 
