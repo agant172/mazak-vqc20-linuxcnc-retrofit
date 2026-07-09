@@ -15,7 +15,7 @@
 # ATC, hydraulic, coolant, air, and utility field I/O near the green breakout PCB.
 
 loadrt trivkins coordinates=XYZ
-loadrt motmod
+loadrt [EMCMOT]EMCMOT base_period_nsec=0 servo_period_nsec=[EMCMOT]SERVO_PERIOD num_joints=[KINS]JOINTS
 
 # The 7i97T is an Ethernet board loaded via hm2_eth. Set board_ip to the confirmed
 # static IP and adjust num_resolvers (7i49) / sserial / smart-serial mode for the actual
@@ -28,47 +28,79 @@ loadrt hostmot2
 # num_pwmgens=4: the 7i97/7i97T +/-10V analog outputs ARE hostmot2 pwmgen instances
 # (there is no separate "analogout" object). Need >=4 for X/Y/Z + spindle. Confirm the
 # real count/instances against readhmid.
-loadrt hm2_eth board_ip="10.10.10.10" config="num_encoders=0 num_resolvers=6 num_pwmgens=4 num_stepgens=0 sserial_port_0=000000"
+loadrt hm2_eth board_ip="192.168.1.121" config="num_encoders=1 num_resolvers=3 num_pwmgens=4 num_stepgens=0 sserial_port_0=00000000"
+# board_ip: 192.168.1.121 (static, NIC enp1s0f1 at 192.168.1.100/24)
+# num_resolvers=3: confirmed — three TS2014N shaft resolvers (X=00, Y=01, Z=02 ball screws)
+#   Spindle does NOT use a resolver; it has a separate machine-side A/B/Z encoder.
+# num_encoders=1: reserve one encoder channel for the spindle encoder (part# TBD).
+#   Adjust count if readhmid shows a different layout for the encoder instances.
+# num_pwmgens=4: 00=X(TB3-4), 01=Z(TB3-8), 02=Y(TB3-12), 03=spindle(TB3-16)
+# sserial_port_0=00000000: enables 7i84U on TB4 RS-422; without this 7i84U is not detected
 
-loadrt pid names=pid.x,pid.y,pid.z
-loadrt threads name1=servo-thread period1=1000000
+loadrt pid names=pid.x,pid.y,pid.z,pid.s
+loadrt estop-latch
+# NOTE: do NOT loadrt threads — [EMCMOT]EMCMOT above creates the servo-thread from INI SERVO_PERIOD
 
-addf hm2_7i97t.0.read servo-thread
-addf motion-command-handler servo-thread
-addf motion-controller servo-thread
-addf pid.x.do-pid-calcs servo-thread
-addf pid.y.do-pid-calcs servo-thread
-addf pid.z.do-pid-calcs servo-thread
-addf hm2_7i97t.0.write servo-thread
+addf hm2_7i97t.0.read          servo-thread
+addf motion-command-handler    servo-thread
+addf motion-controller         servo-thread
+addf pid.x.do-pid-calcs        servo-thread
+addf pid.y.do-pid-calcs        servo-thread
+addf pid.z.do-pid-calcs        servo-thread
+addf pid.s.do-pid-calcs        servo-thread
+addf estop-latch.0             servo-thread
+addf hm2_7i97t.0.write        servo-thread
 
 # Axis PID gains are intentionally zero in the INI placeholders.
 # Tune only after resolver direction/scale, analog output polarity, and drive enable behavior are verified.
-setp pid.x.P [JOINT_0]P
-setp pid.x.I [JOINT_0]I
-setp pid.x.D [JOINT_0]D
-setp pid.x.FF0 [JOINT_0]FF0
-setp pid.x.FF1 [JOINT_0]FF1
-setp pid.x.FF2 [JOINT_0]FF2
-setp pid.x.BIAS [JOINT_0]BIAS
-setp pid.x.DEADBAND [JOINT_0]DEADBAND
-setp pid.x.maxoutput [JOINT_0]MAX_OUTPUT
+setp pid.x.P                      [JOINT_0]P
+setp pid.x.I                      [JOINT_0]I
+setp pid.x.D                      [JOINT_0]D
+setp pid.x.FF0                    [JOINT_0]FF0
+setp pid.x.FF1                    [JOINT_0]FF1
+setp pid.x.FF2                    [JOINT_0]FF2
+setp pid.x.bias                   [JOINT_0]BIAS
+setp pid.x.deadband               [JOINT_0]DEADBAND
+setp pid.x.maxoutput              [JOINT_0]MAX_OUTPUT
+# error-previous-target: use previous target in error calc — better servo behavior
+setp pid.x.error-previous-target  true
+# maxerror: clamp error before PID math — prevents windup on large following errors
+setp pid.x.maxerror               [JOINT_0]MAX_ERROR
 
-setp pid.y.P [JOINT_1]P
-setp pid.y.I [JOINT_1]I
-setp pid.y.D [JOINT_1]D
-setp pid.y.FF0 [JOINT_1]FF0
-setp pid.y.FF1 [JOINT_1]FF1
-setp pid.y.FF2 [JOINT_1]FF2
-setp pid.y.BIAS [JOINT_1]BIAS
-setp pid.y.DEADBAND [JOINT_1]DEADBAND
-setp pid.y.maxoutput [JOINT_1]MAX_OUTPUT
+setp pid.y.P                      [JOINT_1]P
+setp pid.y.I                      [JOINT_1]I
+setp pid.y.D                      [JOINT_1]D
+setp pid.y.FF0                    [JOINT_1]FF0
+setp pid.y.FF1                    [JOINT_1]FF1
+setp pid.y.FF2                    [JOINT_1]FF2
+setp pid.y.bias                   [JOINT_1]BIAS
+setp pid.y.deadband               [JOINT_1]DEADBAND
+setp pid.y.maxoutput              [JOINT_1]MAX_OUTPUT
+setp pid.y.error-previous-target  true
+setp pid.y.maxerror               [JOINT_1]MAX_ERROR
 
-setp pid.z.P [JOINT_2]P
-setp pid.z.I [JOINT_2]I
-setp pid.z.D [JOINT_2]D
-setp pid.z.FF0 [JOINT_2]FF0
-setp pid.z.FF1 [JOINT_2]FF1
-setp pid.z.FF2 [JOINT_2]FF2
-setp pid.z.BIAS [JOINT_2]BIAS
-setp pid.z.DEADBAND [JOINT_2]DEADBAND
-setp pid.z.maxoutput [JOINT_2]MAX_OUTPUT
+setp pid.z.P                      [JOINT_2]P
+setp pid.z.I                      [JOINT_2]I
+setp pid.z.D                      [JOINT_2]D
+setp pid.z.FF0                    [JOINT_2]FF0
+setp pid.z.FF1                    [JOINT_2]FF1
+setp pid.z.FF2                    [JOINT_2]FF2
+setp pid.z.bias                   [JOINT_2]BIAS
+setp pid.z.deadband               [JOINT_2]DEADBAND
+setp pid.z.maxoutput              [JOINT_2]MAX_OUTPUT
+setp pid.z.error-previous-target  true
+setp pid.z.maxerror               [JOINT_2]MAX_ERROR
+
+# Spindle PID — wired in motion_7i97t.hal once spindle feedback is confirmed.
+# Gains are zero until spindle feedback (resolver.03 or external encoder) is verified.
+setp pid.s.P                      [SPINDLE_0]P
+setp pid.s.I                      [SPINDLE_0]I
+setp pid.s.D                      [SPINDLE_0]D
+setp pid.s.FF0                    [SPINDLE_0]FF0
+setp pid.s.FF1                    [SPINDLE_0]FF1
+setp pid.s.FF2                    [SPINDLE_0]FF2
+setp pid.s.bias                   [SPINDLE_0]BIAS
+setp pid.s.deadband               [SPINDLE_0]DEADBAND
+setp pid.s.maxoutput              [SPINDLE_0]MAX_OUTPUT
+setp pid.s.error-previous-target  true
+setp pid.s.maxerror               [SPINDLE_0]MAX_ERROR
