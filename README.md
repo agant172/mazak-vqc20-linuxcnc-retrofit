@@ -69,8 +69,9 @@ Full rationale: [docs/architecture_decision.md](docs/architecture_decision.md).
   on the contingency list only if measurements show a signal-level/ratio mismatch.
 - Confirm 7i97T Ethernet setup: static IP, `hm2_eth` `board_ip`, and host NIC config.
 - Confirm the 7i84U smart-serial / field-I/O connection path off the 7i97T.
-- Confirm the 7i49-to-host connection path (which 50-pin connector carries the resolver
-  interface into the FPGA) and the matching firmware `num_resolvers`/`sserial` config.
+- Confirm the 7i49-to-host connection path (7i97T P2 26-pin expansion header to DB25
+  daughtercard path, or other verified adapter path) and the matching firmware
+  `num_resolvers`/`sserial` config.
 - Confirm 24 V field power feed and 7i97T/7i84U I/O sourcing/sinking behavior before wiring.
 - Capture cabinet photo set ([checklist](docs/cabinet_photo_checklist.md)).
 - Record X/Y/Z servo drive + Mitsubishi FR-SX spindle model/terminal labels.
