@@ -1,6 +1,6 @@
 # 7i84U remote field I/O for ATC, hydraulics, coolant, air, and utilities
 #
-# This assumes a 7i84U on the 7i97T smart-serial bus. Every hm2_7i97t.*.7i84.*
+# This assumes a 7i84U on the 7i97T smart-serial bus. Every hm2_7i97.*.7i84.*
 # name below is an UNVERIFIED PLACEHOLDER; the exact smart-serial device tag and
 # pin names differ by firmware and smart-serial port. Use `halcmd show pin hm2`
 # after loading the actual firmware, then replace the placeholder pin names.
@@ -9,21 +9,21 @@
 # 7i84U TB1 assumed inputs
 #####################################################################
 
-net tool-clamped <= hm2_7i97t.0.7i84.0.0.input-00
-net tool-unclamped <= hm2_7i97t.0.7i84.0.0.input-01
+net tool-clamped <= hm2_7i97.0.7i84.0.0.input-00
+net tool-unclamped <= hm2_7i97.0.7i84.0.0.input-01
 
-net atc-y-zone <= hm2_7i97t.0.7i84.0.0.input-02
-net atc-z-zone <= hm2_7i97t.0.7i84.0.0.input-03
+net atc-y-zone <= hm2_7i97.0.7i84.0.0.input-02
+net atc-z-zone <= hm2_7i97.0.7i84.0.0.input-03
 
-net mag-in-pos <= hm2_7i97t.0.7i84.0.0.input-04
-net tool-code-0 <= hm2_7i97t.0.7i84.0.0.input-05
-net tool-code-1 <= hm2_7i97t.0.7i84.0.0.input-06
-net tool-code-2 <= hm2_7i97t.0.7i84.0.0.input-07
-net tool-code-3 <= hm2_7i97t.0.7i84.0.0.input-08
-net tool-code-4 <= hm2_7i97t.0.7i84.0.0.input-09
+net mag-in-pos <= hm2_7i97.0.7i84.0.0.input-04
+net tool-code-0 <= hm2_7i97.0.7i84.0.0.input-05
+net tool-code-1 <= hm2_7i97.0.7i84.0.0.input-06
+net tool-code-2 <= hm2_7i97.0.7i84.0.0.input-07
+net tool-code-3 <= hm2_7i97.0.7i84.0.0.input-08
+net tool-code-4 <= hm2_7i97.0.7i84.0.0.input-09
 
-net coolant-low <= hm2_7i97t.0.7i84.0.0.input-10
-net air-ok      <= hm2_7i97t.0.7i84.0.0.input-11
+net coolant-low <= hm2_7i97.0.7i84.0.0.input-10
+net air-ok      <= hm2_7i97.0.7i84.0.0.input-11
 
 # Drive faults — in-12/13/14 (verify against Wiring Map before wiring)
 # amp-fault-in: if TRUE, motion module immediately aborts and enters E-stop.
@@ -31,29 +31,29 @@ net air-ok      <= hm2_7i97t.0.7i84.0.0.input-11
 # NC (fault = contact open), add invert_input setp for these GPIO. The Mitsubishi
 # HD81/HD101 ALM output is open-collector-active-low (fault = low/open), so the
 # 7i84U input reads 0 on fault — set invert_input 1 on these channels once wired.
-net x-drive-fault <= hm2_7i97t.0.7i84.0.0.input-12
+net x-drive-fault <= hm2_7i97.0.7i84.0.0.input-12
 net x-drive-fault => joint.0.amp-fault-in
-net y-drive-fault <= hm2_7i97t.0.7i84.0.0.input-13
+net y-drive-fault <= hm2_7i97.0.7i84.0.0.input-13
 net y-drive-fault => joint.1.amp-fault-in
-net z-drive-fault <= hm2_7i97t.0.7i84.0.0.input-14
+net z-drive-fault <= hm2_7i97.0.7i84.0.0.input-14
 net z-drive-fault => joint.2.amp-fault-in
 
 # VFD / spindle status
-# net spindle-at-spd    <= hm2_7i97t.0.7i84.0.0.input-15
-# net spindle-fault     <= hm2_7i97t.0.7i84.0.0.input-16
+# net spindle-at-spd    <= hm2_7i97.0.7i84.0.0.input-15
+# net spindle-fault     <= hm2_7i97.0.7i84.0.0.input-16
 
 # Machine status inputs
-# net door-closed       <= hm2_7i97t.0.7i84.0.0.input-24
-# net lube-ok           <= hm2_7i97t.0.7i84.0.0.input-25
-# net hydraulic-ok      <= hm2_7i97t.0.7i84.0.0.input-27
+# net door-closed       <= hm2_7i97.0.7i84.0.0.input-24
+# net lube-ok           <= hm2_7i97.0.7i84.0.0.input-25
+# net hydraulic-ok      <= hm2_7i97.0.7i84.0.0.input-27
 
 # Operator panel (uncomment once wired and panel input assignments confirmed)
-# net cycle-start-pb    <= hm2_7i97t.0.7i84.0.0.input-28
-# net single-block      <= hm2_7i97t.0.7i84.0.0.input-30
-# net servo-ready       <= hm2_7i97t.0.7i84.0.0.input-31
+# net cycle-start-pb    <= hm2_7i97.0.7i84.0.0.input-28
+# net single-block      <= hm2_7i97.0.7i84.0.0.input-30
+# net servo-ready       <= hm2_7i97.0.7i84.0.0.input-31
 #
 # Feed-hold button → motion.feed-hold. Uncomment once in-29 assignment is confirmed.
-# net feed-hold-pb      <= hm2_7i97t.0.7i84.0.0.input-29
+# net feed-hold-pb      <= hm2_7i97.0.7i84.0.0.input-29
 # net feed-hold-pb      => motion.feed-hold
 
 #####################################################################
@@ -63,35 +63,35 @@ net z-drive-fault => joint.2.amp-fault-in
 # WARNING: verify coil/load current and voltage. Use interposing relays or
 # output modules where required. Add suppression appropriate to each coil.
 
-net tool-unclamp-sol => hm2_7i97t.0.7i84.0.0.output-00
-net mag-cw-sol => hm2_7i97t.0.7i84.0.0.output-01
-net mag-ccw-sol => hm2_7i97t.0.7i84.0.0.output-02
+net tool-unclamp-sol => hm2_7i97.0.7i84.0.0.output-00
+net mag-cw-sol => hm2_7i97.0.7i84.0.0.output-01
+net mag-ccw-sol => hm2_7i97.0.7i84.0.0.output-02
 
-net mag-cover-open => hm2_7i97t.0.7i84.0.0.output-03
-net mag-cover-close => hm2_7i97t.0.7i84.0.0.output-04
+net mag-cover-open => hm2_7i97.0.7i84.0.0.output-03
+net mag-cover-close => hm2_7i97.0.7i84.0.0.output-04
 
 net flood-coolant <= iocontrol.0.coolant-flood
-net flood-coolant => hm2_7i97t.0.7i84.0.0.output-05
+net flood-coolant => hm2_7i97.0.7i84.0.0.output-05
 
 net mist-coolant <= iocontrol.0.coolant-mist
-net mist-coolant => hm2_7i97t.0.7i84.0.0.output-06
+net mist-coolant => hm2_7i97.0.7i84.0.0.output-06
 
-net air-blast-1 => hm2_7i97t.0.7i84.0.0.output-07
-net air-blast-2 => hm2_7i97t.0.7i84.0.0.output-08
-net tap-coolant => hm2_7i97t.0.7i84.0.0.output-09
-net work-light => hm2_7i97t.0.7i84.0.0.output-10
+net air-blast-1 => hm2_7i97.0.7i84.0.0.output-07
+net air-blast-2 => hm2_7i97.0.7i84.0.0.output-08
+net tap-coolant => hm2_7i97.0.7i84.0.0.output-09
+net work-light => hm2_7i97.0.7i84.0.0.output-10
 
 # Spindle FWD/REV/ENA via 7i84U (FR-SX VFD digital control)
 # net spindle-fwd    <= spindle.0.forward
-# net spindle-fwd    => hm2_7i97t.0.7i84.0.0.output-11
+# net spindle-fwd    => hm2_7i97.0.7i84.0.0.output-11
 # net spindle-rev    <= spindle.0.reverse
-# net spindle-rev    => hm2_7i97t.0.7i84.0.0.output-12
+# net spindle-rev    => hm2_7i97.0.7i84.0.0.output-12
 # net spindle-enable <= spindle.0.on
-# net spindle-enable => hm2_7i97t.0.7i84.0.0.output-13
+# net spindle-enable => hm2_7i97.0.7i84.0.0.output-13
 
 # Optional / spare outputs to assign after cabinet tracing.
-# net chip-conveyor-on => hm2_7i97t.0.7i84.0.0.output-14
-# net stack-green      => hm2_7i97t.0.7i84.0.0.output-15
+# net chip-conveyor-on => hm2_7i97.0.7i84.0.0.output-14
+# net stack-green      => hm2_7i97.0.7i84.0.0.output-15
 
 #####################################################################
 # ATC sequence placeholders
