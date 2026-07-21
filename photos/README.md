@@ -1,15 +1,28 @@
-# Photos
+# Mazak VQC-20 Photos
 
-Placeholder folder for cabinet and machine photos.
+Full photo archive stored on Google Drive (400+ photos and videos):
 
-**Do not commit raw photo/video files, OneDrive placeholder/cache files,
-`.DS_Store`, or NotebookLM HTML cache folders to this repository.** Large binaries
-bloat the git history and are better kept in cloud storage.
+📁 **[View Mazak Photos on Google Drive](https://drive.google.com/drive/folders/1YYpWPyWiRuoY2z5GACSDw6H3zzSQoVdf?usp=drive_link)**
 
-Keep the actual photo set organized outside the repo using the folder scheme and
-naming conventions in [`../docs/README_photo_sorting.md`](../docs/README_photo_sorting.md),
-and use [`../docs/cabinet_photo_checklist.md`](../docs/cabinet_photo_checklist.md) to
-decide what to capture.
+## Contents
 
-If any small, essential reference image ever needs to live in the repo, add it here
-deliberately and keep it compressed.
+| Folder | Description |
+|--------|-------------|
+| `01 Cabinet & Racks` | Electrical cabinet and rack assembly |
+| `02 Boards & PCBs` | Original Mazatrol boards and PCBs |
+| `03 Wiring & Cabling` | Wiring harnesses and cable routing |
+| `04 Connectors & Terminals` | Connector blocks and terminal strips |
+| `05 Drives & Power` | Servo drives and power supplies |
+| `06 Nameplates & Labels` | Machine nameplates and wiring labels |
+| `07 Machine & Exterior` | Full machine exterior shots |
+| `08 Other` | Miscellaneous |
+| `09 Screens & Diagnostics` | Mazatrol screen captures and diagnostics |
+| `Live Photo Motion` | Live Photo MP4 motion clips |
+| `Videos` | Full video walkthroughs and recordings |
+| `Manuals` | Reference PDFs |
+
+## Notes
+
+- Photos sourced from iPhone, organized by category
+- Formats: JPG, HEIC, JPEG, PNG, MOV, MP4
+- Original files also backed up to OneDrive
