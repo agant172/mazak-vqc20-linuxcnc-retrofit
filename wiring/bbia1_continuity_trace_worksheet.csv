@@ -1,0 +1,44 @@
+Connector	Pin	Wire_Label_Color	Traced_To_Connector	Traced_To_Pin_Terminal	Schematic_Guess_Signal	Verified_YN	Notes
+CNA1					Resolver feedback (per pg 82: "TO RESOLVER MACHINE SIDE")	N	20P connector; top row of BBIA-1, NC side
+CNA10					Resolver feedback / heat growth compensate amp	N	20P connector; top row of BBIA-1, NC side
+CND1					Unknown - top row NC side	N	50P; feeds down to CN7
+CND2					Unknown - top row NC side	N	50P; feeds down to CN2 (X-axis amp path, CA4)
+CND3					Unknown - top row NC side	N	50P; feeds down to CN6 (RC3A relay card, CA5)
+CND4					Unknown - top row NC side	N	50P; feeds down to CN200 (MMS receiver)
+CND5					Unknown - top row NC side	N	20P; feeds down to CN3 (Z-axis amp, CA1)
+CND23					Unknown - top row NC side	N	50P; feeds down to CN5 (CA6)
+CN8					Option connector	N	50P; option, feeds down to CN1 (CA3, X/Y axis amp)
+CN1					Per pg 82: CA3 destination	N	20P; bottom row, machine side
+CN2					Per pg 82: CA4 (X-axis amp)	N	30P; bottom row, machine side - PHOTOGRAPHED loose, ready to trace
+CN3					Per pg 82: CA1 (Z-axis amp)	N	50P; bottom row, machine side - PHOTOGRAPHED loose, ready to trace
+CN4					Per pg 82: Spindle Controller CON1/CON5	N	20P; bottom row - already cross-referenced via pg 127 FR-SX pinout
+CN5					Per pg 82: CA6	N	20P; bottom row, machine side - PHOTOGRAPHED loose, ready to trace
+CN6					Per pg 82: CA5 -> RC3A Relay Card (CN3/CN301A)	N	50P; bottom row - already partly cross-referenced via pg 75
+CN7					Per pg 82: TB-1 (CB Panel)	N	50P; bottom row, machine side
+CN11					Per pg 82: SSR Board CON1	N	20P; bottom row, machine side
+CN12					Per pg 82: SSR Board CON5	N	20P; bottom row, machine side
+CN200					Per pg 82: MMS Receiver / Renishaw probe	N	20P; bottom row, machine side
+X_AXIS_AMP_TERM	AX				Armature lead A	N	Confirmed physically - MELDAS DK-427, X position
+X_AXIS_AMP_TERM	BX				Armature lead B	N	Confirmed physically
+X_AXIS_AMP_TERM	G1X				Tacho-generator lead 1	N	Confirmed physically
+X_AXIS_AMP_TERM	G2X				Tacho-generator lead 2	N	Confirmed physically
+X_AXIS_AMP_TERM	AC100A				100VAC supply	N	Confirmed physically
+X_AXIS_AMP_TERM	AC100B				100VAC supply	N	Confirmed physically
+X_AXIS_AMP_TERM	N				DC bus negative	N	Confirmed physically
+X_AXIS_AMP_TERM	P				DC bus positive	N	Confirmed physically
+Y_AXIS_AMP_TERM	AY				Armature lead A	N	Confirmed physically - MELDAS DK-427, Y position
+Y_AXIS_AMP_TERM	BY				Armature lead B	N	Confirmed physically
+Y_AXIS_AMP_TERM	G1Y				Tacho-generator lead 1	N	Confirmed physically
+Y_AXIS_AMP_TERM	G2Y				Tacho-generator lead 2	N	Confirmed physically
+Y_AXIS_AMP_TERM	AC100A				100VAC supply	N	Confirmed physically
+Y_AXIS_AMP_TERM	AC100B				100VAC supply	N	Confirmed physically
+Y_AXIS_AMP_TERM	N				DC bus negative	N	Confirmed physically
+Y_AXIS_AMP_TERM	P				DC bus positive	N	Confirmed physically
+Z_AXIS_AMP_TERM	AZ				Armature lead A	N	Not yet photographed - MELDAS DK-427, Z position
+Z_AXIS_AMP_TERM	BZ				Armature lead B	N	Not yet photographed
+Z_AXIS_AMP_TERM	G1Z				Tacho-generator lead 1	N	Not yet photographed
+Z_AXIS_AMP_TERM	G2Z				Tacho-generator lead 2	N	Not yet photographed
+Z_AXIS_AMP_TERM	AC100A				100VAC supply	N	Not yet photographed
+Z_AXIS_AMP_TERM	AC100B				100VAC supply	N	Not yet photographed
+Z_AXIS_AMP_TERM	N				DC bus negative	N	Not yet photographed
+Z_AXIS_AMP_TERM	P				DC bus positive	N	Not yet photographed

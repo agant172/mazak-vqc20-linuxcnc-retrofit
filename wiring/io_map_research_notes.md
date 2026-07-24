@@ -1,13 +1,20 @@
 # Mazak VQC 20/40 → Mesa I/O Map (working draft)
 
 > **Import note:** brought into the repo as a cross-reference layer against
-> [`../mesa/signal_map.csv`](../mesa/signal_map.csv) (this doc's own
-> reconciliation section refers to that file as `current_pin_authority.csv`).
+> [`../mesa/current_pin_authority.csv`](../mesa/current_pin_authority.csv),
+> which this doc's own reconciliation section below refers to by that same
+> name (that file has since landed in the repo separately from this import).
+> See also [`authority_conflicts.md`](authority_conflicts.md) for open
+> conflicts the authority table already tracks, some of which overlap this
+> doc's own open items (gear-shift confirm, tool clamp/unclamp valve,
+> magazine rotation direction).
+>
 > One correction applied on import: the "Confirmed so far" table below
 > originally swapped PRS-8/PRS-9 (tool clamp vs. unclamp) relative to both
 > this doc's own later OCR-sourced table (`TUCPRS` = PRS-8 = tool unclamp)
-> and `signal_map.csv` (`TOOL_CLAMPED` = PRS-9, `TOOL_UNCLAMPED` = PRS-8).
-> Fixed below so the doc is internally consistent and matches the CSV.
+> and `current_pin_authority.csv` (`TOOL_CLAMP_CONF` = PRS-9,
+> `TOOL_UNCLAMP_CONF` = PRS-8). Fixed below so the doc is internally
+> consistent and matches the authority table.
 
 Source docs: `413m033.pdf` (Maintenance Manual, Section 4 Hydraulics / Section 5
 Switches), `413S038.pdf` (Operating Manual, VQC-20/40 & 20/50), cross-checked

@@ -1,0 +1,91 @@
+signal_id,subsystem,direction,mesa_card,connector,pin_channel,hal_net,field_point_or_load,authority_status,primary_source,cleanup_notes
+X_RESOLVER,Motion,RESOLVER_IN,7i49,Resolver channel,RES0,x-pos-fb,Tamagawa TS2014N X resolver,COMMISSIONING_PENDING,motion_7i97t.hal,Ohmmeter winding pairs and scope return before power
+Y_RESOLVER,Motion,RESOLVER_IN,7i49,Resolver channel,RES1,y-pos-fb,Tamagawa TS2014N Y resolver,COMMISSIONING_PENDING,motion_7i97t.hal,Ohmmeter winding pairs and scope return before power
+Z_RESOLVER,Motion,RESOLVER_IN,7i49,Resolver channel,RES2,z-pos-fb,Tamagawa TS2014N Z resolver,COMMISSIONING_PENDING,motion_7i97t.hal,Ohmmeter winding pairs and scope return before power
+SPINDLE_ENCODER_RESERVED,Spindle,ENCODER_IN,7i97T,TB2,encoder.03,spindle-pos-fb,Machine-side spindle encoder if fitted,RESERVED_VERIFY,motion_7i97t.hal,Spindle is not resolver channel 03
+TB2_AXIS_ENCODERS,Motion,ENCODER_IN,7i97T,TB2,TB2.1-TB2.9,none,Axis encoder inputs,NOT_USED,archived_wiring_map,Axis feedback is 7i49 resolver not quadrature encoder
+X_DRIVE_ENABLE,Motion,OUT,7i97T,TB3,TB3.1 ENA0- and TB3.2 ENA0+,x-enable,X servo S-ON,COMMISSIONING_PENDING,motion_7i97t.hal,Confirm drive terminal and enable polarity
+X_AXIS_CMD,Motion,ANALOG_OUT,7i97T,TB3,TB3.3 GND and TB3.4 AOUT0,x-vel-cmd,X servo analog command,COMMISSIONING_PENDING,motion_7i97t.hal,pwmgen.00 maps to X
+Z_DRIVE_ENABLE,Motion,OUT,7i97T,TB3,TB3.5 ENA1- and TB3.6 ENA1+,z-enable,Z servo S-ON,COMMISSIONING_PENDING,motion_7i97t.hal,Confirm drive terminal and enable polarity
+Z_AXIS_CMD,Motion,ANALOG_OUT,7i97T,TB3,TB3.7 GND and TB3.8 AOUT1,z-vel-cmd,Z servo analog command,COMMISSIONING_PENDING,motion_7i97t.hal,pwmgen.01 maps to Z
+Y_DRIVE_ENABLE,Motion,OUT,7i97T,TB3,TB3.9 ENA2- and TB3.10 ENA2+,y-enable,Y servo S-ON,COMMISSIONING_PENDING,motion_7i97t.hal,Confirm drive terminal and enable polarity
+Y_AXIS_CMD,Motion,ANALOG_OUT,7i97T,TB3,TB3.11 GND and TB3.12 AOUT2,y-vel-cmd,Y servo analog command,COMMISSIONING_PENDING,motion_7i97t.hal,pwmgen.02 maps to Y
+SPINDLE_TB3_ENABLE_CANDIDATE,Spindle,OUT,7i97T,TB3,TB3.13 ENA3- and TB3.14 ENA3+,spindle-enable,VFD FWD or RUN candidate,HOLD_CONFLICT,archived_wiring_map,Conflicts with 7i84U spindle FWD REV ENA plan
+SPINDLE_SPEED_CMD,Spindle,ANALOG_OUT,7i97T,TB3,TB3.15 GND and TB3.16 AOUT3,spindle-speed-cmd,FR-SX V-IN speed reference,COMMISSIONING_PENDING,motion_7i97t.hal,Confirm 0-10V versus bipolar command mode
+SSERIAL_GND_A,Field I/O,LINK,7i97T,TB4,TB4.13,none,7i84U RJ45 pin 4 ground,ACCEPTED,archived_wiring_map,Use absolute TB4 pin numbers not Phase 2 TB4.1-TB4.6
+SSERIAL_GND_B,Field I/O,LINK,7i97T,TB4,TB4.14,none,7i84U RJ45 pin 5 ground,ACCEPTED,archived_wiring_map,Shield drain to 7i97T end only
+SSERIAL_RX_PLUS,Field I/O,LINK,7i97T,TB4,TB4.15 RX+,none,7i84U RJ45 pin 6 TX+,ACCEPTED,archived_wiring_map,TX RX labels are from each card perspective
+SSERIAL_RX_MINUS,Field I/O,LINK,7i97T,TB4,TB4.16 RX-,none,7i84U RJ45 pin 3 TX-,ACCEPTED,archived_wiring_map,Verify continuity before power
+SSERIAL_TX_PLUS,Field I/O,LINK,7i97T,TB4,TB4.17 TX+,none,7i84U RJ45 pin 2 RX+,ACCEPTED,archived_wiring_map,Verify continuity before power
+SSERIAL_TX_MINUS,Field I/O,LINK,7i97T,TB4,TB4.18 TX-,none,7i84U RJ45 pin 1 RX-,ACCEPTED,archived_wiring_map,Verify continuity before power
+SSERIAL_5V_A,Field I/O,LINK,7i97T,TB4,TB4.19 +5V,none,7i84U RJ45 pin 7 serial power,ACCEPTED,archived_wiring_map,Confirm with 7i84U manual before landing
+SSERIAL_5V_B,Field I/O,LINK,7i97T,TB4,TB4.20 +5V,none,7i84U RJ45 pin 8 serial power,ACCEPTED,archived_wiring_map,Confirm with 7i84U manual before landing
+X_LIMIT_PLUS,Axis safety,IN,7i97T,TB5,TB5.1 IN0 gpio.008,limit-x-plus,X positive overtravel limit,ACCEPTED_VERIFY,motion_7i97t.hal,signal_map.csv old row is stale
+X_LIMIT_MINUS,Axis safety,IN,7i97T,TB5,TB5.2 IN1 gpio.009,limit-x-minus,X negative overtravel limit,ACCEPTED_VERIFY,motion_7i97t.hal,signal_map.csv old row is stale
+Y_LIMIT_PLUS,Axis safety,IN,7i97T,TB5,TB5.3 IN2 gpio.010,limit-y-plus,Y positive overtravel limit,ACCEPTED_VERIFY,motion_7i97t.hal,signal_map.csv old row is stale
+Y_LIMIT_MINUS,Axis safety,IN,7i97T,TB5,TB5.4 IN3 gpio.011,limit-y-minus,Y negative overtravel limit,ACCEPTED_VERIFY,motion_7i97t.hal,signal_map.csv old row is stale
+Z_LIMIT_PLUS,Axis safety,IN,7i97T,TB5,TB5.5 IN4 gpio.012,limit-z-plus,Z positive overtravel limit,ACCEPTED_VERIFY,motion_7i97t.hal,signal_map.csv old row is stale
+Z_LIMIT_MINUS,Axis safety,IN,7i97T,TB5,TB5.6 IN5 gpio.013,limit-z-minus,Z negative overtravel limit,ACCEPTED_VERIFY,motion_7i97t.hal,signal_map.csv old row is stale
+X_HOME,Axis safety,IN,7i97T,TB5,TB5.7 IN6 gpio.014,home-x,X home switch,ACCEPTED_VERIFY,motion_7i97t.hal,signal_map.csv old row is stale
+Y_HOME,Axis safety,IN,7i97T,TB5,TB5.8 IN7 gpio.015,home-y,Y home switch,ACCEPTED_VERIFY,motion_7i97t.hal,signal_map.csv old row is stale
+Z_HOME,Axis safety,IN,7i97T,TB5,TB5.9 IN8 gpio.016,home-z,Z home switch,ACCEPTED_VERIFY,motion_7i97t.hal,signal_map.csv old row is stale
+ESTOP_CHAIN,Safety,IN,7i97T,TB5,TB5.10 IN9 gpio.017,estop-ext,External E-stop chain monitor,ACCEPTED_VERIFY,motion_7i97t.hal,Hardware safety chain must still remove hazardous power
+TB5_FIELD_GND,Power,POWER,7i97T,TB5,TB5.11 GND,none,24V field common,COMMISSIONING_PENDING,archived_wiring_map,Confirm field common and fusing
+TB5_FIELD_24V,Power,POWER,7i97T,TB5,TB5.12 +VFIELD,none,24V field supply,COMMISSIONING_PENDING,archived_wiring_map,Confirm supply capacity and fusing
+AIR_BLAST,Air,OUT,7i97T,TB5 SSR,TB5.13-TB5.14 SSR OUT0 gpio.020,air-blast,SOL-62 via RLY-5,COMMISSIONING_PENDING,archived_wiring_map,Overflow output using relay for 100VAC coil
+TOUCH_SENSOR_BLAST,Air,OUT,7i97T,TB5 SSR,TB5.15-TB5.16 SSR OUT1 gpio.021,touch-sensor-blast,SOL-35 via RLY-6,COMMISSIONING_PENDING,archived_wiring_map,Overflow output using relay for 100VAC coil
+TAP_COOLANT_BLAST,Coolant,OUT,7i97T,TB5 SSR,TB5.17-TB5.18 SSR OUT2 gpio.022,tap-coolant-blast,SOL-61 via RLY-7,COMMISSIONING_PENDING,archived_wiring_map,Overflow output using relay for 100VAC coil
+TB5_SSR_OUT3_SPARE,Spare,OUT,7i97T,TB5 SSR,TB5.19-TB5.20 SSR OUT3 gpio.023,none,Spare SSR output,SPARE,archived_wiring_map,Keep unassigned
+TB5_SSR_OUT4_SPARE,Spare,OUT,7i97T,TB5 SSR,TB5.21-TB5.22 SSR OUT4 gpio.024,none,Spare SSR output,SPARE,archived_wiring_map,Keep unassigned
+TB5_SSR_OUT5_SPARE,Spare,OUT,7i97T,TB5 SSR,TB5.23-TB5.24 SSR OUT5 gpio.025,none,Spare SSR output,SPARE,archived_wiring_map,Keep unassigned
+SEVENI84U_FIELD_A_24V,Power,POWER,7i84U,TB1,TB1 pin 1 + and pin 2 -,none,Field power bank A,COMMISSIONING_PENDING,archived_wiring_map,Powers outputs 0-7 and inputs 0-15
+SEVENI84U_FIELD_B_24V,Power,POWER,7i84U,TB1,TB1 pin 3 + and pin 4 -,none,Field power bank B,COMMISSIONING_PENDING,archived_wiring_map,Powers outputs 8-15 and inputs 16-31
+ATC_ZONE_Y,ATC interlock,IN,7i84U,TB1,IN0,atc-y-zone,PRS-55 Y ATC zone,COMMISSIONING_PENDING,archived_wiring_map,Update field_7i84u.hal because it currently uses input-02
+ATC_ZONE_Z,ATC interlock,IN,7i84U,TB1,IN1,atc-z-zone,PRS-66 Z ATC zone,COMMISSIONING_PENDING,archived_wiring_map,Update field_7i84u.hal because it currently uses input-03
+MAG_TOOL_AVAILABLE,ATC interlock,IN,7i84U,TB1,IN2,mag-tool-avail,PHS-181 magazine tool available,COMMISSIONING_PENDING,phase2_plan,Add HAL net when confirmed
+SPINDLE_TOOL_AVAILABLE,ATC interlock,IN,7i84U,TB1,IN3,spindle-tool-avail,PHS-182 spindle tool available,COMMISSIONING_PENDING,phase2_plan,Add HAL net when confirmed
+SEVENI84U_IN4_SPARE,Spare,IN,7i84U,TB1,IN4,none,Spare input,SPARE,archived_wiring_map,Keep for future field signal
+SEVENI84U_IN5_SPARE,Spare,IN,7i84U,TB1,IN5,none,Spare input,SPARE,archived_wiring_map,Keep for future field signal
+SEVENI84U_IN6_SPARE,Spare,IN,7i84U,TB1,IN6,none,Spare input,SPARE,archived_wiring_map,Keep for future field signal
+SEVENI84U_IN7_SPARE,Spare,IN,7i84U,TB1,IN7,none,Spare input,SPARE,archived_wiring_map,Keep for future field signal
+SEVENI84U_IN8_SPARE,Spare,IN,7i84U,TB1,IN8,none,Spare input,SPARE,archived_wiring_map,Keep for future field signal
+SEVENI84U_IN9_SPARE,Spare,IN,7i84U,TB1,IN9,none,Spare input,SPARE,archived_wiring_map,Keep for future field signal
+X_DRIVE_FAULT,Drive safety,IN,7i84U,TB1,IN10,x-drive-fault,X drive fault relay,COMMISSIONING_PENDING,archived_wiring_map,Update field_7i84u.hal because it currently uses input-12
+Y_DRIVE_FAULT,Drive safety,IN,7i84U,TB1,IN11,y-drive-fault,Y drive fault relay,COMMISSIONING_PENDING,archived_wiring_map,Update field_7i84u.hal because it currently uses input-13
+Z_DRIVE_FAULT,Drive safety,IN,7i84U,TB1,IN12,z-drive-fault,Z drive fault relay,COMMISSIONING_PENDING,archived_wiring_map,Update field_7i84u.hal because it currently uses input-14
+SPINDLE_AT_SPEED,Spindle safety,IN,7i84U,TB1,IN13,spindle-at-speed,FR-SX speed reach output,COMMISSIONING_PENDING,archived_wiring_map,Confirm VFD terminal and polarity
+SPINDLE_FAULT,Spindle safety,IN,7i84U,TB1,IN14,spindle-fault,FR-SX fault output,COMMISSIONING_PENDING,archived_wiring_map,Confirm VFD terminal and polarity
+TOOL_CLAMP_CONF,ATC tool,IN,7i84U,TB1,IN15,tool-clamped,PRS-9 tool clamp confirm,COMMISSIONING_PENDING,archived_wiring_map,Update field_7i84u.hal because it currently uses input-00
+TOOL_UNCLAMP_CONF,ATC tool,IN,7i84U,TB1,IN16,tool-unclamped,PRS-8 tool unclamp confirm,COMMISSIONING_PENDING,archived_wiring_map,Update field_7i84u.hal because it currently uses input-01
+GEAR_HI_CONF,Spindle gear,IN,7i84U,TB1,IN17,gear-hi-conf,PRS-10 gear high confirm,COMMISSIONING_PENDING,archived_wiring_map,Add HAL net when confirmed
+GEAR_LO_CONF,Spindle gear,IN,7i84U,TB1,IN18,gear-lo-conf,PRS-12 gear low confirm,COMMISSIONING_PENDING,archived_wiring_map,Add HAL net when confirmed
+MAG_BCD_BIT0,Magazine,IN,7i84U,TB1,IN19,mag-bcd-bit0,PRS-21 magazine BCD bit 0,COMMISSIONING_PENDING,archived_wiring_map,Decode with bcd2s or custom mux
+MAG_BCD_BIT1,Magazine,IN,7i84U,TB1,IN20,mag-bcd-bit1,PRS-22 magazine BCD bit 1,COMMISSIONING_PENDING,archived_wiring_map,Decode with bcd2s or custom mux
+MAG_BCD_BIT2,Magazine,IN,7i84U,TB1,IN21,mag-bcd-bit2,PRS-23 magazine BCD bit 2,COMMISSIONING_PENDING,archived_wiring_map,Decode with bcd2s or custom mux
+MAG_BCD_BIT3,Magazine,IN,7i84U,TB1,IN22,mag-bcd-bit3,PRS-24 magazine BCD bit 3,COMMISSIONING_PENDING,archived_wiring_map,Decode with bcd2s or custom mux
+MAG_BCD_BIT4,Magazine,IN,7i84U,TB1,IN23,mag-bcd-bit4,PRS-25 magazine BCD bit 4,COMMISSIONING_PENDING,archived_wiring_map,Decode with bcd2s or custom mux
+DOOR_INTERLOCK,Safety,IN,7i84U,TB1,IN24,door-interlock,Door interlock switch,COMMISSIONING_PENDING,archived_wiring_map,Choose door-open versus door-closed net after normal state is measured
+LUBE_LEVEL,Utility,IN,7i84U,TB1,IN25,lube-level,Lube level switch,COMMISSIONING_PENDING,archived_wiring_map,Choose low versus ok net after normal state is measured
+COOLANT_LEVEL,Coolant,IN,7i84U,TB1,IN26,coolant-level,Coolant level switch,COMMISSIONING_PENDING,archived_wiring_map,Choose low versus ok net after normal state is measured
+HYD_PRESS_OK,Hydraulic safety,IN,7i84U,TB1,IN27,hydraulic-ok,Sanwa SPS-8T-PC-20 pressure switch,COMMISSIONING_PENDING,phase2_plan,This supersedes stale signal_map.csv TB5 IN16 row
+CYCLE_START_PB,Panel,IN,7i84U,TB1,IN28,cycle-start-pb,Operator cycle start pushbutton,OPTIONAL_VERIFY,archived_wiring_map,Panel reuse optional
+FEED_HOLD_PB,Panel,IN,7i84U,TB1,IN29,feed-hold-pb,Operator feed hold pushbutton,OPTIONAL_VERIFY,archived_wiring_map,Panel reuse optional
+SINGLE_BLOCK_SW,Panel,IN,7i84U,TB1,IN30,single-block,Operator single block selector,OPTIONAL_VERIFY,archived_wiring_map,Panel reuse optional
+SERVO_READY,Drive safety,IN,7i84U,TB1,IN31,servo-ready,Servo drives ready relay contact,COMMISSIONING_PENDING,archived_wiring_map,Wire before first motion if available
+SPINDLE_FWD,Spindle,OUT,7i84U,TB2,OUT0,spindle-fwd,FR-SX forward input,COMMISSIONING_PENDING,archived_wiring_map,Resolve against TB3 spindle enable candidate
+SPINDLE_REV,Spindle,OUT,7i84U,TB2,OUT1,spindle-rev,FR-SX reverse input,COMMISSIONING_PENDING,archived_wiring_map,Resolve against TB3 spindle enable candidate
+SPINDLE_ENA,Spindle,OUT,7i84U,TB2,OUT2,spindle-ena,FR-SX enable input,COMMISSIONING_PENDING,archived_wiring_map,Resolve against TB3 spindle enable candidate
+SEVENI84U_OUT3_SPARE,Spare,OUT,7i84U,TB2,OUT3,none,Spare output,SPARE,archived_wiring_map,Drive S-ON handled by 7i97T TB3
+SEVENI84U_OUT4_SPARE,Spare,OUT,7i84U,TB2,OUT4,none,Spare output,SPARE,archived_wiring_map,Drive S-ON handled by 7i97T TB3
+SEVENI84U_OUT5_SPARE,Spare,OUT,7i84U,TB2,OUT5,none,Spare output,SPARE,archived_wiring_map,Drive S-ON handled by 7i97T TB3
+Z_BRAKE_REL,Motion,OUT,7i84U,TB2,OUT6,z-brake-rel,N1J-L2-201 Z brake release,COMMISSIONING_PENDING,phase2_plan,Add flyback diode or suitable suppression
+GEAR_HI_SOL,Spindle gear,OUT,7i84U,TB2,OUT7,gear-hi-sol,RLY-1 to SOL-13 Fujikoshi hydraulic valve,COMMISSIONING_PENDING,phase2_plan,Measure coil voltage before selecting relay contacts
+GEAR_LO_SOL,Spindle gear,OUT,7i84U,TB2,OUT8,gear-lo-sol,RLY-2 to SOL-12 Fujikoshi hydraulic valve,HOLD_CONFLICT,phase2_plan,Conflict: connector_crossref.md omits SOL-12 and identifies SOL-13 as low; verify both gear-shift coils before wiring
+TOOL_CLAMP_SOL,ATC tool,OUT,7i84U,TB2,OUT9,tool-clamp-sol,RLY-3 to SOL-10 Fujikoshi hydraulic valve,COMMISSIONING_PENDING,phase2_plan,Confirm single valve versus dual coil behavior
+TOOL_UNCLAMP_SOL,ATC tool,OUT,7i84U,TB2,OUT10,tool-unclamp-sol,RLY-4 to SOL-10 Fujikoshi hydraulic valve,COMMISSIONING_PENDING,phase2_plan,Evidence supports SOL-10 tool unclamp; verify relay path and whether the valve is single-coil or dual-coil before energizing
+COOLANT_ON,Coolant,OUT,7i84U,TB2,OUT11,flood-coolant,Coolant pump relay,COMMISSIONING_PENDING,archived_wiring_map,May need interposing relay
+LUBE_ON,Utility,OUT,7i84U,TB2,OUT12,lube-on,Lube pump relay,COMMISSIONING_PENDING,archived_wiring_map,May need interposing relay
+ATC_FWD,ATC motor,OUT,7i84U,TB2,OUT13,atc-fwd,ATC motor forward relay,COMMISSIONING_PENDING,archived_wiring_map,Do not energize before interlocks are proven
+ATC_REV,ATC motor,OUT,7i84U,TB2,OUT14,atc-rev,ATC motor reverse relay,COMMISSIONING_PENDING,archived_wiring_map,Do not energize before interlocks are proven
+ALARM_OUT,Panel,OUT,7i84U,TB2,OUT15,alarm-out,Alarm light or horn,OPTIONAL_VERIFY,archived_wiring_map,Confirm load and behavior
+SECOND_SSERIAL_CARD,Expansion,REVIEW,none,none,none,none,Additional 7i84 or equivalent,HOLD_NOT_ORDERED,phase2_conflict_review,Do not buy until final input count proves it is needed
