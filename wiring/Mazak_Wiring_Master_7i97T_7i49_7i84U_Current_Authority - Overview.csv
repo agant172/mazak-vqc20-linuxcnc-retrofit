@@ -1,0 +1,11 @@
+Mazak VQC-20/40 Wiring Master — Current Pin Authority,
+Machine,"Mazak VQC-20/40, S/N 060231"
+Current architecture,LinuxCNC + Mesa 7i97T + Mesa 7i49 resolver interface + Mesa 7i84U field I/O
+Source of truth,/Users/andygant/GitHub/Github LinuxCNC/mesa/current_pin_authority.csv
+Generated,2026-07-18
+Status rule,COMMISSIONING_PENDING and ACCEPTED_VERIFY require cabinet verification before wiring or energizing outputs. HOLD_CONFLICT requires resolution first.
+Feedback rule,"Axis feedback is Tamagawa resolver feedback through the 7i49, not quadrature encoder feedback."
+Safety rule,The hardware E-stop chain removes hazardous power. Mesa TB5.10 is a monitor input only.
+Channel order,"TB3 analog axis order is X=0, Z=1, Y=2."
+Included diagrams,7i97T terminal map; 7i49 resolver map; 7i84U field I/O; HAL cross-reference; open items/conflicts.
+Original workbook,The prior workbook remains unchanged as the backup/reference copy.
