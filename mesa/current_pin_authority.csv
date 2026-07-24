@@ -80,9 +80,9 @@ SEVENI84U_OUT4_SPARE,Spare,OUT,7i84U,TB2,OUT4,none,Spare output,SPARE,archived_w
 SEVENI84U_OUT5_SPARE,Spare,OUT,7i84U,TB2,OUT5,none,Spare output,SPARE,archived_wiring_map,Drive S-ON handled by 7i97T TB3
 Z_BRAKE_REL,Motion,OUT,7i84U,TB2,OUT6,z-brake-rel,N1J-L2-201 Z brake release,COMMISSIONING_PENDING,phase2_plan,Add flyback diode or suitable suppression
 GEAR_HI_SOL,Spindle gear,OUT,7i84U,TB2,OUT7,gear-hi-sol,RLY-1 to SOL-13 Fujikoshi hydraulic valve,COMMISSIONING_PENDING,phase2_plan,Measure coil voltage before selecting relay contacts
-GEAR_LO_SOL,Spindle gear,OUT,7i84U,TB2,OUT8,gear-lo-sol,RLY-2 to SOL-12 Fujikoshi hydraulic valve,COMMISSIONING_PENDING,phase2_plan,Measure coil voltage before selecting relay contacts
+GEAR_LO_SOL,Spindle gear,OUT,7i84U,TB2,OUT8,gear-lo-sol,RLY-2 to SOL-12 Fujikoshi hydraulic valve,HOLD_CONFLICT,phase2_plan,Conflict: connector_crossref.md omits SOL-12 and identifies SOL-13 as low; verify both gear-shift coils before wiring
 TOOL_CLAMP_SOL,ATC tool,OUT,7i84U,TB2,OUT9,tool-clamp-sol,RLY-3 to SOL-10 Fujikoshi hydraulic valve,COMMISSIONING_PENDING,phase2_plan,Confirm single valve versus dual coil behavior
-TOOL_UNCLAMP_SOL,ATC tool,OUT,7i84U,TB2,OUT10,tool-unclamp-sol,RLY-4 to SOL-10 Fujikoshi hydraulic valve,COMMISSIONING_PENDING,phase2_plan,Confirm single valve versus dual coil behavior
+TOOL_UNCLAMP_SOL,ATC tool,OUT,7i84U,TB2,OUT10,tool-unclamp-sol,RLY-4 to SOL-10 Fujikoshi hydraulic valve,COMMISSIONING_PENDING,phase2_plan,Evidence supports SOL-10 tool unclamp; verify relay path and whether the valve is single-coil or dual-coil before energizing
 COOLANT_ON,Coolant,OUT,7i84U,TB2,OUT11,flood-coolant,Coolant pump relay,COMMISSIONING_PENDING,archived_wiring_map,May need interposing relay
 LUBE_ON,Utility,OUT,7i84U,TB2,OUT12,lube-on,Lube pump relay,COMMISSIONING_PENDING,archived_wiring_map,May need interposing relay
 ATC_FWD,ATC motor,OUT,7i84U,TB2,OUT13,atc-fwd,ATC motor forward relay,COMMISSIONING_PENDING,archived_wiring_map,Do not energize before interlocks are proven

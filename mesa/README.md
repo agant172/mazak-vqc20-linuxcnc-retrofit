@@ -4,7 +4,8 @@
 
 The remaining `COMMISSIONING_PENDING`, `ACCEPTED_VERIFY`, and `HOLD_CONFLICT`
 entries are cabinet-verification and commissioning tasks; they do not mean the
-mapping documentation is incomplete.
+mapping documentation is incomplete. `HOLD_CONFLICT` rows must not be wired or
+energized until the conflict register and cabinet trace are complete.
 
 Use `current_pin_authority.csv` as the current pin-planning source for the Mazak
 VQC 20/40 retrofit.

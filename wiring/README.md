@@ -1,14 +1,22 @@
 # Wiring and I/O Planning
 
 This folder holds wiring and field-I/O planning references for the Mazak VQC 20/40
-retrofit. The authoritative signal-to-Mesa mapping currently lives in the Mesa
-folder and is mirrored conceptually here for wiring planning.
+retrofit. The current pin authority lives in the Mesa folder and is mirrored
+conceptually here for wiring planning.
 
 ## Key references
 
-- Master signal map: [`../mesa/signal_map.csv`](../mesa/signal_map.csv) — maps each
-  machine signal to its subsystem, direction, Mesa card/connector/bit, and the
-  LinuxCNC HAL net used in the skeleton HAL files.
+- Consolidated wiring master: [`Mazak_Wiring_Master_7i97T_7i49_7i84U.xlsx`](Mazak_Wiring_Master_7i97T_7i49_7i84U.xlsx)
+  — current 7i97T / 7i49 / 7i84U wiring workbook with imported legacy/reference tabs
+  clearly separated from current actionable wiring. Phase 2 cabinet-sequence,
+  BOM-gap, hydraulic/ATC, and conflict-review tabs are integrated as planning
+  aids; check the conflict-review tab before changing final pin assignments.
+- Current pin authority: [`../mesa/current_pin_authority.csv`](../mesa/current_pin_authority.csv)
+  — current table for connector, pin/channel, HAL net, status, source basis, and
+  cleanup notes. This supersedes stale rows in `signal_map.csv`.
+- Legacy signal map: [`../mesa/signal_map.csv`](../mesa/signal_map.csv) — older
+  companion map. Keep it for comparison until it is regenerated from the current
+  authority table.
 - I/O workbook: [`../bom/Mazak_VQC_20-40_Retrofit_IO_Workbook.xlsx`](../bom/Mazak_VQC_20-40_Retrofit_IO_Workbook.xlsx)
   — full I/O planning spreadsheet the skeleton was generated from.
 - Cabinet photo checklist: [`../docs/cabinet_photo_checklist.md`](../docs/cabinet_photo_checklist.md)
@@ -16,13 +24,18 @@ folder and is mirrored conceptually here for wiring planning.
 - Sister-machine wiring reference: [SRDCO MazakVQC1540 complete 2017 reference package](https://github.com/srdco/MazakVQC1540/tree/master/MAZAK-VQC1540-20170501)
   — full 2017-05-01 config/wiring snapshot from the VQC 15/40 build; cross-check winding
   pairs, resolver/drive wiring, and HAL nets against this before finalizing.
+- [Authority conflicts](authority_conflicts.md) — unresolved solenoid and magazine-direction conflicts that must be cleared before affected outputs are wired.
 
 ## Status
 
-All wiring assignments are **planning-stage / inferred**. Terminal labels, wire
-numbers, normal states (NO/NC), and drive/encoder pinouts must be traced and
-confirmed in the cabinet before any wiring or bring-up. See the `Status` column in
-`signal_map.csv` for per-signal confidence (Confirmed / Inferred / Verify in cabinet).
+**I/O mapping documentation: COMPLETE.** The current wiring assignments and
+cross-references are documented in the authority workbook and
+`../mesa/current_pin_authority.csv`.
+
+Terminal labels, wire numbers, normal states (NO/NC), and drive/encoder pinouts
+still require cabinet verification before any wiring or bring-up. See the
+`authority_status` column in `../mesa/current_pin_authority.csv` for per-signal
+verification state and cleanup notes.
 
 ## Wiring items to trace in the cabinet
 
