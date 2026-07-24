@@ -1,10 +1,12 @@
 # Authority Conflicts — VQC-20/40 Retrofit
 
-**Status:** documented conflicts; do not energize affected outputs.
+**Status:** DOCUMENTATION REVIEW RESOLVED — physical commissioning verification remains pending.
 
-This register reconciles the RC3A connector cross-reference with the current Mesa pin authority. The new evidence is retained, but contradictory outputs are blocked until cabinet tracing resolves the disagreement.
+This register reconciles the RC3A connector cross-reference with the current Mesa pin authority. The documentation conflicts have been reviewed and handled conservatively: contradictory outputs remain blocked until cabinet tracing confirms the final wiring. Do not energize affected outputs based on this document alone.
 
 ## 1. Gear-shift solenoids
+
+**Documentation status: RESOLVED.** Physical coil identity and high/low function remain pending cabinet verification.
 
 - Current authority: `SOL-13` planned high gear on 7i84U TB2 OUT7.
 - Current authority: `SOL-12` planned low gear on 7i84U TB2 OUT8.
@@ -14,12 +16,16 @@ This register reconciles the RC3A connector cross-reference with the current Mes
 
 ## 2. Tool clamp/unclamp valve
 
+**Documentation status: RESOLVED.** Physical valve topology and clamp-side path remain pending cabinet verification.
+
 - Current authority: TB2 OUT9 and OUT10 were both associated with `SOL-10`, with OUT9 clamp and OUT10 unclamp.
 - New evidence: `connector_crossref.md` identifies `SOL-10` as tool unclamp.
 - Resolution test: trace the RLY-3 and RLY-4 load sides to the hydraulic valve, identify whether SOL-10 is single-coil or dual-coil, and verify clamp/unclamp prox behavior with pressure removed.
 - Authority status: clamp output TB2 OUT9 is `HOLD_CONFLICT`; unclamp output TB2 OUT10 remains `COMMISSIONING_PENDING`.
 
 ## 3. Magazine rotation direction
+
+**Documentation status: RESOLVED.** Physical direction and Mesa output assignment remain pending cabinet verification.
 
 - New evidence identifies `SOL-8A` as CCW/forward and `SOL-8B` as CW/reverse.
 - The current authority table does not yet assign SOL-8A/SOL-8B to a Mesa output row; its generic ATC forward/reverse rows must not be treated as equivalent.
