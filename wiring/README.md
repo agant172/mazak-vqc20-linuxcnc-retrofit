@@ -9,6 +9,11 @@ folder and is mirrored conceptually here for wiring planning.
 - Master signal map: [`../mesa/signal_map.csv`](../mesa/signal_map.csv) — maps each
   machine signal to its subsystem, direction, Mesa card/connector/bit, and the
   LinuxCNC HAL net used in the skeleton HAL files.
+- I/O map research notes: [`io_map_research_notes.md`](io_map_research_notes.md) —
+  designator research from the OEM maintenance/operating manuals and electrical
+  circuit diagram (`41434WB.pdf`), including the pallet-changer (2PC) signal set,
+  door interlocks, and open discrepancies to verify against `signal_map.csv`
+  before wiring (see its "Reconciliation" and "Still to locate" sections).
 - I/O workbook: [`../bom/Mazak_VQC_20-40_Retrofit_IO_Workbook.xlsx`](../bom/Mazak_VQC_20-40_Retrofit_IO_Workbook.xlsx)
   — full I/O planning spreadsheet the skeleton was generated from.
 - Cabinet photo checklist: [`../docs/cabinet_photo_checklist.md`](../docs/cabinet_photo_checklist.md)
