@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Mazak VQC-20/40 I/O Navigator — Mesa 7i97T / 7i84U / 7i49</title>
+<meta name="description" content="Offline wiring navigator for the Mazak VQC-20/40 LinuxCNC + Mesa retrofit. Click-through signal paths from LinuxCNC HAL to the machine landing point.">
+<meta name="color-scheme" content="dark light">
+<link rel="stylesheet" href="styles.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230e1113'/%3E%3Cg fill='none' stroke='%234cc2e0' stroke-width='2.5'%3E%3Cpath d='M6 22V10l5 6 5-6v12'/%3E%3Cpath d='M21 10v12M21 16h5'/%3E%3C/g%3E%3C/svg%3E">
+</head>
+<body>
+
+<a class="skip-link" href="#signal-table">Skip to signal table</a>
+
+<header class="app-header" role="banner">
+  <div class="brand">
+    <svg class="mark" viewBox="0 0 48 32" aria-label="Mazak I/O Navigator mark" role="img">
+      <g fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="square">
+        <path d="M3 26V6l8 11 8-11v20"/>
+        <path d="M31 6v20"/>
+        <path d="M31 10h6M31 16h10M31 22h6"/>
+      </g>
+      <circle cx="42.5" cy="16" r="2.6" fill="currentColor"/>
+    </svg>
+    <div class="brand-text">
+      <h1>Mazak VQC-20/40 &middot; I/O Navigator</h1>
+      <p class="brand-sub">
+        <span data-bind="arch">Mesa 7i97T + 7i49 + 7i84U</span>
+        <span class="sep" aria-hidden="true">/</span>
+        <span>S/N <span data-bind="serial">—</span></span>
+        <span class="sep" aria-hidden="true">/</span>
+        <span>data <span data-bind="generated">—</span></span>
+      </p>
+    </div>
+  </div>
+
+  <div class="header-actions">
+    <div class="link-state" id="link-state" role="status" aria-live="polite">
+      <span class="link-dot" data-state="offline" aria-hidden="true"></span>
+      <span class="link-label">Planning mode</span>
+    </div>
+    <button type="button" class="btn" id="btn-live" aria-pressed="false">
+      <span class="btn-ico" aria-hidden="true">◍</span> Live poll
+    </button>
+    <button type="button" class="btn" id="btn-export">
+      <span class="btn-ico" aria-hidden="true">↓</span> Export CSV
+    </button>
+    <button type="button" class="btn btn-icon" id="btn-theme" aria-label="Switch to light theme" title="Switch theme">
+      <svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6">
+        <circle cx="10" cy="10" r="4"/><path d="M10 1v2M10 17v2M1 10h2M17 10h2M3.6 3.6l1.4 1.4M15 15l1.4 1.4M16.4 3.6L15 5M5 15l-1.4 1.4"/>
+      </svg>
+    </button>
+  </div>
+</header>
+
+<div class="safety-banner" role="note">
+  <span class="sb-tag">Configuration snapshot</span>
+  <p><strong>This is not a safety controller.</strong> Values shown are extracted from the repo's planning
+  documents and HAL config, not measured on the machine. Nothing here is a permission to energize.
+  The hardware E-stop chain must remove hazardous power independently of LinuxCNC.
+  Every <code>hm2_7i97.*</code> pin name is an unverified placeholder.</p>
+</div>
+
+<div class="shell">
+
+  <nav class="sidebar" aria-label="Board and status navigation">
+    <div class="side-block">
+      <h2 class="side-h">View</h2>
+      <ul class="nav-list" id="board-nav" role="list"></ul>
+    </div>
+    <div class="side-block">
+      <h2 class="side-h">Status counts <span class="side-h-note">current view</span></h2>
+      <ul class="status-counts" id="status-counts" role="list"></ul>
+    </div>
+    <div class="side-block side-block-foot">
+      <h2 class="side-h">Authority</h2>
+      <ul class="rules" id="rules-list" role="list"></ul>
+    </div>
+  </nav>
+
+  <main class="main" id="main">
+
+    <section class="toolbar" aria-label="Search and filters">
+      <div class="search-wrap">
+        <svg class="search-ico" viewBox="0 0 20 20" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8">
+          <circle cx="8.5" cy="8.5" r="5.5"/><path d="M12.5 12.5L17 17"/>
+        </svg>
+        <input type="search" id="q" placeholder="Search signal, HAL net, connector, PRS/SOL tag, device…"
+               autocomplete="off" spellcheck="false" aria-label="Search signals">
+        <kbd class="kbd-hint" aria-hidden="true">/</kbd>
+      </div>
+      <div class="filters">
+        <label class="fl"><span>Board</span><select id="f-board"></select></label>
+        <label class="fl"><span>Connector</span><select id="f-conn"></select></label>
+        <label class="fl"><span>Direction</span><select id="f-dir"></select></label>
+        <label class="fl"><span>Subsystem</span><select id="f-sub"></select></label>
+        <label class="fl"><span>Status</span><select id="f-status"></select></label>
+        <button type="button" class="btn btn-quiet" id="btn-reset">Reset</button>
+      </div>
+    </section>
+
+    <div class="chips-row" id="chips" role="status" aria-live="polite"></div>
+
+    <section class="scroll-region" id="scroll-region" tabindex="-1">
+
+      <div class="view-intro" id="view-intro"></div>
+
+      <div class="table-wrap" id="table-wrap">
+        <table class="sig-table" id="signal-table">
+          <caption class="sr-only">Mazak VQC-20/40 I/O signals with board, connector, HAL net, direction, expected idle state, authority status and machine landing point</caption>
+          <thead>
+            <tr>
+              <th scope="col" class="c-status">Status</th>
+              <th scope="col" class="c-sig">Signal</th>
+              <th scope="col" class="c-board">Board</th>
+              <th scope="col" class="c-chan">Conn / channel</th>
+              <th scope="col" class="c-net">HAL net</th>
+              <th scope="col" class="c-dir">Dir</th>
+              <th scope="col" class="c-exp">Expected idle</th>
+              <th scope="col" class="c-live">Observed</th>
+              <th scope="col" class="c-land">Machine landing point</th>
+            </tr>
+          </thead>
+          <tbody id="tbody"></tbody>
+        </table>
+        <p class="empty-state" id="empty-state" hidden>
+          <strong>No signals match.</strong> Clear a filter chip or reset to see the full authority table.
+        </p>
+      </div>
+
+      <section class="conflict-view" id="conflict-view" hidden aria-label="Conflict register"></section>
+
+      <footer class="foot">
+        <p><span data-bind="count">0</span> rows in view &middot; generated from
+        <code data-bind="authfile">mesa/current_pin_authority.csv</code> on
+        <span data-bind="generated2">—</span>. Regenerate with
+        <code>python3 tools/generate_data.py</code>.</p>
+      </footer>
+    </section>
+  </main>
+</div>
+
+<!-- Detail drawer -->
+<div class="drawer-scrim" id="scrim" hidden></div>
+<aside class="drawer" id="drawer" role="dialog" aria-modal="true" aria-labelledby="drawer-title" hidden tabindex="-1">
+  <div class="drawer-head">
+    <div>
+      <p class="drawer-eyebrow" id="drawer-eyebrow">Signal path</p>
+      <h2 id="drawer-title">—</h2>
+    </div>
+    <button type="button" class="btn btn-icon" id="drawer-close" aria-label="Close detail panel">
+      <svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 5l10 10M15 5L5 15"/></svg>
+    </button>
+  </div>
+  <div class="drawer-body" id="drawer-body"></div>
+</aside>
+
+<div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

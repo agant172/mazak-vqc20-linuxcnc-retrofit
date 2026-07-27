@@ -100,12 +100,34 @@ Full rationale: [docs/architecture_decision.md](docs/architecture_decision.md).
 
 Full, checkbox-tracked TODO and progress: **[docs/project_status.md](docs/project_status.md)**.
 
+## I/O dashboard
+
+[`io-dashboard/`](io-dashboard/) is a single-page, offline I/O navigator generated from
+`mesa/current_pin_authority.csv`, the HAL config and the wiring notes. It walks
+LinuxCNC pin → HAL net → Mesa pin → connector/channel → field device → machine location
+for all 116 signal rows, and flags the open conflicts. Full guide:
+[io-dashboard/README.md](io-dashboard/README.md).
+
+```bash
+cd io-dashboard && python3 -m http.server 8765   # static, offline; open http://127.0.0.1:8765/
+cd io-dashboard && python3 serve_live.py         # adds read-only /api/io on the LinuxCNC host
+```
+
+`serve_live.py` only ever runs `halcmd -s show sig`; it never writes a HAL value and refuses
+any non-GET request. Regenerate `data.js` after editing the repo with
+`cd io-dashboard && python3 tools/generate_data.py`.
+
+> ⚠️ The dashboard is a **configuration snapshot and navigation aid, not a safety
+> controller.** Nothing in it is a permission to energize, and no row has been field
+> verified. The hardware E-stop chain must remove hazardous power independently of LinuxCNC.
+
 ## Repository structure
 
 ```
 ├── README.md          # This file — project overview, status, and top TODOs
 ├── bom/               # I/O workbook and parts-planning material
 ├── docs/              # Architecture decision, checklists, photo-sorting, project status
+├── io-dashboard/      # Offline single-page I/O navigator (generated from mesa/ + linuxcnc/)
 ├── linuxcnc/          # LinuxCNC INI/HAL bring-up skeletons (+ bring-up notes)
 ├── mesa/              # Mesa signal map (signal → card/bit/HAL net) and firmware checklist
 ├── wiring/            # Wiring / field-I/O planning references
@@ -122,6 +144,7 @@ Full, checkbox-tracked TODO and progress: **[docs/project_status.md](docs/projec
 - [docs/README_photo_sorting.md](docs/README_photo_sorting.md) — photo folder scheme.
 - [linuxcnc/README.md](linuxcnc/README.md) — skeleton file guide and bring-up order.
 - [mesa/signal_map.csv](mesa/signal_map.csv) — signal → Mesa card/bit → HAL net map.
+- [io-dashboard/README.md](io-dashboard/README.md) — offline I/O navigator: how to run it and how to regenerate its data.
 - [bom/Mazak_VQC_20-40_Retrofit_IO_Workbook.xlsx](bom/Mazak_VQC_20-40_Retrofit_IO_Workbook.xlsx) — full I/O workbook.
 
 ## References
