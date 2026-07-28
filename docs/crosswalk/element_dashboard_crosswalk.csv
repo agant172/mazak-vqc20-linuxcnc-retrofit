@@ -1,0 +1,386 @@
+type,address,symbol,comment,category,disposition,dashboard_id,match,match_note,m2v_twin,ladder_page
+X,X000,#ESP.M,EMERGENCY STOP,FIELD_INPUT,field-wired — must land on Mesa or be consciously dropped,ESTOP_CHAIN,direct,E-stop chain; 7i97T TB5.10 monitor input,,2
+X,X001,SZS.M,SPINDLE ZERO SPEED,FIELD_INPUT,field-wired — must land on Mesa or be consciously dropped,SPINDLE_AT_SPEED,partial,"SZS is FR-SX ZERO SPEED, not speed-reach; needs its own 7i84U input",,2
+X,X002,FA,SPINDLE CONTROLLER NORMAL,FIELD_INPUT,field-wired — must land on Mesa or be consciously dropped,SPINDLE_FAULT,partial,FA = controller NORMAL (inverse sense of fault input),,2
+X,X003,ORA1,ORIENT ARRIVAL,FIELD_INPUT,field-wired — must land on Mesa or be consciously dropped,,,,,2
+X,X005,MGTDPRS,MAGAZINE TOOL DITECT PRS,FIELD_INPUT,field-wired — must land on Mesa or be consciously dropped,MAG_TOOL_AVAILABLE,direct,PHS magazine tool detect,,2
+X,X007,TSPB,MANUAL TOOL SELECT,PANEL_BUTTON,operator panel pushbutton — LinuxCNC UI / pendant candidate,,,,,2
+X,X008,T11P.M,MAGAZINE BCD 11,FIELD_INPUT,field-wired — must land on Mesa or be consciously dropped,MAG_BCD_BIT0,direct,PRS-21,,2
+X,X009,T12P.M,MAGAZINE BCD 12,FIELD_INPUT,field-wired — must land on Mesa or be consciously dropped,MAG_BCD_BIT1,direct,PRS-22,,2
+X,X00A,T14P.M,MAGAZINE BCD 14,FIELD_INPUT,field-wired — must land on Mesa or be consciously dropped,MAG_BCD_BIT2,direct,PRS-23,,2
+X,X00B,T18P.M,MAGAZINE BCD 18,FIELD_INPUT,field-wired — must land on Mesa or be consciously dropped,MAG_BCD_BIT3,direct,PRS-24,,2
+X,X00C,T21P.M,MAGAZINE BCD 21,FIELD_INPUT,field-wired — must land on Mesa or be consciously dropped,MAG_BCD_BIT4,direct,PRS-25,,2
+X,X00D,MIPRS,MAGAZINE INPOSITION PRS,FIELD_INPUT,field-wired — must land on Mesa or be consciously dropped,NET_MAG_IN_POS,direct,PRS-13 magazine in-position,,2
+X,X018,TCPRS,TOOL CLAMP PRS,FIELD_INPUT,field-wired — must land on Mesa or be consciously dropped,TOOL_CLAMP_CONF,direct,PRS-9,,2
+X,X019,TUCPRS,TOOL UNCLAMP PRS,FIELD_INPUT,field-wired — must land on Mesa or be consciously dropped,TOOL_UNCLAMP_CONF,direct,PRS-8,,2
+X,X01A,TUCFS.M,MNL TOOL UNCLAMP FS (VQC20),FIELD_INPUT,field-wired — must land on Mesa or be consciously dropped,,,,,2
+X,X01B,TCFS.M,TCFS.M (20) M9C0IRS (30),FIELD_INPUT,field-wired — must land on Mesa or be consciously dropped,,,,,2
+X,X01C,MDINT.M,MACHINE DOOR INTERLOCK LS,FIELD_INPUT,field-wired — must land on Mesa or be consciously dropped,DOOR_INTERLOCK,direct,door interlock LS,,2
+X,X01D,ITMDSS.M,MACHINE DOOR INTERLOCK SS,FIELD_INPUT,field-wired — must land on Mesa or be consciously dropped,NET_DOOR_CLOSED,partial,second door switch (SS); decide series vs separate input,,2
+X,X01E,EXRST.M,EXTERNAL RESET,OPTION_VERIFY,External/remote interface — remote-operation interface — drop unless remote box wanted,,,,,2
+X,X01F,EXFIN,EXTERNAL FIN,OPTION_VERIFY,External/remote interface — remote-operation interface — drop unless remote box wanted,,,,,2
+X,X026,AEXTRS,MEASURING ARM EXTEND RS,OPTION_VERIFY,Measuring arm — tool-length measuring arm — verify fitted,,,,,3
+X,X027,ARETRS,MEASURING ARM RETRACT RS,OPTION_VERIFY,Measuring arm — tool-length measuring arm — verify fitted,,,,,3
+X,X02C,TUCFS.M,MNL TOOL UNCLAMP FS (VQC30),OPTION_VERIFY,VQC30 variant — other machine variant — not applicable,,,,,3
+X,X02D,TCFS.M,MNL TOOL CLAMP FS (VQC30),OPTION_VERIFY,VQC30 variant — other machine variant — not applicable,,,,,3
+X,X02E,,[ILLEGIBLE],UNKNOWN,illegible in source — re-read ladder.pdf page 3,,,,,3
+X,X02F,INHRLS,INHIBIT READ LS,FIELD_INPUT,field-wired — must land on Mesa or be consciously dropped,,,,,3
+X,X030,INTX.M,X AXIS INTERLOCK,OPTION_VERIFY,External interlock/servo-off — external axis interlock/servo-off cmds — LinuxCNC handles internally,,,,,3
+X,X031,INTY.M,Y AXIS INTERLOCK,OPTION_VERIFY,External interlock/servo-off — external axis interlock/servo-off cmds — LinuxCNC handles internally,,,,,3
+X,X032,INTZ.M,Z AXIS INTERLOCK,OPTION_VERIFY,External interlock/servo-off — external axis interlock/servo-off cmds — LinuxCNC handles internally,,,,,3
+X,X033,INT4.M,4 AXIS INTERLOCK,OPTION_VERIFY,External interlock/servo-off — external axis interlock/servo-off cmds — LinuxCNC handles internally,,,,,3
+X,X034,RCTLS,RECESSING TOOL LS,OPTION_VERIFY,Measuring arm — tool-length measuring arm — verify fitted,,,,,3
+X,X035,EHOPI,EXTERNAL MISS OPERATION I,OPTION_VERIFY,External/remote interface — remote-operation interface — drop unless remote box wanted,,,,,3
+X,X036,EXAL.M,EXTERNAL ALARM,OPTION_VERIFY,External/remote interface — remote-operation interface — drop unless remote box wanted,,,,,3
+X,X038,ECST.M,EXTERNAL CYCLE START,OPTION_VERIFY,External/remote interface — remote-operation interface — drop unless remote box wanted,,,,,3
+X,X039,EFHD.M,EXTERNAL FEED HOLD,OPTION_VERIFY,External/remote interface — remote-operation interface — drop unless remote box wanted,,,,,3
+X,X03A,ESBK.M,EXTERNAL SINGLE BLOCK,OPTION_VERIFY,External/remote interface — remote-operation interface — drop unless remote box wanted,SINGLE_BLOCK_SW,partial,external single block; panel SBK handled in UI,,3
+X,X03B,ECOLEN.M,EXTERNAL COOLANT ENABLE,OPTION_VERIFY,External/remote interface — remote-operation interface — drop unless remote box wanted,,,,,3
+X,X03F,SKIP1.M,SKIP 1,FIELD_INPUT,field-wired — must land on Mesa or be consciously dropped,NET_PROBE_IN,partial,SKIP input — MP-3 probe trigger path,,3
+X,X040,PON1.M,PALLET NO.1 ON,OPTION_VERIFY,Pallet changer — 2PC option — verify fitted on SN 060231,,,,,3
+X,X041,PON2.M,PALLET NO.2 ON,OPTION_VERIFY,Pallet changer — 2PC option — verify fitted on SN 060231,,,,,3
+X,X042,HLP2.M,HEAD LUBE PRESSURE 2,FIELD_INPUT,field-wired — must land on Mesa or be consciously dropped,NET_LUBE_OK,partial,head lube pressure switch #2,,4
+X,X043,TSPB,MANUAL TOOL SELECT,PANEL_BUTTON,operator panel pushbutton — LinuxCNC UI / pendant candidate,,,,,4
+X,X052,MGCORS,MAGAZINE COVER OPEN RS,FIELD_INPUT,field-wired — must land on Mesa or be consciously dropped,,,,,4
+X,X053,MGCCRS,MAGAZINE COVER CLOSE RS,FIELD_INPUT,field-wired — must land on Mesa or be consciously dropped,,,,,4
+X,X058,HGPRS,HIGH GEAR PRS,FIELD_INPUT,field-wired — must land on Mesa or be consciously dropped,GEAR_HI_CONF,direct,PRS-10,,4
+X,X059,LGPRS,LOW GEAR PRS,FIELD_INPUT,field-wired — must land on Mesa or be consciously dropped,GEAR_LO_CONF,direct,PRS-12,,4
+X,X05B,SPTDPRS,SPINDLE TOOL DETECT PRS,FIELD_INPUT,field-wired — must land on Mesa or be consciously dropped,SPINDLE_TOOL_AVAILABLE,direct,PHS spindle tool detect,,4
+X,X060,MMS-PON,MMS UNIT POWER ON,OPTION_VERIFY,Pallet changer — 2PC option — verify fitted on SN 060231,,,,,4
+X,X062,SEN-RDY,MMS SENSOR READY,OPTION_VERIFY,MMS probe — Renishaw MP-3 measuring system — parts list says fitted,,,,,4
+X,X063,MMS-ST,MMS START,OPTION_VERIFY,MMS probe — Renishaw MP-3 measuring system — parts list says fitted,,,,,4
+X,X068,#SVFX.M,X AXIS SERVO OFF,OPTION_VERIFY,External interlock/servo-off — external axis interlock/servo-off cmds — LinuxCNC handles internally,,,,,4
+X,X069,#SVFY.M,Y AXIS SERVO OFF,OPTION_VERIFY,External interlock/servo-off — external axis interlock/servo-off cmds — LinuxCNC handles internally,,,,,4
+X,X06A,#SVFZ.M,Z AXIS SERVO OFF,OPTION_VERIFY,External interlock/servo-off — external axis interlock/servo-off cmds — LinuxCNC handles internally,,,,,4
+X,X073,THR.M,MOTOR THERMAL TRIP,FIELD_INPUT,field-wired — must land on Mesa or be consciously dropped,,,,,4
+X,X078,MPWS.M,MACHINE POWER SUPPLY,FIELD_INPUT,field-wired — must land on Mesa or be consciously dropped,,,,,4
+X,X079,HLP.M,HEAD LUBE PRESSURE,FIELD_INPUT,field-wired — must land on Mesa or be consciously dropped,NET_LUBE_OK,partial,head lube pressure switch #1,,4
+X,X07A,WLAL.M,WAY LUBE WARNING,FIELD_INPUT,field-wired — must land on Mesa or be consciously dropped,LUBE_LEVEL,partial,way-lube warning (PS-5?) — confirm which lube device,,4
+X,X07B,ONT.M,MAIN TRANS FORMER OVER HEAT,FIELD_INPUT,field-wired — must land on Mesa or be consciously dropped,,,,,4
+X,X080,INTX.M,INTERLOCK X,OPTION_VERIFY,External interlock/servo-off — external axis interlock/servo-off cmds — LinuxCNC handles internally,,,,,4
+X,X081,INTY.M,INTERLOCK Y,OPTION_VERIFY,External interlock/servo-off — external axis interlock/servo-off cmds — LinuxCNC handles internally,,,,,4
+X,X082,INTZ.M,INTERLOCK Z,OPTION_VERIFY,External interlock/servo-off — external axis interlock/servo-off cmds — LinuxCNC handles internally,,,,,5
+X,X083,INT4.M,INTERLOCK 4,OPTION_VERIFY,External interlock/servo-off — external axis interlock/servo-off cmds — LinuxCNC handles internally,,,,,5
+X,X084,EMOP2.M,EXTERNAL MISS OPERATION 2,OPTION_VERIFY,External/remote interface — remote-operation interface — drop unless remote box wanted,,,,,5
+X,X085,P1ON.M,PALLET ON 1,OPTION_VERIFY,Pallet changer — 2PC option — verify fitted on SN 060231,,,,,5
+X,X086,P2ON.M,PALLET ON 2,OPTION_VERIFY,Pallet changer — 2PC option — verify fitted on SN 060231,,,,,5
+X,X089,EXAL.M,EXTERNAL ALARM,OPTION_VERIFY,External/remote interface — remote-operation interface — drop unless remote box wanted,,,,,5
+X,X08A,ECOLEN.M,EXTERNAL COOLANT ENABLE,OPTION_VERIFY,External/remote interface — remote-operation interface — drop unless remote box wanted,,,,,5
+X,X08B,EXCST.M,EXTERNAL CYCLE START,OPTION_VERIFY,External/remote interface — remote-operation interface — drop unless remote box wanted,,,,,5
+X,X08C,EXFHD.M,EXTERNAL FEED HOLD,OPTION_VERIFY,External/remote interface — remote-operation interface — drop unless remote box wanted,,,,,5
+X,X08D,EXSBK.M,EXTERNAL SINGLE BLOCK,OPTION_VERIFY,External/remote interface — remote-operation interface — drop unless remote box wanted,,,,,5
+X,X100,ZPX1.N,ZERO 1 POSITION X NC,NC_INTERNAL,M-2 NC<->PLC handshake — function provided natively by LinuxCNC,,,,,5
+X,X101,ZPY1.N,ZERO 1 POSITION Y NC,NC_INTERNAL,M-2 NC<->PLC handshake — function provided natively by LinuxCNC,,,,,5
+X,X102,ZPZ1.N,ZERO 1 POSITION Z NC,NC_INTERNAL,M-2 NC<->PLC handshake — function provided natively by LinuxCNC,,,,,5
+X,X103,ZP41.N,ZERO 1 POSITION 4 NC,OPTION_VERIFY,4th-axis rotary table option — verify fitted,,,,,5
+X,X108,ZPX2.N,ZERO 2 POSITION X NC,NC_INTERNAL,M-2 NC<->PLC handshake — function provided natively by LinuxCNC,,,,,5
+X,X109,ZPY2.N,ZERO 2 POSITION Y NC,NC_INTERNAL,M-2 NC<->PLC handshake — function provided natively by LinuxCNC,,,,,5
+X,X10A,ZPZ2.N,ZERO 2 POSITION Z NC,NC_INTERNAL,M-2 NC<->PLC handshake — function provided natively by LinuxCNC,,,,,5
+X,X111,STL.N,CYCLE START LAMP NC,NC_INTERNAL,M-2 NC<->PLC handshake — function provided natively by LinuxCNC,,,,,5
+X,X112,SPL.N,FEED HOLD LAMP NC,NC_INTERNAL,M-2 NC<->PLC handshake — function provided natively by LinuxCNC,,,,,5
+X,X113,DEN.N,DISTRIBUTION END SIGNAL1,NC_INTERNAL,M-2 NC<->PLC handshake — function provided natively by LinuxCNC,,,,,5
+X,X114,DEN2.N,DISTRIBUTION END SIGNAL2,NC_INTERNAL,M-2 NC<->PLC handshake — function provided natively by LinuxCNC,,,,,6
+X,X118,MA.N,NC READY,NC_INTERNAL,M-2 NC<->PLC handshake — function provided natively by LinuxCNC,,,,,6
+X,X119,SA.N,SERVO READY,NC_INTERNAL,M-2 NC<->PLC handshake — function provided natively by LinuxCNC,,,,,6
+X,X11A,RST.N,RESET NC,NC_INTERNAL,M-2 NC<->PLC handshake — function provided natively by LinuxCNC,,,,,6
+X,X120,MF.N,M FUNCTION STROBE,NC_INTERNAL,M-2 NC<->PLC handshake — function provided natively by LinuxCNC,,,,,6
+X,X121,SF.N,S FUNCTION STROBE,NC_INTERNAL,M-2 NC<->PLC handshake — function provided natively by LinuxCNC,,,,,6
+X,X122,TF.N,T FUNCTION STROBE,NC_INTERNAL,M-2 NC<->PLC handshake — function provided natively by LinuxCNC,,,,,6
+X,X123,BF.N,B FUNCTION STROBE,NC_INTERNAL,M-2 NC<->PLC handshake — function provided natively by LinuxCNC,,,,,6
+X,X128,M11.N,M BCD 11,NC_INTERNAL,M-2 NC<->PLC handshake — function provided natively by LinuxCNC,,,,,6
+X,X129,M12.N,M BCD 12,NC_INTERNAL,M-2 NC<->PLC handshake — function provided natively by LinuxCNC,,,,,6
+X,X12A,M14.N,M BCD 14,NC_INTERNAL,M-2 NC<->PLC handshake — function provided natively by LinuxCNC,,,,,6
+X,X12B,M18.N,M BCD 18,NC_INTERNAL,M-2 NC<->PLC handshake — function provided natively by LinuxCNC,,,,,6
+X,X12C,M21.N,M BCD 21,NC_INTERNAL,M-2 NC<->PLC handshake — function provided natively by LinuxCNC,,,,,6
+X,X12D,M22.N,M BCD 22,NC_INTERNAL,M-2 NC<->PLC handshake — function provided natively by LinuxCNC,,,,,6
+X,X12E,M24.N,M BCD 24,NC_INTERNAL,M-2 NC<->PLC handshake — function provided natively by LinuxCNC,,,,,6
+X,X12F,M28.N,M BCD 28,NC_INTERNAL,M-2 NC<->PLC handshake — function provided natively by LinuxCNC,,,,,6
+X,X158,SSP.N,SPINDLE STOP,NC_INTERNAL,M-2 NC<->PLC handshake — function provided natively by LinuxCNC,,,,,6
+X,X159,TOUCH.N,TOUCH TOOL,NC_INTERNAL,M-2 NC<->PLC handshake — function provided natively by LinuxCNC,,,,,6
+X,X15A,TAP.N,TAPPING CYCLE,NC_INTERNAL,M-2 NC<->PLC handshake — function provided natively by LinuxCNC,,,,,6
+X,X15B,DIHT.N,DUST IN HOLE,NC_INTERNAL,M-2 NC<->PLC handshake — function provided natively by LinuxCNC,,,,,6
+X,X15C,MC4.N,4 AXIS MOTION COMMAND,OPTION_VERIFY,4th-axis rotary table option — verify fitted,,,,,7
+X,X15D,AEXT.N,MEASURING ARM EXTEND COM.,OPTION_VERIFY,Measuring arm — tool-length measuring arm — verify fitted,,,,,7
+X,X15E,ARET.N,MEASURING ARM RETRACT COM.,OPTION_VERIFY,Measuring arm — tool-length measuring arm — verify fitted,,,,,7
+X,X15F,REQ.N,PALLET CHANGE REQUEST NC,OPTION_VERIFY,Pallet changer — 2PC option — verify fitted on SN 060231,,,,,7
+X,X160,M31.N,M BCD 31,NC_INTERNAL,M-2 NC<->PLC handshake — function provided natively by LinuxCNC,,,,,7
+X,X161,M32.N,M BCD 32,NC_INTERNAL,M-2 NC<->PLC handshake — function provided natively by LinuxCNC,,,,,7
+X,X162,M34.N,M BCD 34,NC_INTERNAL,M-2 NC<->PLC handshake — function provided natively by LinuxCNC,,,,,7
+X,X163,M38.N,M BCD 38,NC_INTERNAL,M-2 NC<->PLC handshake — function provided natively by LinuxCNC,,,,,7
+X,X180,AUT.N,AUTO MODE STATUS,NC_INTERNAL,M-2 NC<->PLC handshake — function provided natively by LinuxCNC,,,,,7
+X,X181,MDI.N,MDI MODE STATUS,NC_INTERNAL,M-2 NC<->PLC handshake — function provided natively by LinuxCNC,,,,,7
+X,X182,RT.N,RAPID TRAVERSE STATUS,NC_INTERNAL,M-2 NC<->PLC handshake — function provided natively by LinuxCNC,,,,,7
+X,X183,J.N,JOG STATUS,NC_INTERNAL,M-2 NC<->PLC handshake — function provided natively by LinuxCNC,,,,,7
+X,X184,ZP1.N,ZERO POSITION #1 RETURN,NC_INTERNAL,M-2 NC<->PLC handshake — function provided natively by LinuxCNC,,,,,7
+X,X185,ZP2.N,ZERO POSITION #2 RETURN,NC_INTERNAL,M-2 NC<->PLC handshake — function provided natively by LinuxCNC,,,,,7
+X,X186,HS1.N,HANDLE/STEP #1,NC_INTERNAL,M-2 NC<->PLC handshake — function provided natively by LinuxCNC,,,,,7
+X,X187,HS10.N,HANDLE/STEP #10,NC_INTERNAL,M-2 NC<->PLC handshake — function provided natively by LinuxCNC,,,,,7
+X,X188,MG.N,MAGAZIN SELECT,NC_INTERNAL,M-2 NC<->PLC handshake — function provided natively by LinuxCNC,,,,,7
+X,X189,INTF.N,INTERF. SP. TOOL LENG. 1,NC_INTERNAL,M-2 NC<->PLC handshake — function provided natively by LinuxCNC,,,,,7
+X,X18A,INTF2.N,INTERF. SP. TOOL LENG. 2,NC_INTERNAL,M-2 NC<->PLC handshake — function provided natively by LinuxCNC,,,,,7
+X,X18B,TLOVR.N,TOOL LIFE OVER,NC_INTERNAL,M-2 NC<->PLC handshake — function provided natively by LinuxCNC,,,,,7
+X,X18C,ALTBK.N,ALARM TOOL BREAKAGE NC,NC_INTERNAL,M-2 NC<->PLC handshake — function provided natively by LinuxCNC,,,,,8
+X,X18D,TBKG.N,TOOL BREAKAGE,NC_INTERNAL,M-2 NC<->PLC handshake — function provided natively by LinuxCNC,,,,,8
+X,X18E,TBRFIN.N,TOOL BREAKAGE FIN NC,NC_INTERNAL,M-2 NC<->PLC handshake — function provided natively by LinuxCNC,,,,,8
+X,X18F,MIRR.N,MIRROR IMAGE MODE,OPTION_VERIFY,NC feature — M-2 NC feature — LinuxCNC native or obsolete,,,,,8
+X,X190,SMZX.N,SMOOTHING ZERO X,NC_INTERNAL,M-2 NC<->PLC handshake — function provided natively by LinuxCNC,,,,,8
+X,X191,SMZY.N,SMOOTHING ZERO Y,NC_INTERNAL,M-2 NC<->PLC handshake — function provided natively by LinuxCNC,,,,,8
+X,X192,SMZZ.N,SMOOTHING ZERO Z,NC_INTERNAL,M-2 NC<->PLC handshake — function provided natively by LinuxCNC,,,,,8
+X,X193,SMZ4.N,SMOOTHING ZERO 4,OPTION_VERIFY,4th-axis rotary table option — verify fitted,,,,,8
+X,X19B,PGEND.N,[ILLEGIBLE],NC_INTERNAL,M-2 NC<->PLC handshake — function provided natively by LinuxCNC,,,,,8
+X,X19D,EIA.N,[ILLEGIBLE],OPTION_VERIFY,NC feature — M-2 NC feature — LinuxCNC native or obsolete,,,,,8
+X,X19F,,[ILLEGIBLE],UNKNOWN,illegible in source — re-read ladder.pdf page 8,,,,,8
+X,X1D2,FPIT.N,FMS PALLET INTERLOCK,OPTION_VERIFY,"FMS interface — FMS/cell controller link — not fitted, drop",,,,,8
+X,X1D4,FIRN.N,FMS ZERO RETURN,OPTION_VERIFY,"FMS interface — FMS/cell controller link — not fitted, drop",,,,,8
+X,X1D5,FCST.N,FMS CYCLE START,OPTION_VERIFY,"FMS interface — FMS/cell controller link — not fitted, drop",,,,,8
+X,X1D6,FESP.N,FMS EMERGENCY STOP,OPTION_VERIFY,"FMS interface — FMS/cell controller link — not fitted, drop",,,,,8
+X,X1D7,FSBK.N,FMS SINGLE BLOCK,OPTION_VERIFY,"FMS interface — FMS/cell controller link — not fitted, drop",,,,,8
+X,X1E0,IHST.N,FMS INHIBIT CYCLE START,OPTION_VERIFY,"FMS interface — FMS/cell controller link — not fitted, drop",,,,,8
+X,X0C0,RST.B,RESET PB,PANEL_BUTTON,operator panel pushbutton — LinuxCNC UI / pendant candidate,,,,,8
+X,X0C1,SOVRU.B,SPINDLE OVERRIDE UP PB,PANEL_BUTTON,operator panel pushbutton — LinuxCNC UI / pendant candidate,,,,,8
+X,X0C2,SOVRD.B,SPINDLE OVERRIDE DOWN P8,PANEL_BUTTON,operator panel pushbutton — LinuxCNC UI / pendant candidate,,,,,8
+X,X0C3,FOVRU.B,FEED RATE OVERRIDE UP PB,PANEL_BUTTON,operator panel pushbutton — LinuxCNC UI / pendant candidate,,,,,9
+X,X0C4,FOVRD.B,FEED RATE OVERRIDE DOWN PB,PANEL_BUTTON,operator panel pushbutton — LinuxCNC UI / pendant candidate,,,,,9
+X,X0C5,OTR.B,OVER TRAVEL REVERSE PB,PANEL_BUTTON,operator panel pushbutton — LinuxCNC UI / pendant candidate,,,,,9
+X,X0C8,+X.B,AXIS SELECT +X PB,PANEL_BUTTON,operator panel pushbutton — LinuxCNC UI / pendant candidate,,,,,9
+X,X0C9,-X.B,AXIS SELECT -X PB,PANEL_BUTTON,operator panel pushbutton — LinuxCNC UI / pendant candidate,,,,,9
+X,X0CA,+Y.B,AXIS SELECT +Y PB,PANEL_BUTTON,operator panel pushbutton — LinuxCNC UI / pendant candidate,,,,,9
+X,X0CB,-Y.B,AXIS SELECT -Y PB,PANEL_BUTTON,operator panel pushbutton — LinuxCNC UI / pendant candidate,,,,,9
+X,X0CC,+Z.B,AXIS SELECT +Z PB,PANEL_BUTTON,operator panel pushbutton — LinuxCNC UI / pendant candidate,,,,,9
+X,X0CD,-Z.B,AXIS SELECT -Z PB,PANEL_BUTTON,operator panel pushbutton — LinuxCNC UI / pendant candidate,,,,,9
+X,X0CE,+4.B,AXIS SELECT +4 PB,OPTION_VERIFY,4th-axis rotary table option — verify fitted,,,,,9
+X,X0CF,-4.B,AXIS SELECT -4 PB,OPTION_VERIFY,4th-axis rotary table option — verify fitted,,,,,9
+X,X0D0,AUT.B,AUTO MODE SELECT PB,NC_PANEL_INTERFACE,PLC->NC/M2V panel handshake — obsolete with M-2; LinuxCNC provides natively,,,,,9
+X,X0D1,MDI.B,MDI MODE SELECT PB,PANEL_BUTTON,operator panel pushbutton — LinuxCNC UI / pendant candidate,,,,,9
+X,X0D2,RT.B,RAPID TRAVEL MODE SELECT PB,PANEL_BUTTON,operator panel pushbutton — LinuxCNC UI / pendant candidate,,,,,9
+X,X0D3,J.B,JIG MODE SELECT PB,PANEL_BUTTON,operator panel pushbutton — LinuxCNC UI / pendant candidate,,,,,9
+X,X0D4,ZP1.B,ZERO POSITION 1 RETURN PB,PANEL_BUTTON,operator panel pushbutton — LinuxCNC UI / pendant candidate,,,,,9
+X,X0D5,ZP2.B,ZERO POSITION 2 RETURN PB,PANEL_BUTTON,operator panel pushbutton — LinuxCNC UI / pendant candidate,,,,,9
+X,X0D6,HS1.B,HANDLE/STEP #1 PB,PANEL_BUTTON,operator panel pushbutton — LinuxCNC UI / pendant candidate,,,,,9
+X,X0D7,HS10.B,HANDLE/STEP #10 PB,PANEL_BUTTON,operator panel pushbutton — LinuxCNC UI / pendant candidate,,,,,9
+X,X0D8,CST.B,CYCLE START PB,PANEL_BUTTON,operator panel pushbutton — LinuxCNC UI / pendant candidate,CYCLE_START_PB,direct,panel pushbutton,,9
+X,X0D9,FHD.B,FEED HOLD PB,PANEL_BUTTON,operator panel pushbutton — LinuxCNC UI / pendant candidate,FEED_HOLD_PB,direct,panel pushbutton,,10
+X,X0DA,ZP.B,ZERO POSITION RETURN PB,PANEL_BUTTON,operator panel pushbutton — LinuxCNC UI / pendant candidate,,,,,10
+X,X0DB,TPS.B,TOOL PASS PB,OPTION_VERIFY,NC feature — M-2 NC feature — LinuxCNC native or obsolete,,,,,10
+X,X0DC,VFC.B,VELOCITY FEED RATE CONTROL PB,OPTION_VERIFY,NC feature — M-2 NC feature — LinuxCNC native or obsolete,,,,,10
+X,X0DE,RDEC.B,RAPID TRAVERSE DEC. PB,PANEL_BUTTON,operator panel pushbutton — LinuxCNC UI / pendant candidate,,,,,10
+X,X0E0,SST.B,SPINDLE START PB,PANEL_BUTTON,operator panel pushbutton — LinuxCNC UI / pendant candidate,,,,,10
+X,X0E1,SSP.B,SPINDLE STOP PB,PANEL_BUTTON,operator panel pushbutton — LinuxCNC UI / pendant candidate,,,,,10
+X,X0E2,SJOG.B,SPINDLE JOG PB,PANEL_BUTTON,operator panel pushbutton — LinuxCNC UI / pendant candidate,,,,,10
+X,X0E3,SREV.B,SPINDLE REVERSE PB,PANEL_BUTTON,operator panel pushbutton — LinuxCNC UI / pendant candidate,,,,,10
+X,X0E8,ATCSP.B,ATC STOP COMMAND PB,PANEL_BUTTON,operator panel pushbutton — LinuxCNC UI / pendant candidate,,,,,10
+X,X0E9,CL.B,COOLANT CHOICE PB,PANEL_BUTTON,operator panel pushbutton — LinuxCNC UI / pendant candidate,,,,,10
+X,X0EA,F1.B,FUNCTION KEY NO.1,PANEL_BUTTON,operator panel pushbutton — LinuxCNC UI / pendant candidate,,,,,10
+X,X0EB,F2.B,FUNCTION KEY NO.2,PANEL_BUTTON,operator panel pushbutton — LinuxCNC UI / pendant candidate,,,,,10
+X,X0EC,F3.B,FUNCTION KEY NO.3,PANEL_BUTTON,operator panel pushbutton — LinuxCNC UI / pendant candidate,,,,,10
+X,X0F0,PRG.B,PROGRAM CHANGE,PANEL_BUTTON,operator panel pushbutton — LinuxCNC UI / pendant candidate,,,,,10
+X,X0F1,HY.B,HANDLE Y AXIS SELECT,PANEL_BUTTON,operator panel pushbutton — LinuxCNC UI / pendant candidate,,,,,10
+X,X0F3,HZ.B,HANDLE Z AXIS SELECT,PANEL_BUTTON,operator panel pushbutton — LinuxCNC UI / pendant candidate,,,,,10
+X,X0F4,H4.B,HANDLE 4 AXIS SELECT,OPTION_VERIFY,4th-axis rotary table option — verify fitted,,,,,10
+X,X0F7,HX.B,HANDLE X AXIS SELECT,PANEL_BUTTON,operator panel pushbutton — LinuxCNC UI / pendant candidate,,,,,10
+Y,Y002,MREV.M,MAGAZINE REVERSE,FIELD_OUTPUT,field-wired — must land on Mesa or be consciously dropped,NET_MAG_CCW_SOL,direct,also ATC_REV,,11
+Y,Y003,MFWD.M,MAGAZINE FORWARD,FIELD_OUTPUT,field-wired — must land on Mesa or be consciously dropped,NET_MAG_CW_SOL,direct,also ATC_FWD,,11
+Y,Y008,SFR.M,SPINDLE FORWARD,FIELD_OUTPUT,field-wired — must land on Mesa or be consciously dropped,SPINDLE_FWD,direct,FR-SX FWD,,11
+Y,Y009,SRU.M,SPINDLE REVERSE,FIELD_OUTPUT,field-wired — must land on Mesa or be consciously dropped,SPINDLE_REV,direct,FR-SX REV,,11
+Y,Y00A,SMR.M,SPINDLE MOTOR RUN,FIELD_OUTPUT,field-wired — must land on Mesa or be consciously dropped,SPINDLE_ENA,direct,spindle motor run,,11
+Y,Y00B,GSH.M,GEAR SHIFT HIGH,FIELD_OUTPUT,field-wired — must land on Mesa or be consciously dropped,GEAR_HI_SOL,direct,RLY-1/SOL-13,,11
+Y,Y00C,GSL.M,GEAR SHIFT LOW,FIELD_OUTPUT,field-wired — must land on Mesa or be consciously dropped,GEAR_LO_SOL,direct,RLY-2/SOL-12,,11
+Y,Y010,FCM.M,FLOOD COOLANT MOTOR,FIELD_OUTPUT,field-wired — must land on Mesa or be consciously dropped,COOLANT_ON,direct,flood coolant pump motor,,11
+Y,Y011,FCL.M,FLOOD COOLANT VALVE,FIELD_OUTPUT,field-wired — must land on Mesa or be consciously dropped,COOLANT_ON,partial,flood VALVE is separate from pump — may need own output,,11
+Y,Y012,THC.M,THROUGH HOLE COOLANT,FIELD_OUTPUT,field-wired — must land on Mesa or be consciously dropped,,,,,11
+Y,Y013,MCL.M,MIST COOLANT,FIELD_OUTPUT,field-wired — must land on Mesa or be consciously dropped,NET_MIST_COOLANT,direct,,,11
+Y,Y014,WAB.M,WORK AIR BLAST,FIELD_OUTPUT,field-wired — must land on Mesa or be consciously dropped,NET_AIR_BLAST_1,direct,,,11
+Y,Y015,WAB2.M,WORK AIR BLAST 2,FIELD_OUTPUT,field-wired — must land on Mesa or be consciously dropped,NET_AIR_BLAST_2,direct,,,11
+Y,Y016,TAPC.M,TAP COOLANT,FIELD_OUTPUT,field-wired — must land on Mesa or be consciously dropped,NET_TAP_COOLANT,direct,SOL-61,,11
+Y,Y018,SAB.M,SPINDLE AIR BLAST,FIELD_OUTPUT,field-wired — must land on Mesa or be consciously dropped,AIR_BLAST,partial,spindle air blast — verify SOL-62 is this device,,11
+Y,Y019,AUT.MV,AUTO MODE MC. (M2V),NC_PANEL_INTERFACE,PLC->NC/M2V panel handshake — obsolete with M-2; LinuxCNC provides natively,,,,Y070,11
+Y,Y01A,PUCCDV,PALLET UNCLAMP COMMAND (M2V),OPTION_VERIFY,Pallet changer — 2PC option — verify fitted on SN 060231,,,,,11
+Y,Y01B,FHD.PBV,FEED HOLD PB. (M2V),PANEL_BUTTON,operator panel pushbutton — LinuxCNC UI / pendant candidate,,,,,11
+Y,Y01C,CSTL.MV,CYCLE START LED (M2V),NC_PANEL_INTERFACE,PLC->NC/M2V panel handshake — obsolete with M-2; LinuxCNC provides natively,,,,Y073,11
+Y,Y01D,CST.PBV,CYCLE START PB. (M2V),PANEL_BUTTON,operator panel pushbutton — LinuxCNC UI / pendant candidate,,,,,11
+Y,Y01E,PCLCDV,PALLET CLAMP COMMAND (M2V),OPTION_VERIFY,Pallet changer — 2PC option — verify fitted on SN 060231,,,,,12
+Y,Y01F,MRDY.MV,MACHINE READY (M2V),NC_PANEL_INTERFACE,PLC->NC/M2V panel handshake — obsolete with M-2; LinuxCNC provides natively,,,,Y078,12
+Y,Y020,PWI.MV,POWER ON (M2V),NC_PANEL_INTERFACE,PLC->NC/M2V panel handshake — obsolete with M-2; LinuxCNC provides natively,,,,Y090,12
+Y,Y021,OTR.MV,OT REVERSE (M2V),FIELD_OUTPUT,field-wired — must land on Mesa or be consciously dropped,,,,Y091,12
+Y,Y022,SSET.M,SPINDLE SET (M2V),FIELD_OUTPUT,field-wired — must land on Mesa or be consciously dropped,,,,Y092,12
+Y,Y023,M45T.M,M45 OUTPUT,FIELD_OUTPUT,field-wired — must land on Mesa or be consciously dropped,,,,,12
+Y,Y024,M44T.M,M44 OUTPUT,FIELD_OUTPUT,field-wired — must land on Mesa or be consciously dropped,,,,,12
+Y,Y025,M43T.M,M43 OUTPUT,FIELD_OUTPUT,field-wired — must land on Mesa or be consciously dropped,,,,,12
+Y,Y026,MGC.M,MAGAZINE COVER CLOSE,FIELD_OUTPUT,field-wired — must land on Mesa or be consciously dropped,NET_MAG_COVER_CLOSE,direct,,,12
+Y,Y027,WL.M,WORK LIGHT,FIELD_OUTPUT,field-wired — must land on Mesa or be consciously dropped,NET_WORK_LIGHT,direct,,,12
+Y,Y028,RST1.M,RESET OUT (M2V),NC_PANEL_INTERFACE,PLC->NC/M2V panel handshake — obsolete with M-2; LinuxCNC provides natively,,,,Y079,12
+Y,Y029,CYFIN.MV,CYCLE FINISH LIGHT (M2V),NC_PANEL_INTERFACE,PLC->NC/M2V panel handshake — obsolete with M-2; LinuxCNC provides natively,,,,Y07E,12
+Y,Y02D,ZPX.MV,X ZERO POSITION (M2V),NC_PANEL_INTERFACE,PLC->NC/M2V panel handshake — obsolete with M-2; LinuxCNC provides natively,,,,Y080,12
+Y,Y02E,ZPY.MV,Y ZERO POSITION (M2V),NC_PANEL_INTERFACE,PLC->NC/M2V panel handshake — obsolete with M-2; LinuxCNC provides natively,,,,Y081,12
+Y,Y02F,ZPZ.MV,Z ZERO POSITION (M2V),NC_PANEL_INTERFACE,PLC->NC/M2V panel handshake — obsolete with M-2; LinuxCNC provides natively,,,,Y082,12
+Y,Y032,,[ILLEGIBLE],UNKNOWN,illegible in source — re-read ladder.pdf page 12,,,,,12
+Y,Y033,ARET.M,MEASURING ARM RETRACT,OPTION_VERIFY,Measuring arm — tool-length measuring arm — verify fitted,,,,,12
+Y,Y034,AEXT.M,MEASURING ARM EXTEND,OPTION_VERIFY,Measuring arm — tool-length measuring arm — verify fitted,,,,,12
+Y,Y035,A-JET.M,AIR JET,FIELD_OUTPUT,field-wired — must land on Mesa or be consciously dropped,TOUCH_SENSOR_BLAST,partial,A-JET for MMS touch sensor — verify SOL-35,,12
+Y,Y036,MMSCMD.M,MMS COMMAND (MMS UNIT ON),OPTION_VERIFY,MMS probe — Renishaw MP-3 measuring system — parts list says fitted,,,,,12
+Y,Y037,ZP4.MV,4 ZERO POSITION (M2V),OPTION_VERIFY,4th-axis rotary table option — verify fitted,,,,,13
+Y,Y038,MFA.MV,MHO M FUNCTION (M2V),NC_PANEL_INTERFACE,PLC->NC/M2V panel handshake — obsolete with M-2; LinuxCNC provides natively,,,,Y084,13
+Y,Y039,FHDL.MV,FEED HOLD LED (M2V),NC_PANEL_INTERFACE,PLC->NC/M2V panel handshake — obsolete with M-2; LinuxCNC provides natively,,,,Y085,13
+Y,Y03A,ZP2Z.MV,Z ZERO POSITION 2nd (M2V),NC_PANEL_INTERFACE,PLC->NC/M2V panel handshake — obsolete with M-2; LinuxCNC provides natively,,,,Y086,13
+Y,Y03B,ORCM1.MV,SPINDLE ORIENT COMMAND,FIELD_OUTPUT,field-wired — must land on Mesa or be consciously dropped,,,,Y093,13
+Y,Y03C,CTL.MV,LOW GEAR ORIENT (M2V),FIELD_OUTPUT,field-wired — must land on Mesa or be consciously dropped,,,,Y094,13
+Y,Y03D,TCME.MV,BARRIER EXPEND at ATC ARE (M2V),FIELD_OUTPUT,field-wired — must land on Mesa or be consciously dropped,,,,Y095,13
+Y,Y03E,AL77.78,ALARM 77 & 78,FIELD_OUTPUT,field-wired — must land on Mesa or be consciously dropped,,,,,13
+Y,Y03F,MMAL1.M,MACHINE MALFUNCTION 1,FIELD_OUTPUT,field-wired — must land on Mesa or be consciously dropped,ALARM_OUT,partial,machine malfunction 1,,13
+Y,Y040,HYD.MV,HYDRAULIC/HEAD LUBE PUMP (M2V),FIELD_OUTPUT,field-wired — must land on Mesa or be consciously dropped,,,,Y096,13
+Y,Y041,TUC.MV,TOOL UNCLAMP (M2V),FIELD_OUTPUT,field-wired — must land on Mesa or be consciously dropped,TOOL_UNCLAMP_SOL,direct,SOL-10,Y097,13
+Y,Y042,SA.MV,SERVO READY (M2V),NC_PANEL_INTERFACE,PLC->NC/M2V panel handshake — obsolete with M-2; LinuxCNC provides natively,,,,Y098,13
+Y,Y043,MF.MV,M FUNCTION (M2V),NC_PANEL_INTERFACE,PLC->NC/M2V panel handshake — obsolete with M-2; LinuxCNC provides natively,,,,Y09D,13
+Y,Y044,M11.M,M BCD 11,NC_PANEL_INTERFACE,PLC->NC/M2V panel handshake — obsolete with M-2; LinuxCNC provides natively,,,,,13
+Y,Y045,M12.M,M BCD 12,NC_PANEL_INTERFACE,PLC->NC/M2V panel handshake — obsolete with M-2; LinuxCNC provides natively,,,,,13
+Y,Y046,M14.M,M BCD 14,NC_PANEL_INTERFACE,PLC->NC/M2V panel handshake — obsolete with M-2; LinuxCNC provides natively,,,,,13
+Y,Y047,M18.M,M BCD 18,NC_PANEL_INTERFACE,PLC->NC/M2V panel handshake — obsolete with M-2; LinuxCNC provides natively,,,,,13
+Y,Y048,M21.M,M BCD 21,NC_PANEL_INTERFACE,PLC->NC/M2V panel handshake — obsolete with M-2; LinuxCNC provides natively,,,,,13
+Y,Y049,M22.M,M BCD 22,NC_PANEL_INTERFACE,PLC->NC/M2V panel handshake — obsolete with M-2; LinuxCNC provides natively,,,,,13
+Y,Y04A,M24.M,M BCD 24,NC_PANEL_INTERFACE,PLC->NC/M2V panel handshake — obsolete with M-2; LinuxCNC provides natively,,,,,13
+Y,Y04B,M28.M,M BCD 28,NC_PANEL_INTERFACE,PLC->NC/M2V panel handshake — obsolete with M-2; LinuxCNC provides natively,,,,,14
+Y,Y04C,M31.M,M BCD 31,NC_PANEL_INTERFACE,PLC->NC/M2V panel handshake — obsolete with M-2; LinuxCNC provides natively,,,,,14
+Y,Y04D,M32.M,M BCD 32,NC_PANEL_INTERFACE,PLC->NC/M2V panel handshake — obsolete with M-2; LinuxCNC provides natively,,,,,14
+Y,Y04E,M34.M,M BCD 34,NC_PANEL_INTERFACE,PLC->NC/M2V panel handshake — obsolete with M-2; LinuxCNC provides natively,,,,,14
+Y,Y04F,M38.M,M BCD 38,NC_PANEL_INTERFACE,PLC->NC/M2V panel handshake — obsolete with M-2; LinuxCNC provides natively,,,,,14
+Y,Y070,AUT.M,AUTO MODE MC.,NC_PANEL_INTERFACE,PLC->NC/M2V panel handshake — obsolete with M-2; LinuxCNC provides natively,,,,Y019,14
+Y,Y071,PUCCD,PALLET UNCLAMP COMMAND,OPTION_VERIFY,Pallet changer — 2PC option — verify fitted on SN 060231,,,,,14
+Y,Y072,FHD.PB,FEED HOLD PB.,PANEL_BUTTON,operator panel pushbutton — LinuxCNC UI / pendant candidate,,,,,14
+Y,Y073,CSTL.M,CYCLE START LED,NC_PANEL_INTERFACE,PLC->NC/M2V panel handshake — obsolete with M-2; LinuxCNC provides natively,,,,Y01C,14
+Y,Y074,CST.PB,CYCLE START PB.,PANEL_BUTTON,operator panel pushbutton — LinuxCNC UI / pendant candidate,,,,,14
+Y,Y075,PCLCD,PALLET CLAMP COMMAND,OPTION_VERIFY,Pallet changer — 2PC option — verify fitted on SN 060231,,,,,14
+Y,Y076,MMAL.M,MACHINE MALFUNCTION,FIELD_OUTPUT,field-wired — must land on Mesa or be consciously dropped,ALARM_OUT,partial,machine malfunction (non-M2V dup),,14
+Y,Y078,MRDY.M,MACHINE READY,NC_PANEL_INTERFACE,PLC->NC/M2V panel handshake — obsolete with M-2; LinuxCNC provides natively,,,,Y01F,14
+Y,Y079,RST1.M,RESET OUT,NC_PANEL_INTERFACE,PLC->NC/M2V panel handshake — obsolete with M-2; LinuxCNC provides natively,,,,Y028,14
+Y,Y07E,CYFIN.M,CYCLE FINISH LIGHT,NC_PANEL_INTERFACE,PLC->NC/M2V panel handshake — obsolete with M-2; LinuxCNC provides natively,,,,Y029,14
+Y,Y080,ZPX.M,X ZERO POSITION,NC_PANEL_INTERFACE,PLC->NC/M2V panel handshake — obsolete with M-2; LinuxCNC provides natively,,,,Y02D,14
+Y,Y081,ZPY.M,Y ZERO POSITION,NC_PANEL_INTERFACE,PLC->NC/M2V panel handshake — obsolete with M-2; LinuxCNC provides natively,,,,Y02E,14
+Y,Y082,ZPZ.M,Z ZERO POSITION,NC_PANEL_INTERFACE,PLC->NC/M2V panel handshake — obsolete with M-2; LinuxCNC provides natively,,,,Y02F,14
+Y,Y083,ZP4.M,4 ZERO POSITION,OPTION_VERIFY,4th-axis rotary table option — verify fitted,,,,,14
+Y,Y084,MFA.M,MHO M FUNCTION,NC_PANEL_INTERFACE,PLC->NC/M2V panel handshake — obsolete with M-2; LinuxCNC provides natively,,,,Y038,14
+Y,Y085,FHDL.M,FEED HOLD LED,NC_PANEL_INTERFACE,PLC->NC/M2V panel handshake — obsolete with M-2; LinuxCNC provides natively,,,,Y039,15
+Y,Y086,ZP2Z.M,Z ZERO POSITION 2nd,NC_PANEL_INTERFACE,PLC->NC/M2V panel handshake — obsolete with M-2; LinuxCNC provides natively,,,,Y03A,15
+Y,Y090,PWI.M,POWER ON,NC_PANEL_INTERFACE,PLC->NC/M2V panel handshake — obsolete with M-2; LinuxCNC provides natively,,,,Y020,15
+Y,Y091,OTR.M,OT REVERSE,FIELD_OUTPUT,field-wired — must land on Mesa or be consciously dropped,,,,Y021,15
+Y,Y092,SSET.M,SPINDLE SET,FIELD_OUTPUT,field-wired — must land on Mesa or be consciously dropped,,,,Y022,15
+Y,Y093,ORCM1.M,SPINDLE ORIENT COMMAND,FIELD_OUTPUT,field-wired — must land on Mesa or be consciously dropped,,,,Y03B,15
+Y,Y094,CTL.M,LOW GEAR ORIENT,FIELD_OUTPUT,field-wired — must land on Mesa or be consciously dropped,,,,Y03C,15
+Y,Y095,TCME.M,BARRIER EXPEND at ATC ARE,FIELD_OUTPUT,field-wired — must land on Mesa or be consciously dropped,,,,Y03D,15
+Y,Y096,HYD.M,HYDRAULIC PUMP&HEAD LUBE PUMP,FIELD_OUTPUT,field-wired — must land on Mesa or be consciously dropped,,,,Y040,15
+Y,Y097,TUC.M,TOOL UNCLAMP,FIELD_OUTPUT,field-wired — must land on Mesa or be consciously dropped,TOOL_UNCLAMP_SOL,direct,SOL-10 (non-M2V dup),Y041,15
+Y,Y098,SA.M,SERVO READY,NC_PANEL_INTERFACE,PLC->NC/M2V panel handshake — obsolete with M-2; LinuxCNC provides natively,,,,Y042,15
+Y,Y09D,MF.M,M FUNCTION,NC_PANEL_INTERFACE,PLC->NC/M2V panel handshake — obsolete with M-2; LinuxCNC provides natively,,,,Y043,15
+Y,Y100,ITX.N,X AXIS INTERLOCK N/C,NC_INTERNAL,M-2 NC<->PLC handshake — function provided natively by LinuxCNC,,,,,15
+Y,Y101,ITY.N,Y AXIS INTERLOCK N/C,NC_INTERNAL,M-2 NC<->PLC handshake — function provided natively by LinuxCNC,,,,,15
+Y,Y102,ITZ.N,Z AXIS INTERLOCK N/C,NC_INTERNAL,M-2 NC<->PLC handshake — function provided natively by LinuxCNC,,,,,15
+Y,Y103,IT4.N,4th AXIS INTERLOCK N/C,OPTION_VERIFY,4th-axis rotary table option — verify fitted,,,,,15
+Y,Y108,SVFX.N,X AXIS SERVO OFF N/C,OPTION_VERIFY,External interlock/servo-off — external axis interlock/servo-off cmds — LinuxCNC handles internally,,,,,15
+Y,Y109,SVFY.N,Y AXIS SERVO OFF N/C,OPTION_VERIFY,External interlock/servo-off — external axis interlock/servo-off cmds — LinuxCNC handles internally,,,,,15
+Y,Y10A,SVFZ.N,Z AXIS SERVO OFF N/C,OPTION_VERIFY,External interlock/servo-off — external axis interlock/servo-off cmds — LinuxCNC handles internally,,,,,15
+Y,Y10B,SVF4.N,4th AXIS SERVO OFF N/C,OPTION_VERIFY,External interlock/servo-off — external axis interlock/servo-off cmds — LinuxCNC handles internally,,,,,15
+Y,Y111,PEND.N,PROGRAM END,NC_INTERNAL,M-2 NC<->PLC handshake — function provided natively by LinuxCNC,,,,,16
+Y,Y112,PERDY.N,PROGRAM END READY,NC_INTERNAL,M-2 NC<->PLC handshake — function provided natively by LinuxCNC,,,,,16
+Y,Y113,FSTL.N,FMS CYCLE START,OPTION_VERIFY,"FMS interface — FMS/cell controller link — not fitted, drop",,,,,16
+Y,Y116,AIZP.N,ALL AXIS ZERO POSITION,NC_INTERNAL,M-2 NC<->PLC handshake — function provided natively by LinuxCNC,,,,,16
+Y,Y117,MCRDY.N,MACHINE READY,NC_INTERNAL,M-2 NC<->PLC handshake — function provided natively by LinuxCNC,,,,,16
+Y,Y119,WFL.N,W FAIL,NC_INTERNAL,M-2 NC<->PLC handshake — function provided natively by LinuxCNC,,,,,16
+Y,Y11B,MFL.N,MACHINE FAIL,NC_INTERNAL,M-2 NC<->PLC handshake — function provided natively by LinuxCNC,,,,,16
+Y,Y11E,PL2.N,PALLET 2 EXIST,OPTION_VERIFY,Pallet changer — 2PC option — verify fitted on SN 060231,,,,,16
+Y,Y11F,PL1.N,PALLET 1 EXIST,OPTION_VERIFY,Pallet changer — 2PC option — verify fitted on SN 060231,,,,,16
+Y,Y120,GSH.N,GEAR HIGH SIGNAL N/C,NC_INTERNAL,M-2 NC<->PLC handshake — function provided natively by LinuxCNC,,,,,16
+Y,Y121,GSL.N,GEAR LOW SIGNAL N/C,NC_INTERNAL,M-2 NC<->PLC handshake — function provided natively by LinuxCNC,,,,,16
+Y,Y124,GSF.N,[ILLEGIBLE],NC_INTERNAL,M-2 NC<->PLC handshake — function provided natively by LinuxCNC,,,,,16
+Y,Y128,PCDS1.N,DATA STATES AXIS MOVE1 NC,OPTION_VERIFY,Pallet changer — 2PC option — verify fitted on SN 060231,,,,,16
+Y,Y129,PCDS2.N,DATA STATES AXIS MOVE2 NC,OPTION_VERIFY,Pallet changer — 2PC option — verify fitted on SN 060231,,,,,16
+Y,Y12E,PCMCD.N,PALLET CHANGE M CODE COMMAND,OPTION_VERIFY,Pallet changer — 2PC option — verify fitted on SN 060231,,,,,16
+Y,Y12F,PCFIN.N,PALLET CHANGE CYCLE FIN,OPTION_VERIFY,Pallet changer — 2PC option — verify fitted on SN 060231,,,,,16
+Y,Y140,SBK.N,SINGLE BLOCK NC,NC_INTERNAL,M-2 NC<->PLC handshake — function provided natively by LinuxCNC,,,,,16
+Y,Y141,MLK.N,MACHINE LOCK NC,NC_INTERNAL,M-2 NC<->PLC handshake — function provided natively by LinuxCNC,,,,,16
+Y,Y142,DRN.N,DRY RUN NC,NC_INTERNAL,M-2 NC<->PLC handshake — function provided natively by LinuxCNC,,,,,16
+Y,Y143,EREND.N,ERROR DETECT ON NC,NC_INTERNAL,M-2 NC<->PLC handshake — function provided natively by LinuxCNC,,,,,16
+Y,Y144,MIRRORX,X AXIS MIRROR IMAGE ON,OPTION_VERIFY,NC feature — M-2 NC feature — LinuxCNC native or obsolete,,,,,17
+Y,Y145,MIRRORY,Y AXIS MIRROR IMAGE ON,OPTION_VERIFY,NC feature — M-2 NC feature — LinuxCNC native or obsolete,,,,,17
+Y,Y147,PCDSFN.N,PC DATA STATES FIN NC,OPTION_VERIFY,Pallet changer — 2PC option — verify fitted on SN 060231,,,,,17
+Y,Y150,MEND1.L,MENUE DATA 1 LAMP NC,PANEL_LAMP,panel lamp — LinuxCNC UI candidate,,,,,17
+Y,Y151,MEND2.L,MENUE DATA 2 LAMP NC,PANEL_LAMP,panel lamp — LinuxCNC UI candidate,,,,,17
+Y,Y152,MEND3.L,MENUE DATA 3 LAMP NC,PANEL_LAMP,panel lamp — LinuxCNC UI candidate,,,,,17
+Y,Y153,MEND4.L,MENUE DATA 4 LAMP NC,PANEL_LAMP,panel lamp — LinuxCNC UI candidate,,,,,17
+Y,Y154,MEND5.L,MENUE DATA 5 LAMP,PANEL_LAMP,panel lamp — LinuxCNC UI candidate,,,,,17
+Y,Y155,MEND6.L,MENUE DATA 6 LAMP,PANEL_LAMP,panel lamp — LinuxCNC UI candidate,,,,,17
+Y,Y156,MEND7.L,MENUE DATA 7 LAMP,PANEL_LAMP,panel lamp — LinuxCNC UI candidate,,,,,17
+Y,Y157,MEND8.L,MENUE DATA 8 LAMP,PANEL_LAMP,panel lamp — LinuxCNC UI candidate,,,,,17
+Y,Y158,MEND9.L,MENUE DATA 9 LAMP,PANEL_LAMP,panel lamp — LinuxCNC UI candidate,,,,,17
+Y,Y168,FIN.N,FIN SIGNAL NC,NC_INTERNAL,M-2 NC<->PLC handshake — function provided natively by LinuxCNC,,,,,17
+Y,Y169,ERS.N,EXTERNAL RESET NC,NC_INTERNAL,M-2 NC<->PLC handshake — function provided natively by LinuxCNC,,,,,17
+Y,Y16A,OTNEG.N,SOFT OT NEGLECT NC,NC_INTERNAL,M-2 NC<->PLC handshake — function provided natively by LinuxCNC,,,,,17
+Y,Y16B,ZPDEC.N,ZERO POSITION RETURN DEC. NC,NC_INTERNAL,M-2 NC<->PLC handshake — function provided natively by LinuxCNC,,,,,17
+Y,Y16C,AEXT.N,MEASURING ARM EXTEND NC,OPTION_VERIFY,Measuring arm — tool-length measuring arm — verify fitted,,,,,17
+Y,Y16D,TBRCD.N,TOOL BREAKAGE COMMAND NC,NC_INTERNAL,M-2 NC<->PLC handshake — function provided natively by LinuxCNC,,,,,17
+Y,Y16E,TBRFIN.N,TOOL BREAKAGE FIN,NC_INTERNAL,M-2 NC<->PLC handshake — function provided natively by LinuxCNC,,,,,17
+Y,Y16F,MMSCD.N,MMS COMMAND NC,OPTION_VERIFY,MMS probe — Renishaw MP-3 measuring system — parts list says fitted,,,,,17
+Y,Y180,RST.B.N,RESET SIGNAL B TO NC,NC_INTERNAL,M-2 NC<->PLC handshake — function provided natively by LinuxCNC,,,,,18
+Y,Y181,SOVRU.N,SPINDLE OVERRIDE UP NC,NC_INTERNAL,M-2 NC<->PLC handshake — function provided natively by LinuxCNC,,,,,18
+Y,Y182,SOVRD.N,SPINDLE OVERRIDE DOWN NC,NC_INTERNAL,M-2 NC<->PLC handshake — function provided natively by LinuxCNC,,,,,18
+Y,Y183,FOVRU.N,F. RATE OVERRIDE UP NC,NC_INTERNAL,M-2 NC<->PLC handshake — function provided natively by LinuxCNC,,,,,18
+Y,Y184,FOVRD.N,F. RATE OVERRIDE DOWN NC,NC_INTERNAL,M-2 NC<->PLC handshake — function provided natively by LinuxCNC,,,,,18
+Y,Y185,OTR.N,OT RELEASE TO NC,NC_INTERNAL,M-2 NC<->PLC handshake — function provided natively by LinuxCNC,,,,,18
+Y,Y188,+X.N,+X DIRECTION COMMAND NC,NC_INTERNAL,M-2 NC<->PLC handshake — function provided natively by LinuxCNC,,,,,18
+Y,Y189,-X.N,-X DIRECTION COMMAND NC,NC_INTERNAL,M-2 NC<->PLC handshake — function provided natively by LinuxCNC,,,,,18
+Y,Y18A,+Y.N,+Y DIRECTION COMMAND NC,NC_INTERNAL,M-2 NC<->PLC handshake — function provided natively by LinuxCNC,,,,,18
+Y,Y18B,-Y.N,-Y DIRECTION COMMAND NC,NC_INTERNAL,M-2 NC<->PLC handshake — function provided natively by LinuxCNC,,,,,18
+Y,Y18C,+Z.N,+Z DIRECTION COMMAND NC,NC_INTERNAL,M-2 NC<->PLC handshake — function provided natively by LinuxCNC,,,,,18
+Y,Y18D,-Z.N,-Z DIRECTION COMMAND NC,NC_INTERNAL,M-2 NC<->PLC handshake — function provided natively by LinuxCNC,,,,,18
+Y,Y18E,+4.N,+4 DIRECTION COMMAND NC,OPTION_VERIFY,4th-axis rotary table option — verify fitted,,,,,18
+Y,Y18F,-4.N,-4 DIRECTION COMMAND NC,OPTION_VERIFY,4th-axis rotary table option — verify fitted,,,,,18
+Y,Y190,AUT.B.N,AUTO MODE NC,NC_INTERNAL,M-2 NC<->PLC handshake — function provided natively by LinuxCNC,,,,,18
+Y,Y191,MDI.B.N,MDI MODE NC,NC_INTERNAL,M-2 NC<->PLC handshake — function provided natively by LinuxCNC,,,,,18
+Y,Y192,RT.B.N,RAPID TRAVERSE NC,NC_INTERNAL,M-2 NC<->PLC handshake — function provided natively by LinuxCNC,,,,,18
+Y,Y193,J.B.N,[ILLEGIBLE],NC_INTERNAL,M-2 NC<->PLC handshake — function provided natively by LinuxCNC,,,,,18
+Y,Y194,ZP1.B.N,REFELENCE 1 POINT CMD.,NC_INTERNAL,M-2 NC<->PLC handshake — function provided natively by LinuxCNC,,,,,18
+Y,Y195,ZP2.B.N,REFELENCE 2 POINT CMD.,NC_INTERNAL,M-2 NC<->PLC handshake — function provided natively by LinuxCNC,,,,,18
+Y,Y196,HS1.B.N,HAND PULSE X1 NC,NC_INTERNAL,M-2 NC<->PLC handshake — function provided natively by LinuxCNC,,,,,19
+Y,Y197,HS10.B.N,HAND PULSE X10 NC,NC_INTERNAL,M-2 NC<->PLC handshake — function provided natively by LinuxCNC,,,,,19
+Y,Y198,ST.B.N,CYCLE START NC,NC_INTERNAL,M-2 NC<->PLC handshake — function provided natively by LinuxCNC,,,,,19
+Y,Y199,SP.B.N,FEED HOLD NC,NC_INTERNAL,M-2 NC<->PLC handshake — function provided natively by LinuxCNC,,,,,19
+Y,Y19A,ZP.B.N,REF. 1 RETURN ALL AXIS,NC_INTERNAL,M-2 NC<->PLC handshake — function provided natively by LinuxCNC,,,,,19
+Y,Y19B,TPS.N,TOOL PASS MODE NC,OPTION_VERIFY,NC feature — M-2 NC feature — LinuxCNC native or obsolete,,,,,19
+Y,Y19C,VFC.N,VELOCITY FEED RATE CONTROL NC,OPTION_VERIFY,NC feature — M-2 NC feature — LinuxCNC native or obsolete,,,,,19
+Y,Y19E,RDEC.B.N,RAPID DECELERATION NC,NC_INTERNAL,M-2 NC<->PLC handshake — function provided natively by LinuxCNC,,,,,19
+Y,Y1A8,ATCSP.N,ATC STOP TO NC,NC_INTERNAL,M-2 NC<->PLC handshake — function provided natively by LinuxCNC,,,,,19
+Y,Y1A9,CL.B.N,COOLANT BUTTON TO NC,NC_INTERNAL,M-2 NC<->PLC handshake — function provided natively by LinuxCNC,,,,,19
+Y,Y1AB,F2.B.N,FUNCTION KEY 2 TO NC,NC_INTERNAL,M-2 NC<->PLC handshake — function provided natively by LinuxCNC,,,,,19
+Y,Y1AC,F3.B.N,FUNCTION KEY 3 TO NC,NC_INTERNAL,M-2 NC<->PLC handshake — function provided natively by LinuxCNC,,,,,19
+Y,Y1B0,HX.B.N,HANDLE X SELECT NC,NC_INTERNAL,M-2 NC<->PLC handshake — function provided natively by LinuxCNC,,,,,19
+Y,Y1B1,HY.B.N,HANDLE Y SELECT NC,NC_INTERNAL,M-2 NC<->PLC handshake — function provided natively by LinuxCNC,,,,,19
+Y,Y1B2,HZ.B.N,HANDLE Z SELECT NC,NC_INTERNAL,M-2 NC<->PLC handshake — function provided natively by LinuxCNC,,,,,19
+Y,Y1B3,H4.B.N,HANDLE 4 SELECT NC,OPTION_VERIFY,4th-axis rotary table option — verify fitted,,,,,19
+Y,Y1B7,PRG.N,PROGRAM END NC,NC_INTERNAL,M-2 NC<->PLC handshake — function provided natively by LinuxCNC,,,,,19
+Y,Y1C0,AUT.L,AUTO MODE LAMP,NC_PANEL_INTERFACE,PLC->NC/M2V panel handshake — obsolete with M-2; LinuxCNC provides natively,,,,,19
+Y,Y1C1,MDI.L,MDI MODE LAMP,PANEL_LAMP,panel lamp — LinuxCNC UI candidate,,,,,19
+Y,Y1C2,RT.L,RAPID TRAVERSE LAMP,PANEL_LAMP,panel lamp — LinuxCNC UI candidate,,,,,19
+Y,Y1C3,J.L,JOG LAMP,PANEL_LAMP,panel lamp — LinuxCNC UI candidate,,,,,20
+Y,Y1C4,ZP1.L,ZERO POSITION 1 LAMP,PANEL_LAMP,panel lamp — LinuxCNC UI candidate,,,,,20
+Y,Y1C5,ZP2.L,ZERO POSITION 2 LAMP,PANEL_LAMP,panel lamp — LinuxCNC UI candidate,,,,,20
+Y,Y1C6,HS1.L,HAND PULSE 1 LAMP,PANEL_LAMP,panel lamp — LinuxCNC UI candidate,,,,,20
+Y,Y1C7,HS10.L,HAND PULSE 10 LAMP,PANEL_LAMP,panel lamp — LinuxCNC UI candidate,,,,,20
+Y,Y1C8,ST.L,CYCLE START LAMP,PANEL_LAMP,panel lamp — LinuxCNC UI candidate,,,,,20
+Y,Y1C9,SP.L,FEED HOLD LAMP,PANEL_LAMP,panel lamp — LinuxCNC UI candidate,,,,,20
+Y,Y1CA,ZP.L,ALL AXIS ZERO RETURN LAMP,PANEL_LAMP,panel lamp — LinuxCNC UI candidate,,,,,20
+Y,Y1CE,RDEC.L,RAPID DECELERATION LAMP,PANEL_LAMP,panel lamp — LinuxCNC UI candidate,,,,,20
+Y,Y1D0,SST.L,SPINDLE START LAMP,PANEL_LAMP,panel lamp — LinuxCNC UI candidate,,,,,20
+Y,Y1D1,SSP.L,SPINDLE STOP LAMP,PANEL_LAMP,panel lamp — LinuxCNC UI candidate,,,,,20
+Y,Y1D2,SJOG.L,SPINDLE JOG LAMP,PANEL_LAMP,panel lamp — LinuxCNC UI candidate,,,,,20
+Y,Y1D3,SREV.L,SPINDLE REVERSE LAMP,PANEL_LAMP,panel lamp — LinuxCNC UI candidate,,,,,20
+Y,Y1D4,SLCK.L,SPINDLE LOCK LAMP,PANEL_LAMP,panel lamp — LinuxCNC UI candidate,,,,,20
+Y,Y1D5,TUC.L,TOOL UNCLAMP LAMP,PANEL_LAMP,panel lamp — LinuxCNC UI candidate,,,,,20
+Y,Y1D8,ATCSP.L,ATC STOP LAMP,PANEL_LAMP,panel lamp — LinuxCNC UI candidate,,,,,20
+Y,Y1D9,CL.L,COOLANT LAMP,PANEL_LAMP,panel lamp — LinuxCNC UI candidate,,,,,20
+Y,Y1DA,F1.L,FUNCTION KEY 1 LAMP,PANEL_LAMP,panel lamp — LinuxCNC UI candidate,,,,,20
+Y,Y1DB,F2.L,FUNCTION KEY 2 LAMP,PANEL_LAMP,panel lamp — LinuxCNC UI candidate,,,,,20
+Y,Y1DC,F3.L,FUNCTION KEY 3 LAMP,PANEL_LAMP,panel lamp — LinuxCNC UI candidate,,,,,20
+Y,Y1EB,PRGSTP.L,PROGRAM STOP LAMP,PANEL_LAMP,panel lamp — LinuxCNC UI candidate,,,,,21
+Y,Y1EC,MFAIL.L,MACHINE FAIL LAMP,PANEL_LAMP,panel lamp — LinuxCNC UI candidate,NET_LAMP_ALARM,direct,machine fail lamp,,21
+Y,Y1F8,MMSON.L,MMS ON LAMP,OPTION_VERIFY,MMS probe — Renishaw MP-3 measuring system — parts list says fitted,,,,,21
+Y,Y1F9,MMSRDY.L,MMS READY LAMP,OPTION_VERIFY,MMS probe — Renishaw MP-3 measuring system — parts list says fitted,,,,,21
+Y,Y1FA,MMSST.L,MMS START LAMP,OPTION_VERIFY,MMS probe — Renishaw MP-3 measuring system — parts list says fitted,,,,,21
+Y,Y1FB,MMSSKP.L,MMS SKIP LAMP,OPTION_VERIFY,MMS probe — Renishaw MP-3 measuring system — parts list says fitted,,,,,21

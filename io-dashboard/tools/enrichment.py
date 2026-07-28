@@ -10,6 +10,15 @@
 # Status registry. Order = severity/sort order in the UI.
 # ---------------------------------------------------------------------------
 STATUS = {
+    "PROPOSED": {
+        "label": "Proposed \u2014 from element-list cross-walk",
+        "tone": "reserved",
+        "order": 3,
+        "blurb": "Drafted from the YM2V39L element-list cross-walk (2026-07-27). "
+                 "Assignment is a proposal only; verify the device, ladder behavior, "
+                 "and FR-SX/relay terminals before accepting into the wiring plan.",
+        "safe_to_energize": "Not accepted. Do not wire.",
+    },
     "FIELD_VERIFIED": {
         "label": "Field verified",
         "tone": "verified",

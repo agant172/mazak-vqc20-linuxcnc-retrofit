@@ -6,7 +6,7 @@ window.MAZAK_DATA = {
   "machine": "Mazak VQC-20/40",
   "serial": "060231",
   "architecture": "LinuxCNC + Mesa 7i97T + Mesa 7i49 resolver interface + Mesa 7i84U field I/O",
-  "generated": "2026-07-27 22:17 UTC",
+  "generated": "2026-07-28 02:58 UTC",
   "source_repo": "mazak-vqc20-linuxcnc-retrofit",
   "authority_file": "mesa/current_pin_authority.csv",
   "halfiles": [
@@ -50,6 +50,13 @@ window.MAZAK_DATA = {
   }
  },
  "statuses": {
+  "PROPOSED": {
+   "label": "Proposed — from element-list cross-walk",
+   "tone": "reserved",
+   "order": 3,
+   "blurb": "Drafted from the YM2V39L element-list cross-walk (2026-07-27). Assignment is a proposal only; verify the device, ladder behavior, and FR-SX/relay terminals before accepting into the wiring plan.",
+   "safe_to_energize": "Not accepted. Do not wire."
+  },
   "FIELD_VERIFIED": {
    "label": "Field verified",
    "tone": "verified",
@@ -3531,27 +3538,27 @@ window.MAZAK_DATA = {
    "authority_line": 37
   },
   {
-   "id": "TB5_SSR_OUT3_SPARE",
-   "name": "Tb5 Ssr Out3 Spare",
+   "id": "ATC_BARRIER_SOL",
+   "name": "Atc Barrier Sol",
    "board": "7i97T",
    "connector": "TB5 SSR",
    "channel": "TB5.19-TB5.20 SSR OUT3 gpio.023",
-   "hal_net": "",
+   "hal_net": "atc-barrier",
    "direction": "OUT",
    "direction_label": "Output (digital)",
-   "subsystem": "Spare",
-   "machine_subsystem": "Spare",
-   "status": "SPARE",
-   "field_point": "Spare SSR output",
+   "subsystem": "ATC interlock",
+   "machine_subsystem": "ATC interlock",
+   "status": "PROPOSED",
+   "field_point": "ATC barrier expand solenoid (PLC Y095 TCME.M)",
    "designations": [],
-   "primary_source": "archived_wiring_map",
-   "cleanup_notes": "Keep unassigned",
-   "location": "Control cabinet — 7i97T TB5 SSR bank, unlanded",
+   "primary_source": "element_list_crosswalk_2026-07-27",
+   "cleanup_notes": "Verify device exists on SN 060231; relay if 100VAC coil",
+   "location": "Unknown — trace in cabinet",
    "location_note": "",
    "expected": {
     "value": "0",
-    "label": "0 — spare channel, no field wiring",
-    "basis": "Marked SPARE in current_pin_authority.csv",
+    "label": "0 / de-energized — output idle unless commanded",
+    "basis": "No commanding logic in the active HAL for this net; outputs default off.",
     "kind": "default-off"
    },
    "hal_state": "absent",
@@ -3568,7 +3575,7 @@ window.MAZAK_DATA = {
      "note": "Current wiring authority row"
     },
     {
-     "file": "archived_wiring_map",
+     "file": "element_list_crosswalk_2026-07-27",
      "lines": "",
      "note": "primary_source column in the authority table"
     }
@@ -3577,27 +3584,27 @@ window.MAZAK_DATA = {
    "authority_line": 38
   },
   {
-   "id": "TB5_SSR_OUT4_SPARE",
-   "name": "Tb5 Ssr Out4 Spare",
+   "id": "FLOOD_VALVE",
+   "name": "Flood Valve",
    "board": "7i97T",
    "connector": "TB5 SSR",
    "channel": "TB5.21-TB5.22 SSR OUT4 gpio.024",
-   "hal_net": "",
+   "hal_net": "flood-valve",
    "direction": "OUT",
    "direction_label": "Output (digital)",
-   "subsystem": "Spare",
-   "machine_subsystem": "Spare",
-   "status": "SPARE",
-   "field_point": "Spare SSR output",
+   "subsystem": "Coolant",
+   "machine_subsystem": "Coolant",
+   "status": "PROPOSED",
+   "field_point": "Flood coolant valve, separate from pump motor (PLC Y011 FCL)",
    "designations": [],
-   "primary_source": "archived_wiring_map",
-   "cleanup_notes": "Keep unassigned",
-   "location": "Control cabinet — 7i97T TB5 SSR bank, unlanded",
+   "primary_source": "element_list_crosswalk_2026-07-27",
+   "cleanup_notes": "Verify valve SOL number in parts list pp.85-91; may share COOLANT_ON if always together",
+   "location": "Unknown — trace in cabinet",
    "location_note": "",
    "expected": {
     "value": "0",
-    "label": "0 — spare channel, no field wiring",
-    "basis": "Marked SPARE in current_pin_authority.csv",
+    "label": "0 / de-energized — output idle unless commanded",
+    "basis": "No commanding logic in the active HAL for this net; outputs default off.",
     "kind": "default-off"
    },
    "hal_state": "absent",
@@ -3614,7 +3621,7 @@ window.MAZAK_DATA = {
      "note": "Current wiring authority row"
     },
     {
-     "file": "archived_wiring_map",
+     "file": "element_list_crosswalk_2026-07-27",
      "lines": "",
      "note": "primary_source column in the authority table"
     }
@@ -3637,7 +3644,7 @@ window.MAZAK_DATA = {
    "field_point": "Spare SSR output",
    "designations": [],
    "primary_source": "archived_wiring_map",
-   "cleanup_notes": "Keep unassigned",
+   "cleanup_notes": "Last spare output - reserved for SSET (Y092) or through-hole coolant (Y012) pending ladder check",
    "location": "Control cabinet — 7i97T TB5 SSR bank, unlanded",
    "location_note": "",
    "expected": {
@@ -4023,28 +4030,28 @@ window.MAZAK_DATA = {
    "authority_line": 46
   },
   {
-   "id": "SEVENI84U_IN4_SPARE",
-   "name": "Seveni84U In4 Spare",
+   "id": "SPINDLE_ORIENT_ARRIVAL",
+   "name": "Spindle Orient Arrival",
    "board": "7i84U",
    "connector": "TB1",
    "channel": "IN4",
-   "hal_net": "",
+   "hal_net": "spindle-oriented",
    "direction": "IN",
    "direction_label": "Input (digital)",
-   "subsystem": "Spare",
-   "machine_subsystem": "Spare",
-   "status": "SPARE",
-   "field_point": "Spare input",
+   "subsystem": "Spindle",
+   "machine_subsystem": "Spindle",
+   "status": "PROPOSED",
+   "field_point": "FR-SX orient arrival (PLC X003 ORA1)",
    "designations": [],
-   "primary_source": "archived_wiring_map",
-   "cleanup_notes": "Keep for future field signal",
-   "location": "Field I/O enclosure — 7i84U TB1, unlanded",
+   "primary_source": "element_list_crosswalk_2026-07-27",
+   "cleanup_notes": "ATC cannot cycle without orient; confirm FR-SX terminal and polarity",
+   "location": "Unknown — trace in cabinet",
    "location_note": "",
    "expected": {
-    "value": "0",
-    "label": "0 — spare channel, no field wiring",
-    "basis": "Marked SPARE in current_pin_authority.csv",
-    "kind": "default-off"
+    "value": "Unknown",
+    "label": "Unknown — measure/verify",
+    "basis": "No explicit normal-state evidence in the repo for this signal.",
+    "kind": "unknown"
    },
    "hal_state": "absent",
    "mesa_pins": [],
@@ -4060,7 +4067,7 @@ window.MAZAK_DATA = {
      "note": "Current wiring authority row"
     },
     {
-     "file": "archived_wiring_map",
+     "file": "element_list_crosswalk_2026-07-27",
      "lines": "",
      "note": "primary_source column in the authority table"
     }
@@ -4069,28 +4076,28 @@ window.MAZAK_DATA = {
    "authority_line": 47
   },
   {
-   "id": "SEVENI84U_IN5_SPARE",
-   "name": "Seveni84U In5 Spare",
+   "id": "SPINDLE_ZERO_SPEED",
+   "name": "Spindle Zero Speed",
    "board": "7i84U",
    "connector": "TB1",
    "channel": "IN5",
-   "hal_net": "",
+   "hal_net": "spindle-zero-speed",
    "direction": "IN",
    "direction_label": "Input (digital)",
-   "subsystem": "Spare",
-   "machine_subsystem": "Spare",
-   "status": "SPARE",
-   "field_point": "Spare input",
+   "subsystem": "Spindle safety",
+   "machine_subsystem": "Spindle safety",
+   "status": "PROPOSED",
+   "field_point": "FR-SX zero-speed output (PLC X001 SZS.M)",
    "designations": [],
-   "primary_source": "archived_wiring_map",
-   "cleanup_notes": "Keep for future field signal",
-   "location": "Field I/O enclosure — 7i84U TB1, unlanded",
+   "primary_source": "element_list_crosswalk_2026-07-27",
+   "cleanup_notes": "Distinct from IN13 speed-reach; gear shift interlock needs zero-speed",
+   "location": "Unknown — trace in cabinet",
    "location_note": "",
    "expected": {
-    "value": "0",
-    "label": "0 — spare channel, no field wiring",
-    "basis": "Marked SPARE in current_pin_authority.csv",
-    "kind": "default-off"
+    "value": "Unknown",
+    "label": "Unknown — measure/verify",
+    "basis": "No explicit normal-state evidence in the repo for this signal.",
+    "kind": "unknown"
    },
    "hal_state": "absent",
    "mesa_pins": [],
@@ -4106,7 +4113,7 @@ window.MAZAK_DATA = {
      "note": "Current wiring authority row"
     },
     {
-     "file": "archived_wiring_map",
+     "file": "element_list_crosswalk_2026-07-27",
      "lines": "",
      "note": "primary_source column in the authority table"
     }
@@ -4115,28 +4122,28 @@ window.MAZAK_DATA = {
    "authority_line": 48
   },
   {
-   "id": "SEVENI84U_IN6_SPARE",
-   "name": "Seveni84U In6 Spare",
+   "id": "MAG_COVER_OPEN_CONF",
+   "name": "Mag Cover Open Conf",
    "board": "7i84U",
    "connector": "TB1",
    "channel": "IN6",
-   "hal_net": "",
+   "hal_net": "mag-cover-open-conf",
    "direction": "IN",
    "direction_label": "Input (digital)",
-   "subsystem": "Spare",
-   "machine_subsystem": "Spare",
-   "status": "SPARE",
-   "field_point": "Spare input",
+   "subsystem": "Magazine",
+   "machine_subsystem": "Magazine",
+   "status": "PROPOSED",
+   "field_point": "Magazine cover open reed switch (PLC X052 MGCORS)",
    "designations": [],
-   "primary_source": "archived_wiring_map",
-   "cleanup_notes": "Keep for future field signal",
-   "location": "Field I/O enclosure — 7i84U TB1, unlanded",
+   "primary_source": "element_list_crosswalk_2026-07-27",
+   "cleanup_notes": "Pairs with NET_MAG_COVER_OPEN/CLOSE solenoids; locate RS on cover",
+   "location": "Unknown — trace in cabinet",
    "location_note": "",
    "expected": {
-    "value": "0",
-    "label": "0 — spare channel, no field wiring",
-    "basis": "Marked SPARE in current_pin_authority.csv",
-    "kind": "default-off"
+    "value": "Unknown",
+    "label": "Unknown — measure/verify",
+    "basis": "No explicit normal-state evidence in the repo for this signal.",
+    "kind": "unknown"
    },
    "hal_state": "absent",
    "mesa_pins": [],
@@ -4152,7 +4159,7 @@ window.MAZAK_DATA = {
      "note": "Current wiring authority row"
     },
     {
-     "file": "archived_wiring_map",
+     "file": "element_list_crosswalk_2026-07-27",
      "lines": "",
      "note": "primary_source column in the authority table"
     }
@@ -4161,28 +4168,28 @@ window.MAZAK_DATA = {
    "authority_line": 49
   },
   {
-   "id": "SEVENI84U_IN7_SPARE",
-   "name": "Seveni84U In7 Spare",
+   "id": "MAG_COVER_CLOSE_CONF",
+   "name": "Mag Cover Close Conf",
    "board": "7i84U",
    "connector": "TB1",
    "channel": "IN7",
-   "hal_net": "",
+   "hal_net": "mag-cover-closed-conf",
    "direction": "IN",
    "direction_label": "Input (digital)",
-   "subsystem": "Spare",
-   "machine_subsystem": "Spare",
-   "status": "SPARE",
-   "field_point": "Spare input",
+   "subsystem": "Magazine",
+   "machine_subsystem": "Magazine",
+   "status": "PROPOSED",
+   "field_point": "Magazine cover close reed switch (PLC X053 MGCCRS)",
    "designations": [],
-   "primary_source": "archived_wiring_map",
-   "cleanup_notes": "Keep for future field signal",
-   "location": "Field I/O enclosure — 7i84U TB1, unlanded",
+   "primary_source": "element_list_crosswalk_2026-07-27",
+   "cleanup_notes": "Interlock magazine rotation on cover closed",
+   "location": "Unknown — trace in cabinet",
    "location_note": "",
    "expected": {
-    "value": "0",
-    "label": "0 — spare channel, no field wiring",
-    "basis": "Marked SPARE in current_pin_authority.csv",
-    "kind": "default-off"
+    "value": "Unknown",
+    "label": "Unknown — measure/verify",
+    "basis": "No explicit normal-state evidence in the repo for this signal.",
+    "kind": "unknown"
    },
    "hal_state": "absent",
    "mesa_pins": [],
@@ -4198,7 +4205,7 @@ window.MAZAK_DATA = {
      "note": "Current wiring authority row"
     },
     {
-     "file": "archived_wiring_map",
+     "file": "element_list_crosswalk_2026-07-27",
      "lines": "",
      "note": "primary_source column in the authority table"
     }
@@ -4207,28 +4214,28 @@ window.MAZAK_DATA = {
    "authority_line": 50
   },
   {
-   "id": "SEVENI84U_IN8_SPARE",
-   "name": "Seveni84U In8 Spare",
+   "id": "THERMAL_ALARM_CHAIN",
+   "name": "Thermal Alarm Chain",
    "board": "7i84U",
    "connector": "TB1",
    "channel": "IN8",
-   "hal_net": "",
+   "hal_net": "thermal-alarm",
    "direction": "IN",
    "direction_label": "Input (digital)",
-   "subsystem": "Spare",
-   "machine_subsystem": "Spare",
-   "status": "SPARE",
-   "field_point": "Spare input",
+   "subsystem": "Machine safety",
+   "machine_subsystem": "Machine safety",
+   "status": "PROPOSED",
+   "field_point": "Motor thermal trip + main transformer overheat in series (PLC X073 THR.M + X07B ONT.M)",
    "designations": [],
-   "primary_source": "archived_wiring_map",
-   "cleanup_notes": "Keep for future field signal",
-   "location": "Field I/O enclosure — 7i84U TB1, unlanded",
+   "primary_source": "element_list_crosswalk_2026-07-27",
+   "cleanup_notes": "Seriesed NC contacts to save an input; alarm-only, not E-stop chain",
+   "location": "Unknown — trace in cabinet",
    "location_note": "",
    "expected": {
-    "value": "0",
-    "label": "0 — spare channel, no field wiring",
-    "basis": "Marked SPARE in current_pin_authority.csv",
-    "kind": "default-off"
+    "value": "Unknown",
+    "label": "Unknown — measure/verify",
+    "basis": "No explicit normal-state evidence in the repo for this signal.",
+    "kind": "unknown"
    },
    "hal_state": "absent",
    "mesa_pins": [],
@@ -4244,7 +4251,7 @@ window.MAZAK_DATA = {
      "note": "Current wiring authority row"
     },
     {
-     "file": "archived_wiring_map",
+     "file": "element_list_crosswalk_2026-07-27",
      "lines": "",
      "note": "primary_source column in the authority table"
     }
@@ -4253,28 +4260,28 @@ window.MAZAK_DATA = {
    "authority_line": 51
   },
   {
-   "id": "SEVENI84U_IN9_SPARE",
-   "name": "Seveni84U In9 Spare",
+   "id": "MANUAL_TOOL_UNCLAMP_PB",
+   "name": "Manual Tool Unclamp Pb",
    "board": "7i84U",
    "connector": "TB1",
    "channel": "IN9",
-   "hal_net": "",
+   "hal_net": "manual-unclamp-pb",
    "direction": "IN",
    "direction_label": "Input (digital)",
-   "subsystem": "Spare",
-   "machine_subsystem": "Spare",
-   "status": "SPARE",
-   "field_point": "Spare input",
+   "subsystem": "ATC tool",
+   "machine_subsystem": "ATC tool",
+   "status": "PROPOSED",
+   "field_point": "Manual tool unclamp switch at head (PLC X01A TUCFS.M)",
    "designations": [],
-   "primary_source": "archived_wiring_map",
-   "cleanup_notes": "Keep for future field signal",
-   "location": "Field I/O enclosure — 7i84U TB1, unlanded",
+   "primary_source": "element_list_crosswalk_2026-07-27",
+   "cleanup_notes": "Commissioning aid; TCFS (X01B) deferred - no spare input left",
+   "location": "Unknown — trace in cabinet",
    "location_note": "",
    "expected": {
-    "value": "0",
-    "label": "0 — spare channel, no field wiring",
-    "basis": "Marked SPARE in current_pin_authority.csv",
-    "kind": "default-off"
+    "value": "Unknown",
+    "label": "Unknown — measure/verify",
+    "basis": "No explicit normal-state evidence in the repo for this signal.",
+    "kind": "unknown"
    },
    "hal_state": "absent",
    "mesa_pins": [],
@@ -4290,7 +4297,7 @@ window.MAZAK_DATA = {
      "note": "Current wiring authority row"
     },
     {
-     "file": "archived_wiring_map",
+     "file": "element_list_crosswalk_2026-07-27",
      "lines": "",
      "note": "primary_source column in the authority table"
     }
@@ -5986,29 +5993,27 @@ window.MAZAK_DATA = {
    "authority_line": 77
   },
   {
-   "id": "SEVENI84U_OUT3_SPARE",
-   "name": "Seveni84U Out3 Spare",
+   "id": "HYD_PUMP_ON",
+   "name": "Hyd Pump On",
    "board": "7i84U",
    "connector": "TB2",
    "channel": "OUT3",
-   "hal_net": "",
+   "hal_net": "hyd-pump-on",
    "direction": "OUT",
    "direction_label": "Output (digital)",
-   "subsystem": "Spare",
-   "machine_subsystem": "Spare",
-   "status": "SPARE",
-   "field_point": "Spare output",
-   "designations": [
-    "TB-3"
-   ],
-   "primary_source": "archived_wiring_map",
-   "cleanup_notes": "Drive S-ON handled by 7i97T TB3",
-   "location": "Field I/O enclosure — 7i84U TB2, unlanded",
-   "location_note": "Drive S-ON is handled by the 7i97T TB3 ENA pins.",
+   "subsystem": "Hydraulic",
+   "machine_subsystem": "Hydraulic",
+   "status": "PROPOSED",
+   "field_point": "Hydraulic + head-lube pump contactor (PLC Y096 HYD.M)",
+   "designations": [],
+   "primary_source": "element_list_crosswalk_2026-07-27",
+   "cleanup_notes": "Required before clamp/gear/ATC; interposing relay for contactor coil; prove HYD_PRESS_OK after start",
+   "location": "Unknown — trace in cabinet",
+   "location_note": "",
    "expected": {
     "value": "0",
-    "label": "0 — spare channel, no field wiring",
-    "basis": "Marked SPARE in current_pin_authority.csv",
+    "label": "0 / de-energized — output idle unless commanded",
+    "basis": "No commanding logic in the active HAL for this net; outputs default off.",
     "kind": "default-off"
    },
    "hal_state": "absent",
@@ -6025,7 +6030,7 @@ window.MAZAK_DATA = {
      "note": "Current wiring authority row"
     },
     {
-     "file": "archived_wiring_map",
+     "file": "element_list_crosswalk_2026-07-27",
      "lines": "",
      "note": "primary_source column in the authority table"
     }
@@ -6034,29 +6039,27 @@ window.MAZAK_DATA = {
    "authority_line": 78
   },
   {
-   "id": "SEVENI84U_OUT4_SPARE",
-   "name": "Seveni84U Out4 Spare",
+   "id": "SPINDLE_ORIENT_CMD",
+   "name": "Spindle Orient Cmd",
    "board": "7i84U",
    "connector": "TB2",
    "channel": "OUT4",
-   "hal_net": "",
+   "hal_net": "spindle-orient-cmd",
    "direction": "OUT",
    "direction_label": "Output (digital)",
-   "subsystem": "Spare",
-   "machine_subsystem": "Spare",
-   "status": "SPARE",
-   "field_point": "Spare output",
-   "designations": [
-    "TB-3"
-   ],
-   "primary_source": "archived_wiring_map",
-   "cleanup_notes": "Drive S-ON handled by 7i97T TB3",
-   "location": "Field I/O enclosure — 7i84U TB2, unlanded",
-   "location_note": "Drive S-ON is handled by the 7i97T TB3 ENA pins.",
+   "subsystem": "Spindle",
+   "machine_subsystem": "Spindle",
+   "status": "PROPOSED",
+   "field_point": "FR-SX orient command (PLC Y093 ORCM1.M)",
+   "designations": [],
+   "primary_source": "element_list_crosswalk_2026-07-27",
+   "cleanup_notes": "Sequence per ladder 28xx-29xx before ATC HAL component",
+   "location": "Unknown — trace in cabinet",
+   "location_note": "",
    "expected": {
     "value": "0",
-    "label": "0 — spare channel, no field wiring",
-    "basis": "Marked SPARE in current_pin_authority.csv",
+    "label": "0 / de-energized — output idle unless commanded",
+    "basis": "No commanding logic in the active HAL for this net; outputs default off.",
     "kind": "default-off"
    },
    "hal_state": "absent",
@@ -6073,7 +6076,7 @@ window.MAZAK_DATA = {
      "note": "Current wiring authority row"
     },
     {
-     "file": "archived_wiring_map",
+     "file": "element_list_crosswalk_2026-07-27",
      "lines": "",
      "note": "primary_source column in the authority table"
     }
@@ -6082,29 +6085,27 @@ window.MAZAK_DATA = {
    "authority_line": 79
   },
   {
-   "id": "SEVENI84U_OUT5_SPARE",
-   "name": "Seveni84U Out5 Spare",
+   "id": "SPINDLE_ORIENT_LOGEAR",
+   "name": "Spindle Orient Logear",
    "board": "7i84U",
    "connector": "TB2",
    "channel": "OUT5",
-   "hal_net": "",
+   "hal_net": "orient-lo-gear",
    "direction": "OUT",
    "direction_label": "Output (digital)",
-   "subsystem": "Spare",
-   "machine_subsystem": "Spare",
-   "status": "SPARE",
-   "field_point": "Spare output",
-   "designations": [
-    "TB-3"
-   ],
-   "primary_source": "archived_wiring_map",
-   "cleanup_notes": "Drive S-ON handled by 7i97T TB3",
-   "location": "Field I/O enclosure — 7i84U TB2, unlanded",
-   "location_note": "Drive S-ON is handled by the 7i97T TB3 ENA pins.",
+   "subsystem": "Spindle",
+   "machine_subsystem": "Spindle",
+   "status": "PROPOSED",
+   "field_point": "Low-gear orient assist (PLC Y094 CTL.M)",
+   "designations": [],
+   "primary_source": "element_list_crosswalk_2026-07-27",
+   "cleanup_notes": "Verify in ladder whether required in high gear too",
+   "location": "Unknown — trace in cabinet",
+   "location_note": "",
    "expected": {
     "value": "0",
-    "label": "0 — spare channel, no field wiring",
-    "basis": "Marked SPARE in current_pin_authority.csv",
+    "label": "0 / de-energized — output idle unless commanded",
+    "basis": "No commanding logic in the active HAL for this net; outputs default off.",
     "kind": "default-off"
    },
    "hal_state": "absent",
@@ -6121,7 +6122,7 @@ window.MAZAK_DATA = {
      "note": "Current wiring authority row"
     },
     {
-     "file": "archived_wiring_map",
+     "file": "element_list_crosswalk_2026-07-27",
      "lines": "",
      "note": "primary_source column in the authority table"
     }
@@ -6722,7 +6723,7 @@ window.MAZAK_DATA = {
    "field_point": "Additional 7i84 or equivalent",
    "designations": [],
    "primary_source": "phase2_conflict_review",
-   "cleanup_notes": "Do not buy until final input count proves it is needed",
+   "cleanup_notes": "Input budget now exhausted (0 spares); TCFS X01B deferred. Next field input forces this card or reclaiming panel inputs IN28-IN30",
    "location": "Not installed",
    "location_note": "Do not order until the input count proves it is needed.",
    "expected": {
@@ -8749,7 +8750,9 @@ window.MAZAK_DATA = {
   "Drive safety",
   "Expansion",
   "Field I/O",
+  "Hydraulic",
   "Hydraulic safety",
+  "Machine safety",
   "Magazine",
   "Motion",
   "Panel",
@@ -9193,8 +9196,16 @@ window.MAZAK_DATA = {
   "AIR_BLAST",
   "TOUCH_SENSOR_BLAST",
   "TAP_COOLANT_BLAST",
+  "ATC_BARRIER_SOL",
+  "FLOOD_VALVE",
   "MAG_TOOL_AVAILABLE",
   "SPINDLE_TOOL_AVAILABLE",
+  "SPINDLE_ORIENT_ARRIVAL",
+  "SPINDLE_ZERO_SPEED",
+  "MAG_COVER_OPEN_CONF",
+  "MAG_COVER_CLOSE_CONF",
+  "THERMAL_ALARM_CHAIN",
+  "MANUAL_TOOL_UNCLAMP_PB",
   "SPINDLE_AT_SPEED",
   "GEAR_HI_CONF",
   "GEAR_LO_CONF",
@@ -9207,6 +9218,9 @@ window.MAZAK_DATA = {
   "LUBE_LEVEL",
   "COOLANT_LEVEL",
   "SPINDLE_ENA",
+  "HYD_PUMP_ON",
+  "SPINDLE_ORIENT_CMD",
+  "SPINDLE_ORIENT_LOGEAR",
   "Z_BRAKE_REL",
   "GEAR_HI_SOL",
   "GEAR_LO_SOL",
