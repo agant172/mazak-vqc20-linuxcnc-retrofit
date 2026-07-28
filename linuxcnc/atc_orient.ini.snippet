@@ -66,9 +66,12 @@ REMAP = M6 modalgroup=6 ngc=toolchange
 # Read from G-code as #<_ini[ATC]NAME>.
 #
 # ALL COORDINATES ARE PLACEHOLDERS. ZP1 and ZP2 are the OEM reference points
-# (ATC doc open question #2) and must be recovered from the M-2 parameters or
-# measured on the machine. Values are MACHINE coordinates (the NGC moves with
-# G53) in the [TRAJ] units, which are currently inches.
+# (ATC doc open question #2). Confirmed 2026-07-27: the values are NOT in the
+# uploaded Parameters manual (generic M-2 dictionary, Setting column blank) -
+# the OEM numbers are M-2 params RP1-RP3 ("2nd zero point coordinate") in the
+# control's battery-backed CMOS. See docs/parameter_recovery.md for the
+# capture checklist and the measurement fallback. Values are MACHINE
+# coordinates (the NGC moves with G53) in the [TRAJ] units, currently inches.
 
 [ATC]
 # ref-1: pot exchange height - Z down, toolholder engaged in the pot.
