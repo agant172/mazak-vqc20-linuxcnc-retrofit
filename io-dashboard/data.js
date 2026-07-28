@@ -6,7 +6,7 @@ window.MAZAK_DATA = {
   "machine": "Mazak VQC-20/40",
   "serial": "060231",
   "architecture": "LinuxCNC + Mesa 7i97T + Mesa 7i49 resolver interface + Mesa 7i84U field I/O",
-  "generated": "2026-07-28 02:58 UTC",
+  "generated": "2026-07-28 03:46 UTC",
   "source_repo": "mazak-vqc20-linuxcnc-retrofit",
   "authority_file": "mesa/current_pin_authority.csv",
   "halfiles": [
@@ -5457,19 +5457,19 @@ window.MAZAK_DATA = {
   {
    "id": "CYCLE_START_PB",
    "name": "Cycle Start Pb",
-   "board": "7i84U",
-   "connector": "TB1",
-   "channel": "IN28",
+   "board": "none",
+   "connector": "none",
+   "channel": "none",
    "hal_net": "cycle-start-pb",
    "direction": "IN",
    "direction_label": "Input (digital)",
    "subsystem": "Panel",
    "machine_subsystem": "Operator panel",
-   "status": "OPTIONAL_VERIFY",
+   "status": "DEFERRED",
    "field_point": "Operator cycle start pushbutton",
    "designations": [],
    "primary_source": "archived_wiring_map",
-   "cleanup_notes": "Panel reuse optional",
+   "cleanup_notes": "Displaced 2026-07-27: IN28 reclaimed for MAG_IN_POS (mandatory ATC input). Pendant WHB04B provides cycle start; panel PB moves to second sserial card if ordered",
    "location": "Operating panel A/B — cycle start pushbutton",
    "location_note": "",
    "expected": {
@@ -5531,6 +5531,71 @@ window.MAZAK_DATA = {
    ],
    "conflicts": [],
    "authority_line": 71
+  },
+  {
+   "id": "MAG_IN_POS",
+   "name": "Mag In Pos",
+   "board": "7i84U",
+   "connector": "TB1",
+   "channel": "IN28",
+   "hal_net": "mag-in-pos",
+   "direction": "IN",
+   "direction_label": "Input (digital)",
+   "subsystem": "ATC",
+   "machine_subsystem": "ATC",
+   "status": "PROPOSED",
+   "field_point": "Magazine index in-position prox (PLC X00D MIPRS); BCD pot number valid only while TRUE",
+   "designations": [],
+   "primary_source": "atc_ladder_transcription_2026-07-27",
+   "cleanup_notes": "Mandatory for magazine indexing (rungs 3401/33xx). Move mag-in-pos off legacy IN4 in field_7i84u.hal (IN4 = spindle-oriented). Verify prox type/polarity",
+   "location": "Unknown — trace in cabinet",
+   "location_note": "",
+   "expected": {
+    "value": "Unknown",
+    "label": "Unknown — measure/verify",
+    "basis": "No explicit normal-state evidence in the repo for this signal.",
+    "kind": "unknown"
+   },
+   "hal_state": "active",
+   "mesa_pins": [
+    "hm2_7i97.0.7i84.0.0.input-04"
+   ],
+   "producers": [],
+   "consumers": [],
+   "hal_refs": [
+    {
+     "file": "linuxcnc/field_7i84u.hal",
+     "line": 18,
+     "text": "net mag-in-pos <= hm2_7i97.0.7i84.0.0.input-04",
+     "commented": false,
+     "producers": [
+      "hm2_7i97.0.7i84.0.0.input-04"
+     ],
+     "consumers": [],
+     "bidir": []
+    }
+   ],
+   "setp_refs": [],
+   "stale_row": null,
+   "sources": [
+    {
+     "file": "mesa/current_pin_authority.csv",
+     "lines": "72",
+     "note": "Current wiring authority row"
+    },
+    {
+     "file": "linuxcnc/field_7i84u.hal",
+     "lines": "18",
+     "note": "net mag-in-pos <= hm2_7i97.0.7i84.0.0.input-04"
+    },
+    {
+     "file": "atc_ladder_transcription_2026-07-27",
+     "lines": "",
+     "note": "primary_source column in the authority table"
+    }
+   ],
+   "conflicts": [],
+   "authority_line": 72
   },
   {
    "id": "FEED_HOLD_PB",
@@ -5601,7 +5666,7 @@ window.MAZAK_DATA = {
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
-     "lines": "72",
+     "lines": "73",
      "note": "Current wiring authority row"
     },
     {
@@ -5626,7 +5691,7 @@ window.MAZAK_DATA = {
     }
    ],
    "conflicts": [],
-   "authority_line": 72
+   "authority_line": 73
   },
   {
    "id": "SINGLE_BLOCK_SW",
@@ -5684,7 +5749,7 @@ window.MAZAK_DATA = {
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
-     "lines": "73",
+     "lines": "74",
      "note": "Current wiring authority row"
     },
     {
@@ -5704,7 +5769,7 @@ window.MAZAK_DATA = {
     }
    ],
    "conflicts": [],
-   "authority_line": 73
+   "authority_line": 74
   },
   {
    "id": "SERVO_READY",
@@ -5754,7 +5819,7 @@ window.MAZAK_DATA = {
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
-     "lines": "74",
+     "lines": "75",
      "note": "Current wiring authority row"
     },
     {
@@ -5769,7 +5834,7 @@ window.MAZAK_DATA = {
     }
    ],
    "conflicts": [],
-   "authority_line": 74
+   "authority_line": 75
   },
   {
    "id": "SPINDLE_FWD",
@@ -5832,7 +5897,7 @@ window.MAZAK_DATA = {
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
-     "lines": "75",
+     "lines": "76",
      "note": "Current wiring authority row"
     },
     {
@@ -5855,7 +5920,7 @@ window.MAZAK_DATA = {
     "C2",
     "C3"
    ],
-   "authority_line": 75
+   "authority_line": 76
   },
   {
    "id": "SPINDLE_REV",
@@ -5918,7 +5983,7 @@ window.MAZAK_DATA = {
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
-     "lines": "76",
+     "lines": "77",
      "note": "Current wiring authority row"
     },
     {
@@ -5941,7 +6006,7 @@ window.MAZAK_DATA = {
     "C2",
     "C3"
    ],
-   "authority_line": 76
+   "authority_line": 77
   },
   {
    "id": "SPINDLE_ENA",
@@ -5977,7 +6042,7 @@ window.MAZAK_DATA = {
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
-     "lines": "77",
+     "lines": "78",
      "note": "Current wiring authority row"
     },
     {
@@ -5990,7 +6055,7 @@ window.MAZAK_DATA = {
     "C2",
     "C3"
    ],
-   "authority_line": 77
+   "authority_line": 78
   },
   {
    "id": "HYD_PUMP_ON",
@@ -6026,7 +6091,7 @@ window.MAZAK_DATA = {
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
-     "lines": "78",
+     "lines": "79",
      "note": "Current wiring authority row"
     },
     {
@@ -6036,7 +6101,7 @@ window.MAZAK_DATA = {
     }
    ],
    "conflicts": [],
-   "authority_line": 78
+   "authority_line": 79
   },
   {
    "id": "SPINDLE_ORIENT_CMD",
@@ -6072,7 +6137,7 @@ window.MAZAK_DATA = {
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
-     "lines": "79",
+     "lines": "80",
      "note": "Current wiring authority row"
     },
     {
@@ -6082,7 +6147,7 @@ window.MAZAK_DATA = {
     }
    ],
    "conflicts": [],
-   "authority_line": 79
+   "authority_line": 80
   },
   {
    "id": "SPINDLE_ORIENT_LOGEAR",
@@ -6118,7 +6183,7 @@ window.MAZAK_DATA = {
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
-     "lines": "80",
+     "lines": "81",
      "note": "Current wiring authority row"
     },
     {
@@ -6128,7 +6193,7 @@ window.MAZAK_DATA = {
     }
    ],
    "conflicts": [],
-   "authority_line": 80
+   "authority_line": 81
   },
   {
    "id": "Z_BRAKE_REL",
@@ -6164,7 +6229,7 @@ window.MAZAK_DATA = {
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
-     "lines": "81",
+     "lines": "82",
      "note": "Current wiring authority row"
     },
     {
@@ -6176,7 +6241,7 @@ window.MAZAK_DATA = {
    "conflicts": [
     "C2"
    ],
-   "authority_line": 81
+   "authority_line": 82
   },
   {
    "id": "GEAR_HI_SOL",
@@ -6215,7 +6280,7 @@ window.MAZAK_DATA = {
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
-     "lines": "82",
+     "lines": "83",
      "note": "Current wiring authority row"
     },
     {
@@ -6228,7 +6293,7 @@ window.MAZAK_DATA = {
     "C2",
     "C4"
    ],
-   "authority_line": 82
+   "authority_line": 83
   },
   {
    "id": "GEAR_LO_SOL",
@@ -6267,7 +6332,7 @@ window.MAZAK_DATA = {
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
-     "lines": "83",
+     "lines": "84",
      "note": "Current wiring authority row"
     },
     {
@@ -6280,7 +6345,7 @@ window.MAZAK_DATA = {
     "C2",
     "C4"
    ],
-   "authority_line": 83
+   "authority_line": 84
   },
   {
    "id": "TOOL_CLAMP_SOL",
@@ -6319,7 +6384,7 @@ window.MAZAK_DATA = {
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
-     "lines": "84",
+     "lines": "85",
      "note": "Current wiring authority row"
     },
     {
@@ -6332,7 +6397,7 @@ window.MAZAK_DATA = {
     "C2",
     "C5"
    ],
-   "authority_line": 84
+   "authority_line": 85
   },
   {
    "id": "TOOL_UNCLAMP_SOL",
@@ -6394,7 +6459,7 @@ window.MAZAK_DATA = {
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
-     "lines": "85",
+     "lines": "86",
      "note": "Current wiring authority row"
     },
     {
@@ -6417,7 +6482,7 @@ window.MAZAK_DATA = {
     "C2",
     "C5"
    ],
-   "authority_line": 85
+   "authority_line": 86
   },
   {
    "id": "COOLANT_ON",
@@ -6484,7 +6549,7 @@ window.MAZAK_DATA = {
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
-     "lines": "86",
+     "lines": "87",
      "note": "Current wiring authority row"
     },
     {
@@ -6507,7 +6572,7 @@ window.MAZAK_DATA = {
     "C2",
     "C10"
    ],
-   "authority_line": 86
+   "authority_line": 87
   },
   {
    "id": "LUBE_ON",
@@ -6543,7 +6608,7 @@ window.MAZAK_DATA = {
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
-     "lines": "87",
+     "lines": "88",
      "note": "Current wiring authority row"
     },
     {
@@ -6556,7 +6621,7 @@ window.MAZAK_DATA = {
     "C2",
     "C10"
    ],
-   "authority_line": 87
+   "authority_line": 88
   },
   {
    "id": "ATC_FWD",
@@ -6594,7 +6659,7 @@ window.MAZAK_DATA = {
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
-     "lines": "88",
+     "lines": "89",
      "note": "Current wiring authority row"
     },
     {
@@ -6607,7 +6672,7 @@ window.MAZAK_DATA = {
     "C2",
     "C9"
    ],
-   "authority_line": 88
+   "authority_line": 89
   },
   {
    "id": "ATC_REV",
@@ -6645,7 +6710,7 @@ window.MAZAK_DATA = {
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
-     "lines": "89",
+     "lines": "90",
      "note": "Current wiring authority row"
     },
     {
@@ -6658,7 +6723,7 @@ window.MAZAK_DATA = {
     "C2",
     "C9"
    ],
-   "authority_line": 89
+   "authority_line": 90
   },
   {
    "id": "ALARM_OUT",
@@ -6694,7 +6759,7 @@ window.MAZAK_DATA = {
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
-     "lines": "90",
+     "lines": "91",
      "note": "Current wiring authority row"
     },
     {
@@ -6706,7 +6771,7 @@ window.MAZAK_DATA = {
    "conflicts": [
     "C2"
    ],
-   "authority_line": 90
+   "authority_line": 91
   },
   {
    "id": "SECOND_SSERIAL_CARD",
@@ -6723,7 +6788,7 @@ window.MAZAK_DATA = {
    "field_point": "Additional 7i84 or equivalent",
    "designations": [],
    "primary_source": "phase2_conflict_review",
-   "cleanup_notes": "Input budget now exhausted (0 spares); TCFS X01B deferred. Next field input forces this card or reclaiming panel inputs IN28-IN30",
+   "cleanup_notes": "Input budget exhausted (0 spares); TCFS X01B deferred; IN28 reclaimed for MAG_IN_POS 2026-07-27. Next field input forces this card or reclaiming panel inputs IN29-IN30",
    "location": "Not installed",
    "location_note": "Do not order until the input count proves it is needed.",
    "expected": {
@@ -6742,7 +6807,7 @@ window.MAZAK_DATA = {
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
-     "lines": "91",
+     "lines": "92",
      "note": "Current wiring authority row"
     },
     {
@@ -6754,7 +6819,7 @@ window.MAZAK_DATA = {
    "conflicts": [
     "C10"
    ],
-   "authority_line": 91
+   "authority_line": 92
   },
   {
    "id": "NET_AIR_BLAST_1",
@@ -7588,71 +7653,6 @@ window.MAZAK_DATA = {
    ],
    "conflicts": [
     "C2",
-    "C8"
-   ],
-   "authority_line": null
-  },
-  {
-   "id": "NET_MAG_IN_POS",
-   "name": "mag-in-pos",
-   "board": "7i84U",
-   "connector": "TB1",
-   "channel": "IN4",
-   "hal_net": "mag-in-pos",
-   "direction": "IN",
-   "direction_label": "Input (digital)",
-   "subsystem": "Unmapped",
-   "machine_subsystem": "Unmapped",
-   "status": "CONFIG_ONLY",
-   "field_point": "Magazine indexed/in-position",
-   "designations": [
-    "PRS-13"
-   ],
-   "primary_source": "mesa/signal_map.csv (stale)",
-   "cleanup_notes": "No row in current_pin_authority.csv. Active in HAL — remove or add an authority row before loading against field wiring.",
-   "location": "Unknown — no authority row, trace in cabinet",
-   "location_note": "Derived from the stale signal_map.csv layout.",
-   "expected": {
-    "value": "Unknown",
-    "label": "Unknown — measure/verify",
-    "basis": "No authority row and no normal-state evidence.",
-    "kind": "unknown"
-   },
-   "hal_state": "active",
-   "mesa_pins": [
-    "hm2_7i97.0.7i84.0.0.input-04"
-   ],
-   "producers": [],
-   "consumers": [],
-   "hal_refs": [
-    {
-     "file": "linuxcnc/field_7i84u.hal",
-     "line": 18,
-     "text": "net mag-in-pos <= hm2_7i97.0.7i84.0.0.input-04",
-     "commented": false,
-     "producers": [
-      "hm2_7i97.0.7i84.0.0.input-04"
-     ],
-     "consumers": [],
-     "bidir": []
-    }
-   ],
-   "setp_refs": [],
-   "stale_row": null,
-   "sources": [
-    {
-     "file": "linuxcnc/field_7i84u.hal",
-     "lines": "18",
-     "note": "net mag-in-pos <= hm2_7i97.0.7i84.0.0.input-04"
-    },
-    {
-     "file": "mesa/signal_map.csv",
-     "lines": "42",
-     "note": "STALE source of this net: 7i84U TB1 IN4 (Confirmed from notes)"
-    }
-   ],
-   "conflicts": [
-    "C1",
     "C8"
    ],
    "authority_line": null
@@ -8741,6 +8741,7 @@ window.MAZAK_DATA = {
   }
  ],
  "subsystems": [
+  "ATC",
   "ATC interlock",
   "ATC motor",
   "ATC tool",
@@ -8974,21 +8975,6 @@ window.MAZAK_DATA = {
      "line": 67,
      "commented": false,
      "text": "net mag-cw-sol => hm2_7i97.0.7i84.0.0.output-01"
-    }
-   ],
-   "active": true
-  },
-  {
-   "net": "mag-in-pos",
-   "mesa_pins": [
-    "hm2_7i97.0.7i84.0.0.input-04"
-   ],
-   "refs": [
-    {
-     "file": "linuxcnc/field_7i84u.hal",
-     "line": 18,
-     "commented": false,
-     "text": "net mag-in-pos <= hm2_7i97.0.7i84.0.0.input-04"
     }
    ],
    "active": true

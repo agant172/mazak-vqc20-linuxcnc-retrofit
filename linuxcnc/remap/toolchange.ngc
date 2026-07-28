@@ -1,0 +1,226 @@
+(  ==================================================================== )
+(  Mazak VQC 20/40 retrofit - remapped M6 tool change                    )
+(  linuxcnc/remap/toolchange.ngc                                             )
+(                                                                        )
+(  AUTHORITATIVE SOURCE: docs/ladder/atc_ladder_transcription.md         )
+(    cycle entry sheet 65, cycles D/E/F sheets 71-73, NC-side reference  )
+(    point commands sheet 75.                                           )
+(                                                                        )
+(  SKELETON - NOT COMMISSIONED. Every coordinate is a placeholder read   )
+(  from the [ATC] INI section; the real ZP1 / ZP2 reference points must  )
+(  be recovered from the M-2 parameters or measured on the machine       )
+(  (ATC doc "Open questions" #2). Do not run this with a tool fitted,    )
+(  with hydraulics live, or outside a dry run until every reference      )
+(  point and every confirm polarity has been verified.                   )
+(  ==================================================================== )
+(                                                                        )
+(  DIVISION OF LABOUR - matches the OEM design.                          )
+(  The Mazatrol PLC never moved an axis: it raised reference-point       )
+(  commands (ZP1.B.N / ZP2.B.N) and confirmed mechanical results. Here:  )
+(    this file            = the MEM-n step chain and all axis motion     )
+(    linuxcnc/components/*.comp = the CND-n confirmations, interlocks, alarms )
+(                                                                        )
+(  ==================================================================== )
+(  DIGITAL PIN MAP  (M62-M66 / M68)                                      )
+(  ==================================================================== )
+(  Requires num_dio >= 16 on the motmod loadrt line - see               )
+(  linuxcnc/atc_orient.ini.snippet. Nets are made in linuxcnc/atc_orient.hal.      )
+(                                                                        )
+(  OUTPUTS  M64 P<n> = on, M65 P<n> = off (immediate),                   )
+(           M62/M63 P<n> = synchronised with motion                     )
+(    P0  atc-cycle-active     -> mazak-atc.cycle-start      (TCME)       )
+(    P1  atc-cover-close-req  -> mazak-atc.cover-close-request (MGC.M)   )
+(    P2  atc-unclamp-req      -> mazak-atc.unclamp-request   (TUCME)     )
+(    P3  atc-index-req        -> mazak-atc.index-request     (TSME)      )
+(    P4  atc-detect-check     -> mazak-atc.tool-detect-check (AL75/76)   )
+(    P5  atc-cycle-finish     -> mazak-atc.cycle-finish      (AFINPLS)   )
+(    P6  orient-req           -> mazak-orient.orient-request (SOME2)     )
+(    P7  orient-cancel        -> mazak-orient.orient-cancel  (UOME2)     )
+(                                                                        )
+(  INPUTS   M66 P<n> L3 Q<sec> waits for HIGH, result in #5399           )
+(           (#5399 = 1 satisfied, -1 timed out)                          )
+(    P0  atc-step1-permit     <- mazak-atc.step1-permit   (D-1/E-1/F-1)  )
+(    P1  atc-unclamp-conf     <- mazak-atc.unclamp-confirmed  (M69)      )
+(    P2  atc-clamp-conf       <- mazak-atc.clamp-confirmed    (M64)      )
+(    P3  atc-index-done       <- mazak-atc.index-done         (MSTP)     )
+(    P4  atc-cover-open-ok    <- mazak-atc.cover-open-verified (MGCOX)   )
+(    P5  spindle-oriented-lat <- mazak-orient.oriented-latch   (SOSA)    )
+(    P6  atc-fault-any        <- OR of both components' fault-any        )
+(    P7  atc-cover-closed-ok  <- mazak-atc.cover-closed-verified         )
+(                                                                        )
+(  The target pocket is NOT passed through a digital pin: it is netted   )
+(  straight from iocontrol.0.tool-prep-pocket to mazak-atc.target-pot.   )
+(  If a future step needs an arbitrary numeric handoff, use              )
+(  M68 E0 Q<value> -> motion.analog-out-00 -> conv_float_s32.            )
+(  ==================================================================== )
+
+o<toolchange> sub
+
+  (  ------------------------------------------------------------------ )
+  (  Modal state and cycle decision                                      )
+  (  ------------------------------------------------------------------ )
+  M70                        ( save modal state, restored by M72 below  )
+  G90 G94                    ( absolute, units/min - no G91 surprises   )
+
+  #<spindle_tool>  = #5400              ( D1 - tool currently in spindle )
+  #<want_tool>     = #<_selected_tool>  ( D2 - tool commanded by T       )
+
+  #<t_orient>  = #<_ini[ATC]ORIENT_TIMEOUT>
+  #<t_confirm> = #<_ini[ATC]CONFIRM_TIMEOUT>
+  #<t_index>   = #<_ini[ATC]INDEX_TIMEOUT>
+
+  ( Reference points - PLACEHOLDERS, see [ATC] in the INI snippet.       )
+  ( ZP1 = ref-1 = pot exchange height (Z down, toolholder in the pot)    )
+  ( ZP2 = ref-2 = clearance height    (Z up,   clear of the magazine)    )
+  #<z_ref1>    = #<_ini[ATC]REF1_Z>
+  #<z_ref2>    = #<_ini[ATC]REF2_Z>
+  #<y_ref1>    = #<_ini[ATC]REF1_Y>
+  #<y_ref2>    = #<_ini[ATC]REF2_Y>
+
+  ( Rung 6511 EQTST - commanded tool already in the spindle: skip.       )
+  o<tc_skip> if [#<want_tool> EQ #<spindle_tool>]
+    (debug, ATC: T#<want_tool> already in spindle - EQTST, cycle skipped)
+    M72
+    o<toolchange> return [1]
+  o<tc_skip> endif
+
+  ( Rungs 6509/6510 - cycle selection. The component computes the same   )
+  ( thing from iocontrol and publishes it on mazak-atc.cycle-select;     )
+  ( this copy exists so the NGC can branch without reading HAL.          )
+  (   1 = full change   (D)  spindle has a tool, a new one is commanded  )
+  (   2 = load only     (E)  spindle empty                               )
+  (   3 = return only   (F)  T0 commanded                                )
+  #<cycle> = 1
+  o<tc_sel1> if [#<spindle_tool> EQ 0]
+    #<cycle> = 2
+  o<tc_sel1> endif
+  o<tc_sel2> if [#<want_tool> EQ 0]
+    #<cycle> = 3
+  o<tc_sel2> endif
+
+  (  ------------------------------------------------------------------ )
+  (  Cycle entry - sheet 65. TCME extends the barrier and holds feed.    )
+  (  Feed hold during the change (ATCFHDME) is implicit: motion is       )
+  (  already paused inside the remap.                                    )
+  (  ------------------------------------------------------------------ )
+  M64 P0                     ( TCME on - barrier out, ATC active         )
+
+  o<tc_fault0> if [#<_ini[ATC]DRY_RUN> GT 0]
+    (debug, ATC DRY RUN: outputs asserted, no motion will be commanded)
+  o<tc_fault0> endif
+
+  (  ------------------------------------------------------------------ )
+  (  Prep: clear Z, orient the spindle, open the cover.                  )
+  (  Ladder equivalent: cycles A/B/C on sheets 67-70 raise the reference )
+  (  point commands and wait for the orient chain (sheet 30).            )
+  (  ------------------------------------------------------------------ )
+  G53 G0 Z#<z_ref2>          ( ZP2 - clearance height first, always      )
+
+  M64 P6                     ( SOME2 - orient request                    )
+  M66 P5 L3 Q#<t_orient>     ( wait for the SOSA oriented latch          )
+  o<tc_or_to> if [#5399 LE 0]
+    (abort, ATC: spindle failed to orient within #<t_orient> s - check AL45/AL46)
+  o<tc_or_to> endif
+
+  M65 P1                     ( cover valve de-energised = OPEN           )
+  M66 P4 L3 Q#<t_confirm>    ( wait for MGCOX cover-verified-open        )
+  o<tc_cov_to> if [#5399 LE 0]
+    (abort, ATC: magazine cover did not verify open - check AL73/AL74)
+  o<tc_cov_to> endif
+
+  (  ------------------------------------------------------------------ )
+  (  Step 1 - D-1 / E-1 / F-1 gate (rungs 7103 / 7205 / 7302).           )
+  (  Y to ref-2, then require: oriented latch, cover open, and the       )
+  (  correct tool detect. The component raises AL75/AL76 and drops the   )
+  (  permit if the detects disagree - nothing moves toward the pot.      )
+  (  ------------------------------------------------------------------ )
+  G53 G0 Y#<y_ref2>
+
+  M64 P4                     ( arm the tool-detect comparison            )
+  M66 P0 L3 Q#<t_confirm>    ( wait for step1-permit                     )
+  o<tc_s1_to> if [#5399 LE 0]
+    (abort, ATC: step-1 gate not satisfied - orient, cover or tool detect)
+  o<tc_s1_to> endif
+
+  (  ------------------------------------------------------------------ )
+  (  Step 2 - Z to ref-1, unclamp (D-2 / E-2 / F-2).                     )
+  (  The unclamp output itself is gated in HAL on the oriented latch and )
+  (  zero speed (rung 3604); this only requests it.                      )
+  (  ------------------------------------------------------------------ )
+  G53 G0 Z#<z_ref1>          ( pot engages the toolholder                )
+
+  M64 P2                     ( TUCME - unclamp request                   )
+  M66 P1 L3 Q#<t_confirm>    ( wait for M69 unclamp confirmed (TUCPRS)   )
+  o<tc_unc_to> if [#5399 LE 0]
+    (abort, ATC: tool unclamp not confirmed - check PRS-8 and hydraulics)
+  o<tc_unc_to> endif
+
+  (  ------------------------------------------------------------------ )
+  (  Step 3 - Z to ref-2 (tool stays in the pot), then index.            )
+  (  Cycle E has no old tool to leave behind and cycle F has no new tool )
+  (  to fetch, so only the full change indexes here; for E the magazine  )
+  (  was already parked on the commanded pot during machining (TSME runs )
+  (  independently of TCME, rung 3404).                                  )
+  (  ------------------------------------------------------------------ )
+  G53 G0 Z#<z_ref2>
+
+  o<tc_index> if [#<cycle> EQ 1]
+    M64 P3                   ( index to iocontrol.0.tool-prep-pocket     )
+    M66 P3 L3 Q#<t_index>    ( wait for MSTP - commanded pot arrived     )
+    o<tc_idx_to> if [#5399 LE 0]
+      (abort, ATC: magazine did not reach the commanded pot - check MIPRS/BCD)
+    o<tc_idx_to> endif
+    M65 P3
+  o<tc_index> endif
+
+  (  ------------------------------------------------------------------ )
+  (  Step 4 - Z to ref-1 and clamp (D-4 / E-3 / F-3).                    )
+  (  Clamp is the de-energised state: dropping the request clamps.       )
+  (  ------------------------------------------------------------------ )
+  G53 G0 Z#<z_ref1>
+
+  M65 P2                     ( drop TUCME - clamp                        )
+  M66 P2 L3 Q#<t_confirm>    ( wait for M64 clamp confirmed (TCPRS)      )
+  o<tc_clp_to> if [#5399 LE 0]
+    (abort, ATC: tool clamp not confirmed - check PRS-9 and hydraulics)
+  o<tc_clp_to> endif
+
+  (  ------------------------------------------------------------------ )
+  (  Step 5 - retract, close the cover, finish (D-5 / F-4).              )
+  (  The OEM interference check (INTF2.N / EIA.N, ATC doc open question  )
+  (  #3) is replaced here by a plain clearance move; tool-length-aware Z  )
+  (  clearance still has to be added once the tool table is populated.   )
+  (  ------------------------------------------------------------------ )
+  G53 G0 Z#<z_ref2>
+  G53 G0 Y#<y_ref1>
+
+  M64 P1                     ( energise the cover valve = CLOSE          )
+  M66 P7 L3 Q#<t_confirm>
+  o<tc_cvc_to> if [#5399 LE 0]
+    (abort, ATC: magazine cover did not verify closed - check AL71/AL72)
+  o<tc_cvc_to> endif
+
+  M65 P4                     ( detect comparison disarmed                )
+
+  ( AFINPLS (rung 3007): finish pulse clears TCME, retracts the barrier  )
+  ( and - via UOME2 - releases the orient command so the spindle is free )
+  ( for the next S word.                                                 )
+  M64 P5
+  M65 P6                     ( drop the orient request                   )
+  M64 P7                     ( UOME2 - unorient                          )
+  G4 P0.1
+  M65 P7
+  M65 P5
+  M65 P0                     ( TCME off                                  )
+
+  (  ------------------------------------------------------------------ )
+  (  Tell the interpreter which tool is now in the spindle.              )
+  (  M61 needs the machine to be stopped, which it is here.              )
+  (  ------------------------------------------------------------------ )
+  M61 Q#<want_tool>
+
+  M72                        ( restore modal state saved by M70          )
+
+o<toolchange> endsub [1]
+
+M2

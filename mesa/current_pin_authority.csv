@@ -68,7 +68,8 @@ DOOR_INTERLOCK,Safety,IN,7i84U,TB1,IN24,door-interlock,Door interlock switch,COM
 LUBE_LEVEL,Utility,IN,7i84U,TB1,IN25,lube-level,Lube level switch,COMMISSIONING_PENDING,archived_wiring_map,Choose low versus ok net after normal state is measured
 COOLANT_LEVEL,Coolant,IN,7i84U,TB1,IN26,coolant-level,Coolant level switch,COMMISSIONING_PENDING,archived_wiring_map,Choose low versus ok net after normal state is measured
 HYD_PRESS_OK,Hydraulic safety,IN,7i84U,TB1,IN27,hydraulic-ok,Sanwa SPS-8T-PC-20 pressure switch,COMMISSIONING_PENDING,phase2_plan,This supersedes stale signal_map.csv TB5 IN16 row
-CYCLE_START_PB,Panel,IN,7i84U,TB1,IN28,cycle-start-pb,Operator cycle start pushbutton,OPTIONAL_VERIFY,archived_wiring_map,Panel reuse optional
+CYCLE_START_PB,Panel,IN,none,none,none,cycle-start-pb,Operator cycle start pushbutton,DEFERRED,archived_wiring_map,Displaced 2026-07-27: IN28 reclaimed for MAG_IN_POS (mandatory ATC input). Pendant WHB04B provides cycle start; panel PB moves to second sserial card if ordered
+MAG_IN_POS,ATC,IN,7i84U,TB1,IN28,mag-in-pos,Magazine index in-position prox (PLC X00D MIPRS); BCD pot number valid only while TRUE,PROPOSED,atc_ladder_transcription_2026-07-27,Mandatory for magazine indexing (rungs 3401/33xx). Move mag-in-pos off legacy IN4 in field_7i84u.hal (IN4 = spindle-oriented). Verify prox type/polarity
 FEED_HOLD_PB,Panel,IN,7i84U,TB1,IN29,feed-hold-pb,Operator feed hold pushbutton,OPTIONAL_VERIFY,archived_wiring_map,Panel reuse optional
 SINGLE_BLOCK_SW,Panel,IN,7i84U,TB1,IN30,single-block,Operator single block selector,OPTIONAL_VERIFY,archived_wiring_map,Panel reuse optional
 SERVO_READY,Drive safety,IN,7i84U,TB1,IN31,servo-ready,Servo drives ready relay contact,COMMISSIONING_PENDING,archived_wiring_map,Wire before first motion if available
@@ -88,4 +89,4 @@ LUBE_ON,Utility,OUT,7i84U,TB2,OUT12,lube-on,Lube pump relay,COMMISSIONING_PENDIN
 ATC_FWD,ATC motor,OUT,7i84U,TB2,OUT13,atc-fwd,ATC motor forward relay,COMMISSIONING_PENDING,archived_wiring_map,Do not energize before interlocks are proven
 ATC_REV,ATC motor,OUT,7i84U,TB2,OUT14,atc-rev,ATC motor reverse relay,COMMISSIONING_PENDING,archived_wiring_map,Do not energize before interlocks are proven
 ALARM_OUT,Panel,OUT,7i84U,TB2,OUT15,alarm-out,Alarm light or horn,OPTIONAL_VERIFY,archived_wiring_map,Confirm load and behavior
-SECOND_SSERIAL_CARD,Expansion,REVIEW,none,none,none,none,Additional 7i84 or equivalent,HOLD_NOT_ORDERED,phase2_conflict_review,Input budget now exhausted (0 spares); TCFS X01B deferred. Next field input forces this card or reclaiming panel inputs IN28-IN30
+SECOND_SSERIAL_CARD,Expansion,REVIEW,none,none,none,none,Additional 7i84 or equivalent,HOLD_NOT_ORDERED,phase2_conflict_review,Input budget exhausted (0 spares); TCFS X01B deferred; IN28 reclaimed for MAG_IN_POS 2026-07-27. Next field input forces this card or reclaiming panel inputs IN29-IN30

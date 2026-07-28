@@ -128,7 +128,7 @@ any non-GET request. Regenerate `data.js` after editing the repo with
 ├── bom/               # I/O workbook and parts-planning material
 ├── docs/              # Architecture decision, checklists, photo-sorting, project status
 ├── io-dashboard/      # Offline single-page I/O navigator (generated from mesa/ + linuxcnc/)
-├── linuxcnc/          # LinuxCNC INI/HAL bring-up skeletons (+ bring-up notes)
+├── linuxcnc/          # LinuxCNC INI/HAL bring-up skeletons, ATC/orient components, remapped M6
 ├── mesa/              # Mesa signal map (signal → card/bit/HAL net) and firmware checklist
 ├── wiring/            # Wiring / field-I/O planning references
 ├── photos/            # Placeholder only — no raw photos/videos committed
@@ -143,6 +143,7 @@ any non-GET request. Regenerate `data.js` after editing the repo with
 - [docs/cabinet_photo_checklist.md](docs/cabinet_photo_checklist.md) — what to photograph.
 - [docs/README_photo_sorting.md](docs/README_photo_sorting.md) — photo folder scheme.
 - [linuxcnc/README.md](linuxcnc/README.md) — skeleton file guide and bring-up order.
+- [docs/ladder/atc_component_README.md](docs/ladder/atc_component_README.md) — ATC/orient component skeleton: rung-to-code map, placeholders, integration steps.
 - [mesa/signal_map.csv](mesa/signal_map.csv) — signal → Mesa card/bit → HAL net map.
 - [io-dashboard/README.md](io-dashboard/README.md) — offline I/O navigator: how to run it and how to regenerate its data.
 - [bom/Mazak_VQC_20-40_Retrofit_IO_Workbook.xlsx](bom/Mazak_VQC_20-40_Retrofit_IO_Workbook.xlsx) — full I/O workbook.

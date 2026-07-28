@@ -1,0 +1,117 @@
+# INI additions for the spindle-orient + ATC skeleton
+# Paste these into linuxcnc/mazak_vqc_20_40.ini. Kept as a separate snippet so
+# the working INI is not modified by the skeleton drop.
+#
+# Companion files:
+#   linuxcnc/atc_orient.hal                  net wiring
+#   linuxcnc/components/mazak_orient.comp    gear shift + orient state machine
+#   linuxcnc/components/mazak_atc.comp       ATC confirmations
+#   linuxcnc/remap/toolchange.ngc            remapped M6
+#   docs/ladder/atc_component_README.md rung-to-code map and integration steps
+
+
+#####################################################################
+# 1. [HAL] - load the new HAL file LAST
+#####################################################################
+# Append after the existing field_7i84u.hal line:
+
+[HAL]
+HALFILE = mazak_vqc_20_40.hal
+HALFILE = motion_7i97t.hal
+HALFILE = field_7i84u.hal
+HALFILE = atc_orient.hal
+POSTGUI_HALFILE = postgui.hal
+HALUI = halui
+
+# atc_orient.hal lives in linuxcnc/ alongside the other HAL files, so the
+# plain filename works whether the config directory is used in the repo or
+# deployed on its own (keep remap/ with it for SUBROUTINE_PATH).
+
+
+#####################################################################
+# 2. motmod digital I/O - REQUIRED
+#####################################################################
+# The remap uses motion.digital-out-00..07 and motion.digital-in-00..07.
+# motmod only creates 4 of each by default, so the loadrt line in
+# linuxcnc/mazak_vqc_20_40.hal must gain num_dio:
+#
+#   loadrt [EMCMOT]EMCMOT base_period_nsec=0 \
+#          servo_period_nsec=[EMCMOT]SERVO_PERIOD \
+#          num_joints=[KINS]JOINTS num_dio=16 num_aio=8
+#
+# num_aio is only needed if a future step uses M68 to hand a number to HAL.
+# The current skeleton does not: the target pocket comes from
+# iocontrol.0.tool-prep-pocket.
+
+
+#####################################################################
+# 3. [RS274NGC] - remap M6
+#####################################################################
+
+[RS274NGC]
+PARAMETER_FILE = linuxcnc.var
+SUBROUTINE_PATH = remap
+REMAP = M6 modalgroup=6 ngc=toolchange
+
+# Deliberately NO prolog/epilog: the stdglue change_prolog/change_epilog pair
+# needs the Python interpreter plumbing ([PYTHON] TOPLEVEL etc). This skeleton
+# stays pure NGC and closes the loop itself with M61 Q-. If Python glue is
+# added later the line becomes:
+#   REMAP = M6 modalgroup=6 prolog=change_prolog ngc=toolchange epilog=change_epilog
+
+
+#####################################################################
+# 4. [ATC] - reference points and timeouts used by toolchange.ngc
+#####################################################################
+# Read from G-code as #<_ini[ATC]NAME>.
+#
+# ALL COORDINATES ARE PLACEHOLDERS. ZP1 and ZP2 are the OEM reference points
+# (ATC doc open question #2) and must be recovered from the M-2 parameters or
+# measured on the machine. Values are MACHINE coordinates (the NGC moves with
+# G53) in the [TRAJ] units, which are currently inches.
+
+[ATC]
+# ref-1: pot exchange height - Z down, toolholder engaged in the pot.
+REF1_Z = 0.0
+# ref-2: clearance height - Z up, clear of the magazine.
+REF2_Z = 0.0
+# Y positions: ref-1 = machining/park side, ref-2 = magazine side.
+REF1_Y = 0.0
+REF2_Y = 0.0
+
+# Waits inside the remap, seconds. Each must be LONGER than the matching
+# component watchdog so the component's own alarm (AL45/AL47/AL71-77) is what
+# identifies the failure, rather than a bare G-code timeout.
+ORIENT_TIMEOUT  = 15.0
+CONFIRM_TIMEOUT = 10.0
+INDEX_TIMEOUT   = 40.0
+
+# 1 = print progress to the console; the moves still execute. Set 0 for
+# normal running. This is a comment aid only - it does not inhibit motion.
+DRY_RUN = 1
+
+
+#####################################################################
+# 5. [EMCIO] - remove the fixed tool change position
+#####################################################################
+# TOOL_CHANGE_POSITION / TOOL_CHANGE_QUILL_UP only apply to the built-in M6.
+# With M6 remapped they are ignored, and leaving them set is misleading
+# because the real positions now live in [ATC] above.
+#
+# [EMCIO]
+# EMCIO = io
+# CYCLE_TIME = 0.100
+# TOOL_TABLE = tool.tbl
+# # TOOL_CHANGE_POSITION = 0 0 0      <- delete
+# # TOOL_CHANGE_QUILL_UP = 1          <- delete
+
+
+#####################################################################
+# 6. [SPINDLE_0] - gear change threshold
+#####################################################################
+# linuxcnc/atc_orient.hal currently hardcodes `setp gear-range.in1 800`. Move it
+# here once the real crossover RPM for the two-speed head is known, and change
+# the HAL line to:  setp gear-range.in1 [SPINDLE_0]GEAR_CHANGE_RPM
+#
+# [SPINDLE_0]
+# GEAR_CHANGE_RPM = 800     # UNVERIFIED placeholder

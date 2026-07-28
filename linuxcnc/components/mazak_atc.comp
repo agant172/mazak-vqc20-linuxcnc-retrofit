@@ -1,0 +1,566 @@
+component mazak_atc "Mazak VQC 20/40 ATC confirmation layer (magazine, clamp, cover)";
+
+/*
+ * mazak_atc.comp - LinuxCNC 2.9 realtime component
+ *
+ * AUTHORITATIVE SOURCE: docs/ladder/atc_ladder_transcription.md
+ *   sheets 31-36 (magazine index, tool clamp, cover), 58 (alarms AL71-AL77),
+ *   65 (cycle entry), 67-75 (cycle A-F step chains).
+ *
+ * SCOPE - read this before extending the component.
+ * The VQC ATC is armless: the machine trades tools by moving Z/Y between two
+ * reference points while the magazine indexes. The OEM PLC never moves an
+ * axis; it raises reference-point commands and confirms mechanical results.
+ * The retrofit keeps that split exactly (ATC doc "HAL / LinuxCNC
+ * implementation notes"):
+ *
+ *   linuxcnc/remap/toolchange.ngc  - owns the Y/Z moves and the step sequencing
+ *                               (the MEM-n step latches).
+ *   mazak_atc.comp (this)     - owns the confirmations, interlocks, magazine
+ *                               arithmetic and alarms (the CND-n rungs).
+ *
+ * This component therefore never decides "go to the next step". It publishes
+ * permits and confirmations that the remap waits on via motion.digital-in,
+ * and it will drop a permit / raise a fault instead of allowing a move when
+ * the machine disagrees with the commanded state.
+ *
+ * The oriented latch (SOSA) comes from mazak_orient - see
+ * docs/ladder/orient_ladder_transcription.md. Tool unclamp is gated on that
+ * latch, never on raw ORA1 (ladder rung 3604).
+ *
+ * SAFETY: every timer default is UNVERIFIED. The M-2 timer base is unknown
+ * (ATC doc "Open questions" #4: T30 cover alarm delay and T90 footswitch
+ * arming both need the M-2 timer table). pot_count defaults to 20 and MUST be
+ * set to the real magazine size before indexing (ATC doc "Open questions" #5).
+ */
+
+description """
+ATC confirmation and interlock layer for the Mazak VQC 20/40 retrofit.
+Pairs with \\fBmazak_orient\\fR (supplies the SOSA oriented latch) and with the
+M6 remap in \\fBlinuxcnc/remap/toolchange.ngc\\fR, which owns the axis moves.
+""";
+
+license "GPL";
+author "Mazak VQC 20/40 retrofit project";
+
+option singleton yes;
+
+//
+// ---------------------------------------------------------------------------
+// Cycle entry - sheet 65
+// ---------------------------------------------------------------------------
+//
+pin in bit cycle_start = false
+    "Sets TCME (M160, rung 6504). Driven by the M6 remap "
+    "(motion.digital-out-00). Level: held for the whole change.";
+pin in bit cycle_finish = false
+    "AFINPLS (M152, rung 3007) - remap signals the cycle is complete. "
+    "Clears TCME, drops the barrier, releases the orient command.";
+pin in bit cycle_abort = false
+    "Abort/E-stop the sequence. Drops every ATC output.";
+pin in bit fault_reset = false
+    "Clears all latched AL71-AL77 and timeout faults.";
+
+pin in s32 spindle_tool = 0
+    "D1 - tool currently in the spindle (0 = empty). From "
+    "iocontrol.0.tool-number.";
+pin in s32 commanded_tool = 0
+    "D2 - commanded tool (0 = unload only). From "
+    "iocontrol.0.tool-prep-number.";
+pin in s32 target_pot = 0
+    "Pocket holding commanded_tool, from the tool table. 1..pot-count. "
+    "0 = no index required.";
+
+pin out bit cycle_active
+    "M160 TCME - ATC in progress (rung 6504).";
+pin out bit atc_barrier
+    "Y095 TCME.M barrier extend (rung 6505). Net: atc-barrier "
+    "(7i97T TB5 SSR OUT3, PROPOSED - device existence unverified).";
+
+//
+// Cycle selection - rungs 6509/6510/6511 (TS0 / T0 / EQTST).
+//
+pin out s32 cycle_select
+    "0 = skip (EQTST), 1 = full change (cycle D), 2 = load only (cycle E), "
+    "3 = return only (cycle F).";
+pin out bit cycle_full      "Cycle D - both spindle and commanded tool exist.";
+pin out bit cycle_load_only "Cycle E - spindle empty (TS0).";
+pin out bit cycle_return_only "Cycle F - T0 commanded, return the spindle tool.";
+pin out bit cycle_skip
+    "M230 EQTST - commanded tool already in the spindle: do nothing. Also "
+    "blocks the orient command in the ladder (rung 3004).";
+
+//
+// ---------------------------------------------------------------------------
+// Spindle / permissive inputs
+// ---------------------------------------------------------------------------
+//
+pin in bit oriented_latch = false
+    "M92 SOSA from mazak_orient. Gates unclamp (rung 3604) and every "
+    "cycle step 1 (rungs 7103/7205/7302).";
+pin in bit spindle_stopped = false
+    "X001 SZS.M zero speed. Net: spindle-zero-speed (7i84U IN5).";
+pin in bit spindle_run = false
+    "M78 SMR spindle run memory. Rung 3604 forbids unclamp while it is set.";
+pin in bit hydraulic_ok = false
+    "Hydraulic pressure switch. Net: hydraulic-ok (7i84U IN27). No clamp, "
+    "cover or magazine motion without it.";
+pin in bit air_ok = true
+    "Air pressure OK. Net: air-ok. Default true - set the net or leave "
+    "unconnected if the machine has no air switch.";
+
+//
+// ---------------------------------------------------------------------------
+// Magazine - sheets 32-35
+// ---------------------------------------------------------------------------
+//
+pin in bit mag_in_pos = false
+    "X00D MIPRS pot in-position. Net: mag-in-pos. The BCD pot number is only "
+    "sampled while this is true (rung 3210).";
+pin in bit mag_bcd_bit0 = false "X008 T11P - BCD weight 1.  Net: mag-bcd-bit0.";
+pin in bit mag_bcd_bit1 = false "X009 T12P - BCD weight 2.  Net: mag-bcd-bit1.";
+pin in bit mag_bcd_bit2 = false "X00A T14P - BCD weight 4.  Net: mag-bcd-bit2.";
+pin in bit mag_bcd_bit3 = false "X00B T18P - BCD weight 8.  Net: mag-bcd-bit3.";
+pin in bit mag_bcd_bit4 = false "X00C T21P - BCD weight 10. Net: mag-bcd-bit4.";
+pin in bit index_request = false
+    "Start/hold an index to target-pot. From the remap "
+    "(motion.digital-out-03). Tool select may run during machining, exactly "
+    "as TSME (M33, rung 3404) is independent of TCME.";
+
+pin out bit mag_fwd_sol
+    "Y003 MFWD.M (rung 3501). DIRECTION UNVERIFIED - "
+    "wiring/authority_conflicts.md section 3 has SOL-8A as CCW/forward and "
+    "SOL-8B as CW/reverse, unconfirmed. Net: mag-cw-sol (see linuxcnc/atc_orient.hal).";
+pin out bit mag_rev_sol
+    "Y002 MREV.M (rung 3502). Net: mag-ccw-sol. Same direction caveat.";
+pin out bit mag_rotate_enable
+    "M34 MROT (rung 3408) - rotation permitted (cover, faults, permissives).";
+pin out s32 pot_number
+    "D10 - decoded current pot. Only refreshed while mag-in-pos (rung 3210); "
+    "holds its last valid value otherwise.";
+pin out bit pot_number_valid
+    "TRUE once a pot number has been captured in-position since power-up / "
+    "since the last pot-lost fault.";
+pin out bit index_done
+    "M227 MSTP (rung 3401) - commanded pot arrived and in position.";
+pin out s32 index_distance
+    "Signed shortest-path distance to target-pot (+ = forward). Diagnostic.";
+pin out bit index_active
+    "M33 TSME equivalent - magazine is indexing.";
+
+//
+// ---------------------------------------------------------------------------
+// Tool clamp - sheets 35/36
+// ---------------------------------------------------------------------------
+//
+pin in bit unclamp_request = false
+    "M68 TUCME (rung 3508) - the cycle step chain owns unclamp. From the "
+    "remap (motion.digital-out-02). Dropping it clamps.";
+pin in bit manual_unclamp_pb = false
+    "X01A TUCFS.M manual unclamp button (rungs 3601/3604 footswitch path). "
+    "Net: manual-unclamp-pb (7i84U IN9). Only honoured outside a cycle.";
+pin in bit tool_clamped = false
+    "X018 TCPRS clamp confirm (PRS-9). Net: tool-clamped (7i84U IN15).";
+pin in bit tool_unclamped = false
+    "X019 TUCPRS unclamp confirm (PRS-8). Net: tool-unclamped (7i84U IN16).";
+
+pin out bit tool_unclamp_sol
+    "Y097 TUC.M (rung 3604). Net: tool-unclamp-sol (7i84U TB2 OUT10).";
+pin out bit tool_clamp_sol
+    "Optional dual-coil clamp output, only driven when the clamp-dual-coil "
+    "parameter is set. Net: tool-clamp-sol (7i84U TB2 OUT9 - HOLD_CONFLICT, "
+    "valve topology unverified; leave the parameter at 0 until traced).";
+pin out bit unclamp_permit
+    "Rung 3604 gate: oriented latch AND spindle stopped AND not running AND "
+    "hydraulics AND no fault. Diagnostic / remap interlock.";
+pin out bit unclamp_confirmed
+    "M69 (rung 3509) - unclamp commanded AND TUCPRS made.";
+pin out bit clamp_confirmed
+    "M64 (rung 3607) - TCPRS made AND the unclamp output is false. Both "
+    "terms, exactly as the ladder does it.";
+
+//
+// ---------------------------------------------------------------------------
+// Magazine cover - sheets 31/58/70
+// ---------------------------------------------------------------------------
+//
+pin in bit cover_close_request = false
+    "Energise-to-close request. From the remap (motion.digital-out-01). "
+    "FALSE = cover opens (the valve is a single solenoid, rung group 31xx).";
+pin in bit mag_cover_open_conf = false
+    "X052 MGCORS cover-open reed switch. Net: mag-cover-open-conf (IN6).";
+pin in bit mag_cover_closed_conf = false
+    "X053 MGCCRS cover-closed reed switch. Net: mag-cover-closed-conf (IN7).";
+
+pin out bit mag_cover_sol
+    "Y026 MGC.M - SINGLE solenoid, energised = CLOSE, de-energised = OPEN.";
+pin out bit cover_open_verified
+    "M163 MGCOX (rung 7009) = #MGC.M * MGCORS * #AL71 * #AL74. The contact "
+    "every cycle step 1 uses.";
+pin out bit cover_closed_verified
+    "MGC.M * MGCCRS * no cover alarm. Magazine rotation interlock.";
+
+//
+// ---------------------------------------------------------------------------
+// Tool detects and the step-1 gate
+// ---------------------------------------------------------------------------
+//
+pin in bit mag_tool_avail = false
+    "X005 MGTDPRS - commanded pot holds a tool. Net: mag-tool-avail (IN2).";
+pin in bit spindle_tool_avail = false
+    "X05B SPTDPRS - spindle holds a tool. Net: spindle-tool-avail (IN3).";
+pin in bit tool_detect_check = false
+    "Raised by the remap at the D-1/E-1/F-1 gate (motion.digital-out-04) to "
+    "arm the AL75/AL76 detect comparison. Nothing moves while it disagrees.";
+pin in bit tool_life_over = false
+    "Tool life over (option). Sets AL77 if the option is fitted.";
+
+pin out bit step1_permit
+    "The D-1/E-1/F-1 gate (rungs 7103/7205/7302): oriented latch AND cover "
+    "verified open AND the right tool detect AND no fault AND permissives. "
+    "The remap waits on this before any Z move toward the pot.";
+
+//
+// ---------------------------------------------------------------------------
+// Alarms - sheet 58. Latched until fault-reset.
+// ---------------------------------------------------------------------------
+//
+pin out bit fault_cover_close_rs
+    "AL71 - close reed switch on while close is not commanded.";
+pin out bit fault_cover_not_closed
+    "AL72 - commanded closed, close reed switch never made.";
+pin out bit fault_cover_open_rs
+    "AL73 - open reed switch on while close IS commanded.";
+pin out bit fault_cover_not_open
+    "AL74 - commanded open, open reed switch never made.";
+pin out bit fault_spindle_tool
+    "AL75 - cycle F: SPTDPRS off when the spindle should hold a tool.";
+pin out bit fault_mag_tool
+    "AL76 - cycle D/E: MGTDPRS off when the commanded pot should hold a tool.";
+pin out bit fault_tool_life
+    "AL77 - tool life over (option).";
+pin out bit fault_pot_lost
+    "M61 TSOFFAL (rungs 3405-3407) - pot detect stopped arriving while the "
+    "magazine was indexing. Stops the magazine.";
+pin out bit fault_tool_range
+    "Alarm 6101 (rungs 3504-3507) - commanded tool / pot exceeds the "
+    "magazine size.";
+pin out bit fault_index_timeout
+    "Index did not reach the commanded pot in time.";
+pin out bit fault_unclamp_timeout
+    "Unclamp commanded, TUCPRS never made.";
+pin out bit fault_clamp_timeout
+    "Clamp commanded (unclamp dropped), TCPRS never made.";
+pin out bit fault_any
+    "Logical OR of every fault above. Blocks all ATC outputs.";
+
+//
+// ---------------------------------------------------------------------------
+// Parameters. ALL TIMER DEFAULTS UNVERIFIED - see the file header.
+// ---------------------------------------------------------------------------
+//
+param rw s32 pot_count = 20
+    "Magazine size (D16 in rungs 3312-3315), used for the shortest-path "
+    "arithmetic and the tool-range check. UNVERIFIED - ATC doc open question "
+    "#5. Set to the real pot count before enabling indexing.";
+param rw float cover_confirm_delay = 3.0
+    "T30 (sheet 58) - delay before a cover command/confirm disagreement "
+    "raises AL71-AL74. UNVERIFIED, M-2 timer table not recovered.";
+param rw float pot_lost_timeout = 5.0
+    "T29 (rung 3406) TSOFF equivalent - maximum time between MIPRS pulses "
+    "while indexing before AL/M61 pot-lost. UNVERIFIED.";
+param rw float index_timeout = 30.0
+    "Whole-index watchdog. UNVERIFIED engineering value, no ladder equivalent "
+    "identified.";
+param rw float unclamp_timeout = 3.0
+    "TUCPRS watchdog. UNVERIFIED engineering value.";
+param rw float clamp_timeout = 3.0
+    "TCPRS watchdog. UNVERIFIED engineering value.";
+param rw bit clamp_dual_coil = false
+    "Set TRUE only after the hydraulic valve is confirmed dual-coil "
+    "(wiring/authority_conflicts.md section 2). While FALSE the clamp output "
+    "stays de-energised and clamping relies on dropping the unclamp coil.";
+param rw bit allow_manual_unclamp = true
+    "Enable the manual unclamp button outside an ATC cycle (commissioning "
+    "aid). The ladder allows it in manual mode only (rung 3601, #AUT.M).";
+
+//
+// Internal state
+//
+variable int prev_unclamp = 0;
+variable int prev_in_pos = 0;
+variable int have_pot = 0;
+variable int last_pot = 0;
+variable int idx_dir = 0;           // +1 forward, -1 reverse, 0 stopped
+variable int idx_running = 0;
+variable int idx_complete = 0;
+variable float t_cover_close_rs = 0.0;
+variable float t_cover_not_closed = 0.0;
+variable float t_cover_open_rs = 0.0;
+variable float t_cover_not_open = 0.0;
+variable float t_pot_lost = 0.0;
+variable float t_index = 0.0;
+variable float t_unclamp = 0.0;
+variable float t_clamp = 0.0;
+variable float t_detect = 0.0;
+
+function update "Run in the servo thread, after the hostmot2 read function.";
+
+;;
+
+#define TMR(acc, cond, limit)                                   \
+    do {                                                        \
+        if (cond) { if ((acc) < (limit)) (acc) += fperiod; }     \
+        else { (acc) = 0.0; }                                   \
+    } while (0)
+
+#define ELAPSED(acc, limit) ((acc) >= (limit))
+
+FUNCTION(update)
+{
+    int ts0, t0, equal, permissives, faulted;
+    int raw_pot, diff, n, want_fwd, want_rev, at_target;
+    int unclamp_gate, unclamp_cmd, manual_ok;
+    int detect_needed_mag, detect_needed_spindle;
+
+    n = pot_count;
+    if (n < 1) n = 1;
+
+    /* -----------------------------------------------------------------
+     * Reset / abort
+     * ----------------------------------------------------------------- */
+    if (fault_reset) {
+        fault_cover_close_rs = false;
+        fault_cover_not_closed = false;
+        fault_cover_open_rs = false;
+        fault_cover_not_open = false;
+        fault_spindle_tool = false;
+        fault_mag_tool = false;
+        fault_tool_life = false;
+        fault_pot_lost = false;
+        fault_tool_range = false;
+        fault_index_timeout = false;
+        fault_unclamp_timeout = false;
+        fault_clamp_timeout = false;
+    }
+
+    faulted = fault_cover_close_rs || fault_cover_not_closed
+           || fault_cover_open_rs || fault_cover_not_open
+           || fault_spindle_tool || fault_mag_tool || fault_tool_life
+           || fault_pot_lost || fault_tool_range || fault_index_timeout
+           || fault_unclamp_timeout || fault_clamp_timeout;
+    permissives = hydraulic_ok && air_ok && !faulted && !cycle_abort;
+
+    /* -----------------------------------------------------------------
+     * Sheet 65 - cycle entry and selection.
+     * ----------------------------------------------------------------- */
+    if (cycle_abort || fault_reset) cycle_active = false;
+    else if (cycle_finish)          cycle_active = false;
+    else if (cycle_start)           cycle_active = true;
+
+    /* Rung 6505: barrier out while a change is active. The ladder also
+     * extends it while the cover is open (OTR.B * MGCORS). */
+    atc_barrier = (cycle_active || mag_cover_open_conf) ? true : false;
+
+    ts0   = (spindle_tool == 0);            /* M164 TS0  */
+    t0    = (commanded_tool == 0);          /* M165 T0   */
+    equal = (spindle_tool == commanded_tool); /* M230 EQTST */
+
+    if (equal)          cycle_select = 0;
+    else if (ts0)       cycle_select = 2;   /* spindle empty -> load only  */
+    else if (t0)        cycle_select = 3;   /* T0 -> return only           */
+    else                cycle_select = 1;   /* full change                 */
+
+    cycle_skip        = (cycle_select == 0);
+    cycle_full        = (cycle_select == 1);
+    cycle_load_only   = (cycle_select == 2);
+    cycle_return_only = (cycle_select == 3);
+
+    /* Rungs 3504-3507 - commanded tool / pot beyond the magazine size. */
+    if (commanded_tool > n || target_pot > n || target_pot < 0)
+        fault_tool_range = true;
+
+    /* -----------------------------------------------------------------
+     * Sheets 31/58/70 - cover. Single solenoid, energise to close.
+     * Evaluated before the magazine so rotation is gated on this scan's
+     * "cover verified open", not the previous scan's.
+     * ----------------------------------------------------------------- */
+    mag_cover_sol = (cover_close_request && !cycle_abort) ? true : false;
+
+    TMR(t_cover_close_rs,   !mag_cover_sol && mag_cover_closed_conf,
+        cover_confirm_delay);
+    TMR(t_cover_not_closed,  mag_cover_sol && !mag_cover_closed_conf,
+        cover_confirm_delay);
+    TMR(t_cover_open_rs,     mag_cover_sol && mag_cover_open_conf,
+        cover_confirm_delay);
+    TMR(t_cover_not_open,   !mag_cover_sol && !mag_cover_open_conf,
+        cover_confirm_delay);
+
+    if (ELAPSED(t_cover_close_rs,   cover_confirm_delay)) fault_cover_close_rs = true;
+    if (ELAPSED(t_cover_not_closed, cover_confirm_delay)) fault_cover_not_closed = true;
+    if (ELAPSED(t_cover_open_rs,    cover_confirm_delay)) fault_cover_open_rs = true;
+    if (ELAPSED(t_cover_not_open,   cover_confirm_delay)) fault_cover_not_open = true;
+
+    /* Rung 7009 MGCOX. */
+    cover_open_verified = (!mag_cover_sol && mag_cover_open_conf
+                           && !fault_cover_close_rs && !fault_cover_not_open)
+                          ? true : false;
+    cover_closed_verified = (mag_cover_sol && mag_cover_closed_conf
+                             && !fault_cover_open_rs && !fault_cover_not_closed)
+                            ? true : false;
+
+    /* -----------------------------------------------------------------
+     * Sheets 32/33 - BCD pot number, valid only in position (rung 3210).
+     * K2M216 is 2-digit BCD: units 1/2/4/8 from T11P/T12P/T14P/T18P plus the
+     * tens digit bit T21P (weight 10).
+     * ----------------------------------------------------------------- */
+    raw_pot = (mag_bcd_bit0 ?  1 : 0)
+            + (mag_bcd_bit1 ?  2 : 0)
+            + (mag_bcd_bit2 ?  4 : 0)
+            + (mag_bcd_bit3 ?  8 : 0)
+            + (mag_bcd_bit4 ? 10 : 0);
+
+    if (mag_in_pos) {
+        last_pot = raw_pot;
+        have_pot = 1;
+    }
+    pot_number = last_pot;
+    pot_number_valid = have_pot ? true : false;
+
+    /* -----------------------------------------------------------------
+     * Sheets 33/34 - shortest-path index.
+     * Rungs 3311-3319: compare current with commanded, difference against the
+     * magazine-size constant, choose forward or reverse.
+     * ----------------------------------------------------------------- */
+    at_target = have_pot && target_pot > 0 && (last_pot == target_pot)
+                && mag_in_pos;
+
+    diff = 0;
+    if (have_pot && target_pot > 0) {
+        diff = target_pot - last_pot;
+        while (diff < 0)  diff += n;
+        while (diff >= n) diff -= n;
+        /* diff is now the forward distance; take the short way round. */
+        index_distance = (diff <= n / 2) ? diff : (diff - n);
+    } else {
+        index_distance = 0;
+    }
+
+    if (!index_request || !permissives || cycle_abort) {
+        idx_running = 0;
+        idx_dir = 0;
+        if (!index_request) idx_complete = 0;
+    } else if (at_target) {
+        idx_running = 0;
+        idx_dir = 0;
+        idx_complete = 1;               /* M227 MSTP - rung 3401 */
+    } else if (have_pot && target_pot > 0 && !idx_complete) {
+        idx_running = 1;
+        idx_dir = (index_distance >= 0) ? 1 : -1;
+    } else {
+        /* No valid pot number yet: creep forward until MIPRS gives us one.
+         * Rung 3404 TSME behaves the same way - it runs until MSTP. */
+        idx_running = (target_pot > 0 && !idx_complete) ? 1 : 0;
+        idx_dir = idx_running ? 1 : 0;
+    }
+
+    /* Rung 3408 MROT: rotation only with the cover verified open and no
+     * fault. Rungs 3501/3502 gate the two direction outputs on it. */
+    mag_rotate_enable = (idx_running && permissives && cover_open_verified
+                         && !tool_unclamp_sol) ? true : false;
+
+    want_fwd = mag_rotate_enable && (idx_dir > 0);
+    want_rev = mag_rotate_enable && (idx_dir < 0);
+    if (want_fwd && want_rev) { want_fwd = 0; want_rev = 0; }
+    mag_fwd_sol = want_fwd ? true : false;
+    mag_rev_sol = want_rev ? true : false;
+
+    index_active = idx_running ? true : false;
+    index_done = idx_complete ? true : false;
+
+    /* Rungs 3405-3407 TSOFF supervision: while indexing, MIPRS must keep
+     * arriving. Reset the timer on every in-position edge. */
+    if (mag_in_pos && !prev_in_pos) t_pot_lost = 0.0;
+    prev_in_pos = mag_in_pos;
+    TMR(t_pot_lost, idx_running && !mag_in_pos, pot_lost_timeout);
+    if (ELAPSED(t_pot_lost, pot_lost_timeout)) {
+        fault_pot_lost = true;
+        have_pot = 0;               /* pot number is no longer trustworthy */
+    }
+
+    TMR(t_index, idx_running, index_timeout);
+    if (ELAPSED(t_index, index_timeout)) fault_index_timeout = true;
+
+    /* -----------------------------------------------------------------
+     * Sheet 36 rung 3604 - tool unclamp.
+     * Auto path requires SOSA. Never while the spindle runs. Clamp is the
+     * de-energised state, so dropping the request clamps.
+     * ----------------------------------------------------------------- */
+    unclamp_gate = oriented_latch && spindle_stopped && !spindle_run
+                   && hydraulic_ok && !faulted;
+    unclamp_permit = unclamp_gate ? true : false;
+
+    manual_ok = allow_manual_unclamp && manual_unclamp_pb && !cycle_active
+                && spindle_stopped && !spindle_run && hydraulic_ok && !faulted;
+
+    unclamp_cmd = ((unclamp_request && unclamp_gate)
+                   || manual_ok
+                   || (prev_unclamp && (unclamp_request || manual_unclamp_pb)))
+                  && !spindle_run && !cycle_abort && !faulted;
+
+    tool_unclamp_sol = unclamp_cmd ? true : false;
+    tool_clamp_sol = (clamp_dual_coil && !unclamp_cmd && hydraulic_ok
+                      && !cycle_abort) ? true : false;
+
+    /* Rung 3509 M69 / rung 3607 M64 - note M64 needs BOTH terms. */
+    unclamp_confirmed = (unclamp_cmd && tool_unclamped) ? true : false;
+    clamp_confirmed = (tool_clamped && !tool_unclamp_sol) ? true : false;
+
+    TMR(t_unclamp, unclamp_cmd && !tool_unclamped, unclamp_timeout);
+    if (ELAPSED(t_unclamp, unclamp_timeout)) fault_unclamp_timeout = true;
+
+    /* Only supervise clamping inside a cycle - outside one the spindle may
+     * legitimately sit empty with neither switch made. */
+    TMR(t_clamp, cycle_active && !unclamp_cmd && prev_unclamp == 0
+                 && !tool_clamped && !ts0, clamp_timeout);
+    if (ELAPSED(t_clamp, clamp_timeout)) fault_clamp_timeout = true;
+
+    prev_unclamp = unclamp_cmd;
+
+    /* -----------------------------------------------------------------
+     * Tool detect gates - AL75 (cycle F) / AL76 (cycles D and E).
+     * ----------------------------------------------------------------- */
+    detect_needed_mag = cycle_full || cycle_load_only;
+    detect_needed_spindle = cycle_return_only;
+
+    TMR(t_detect, tool_detect_check && cycle_active, cover_confirm_delay);
+    if (tool_detect_check && cycle_active) {
+        if (detect_needed_mag && !mag_tool_avail
+            && ELAPSED(t_detect, cover_confirm_delay))
+            fault_mag_tool = true;
+        if (detect_needed_spindle && !spindle_tool_avail
+            && ELAPSED(t_detect, cover_confirm_delay))
+            fault_spindle_tool = true;
+    }
+    if (tool_life_over) fault_tool_life = true;
+
+    /* -----------------------------------------------------------------
+     * The D-1 / E-1 / F-1 gate.
+     * ----------------------------------------------------------------- */
+    step1_permit = (cycle_active
+                    && oriented_latch
+                    && spindle_stopped
+                    && cover_open_verified
+                    && permissives
+                    && (!detect_needed_mag || mag_tool_avail)
+                    && (!detect_needed_spindle || spindle_tool_avail))
+                   ? true : false;
+
+    /* Recompute the aggregate after this scan's latches so consumers see a
+     * consistent picture within one servo period. */
+    fault_any = (fault_cover_close_rs || fault_cover_not_closed
+              || fault_cover_open_rs || fault_cover_not_open
+              || fault_spindle_tool || fault_mag_tool || fault_tool_life
+              || fault_pot_lost || fault_tool_range || fault_index_timeout
+              || fault_unclamp_timeout || fault_clamp_timeout) ? true : false;
+}
