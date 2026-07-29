@@ -1,7 +1,10 @@
 # M-2 Parameter Recovery — ZP2/ATC positions and machine constants
 
 **Machine:** Mazak VQC 20/40, SN 060231 (Mazatrol M-2)
-**Status:** OPEN — values must be read from the live control or measured
+**Status:** PARTIALLY RECOVERED 2026-07-28 — MACH CONSTANT PAR NO.2 photographed
+live and transcribed to `docs/parameters_sn060231.md` (RP/soft limits/gears/
+backlash all captured). Still wanted: PAR NO.1 and NO.3 screens (pitch comp,
+thermal comp, scale gains MP8–MPB, drum points, TCZ, DP timers).
 **Source reviewed:** `VQC20-40_060231_Parameters.pdf` — "Parameter List & Explanation
 for M-2" (Pub. #PAREXM210E, rev. 1986-02-27), 48 pp.
 

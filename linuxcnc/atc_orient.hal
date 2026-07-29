@@ -84,9 +84,9 @@ setp mazak-atc.clamp-timeout          3.0
 setp mazak-atc.clamp-dual-coil        0
 setp mazak-atc.allow-manual-unclamp   1
 
-# Gear change threshold, RPM. UNVERIFIED - take the real crossover from the
-# machine spec, not from this placeholder.
-setp gear-range.in1                 800
+# Gear change threshold, RPM. From the live M-2 MACH CONSTANT PAR NO.2 screen:
+# GH3 = 434 = low-gear max (ranges: low 28-434, high 119-3488, GYN = 2).
+setp gear-range.in1                 434   # GH3 low-gear max rpm, live M-2 params 2026-07-28 (docs/parameters_sn060231.md)
 setp gear-range.hyst                 50
 
 #####################################################################

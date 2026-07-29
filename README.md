@@ -144,6 +144,7 @@ any non-GET request. Regenerate `data.js` after editing the repo with
 - [docs/README_photo_sorting.md](docs/README_photo_sorting.md) — photo folder scheme.
 - [linuxcnc/README.md](linuxcnc/README.md) — skeleton file guide and bring-up order.
 - [docs/ladder/atc_component_README.md](docs/ladder/atc_component_README.md) — ATC/orient component skeleton: rung-to-code map, placeholders, integration steps.
+- [docs/parameters_sn060231.md](docs/parameters_sn060231.md) — LIVE parameter values photographed 2026-07-28: ATC 2nd zero point RP=(0, +9.5000, -5.9055) in, both soft-limit boxes, gear crossover 434 rpm, backlash.
 - [docs/parameter_recovery.md](docs/parameter_recovery.md) — M-2 parameter recovery: SN 060231 values are NOT in the manuals; capture checklist (RP1-3 ATC position, soft limits, gear breakpoints) + fallback measurement procedure.
 - [mesa/signal_map.csv](mesa/signal_map.csv) — signal → Mesa card/bit → HAL net map.
 - [io-dashboard/README.md](io-dashboard/README.md) — offline I/O navigator: how to run it and how to regenerate its data.

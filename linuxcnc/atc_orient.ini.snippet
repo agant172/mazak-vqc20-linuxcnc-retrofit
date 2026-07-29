@@ -73,14 +73,20 @@ REMAP = M6 modalgroup=6 ngc=toolchange
 # capture checklist and the measurement fallback. Values are MACHINE
 # coordinates (the NGC moves with G53) in the [TRAJ] units, currently inches.
 
+# VALUES FILLED 2026-07-28 from the live control's MACH CONSTANT PAR NO.2
+# screen (RP1-RP3 "2nd zero point" = 0 / +95000 / -59055 in 0.0001-inch
+# counts; see docs/parameters_sn060231.md). G53 machine coordinates, inches.
+# VERIFY with a dry run at reduced rapid before trusting - DRY_RUN stays 1.
 [ATC]
-# ref-1: pot exchange height - Z down, toolholder engaged in the pot.
-REF1_Z = 0.0
-# ref-2: clearance height - Z up, clear of the magazine.
+# ref-1: pot exchange height - Z down, toolholder engaged in the pot (RP3).
+REF1_Z = -5.9055
+# ref-2: clearance height - Z up, clear of the magazine (machine zero).
 REF2_Z = 0.0
-# Y positions: ref-1 = machining/park side, ref-2 = magazine side.
+# Y positions: ref-1 = machining/park side (machine zero), ref-2 = magazine
+# side (RP2 - OUTSIDE the machining envelope; [AXIS_Y] MAX_LIMIT must be
+# +9.5000, per the ATC AREA soft-limit box LY3).
 REF1_Y = 0.0
-REF2_Y = 0.0
+REF2_Y = 9.5000
 
 # Waits inside the remap, seconds. Each must be LONGER than the matching
 # component watchdog so the component's own alarm (AL45/AL47/AL71-77) is what
@@ -112,9 +118,12 @@ DRY_RUN = 1
 #####################################################################
 # 6. [SPINDLE_0] - gear change threshold
 #####################################################################
-# linuxcnc/atc_orient.hal currently hardcodes `setp gear-range.in1 800`. Move it
-# here once the real crossover RPM for the two-speed head is known, and change
-# the HAL line to:  setp gear-range.in1 [SPINDLE_0]GEAR_CHANGE_RPM
+# Crossover RPM recovered 2026-07-28 from live M-2 params: GH3 = 434 rpm
+# (low-gear max; ranges low 28-434, high 119-3488, GYN=2 two-speed).
+# linuxcnc/atc_orient.hal now sets `gear-range.in1 434`. Optionally move it
+# here and change the HAL line to:  setp gear-range.in1 [SPINDLE_0]GEAR_CHANGE_RPM
 #
 # [SPINDLE_0]
-# GEAR_CHANGE_RPM = 800     # UNVERIFIED placeholder
+# GEAR_CHANGE_RPM = 434
+# MAX_RPM = 3488          <- GH4, high-gear max
+# ORIENT_RPM = 50         <- SPI, M-2 spindle indexing speed (FR-SX cross-check)
