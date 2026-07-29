@@ -106,9 +106,30 @@ LinuxCNC has one `BACKLASH` per joint — start from the G01 set
 (X 0.0005, Y 0.0010, Z 0.0020 in) and verify with an indicator; the G00/G01
 split is an M-2 nicety that servo tuning on the Mesa stack should absorb.
 
+## PARAMETER 3-D, EIA/ISO screen (captured 2026-07-28, IMG_0014/0015)
+
+Second capture session, same evening. Dictionary reference: manual pages
+6-22 to 6-24. Live values:
+
+| Address | Live | Dictionary meaning |
+|---|---|---|
+| TO1–TO9 | all 0 | tolerance table (dict defaults 1/2/5/10/20/50/100/200/500 × 0.001 in) |
+| DG1, DG2, CA1–CA3, CH1, CHC | all 0 | blank in the dictionary too |
+| OP1–OP21, OP23, OP24 | all 0 | tape punch/reader codes, RS-232C spec, G60 one-way positioning, baud rates |
+| **OP22** | **128** | feed (leader) length after the last program at paper-tape punch output |
+
+**Retrofit significance: none.** The whole page is the M-2's EIA/ISO
+G-code-option and paper-tape/RS-232 configuration, and it is essentially
+unconfigured — consistent with a machine run conversationally in Mazatrol
+its whole life. OP16=0 means the serial port sat at the "all zero" default
+(2 stop bits, no parity, 8-bit chars). The lone nonzero value, OP22=128, is
+punch-trailer feed length. Nothing here maps to a LinuxCNC setting.
+Recorded for completeness of the CMOS rescue only.
+
 ## Not yet captured
 
-The photos cover MACH CONSTANT **PAR NO.2** (complete, above) and CUT COND.
+The photos cover MACH CONSTANT **PAR NO.2** (complete, above), the
+**PARAMETER 3-D, EIA/ISO** page (complete, above) and CUT COND.
 PARAM NO.2 (Mazatrol cutting coefficients — visible in IMG_0375/0376, not
 needed for the retrofit, not transcribed). Still wanted from the live
 control (PREVIOUS/NEXT PAGE on the same display):
