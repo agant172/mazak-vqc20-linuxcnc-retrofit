@@ -1,4 +1,11 @@
 # INI additions for the spindle-orient + ATC skeleton
+#
+# APPLIED 2026-07-29: sections 1, 3, 4, and 5 below are now merged into
+# linuxcnc/mazak_vqc_20_40.ini (including num_dio=16 in mazak_vqc_20_40.hal's
+# EMCMOT loadrt line, per section 2). Section 6 ([SPINDLE_0] gear-crossover move)
+# was NOT applied - atc_orient.hal still hardcodes gear-range.in1 to 434. Kept here
+# as a reference / diff source, not as still-pending work.
+#
 # Paste these into linuxcnc/mazak_vqc_20_40.ini. Kept as a separate snippet so
 # the working INI is not modified by the skeleton drop.
 #

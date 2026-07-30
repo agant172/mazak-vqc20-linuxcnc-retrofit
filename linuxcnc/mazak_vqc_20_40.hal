@@ -15,7 +15,9 @@
 # ATC, hydraulic, coolant, air, and utility field I/O near the green breakout PCB.
 
 loadrt trivkins coordinates=XYZ
-loadrt [EMCMOT]EMCMOT base_period_nsec=0 servo_period_nsec=[EMCMOT]SERVO_PERIOD num_joints=[KINS]JOINTS
+# num_dio=16 required by linuxcnc/atc_orient.hal + remap/toolchange.ngc, which use
+# motion.digital-out-00..07 / digital-in-00..07 (motmod only creates 4 of each by default).
+loadrt [EMCMOT]EMCMOT base_period_nsec=0 servo_period_nsec=[EMCMOT]SERVO_PERIOD num_joints=[KINS]JOINTS num_dio=16
 
 # The 7i97T is an Ethernet board loaded via hm2_eth. Set board_ip to the confirmed
 # static IP and adjust num_resolvers (7i49) / sserial / smart-serial mode for the actual
