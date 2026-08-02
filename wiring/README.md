@@ -31,6 +31,8 @@ conceptually here for wiring planning.
   — full 2017-05-01 config/wiring snapshot from the VQC 15/40 build; cross-check winding
   pairs, resolver/drive wiring, and HAL nets against this before finalizing.
 - [Authority conflicts](authority_conflicts.md) — unresolved solenoid and magazine-direction conflicts that must be cleared before affected outputs are wired.
+- **BBIA-1 terminal unit ("Honda" MR-series connectors):** [`bbia1_terminal_unit.md`](bbia1_terminal_unit.md) — board role, connector family (HTK MR-50RMW / MR-20RMW), and connector map (CN1–CN6, CN7, CN11, CN12).
+- **BBIA-1 CN1–CN6 & CN11 detailed pinouts:** [`bbia1_cn_pinouts.md`](bbia1_cn_pinouts.md) and [`bbia1_cn_pinouts.csv`](bbia1_cn_pinouts.csv) — per-pin wire number, signal name, function, and inside/outside connector for the connectors being cut and re-labeled for the Mesa retrofit.
 
 ## Status
 
