@@ -332,7 +332,7 @@ LOCATION = {
     "ATC_REV": ("ATC magazine \u2014 motor reverse relay", "ATC magazine",
                 "SOL-8A/8B direction mapping unresolved (crossref says 8A=CCW/forward, alarm-table OCR says 8A=CW)."),
     "ALARM_OUT": ("Operating panel \u2014 alarm light or horn", "Operator panel", ""),
-    "SECOND_SSERIAL_CARD": ("Not installed", "Expansion", "Do not order until the input count proves it is needed."),
+    "SECOND_SSERIAL_CARD": ("Retired 2026-08-03", "Expansion", "Not required. Single-7i84U plan committed 2026-08-03: drops (Y091 OTR, X078 MPWS, X02F INHRLS, Y023-Y025 M43-M45T) + series consolidations (HLP+HLP2, THR+ONT, ITMDSS+LS-140/141) + panel moves (FEED_HOLD/SINGLE_BLOCK to touchscreen, panel-power-on to software state, reset-out to TB5 SSR) fit 5 DI + 5 DO of gap load into 6 DI + 6 DO available."),
 }
 
 SSERIAL_LOC = ("Control cabinet \u2014 7i97T TB4 to 7i84U RJ45 (RS-422 smart-serial)", "Field I/O link",
@@ -581,10 +581,10 @@ CONFLICTS = [
             "position sensors, tool-measure stand switches (io_map_research_notes.md:287-295)",
             "Two lube systems (head AL-56, way AL-54) share one generic LUBE_ON output "
             "(io_map_research_notes.md:293-295)",
-            "SECOND_SSERIAL_CARD is deliberately on hold (current_pin_authority.csv:91)",
+            "SECOND_SSERIAL_CARD was retired 2026-08-03 after single-7i84U plan committed (open_issues.md §3)",
         ],
         "action": "Decide whether the pallet changer is retained before finalising the 7i84U channel budget. "
-                  "Do not order a second smart-serial card until the input count is proven insufficient.",
+                  "Single-7i84U plan committed 2026-08-03; second smart-serial card retired — do not order.",
         "signals": ["SECOND_SSERIAL_CARD", "DOOR_INTERLOCK", "LUBE_ON", "COOLANT_ON"],
         "sources": ["wiring/io_map_research_notes.md:94-170,287-295", "mesa/current_pin_authority.csv:91"],
     },

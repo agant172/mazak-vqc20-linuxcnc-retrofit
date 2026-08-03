@@ -6,13 +6,14 @@ window.MAZAK_DATA = {
   "machine": "Mazak VQC-20/40",
   "serial": "060231",
   "architecture": "LinuxCNC + Mesa 7i97T + Mesa 7i49 resolver interface + Mesa 7i84U field I/O",
-  "generated": "2026-07-28 03:46 UTC",
+  "generated": "2026-08-03 21:52 UTC",
   "source_repo": "mazak-vqc20-linuxcnc-retrofit",
   "authority_file": "mesa/current_pin_authority.csv",
   "halfiles": [
    "mazak_vqc_20_40.hal",
    "motion_7i97t.hal",
-   "field_7i84u.hal"
+   "field_7i84u.hal",
+   "atc_orient.hal"
   ],
   "board_ip": "192.168.1.121",
   "rules": [
@@ -4227,8 +4228,8 @@ window.MAZAK_DATA = {
    "status": "PROPOSED",
    "field_point": "Motor thermal trip + main transformer overheat in series (PLC X073 THR.M + X07B ONT.M)",
    "designations": [],
-   "primary_source": "element_list_crosswalk_2026-07-27",
-   "cleanup_notes": "Seriesed NC contacts to save an input; alarm-only, not E-stop chain",
+   "primary_source": "element_list_crosswalk_2026-07-27 + open_issues.md §3 (2026-08-03)",
+   "cleanup_notes": "Series-wired NC X073 THR.M + X07B ONT.M; alarm-only, not in E-stop chain. Reaffirmed 2026-08-03 single-7i84U plan.",
    "location": "Unknown — trace in cabinet",
    "location_note": "",
    "expected": {
@@ -4251,7 +4252,7 @@ window.MAZAK_DATA = {
      "note": "Current wiring authority row"
     },
     {
-     "file": "element_list_crosswalk_2026-07-27",
+     "file": "element_list_crosswalk_2026-07-27 + open_issues.md §3 (2026-08-03)",
      "lines": "",
      "note": "primary_source column in the authority table"
     }
@@ -4274,7 +4275,7 @@ window.MAZAK_DATA = {
    "field_point": "Manual tool unclamp switch at head (PLC X01A TUCFS.M)",
    "designations": [],
    "primary_source": "element_list_crosswalk_2026-07-27",
-   "cleanup_notes": "Commissioning aid; TCFS (X01B) deferred - no spare input left",
+   "cleanup_notes": "Commissioning aid; pairs with MANUAL_TOOL_CLAMP_PB on IN30 (TCFS X01B reinstated 2026-08-03 after single-7i84U plan freed pins).",
    "location": "Unknown — trace in cabinet",
    "location_note": "",
    "expected": {
@@ -5237,15 +5238,15 @@ window.MAZAK_DATA = {
    "subsystem": "Safety",
    "machine_subsystem": "Safety chain",
    "status": "COMMISSIONING_PENDING",
-   "field_point": "Door interlock switch",
+   "field_point": "Door interlock switches series (LS-141 + LS-140 + PLC X01D ITMDSS.M all in one chain)",
    "designations": [
     "LS-141",
     "LS-140",
     "DS-1",
     "DS-2"
    ],
-   "primary_source": "archived_wiring_map",
-   "cleanup_notes": "Choose door-open versus door-closed net after normal state is measured",
+   "primary_source": "archived_wiring_map + open_issues.md §3 (2026-08-03)",
+   "cleanup_notes": "Series-wired 2026-08-03: X01D ITMDSS consolidated with LS-140/141 pair. Choose door-open versus door-closed net after normal state is measured.",
    "location": "Machine door — interlock switch",
    "location_note": "LS-141 (P24-341); LS-140 (P24-340, 2PC option). DS-1/DS-2 feed a relay ahead of the main contactor.",
    "expected": {
@@ -5268,7 +5269,7 @@ window.MAZAK_DATA = {
      "note": "Current wiring authority row"
     },
     {
-     "file": "archived_wiring_map",
+     "file": "archived_wiring_map + open_issues.md §3 (2026-08-03)",
      "lines": "",
      "note": "primary_source column in the authority table"
     }
@@ -5279,38 +5280,58 @@ window.MAZAK_DATA = {
    "authority_line": 67
   },
   {
-   "id": "LUBE_LEVEL",
-   "name": "Lube Level",
+   "id": "LUBE_OK",
+   "name": "Lube Ok",
    "board": "7i84U",
    "connector": "TB1",
    "channel": "IN25",
-   "hal_net": "lube-level",
+   "hal_net": "lube-ok",
    "direction": "IN",
    "direction_label": "Input (digital)",
    "subsystem": "Utility",
-   "machine_subsystem": "Lubrication",
-   "status": "COMMISSIONING_PENDING",
-   "field_point": "Lube level switch",
-   "designations": [
-    "PS-5"
-   ],
-   "primary_source": "archived_wiring_map",
-   "cleanup_notes": "Choose low versus ok net after normal state is measured",
-   "location": "Lube pump station — level/pressure switch",
-   "location_note": "PS-5 head lube pressure exists separately. Alarm table shows two lube systems (AL-54 way, AL-56 head).",
+   "machine_subsystem": "Utility",
+   "status": "PROPOSED",
+   "field_point": "Two head-lube pressure switches (PLC X042 HLP2.M + X079 HLP.M) series-wired NC",
+   "designations": [],
+   "primary_source": "element_list_crosswalk_2026-07-27 + open_issues.md §3 (2026-08-03)",
+   "cleanup_notes": "Series-wired 2026-08-03: both pressure switches on same reservoir per parts list. Fail-open NC. Choose lube-ok versus lube-fault net after normal state is measured.",
+   "location": "Unknown — trace in cabinet",
+   "location_note": "",
    "expected": {
     "value": "Unknown",
     "label": "Unknown — measure/verify",
     "basis": "No explicit normal-state evidence in the repo for this signal.",
     "kind": "unknown"
    },
-   "hal_state": "absent",
-   "mesa_pins": [],
+   "hal_state": "commented",
+   "mesa_pins": [
+    "hm2_7i97.0.7i84.0.0.input-25"
+   ],
    "producers": [],
    "consumers": [],
-   "hal_refs": [],
+   "hal_refs": [
+    {
+     "file": "linuxcnc/field_7i84u.hal",
+     "line": 47,
+     "text": "# net lube-ok           <= hm2_7i97.0.7i84.0.0.input-25",
+     "commented": true,
+     "producers": [
+      "hm2_7i97.0.7i84.0.0.input-25"
+     ],
+     "consumers": [],
+     "bidir": []
+    }
+   ],
    "setp_refs": [],
-   "stale_row": null,
+   "stale_row": {
+    "line": 25,
+    "card": "7i97T",
+    "conn": "TB5",
+    "channel": "IN15",
+    "net": "lube-ok",
+    "status": "Verify in cabinet",
+    "differs": true
+   },
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -5318,7 +5339,17 @@ window.MAZAK_DATA = {
      "note": "Current wiring authority row"
     },
     {
-     "file": "archived_wiring_map",
+     "file": "linuxcnc/field_7i84u.hal",
+     "lines": "47",
+     "note": "commented out — # net lube-ok           <= hm2_7i97.0.7i84.0.0.input-25"
+    },
+    {
+     "file": "mesa/signal_map.csv",
+     "lines": "25",
+     "note": "STALE companion row: 7i97T TB5 IN15 → lube-ok (Verify in cabinet)"
+    },
+    {
+     "file": "element_list_crosswalk_2026-07-27 + open_issues.md §3 (2026-08-03)",
      "lines": "",
      "note": "primary_source column in the authority table"
     }
@@ -5598,22 +5629,24 @@ window.MAZAK_DATA = {
    "authority_line": 72
   },
   {
-   "id": "FEED_HOLD_PB",
-   "name": "Feed Hold Pb",
+   "id": "ESTOP_MONITOR",
+   "name": "Estop Monitor",
    "board": "7i84U",
    "connector": "TB1",
    "channel": "IN29",
-   "hal_net": "feed-hold-pb",
+   "hal_net": "estop-monitor",
    "direction": "IN",
    "direction_label": "Input (digital)",
-   "subsystem": "Panel",
-   "machine_subsystem": "Operator panel",
-   "status": "OPTIONAL_VERIFY",
-   "field_point": "Operator feed hold pushbutton",
-   "designations": [],
-   "primary_source": "archived_wiring_map",
-   "cleanup_notes": "Panel reuse optional",
-   "location": "Operating panel A/B — feed hold pushbutton",
+   "subsystem": "Machine safety",
+   "machine_subsystem": "Machine safety",
+   "status": "PROPOSED",
+   "field_point": "OEM MAR relay aux contact via interposing relay (Omron G2R-1-SND-DC24 or Phoenix PLC-RSC-24DC/21) driven from EHB bus",
+   "designations": [
+    "RS-C"
+   ],
+   "primary_source": "front_control_panel_wiring.md §6.5 + open_issues.md §3 (2026-08-03)",
+   "cleanup_notes": "Reclaimed 2026-08-03 from FEED_HOLD_PB (moved to touchscreen). OEM/new-side boundary: dry contact only, no OEM P24 into 7i84U common. Feeds LinuxCNC iocontrol.0.emc-enable-in for status monitor only; safety chain remains OEM hardwired.",
+   "location": "Unknown — trace in cabinet",
    "location_note": "",
    "expected": {
     "value": "Unknown",
@@ -5621,48 +5654,13 @@ window.MAZAK_DATA = {
     "basis": "No explicit normal-state evidence in the repo for this signal.",
     "kind": "unknown"
    },
-   "hal_state": "commented",
-   "mesa_pins": [
-    "hm2_7i97.0.7i84.0.0.input-29"
-   ],
+   "hal_state": "absent",
+   "mesa_pins": [],
    "producers": [],
-   "consumers": [
-    "motion.feed-hold"
-   ],
-   "hal_refs": [
-    {
-     "file": "linuxcnc/field_7i84u.hal",
-     "line": 56,
-     "text": "# net feed-hold-pb      <= hm2_7i97.0.7i84.0.0.input-29",
-     "commented": true,
-     "producers": [
-      "hm2_7i97.0.7i84.0.0.input-29"
-     ],
-     "consumers": [],
-     "bidir": []
-    },
-    {
-     "file": "linuxcnc/field_7i84u.hal",
-     "line": 57,
-     "text": "# net feed-hold-pb      => motion.feed-hold",
-     "commented": true,
-     "producers": [],
-     "consumers": [
-      "motion.feed-hold"
-     ],
-     "bidir": []
-    }
-   ],
+   "consumers": [],
+   "hal_refs": [],
    "setp_refs": [],
-   "stale_row": {
-    "line": 28,
-    "card": "7i97T",
-    "conn": "TB5",
-    "channel": "IN18",
-    "net": "feed-hold-pb",
-    "status": "Optional",
-    "differs": true
-   },
+   "stale_row": null,
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -5670,22 +5668,7 @@ window.MAZAK_DATA = {
      "note": "Current wiring authority row"
     },
     {
-     "file": "linuxcnc/field_7i84u.hal",
-     "lines": "56",
-     "note": "commented out — # net feed-hold-pb      <= hm2_7i97.0.7i84.0.0.input-29"
-    },
-    {
-     "file": "linuxcnc/field_7i84u.hal",
-     "lines": "57",
-     "note": "commented out — # net feed-hold-pb      => motion.feed-hold"
-    },
-    {
-     "file": "mesa/signal_map.csv",
-     "lines": "28",
-     "note": "STALE companion row: 7i97T TB5 IN18 → feed-hold-pb (Optional)"
-    },
-    {
-     "file": "archived_wiring_map",
+     "file": "front_control_panel_wiring.md §6.5 + open_issues.md §3 (2026-08-03)",
      "lines": "",
      "note": "primary_source column in the authority table"
     }
@@ -5694,22 +5677,22 @@ window.MAZAK_DATA = {
    "authority_line": 73
   },
   {
-   "id": "SINGLE_BLOCK_SW",
-   "name": "Single Block Sw",
+   "id": "MANUAL_TOOL_CLAMP_PB",
+   "name": "Manual Tool Clamp Pb",
    "board": "7i84U",
    "connector": "TB1",
    "channel": "IN30",
-   "hal_net": "single-block",
+   "hal_net": "manual-clamp-pb",
    "direction": "IN",
    "direction_label": "Input (digital)",
-   "subsystem": "Panel",
-   "machine_subsystem": "Operator panel",
-   "status": "OPTIONAL_VERIFY",
-   "field_point": "Operator single block selector",
+   "subsystem": "ATC tool",
+   "machine_subsystem": "ATC tool",
+   "status": "PROPOSED",
+   "field_point": "Manual tool clamp switch at head (PLC X01B TCFS.M)",
    "designations": [],
-   "primary_source": "archived_wiring_map",
-   "cleanup_notes": "Panel reuse optional",
-   "location": "Operating panel A/B — single block selector",
+   "primary_source": "element_list_crosswalk_2026-07-27 + open_issues.md §3 (2026-08-03)",
+   "cleanup_notes": "Reinstated 2026-08-03 after single-7i84U plan freed pins from Y091/Y023-Y025/X078/X02F drops. Pairs with MANUAL_TOOL_UNCLAMP_PB on IN9.",
+   "location": "Unknown — trace in cabinet",
    "location_note": "",
    "expected": {
     "value": "Unknown",
@@ -5717,35 +5700,13 @@ window.MAZAK_DATA = {
     "basis": "No explicit normal-state evidence in the repo for this signal.",
     "kind": "unknown"
    },
-   "hal_state": "commented",
-   "mesa_pins": [
-    "hm2_7i97.0.7i84.0.0.input-30"
-   ],
+   "hal_state": "absent",
+   "mesa_pins": [],
    "producers": [],
    "consumers": [],
-   "hal_refs": [
-    {
-     "file": "linuxcnc/field_7i84u.hal",
-     "line": 52,
-     "text": "# net single-block      <= hm2_7i97.0.7i84.0.0.input-30",
-     "commented": true,
-     "producers": [
-      "hm2_7i97.0.7i84.0.0.input-30"
-     ],
-     "consumers": [],
-     "bidir": []
-    }
-   ],
+   "hal_refs": [],
    "setp_refs": [],
-   "stale_row": {
-    "line": 29,
-    "card": "7i97T",
-    "conn": "TB5",
-    "channel": "IN19",
-    "net": "single-block",
-    "status": "Optional",
-    "differs": true
-   },
+   "stale_row": null,
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -5753,17 +5714,7 @@ window.MAZAK_DATA = {
      "note": "Current wiring authority row"
     },
     {
-     "file": "linuxcnc/field_7i84u.hal",
-     "lines": "52",
-     "note": "commented out — # net single-block      <= hm2_7i97.0.7i84.0.0.input-30"
-    },
-    {
-     "file": "mesa/signal_map.csv",
-     "lines": "29",
-     "note": "STALE companion row: 7i97T TB5 IN19 → single-block (Optional)"
-    },
-    {
-     "file": "archived_wiring_map",
+     "file": "element_list_crosswalk_2026-07-27 + open_issues.md §3 (2026-08-03)",
      "lines": "",
      "note": "primary_source column in the authority table"
     }
@@ -6784,13 +6735,17 @@ window.MAZAK_DATA = {
    "direction_label": "Review item",
    "subsystem": "Expansion",
    "machine_subsystem": "Expansion",
-   "status": "HOLD_NOT_ORDERED",
+   "status": "RETIRED_2026-08-03",
    "field_point": "Additional 7i84 or equivalent",
-   "designations": [],
-   "primary_source": "phase2_conflict_review",
-   "cleanup_notes": "Input budget exhausted (0 spares); TCFS X01B deferred; IN28 reclaimed for MAG_IN_POS 2026-07-27. Next field input forces this card or reclaiming panel inputs IN29-IN30",
-   "location": "Not installed",
-   "location_note": "Do not order until the input count proves it is needed.",
+   "designations": [
+    "OTR",
+    "LS-140",
+    "TB-5"
+   ],
+   "primary_source": "open_issues.md §3 (2026-08-03) single-7i84U plan",
+   "cleanup_notes": "Retired 2026-08-03: single-7i84U plan committed. Drops (Y091 OTR, X078 MPWS, X02F INHRLS, Y023-Y025 M43-M45T) + series consolidations (HLP+HLP2, THR+ONT, ITMDSS+LS-140/141) + panel moves (FEED_HOLD/SINGLE_BLOCK to touchscreen, panel-power-on to software state, reset-out to TB5 SSR) close the gap. Fits 5 DI + 5 DO of gap load into 6 DI + 6 DO available (+1 margin each side). Second card no longer needed.",
+   "location": "Retired 2026-08-03",
+   "location_note": "Not required. Single-7i84U plan committed 2026-08-03: drops (Y091 OTR, X078 MPWS, X02F INHRLS, Y023-Y025 M43-M45T) + series consolidations (HLP+HLP2, THR+ONT, ITMDSS+LS-140/141) + panel moves (FEED_HOLD/SINGLE_BLOCK to touchscreen, panel-power-on to software state, reset-out to TB5 SSR) fit 5 DI + 5 DO of gap load into 6 DI + 6 DO available.",
    "expected": {
     "value": "n/a",
     "label": "Review item — no hardware",
@@ -6811,7 +6766,7 @@ window.MAZAK_DATA = {
      "note": "Current wiring authority row"
     },
     {
-     "file": "phase2_conflict_review",
+     "file": "open_issues.md §3 (2026-08-03) single-7i84U plan",
      "lines": "",
      "note": "primary_source column in the authority table"
     }
@@ -7195,6 +7150,87 @@ window.MAZAK_DATA = {
    "authority_line": null
   },
   {
+   "id": "NET_FEED_HOLD_PB",
+   "name": "feed-hold-pb",
+   "board": "7i84U",
+   "connector": "TB1",
+   "channel": "IN29",
+   "hal_net": "feed-hold-pb",
+   "direction": "IN",
+   "direction_label": "Input (digital)",
+   "subsystem": "Unmapped",
+   "machine_subsystem": "Unmapped",
+   "status": "CONFIG_ONLY",
+   "field_point": "Feed hold pushbutton",
+   "designations": [],
+   "primary_source": "mesa/signal_map.csv (stale)",
+   "cleanup_notes": "No row in current_pin_authority.csv. Commented out in HAL.",
+   "location": "Unknown — no authority row, trace in cabinet",
+   "location_note": "Derived from the stale signal_map.csv layout.",
+   "expected": {
+    "value": "Unknown",
+    "label": "Unknown — measure/verify",
+    "basis": "No authority row and no normal-state evidence.",
+    "kind": "unknown"
+   },
+   "hal_state": "commented",
+   "mesa_pins": [
+    "hm2_7i97.0.7i84.0.0.input-29"
+   ],
+   "producers": [],
+   "consumers": [
+    "motion.feed-hold"
+   ],
+   "hal_refs": [
+    {
+     "file": "linuxcnc/field_7i84u.hal",
+     "line": 56,
+     "text": "# net feed-hold-pb      <= hm2_7i97.0.7i84.0.0.input-29",
+     "commented": true,
+     "producers": [
+      "hm2_7i97.0.7i84.0.0.input-29"
+     ],
+     "consumers": [],
+     "bidir": []
+    },
+    {
+     "file": "linuxcnc/field_7i84u.hal",
+     "line": 57,
+     "text": "# net feed-hold-pb      => motion.feed-hold",
+     "commented": true,
+     "producers": [],
+     "consumers": [
+      "motion.feed-hold"
+     ],
+     "bidir": []
+    }
+   ],
+   "setp_refs": [],
+   "stale_row": null,
+   "sources": [
+    {
+     "file": "linuxcnc/field_7i84u.hal",
+     "lines": "56",
+     "note": "commented out — # net feed-hold-pb      <= hm2_7i97.0.7i84.0.0.input-29"
+    },
+    {
+     "file": "linuxcnc/field_7i84u.hal",
+     "lines": "57",
+     "note": "commented out — # net feed-hold-pb      => motion.feed-hold"
+    },
+    {
+     "file": "mesa/signal_map.csv",
+     "lines": "28",
+     "note": "STALE source of this net: 7i97T TB5 IN18 (Optional)"
+    }
+   ],
+   "conflicts": [
+    "C1",
+    "C8"
+   ],
+   "authority_line": null
+  },
+  {
    "id": "NET_LAMP_ALARM",
    "name": "lamp-alarm",
    "board": "7i97T",
@@ -7334,69 +7370,6 @@ window.MAZAK_DATA = {
    ],
    "conflicts": [
     "C2",
-    "C8"
-   ],
-   "authority_line": null
-  },
-  {
-   "id": "NET_LUBE_OK",
-   "name": "lube-ok",
-   "board": "7i84U",
-   "connector": "TB1",
-   "channel": "IN25",
-   "hal_net": "lube-ok",
-   "direction": "IN",
-   "direction_label": "Input (digital)",
-   "subsystem": "Unmapped",
-   "machine_subsystem": "Unmapped",
-   "status": "CONFIG_ONLY",
-   "field_point": "Central lube pressure/float OK",
-   "designations": [],
-   "primary_source": "mesa/signal_map.csv (stale)",
-   "cleanup_notes": "No row in current_pin_authority.csv. Commented out in HAL.",
-   "location": "Unknown — no authority row, trace in cabinet",
-   "location_note": "Derived from the stale signal_map.csv layout.",
-   "expected": {
-    "value": "Unknown",
-    "label": "Unknown — measure/verify",
-    "basis": "No authority row and no normal-state evidence.",
-    "kind": "unknown"
-   },
-   "hal_state": "commented",
-   "mesa_pins": [
-    "hm2_7i97.0.7i84.0.0.input-25"
-   ],
-   "producers": [],
-   "consumers": [],
-   "hal_refs": [
-    {
-     "file": "linuxcnc/field_7i84u.hal",
-     "line": 47,
-     "text": "# net lube-ok           <= hm2_7i97.0.7i84.0.0.input-25",
-     "commented": true,
-     "producers": [
-      "hm2_7i97.0.7i84.0.0.input-25"
-     ],
-     "consumers": [],
-     "bidir": []
-    }
-   ],
-   "setp_refs": [],
-   "stale_row": null,
-   "sources": [
-    {
-     "file": "linuxcnc/field_7i84u.hal",
-     "lines": "47",
-     "note": "commented out — # net lube-ok           <= hm2_7i97.0.7i84.0.0.input-25"
-    },
-    {
-     "file": "mesa/signal_map.csv",
-     "lines": "25",
-     "note": "STALE source of this net: 7i97T TB5 IN15 (Verify in cabinet)"
-    }
-   ],
-   "conflicts": [
-    "C1",
     "C8"
    ],
    "authority_line": null
@@ -7887,6 +7860,69 @@ window.MAZAK_DATA = {
      "file": "linuxcnc/motion_7i97t.hal",
      "lines": "277",
      "note": "commented out — # net probe-in => motion.probe-input"
+    }
+   ],
+   "conflicts": [
+    "C1",
+    "C8"
+   ],
+   "authority_line": null
+  },
+  {
+   "id": "NET_SINGLE_BLOCK",
+   "name": "single-block",
+   "board": "7i84U",
+   "connector": "TB1",
+   "channel": "IN30",
+   "hal_net": "single-block",
+   "direction": "IN",
+   "direction_label": "Input (digital)",
+   "subsystem": "Unmapped",
+   "machine_subsystem": "Unmapped",
+   "status": "CONFIG_ONLY",
+   "field_point": "Single block mode switch",
+   "designations": [],
+   "primary_source": "mesa/signal_map.csv (stale)",
+   "cleanup_notes": "No row in current_pin_authority.csv. Commented out in HAL.",
+   "location": "Unknown — no authority row, trace in cabinet",
+   "location_note": "Derived from the stale signal_map.csv layout.",
+   "expected": {
+    "value": "Unknown",
+    "label": "Unknown — measure/verify",
+    "basis": "No authority row and no normal-state evidence.",
+    "kind": "unknown"
+   },
+   "hal_state": "commented",
+   "mesa_pins": [
+    "hm2_7i97.0.7i84.0.0.input-30"
+   ],
+   "producers": [],
+   "consumers": [],
+   "hal_refs": [
+    {
+     "file": "linuxcnc/field_7i84u.hal",
+     "line": 52,
+     "text": "# net single-block      <= hm2_7i97.0.7i84.0.0.input-30",
+     "commented": true,
+     "producers": [
+      "hm2_7i97.0.7i84.0.0.input-30"
+     ],
+     "consumers": [],
+     "bidir": []
+    }
+   ],
+   "setp_refs": [],
+   "stale_row": null,
+   "sources": [
+    {
+     "file": "linuxcnc/field_7i84u.hal",
+     "lines": "52",
+     "note": "commented out — # net single-block      <= hm2_7i97.0.7i84.0.0.input-30"
+    },
+    {
+     "file": "mesa/signal_map.csv",
+     "lines": "29",
+     "note": "STALE source of this net: 7i97T TB5 IN19 (Optional)"
     }
    ],
    "conflicts": [
@@ -8725,9 +8761,9 @@ window.MAZAK_DATA = {
     "SOL-31 flood coolant and the CB-4 + CMS overload relay (io_map_research_notes.md:148-170)",
     "Magazine cover reed switches RS-79 / RS-18, spindle orientation arrival signal, ATC arm position sensors, tool-measure stand switches (io_map_research_notes.md:287-295)",
     "Two lube systems (head AL-56, way AL-54) share one generic LUBE_ON output (io_map_research_notes.md:293-295)",
-    "SECOND_SSERIAL_CARD is deliberately on hold (current_pin_authority.csv:91)"
+    "SECOND_SSERIAL_CARD was retired 2026-08-03 after single-7i84U plan committed (open_issues.md §3)"
    ],
-   "action": "Decide whether the pallet changer is retained before finalising the 7i84U channel budget. Do not order a second smart-serial card until the input count is proven insufficient.",
+   "action": "Decide whether the pallet changer is retained before finalising the 7i84U channel budget. Single-7i84U plan committed 2026-08-03; second smart-serial card retired — do not order.",
    "signals": [
     "SECOND_SSERIAL_CARD",
     "DOOR_INTERLOCK",
@@ -8869,6 +8905,27 @@ window.MAZAK_DATA = {
    "active": false
   },
   {
+   "net": "feed-hold-pb",
+   "mesa_pins": [
+    "hm2_7i97.0.7i84.0.0.input-29"
+   ],
+   "refs": [
+    {
+     "file": "linuxcnc/field_7i84u.hal",
+     "line": 56,
+     "commented": true,
+     "text": "# net feed-hold-pb      <= hm2_7i97.0.7i84.0.0.input-29"
+    },
+    {
+     "file": "linuxcnc/field_7i84u.hal",
+     "line": 57,
+     "commented": true,
+     "text": "# net feed-hold-pb      => motion.feed-hold"
+    }
+   ],
+   "active": false
+  },
+  {
    "net": "lamp-alarm",
    "mesa_pins": [
     "hm2_7i97.0.gpio.031.out"
@@ -8900,21 +8957,6 @@ window.MAZAK_DATA = {
      "line": 272,
      "commented": true,
      "text": "# net lamp-ready    => hm2_7i97.0.gpio.030.out"
-    }
-   ],
-   "active": false
-  },
-  {
-   "net": "lube-ok",
-   "mesa_pins": [
-    "hm2_7i97.0.7i84.0.0.input-25"
-   ],
-   "refs": [
-    {
-     "file": "linuxcnc/field_7i84u.hal",
-     "line": 47,
-     "commented": true,
-     "text": "# net lube-ok           <= hm2_7i97.0.7i84.0.0.input-25"
     }
    ],
    "active": false
@@ -9038,6 +9080,21 @@ window.MAZAK_DATA = {
      "line": 277,
      "commented": true,
      "text": "# net probe-in => motion.probe-input"
+    }
+   ],
+   "active": false
+  },
+  {
+   "net": "single-block",
+   "mesa_pins": [
+    "hm2_7i97.0.7i84.0.0.input-30"
+   ],
+   "refs": [
+    {
+     "file": "linuxcnc/field_7i84u.hal",
+     "line": 52,
+     "commented": true,
+     "text": "# net single-block      <= hm2_7i97.0.7i84.0.0.input-30"
     }
    ],
    "active": false
@@ -9201,8 +9258,9 @@ window.MAZAK_DATA = {
   "MAG_BCD_BIT3",
   "MAG_BCD_BIT4",
   "DOOR_INTERLOCK",
-  "LUBE_LEVEL",
   "COOLANT_LEVEL",
+  "ESTOP_MONITOR",
+  "MANUAL_TOOL_CLAMP_PB",
   "SPINDLE_ENA",
   "HYD_PUMP_ON",
   "SPINDLE_ORIENT_CMD",
