@@ -9,15 +9,18 @@
 # Selected architecture (2026-08-06 rev):
 # LinuxCNC control PC connected to a Mesa 7i80HDT Ethernet FPGA host over hm2_eth
 # (static IP). Daughter cards:
-#   P1: 7i44 (8-channel RS-422 sserial breakout)
-#        port 0 -> 7i84U-A (existing 32/16 field I/O near green breakout PCB:
-#                 ATC, hydraulic, coolant, air, utility, spindle digital I/O)
-#        port 1 -> 7i84U-B (limits, homes, drive-enables, and five
-#                 relay-driven loads: air/touch/tap blast, ATC barrier, flood)
-#        ports 2-7 spare (MPG pendant, 4th-axis, or future 7i84 expansion)
-#   P2: 7i49 (6 resolver channels + 6x +/-10V analog outs)
-#   P3: unused/spare, except gpio.042 = Renishaw MP-3 probe SKIP1 as a bare
-#       direct FPGA GPIO (latency exception; no daughter card fitted)
+#   P1: 7i44 (RS-422 sserial breakout - one sserial port with 8 channels)
+#        channel 0 -> 7i84U-A (existing 32/16 field I/O near green breakout PCB:
+#                     ATC, hydraulic, coolant, air, utility, spindle digital I/O,
+#                     hm2_7i80.0.7i84.0.0.*)
+#        channel 1 -> 7i84U-B (limits, homes, drive-enables, probe, and five
+#                     relay-driven loads: air/touch/tap blast, ATC barrier,
+#                     flood, hm2_7i80.0.7i84.0.1.*)
+#        channels 2-7 disabled (sserial_port_0="00xxxxxx"); FPGA pins released
+#                     as spare GPIO for future MPG / 4th-axis / 7i84 expansion.
+#   P2: 7i49 (3 resolver channels used out of 6 + 4 of 6 +/-10V analog outs used)
+#   P3: unused/spare - all bare FPGA GPIO (no daughter card fitted). Probe was
+#       previously wired here but was moved to 7i84U-B for 24V opto-isolation.
 # Axis position feedback is RESOLVER via the 7i49 (5 kHz excitation baseline), reading
 # the machine's original Tamagawa TS2014N resolvers - not quadrature encoders.
 # All field I/O -- limits/homes/E-stop monitor/drive-enables/spindle digital/

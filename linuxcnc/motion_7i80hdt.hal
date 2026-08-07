@@ -10,20 +10,19 @@
 # not quadrature encoder.
 #
 # Stack summary (2026-08-06 rev):
-#   P1: 7i44 sserial breakout
-#        port 0 → 7i84U-A (existing 32/16 field I/O)
-#        port 1 → 7i84U-B (limits, homes, drive-enables, relay-driven loads)
-#        ports 2-7 spare
+#   P1: 7i44 sserial breakout - ONE sserial port with 8 channels
+#        channel 0 -> 7i84U-A (existing 32/16 field I/O, hm2_7i80.0.7i84.0.0.*)
+#        channel 1 -> 7i84U-B (limits, homes, drive-enables, relay-driven loads,
+#                     probe, hm2_7i80.0.7i84.0.1.*)
+#        channels 2-7 disabled in sserial_port_0="00xxxxxx" (spare GPIO)
 #   P2: 7i49 (6 resolver channels + 6× ±10V analog outs)
-#   P3: unused/spare, EXCEPT gpio.042 = Renishaw MP-3 probe SKIP1 (bare direct
-#       FPGA GPIO). Latency exception justified in-block below; no daughter card.
+#   P3: unused/spare (all bare-FPGA GPIO). Probe was previously wired to P3
+#       gpio.042 but has been moved to 7i84U-B (opto-isolated) - see fix #8.
 #
-# All field I/O — limits, homes, E-stop monitor, drive-enables, spindle
-# digital I/O, and 100 VAC solenoid outputs — is on the two 7i84U cards
+# All field I/O - limits, homes, E-stop monitor, drive-enables, spindle
+# digital I/O, probe, and 100 VAC solenoid outputs - is on the two 7i84U cards
 # (see field_7i84u.hal). The 7i80HDT motion HAL owns only motion-critical
-# signals: resolvers, ±10V velocity commands, and the P3 probe input.
-# The `hm2_7i80.0.gpio.042.*` index below is a placeholder — replace with the
-# real probe pin reported by `halcmd show pin hm2` after firmware load.
+# signals: resolvers and +/-10V velocity commands.
 
 #####################################################################
 # Resolver feedback channels (via Mesa 7i49 on P2)
@@ -232,32 +231,22 @@ net spindle-enable => hm2_7i80.0.pwmgen.03.enable
 # net spindle-orient-ena => hm2_7i80.0.pwmgen.04.enable
 
 #####################################################################
-# P3 direct FPGA GPIO — probe SKIP1 exception only
+# P3: unused (no bare-FPGA I/O bindings)
 #####################################################################
 #
 # The stack uses P1 (7i44 sserial) and P2 (7i49 analog+resolver). P3 is
-# unused/spare with ONE exception: the Renishaw MP-3 probe SKIP1 input,
-# wired to a bare P3 GPIO for lowest possible latency.
+# reserved/spare - the 7i80HDT places its GPIO in the 032..062 index range
+# but nothing in this configuration binds those pins.
 #
-# Why the probe is the exception (and nothing else is):
-#   - The motion planner latches position on the probe edge; any jitter in the
-#     input path becomes touch-position error. Sserial's up-to-one-servo-period
-#     update delay is not acceptable for probing.
-#   - Limits, homes, drive-enables, and field solenoids do NOT have this
-#     requirement. LinuxCNC samples them at servo rate anyway, and sserial is
-#     well inside that. Those signals are all on the 7i84U cards (see
-#     field_7i84u.hal).
+# Earlier drafts wired the Renishaw MP-3 probe SKIP1 signal to bare P3 GPIO
+# for latency reasons. That path was REMOVED because the 7i80HDT P3 GPIO
+# pins are 3.3 V logic without opto-isolation: exposing them to 24 V field
+# wiring risks destroying the FPGA. The probe is now routed through the
+# 7i84U-B card (isolated 24 V input) - see field_7i84u.hal (input-15) and
+# mesa/current_pin_authority.csv row PROBE_SKIP1. Latency added by sserial
+# is up to one servo period (~1 ms at 1 kHz servo-thread), which is well
+# inside the touch-position tolerance the MP-3 already delivers with its
+# own solid-state trigger circuit.
 #
-# P3 pin index below is a PLACEHOLDER — confirm from `halcmd show pin hm2`
-# after loading the bitfile. The 7i80HDT firmware places P3 GPIO in its own
-# index range (typically 032..062).
-
-# Renishaw MP-3 fitted per parts list pp.273-274. Probe interfaces default to
-# normally-closed idle → invert_input=1 so probe trigger = logic 1. Verify the
-# probe interface's idle polarity (MI 12 or similar) before final wiring.
-setp hm2_7i80.0.gpio.042.invert_input    1
-net probe-in <= hm2_7i80.0.gpio.042.in
-net probe-in => motion.probe-input
-
-# Drive faults, drive-enables, limits, homes, E-stop monitor, and all field
-# solenoid outputs are routed via the 7i84U cards — see field_7i84u.hal.
+# Drive faults, drive-enables, limits, homes, E-stop monitor, probe, and all
+# field solenoid outputs are routed via the 7i84U cards - see field_7i84u.hal.

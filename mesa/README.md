@@ -20,13 +20,14 @@ VQC 20/40 retrofit.
 - **7i49 on P2** — 6× resolver channels + 6× ±10V analog outputs. Carries X/Y/Z
   resolver feedback and X/Y/Z servo velocity commands plus FR-SX spindle
   velocity / orient reference.
-- **P3 unused/spare** — no daughter card is fitted. The sole exception is the
-  Renishaw MP-3 probe SKIP1 on bare direct FPGA GPIO `hm2_7i80.0.gpio.042`.
-- **7i84U-A on 7i44 port 0** — 32/16 remote field I/O near the existing green
-  breakout PCB.
-- **7i84U-B on 7i44 port 1** — 32/16 remote field I/O: TB1 IN0-5 X/Y/Z
-  limits, TB1 IN6-8 X/Y/Z homes, TB2 OUT0-2 drive enables, and TB2 OUT3-7
-  relay-driven loads.
+- **P3 unused/spare** — no daughter card is fitted; all bare-FPGA GPIO. Not
+  safe for 24 V field wiring (3.3 V logic without opto-isolation).
+- **7i84U-A on 7i44 sserial channel 0** — 32/16 remote field I/O near the
+  existing green breakout PCB, addressed as `hm2_7i80.0.7i84.0.0.*`.
+- **7i84U-B on 7i44 sserial channel 1** — 32/16 remote field I/O for X/Y/Z
+  limits, X/Y/Z homes, X/Y/Z drive enables, relay-driven loads, and the
+  Renishaw MP-3 probe SKIP1 (input-15), addressed as `hm2_7i80.0.7i84.0.1.*`.
+  See `current_pin_authority.csv` for the exact TB2/TB3 pin map.
 - **Firmware bitfile**: `7i80hdt_7i44_ss_7i49d` (PCW-provided; sserial on P1,
   7i49 on P2, GPIO on P3).
 
@@ -44,8 +45,10 @@ VQC 20/40 retrofit.
 - Use **7i84U-B on 7i44 port 1** for X/Y/Z limits (TB1 IN0-5), X/Y/Z homes
   (TB1 IN6-8), X/Y/Z drive enables (TB2 OUT0-2), and relay-driven loads
   (TB2 OUT3-7). Use **7i84U-A TB1 IN29** as the sole software E-stop monitor.
-- Use **bare 7i80HDT P3 GPIO** only for probe SKIP1 on
-  `hm2_7i80.0.gpio.042`; all other P3 pins are spare.
+- **Do NOT wire bare 7i80HDT P3 GPIO to any 24 V field signal.** P3 is 3.3 V
+  logic without opto-isolation — exposing it to 24 V will destroy the FPGA.
+  The probe was moved from a former P3 `gpio.042` binding to 7i84U-B input-15
+  for that reason. All P3 pins are unused/spare in this configuration.
 - Use **7i49 P2 analog outputs** for X/Z/Y servo velocity commands and FR-SX
   spindle velocity command; AOUT4 reserved for FR-SX orient reference; AOUT5
   spare.
