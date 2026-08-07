@@ -199,9 +199,18 @@ net estop-ok          => iocontrol.0.emc-enable-in
 # alarms in sync with the LinuxCNC re-enable. Additional readers pick up the
 # same signal declared above.
 
-# air-ok signal is sourced from 7i84U-A input-11 in field_7i84u.hal. If that
-# terminal is not yet wired, uncomment the following to force TRUE for bench
-# testing (comment it back out before energising anything):
+# air-ok signal: NOT yet assigned to a physical Mesa terminal. There is no
+# AIR_OK row in mesa/current_pin_authority.csv, and IN11 on 7i84U-A is
+# y-drive-fault (see field_7i84u.hal:50), not air-ok. The mazak_atc.comp
+# 'air_ok' pin defaults to TRUE so the ATC component does not block on this
+# signal while it is UNBOUND, but you MUST NOT drive tool changes into a
+# machine whose air pressure is not being independently monitored.
+# When the machine's air-pressure switch is wired in, promote the AIR_OK row
+# in mesa/current_pin_authority.csv from UNBOUND to PROPOSED and assign it to
+# a physical terminal (7i84U-A IN30 is already assigned to MANUAL_TOOL_CLAMP_PB;
+# use a spare 7i84U-B input on TB3), then add the writer net in field_7i84u.hal:
+#     net air-ok         <= hm2_7i80.0.7i84.0.0.input-NN
+# Bench override during dry-run testing (comment out before energising):
 # sets air-ok true
 
 # spindle-enable (open-loop) is currently sourced by spindle.0.on via the

@@ -68,7 +68,15 @@ net coolant-low        <= hm2_7i80.0.7i84.0.0.input-26   # IN26 coolant level (p
 # IN27 hydraulic-ok netted in atc_orient.hal.
 
 # --- IN28..IN31  (magazine + panel + estop monitor, TB2 pins 13-16) ---
-# IN28 mag-in-pos netted in atc_orient.hal.
+# IN28 mag-in-pos: writer declared here (physical-pin authority lives in this
+# file, per docs/authority_hierarchy.md). atc_orient.hal only reads mag-in-pos
+# and must not attempt to source it.
+# CSV status: MAG_IN_POS = PROPOSED (mesa/current_pin_authority.csv). The prox
+# is required for magazine indexing per the OEM ladder (rungs 3401/33xx). The
+# terminal is not yet electrically verified - do not enable the ATC sequence
+# until this input passes bench and field verification per
+# docs/pre_power_deliverables.md D4.
+net mag-in-pos         <= hm2_7i80.0.7i84.0.0.input-28   # IN28 MIPRS mag-in-pos prox (PLC X00D)
 net estop-monitor      <= hm2_7i80.0.7i84.0.0.input-29   # IN29 OEM MAR aux via interposing relay
 # IN30 manual-clamp-pb reserved (PROPOSED, not netted until wired):
 # net manual-clamp-pb    <= hm2_7i80.0.7i84.0.0.input-30
