@@ -78,7 +78,25 @@ addf estop-latch.0             servo-thread
 addf hm2_7i80.0.write          servo-thread
 
 # Axis PID gains are intentionally zero in the INI placeholders.
-# Tune only after resolver direction/scale, analog output polarity, and drive enable behavior are verified.
+#
+# The TRA drives close their own inner velocity loop on the motor tach
+# (Tamagawa TGF-3D P402-Sx). LinuxCNC is the OUTER position loop driving those
+# drives with an analog velocity reference via 7i49 pwmgen.NN.value. Commission
+# the position loop with the FF1-first procedure in docs/servo_commissioning.md:
+#   1. Confirm resolver direction/scale and analog output polarity.
+#   2. Verify zero-command null at each 7i49 AOUT_N (|V_out| <= 50 mV).
+#   3. Measure volts-per-speed with pid.output driven manually from halcmd at
+#      low MAX_OUTPUT; set OUTPUT_SCALE per axis so pid.output units are in/s.
+#   4. Set FF1 first (typically ~1.0 once OUTPUT_SCALE is calibrated).
+#   5. Add P in small steps.
+#   6. Add I only for residual bias, D only if end-of-move overshoot demands it.
+#
+# Do NOT tune P/I/D or FF1 before step 3 is complete on that axis.
+# PID doc: 'When using FF1 tuning, scaling must be set so that output is in
+# user units per second.'
+# PID doc direction warning: 'If some output is in the wrong direction,
+# negating gains to fix it is a mistake; set the scaling correctly elsewhere
+# instead.'
 setp pid.x.P                      [JOINT_0]P
 setp pid.x.I                      [JOINT_0]I
 setp pid.x.D                      [JOINT_0]D

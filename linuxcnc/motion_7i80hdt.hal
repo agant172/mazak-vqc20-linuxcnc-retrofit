@@ -242,14 +242,16 @@ setp hm2_7i80.0.pwmgen.pwm_frequency 24000
 #   type 1 = PWM+Dir      type 2 = Up/Down      type 3 = PDM+Dir
 #   type 4 = Dir+PWM (locked antiphase, unsuitable for 7i49 DAC pipeline)
 #
-# Per-axis scale: duty = pid.output / scale, clipped to +/-1.0. With pid.output
-# in machine units per second (velocity command from the position loop), scale
-# should equal the max velocity the drive command should reach at +/-10 V.
-# From INI axis MAX_VELOCITY (in/s):  X = Y ~= 0.5, Z ~= 0.4. Setting scale
-# equal to that value maps +/-10 V to +/-MAX_VELOCITY.
-# TODO: pull the exact per-axis scale from [JOINT_N]OUTPUT_SCALE once the INI
-# has that key; for now these three constants match the current MAX_VELOCITY
-# values in linuxcnc/mazak_vqc_20_40.ini.
+# Per-axis scale: per hostmot2(9) PWMGen doc, duty = value / scale, clipped to
+# +/-1.0. On the 7i49 the pwmgen output drives a bipolar +/-10 V analog stage,
+# so duty +/-1.0 = +/-10 V. With pid.output in machine units per second
+# (velocity command from the outer position loop), setting scale equal to
+# MAX_VELOCITY (in/s) maps pid.output = MAX_VELOCITY to +/-10 V ONLY IF the
+# TRA drive is calibrated so 10 V equals MAX_VELOCITY shaft speed.
+# That drive calibration is NOT yet measured; see docs/servo_commissioning.md
+# steps 2 (zero-command null) and 3 (volts-per-speed). Placeholder
+# [JOINT_N]OUTPUT_SCALE = 1.0 in mazak_vqc_20_40.ini keeps the PID output safely
+# scaled during power-on. Update per axis once volts-per-speed is measured.
 setp hm2_7i80.0.pwmgen.00.output-type 2    # X axis  -> 7i49 AOUT0
 setp hm2_7i80.0.pwmgen.00.scale       [JOINT_0]OUTPUT_SCALE
 setp hm2_7i80.0.pwmgen.01.output-type 2    # Z axis  -> 7i49 AOUT1

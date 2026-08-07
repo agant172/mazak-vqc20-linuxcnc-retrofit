@@ -78,6 +78,7 @@ See [`architecture_decision.md`](architecture_decision.md) for the full rational
 - [ ] Confirm the 7i49 is the **sole resolver excitation source** — nothing from the old drive/control still driving the windings before energizing.
 - [ ] Derive `RESOLVER_SCALE` for X/Y/Z: read the ballscrew lead (in or mm/screw rev), confirm the flex coupling is 1:1 (no reduction between screw and resolver), and enter signed inches-per-resolver-rev into each `[JOINT_N]` block. Verify by counting `hm2_7i80.0.resolver.NN.rawcounts` against a dial indicator over multiple full ballscrew revolutions and adjust; flip the sign if the axis counts backwards. Set `RESOLVER_VELOCITY_SCALE` to the same signed value so `.velocity` reports in/s. Do NOT leave the 1.0 placeholder in place before running the axis — the HostMot2 doc defines `.scale` as machine units per RESOLVER ELECTRICAL revolution, not per motor rev; internal consistency between the two 1.0 defaults does not prove one inch per revolution.
 - [ ] Verify analog command polarity/scaling for X/Y/Z on 7i49 AOUT0/1/2 before enabling drives.
+- [ ] Follow the FF1-first velocity-mode commissioning procedure in [`servo_commissioning.md`](servo_commissioning.md) for X, then Y, then Z: zero-command null check, low-voltage volts-per-speed calibration, `OUTPUT_SCALE` per axis, then FF1 → P → I/D. Do NOT tune from zero-gain placeholders until the volts-per-speed calibration is done. Log each axis under `docs/commissioning_logs/<axis>_YYYYMMDD.md`.
 - [ ] Verify FR-SX spindle command on 7i49 AOUT3 (speed) plus 7i84U-A digital FWD/REV/ENA.
 - [ ] Verify 7i84U-B TB3 limit/home inputs and TB3 drive-enable outputs against cabinet contacts; measure each input path with an ohmmeter before setting `invert_input`. Verify the probe SKIP1 input on 7i84U-B TB3 IN15 (opto-isolated 24 V) separately.
 - [ ] Wire interposing relays (RLY-5/6/7) for the 100VAC relay-driven loads SOL-35/61/62 on 7i84U-B TB3 OUT4/5/3 as assigned. Do the same for the ATC barrier on TB3 OUT6 (Y095 TCME.M).
@@ -100,7 +101,7 @@ See [`architecture_decision.md`](architecture_decision.md) for the full rational
 4. Confirm 7i49 P2 analog command wiring with drives disabled/inhibited (zero command, polarity on AOUT0/1/2/3).
 5. Confirm 7i84U-A and 7i84U-B appear on 7i44 P1 ports 0 and 1 via `halcmd show pin hm2` — verify device tags `hm2_7i80.0.7i84.0.0.*` and `hm2_7i80.0.7i84.0.1.*`.
 6. Confirm P3 breakout wiring (limits/homes/E-stop/probe/drive-enables/SSR overflow outputs) with all outputs disabled.
-7. Bring up one axis at a time at low gain / low speed.
+7. Bring up one axis at a time at low gain / low speed per [`servo_commissioning.md`](servo_commissioning.md) (FF1 first, then P; I only for residual bias, D cautiously; explicit rollback criteria).
 8. Confirm home and limit logic before homing.
 9. Confirm spindle analog scaling, run/enable/direction, zero-speed, at-speed, orient.
 10. Bring up ATC/hydraulic outputs one at a time with dry-run interlocks, no tool load.

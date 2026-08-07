@@ -88,6 +88,7 @@ The original **Meldas M2 / TRA** resolver wiring may run the resolver "backwards
 
 - The **TRA-type drives close their velocity loop on a tachogenerator (Tamagawa TGF-3D P402-Sx), not on the resolver.** The resolver is a position device for the control, independent of the drive's own velocity loop.
 - Therefore **LinuxCNC + the 7i49 on P2 own the resolver excitation outright.** The **7i49 must be the sole resolver excitation source** — confirm nothing else is still driving the resolver windings before energizing the 7i49.
+- **LinuxCNC's PID is the outer position loop; the TRA velocity loop is the inner loop.** Commission with the FF1-first procedure in [`servo_commissioning.md`](servo_commissioning.md): confirm zero-command null at each 7i49 AOUT_N, measure volts-per-speed with `pid.output` driven manually at low `MAX_OUTPUT`, set per-axis `OUTPUT_SCALE` so `pid.output` is in user units per second (PID(9) requirement), then FF1, then P, and only add I/D if the residual behavior demands it. The zero-gain placeholders in the INI are safe defaults, not a tuning baseline.
 
 ## Remaining checks before final hardware purchase
 
@@ -116,7 +117,8 @@ The original **Meldas M2 / TRA** resolver wiring may run the resolver "backwards
 - Servo PID tuning thread — VQC 15/40, TRA-31, HD81-12S, plain 7i49 @ 5 kHz vs. the 4.5 kHz spec: <https://forum.linuxcnc.org/10-advanced-configuration/32061-servo-pid-tuning-can-t-clamp-down-on-overshoot>
 - Tamagawa FA-SOLVER page (TS2014N141E26 electrical specs): <https://tamagawa.eu/products/resolvers/brushless-resolvers-fa-solver/>
 - PCW on TS2014 variant compatibility with the 7i49: <https://forum.linuxcnc.org/27-driver-boards/39171-7i49-with-tamagawa-ts2014-e1-type-resolvers>
-- HostMot2(9) man page — resolver `.scale`, `.velocity-scale`, `.index-divisor`, and the index-homing caution: <https://linuxcnc.org/docs/2.9/html/man/man9/hostmot2.9.html>
+- HostMot2(9) man page — resolver `.scale`, `.velocity-scale`, `.index-divisor`, PWMGen `dc = value / scale` and output-type/offset-mode semantics: <https://linuxcnc.org/docs/2.9/html/man/man9/hostmot2.9.html>
+- LinuxCNC PID(9) man page — feed-forward semantics (FF0/FF1/FF2/FF3), integrator windup, deadband, bias, direction warning, and the explicit "When using FF1 tuning, scaling must be set so that output is in user units per second" requirement that drives the servo commissioning procedure: <https://linuxcnc.org/docs/2.9/html/man/man9/pid.9.html>
 - Mesa 7i49 manual (resolver interface, excitation options, W2 jumper, RESDRV/RESSIN/RESCOS): <http://www.mesanet.com/pdf/motion/7i49man.pdf>
 - Mesa 7i80HDT overview (72 IO across three 50-pin daughtercard connectors, 5V-tolerant): <http://www.mesanet.com/fpgacardinfo.html>
 - Mesa 7i44 forum thread on 7i80HD-compatible RS-422 interfaces: <https://www.forum.linuxcnc.org/27-driver-boards/35743-mesa-i-o>
