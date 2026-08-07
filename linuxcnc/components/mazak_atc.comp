@@ -509,8 +509,13 @@ FUNCTION(update)
                   && !spindle_run && !cycle_abort && !faulted;
 
     tool_unclamp_sol = unclamp_cmd ? true : false;
+    /* !faulted gate added per audit 2026-08-07: a clamp/unclamp timeout
+     * must drop the clamp-side coil (not just the unclamp path) so a
+     * latched fault removes ALL asserted tool-change outputs. Without
+     * this, fault_clamp_timeout leaves tool_clamp_sol asserted until
+     * a fault_reset. */
     tool_clamp_sol = (clamp_dual_coil && !unclamp_cmd && hydraulic_ok
-                      && !cycle_abort) ? true : false;
+                      && !cycle_abort && !faulted) ? true : false;
 
     /* Rung 3509 M69 / rung 3607 M64 - note M64 needs BOTH terms. */
     unclamp_confirmed = (unclamp_cmd && tool_unclamped) ? true : false;
