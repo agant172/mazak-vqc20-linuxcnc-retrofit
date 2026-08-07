@@ -2,6 +2,8 @@
 
 Rev A — compiled 2026-07-17 from project sources.
 
+> **OBSOLETE — DO NOT USE REV A FOR WIRING OR POWER-UP.** The checked-in PDFs predate the current 7i80HDT/7i49/7i44/two-7i84U architecture. They contain retracted 7i97T material and a dangerous 7i84U TB1 error that labels pins 2 and 4 as returns; those pins are actually duplicate positive VFIELDB/VFIELDA terminals. Current authority is `mesa/current_pin_authority.csv`. Reissue the PDFs before field use.
+
 ## Volumes
 
 | File | Contents |

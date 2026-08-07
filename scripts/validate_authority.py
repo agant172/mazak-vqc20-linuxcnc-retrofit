@@ -24,6 +24,9 @@ Physical pin references it understands:
 
 It also requires one exact CSV row for every physical 7i84U input/output;
 aggregate range rows are rejected because they can overlap explicit pins.
+The 7i84U TB1 power map and the printable B-card TB1 legend are checked
+against the fixed Mesa terminal assignment so pins 2 or 4 cannot regress
+to being documented as 0 V returns.
 Any active direct 7i80HDT P3 GPIO reference is rejected by the companion
 control-logic validator.
 
@@ -62,6 +65,56 @@ CSV_PATH = REPO_ROOT / "mesa" / "current_pin_authority.csv"
 HAL_DIR = REPO_ROOT / "linuxcnc"
 CAPACITY_DOC = REPO_ROOT / "docs" / "io_capacity_reconciliation.md"
 LEGEND_PATH = REPO_ROOT / "wiring" / "7i84u_b_terminal_legend_epson.csv"
+
+POWER_MAP = {
+    "7i84U-A": {
+        "SEVENI84U_FIELD_A_24V": (
+            "TB1 pins 3/4 VFIELDA (+24 V field power, 5-28 VDC)",
+            "Field power bank A (TB3 I/O)",
+        ),
+        "SEVENI84U_FIELD_B_24V": (
+            "TB1 pins 1/2 VFIELDB (+24 V field power, 5-28 VDC)",
+            "Field power bank B (TB2 I/O)",
+        ),
+        "SEVENI84U_VIN_24V": (
+            "TB1 pin 5 VIN (+24 V logic power)",
+            "Field I/O logic power",
+        ),
+        "SEVENI84U_GND": (
+            "TB1 pins 6/7/8 GND (VIN/VFIELD common)",
+            "VIN/VFIELD common return",
+        ),
+    },
+    "7i84U-B": {
+        "SEVENI84UB_FIELD_A_24V": (
+            "TB1 pins 3/4 VFIELDA (+24 V field power, 5-28 VDC)",
+            "Field power bank A (TB3 I/O)",
+        ),
+        "SEVENI84UB_FIELD_B_24V": (
+            "TB1 pins 1/2 VFIELDB (+24 V field power, 5-28 VDC)",
+            "Field power bank B (TB2 I/O)",
+        ),
+        "SEVENI84UB_VIN_24V": (
+            "TB1 pin 5 VIN (+24 V logic power)",
+            "Field I/O logic power",
+        ),
+        "SEVENI84UB_GND": (
+            "TB1 pins 6/7/8 GND (VIN/VFIELD common)",
+            "VIN/VFIELD common return",
+        ),
+    },
+}
+
+POWER_LEGEND = {
+    "TB1-1": ("VFIELDB +24V (TB2 BANK)", "7i84U-B VFIELDB"),
+    "TB1-2": ("VFIELDB +24V (TB2 BANK)", "7i84U-B VFIELDB"),
+    "TB1-3": ("VFIELDA +24V (TB3 BANK)", "7i84U-B VFIELDA"),
+    "TB1-4": ("VFIELDA +24V (TB3 BANK)", "7i84U-B VFIELDA"),
+    "TB1-5": ("VIN LOGIC +24V (VERIFY W1)", "7i84U-B VIN"),
+    "TB1-6": ("FIELD/VIN COMMON 0V", "7i84U-B GND"),
+    "TB1-7": ("FIELD/VIN COMMON 0V", "7i84U-B GND"),
+    "TB1-8": ("FIELD/VIN COMMON 0V", "7i84U-B GND"),
+}
 
 # ----------------------------------------------------------------------
 # Regexes for HAL parsing.
@@ -192,6 +245,115 @@ def check_csv_integrity(rows: list[dict], by_pin: dict[str, dict]) -> list[Findi
     for key in sorted(actual - expected):
         findings.append(Finding("ERROR", CSV_PATH.name,
                                 f"out-of-range 7i84U terminal row {key}."))
+    return findings
+
+
+def check_7i84u_power_map(rows: list[dict]) -> list[Finding]:
+    """Enforce the Mesa 7i84U TB1 map in authority and the print legend."""
+    findings: list[Finding] = []
+    by_id: dict[str, list[dict]] = defaultdict(list)
+    for row in rows:
+        by_id[(row.get("signal_id") or "").strip()].append(row)
+
+    for card, expected_rows in POWER_MAP.items():
+        actual_ids = {
+            (row.get("signal_id") or "").strip()
+            for row in rows
+            if (row.get("mesa_card") or "").strip() == card
+            and (row.get("connector") or "").strip() == "TB1"
+            and (row.get("direction") or "").strip() == "POWER"
+        }
+        expected_ids = set(expected_rows)
+        for signal_id in sorted(expected_ids - actual_ids):
+            findings.append(Finding(
+                "ERROR", CSV_PATH.name,
+                f"{card} TB1 power map is missing authority row {signal_id}."
+            ))
+        for signal_id in sorted(actual_ids - expected_ids):
+            findings.append(Finding(
+                "ERROR", CSV_PATH.name,
+                f"{card} TB1 has unexpected POWER row {signal_id}; update POWER_MAP deliberately."
+            ))
+
+        for signal_id, (pin_channel, field_point) in expected_rows.items():
+            matches = by_id.get(signal_id, [])
+            if len(matches) != 1:
+                if len(matches) > 1:
+                    findings.append(Finding(
+                        "ERROR", CSV_PATH.name,
+                        f"{signal_id} appears {len(matches)} times; exactly one row is required."
+                    ))
+                continue
+            row = matches[0]
+            expected_fields = {
+                "mesa_card": card,
+                "connector": "TB1",
+                "direction": "POWER",
+                "pin_channel": pin_channel,
+                "hal_net": "none",
+                "field_point_or_load": field_point,
+                "authority_status": "COMMISSIONING_PENDING",
+            }
+            for field, expected in expected_fields.items():
+                actual = (row.get(field) or "").strip()
+                if actual != expected:
+                    findings.append(Finding(
+                        "ERROR", CSV_PATH.name,
+                        f"{signal_id} {field} is '{actual}', expected '{expected}'."
+                    ))
+            source = (row.get("primary_source") or "").strip()
+            if "Mesa 7i84U manual" not in source:
+                findings.append(Finding(
+                    "ERROR", CSV_PATH.name,
+                    f"{signal_id} must cite the Mesa 7i84U manual as its primary source."
+                ))
+
+    forbidden = ("pin 1 + and pin 2 -", "pin 3 + and pin 4 -")
+    for lineno, row in enumerate(rows, start=2):
+        if (row.get("mesa_card") or "").strip() not in POWER_MAP:
+            continue
+        joined = " ".join(str(value) for value in row.values()).lower()
+        for phrase in forbidden:
+            if phrase in joined:
+                findings.append(Finding(
+                    "ERROR", f"{CSV_PATH.name}:{lineno}",
+                    f"forbidden legacy TB1 polarity text '{phrase}' treats a positive terminal as return."
+                ))
+
+    legend_rows = list(csv.DictReader(LEGEND_PATH.open()))
+    actual_power: dict[str, tuple[str, str]] = {}
+    seen: set[str] = set()
+    for lineno, row in enumerate(legend_rows, start=2):
+        terminal = (row.get("Terminal") or "").strip()
+        if not terminal.startswith("TB1-"):
+            continue
+        if terminal in seen:
+            findings.append(Finding(
+                "ERROR", f"{LEGEND_PATH.relative_to(REPO_ROOT)}:{lineno}",
+                f"duplicate power-legend terminal {terminal}."
+            ))
+        seen.add(terminal)
+        actual_power[terminal] = (
+            (row.get("Signal") or "").strip(),
+            (row.get("HAL_Net") or "").strip(),
+        )
+
+    for terminal in sorted(POWER_LEGEND.keys() - actual_power.keys()):
+        findings.append(Finding(
+            "ERROR", str(LEGEND_PATH.relative_to(REPO_ROOT)),
+            f"power legend is missing {terminal}."
+        ))
+    for terminal in sorted(actual_power.keys() - POWER_LEGEND.keys()):
+        findings.append(Finding(
+            "ERROR", str(LEGEND_PATH.relative_to(REPO_ROOT)),
+            f"power legend has unexpected terminal {terminal}."
+        ))
+    for terminal in sorted(POWER_LEGEND.keys() & actual_power.keys()):
+        if actual_power[terminal] != POWER_LEGEND[terminal]:
+            findings.append(Finding(
+                "ERROR", str(LEGEND_PATH.relative_to(REPO_ROOT)),
+                f"{terminal} legend is {actual_power[terminal]}, expected {POWER_LEGEND[terminal]}."
+            ))
     return findings
 
 
@@ -500,6 +662,7 @@ def main() -> int:
     findings = (
         parse_findings
         + check_csv_integrity(all_rows, csv_by_pin)
+        + check_7i84u_power_map(all_rows)
         + cross_check(csv_by_pin, hal_pins)
         + check_7i49_motion_bindings(all_rows)
         + check_capacity_and_legend(all_rows)

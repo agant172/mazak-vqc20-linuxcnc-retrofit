@@ -6,31 +6,39 @@ This register reconciles the RC3A connector cross-reference with the current Mes
 
 ## 1. Gear-shift solenoids
 
-**Documentation status: RESOLVED.** Physical coil identity and high/low function remain pending cabinet verification.
+**Documentation status: CONSERVATIVELY RECORDED.** Physical coil identity and high/low function remain pending cabinet verification.
 
 - Current authority: `SOL-13` planned high gear on 7i84U TB3 OUT7.
 - Current authority: `SOL-12` planned low gear on 7i84U TB2 OUT8.
 - New evidence: `connector_crossref.md` identifies wire 413 as `SOL-13 — Gear Shift Low`.
 - Resolution test: trace the coil wire tags from RC3A to both valve coils; identify the valve ports for high and low; measure coil voltage/current; then update both rows together.
-- Authority status: both rows are `HOLD_CONFLICT`.
+- Authority status: `GEAR_HI_SOL` remains `COMMISSIONING_PENDING` and
+  `GEAR_LO_SOL` remains `HOLD_CONFLICT` in the current authority. Neither
+  output may be field-landed or energized until the two coils are traced
+  together; the asymmetric statuses record the current CSV rather than proof
+  that high gear is known.
 
 ## 2. Tool clamp/unclamp valve
 
-**Documentation status: RESOLVED.** Physical valve topology and clamp-side path remain pending cabinet verification.
+**Documentation status: CONSERVATIVELY RECORDED.** Physical valve topology and clamp-side path remain pending cabinet verification.
 
 - Current authority: TB2 OUT9 and OUT10 were both associated with `SOL-10`, with OUT9 clamp and OUT10 unclamp.
 - New evidence: `connector_crossref.md` identifies `SOL-10` as tool unclamp.
 - Resolution test: trace the RLY-3 and RLY-4 load sides to the hydraulic valve, identify whether SOL-10 is single-coil or dual-coil, and verify clamp/unclamp prox behavior with pressure removed.
-- Authority status: clamp output TB2 OUT9 is `HOLD_CONFLICT`; unclamp output TB2 OUT10 remains `COMMISSIONING_PENDING`.
+- Authority status: both TB2 OUT9 and OUT10 remain
+  `COMMISSIONING_PENDING`. The physical valve topology is still a blocker;
+  those statuses must not be read as permission to energize either output.
 
 ## 3. Magazine rotation direction
 
-**Documentation status: RESOLVED.** Physical direction and Mesa output assignment remain pending cabinet verification.
+**Documentation status: CONSERVATIVELY RECORDED.** Physical direction and Mesa output assignment remain pending cabinet verification.
 
 - New evidence identifies `SOL-8A` as CCW/forward and `SOL-8B` as CW/reverse.
-- The current authority table does not yet assign SOL-8A/SOL-8B to a Mesa output row; its generic ATC forward/reverse rows must not be treated as equivalent.
+- The current authority assigns proposed `SOL-8A` / `SOL-8B` identities to
+  `MAG_CW_SOL` OUT13 and `MAG_CCW_SOL` OUT14. Both rows remain
+  `HOLD_CONFLICT`; the names are hypotheses to prove, not direction evidence.
 - Resolution test: trace the two solenoid wires and verify actual magazine movement direction with hydraulic power isolated or under controlled commissioning.
-- Authority status: do not promote the generic ATC direction rows until this trace is complete.
+- Authority status: do not promote either direction row until this trace is complete.
 
 ## Evidence documents
 

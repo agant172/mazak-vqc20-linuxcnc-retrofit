@@ -93,13 +93,19 @@ Prose. The CSV is the pin-to-signal map, not the control program.
 
 **Editing rules.**
 
-- One row per physical pin. Duplicate physical assignments are an
-  integrity error (the validator catches them).
+- One row per physical I/O pin. Electrically duplicated TB1 power terminals
+  may be grouped by net (for example VFIELDB pins 1/2); the validator enforces
+  the exact Mesa map for those groups. Duplicate I/O assignments are an
+  integrity error.
 - Every change must leave the validator at exit 0 (no ERRORS).
 - Every change that reassigns a pin must update the corresponding HAL
   binding in the same commit.
 - Never delete a row. Move it to `authority_status = SPARE` and clear
   `hal_net` to `none`.
+- Keep both 7i84U TB1 maps and the printable 7i84U-B TB1 legend at the
+  validator-enforced assignment: pins 1/2 VFIELDB, pins 3/4 VFIELDA, pin 5
+  VIN, and pins 6/7/8 GND/common. Pins 2 and 4 are positive supply terminals,
+  not returns.
 
 ### 3.2 `linuxcnc/*.hal` — control logic and pin binding
 

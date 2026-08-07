@@ -209,10 +209,38 @@ EXPECTED = {
     "TB5_FIELD_GND": ("n/a", "Power common \u2014 not a logic signal", "current_pin_authority.csv:33", "na"),
     "TB5_FIELD_24V": ("24 V", "Field supply rail \u2014 confirm capacity and fusing",
                       "current_pin_authority.csv:34", "na"),
-    "SEVENI84U_FIELD_A_24V": ("24 V", "Field bank A supply (outputs 0-7, inputs 0-15)",
-                              "current_pin_authority.csv:41", "na"),
-    "SEVENI84U_FIELD_B_24V": ("24 V", "Field bank B supply (outputs 8-15, inputs 16-31)",
-                              "current_pin_authority.csv:42", "na"),
+    "SEVENI84U_FIELD_A_24V": (
+        "24 V", "VFIELDA supply for TB3 outputs 0-7 and inputs 0-15; TB1 pins 3/4 are both positive",
+        "Mesa 7i84U manual pp.7-8/47", "na",
+    ),
+    "SEVENI84U_FIELD_B_24V": (
+        "24 V", "VFIELDB supply for TB2 outputs 8-15 and inputs 16-31; TB1 pins 1/2 are both positive",
+        "Mesa 7i84U manual pp.7-8/47", "na",
+    ),
+    "SEVENI84U_VIN_24V": (
+        "24 V", "Logic supply on TB1 pin 5; verify W1 before wiring",
+        "Mesa 7i84U manual pp.2/7-8/47", "na",
+    ),
+    "SEVENI84U_GND": (
+        "0 V", "VIN/VFIELD common on TB1 pins 6/7/8",
+        "Mesa 7i84U manual pp.7-8", "na",
+    ),
+    "SEVENI84UB_FIELD_A_24V": (
+        "24 V", "VFIELDA supply for TB3 outputs 0-7 and inputs 0-15; TB1 pins 3/4 are both positive",
+        "Mesa 7i84U manual pp.7-8/47", "na",
+    ),
+    "SEVENI84UB_FIELD_B_24V": (
+        "24 V", "VFIELDB supply for TB2 outputs 8-15 and inputs 16-31; TB1 pins 1/2 are both positive",
+        "Mesa 7i84U manual pp.7-8/47", "na",
+    ),
+    "SEVENI84UB_VIN_24V": (
+        "24 V", "Logic supply on TB1 pin 5; verify W1 before wiring",
+        "Mesa 7i84U manual pp.2/7-8/47", "na",
+    ),
+    "SEVENI84UB_GND": (
+        "0 V", "VIN/VFIELD common on TB1 pins 6/7/8",
+        "Mesa 7i84U manual pp.7-8", "na",
+    ),
 }
 
 # Generic fallbacks by direction when the signal is not in EXPECTED.
@@ -272,8 +300,14 @@ LOCATION = {
     "TOUCH_SENSOR_BLAST": ("Solenoid valve bank \u2014 SOL-35 via relay RLY-6", "Pneumatics",
                            "SOL-35 = \"Dust Inhale Eliminate\" per connector_crossref.md:52 / TB-51 diagram"),
     "TAP_COOLANT_BLAST": ("Solenoid valve bank \u2014 SOL-61 via relay RLY-7", "Coolant", "SOL-61 = Air jet on the TB-51 diagram"),
-    "SEVENI84U_FIELD_A_24V": ("Field I/O enclosure \u2014 near the original green breakout PCB", "Field power", ""),
-    "SEVENI84U_FIELD_B_24V": ("Field I/O enclosure \u2014 near the original green breakout PCB", "Field power", ""),
+    "SEVENI84U_FIELD_A_24V": ("Field I/O enclosure \u2014 7i84U-A TB1 pins 3/4", "Field power", "VFIELDA for TB3 bank"),
+    "SEVENI84U_FIELD_B_24V": ("Field I/O enclosure \u2014 7i84U-A TB1 pins 1/2", "Field power", "VFIELDB for TB2 bank"),
+    "SEVENI84U_VIN_24V": ("Field I/O enclosure \u2014 7i84U-A TB1 pin 5", "Logic power", "Verify W1 position before landing VIN"),
+    "SEVENI84U_GND": ("Field I/O enclosure \u2014 7i84U-A TB1 pins 6/7/8", "Power common", "VIN/VFIELD common return"),
+    "SEVENI84UB_FIELD_A_24V": ("Field I/O enclosure \u2014 7i84U-B TB1 pins 3/4", "Field power", "VFIELDA for TB3 bank"),
+    "SEVENI84UB_FIELD_B_24V": ("Field I/O enclosure \u2014 7i84U-B TB1 pins 1/2", "Field power", "VFIELDB for TB2 bank"),
+    "SEVENI84UB_VIN_24V": ("Field I/O enclosure \u2014 7i84U-B TB1 pin 5", "Logic power", "Verify W1 position before landing VIN"),
+    "SEVENI84UB_GND": ("Field I/O enclosure \u2014 7i84U-B TB1 pins 6/7/8", "Power common", "VIN/VFIELD common return"),
     "ATC_ZONE_Y": ("Y axis \u2014 tool-change zone prox", "ATC", "PRS-55. Switch may not physically exist \u2014 confirm."),
     "ATC_ZONE_Z": ("Z axis \u2014 tool-change zone prox", "ATC", "PRS-66. Switch may not physically exist \u2014 confirm."),
     "MAG_TOOL_AVAILABLE": ("Tool magazine \u2014 tool-available photo sensor", "ATC magazine",

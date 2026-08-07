@@ -140,8 +140,8 @@ Expected states come from explicit repo evidence, and every value carries its ba
 | `wiring/connector_crossref.md`, `wiring/io_map_research_notes.md` | Machine-side designations, locations, conflict notes. |
 | `mesa/signal_map.csv` | **Stale.** Surfaced only as "do not use" context in the detail panel. |
 
-Current snapshot: **116 rows** — 90 from the authority plus 26 HAL-only nets that have no authority
-row, 10 register conflicts, 25 authority rows not yet present in any HAL file.
+Current snapshot: **132 rows**, all from the authority, with 6 registered conflicts,
+0 HAL-only orphan nets, and 0 authority nets missing from HAL.
 
 ---
 

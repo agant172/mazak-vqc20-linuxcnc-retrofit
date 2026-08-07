@@ -16,9 +16,11 @@
 # scripts/validate_authority.py -- run it before every commit that touches
 # this file or the CSV. See docs/authority_hierarchy.md for the full hierarchy.
 #
-# TERMINAL BLOCKS: Per Mesa 7i84 manual (http://www.mesanet.com/pdf/parallel/7i84man.pdf)
-# the physical terminal blocks on the 7i84 are TB1 (POWER ONLY: VFIELDA, VFIELDB,
-# VIN, GND), TB3 (INPUT0-15 and OUTPUT0-7), and TB2 (INPUT16-31 and OUTPUT8-15).
+# TERMINAL BLOCKS: Per the Mesa 7i84U manual (https://www.mesanet.com/pdf/parallel/7i84uman.pdf),
+# TB1 pins 1/2 are both VFIELDB positive field power for TB2; pins 3/4 are both
+# VFIELDA positive field power for TB3; pin 5 is VIN; pins 6/7/8 are GND/common.
+# Pins 2 and 4 are NOT returns. Use the conservative 5-28 VDC specification.
+# TB3 carries INPUT0-15 and OUTPUT0-7; TB2 carries INPUT16-31 and OUTPUT8-15.
 # The hostmot2 pin names below are `input-NN` / `output-NN` regardless of
 # physical terminal - the physical TB assignment is documented for wiring only.
 

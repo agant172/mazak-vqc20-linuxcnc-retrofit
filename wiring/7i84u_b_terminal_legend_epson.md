@@ -1,12 +1,12 @@
 # 7i84U-B TB1/TB2/TB3 Terminal Legend — Epson Label Editor Batch Import
 
-Companion CSV: [`7i84u_b_terminal_legend_epson.csv`](7i84u_b_terminal_legend_epson.csv) — 24 label rows covering 4 field-power terminals plus 20 allocated I/O terminals on 7i84U-B (7i44 sserial channel 1).
+Companion CSV: [`7i84u_b_terminal_legend_epson.csv`](7i84u_b_terminal_legend_epson.csv) — 28 label rows covering all 8 TB1 power/logic/common terminals plus 20 allocated I/O terminals on 7i84U-B (7i44 sserial channel 1).
 
 Formatted for **Epson Label Editor (Mac)** — same schema conventions as the BBIA-1 ferrule CSV, but the labels here go on the **7i84U-B card face / terminal-block skirt**, not on individual conductors.
 
-## 7i84 physical layout (Mesa 7i84 manual)
+## 7i84U physical layout ([Mesa 7i84U manual](https://www.mesanet.com/pdf/parallel/7i84uman.pdf))
 
-- **TB1** (8-pin): field power only — VFIELDA/VFIELDB/VIN/GND (rows 1–4 here).
+- **TB1** (8-pin): pins 1/2 are both VFIELDB positive field power for TB2; pins 3/4 are both VFIELDA positive field power for TB3; pin 5 is VIN logic power; pins 6/7/8 are the common 0 V return. Pins 2 and 4 are **not** returns. The conservative documented supply range is 5–28 VDC; this project plans 24 VDC. Record W1 before wiring VIN: W1 left links VIN to VFIELDB, while W1 right requires a separate VIN feed.
 - **TB3** (24-pin): IN0–IN15 on pins 1–16, OUT0–OUT7 on pins 17–24.
 - **TB2** (24-pin): IN16–IN31 on pins 1–16, OUT8–OUT15 on pins 17–24. OUT8 is the proposed magazine-cover close command; the remaining TB2 I/O is spare.
 
@@ -46,17 +46,17 @@ If you want blank ferrules pre-made for the spare terminals, add them by hand in
 
 ## Suggested print order
 
-Rows are ordered by terminal position: power pins first (TB1-1 → TB1-4), then TB3 inputs by ascending IN number (including IN9 air and IN15 probe), TB3 outputs OUT0 → OUT7, and TB2 OUT8. Peel and stick in the same sequence and the layout matches the card face.
+Rows are ordered by terminal position: power, VIN, and common pins first (TB1-1 → TB1-8), then TB3 inputs by ascending IN number (including IN9 air and IN15 probe), TB3 outputs OUT0 → OUT7, and TB2 OUT8. Peel and stick in the same sequence and the layout matches the card face.
 
 ## Rebuild trigger
 
 Regenerate this CSV if any of the following change in `mesa/current_pin_authority.csv`:
-- 7i84U-B TB3 or TB2 pin assignments (rows 79–98)
-- Field-power bank assignments (rows 77–78)
+- 7i84U-B TB3 or TB2 pin assignments
+- TB1 VFIELDA/VFIELDB/VIN/GND assignments
 - HAL net names in `linuxcnc/field_7i84u.hal`
 
 The relay-driven load outputs (TB3-OUT3 through OUT7) are still `COMMISSIONING_PENDING` / `PROPOSED` in the pin authority — physical device identification (SOL-62 air blast, SOL-35 touch-sensor jet, ATC barrier existence, flood valve as separate load from Y010 pump) is not yet verified. If any of those swaps to a different terminal during commissioning, reprint the affected row.
 
 ## Provenance
 
-Generated from `mesa/current_pin_authority.csv` rows 77–98 (7i84U-B block) and cross-checked against `linuxcnc/field_7i84u.hal` HAL net names.
+Generated from `mesa/current_pin_authority.csv` and cross-checked against `linuxcnc/field_7i84u.hal` HAL net names and the Mesa 7i84U manual TB1 table.

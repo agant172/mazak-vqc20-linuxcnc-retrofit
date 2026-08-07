@@ -85,7 +85,7 @@ Full, checkbox-tracked TODO and progress: **[docs/project_status.md](docs/projec
 [`io-dashboard/`](io-dashboard/) is a single-page, offline I/O navigator generated from
 `mesa/current_pin_authority.csv`, the HAL config and the wiring notes. It walks
 LinuxCNC pin → HAL net → Mesa pin → connector/channel → field device → machine location
-for all 128 current authority rows, and flags the open conflicts. Full guide:
+for all 132 current authority rows, and flags the open conflicts. Full guide:
 [io-dashboard/README.md](io-dashboard/README.md).
 
 ```bash

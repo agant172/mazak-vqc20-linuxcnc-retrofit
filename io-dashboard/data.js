@@ -6,7 +6,7 @@ window.MAZAK_DATA = {
   "machine": "Mazak VQC-20/40",
   "serial": "060231",
   "architecture": "LinuxCNC + Mesa 7i80HDT (Ethernet FPGA host) + 7i44 on P1 (HostMot2 sserial port 0 channels 0/1 to 7i84U-A/B) + 7i49 on P2 (resolver + analog outs); P3 unused/spare",
-  "generated": "2026-08-07 16:10 UTC",
+  "generated": "2026-08-07 18:05 UTC",
   "source_repo": "mazak-vqc20-linuxcnc-retrofit",
   "authority_file": "mesa/current_pin_authority.csv",
   "halfiles": [
@@ -1616,23 +1616,25 @@ window.MAZAK_DATA = {
    "name": "Seveni84U Field A 24V",
    "board": "7i84U-A",
    "connector": "TB1",
-   "channel": "TB1 pin 1 + and pin 2 -",
+   "channel": "TB1 pins 3/4 VFIELDA (+24 V field power, 5-28 VDC)",
    "hal_net": "",
    "direction": "POWER",
    "direction_label": "Power / common",
    "subsystem": "Power",
    "machine_subsystem": "Field power",
    "status": "COMMISSIONING_PENDING",
-   "field_point": "Field power bank A",
-   "designations": [],
-   "primary_source": "archived_wiring_map",
-   "cleanup_notes": "Powers outputs 0-7 and inputs 0-15",
-   "location": "Field I/O enclosure — near the original green breakout PCB",
-   "location_note": "",
+   "field_point": "Field power bank A (TB3 I/O)",
+   "designations": [
+    "TB-3"
+   ],
+   "primary_source": "Mesa 7i84U manual pp.2/7-8/47",
+   "cleanup_notes": "Both terminals are VFIELDA; powers TB3 outputs 0-7 and inputs 0-15. Never connect either pin to 0 V.",
+   "location": "Field I/O enclosure — 7i84U-A TB1 pins 3/4",
+   "location_note": "VFIELDA for TB3 bank",
    "expected": {
     "value": "24 V",
-    "label": "Field bank A supply (outputs 0-7, inputs 0-15)",
-    "basis": "current_pin_authority.csv:41",
+    "label": "VFIELDA supply for TB3 outputs 0-7 and inputs 0-15; TB1 pins 3/4 are both positive",
+    "basis": "Mesa 7i84U manual pp.7-8/47",
     "kind": "na"
    },
    "hal_state": "absent",
@@ -1648,7 +1650,7 @@ window.MAZAK_DATA = {
      "note": "Current wiring authority row"
     },
     {
-     "file": "archived_wiring_map",
+     "file": "Mesa 7i84U manual pp.2/7-8/47",
      "lines": "",
      "note": "primary_source column in the authority table"
     }
@@ -1661,23 +1663,25 @@ window.MAZAK_DATA = {
    "name": "Seveni84U Field B 24V",
    "board": "7i84U-A",
    "connector": "TB1",
-   "channel": "TB1 pin 3 + and pin 4 -",
+   "channel": "TB1 pins 1/2 VFIELDB (+24 V field power, 5-28 VDC)",
    "hal_net": "",
    "direction": "POWER",
    "direction_label": "Power / common",
    "subsystem": "Power",
    "machine_subsystem": "Field power",
    "status": "COMMISSIONING_PENDING",
-   "field_point": "Field power bank B",
-   "designations": [],
-   "primary_source": "archived_wiring_map",
-   "cleanup_notes": "Powers outputs 8-15 and inputs 16-31",
-   "location": "Field I/O enclosure — near the original green breakout PCB",
-   "location_note": "",
+   "field_point": "Field power bank B (TB2 I/O)",
+   "designations": [
+    "TB-2"
+   ],
+   "primary_source": "Mesa 7i84U manual pp.2/7-8/47",
+   "cleanup_notes": "Both terminals are VFIELDB; powers TB2 outputs 8-15 and inputs 16-31. Never connect either pin to 0 V.",
+   "location": "Field I/O enclosure — 7i84U-A TB1 pins 1/2",
+   "location_note": "VFIELDB for TB2 bank",
    "expected": {
     "value": "24 V",
-    "label": "Field bank B supply (outputs 8-15, inputs 16-31)",
-    "basis": "current_pin_authority.csv:42",
+    "label": "VFIELDB supply for TB2 outputs 8-15 and inputs 16-31; TB1 pins 1/2 are both positive",
+    "basis": "Mesa 7i84U manual pp.7-8/47",
     "kind": "na"
    },
    "hal_state": "absent",
@@ -1693,7 +1697,7 @@ window.MAZAK_DATA = {
      "note": "Current wiring authority row"
     },
     {
-     "file": "archived_wiring_map",
+     "file": "Mesa 7i84U manual pp.2/7-8/47",
      "lines": "",
      "note": "primary_source column in the authority table"
     }
@@ -1736,7 +1740,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 31,
+     "line": 33,
      "text": "net atc-y-zone         <= hm2_7i80.0.7i84.0.0.input-00   # IN0  PRS-55 Y ATC zone",
      "commented": false,
      "producers": [
@@ -1755,7 +1759,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "31",
+     "lines": "33",
      "note": "net atc-y-zone         <= hm2_7i80.0.7i84.0.0.input-00   # IN0  PRS-55 Y ATC zone"
     },
     {
@@ -1802,7 +1806,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 32,
+     "line": 34,
      "text": "net atc-z-zone         <= hm2_7i80.0.7i84.0.0.input-01   # IN1  PRS-66 Z ATC zone",
      "commented": false,
      "producers": [
@@ -1821,7 +1825,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "32",
+     "lines": "34",
      "note": "net atc-z-zone         <= hm2_7i80.0.7i84.0.0.input-01   # IN1  PRS-66 Z ATC zone"
     },
     {
@@ -2381,7 +2385,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 36,
+     "line": 38,
      "text": "net thermal-alarm      <= hm2_7i80.0.7i84.0.0.input-08   # IN8  X073 THR.M + X07B ONT.M series NC",
      "commented": false,
      "producers": [
@@ -2400,7 +2404,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "36",
+     "lines": "38",
      "note": "net thermal-alarm      <= hm2_7i80.0.7i84.0.0.input-08   # IN8  X073 THR.M + X07B ONT.M series NC"
     },
     {
@@ -2529,7 +2533,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 50,
+     "line": 52,
      "text": "net x-drive-fault      <= hm2_7i80.0.7i84.0.0.input-10   # IN10 X drive ALM",
      "commented": false,
      "producers": [
@@ -2540,7 +2544,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 51,
+     "line": 53,
      "text": "net x-drive-fault      => resolver-fault-x.in0",
      "commented": false,
      "producers": [],
@@ -2559,12 +2563,12 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "50",
+     "lines": "52",
      "note": "net x-drive-fault      <= hm2_7i80.0.7i84.0.0.input-10   # IN10 X drive ALM"
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "51",
+     "lines": "53",
      "note": "net x-drive-fault      => resolver-fault-x.in0"
     },
     {
@@ -2611,7 +2615,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 52,
+     "line": 54,
      "text": "net y-drive-fault      <= hm2_7i80.0.7i84.0.0.input-11   # IN11 Y drive ALM",
      "commented": false,
      "producers": [
@@ -2622,7 +2626,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 53,
+     "line": 55,
      "text": "net y-drive-fault      => resolver-fault-y.in0",
      "commented": false,
      "producers": [],
@@ -2641,12 +2645,12 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "52",
+     "lines": "54",
      "note": "net y-drive-fault      <= hm2_7i80.0.7i84.0.0.input-11   # IN11 Y drive ALM"
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "53",
+     "lines": "55",
      "note": "net y-drive-fault      => resolver-fault-y.in0"
     },
     {
@@ -2693,7 +2697,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 54,
+     "line": 56,
      "text": "net z-drive-fault      <= hm2_7i80.0.7i84.0.0.input-12   # IN12 Z drive ALM",
      "commented": false,
      "producers": [
@@ -2704,7 +2708,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 55,
+     "line": 57,
      "text": "net z-drive-fault      => resolver-fault-z.in0",
      "commented": false,
      "producers": [],
@@ -2723,12 +2727,12 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "54",
+     "lines": "56",
      "note": "net z-drive-fault      <= hm2_7i80.0.7i84.0.0.input-12   # IN12 Z drive ALM"
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "55",
+     "lines": "57",
      "note": "net z-drive-fault      => resolver-fault-z.in0"
     },
     {
@@ -2775,7 +2779,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 62,
+     "line": 64,
      "text": "net spindle-at-speed   <= hm2_7i80.0.7i84.0.0.input-13   # IN13 FR-SX SPD-REACH",
      "commented": false,
      "producers": [
@@ -2786,7 +2790,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 63,
+     "line": 65,
      "text": "net spindle-at-speed   => spindle.0.at-speed",
      "commented": false,
      "producers": [],
@@ -2805,12 +2809,12 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "62",
+     "lines": "64",
      "note": "net spindle-at-speed   <= hm2_7i80.0.7i84.0.0.input-13   # IN13 FR-SX SPD-REACH"
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "63",
+     "lines": "65",
      "note": "net spindle-at-speed   => spindle.0.at-speed"
     },
     {
@@ -2871,7 +2875,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 64,
+     "line": 66,
      "text": "net spindle-fault      <= hm2_7i80.0.7i84.0.0.input-14   # IN14 FR-SX ALM",
      "commented": false,
      "producers": [
@@ -2882,7 +2886,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 65,
+     "line": 67,
      "text": "net spindle-fault      => spindle.0.amp-fault-in",
      "commented": false,
      "producers": [],
@@ -2928,12 +2932,12 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "64",
+     "lines": "66",
      "note": "net spindle-fault      <= hm2_7i80.0.7i84.0.0.input-14   # IN14 FR-SX ALM"
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "65",
+     "lines": "67",
      "note": "net spindle-fault      => spindle.0.amp-fault-in"
     },
     {
@@ -2992,7 +2996,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 66,
+     "line": 68,
      "text": "net tool-clamped       <= hm2_7i80.0.7i84.0.0.input-15   # IN15 PRS-9 tool-clamp confirm",
      "commented": false,
      "producers": [
@@ -3022,7 +3026,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "66",
+     "lines": "68",
      "note": "net tool-clamped       <= hm2_7i80.0.7i84.0.0.input-15   # IN15 PRS-9 tool-clamp confirm"
     },
     {
@@ -3078,7 +3082,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 69,
+     "line": 71,
      "text": "net tool-unclamped     <= hm2_7i80.0.7i84.0.0.input-16   # IN16 PRS-8 tool-unclamp confirm",
      "commented": false,
      "producers": [
@@ -3108,7 +3112,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "69",
+     "lines": "71",
      "note": "net tool-unclamped     <= hm2_7i80.0.7i84.0.0.input-16   # IN16 PRS-8 tool-unclamp confirm"
     },
     {
@@ -3760,7 +3764,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 73,
+     "line": 75,
      "text": "net door-interlock     <= hm2_7i80.0.7i84.0.0.input-24   # IN24 LS-140+LS-141+X01D ITMDSS series NC",
      "commented": false,
      "producers": [
@@ -3779,7 +3783,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "73",
+     "lines": "75",
      "note": "net door-interlock     <= hm2_7i80.0.7i84.0.0.input-24   # IN24 LS-140+LS-141+X01D ITMDSS series NC"
     },
     {
@@ -3826,7 +3830,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 74,
+     "line": 76,
      "text": "net lube-ok            <= hm2_7i80.0.7i84.0.0.input-25   # IN25 X042 HLP2 + X079 HLP series NC",
      "commented": false,
      "producers": [
@@ -3845,7 +3849,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "74",
+     "lines": "76",
      "note": "net lube-ok            <= hm2_7i80.0.7i84.0.0.input-25   # IN25 X042 HLP2 + X079 HLP series NC"
     },
     {
@@ -3890,7 +3894,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 75,
+     "line": 77,
      "text": "net coolant-low        <= hm2_7i80.0.7i84.0.0.input-26   # IN26 coolant level (polarity TBD)",
      "commented": false,
      "producers": [
@@ -3909,7 +3913,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "75",
+     "lines": "77",
      "note": "net coolant-low        <= hm2_7i80.0.7i84.0.0.input-26   # IN26 coolant level (polarity TBD)"
     },
     {
@@ -4083,7 +4087,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 87,
+     "line": 89,
      "text": "net mag-in-pos         <= hm2_7i80.0.7i84.0.0.input-28   # IN28 MIPRS mag-in-pos prox (PLC X00D)",
      "commented": false,
      "producers": [
@@ -4113,7 +4117,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "87",
+     "lines": "89",
      "note": "net mag-in-pos         <= hm2_7i80.0.7i84.0.0.input-28   # IN28 MIPRS mag-in-pos prox (PLC X00D)"
     },
     {
@@ -4178,7 +4182,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 88,
+     "line": 90,
      "text": "net estop-monitor      <= hm2_7i80.0.7i84.0.0.input-29   # IN29 OEM MAR aux via interposing relay",
      "commented": false,
      "producers": [
@@ -4202,7 +4206,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "88",
+     "lines": "90",
      "note": "net estop-monitor      <= hm2_7i80.0.7i84.0.0.input-29   # IN29 OEM MAR aux via interposing relay"
     },
     {
@@ -4247,7 +4251,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 90,
+     "line": 92,
      "text": "# net manual-clamp-pb    <= hm2_7i80.0.7i84.0.0.input-30",
      "commented": true,
      "producers": [
@@ -4266,7 +4270,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "90",
+     "lines": "92",
      "note": "commented out — # net manual-clamp-pb    <= hm2_7i80.0.7i84.0.0.input-30"
     },
     {
@@ -4412,7 +4416,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 112,
+     "line": 114,
      "text": "net spindle-fwd        <= and2.3.out",
      "commented": false,
      "producers": [
@@ -4423,7 +4427,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 113,
+     "line": 115,
      "text": "net spindle-fwd        => hm2_7i80.0.7i84.0.0.output-00  # OUT0  FR-SX FWD",
      "commented": false,
      "producers": [],
@@ -4442,12 +4446,12 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "112",
+     "lines": "114",
      "note": "net spindle-fwd        <= and2.3.out"
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "113",
+     "lines": "115",
      "note": "net spindle-fwd        => hm2_7i80.0.7i84.0.0.output-00  # OUT0  FR-SX FWD"
     },
     {
@@ -4496,7 +4500,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 117,
+     "line": 119,
      "text": "net spindle-rev        <= and2.4.out",
      "commented": false,
      "producers": [
@@ -4507,7 +4511,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 118,
+     "line": 120,
      "text": "net spindle-rev        => hm2_7i80.0.7i84.0.0.output-01  # OUT1  FR-SX REV",
      "commented": false,
      "producers": [],
@@ -4526,12 +4530,12 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "117",
+     "lines": "119",
      "note": "net spindle-rev        <= and2.4.out"
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "118",
+     "lines": "120",
      "note": "net spindle-rev        => hm2_7i80.0.7i84.0.0.output-01  # OUT1  FR-SX REV"
     },
     {
@@ -4592,7 +4596,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 121,
+     "line": 123,
      "text": "net spindle-run-output <= and2.5.out",
      "commented": false,
      "producers": [
@@ -4603,7 +4607,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 122,
+     "line": 124,
      "text": "net spindle-run-output => hm2_7i80.0.7i84.0.0.output-02  # OUT2  FR-SX RUN/STOP",
      "commented": false,
      "producers": [],
@@ -4652,12 +4656,12 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "121",
+     "lines": "123",
      "note": "net spindle-run-output <= and2.5.out"
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "122",
+     "lines": "124",
      "note": "net spindle-run-output => hm2_7i80.0.7i84.0.0.output-02  # OUT2  FR-SX RUN/STOP"
     },
     {
@@ -4994,7 +4998,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 159,
+     "line": 161,
      "text": "net z-brake-release    <= z-brake-delay.out",
      "commented": false,
      "producers": [
@@ -5005,7 +5009,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 160,
+     "line": 162,
      "text": "net z-brake-release    => hm2_7i80.0.7i84.0.0.output-06  # OUT6  N1J-L2-201 Z brake release",
      "commented": false,
      "producers": [],
@@ -5051,12 +5055,12 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "159",
+     "lines": "161",
      "note": "net z-brake-release    <= z-brake-delay.out"
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "160",
+     "lines": "162",
      "note": "net z-brake-release    => hm2_7i80.0.7i84.0.0.output-06  # OUT6  N1J-L2-201 Z brake release"
     },
     {
@@ -5360,7 +5364,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 165,
+     "line": 167,
      "text": "net tool-unclamp-sol   => hm2_7i80.0.7i84.0.0.output-10  # OUT10 RLY-4 to SOL-10",
      "commented": false,
      "producers": [],
@@ -5390,7 +5394,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "165",
+     "lines": "167",
      "note": "net tool-unclamp-sol   => hm2_7i80.0.7i84.0.0.output-10  # OUT10 RLY-4 to SOL-10"
     },
     {
@@ -5448,7 +5452,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 166,
+     "line": 168,
      "text": "net flood-coolant      <= iocontrol.0.coolant-flood",
      "commented": false,
      "producers": [
@@ -5459,7 +5463,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 167,
+     "line": 169,
      "text": "net flood-coolant      => hm2_7i80.0.7i84.0.0.output-11  # OUT11 flood pump relay",
      "commented": false,
      "producers": [],
@@ -5478,12 +5482,12 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "166",
+     "lines": "168",
      "note": "net flood-coolant      <= iocontrol.0.coolant-flood"
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "167",
+     "lines": "169",
      "note": "net flood-coolant      => hm2_7i80.0.7i84.0.0.output-11  # OUT11 flood pump relay"
     },
     {
@@ -5532,7 +5536,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 171,
+     "line": 173,
      "text": "# net mist-coolant       <= iocontrol.0.coolant-mist",
      "commented": true,
      "producers": [
@@ -5543,7 +5547,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 172,
+     "line": 174,
      "text": "# net mist-coolant       => hm2_7i80.0.7i84.0.0.output-12  # OUT12 (was lube-on; verify)",
      "commented": true,
      "producers": [],
@@ -5562,12 +5566,12 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "171",
+     "lines": "173",
      "note": "commented out — # net mist-coolant       <= iocontrol.0.coolant-mist"
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "172",
+     "lines": "174",
      "note": "commented out — # net mist-coolant       => hm2_7i80.0.7i84.0.0.output-12  # OUT12 (was lube-on; verify)"
     },
     {
@@ -5616,7 +5620,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 178,
+     "line": 180,
      "text": "# net mag-cw-sol         => hm2_7i80.0.7i84.0.0.output-13  # OUT13 ATC motor fwd relay",
      "commented": true,
      "producers": [],
@@ -5646,7 +5650,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "178",
+     "lines": "180",
      "note": "commented out — # net mag-cw-sol         => hm2_7i80.0.7i84.0.0.output-13  # OUT13 ATC motor fwd relay"
     },
     {
@@ -5700,7 +5704,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 179,
+     "line": 181,
      "text": "# net mag-ccw-sol        => hm2_7i80.0.7i84.0.0.output-14  # OUT14 ATC motor rev relay",
      "commented": true,
      "producers": [],
@@ -5730,7 +5734,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "179",
+     "lines": "181",
      "note": "commented out — # net mag-ccw-sol        => hm2_7i80.0.7i84.0.0.output-14  # OUT14 ATC motor rev relay"
     },
     {
@@ -5780,7 +5784,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 181,
+     "line": 183,
      "text": "# net alarm-out          => hm2_7i80.0.7i84.0.0.output-15",
      "commented": true,
      "producers": [],
@@ -5799,7 +5803,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "181",
+     "lines": "183",
      "note": "commented out — # net alarm-out          => hm2_7i80.0.7i84.0.0.output-15"
     },
     {
@@ -6086,23 +6090,25 @@ window.MAZAK_DATA = {
    "name": "Seveni84Ub Field A 24V",
    "board": "7i84U-B",
    "connector": "TB1",
-   "channel": "TB1 pin 1 + and pin 2 -",
+   "channel": "TB1 pins 3/4 VFIELDA (+24 V field power, 5-28 VDC)",
    "hal_net": "",
    "direction": "POWER",
    "direction_label": "Power / common",
    "subsystem": "Power",
-   "machine_subsystem": "Power",
+   "machine_subsystem": "Field power",
    "status": "COMMISSIONING_PENDING",
-   "field_point": "Field power bank A",
-   "designations": [],
-   "primary_source": "mesa_firmware_checklist.md",
-   "cleanup_notes": "Powers 7i84U-B outputs 0-7 and inputs 0-15; from Meanwell DR-240-24 retrofit bus",
-   "location": "Unknown — trace in cabinet",
-   "location_note": "",
+   "field_point": "Field power bank A (TB3 I/O)",
+   "designations": [
+    "TB-3"
+   ],
+   "primary_source": "Mesa 7i84U manual pp.2/7-8/47",
+   "cleanup_notes": "Both terminals are VFIELDA; powers TB3 outputs 0-7 and inputs 0-15. Never connect either pin to 0 V.",
+   "location": "Field I/O enclosure — 7i84U-B TB1 pins 3/4",
+   "location_note": "VFIELDA for TB3 bank",
    "expected": {
-    "value": "n/a",
-    "label": "Power / common — not a logic state",
-    "basis": "current_pin_authority.csv",
+    "value": "24 V",
+    "label": "VFIELDA supply for TB3 outputs 0-7 and inputs 0-15; TB1 pins 3/4 are both positive",
+    "basis": "Mesa 7i84U manual pp.7-8/47",
     "kind": "na"
    },
    "hal_state": "absent",
@@ -6118,7 +6124,7 @@ window.MAZAK_DATA = {
      "note": "Current wiring authority row"
     },
     {
-     "file": "mesa_firmware_checklist.md",
+     "file": "Mesa 7i84U manual pp.2/7-8/47",
      "lines": "",
      "note": "primary_source column in the authority table"
     }
@@ -6131,23 +6137,25 @@ window.MAZAK_DATA = {
    "name": "Seveni84Ub Field B 24V",
    "board": "7i84U-B",
    "connector": "TB1",
-   "channel": "TB1 pin 3 + and pin 4 -",
+   "channel": "TB1 pins 1/2 VFIELDB (+24 V field power, 5-28 VDC)",
    "hal_net": "",
    "direction": "POWER",
    "direction_label": "Power / common",
    "subsystem": "Power",
-   "machine_subsystem": "Power",
+   "machine_subsystem": "Field power",
    "status": "COMMISSIONING_PENDING",
-   "field_point": "Field power bank B",
-   "designations": [],
-   "primary_source": "mesa_firmware_checklist.md",
-   "cleanup_notes": "Powers 7i84U-B outputs 8-15 and inputs 16-31; from Meanwell DR-240-24 retrofit bus",
-   "location": "Unknown — trace in cabinet",
-   "location_note": "",
+   "field_point": "Field power bank B (TB2 I/O)",
+   "designations": [
+    "TB-2"
+   ],
+   "primary_source": "Mesa 7i84U manual pp.2/7-8/47",
+   "cleanup_notes": "Both terminals are VFIELDB; powers TB2 outputs 8-15 and inputs 16-31. Never connect either pin to 0 V.",
+   "location": "Field I/O enclosure — 7i84U-B TB1 pins 1/2",
+   "location_note": "VFIELDB for TB2 bank",
    "expected": {
-    "value": "n/a",
-    "label": "Power / common — not a logic state",
-    "basis": "current_pin_authority.csv",
+    "value": "24 V",
+    "label": "VFIELDB supply for TB2 outputs 8-15 and inputs 16-31; TB1 pins 1/2 are both positive",
+    "basis": "Mesa 7i84U manual pp.7-8/47",
     "kind": "na"
    },
    "hal_state": "absent",
@@ -6163,7 +6171,7 @@ window.MAZAK_DATA = {
      "note": "Current wiring authority row"
     },
     {
-     "file": "mesa_firmware_checklist.md",
+     "file": "Mesa 7i84U manual pp.2/7-8/47",
      "lines": "",
      "note": "primary_source column in the authority table"
     }
@@ -6208,7 +6216,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 214,
+     "line": 216,
      "text": "#     net limit-x-plus <= hm2_7i80.0.7i84.0.1.input-00-not",
      "commented": true,
      "producers": [
@@ -6219,7 +6227,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 222,
+     "line": 224,
      "text": "net limit-x-plus  <= hm2_7i80.0.7i84.0.1.input-00-not   # X_LIMIT_PLUS  (NC contact)",
      "commented": false,
      "producers": [
@@ -6230,7 +6238,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 223,
+     "line": 225,
      "text": "net limit-x-plus  => joint.0.pos-lim-sw-in",
      "commented": false,
      "producers": [],
@@ -6249,17 +6257,17 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "214",
+     "lines": "216",
      "note": "commented out — #     net limit-x-plus <= hm2_7i80.0.7i84.0.1.input-00-not"
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "222",
+     "lines": "224",
      "note": "net limit-x-plus  <= hm2_7i80.0.7i84.0.1.input-00-not   # X_LIMIT_PLUS  (NC contact)"
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "223",
+     "lines": "225",
      "note": "net limit-x-plus  => joint.0.pos-lim-sw-in"
     },
     {
@@ -6310,7 +6318,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 224,
+     "line": 226,
      "text": "net limit-x-minus <= hm2_7i80.0.7i84.0.1.input-01-not   # X_LIMIT_MINUS (NC contact)",
      "commented": false,
      "producers": [
@@ -6321,7 +6329,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 225,
+     "line": 227,
      "text": "net limit-x-minus => joint.0.neg-lim-sw-in",
      "commented": false,
      "producers": [],
@@ -6340,12 +6348,12 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "224",
+     "lines": "226",
      "note": "net limit-x-minus <= hm2_7i80.0.7i84.0.1.input-01-not   # X_LIMIT_MINUS (NC contact)"
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "225",
+     "lines": "227",
      "note": "net limit-x-minus => joint.0.neg-lim-sw-in"
     },
     {
@@ -6396,7 +6404,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 226,
+     "line": 228,
      "text": "net limit-y-plus  <= hm2_7i80.0.7i84.0.1.input-02-not   # Y_LIMIT_PLUS  (NC contact)",
      "commented": false,
      "producers": [
@@ -6407,7 +6415,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 227,
+     "line": 229,
      "text": "net limit-y-plus  => joint.1.pos-lim-sw-in",
      "commented": false,
      "producers": [],
@@ -6426,12 +6434,12 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "226",
+     "lines": "228",
      "note": "net limit-y-plus  <= hm2_7i80.0.7i84.0.1.input-02-not   # Y_LIMIT_PLUS  (NC contact)"
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "227",
+     "lines": "229",
      "note": "net limit-y-plus  => joint.1.pos-lim-sw-in"
     },
     {
@@ -6482,7 +6490,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 228,
+     "line": 230,
      "text": "net limit-y-minus <= hm2_7i80.0.7i84.0.1.input-03-not   # Y_LIMIT_MINUS (NC contact)",
      "commented": false,
      "producers": [
@@ -6493,7 +6501,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 229,
+     "line": 231,
      "text": "net limit-y-minus => joint.1.neg-lim-sw-in",
      "commented": false,
      "producers": [],
@@ -6512,12 +6520,12 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "228",
+     "lines": "230",
      "note": "net limit-y-minus <= hm2_7i80.0.7i84.0.1.input-03-not   # Y_LIMIT_MINUS (NC contact)"
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "229",
+     "lines": "231",
      "note": "net limit-y-minus => joint.1.neg-lim-sw-in"
     },
     {
@@ -6568,7 +6576,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 230,
+     "line": 232,
      "text": "net limit-z-plus  <= hm2_7i80.0.7i84.0.1.input-04-not   # Z_LIMIT_PLUS  (NC contact)",
      "commented": false,
      "producers": [
@@ -6579,7 +6587,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 231,
+     "line": 233,
      "text": "net limit-z-plus  => joint.2.pos-lim-sw-in",
      "commented": false,
      "producers": [],
@@ -6598,12 +6606,12 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "230",
+     "lines": "232",
      "note": "net limit-z-plus  <= hm2_7i80.0.7i84.0.1.input-04-not   # Z_LIMIT_PLUS  (NC contact)"
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "231",
+     "lines": "233",
      "note": "net limit-z-plus  => joint.2.pos-lim-sw-in"
     },
     {
@@ -6654,7 +6662,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 232,
+     "line": 234,
      "text": "net limit-z-minus <= hm2_7i80.0.7i84.0.1.input-05-not   # Z_LIMIT_MINUS (NC contact)",
      "commented": false,
      "producers": [
@@ -6665,7 +6673,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 233,
+     "line": 235,
      "text": "net limit-z-minus => joint.2.neg-lim-sw-in",
      "commented": false,
      "producers": [],
@@ -6684,12 +6692,12 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "232",
+     "lines": "234",
      "note": "net limit-z-minus <= hm2_7i80.0.7i84.0.1.input-05-not   # Z_LIMIT_MINUS (NC contact)"
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "233",
+     "lines": "235",
      "note": "net limit-z-minus => joint.2.neg-lim-sw-in"
     },
     {
@@ -6740,7 +6748,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 235,
+     "line": 237,
      "text": "net home-x <= hm2_7i80.0.7i84.0.1.input-06        # LS-42 assumed",
      "commented": false,
      "producers": [
@@ -6751,7 +6759,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 236,
+     "line": 238,
      "text": "net home-x => joint.0.home-sw-in",
      "commented": false,
      "producers": [],
@@ -6770,12 +6778,12 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "235",
+     "lines": "237",
      "note": "net home-x <= hm2_7i80.0.7i84.0.1.input-06        # LS-42 assumed"
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "236",
+     "lines": "238",
      "note": "net home-x => joint.0.home-sw-in"
     },
     {
@@ -6826,7 +6834,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 237,
+     "line": 239,
      "text": "net home-y <= hm2_7i80.0.7i84.0.1.input-07        # LS-52 assumed",
      "commented": false,
      "producers": [
@@ -6837,7 +6845,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 238,
+     "line": 240,
      "text": "net home-y => joint.1.home-sw-in",
      "commented": false,
      "producers": [],
@@ -6856,12 +6864,12 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "237",
+     "lines": "239",
      "note": "net home-y <= hm2_7i80.0.7i84.0.1.input-07        # LS-52 assumed"
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "238",
+     "lines": "240",
      "note": "net home-y => joint.1.home-sw-in"
     },
     {
@@ -6913,7 +6921,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 239,
+     "line": 241,
      "text": "net home-z <= hm2_7i80.0.7i84.0.1.input-08        # LS-62 confirmed TB-51",
      "commented": false,
      "producers": [
@@ -6924,7 +6932,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 240,
+     "line": 242,
      "text": "net home-z => joint.2.home-sw-in",
      "commented": false,
      "producers": [],
@@ -6943,12 +6951,12 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "239",
+     "lines": "241",
      "note": "net home-z <= hm2_7i80.0.7i84.0.1.input-08        # LS-62 confirmed TB-51"
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "240",
+     "lines": "242",
      "note": "net home-z => joint.2.home-sw-in"
     },
     {
@@ -6997,7 +7005,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 245,
+     "line": 247,
      "text": "net air-ok <= hm2_7i80.0.7i84.0.1.input-09",
      "commented": false,
      "producers": [
@@ -7027,7 +7035,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "245",
+     "lines": "247",
      "note": "net air-ok <= hm2_7i80.0.7i84.0.1.input-09"
     },
     {
@@ -7304,7 +7312,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 263,
+     "line": 265,
      "text": "net probe-in <= hm2_7i80.0.7i84.0.1.input-15-not",
      "commented": false,
      "producers": [
@@ -7315,7 +7323,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 264,
+     "line": 266,
      "text": "net probe-in => motion.probe-input",
      "commented": false,
      "producers": [],
@@ -7334,12 +7342,12 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "263",
+     "lines": "265",
      "note": "net probe-in <= hm2_7i80.0.7i84.0.1.input-15-not"
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "264",
+     "lines": "266",
      "note": "net probe-in => motion.probe-input"
     },
     {
@@ -8131,7 +8139,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 300,
+     "line": 302,
      "text": "net x-enable     <= and2.0.out",
      "commented": false,
      "producers": [
@@ -8142,7 +8150,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 301,
+     "line": 303,
      "text": "net x-enable     => hm2_7i80.0.7i84.0.1.output-00   # X servo S-ON to MELDAS DK-427",
      "commented": false,
      "producers": [],
@@ -8188,12 +8196,12 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "300",
+     "lines": "302",
      "note": "net x-enable     <= and2.0.out"
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "301",
+     "lines": "303",
      "note": "net x-enable     => hm2_7i80.0.7i84.0.1.output-00   # X servo S-ON to MELDAS DK-427"
     },
     {
@@ -8275,7 +8283,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 306,
+     "line": 308,
      "text": "net y-enable     <= and2.1.out",
      "commented": false,
      "producers": [
@@ -8286,7 +8294,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 307,
+     "line": 309,
      "text": "net y-enable     => hm2_7i80.0.7i84.0.1.output-01   # Y servo S-ON to MELDAS DK-427",
      "commented": false,
      "producers": [],
@@ -8332,12 +8340,12 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "306",
+     "lines": "308",
      "note": "net y-enable     <= and2.1.out"
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "307",
+     "lines": "309",
      "note": "net y-enable     => hm2_7i80.0.7i84.0.1.output-01   # Y servo S-ON to MELDAS DK-427"
     },
     {
@@ -8394,7 +8402,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 314,
+     "line": 316,
      "text": "net z-enable     <= z-drive-drop-delay.out",
      "commented": false,
      "producers": [
@@ -8405,7 +8413,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 315,
+     "line": 317,
      "text": "net z-enable     => hm2_7i80.0.7i84.0.1.output-02   # Z servo S-ON to MELDAS DK-427",
      "commented": false,
      "producers": [],
@@ -8424,12 +8432,12 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "314",
+     "lines": "316",
      "note": "net z-enable     <= z-drive-drop-delay.out"
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "315",
+     "lines": "317",
      "note": "net z-enable     => hm2_7i80.0.7i84.0.1.output-02   # Z servo S-ON to MELDAS DK-427"
     },
     {
@@ -8477,7 +8485,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 318,
+     "line": 320,
      "text": "# net air-blast          => hm2_7i80.0.7i84.0.1.output-03  # SOL-62 via RLY-5",
      "commented": true,
      "producers": [],
@@ -8496,7 +8504,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "318",
+     "lines": "320",
      "note": "commented out — # net air-blast          => hm2_7i80.0.7i84.0.1.output-03  # SOL-62 via RLY-5"
     },
     {
@@ -8547,7 +8555,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 319,
+     "line": 321,
      "text": "# net touch-sensor-blast => hm2_7i80.0.7i84.0.1.output-04  # SOL-35 via RLY-6",
      "commented": true,
      "producers": [],
@@ -8566,7 +8574,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "319",
+     "lines": "321",
      "note": "commented out — # net touch-sensor-blast => hm2_7i80.0.7i84.0.1.output-04  # SOL-35 via RLY-6"
     },
     {
@@ -8617,7 +8625,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 320,
+     "line": 322,
      "text": "# net tap-coolant-blast  => hm2_7i80.0.7i84.0.1.output-05  # SOL-61 via RLY-7",
      "commented": true,
      "producers": [],
@@ -8636,7 +8644,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "320",
+     "lines": "322",
      "note": "commented out — # net tap-coolant-blast  => hm2_7i80.0.7i84.0.1.output-05  # SOL-61 via RLY-7"
     },
     {
@@ -8765,7 +8773,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 322,
+     "line": 324,
      "text": "# net flood-valve        => hm2_7i80.0.7i84.0.1.output-07  # PLC Y011 FCL",
      "commented": true,
      "producers": [],
@@ -8784,7 +8792,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "322",
+     "lines": "324",
      "note": "commented out — # net flood-valve        => hm2_7i80.0.7i84.0.1.output-07  # PLC Y011 FCL"
     },
     {
@@ -9237,6 +9245,186 @@ window.MAZAK_DATA = {
    ],
    "conflicts": [],
    "authority_line": 129
+  },
+  {
+   "id": "SEVENI84U_VIN_24V",
+   "name": "Seveni84U Vin 24V",
+   "board": "7i84U-A",
+   "connector": "TB1",
+   "channel": "TB1 pin 5 VIN (+24 V logic power)",
+   "hal_net": "",
+   "direction": "POWER",
+   "direction_label": "Power / common",
+   "subsystem": "Power",
+   "machine_subsystem": "Logic power",
+   "status": "COMMISSIONING_PENDING",
+   "field_point": "Field I/O logic power",
+   "designations": [],
+   "primary_source": "Mesa 7i84U manual pp.2/7-8/47",
+   "cleanup_notes": "W1 left links VIN internally to VFIELDB; W1 right requires a separate 5-28 VDC VIN supply. Record W1 position and do not double-feed.",
+   "location": "Field I/O enclosure — 7i84U-A TB1 pin 5",
+   "location_note": "Verify W1 position before landing VIN",
+   "expected": {
+    "value": "24 V",
+    "label": "Logic supply on TB1 pin 5; verify W1 before wiring",
+    "basis": "Mesa 7i84U manual pp.2/7-8/47",
+    "kind": "na"
+   },
+   "hal_state": "absent",
+   "mesa_pins": [],
+   "producers": [],
+   "consumers": [],
+   "hal_refs": [],
+   "setp_refs": [],
+   "sources": [
+    {
+     "file": "mesa/current_pin_authority.csv",
+     "lines": "130",
+     "note": "Current wiring authority row"
+    },
+    {
+     "file": "Mesa 7i84U manual pp.2/7-8/47",
+     "lines": "",
+     "note": "primary_source column in the authority table"
+    }
+   ],
+   "conflicts": [],
+   "authority_line": 130
+  },
+  {
+   "id": "SEVENI84U_GND",
+   "name": "Seveni84U Gnd",
+   "board": "7i84U-A",
+   "connector": "TB1",
+   "channel": "TB1 pins 6/7/8 GND (VIN/VFIELD common)",
+   "hal_net": "",
+   "direction": "POWER",
+   "direction_label": "Power / common",
+   "subsystem": "Power",
+   "machine_subsystem": "Power common",
+   "status": "COMMISSIONING_PENDING",
+   "field_point": "VIN/VFIELD common return",
+   "designations": [],
+   "primary_source": "Mesa 7i84U manual pp.7-8",
+   "cleanup_notes": "All three terminals are common; land 0 V only here.",
+   "location": "Field I/O enclosure — 7i84U-A TB1 pins 6/7/8",
+   "location_note": "VIN/VFIELD common return",
+   "expected": {
+    "value": "0 V",
+    "label": "VIN/VFIELD common on TB1 pins 6/7/8",
+    "basis": "Mesa 7i84U manual pp.7-8",
+    "kind": "na"
+   },
+   "hal_state": "absent",
+   "mesa_pins": [],
+   "producers": [],
+   "consumers": [],
+   "hal_refs": [],
+   "setp_refs": [],
+   "sources": [
+    {
+     "file": "mesa/current_pin_authority.csv",
+     "lines": "131",
+     "note": "Current wiring authority row"
+    },
+    {
+     "file": "Mesa 7i84U manual pp.7-8",
+     "lines": "",
+     "note": "primary_source column in the authority table"
+    }
+   ],
+   "conflicts": [],
+   "authority_line": 131
+  },
+  {
+   "id": "SEVENI84UB_VIN_24V",
+   "name": "Seveni84Ub Vin 24V",
+   "board": "7i84U-B",
+   "connector": "TB1",
+   "channel": "TB1 pin 5 VIN (+24 V logic power)",
+   "hal_net": "",
+   "direction": "POWER",
+   "direction_label": "Power / common",
+   "subsystem": "Power",
+   "machine_subsystem": "Logic power",
+   "status": "COMMISSIONING_PENDING",
+   "field_point": "Field I/O logic power",
+   "designations": [],
+   "primary_source": "Mesa 7i84U manual pp.2/7-8/47",
+   "cleanup_notes": "W1 left links VIN internally to VFIELDB; W1 right requires a separate 5-28 VDC VIN supply. Record W1 position and do not double-feed.",
+   "location": "Field I/O enclosure — 7i84U-B TB1 pin 5",
+   "location_note": "Verify W1 position before landing VIN",
+   "expected": {
+    "value": "24 V",
+    "label": "Logic supply on TB1 pin 5; verify W1 before wiring",
+    "basis": "Mesa 7i84U manual pp.2/7-8/47",
+    "kind": "na"
+   },
+   "hal_state": "absent",
+   "mesa_pins": [],
+   "producers": [],
+   "consumers": [],
+   "hal_refs": [],
+   "setp_refs": [],
+   "sources": [
+    {
+     "file": "mesa/current_pin_authority.csv",
+     "lines": "132",
+     "note": "Current wiring authority row"
+    },
+    {
+     "file": "Mesa 7i84U manual pp.2/7-8/47",
+     "lines": "",
+     "note": "primary_source column in the authority table"
+    }
+   ],
+   "conflicts": [],
+   "authority_line": 132
+  },
+  {
+   "id": "SEVENI84UB_GND",
+   "name": "Seveni84Ub Gnd",
+   "board": "7i84U-B",
+   "connector": "TB1",
+   "channel": "TB1 pins 6/7/8 GND (VIN/VFIELD common)",
+   "hal_net": "",
+   "direction": "POWER",
+   "direction_label": "Power / common",
+   "subsystem": "Power",
+   "machine_subsystem": "Power common",
+   "status": "COMMISSIONING_PENDING",
+   "field_point": "VIN/VFIELD common return",
+   "designations": [],
+   "primary_source": "Mesa 7i84U manual pp.7-8",
+   "cleanup_notes": "All three terminals are common; land 0 V only here.",
+   "location": "Field I/O enclosure — 7i84U-B TB1 pins 6/7/8",
+   "location_note": "VIN/VFIELD common return",
+   "expected": {
+    "value": "0 V",
+    "label": "VIN/VFIELD common on TB1 pins 6/7/8",
+    "basis": "Mesa 7i84U manual pp.7-8",
+    "kind": "na"
+   },
+   "hal_state": "absent",
+   "mesa_pins": [],
+   "producers": [],
+   "consumers": [],
+   "hal_refs": [],
+   "setp_refs": [],
+   "sources": [
+    {
+     "file": "mesa/current_pin_authority.csv",
+     "lines": "133",
+     "note": "Current wiring authority row"
+    },
+    {
+     "file": "Mesa 7i84U manual pp.7-8",
+     "lines": "",
+     "note": "primary_source column in the authority table"
+    }
+   ],
+   "conflicts": [],
+   "authority_line": 133
   }
  ],
  "conflicts": [

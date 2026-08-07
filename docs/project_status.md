@@ -66,7 +66,7 @@ See [`architecture_decision.md`](architecture_decision.md) for the full rational
 - Mesa firmware/HAL-pin checklist drafted (`mesa/mesa_firmware_checklist.md`).
 - Cabinet photo checklist drafted (`docs/cabinet_photo_checklist.md`).
 - Ladder transcription: ATC (mazak_atc.comp), Orient/Gear (mazak_orient.comp).
-- 385-signal ladder crosswalk; 128 current authority rows covered in io-dashboard.
+- 385-signal ladder crosswalk; 132 current authority rows covered in io-dashboard.
 - Element list catalog (VQC20-40_060231) — 5,247 elements categorized.
 - Pin authority CSV structurally reconciled for the full stack
   (`mesa/current_pin_authority.csv`); physical tracing and electrical/HAL
