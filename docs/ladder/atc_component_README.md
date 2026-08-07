@@ -155,7 +155,7 @@ straight to `mazak-atc.target-pot`.
 | every `hm2_7i80.0.7i84.0.0.*` name | `atc_orient.hal` | `halcmd show pin hm2` against real firmware |
 | every input polarity | `atc_orient.hal` | measure normal states, then `invert_input` |
 | SSET (Y092) Mesa pin | `spindle-drive-arm` net, unbound | decide whether the FR-SX needs it; 7i84U-B TB2 OUT8-15 remain spare |
-| `atc-barrier` device | `hm2_7i80.0.7i84.0.1.output-06` (7i84U-B TB2 OUT6) | confirm the barrier solenoid exists on SN 060231 |
+| `atc-barrier` device | `hm2_7i80.0.7i84.0.1.output-06` (7i84U-B TB3 OUT6) | confirm the barrier solenoid exists on SN 060231 |
 
 ## Blocking gaps found while writing this
 

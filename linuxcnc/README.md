@@ -13,9 +13,9 @@ The selected retrofit architecture is:
 - LinuxCNC control PC connected to the Mesa **7i80HDT** over Ethernet (`hm2_eth`, static IP 192.168.1.121). The 7i80HDT is a bare-FPGA Ethernet host with three 50-pin daughter connectors (P1/P2/P3) and 72 IO total.
 - Mesa **7i44 on P1** — 8-channel RS-422 smart-serial breakout. Port 0 carries **7i84U-A** near the existing green breakout PCB; port 1 carries **7i84U-B**; ports 2-7 are spare.
 - Mesa **7i49 on P2** — plain 7i49 (not 7i49HV). Provides X/Y/Z resolver feedback on RES0/1/2 and X/Y/Z servo velocity commands + FR-SX spindle velocity command + FR-SX orient reference on ±10V analog outputs AOUT0..AOUT4. RES3-RES5 and AOUT5 are spare.
-- **P3 unused/spare** — no daughter card. The sole exception is Renishaw MP-3 probe SKIP1 on bare direct FPGA GPIO `hm2_7i80.0.gpio.042`.
+- **P3 unused/spare** — no daughter card fitted; all bare-FPGA GPIO. Not safe for 24 V field wiring. Probe was moved to 7i84U-B TB3 IN15.
 - Mesa **7i84U-A on 7i44 port 0** — remote field I/O for ATC, hydraulics, coolant, air, magazine, and utility field I/O.
-- Mesa **7i84U-B on 7i44 port 1** — TB1 IN0-5 X/Y/Z limits, TB1 IN6-8 X/Y/Z homes, TB2 OUT0-2 X/Y/Z drive enables, and TB2 OUT3-7 relay-driven loads.
+- Mesa **7i84U-B on 7i44 sserial channel 1** — TB3 IN0-5 X/Y/Z limits, TB3 IN6-8 X/Y/Z homes, TB3 IN15 Renishaw MP-3 probe, TB3 OUT0-2 X/Y/Z drive enables, and TB3 OUT3-7 relay-driven loads. (Mesa 7i84 layout: TB1 = power, TB3 = IN0-15 + OUT0-7, TB2 = IN16-31 + OUT8-15.)
 - Optional WHB04B-style USB pendant through LinuxCNC after the base machine is safe.
 
 ## Assumed hardware stack
@@ -36,9 +36,9 @@ The selected retrofit architecture is:
 
 - `mazak_vqc_20_40.ini` - placeholder INI sections for the machine, joints, spindle, and HAL file loading.
 - `mazak_vqc_20_40.hal` - main HAL loader (`hm2_eth`) and high-level comments.
-- `motion_7i80hdt.hal` - 7i49 analog outputs and resolver feedback, plus the bare P3 `gpio.042` probe input placeholder.
+- `motion_7i80hdt.hal` - 7i49 analog outputs and resolver feedback. P3 is unused/spare (bare-FPGA GPIO; probe moved to 7i84U-B TB3 IN15).
 - `field_7i84u.hal` - 7i84U-A ATC, magazine, coolant, air, and utility I/O placeholders on 7i44 P1 port 0, plus 7i84U-B safety and relay I/O nets on port 1.
-- `atc_orient.hal` - orient + ATC HAL wiring and component nets; feeds the ATC barrier through 7i84U-B TB2 OUT6.
+- `atc_orient.hal` - orient + ATC HAL wiring and component nets; feeds the ATC barrier through 7i84U-B TB3 OUT6.
 - `pendant_whb04b.hal` - optional WHB04B-style pendant net placeholders.
 - `../mesa/current_pin_authority.csv` - authoritative pin map for the full stack.
 - `../docs/architecture_decision.md` - selected 7i80HDT + 7i44 + 7i49 + 7i84U-A + 7i84U-B architecture decision, with the bare P3 probe exception.
@@ -51,7 +51,7 @@ The selected retrofit architecture is:
 2. Confirm the 24 VDC P24/G24 bus (Meanwell DR-240-24 retrofit supply), fusing, and 0 V common/reference strategy.
 3. Confirm resolver wiring with drives disabled. Ohmmeter the winding pairs before power (rotor pair → RESDRV±, matched stator pairs → RESSIN/RESCOS), set the 7i49 to 5 kHz excitation, confirm the 7i49 is the sole excitation source, scope the return level, then verify counts, direction, shielding, and scale.
 4. Confirm 7i49 analog command wiring with drives disabled or inhibited. Verify zero command voltage and output polarity on AOUT0/1/2 (X/Z/Y) and AOUT3 (FR-SX spindle).
-5. Confirm 7i84U-B wiring: limits (NC) on TB1 IN0-5, homes (NO) on TB1 IN6-8, and X/Y/Z drive enables on TB2 OUT0-2. Ohmmeter each input path before setting `invert_input`; verify the bare P3 `gpio.042` probe input separately.
+5. Confirm 7i84U-B wiring: limits (NC) on TB3 IN0-5, homes (NO) on TB3 IN6-8, X/Y/Z drive enables on TB3 OUT0-2, and the Renishaw MP-3 probe on TB3 IN15. Ohmmeter each input path before setting `invert_input`; the probe now uses the opto-isolated 7i84U input rather than bare P3 GPIO.
 6. Confirm 7i84U-A and 7i84U-B appear on 7i44 P1 ports 0 and 1 via `halcmd show pin hm2` (device tags `hm2_7i80.0.7i84.0.0.*` and `hm2_7i80.0.7i84.0.1.*` expected — verify).
 7. Bring up one axis at a time at low gain and low speed.
 8. Confirm home and limit switch logic before running homing.
@@ -60,9 +60,9 @@ The selected retrofit architecture is:
 
 ## Safety notes
 
-- Preserve or rebuild a hardware safety chain that removes hazardous power. Do not rely on LinuxCNC/HAL alone for E-stop safety. LinuxCNC only monitors the OEM MAR-MON contact via an interposing relay on 7i84U-A TB1 IN29.
+- Preserve or rebuild a hardware safety chain that removes hazardous power. Do not rely on LinuxCNC/HAL alone for E-stop safety. LinuxCNC only monitors the OEM MAR-MON contact via an interposing relay on 7i84U-A TB2 IN29.
 - Treat all `active-high`, `active-low`, `NO`, and `NC` assumptions in these files as placeholders until measured.
-- Use interposing relays or output modules where coil/load current exceeds Mesa output ratings or where isolation is needed. All 7i84U-B TB2 outputs to legacy 100VAC solenoids (SOL-35/61/62) must use interposing relays (RLY-5/6/7).
+- Use interposing relays or output modules where coil/load current exceeds Mesa output ratings or where isolation is needed. All 7i84U-B TB3 outputs to legacy 100 VAC solenoids (SOL-35/61/62 on OUT3/4/5) must use interposing relays (RLY-5/6/7).
 - Add flyback diodes, RC snubbers, or surge suppression appropriate to each coil type.
 - Keep resolver and analog wiring shielded and physically separated from contactor, solenoid, spindle, and motor power wiring; terminate the resolver cable shield/ground per plan (still to be finalized).
 - Resolver wiring may follow the original Meldas M2 / TRA scheme (two-phase excitation into the stator, phase read from the rotor), which is the opposite of the 7i49's single-excitation / sin-cos-amplitude reading. Identify winding pairs with an ohmmeter before power; do not assume wire names. The W2 half-drive jumper is a field-verification option, not a default.

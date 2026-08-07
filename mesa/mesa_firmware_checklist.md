@@ -21,9 +21,12 @@ bare P3 probe GPIO exception, and LinuxCNC HAL pin names.
   reference on AOUT4, AOUT5 spare). Excitation set to 5 kHz.
 - Mesa **7i84U-A on 7i44 port 0** — remote field I/O for ATC, hydraulics,
   coolant, air, magazine, utility I/O, and cabinet field wiring.
-- Mesa **7i84U-B on 7i44 port 1** — remote field I/O for X/Y/Z limits and
-  homes (TB1 IN0-8), X/Y/Z drive enables (TB2 OUT0-2), and relay-driven loads
-  (TB2 OUT3-7).
+- Mesa **7i84U-B on 7i44 sserial channel 1** — remote field I/O for X/Y/Z
+  limits and homes (TB3 IN0-8), X/Y/Z drive enables (TB3 OUT0-2), relay-
+  driven loads (TB3 OUT3-7), and the Renishaw MP-3 probe (TB3 IN15). Per
+  the Mesa 7i84 manual, TB1 is the 8-pin power connector, TB3 carries the
+  first 16 inputs + first 8 outputs, and TB2 carries the second 16 inputs
+  + second 8 outputs.
 - **P3 unused/spare** — no daughter card; all bare-FPGA GPIO. **Not safe for
   24 V field wiring** (3.3 V logic without opto-isolation). The Renishaw MP-3
   probe was previously bound to P3 `gpio.042` in an earlier revision; it has

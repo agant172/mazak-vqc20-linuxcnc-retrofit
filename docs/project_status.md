@@ -16,8 +16,8 @@ control to LinuxCNC using Mesa Electronics FPGA hardware.
 - **LinuxCNC control PC** (Debian 13 / LinuxCNC 2.9.10) driving a **Mesa 7i80HDT** Ethernet FPGA host as the primary control board (`hm2_eth`, static IP 192.168.1.121).
 - **P1: Mesa 7i44** — RS-422 sserial breakout. Port 0 → **7i84U-A** for ATC, hydraulics, coolant, air, magazine, utility I/O, and cabinet field wiring; port 1 → **7i84U-B** for safety inputs and relay-driven loads; ports 2-7 spare.
 - **P2: Mesa 7i49** — plain 7i49 (not 7i49HV). X/Y/Z resolver feedback on RES0/1/2 + X/Z/Y servo velocity command and FR-SX spindle velocity + orient reference on AOUT0..AOUT4.
-- **P3: unused/spare** — no daughter card is fitted. The sole exception is Renishaw MP-3 probe SKIP1 on bare direct FPGA GPIO `hm2_7i80.0.gpio.042`.
-- **7i84U-B I/O allocation**: TB1 IN0-5 = X/Y/Z limits, TB1 IN6-8 = X/Y/Z homes; TB2 OUT0-2 = X/Y/Z drive enables; TB2 OUT3-7 = air blast, touch-sensor blast, tap-coolant blast, ATC barrier, and flood valve.
+- **P3: unused/spare** — no daughter card is fitted; all pins are bare-FPGA GPIO. Not safe for 24 V field wiring. The Renishaw MP-3 probe SKIP1 was moved off P3 and now lands on 7i84U-B TB3 IN15.
+- **7i84U-B I/O allocation**: TB3 IN0-5 = X/Y/Z limits, TB3 IN6-8 = X/Y/Z homes, TB3 IN15 = Renishaw MP-3 probe; TB3 OUT0-2 = X/Y/Z drive enables; TB3 OUT3-7 = air blast, touch-sensor blast, tap-coolant blast, ATC barrier, and flood valve. (7i84 layout: TB1 = power connector; TB3 = IN0-15 + OUT0-7; TB2 = IN16-31 + OUT8-15.)
 - **Optional WHB04B-style USB pendant** after base machine safety/motion is proven.
 - **Firmware bitfile**: `7i80hdt_7i44_ss_7i49d.bit` (PCW-provided).
 
@@ -79,15 +79,15 @@ See [`architecture_decision.md`](architecture_decision.md) for the full rational
 - [ ] Verify resolver-to-machine-unit scale and axis orientation for X/Y/Z.
 - [ ] Verify analog command polarity/scaling for X/Y/Z on 7i49 AOUT0/1/2 before enabling drives.
 - [ ] Verify FR-SX spindle command on 7i49 AOUT3 (speed) plus 7i84U-A digital FWD/REV/ENA.
-- [ ] Verify 7i84U-B TB1 limit/home inputs and TB2 drive-enable outputs against cabinet contacts; measure each input path with an ohmmeter before setting `invert_input`. Verify the bare P3 `gpio.042` probe input separately.
-- [ ] Wire interposing relays (RLY-5/6/7) for the 100VAC relay-driven loads SOL-35/61/62 on 7i84U-B TB2 OUT4/5/3 as assigned. Do the same for the ATC barrier on TB2 OUT6 (Y095 TCME.M).
+- [ ] Verify 7i84U-B TB3 limit/home inputs and TB3 drive-enable outputs against cabinet contacts; measure each input path with an ohmmeter before setting `invert_input`. Verify the probe SKIP1 input on 7i84U-B TB3 IN15 (opto-isolated 24 V) separately.
+- [ ] Wire interposing relays (RLY-5/6/7) for the 100VAC relay-driven loads SOL-35/61/62 on 7i84U-B TB3 OUT4/5/3 as assigned. Do the same for the ATC barrier on TB3 OUT6 (Y095 TCME.M).
 - [ ] Verify ATC prox/solenoid labels and normal states: PRS-8/9, PRS-10/12, PRS-13, PRS-21 through PRS-25, SOL-8A/8B, SOL-10, M15/M16 if present.
 - [ ] Measure solenoid/contactor coil voltages and currents to decide interposing relay/suppression needs.
 
 ### Later
 - [ ] Bring up resolver feedback via the 7i49 (P2) with drives disabled.
 - [ ] Bring up one axis at a time at low gain / low speed.
-- [ ] Prove homes/limits (7i84U-B TB1) and hardware E-stop behavior.
+- [ ] Prove homes/limits (7i84U-B TB3) and hardware E-stop behavior.
 - [ ] Bring up spindle at low RPM with verified analog scaling on 7i49 AOUT3.
 - [ ] Dry-run ATC/hydraulic sequence with no tool load.
 - [ ] Decide whether any optional future expansion I/O (7i44 ports 2-7, MPG pendant, 4th axis) and the USB pendant are needed.
@@ -109,10 +109,10 @@ Detailed bring-up notes: [`../linuxcnc/README.md`](../linuxcnc/README.md).
 
 ## Safety caveats
 
-- The `linuxcnc/` HAL/INI files and `mesa/current_pin_authority.csv` are **skeletons**. Pin names (`hm2_7i80.0...`), resolver scales, analog polarity/scaling, spindle FR-SX command mode, and I/O normal states are **placeholders** and must be replaced with the actual generated HAL names and measured/verified values from the installed 7i80HDT + 7i44 + 7i49 + 7i84U-A + 7i84U-B stack, with bare P3 `gpio.042` for the probe.
+- The `linuxcnc/` HAL/INI files and `mesa/current_pin_authority.csv` are **skeletons**. Pin names (`hm2_7i80.0...`), resolver scales, analog polarity/scaling, spindle FR-SX command mode, and I/O normal states are **placeholders** and must be replaced with the actual generated HAL names and measured/verified values from the installed 7i80HDT + 7i44 + 7i49 + 7i84U-A + 7i84U-B stack. The probe SKIP1 now lands on 7i84U-B TB3 IN15 (opto-isolated) rather than bare P3 GPIO.
 - **Resolver wiring is not conventional.** The original Meldas M2 / TRA wiring may drive the resolver "backwards" (two-phase excitation into the stator, phase read from the rotor), whereas the 7i49 uses single excitation and reads sin/cos amplitude. **Ohmmeter the winding pairs before applying power** and do not trust the original wire names. The 7i49 must be the **sole resolver excitation source** — the old TRA drive closes its velocity loop on a tachometer, not the resolver, so LinuxCNC/7i49 can own excitation, but nothing else may share those windings.
 - `MS3108B 20-29P` is a **connector shell part number, not a resolver model** — the resolvers themselves are Tamagawa TS2014N (BKO-NC6062A).
-- Preserve or rebuild a **hardware safety chain** that removes hazardous power. Do not rely on LinuxCNC/HAL alone for E-stop safety. The E-stop chain is monitored solely via the 7i84U-A TB1 IN29 interposing-relay status contact; the OEM hardware chain remains authoritative.
+- Preserve or rebuild a **hardware safety chain** that removes hazardous power. Do not rely on LinuxCNC/HAL alone for E-stop safety. The E-stop chain is monitored solely via the 7i84U-A TB2 IN29 interposing-relay status contact; the OEM hardware chain remains authoritative.
 - Treat every `active-high`/`active-low`/`NO`/`NC` assumption as unverified until measured.
 - Use interposing relays or output modules where coil/load current exceeds Mesa output ratings or where isolation is needed; add flyback diodes / RC snubbers / surge suppression appropriate to each coil. All 100VAC loads (SOL-35/61/62, ATC barrier SOL-Y095) must go through interposing relays.
 - Keep resolver and analog wiring shielded and physically separated from contactor, solenoid, spindle, and motor power wiring.

@@ -64,7 +64,7 @@ pin in bit estop_ok = false
 
 pin out bit hyd_pump_on
     "Y096 HYD.M - hydraulic + head-lube pump contactor (rung 2302). "
-    "Net: hyd-pump-on (7i84U TB2 OUT3, PROPOSED).";
+    "Net: hyd-pump-on (7i84U TB3 OUT3, PROPOSED).";
 pin out bit drive_arm
     "Y092 SSET.M - spindle drive arm/permissive (rung 2305). Held once made; "
     "dropped only by AL46. No Mesa pin assigned yet - candidate TB5 SSR OUT5.";
@@ -112,7 +112,7 @@ pin in bit gear_lo_conf = false
     "LGPRS / PRS-12 gear low confirm. Net: gear-lo-conf (7i84U IN18).";
 
 pin out bit gear_hi_sol
-    "Y00B GSH.M gear-high solenoid (rung 2907). Net: gear-hi-sol (TB2 OUT7). "
+    "Y00B GSH.M gear-high solenoid (rung 2907). Net: gear-hi-sol (TB3 OUT7). "
     "Sealed while high range is selected - the solenoid holds the shift fork.";
 pin out bit gear_lo_sol
     "Y00C GSL.M gear-low solenoid (rung 2910). Net: gear-lo-sol (TB2 OUT8). "
@@ -125,10 +125,10 @@ pin out bit gear_lo_sol
 //
 pin out bit spindle_orient_cmd
     "Y093 ORCM1.M orient command to the FR-SX (rung 3004). "
-    "Net: spindle-orient-cmd (7i84U TB2 OUT4, PROPOSED).";
+    "Net: spindle-orient-cmd (7i84U TB3 OUT4, PROPOSED).";
 pin out bit orient_lo_gear
     "Y094 CTL.M low-gear orient (rung 3001). COMBINATIONAL MIRROR of "
-    "gear-lo-sol - not a sequenced step. Net: orient-lo-gear (TB2 OUT5).";
+    "gear-lo-sol - not a sequenced step. Net: orient-lo-gear (TB3 OUT5).";
 pin out bit oriented_latch
     "M92 SOSA spindle orient safety (rung 5509). THE bit the ATC consumes - "
     "gate every ATC step and the tool unclamp on this, never on raw ORA1.";

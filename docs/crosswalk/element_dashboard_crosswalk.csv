@@ -1,5 +1,5 @@
 type,address,symbol,comment,category,disposition,dashboard_id,match,match_note,m2v_twin,ladder_page
-X,X000,#ESP.M,EMERGENCY STOP,FIELD_INPUT,field-wired — must land on Mesa or be consciously dropped,ESTOP_CHAIN,direct,E-stop chain; 7i84U-A TB1 IN29 sole monitor input,,2
+X,X000,#ESP.M,EMERGENCY STOP,FIELD_INPUT,field-wired — must land on Mesa or be consciously dropped,ESTOP_CHAIN,direct,E-stop chain; 7i84U-A TB2 IN29 sole monitor input,,2
 X,X001,SZS.M,SPINDLE ZERO SPEED,FIELD_INPUT,field-wired — must land on Mesa or be consciously dropped,SPINDLE_AT_SPEED,partial,"SZS is FR-SX ZERO SPEED, not speed-reach; needs its own 7i84U-A input",,2
 X,X002,FA,SPINDLE CONTROLLER NORMAL,FIELD_INPUT,field-wired — must land on Mesa or be consciously dropped,SPINDLE_FAULT,partial,FA = controller NORMAL (inverse sense of fault input),,2
 X,X003,ORA1,ORIENT ARRIVAL,FIELD_INPUT,field-wired — must land on Mesa or be consciously dropped,,,,,2

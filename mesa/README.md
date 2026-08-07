@@ -48,9 +48,12 @@ VQC 20/40 retrofit.
 
 ## Current Authority Rules
 
-- Use **7i84U-B on 7i44 port 1** for X/Y/Z limits (TB1 IN0-5), X/Y/Z homes
-  (TB1 IN6-8), X/Y/Z drive enables (TB2 OUT0-2), and relay-driven loads
-  (TB2 OUT3-7). Use **7i84U-A TB1 IN29** as the sole software E-stop monitor.
+- Use **7i84U-B on 7i44 sserial channel 1** for X/Y/Z limits (TB3 IN0-5),
+  X/Y/Z homes (TB3 IN6-8), X/Y/Z drive enables (TB3 OUT0-2), relay-driven
+  loads (TB3 OUT3-7), and the Renishaw MP-3 probe (TB3 IN15). Use
+  **7i84U-A TB2 IN29** as the sole software E-stop monitor. Note the
+  Mesa 7i84 layout: TB1 is the 8-pin power connector, TB3 carries IN0-15
+  and OUT0-7, and TB2 carries IN16-31 and OUT8-15.
 - **Do NOT wire bare 7i80HDT P3 GPIO to any 24 V field signal.** P3 is 3.3 V
   logic without opto-isolation — exposing it to 24 V will destroy the FPGA.
   The probe was moved from a former P3 `gpio.042` binding to 7i84U-B input-15

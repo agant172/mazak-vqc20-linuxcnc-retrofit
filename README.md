@@ -21,9 +21,9 @@ control to LinuxCNC using Mesa Electronics FPGA hardware.
 - **LinuxCNC control PC** (Debian 13 / LinuxCNC 2.9.10) driving a **Mesa 7i80HDT** Ethernet FPGA host as the primary control board (`hm2_eth`, static IP 192.168.1.121).
 - **P1 → 7i44** — RS-422 smart-serial breakout. Port 0 carries **7i84U-A** near the existing green breakout PCB; port 1 carries **7i84U-B** for safety inputs and relay-driven loads; ports 2-7 are spare.
 - **P2 → 7i49** (plain 7i49) — X/Y/Z resolver feedback on RES0/1/2 + X/Z/Y servo velocity command + FR-SX spindle velocity + FR-SX orient reference on AOUT0..AOUT4.
-- **P3 → unused/spare** — the sole exception is the Renishaw MP-3 probe SKIP1 on bare direct FPGA GPIO `hm2_7i80.0.gpio.042`; no daughter card is fitted.
+- **P3 → unused/spare** — no daughter card fitted. All bare FPGA GPIO. Not safe for 24 V field wiring (probe was moved to 7i84U-B for opto-isolation).
 - **7i84U-A on 7i44 port 0** — remote field I/O for ATC, hydraulics, coolant, air, magazine, utility I/O, and cabinet field wiring.
-- **7i84U-B on 7i44 port 1** — TB1 IN0-5 carry X/Y/Z limits, TB1 IN6-8 carry X/Y/Z homes, and TB2 OUT0-2 carry X/Y/Z drive enables; TB2 OUT3-7 carry the planned relay-driven loads.
+- **7i84U-B on 7i44 sserial channel 1** — TB3 IN0-5 carry X/Y/Z limits, TB3 IN6-8 carry X/Y/Z homes, TB3 IN15 carries the Renishaw MP-3 probe, TB3 OUT0-2 carry X/Y/Z drive enables, and TB3 OUT3-7 carry the planned relay-driven loads. (7i84 layout: TB1 = power only, TB3 = IN0-15 + OUT0-7, TB2 = IN16-31 + OUT8-15.)
 - **Optional WHB04B-style USB pendant** after the base machine is proven safe.
 
 Full rationale: [docs/architecture_decision.md](docs/architecture_decision.md).

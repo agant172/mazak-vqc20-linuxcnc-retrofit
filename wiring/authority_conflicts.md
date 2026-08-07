@@ -8,7 +8,7 @@ This register reconciles the RC3A connector cross-reference with the current Mes
 
 **Documentation status: RESOLVED.** Physical coil identity and high/low function remain pending cabinet verification.
 
-- Current authority: `SOL-13` planned high gear on 7i84U TB2 OUT7.
+- Current authority: `SOL-13` planned high gear on 7i84U TB3 OUT7.
 - Current authority: `SOL-12` planned low gear on 7i84U TB2 OUT8.
 - New evidence: `connector_crossref.md` identifies wire 413 as `SOL-13 — Gear Shift Low`.
 - Resolution test: trace the coil wire tags from RC3A to both valve coils; identify the valve ports for high and low; measure coil voltage/current; then update both rows together.

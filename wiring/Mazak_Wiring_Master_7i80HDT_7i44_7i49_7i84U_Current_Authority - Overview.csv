@@ -5,6 +5,6 @@ Source of truth,/Users/andygant/GitHub/Github LinuxCNC/mesa/current_pin_authorit
 Generated,2026-08-06
 Status rule,COMMISSIONING_PENDING and ACCEPTED_VERIFY require cabinet verification before wiring or energizing outputs. HOLD_CONFLICT requires resolution first.
 Feedback rule,"Axis feedback is Tamagawa TS2014N resolver feedback through the 7i49 on P2, not quadrature encoder feedback."
-Safety rule,"The hardware E-stop chain removes hazardous power. 7i84U-A TB1 IN29 is the sole software monitor input; the OEM hardware chain remains authoritative."
+Safety rule,"The hardware E-stop chain removes hazardous power. 7i84U-A TB2 IN29 is the sole software monitor input; the OEM hardware chain remains authoritative."
 Channel order,"7i49 AOUT order is X=AOUT0, Z=AOUT1, Y=AOUT2, FR-SX spindle velocity=AOUT3, FR-SX orient reference=AOUT4 (reserved)."
 Included diagrams,"7i80HDT P1/P2/P3 map; 7i44 sserial-port map; 7i49 resolver + analog map; 7i84U-A and 7i84U-B field I/O; bare P3 gpio.042 probe exception; HAL cross-reference; open items/conflicts."
