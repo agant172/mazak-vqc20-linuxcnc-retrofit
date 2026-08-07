@@ -217,6 +217,69 @@ net estop-monitor     => estop-latch.0.ok-in
 net estop-ok          <= estop-latch.0.ok-out
 net estop-ok          => iocontrol.0.emc-enable-in
 
+#####################################################################
+# Safety watchdog: NIC packet-error + hm2 watchdog fault routing
+#####################################################################
+#
+# The hm2_eth driver exposes two fault-status pins that fire when the
+# Ethernet link to the 7i80HDT loses integrity:
+#
+#   hm2_7i80.0.watchdog.has_bit         (bit out) - hostmot2 watchdog timer
+#     tripped because reads/writes did not complete inside the servo period.
+#     Naming convention per hostmot2(9) man page.
+#     <https://linuxcnc.org/docs/html/man/man9/hostmot2.9.html>
+#
+#   hm2_7i80.0.packet-error-exceeded    (bit out) - hm2_eth packet-error
+#     counter exceeded the configured threshold. See
+#     docs/hm2_eth_nic_validation.md for the acceptance procedure that
+#     configures the threshold and demonstrates the trip.
+#
+# Both faults must inhibit drives and stop motion. Per audit 2026-08-07,
+# route them BOTH to (a) the software E-stop latch AND (b) a per-joint
+# amp-enable inhibit, so a single-component failure cannot leave drives
+# energised when the NIC fails:
+#
+#     or2.0.in0 <- hm2_7i80.0.watchdog.has_bit
+#     or2.0.in1 <- hm2_7i80.0.packet-error-exceeded
+#     or2.0.out -> watchdog-fault-any                       (fault=TRUE)
+#     watchdog-fault-any -> estop-latch.0.fault-in          (a)
+#     NOT(watchdog-fault-any) -> motion-permit              (b)
+#
+# The 'not' inversion (fault -> permit) is implemented by wiring the
+# fault net through an inverter. Since we do not want to add another
+# component loadrt just for that, use the trick that estop-latch already
+# provides fault-in (active high) directly, and derive motion-permit as
+# the logical opposite via a not component - or simpler, use two or2
+# instances with one input tied high; but the cleanest is one 'not' from
+# loadrt logic. We accept adding logic count=1 (single 'not' gate) here.
+#
+# Component ordering in the servo thread (see addf block above):
+#   read -> motion-controller -> or2.0 (fault OR) -> not (permit)
+#   -> and2.0..2 (amp gates) -> estop-latch -> write
+#
+# NOTE: This wiring is DECLARED but the hm2 pin names below are subject
+# to the NIC validation in docs/hm2_eth_nic_validation.md. Bench-verify
+# each pin appears in 'halcmd show pin hm2' output before energising.
+
+net watchdog-hm2-bit    <= hm2_7i80.0.watchdog.has_bit
+net watchdog-hm2-bit    => or2.0.in0
+net watchdog-pkt-err    <= hm2_7i80.0.packet-error-exceeded
+net watchdog-pkt-err    => or2.0.in1
+net watchdog-fault-any  <= or2.0.out
+net watchdog-fault-any  => estop-latch.0.fault-in
+
+# motion-permit derivation: watchdog-fault-any must be INVERTED to become
+# the motion-permit signal that AND-gates each joint's amp-enable-out in
+# field_7i84u.hal. Use logic(9) as a 1-input NAND (= NOT):
+#   personality 0x801 = 1 input + nand output (see logic(9) man page).
+#   loadrt logic count=1 personality=0x801
+#   'nand' with a single input equals the boolean inverse of that input.
+# Reference: <https://linuxcnc.org/docs/html/man/man9/logic.9.html>
+loadrt logic names=logic.watchdog-not personality=0x801
+addf logic.watchdog-not servo-thread
+net watchdog-fault-any  => logic.watchdog-not.in-00
+net motion-permit       <= logic.watchdog-not.nand
+
 # estop-reset also feeds atc_orient.hal to clear its latched ATC / orient
 # alarms in sync with the LinuxCNC re-enable. Additional readers pick up the
 # same signal declared above.

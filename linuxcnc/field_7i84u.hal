@@ -253,16 +253,36 @@ net probe-in => motion.probe-input
 #
 # Drive-enable writers: joint.N.amp-enable-out is the LinuxCNC motion module's
 # per-joint amplifier request. When machine is on and no fault is latched,
-# amp-enable-out goes TRUE; on fault or estop it drops FALSE. This is the
-# authoritative source for the ENA net. Also feeds pwmgen.NN.enable in
-# motion_7i80hdt.hal.
+# amp-enable-out goes TRUE; on fault or estop it drops FALSE.
+#
+# WATCHDOG-INHIBIT: the raw amp-enable-out signal is gated through and2
+# components against 'motion-permit' (nominally TRUE; goes FALSE when the
+# hm2_eth watchdog trips or the packet-error-exceeded threshold is hit).
+# See the 'Safety watchdog' block in mazak_vqc_20_40.hal for the fault-source
+# wiring. Belt-and-suspenders: the same fault also trips estop-latch.0.fault-in,
+# so a NIC/watchdog fault has two independent paths to disable drives:
+#   (a) motion-permit=FALSE opens the and2 gates below -> x/y/z-enable=FALSE
+#       -> S-ON outputs drop and pwmgen enables drop
+#   (b) estop-latch.0.fault-in=TRUE -> estop-latch.0.ok-out=FALSE ->
+#       iocontrol.0.emc-enable-in=FALSE -> LinuxCNC drops amp-enable-out anyway
 
-net x-enable <= joint.0.amp-enable-out
-net x-enable => hm2_7i80.0.7i84.0.1.output-00   # X servo S-ON to MELDAS DK-427
-net y-enable <= joint.1.amp-enable-out
-net y-enable => hm2_7i80.0.7i84.0.1.output-01   # Y servo S-ON to MELDAS DK-427
-net z-enable <= joint.2.amp-enable-out
-net z-enable => hm2_7i80.0.7i84.0.1.output-02   # Z servo S-ON to MELDAS DK-427
+net x-enable-raw <= joint.0.amp-enable-out
+net x-enable-raw => and2.0.in0
+net motion-permit => and2.0.in1
+net x-enable     <= and2.0.out
+net x-enable     => hm2_7i80.0.7i84.0.1.output-00   # X servo S-ON to MELDAS DK-427
+
+net y-enable-raw <= joint.1.amp-enable-out
+net y-enable-raw => and2.1.in0
+net motion-permit => and2.1.in1
+net y-enable     <= and2.1.out
+net y-enable     => hm2_7i80.0.7i84.0.1.output-01   # Y servo S-ON to MELDAS DK-427
+
+net z-enable-raw <= joint.2.amp-enable-out
+net z-enable-raw => and2.2.in0
+net motion-permit => and2.2.in1
+net z-enable     <= and2.2.out
+net z-enable     => hm2_7i80.0.7i84.0.1.output-02   # Z servo S-ON to MELDAS DK-427
 
 # 100 VAC solenoid outputs via interposing relays. Uncomment as each relay is wired.
 # net air-blast          => hm2_7i80.0.7i84.0.1.output-03  # SOL-62 via RLY-5
