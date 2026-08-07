@@ -94,9 +94,18 @@ net spindle-fwd        <= spindle.0.forward
 net spindle-fwd        => hm2_7i80.0.7i84.0.0.output-00  # OUT0  FR-SX FWD
 net spindle-rev        <= spindle.0.reverse
 net spindle-rev        => hm2_7i80.0.7i84.0.0.output-01  # OUT1  FR-SX REV
-# spindle-enable is sourced in mazak_vqc_20_40.hal from spindle.0.on and also
-# drives pid.s.enable / pwmgen.03.enable in motion_7i80hdt.hal. Reuse it here
-# so the FR-SX RUN/STOP signal follows the same enable state as the DAC.
+# HOLD (audit 2026-08-07): spindle drive polarity is UNVERIFIED. The three
+# spindle output nets below (spindle-fwd on OUT0, spindle-rev on OUT1,
+# spindle-enable on OUT2 = FR-SX RUN/STOP) remain nominally connected to
+# their sources, but pwmgen.03.enable is force-false in motion_7i80hdt.hal:
+# so AOUT3 sits at 0 V and the drive will not respond even if these
+# discrete outputs momentarily float TRUE. See motion_7i80hdt.hal 'HOLD
+# POINT - SPINDLE DRIVE POLARITY UNVERIFIED' for the full clearance path.
+# spindle-enable is sourced in mazak_vqc_20_40.hal from spindle.0.on. Under
+# normal (non-HOLD) operation it would follow the same M3/M4 timing as
+# pwmgen.03.enable; while the HOLD is asserted, the FR-SX still sees
+# spindle-enable transition on M3/M4 but AOUT3 stays at 0 V because
+# pwmgen.03.enable is force-false in motion_7i80hdt.hal, so no rotation occurs.
 net spindle-enable     => hm2_7i80.0.7i84.0.0.output-02  # OUT2  FR-SX RUN/STOP
 # OUT3  hyd-pump-on         (netted in atc_orient.hal - Y096 HYD.M)
 # OUT4  spindle-orient-cmd  (netted in atc_orient.hal - Y093 ORCM1.M)

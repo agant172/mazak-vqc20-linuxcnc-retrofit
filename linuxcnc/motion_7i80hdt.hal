@@ -301,27 +301,69 @@ net z-vel-cmd  => hm2_7i80.0.pwmgen.01.value    # Z → pwmgen.01 (7i49 AOUT1)
 net z-enable   => hm2_7i80.0.pwmgen.01.enable
 
 # Spindle analog speed command to Mitsubishi FR-SX (pwmgen.03 -> 7i49 AOUT3).
-# TODO: confirm whether the FR-SX wants 0-10 V, +/-10 V, separate FWD/REV, or another mode.
-# FR-SX speed reference is most likely 0-10V UNIPOLAR -> offset-mode 0 (0V at zero command).
-# If it turns out to want bipolar +/-10V, set offset-mode 1 to match the axis outputs above.
+#
+# HOLD POINT - SPINDLE DRIVE POLARITY UNVERIFIED (audit 2026-08-07):
+# ------------------------------------------------------------------
+# Two mutually incompatible spindle-command architectures are wired in this
+# repo simultaneously:
+#   (A) UNIPOLAR 0-10 V magnitude via pwmgen.03 + discrete FWD/REV outputs
+#       on 7i84U-A OUT0/OUT1 (spindle-fwd / spindle-rev). This is the
+#       classic Mitsubishi FR-SX pattern for freq-inverter spindles.
+#   (B) BIPOLAR +/-10 V (sign encodes direction) via pwmgen.03 alone; no
+#       FWD/REV discretes.
+#
+# The current net feeds spindle.0.speed-out (SIGNED) directly into
+# pwmgen.03.value AND asserts OUT0/OUT1 direction discretes. On reverse
+# spindle (M4), speed-out goes NEGATIVE, so AOUT3 outputs negative voltage
+# to a drive whose FWD/REV state is already asserted on the discrete
+# inputs. If the FR-SX is (A), negative AOUT3 either latches an alarm or
+# is clipped to zero - reverse spindle produces no motion. If the FR-SX
+# is (B), the discrete FWD/REV outputs are redundant and may fight the
+# analog sign, and either the drive or the discrete-input wiring must be
+# removed.
+#
+# ACTION REQUIRED BEFORE FIRST SPINDLE ROTATION:
+#   1. Bench-measure the FR-SX speed-reference input polarity per its
+#      manual: connect a variable DC source to the AOUT3 terminal with
+#      the drive isolated from mains, run FWD/REV at the digital inputs,
+#      and observe whether the drive expects unsigned magnitude or signed
+#      voltage. Document the answer in docs/frsx_orient_model.md.
+#   2. Choose architecture (A) OR (B), not both.
+#   3. If (A): insert an 'abs' component between spindle.0.speed-out and
+#      pwmgen.03.value so AOUT3 never goes negative:
+#          loadrt abs count=1
+#          addf abs.0 servo-thread
+#          net spindle-speed-signed  <= spindle.0.speed-out
+#          net spindle-speed-signed  => abs.0.in
+#          net spindle-speed-mag     <= abs.0.out
+#          net spindle-speed-mag     => hm2_7i80.0.pwmgen.03.value
+#      Keep OUT0/OUT1 discrete FWD/REV as-is.
+#   4. If (B): remove spindle-fwd / spindle-rev writers in field_7i84u.hal
+#      and delete the OUT0/OUT1 nets. Keep the direct signed net below.
+#
+# HAL enable is gated by spindle-hold (below) - the enable is FORCED FALSE
+# until this HOLD is cleared. spindle.0.speed-out still feeds pwmgen.03.value
+# so bench measurement is possible with drives isolated, but the enable pin
+# cannot go true through normal M3/M4 while the hold is set.
 #
 # output-type 2 = Up/Down mode (7i49 requires this on all four analog channels).
 # scale = max spindle RPM at full-scale output. Per [SPINDLE_0]MAX_FORWARD_VELOCITY
-# in the INI, currently 4000 RPM. Previous value of 10 made 10 RPM = full-scale.
+# in the INI, currently 4000 RPM.
 setp hm2_7i80.0.pwmgen.03.output-type 2
 setp hm2_7i80.0.pwmgen.03.offset-mode 0
 setp hm2_7i80.0.pwmgen.03.scale       [SPINDLE_0]OUTPUT_SCALE
-# OPEN-LOOP spindle: speed command goes directly to pwmgen without PID.
-# pid.s is loaded (mazak_vqc_20_40.hal) but unconnected — pid.s.enable defaults
-# to false so it outputs 0 harmlessly. To close the loop once encoder feedback is
-# confirmed, replace the direct net below with:
-#   net spindle-vel-cmd-rpm  spindle.0.speed-out     => pid.s.command
-#   net spindle-vel-fb-rpm   hm2_7i80.0.encoder.NN.velocity => pid.s.feedback
-#   net spindle-pid-out      pid.s.output             => hm2_7i80.0.pwmgen.03.value
-#   net spindle-enable                                => pid.s.enable
+# OPEN-LOOP spindle placeholder: speed command goes directly to pwmgen without
+# PID. pid.s is loaded (mazak_vqc_20_40.hal) but unconnected - pid.s.enable
+# defaults to false so it outputs 0 harmlessly. Do NOT close the loop until
+# the HOLD above is cleared.
 net spindle-speed-cmd <= spindle.0.speed-out
 net spindle-speed-cmd => hm2_7i80.0.pwmgen.03.value
-net spindle-enable => hm2_7i80.0.pwmgen.03.enable
+# spindle-enable is force-FALSE until the drive-polarity HOLD is cleared.
+# 'sets spindle-enable-hold false' forces pwmgen.03.enable=0 regardless of
+# spindle.0.on. When the HOLD is cleared, replace the two lines below with:
+#   net spindle-enable => hm2_7i80.0.pwmgen.03.enable
+net spindle-enable-hold => hm2_7i80.0.pwmgen.03.enable
+sets spindle-enable-hold false
 
 # 7i49 AOUT4 (pwmgen.04) is SPARE.
 #
