@@ -230,7 +230,8 @@ sets spindle-at-speed true
 #   AOUT1 = Z axis velocity command  -> pwmgen.01
 #   AOUT2 = Y axis velocity command  -> pwmgen.02
 #   AOUT3 = FR-SX spindle velocity   -> pwmgen.03
-#   AOUT4 = FR-SX orient reference   -> pwmgen.04 (reserved)
+#   AOUT4 = SPARE (no external analog orient reference exists on FR-SX;
+#           orient is triggered by discrete ORCM1 command Y093, not analog)
 #   AOUT5 = spare                    -> pwmgen.05 (spare)
 #
 # TODO: confirm pwmgen instance -> axis mapping and pin names from readhmid / show pin hm2.
@@ -312,12 +313,27 @@ net spindle-speed-cmd <= spindle.0.speed-out
 net spindle-speed-cmd => hm2_7i80.0.pwmgen.03.value
 net spindle-enable => hm2_7i80.0.pwmgen.03.enable
 
-# FR-SX orient reference — analog output reserved on 7i49 AOUT4 (pwmgen.04).
-# Kept parked at zero until orient sequencing is wired in atc_orient.hal.
-# setp hm2_7i80.0.pwmgen.04.output-type 1
-# setp hm2_7i80.0.pwmgen.04.scale       10
-# net spindle-orient-ref => hm2_7i80.0.pwmgen.04.value
-# net spindle-orient-ena => hm2_7i80.0.pwmgen.04.enable
+# 7i49 AOUT4 (pwmgen.04) is SPARE.
+#
+# Earlier revisions of this file reserved AOUT4 as an 'FR-SX orient reference'.
+# That was wrong. The Mitsubishi FR-SX (SJ / FREQROL-SF family) spindle drive
+# does NOT accept an external analog orient reference. Per the FR-SF and
+# MDS-CH orient documentation, orient is triggered by a discrete NC-to-drive
+# command (ORC / ORCM1) with the target position selected either by:
+#   - a machine-side magnetic sensor (one-point orientation, MAGSENSOR on CN6)
+#   - a machine-side encoder (multi-point 4096p orientation on CN6)
+#   - the motor-built-in PLG detector (multi-point orientation on CN5)
+# Selection is by drive parameters (#41 OSL or SP037 enco/nsno/plgo bits).
+# The orient position is fixed by the sensor magnet or encoder Z-phase and
+# ratio, NOT commanded from LinuxCNC in real time.
+#
+# In this retrofit, orient is issued via 7i84U-B TB3 OUT4 (Y093 ORCM1.M)
+# to the FR-SX; arrival is monitored via the ORA feedback path
+# (see atc_orient.hal and mazak_orient.comp).
+#
+# num_pwmgens can be reduced from 4 to 3 in the mesa_config firmware once
+# the firmware is regenerated; until then pwmgen.04 remains allocated but
+# disabled and unconnected.
 
 #####################################################################
 # P3: unused (no bare-FPGA I/O bindings)

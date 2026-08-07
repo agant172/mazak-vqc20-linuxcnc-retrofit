@@ -15,7 +15,7 @@ control to LinuxCNC using Mesa Electronics FPGA hardware.
 
 - **LinuxCNC control PC** (Debian 13 / LinuxCNC 2.9.10) driving a **Mesa 7i80HDT** Ethernet FPGA host as the primary control board (`hm2_eth`, static IP 192.168.1.121).
 - **P1: Mesa 7i44** — RS-422 sserial breakout. Port 0 → **7i84U-A** for ATC, hydraulics, coolant, air, magazine, utility I/O, and cabinet field wiring; port 1 → **7i84U-B** for safety inputs and relay-driven loads; ports 2-7 spare.
-- **P2: Mesa 7i49** — plain 7i49 (not 7i49HV). X/Y/Z resolver feedback on RES0/1/2 + X/Z/Y servo velocity command and FR-SX spindle velocity + orient reference on AOUT0..AOUT4.
+- **P2: Mesa 7i49** — plain 7i49 (not 7i49HV). X/Y/Z resolver feedback on RES0/1/2 + X/Z/Y servo velocity command on AOUT0..AOUT2 and FR-SX spindle velocity on AOUT3. AOUT4/AOUT5 spare. FR-SX orient is a DISCRETE ORCM1 command on 7i84U-B (not analog); see [`frsx_orient_model.md`](frsx_orient_model.md).
 - **P3: unused/spare** — no daughter card is fitted; all pins are bare-FPGA GPIO. Not safe for 24 V field wiring. The Renishaw MP-3 probe SKIP1 was moved off P3 and now lands on 7i84U-B TB3 IN15.
 - **7i84U-B I/O allocation**: TB3 IN0-5 = X/Y/Z limits, TB3 IN6-8 = X/Y/Z homes, TB3 IN15 = Renishaw MP-3 probe; TB3 OUT0-2 = X/Y/Z drive enables; TB3 OUT3-7 = air blast, touch-sensor blast, tap-coolant blast, ATC barrier, and flood valve. (7i84 layout: TB1 = power connector; TB3 = IN0-15 + OUT0-7; TB2 = IN16-31 + OUT8-15.)
 - **Optional WHB04B-style USB pendant** after base machine safety/motion is proven.

@@ -53,7 +53,10 @@ loadrt hm2_eth board_ip="192.168.1.121" config="num_encoders=1 num_resolvers=3 n
 # num_encoders=1: reserve one encoder channel for the spindle encoder (part# TBD).
 #   Adjust count if readhmid shows a different layout for the encoder instances.
 # num_pwmgens=4: 7i49 P2 AOUT0=X, AOUT1=Z, AOUT2=Y, AOUT3=spindle velocity.
-#   AOUT4 reserved for FR-SX orient reference; AOUT5 spare. All bipolar +/-10V.
+#   AOUT4/AOUT5 spare. All bipolar +/-10V. FR-SX orient uses a DISCRETE
+#   ORCM1 command on 7i84U-B (Y093), NOT an analog reference — the FR-SX
+#   does not accept an external analog orient reference. See
+#   docs/frsx_orient_model.md and motion_7i80hdt.hal comments.
 # sserial_port_0=00xxxxxx: enable channels 0 and 1 in mode 0 (00) and disable
 #   channels 2..7 (xxxxxx). Per hostmot2(9), each character in the sserial_port_N
 #   string configures ONE CHANNEL of a single sserial port (each port has 1-8

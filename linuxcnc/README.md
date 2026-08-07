@@ -12,7 +12,7 @@ The selected retrofit architecture is:
 
 - LinuxCNC control PC connected to the Mesa **7i80HDT** over Ethernet (`hm2_eth`, static IP 192.168.1.121). The 7i80HDT is a bare-FPGA Ethernet host with three 50-pin daughter connectors (P1/P2/P3) and 72 IO total.
 - Mesa **7i44 on P1** — 8-channel RS-422 smart-serial breakout. Port 0 carries **7i84U-A** near the existing green breakout PCB; port 1 carries **7i84U-B**; ports 2-7 are spare.
-- Mesa **7i49 on P2** — plain 7i49 (not 7i49HV). Provides X/Y/Z resolver feedback on RES0/1/2 and X/Y/Z servo velocity commands + FR-SX spindle velocity command + FR-SX orient reference on ±10V analog outputs AOUT0..AOUT4. RES3-RES5 and AOUT5 are spare.
+- Mesa **7i49 on P2** — plain 7i49 (not 7i49HV). Provides X/Y/Z resolver feedback on RES0/1/2 and X/Y/Z servo velocity commands + FR-SX spindle velocity command on ±10V analog outputs AOUT0..AOUT3. RES3-RES5 and AOUT4-AOUT5 are spare. FR-SX orient is triggered by the DISCRETE ORCM1 command (7i84U-B Y093), not by any analog reference — see [`docs/frsx_orient_model.md`](../docs/frsx_orient_model.md).
 - **P3 unused/spare** — no daughter card fitted; all bare-FPGA GPIO. Not safe for 24 V field wiring. Probe was moved to 7i84U-B TB3 IN15.
 - Mesa **7i84U-A on 7i44 port 0** — remote field I/O for ATC, hydraulics, coolant, air, magazine, and utility field I/O.
 - Mesa **7i84U-B on 7i44 sserial channel 1** — TB3 IN0-5 X/Y/Z limits, TB3 IN6-8 X/Y/Z homes, TB3 IN15 Renishaw MP-3 probe, TB3 OUT0-2 X/Y/Z drive enables, and TB3 OUT3-7 relay-driven loads. (Mesa 7i84 layout: TB1 = power, TB3 = IN0-15 + OUT0-7, TB2 = IN16-31 + OUT8-15.)
