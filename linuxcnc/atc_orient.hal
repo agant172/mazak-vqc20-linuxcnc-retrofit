@@ -127,7 +127,7 @@ net gear-hi-sol           => hm2_7i80.0.7i84.0.0.output-07  # OUT7  Y00B GSH.M
 # wiring/authority_conflicts.md section 1). Left unbound on purpose: the comp
 # still drives the net, so it can be watched in halscope before wiring.
 # net gear-lo-sol         => hm2_7i80.0.7i84.0.0.output-08  # OUT8  Y00C GSL.M
-net atc-barrier           => hm2_7i80.0.gpio.054.out        # P3 7i37TA OUT6 (was 7i97T TB5 SSR OUT3 Y095)
+net atc-barrier           => hm2_7i80.0.gpio.054.out        # P3 7i37TA OUT6 (PLC Y095 TCME.M)
 setp hm2_7i80.0.gpio.054.is_output 1
 
 #####################################################################

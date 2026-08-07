@@ -30,7 +30,6 @@ HAL_FILES = [
 ]
 INI_FILE = "linuxcnc/mazak_vqc_20_40.ini"
 AUTHORITY = "mesa/current_pin_authority.csv"
-STALE_MAP = "mesa/signal_map.csv"
 
 NET_RE = re.compile(r"^\s*(#\s*)?net\s+(\S+)\s*(.*)$")
 SETP_RE = re.compile(r"^\s*(#\s*)?setp\s+(\S+)\s+(\S+)")
@@ -172,13 +171,6 @@ def expected_for(sig_id, direction, status):
 def build(root):
     nets, setps = parse_hal(root)
     auth = csv_rows_with_lines(os.path.join(root, AUTHORITY))
-    stale = csv_rows_with_lines(os.path.join(root, STALE_MAP))
-
-    stale_by_id = {}
-    for r in stale:
-        if r.get("Machine Signal Name"):
-            stale_by_id.setdefault(r["Machine Signal Name"], r)
-
     conflict_by_signal = {}
     for c in E.CONFLICTS:
         for s in c["signals"]:
@@ -214,24 +206,6 @@ def build(root):
 
         expected = expected_for(sid, direction, status)
 
-        stale_row = stale_by_id.get(sid)
-        stale_note = None
-        if stale_row:
-            stale_note = {
-                "line": stale_row["_line"],
-                "card": stale_row.get("Mesa Card", ""),
-                "conn": stale_row.get("Mesa Conn", ""),
-                "channel": stale_row.get("Mesa Bit / Channel", ""),
-                "net": stale_row.get("LinuxCNC HAL Net", ""),
-                "status": stale_row.get("Status", ""),
-                "differs": (
-                    stale_row.get("Mesa Card", "") != r["mesa_card"]
-                    or stale_row.get("Mesa Bit / Channel", "").upper().replace(" ", "")
-                    not in r["pin_channel"].upper().replace(" ", "")
-                    or stale_row.get("LinuxCNC HAL Net", "") != net
-                ),
-            }
-
         sources = [{
             "file": "mesa/current_pin_authority.csv",
             "lines": str(r["_line"]),
@@ -247,14 +221,6 @@ def build(root):
             sources.append({
                 "file": s["file"], "lines": str(s["line"]),
                 "note": ("commented out \u2014 " if s["commented"] else "") + s["text"],
-            })
-        if stale_note:
-            sources.append({
-                "file": "mesa/signal_map.csv",
-                "lines": str(stale_note["line"]),
-                "note": "STALE companion row: %s %s %s \u2192 %s (%s)" % (
-                    stale_note["card"], stale_note["conn"], stale_note["channel"],
-                    stale_note["net"] or "none", stale_note["status"]),
             })
         if r["primary_source"]:
             sources.append({
@@ -309,7 +275,7 @@ def build(root):
             "consumers": cons,
             "hal_refs": hal_refs,
             "setp_refs": setp_refs,
-            "stale_row": stale_note,
+
             "sources": sources,
             "conflicts": conflict_by_signal.get(sid, []),
             "authority_line": r["_line"],
@@ -367,13 +333,6 @@ def build(root):
         srcs = [{"file": r["file"], "lines": str(r["line"]),
                  "note": ("commented out \u2014 " if r["commented"] else "") + r["text"]}
                 for r in refs]
-        st = stale_by_id.get(next((k for k, v in stale_by_id.items()
-                                   if v.get("LinuxCNC HAL Net") == net), ""), None)
-        if st:
-            srcs.append({"file": "mesa/signal_map.csv", "lines": str(st["_line"]),
-                         "note": "STALE source of this net: %s %s %s (%s)" % (
-                             st.get("Mesa Card", ""), st.get("Mesa Conn", ""),
-                             st.get("Mesa Bit / Channel", ""), st.get("Status", ""))})
         signals.append({
             "id": "NET_" + net.upper().replace("-", "_"),
             "name": net,
@@ -386,14 +345,14 @@ def build(root):
             "subsystem": "Unmapped",
             "machine_subsystem": "Unmapped",
             "status": "CONFIG_ONLY",
-            "field_point": (st.get("Function", "") if st else "") or "Not in the wiring authority",
-            "designations": designations(st.get("Mazak Label / Drawing Ref", "") if st else ""),
-            "primary_source": "mesa/signal_map.csv (stale)" if st else "HAL config only",
+            "field_point": "Not in the wiring authority",
+            "designations": [],
+            "primary_source": "HAL config only",
             "cleanup_notes": "No row in current_pin_authority.csv. " + (
                 "Active in HAL \u2014 remove or add an authority row before loading against field wiring."
                 if active else "Commented out in HAL."),
             "location": "Unknown \u2014 no authority row, trace in cabinet",
-            "location_note": "Derived from the stale signal_map.csv layout." if st else "",
+            "location_note": "",
             "expected": {"value": "Unknown", "label": "Unknown \u2014 measure/verify",
                          "basis": "No authority row and no normal-state evidence.",
                          "kind": "unknown"},
@@ -403,9 +362,8 @@ def build(root):
             "consumers": cons2,
             "hal_refs": refs,
             "setp_refs": [],
-            "stale_row": None,
             "sources": srcs,
-            "conflicts": ["C1" if is_in else "C2", "C8"],
+            "conflicts": ["C1" if is_in else "C2"],
             "authority_line": None,
         })
 
@@ -427,7 +385,7 @@ def build(root):
         "halfiles": halfiles,
         "board_ip": "192.168.1.121",
         "rules": [
-            "mesa/current_pin_authority.csv is the wiring authority. It supersedes mesa/signal_map.csv.",
+            "mesa/current_pin_authority.csv is the wiring authority.",
             "7i49 AOUT axis order is X=AOUT0, Z=AOUT1, Y=AOUT2.",
             "Axis feedback is Tamagawa TS2014N resolver through the 7i49 on P2, not quadrature encoder.",
             "The hardware E-stop chain removes hazardous power. The 7i80HDT P3 breakout IN9 (gpio.041) is a monitor input only; 7i84U IN29 is a redundant status.",

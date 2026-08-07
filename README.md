@@ -21,13 +21,9 @@ control to LinuxCNC using Mesa Electronics FPGA hardware.
 - **LinuxCNC control PC** (Debian 13 / LinuxCNC 2.9.10) driving a **Mesa 7i80HDT** Ethernet FPGA host as the primary control board (`hm2_eth`, static IP 192.168.1.121).
 - **P1 → 7i44** — RS-422 smart-serial breakout. Port 0 carries the 7i84U; ports 1-7 are spare for future MPG / 4th-axis / second 7i84.
 - **P2 → 7i49** (plain 7i49) — X/Y/Z resolver feedback on RES0/1/2 + X/Z/Y servo velocity command + FR-SX spindle velocity + FR-SX orient reference on AOUT0..AOUT4.
-- **P3 → 7i37TA field breakout** — 24 direct FPGA GPIO for motion-critical, host-side, low-latency I/O: X/Y/Z limits, X/Y/Z homes, E-stop chain monitor, Renishaw MP-3 probe SKIP1, X/Y/Z drive-enable outputs, and 6 former TB5 SSR overflow outputs (5 used + 1 spare).
-- **7i84U on 7i44 port 0** — remote field-I/O expansion for ATC, hydraulics, coolant, air, magazine, utility I/O near the existing green breakout PCB. Pin plan committed 2026-08-03 (single-7i84U I/O plan) unchanged.
+- **P3 → 7i37TA field breakout** — 24 direct FPGA GPIO for motion-critical, host-side, low-latency I/O: X/Y/Z limits, X/Y/Z homes, E-stop chain monitor, Renishaw MP-3 probe SKIP1, X/Y/Z drive-enable outputs, and 6 relay-driven outputs (5 used + 1 spare).
+- **7i84U on 7i44 port 0** — remote field-I/O expansion for ATC, hydraulics, coolant, air, magazine, utility I/O near the existing green breakout PCB.
 - **Optional WHB04B-style USB pendant** after the base machine is proven safe.
-
-> **Previous / rejected plans (historical):**
-> 1. **PCIe tower-card stack** (6i25 + 7i77 + 7i84 + optional 7i85/7i85S). Superseded 2025.
-> 2. **7i97T + 7i84U + 7i49 Ethernet stack** (used from 2025 through 2026-08-05). The 7i97T is being returned to Mesa; the current 7i80HDT + 7i44 + 7i49 + 7i84U + P3 breakout stack replaces it (2026-08-06).
 
 Full rationale: [docs/architecture_decision.md](docs/architecture_decision.md).
 
@@ -36,12 +32,12 @@ Full rationale: [docs/architecture_decision.md](docs/architecture_decision.md).
 | Area | Status |
 |---|---|
 | Repo created & structured | ✅ Completed |
-| **7i80HDT + 7i44 + 7i49 + 7i84U + P3 breakout architecture (2026-08-06)** | ✅ Completed |
+| **7i80HDT + 7i44 + 7i49 + 7i37TA + 7i84U architecture** | ✅ Completed |
 | 7i49 resolver feedback interface (plain, 5 kHz) | ✅ Completed |
 | Tamagawa TS2014N resolver identification | ✅ Completed |
 | I/O workbook created | ✅ Completed |
-| HAL/INI bring-up skeleton drafted (7i80HDT stack) | ✅ Completed |
-| Pin authority CSV rewritten around 7i80HDT stack | ✅ Completed |
+| HAL/INI bring-up skeleton drafted | ✅ Completed |
+| Pin authority CSV finalized | ✅ Completed |
 | Mesa firmware / photo checklists drafted | ✅ Completed |
 | Order 7i80HDT + 7i44 + 7i37TA | 🔄 In progress |
 | Collect cabinet photos | 🔄 In progress |
@@ -57,7 +53,6 @@ Full rationale: [docs/architecture_decision.md](docs/architecture_decision.md).
 
 **Immediate**
 - Order the 7i80HDT, 7i44, and 7i37TA (7i49 and 7i84U already in hand / buy list).
-- Return the 7i97T to Mesa.
 - Confirm PCW-generated firmware bitfile `7i80hdt_7i44_ss_7i49d.bit` and stash it under `mesa/` once received.
 - Confirm 7i80HDT Ethernet setup: static IP 192.168.1.121, `hm2_eth` `board_ip="192.168.1.121"`, and host NIC `enp0s31f6` at 192.168.1.1/24.
 - Confirm 24 V field power feed (OEM HR-11F-24 + retrofit DR-240-24, kept isolated) and 7i80HDT / 7i84U / 7i37TA I/O sourcing/sinking behavior before wiring.
@@ -67,7 +62,7 @@ Full rationale: [docs/architecture_decision.md](docs/architecture_decision.md).
 
 **Next**
 - LinuxCNC latency test on the control PC (already validated on Debian 13 / RT kernel).
-- Install the 7i80HDT + 7i44 + 7i49 + 7i84U + P3 breakout; save `mesa_readhmid.txt` and the actual `mesa_hal_pins.txt` dump.
+- Install the 7i80HDT + 7i44 + 7i49 + 7i37TA + 7i84U; save `mesa_readhmid.txt` and the actual `mesa_hal_pins.txt` dump.
 - Replace placeholder `hm2_7i80.0...` pin names in HAL from the real pin dump.
 - Set the 7i49 resolver excitation to **5 kHz** (Tamagawa TS2014N spec is 4.5 kHz; the 7i49 offers 2.5 / 5 / 10 kHz, so 5 kHz is the closest working baseline).
 - Identify each axis resolver winding pair with an **ohmmeter before applying power** (rotor pair R1/R2 → RESDRV±, matched stator pairs S1-S3, S2-S4 → RESSIN and RESCOS); verify, don't assume.
@@ -110,19 +105,17 @@ any non-GET request. Regenerate `data.js` after editing the repo with
 ├── docs/              # Architecture decision, checklists, photo-sorting, project status
 ├── io-dashboard/      # Offline single-page I/O navigator (generated from mesa/ + linuxcnc/)
 ├── linuxcnc/          # LinuxCNC INI/HAL bring-up skeletons, ATC/orient components, remapped M6
-├── mesa/              # Mesa pin authority (`current_pin_authority.csv`), firmware checklist, superseded signal map
+├── mesa/              # Mesa pin authority (`current_pin_authority.csv`), firmware checklist
 ├── wiring/            # Wiring / field-I/O planning references
 ├── photos/            # Placeholder only — no raw photos/videos committed
-├── notes/             # Working notes and research
-└── archive/           # Old files and reference material
+└── notes/             # Working notes and research
 ```
 
 ### Key files
 - [docs/project_status.md](docs/project_status.md) — status tracker and full TODO list.
-- [docs/architecture_decision.md](docs/architecture_decision.md) — 7i80HDT + 7i44 + 7i49 + 7i84U + P3 breakout architecture decision.
-- [mesa/current_pin_authority.csv](mesa/current_pin_authority.csv) — authoritative pin authority for the new stack.
+- [docs/architecture_decision.md](docs/architecture_decision.md) — architecture decision.
+- [mesa/current_pin_authority.csv](mesa/current_pin_authority.csv) — authoritative pin map.
 - [mesa/mesa_firmware_checklist.md](mesa/mesa_firmware_checklist.md) — info to collect before finalizing HAL.
-- [mesa/signal_map.csv](mesa/signal_map.csv) — **superseded** historical signal map; see the [supersession notice](mesa/signal_map.csv.SUPERSEDED_NOTICE.md).
 - [docs/cabinet_photo_checklist.md](docs/cabinet_photo_checklist.md) — what to photograph.
 - [docs/README_photo_sorting.md](docs/README_photo_sorting.md) — photo folder scheme.
 - [linuxcnc/README.md](linuxcnc/README.md) — skeleton file guide and bring-up order.

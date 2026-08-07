@@ -24,15 +24,11 @@ GPIO breakout, and LinuxCNC HAL pin names.
 - **P3 field breakout (7i37TA or equivalent 50-pin card)** — direct FPGA GPIO for
   motion-critical, host-side, low-latency I/O: X/Y/Z limits (6 IN), X/Y/Z homes
   (3 IN), E-stop chain monitor (1 IN), Renishaw MP-3 probe SKIP1 (1 IN), X/Y/Z
-  drive-enable outputs (3 OUT), and six former TB5 SSR overflow outputs (air blast,
+  drive-enable outputs (3 OUT), and six relay-driven outputs (air blast,
   touch sensor blast, tap coolant blast, ATC barrier solenoid, flood valve, spare).
 - Chosen firmware/bitfile is `7i80hdt_7i44_ss_7i49d.bit` (PCW-provided). Bitfile
   configuration: sserial ports on P1 (from 7i44), 7i49 resolver+analog on P2, direct
   GPIO on P3.
-
-> The old 6i25 + 7i77 + optional 7i85/7i85S plan is historical/superseded. The 7i97T
-> + 7i84U + 7i49 plan is also historical/superseded as of 2026-08-06 (7i97T returning
-> to Mesa). Do not configure firmware for either.
 
 ## Information to record
 

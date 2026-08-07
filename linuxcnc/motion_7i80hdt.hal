@@ -13,11 +13,10 @@
 #   P2: 7i49 (6 resolver channels + 6× ±10V analog outs)
 #   P3: 7i37TA field breakout (motion-critical direct FPGA GPIO)
 #
-# The old 7i97T TB3/TB5 assignments (X/Y/Z limits, homes, E-stop, drive-enables,
-# probe, and TB5 SSR outputs) now live on the P3 7i37TA as direct FPGA GPIO.
-# Every previous `hm2_7i97.0.gpio.NNN.*` reference has been renamed to
-# `hm2_7i80.0.gpio.NNN.*` with a placeholder index — replace with the real
-# indices reported by `halcmd show pin hm2` after firmware load.
+# X/Y/Z limits, homes, E-stop monitor, probe SKIP1, drive-enables, and the
+# TB5 SSR overflow outputs all land on the P3 7i37TA as direct FPGA GPIO.
+# The `hm2_7i80.0.gpio.NNN.*` indices below are placeholders — replace with
+# the real indices reported by `halcmd show pin hm2` after firmware load.
 
 #####################################################################
 # Resolver feedback channels (via Mesa 7i49 on P2)
@@ -295,15 +294,15 @@ net probe-in => motion.probe-input
 # Drive enable outputs — P3 7i37TA OUT0/1/2 (direct FPGA GPIO)
 #####################################################################
 #
-# P3 7i37TA OUT block (drive enables + former TB5 SSR overflow) — confirmed mapping:
+# P3 7i37TA OUT block — confirmed mapping:
 #   OUT0 = X_DRIVE_ENABLE  → gpio.048   (X servo S-ON to MELDAS DK-427)
 #   OUT1 = Z_DRIVE_ENABLE  → gpio.049   (Z servo S-ON to MELDAS DK-427)
 #   OUT2 = Y_DRIVE_ENABLE  → gpio.050   (Y servo S-ON to MELDAS DK-427)
-#   OUT3 = AIR_BLAST       → gpio.051   (was 7i97T TB5 SSR OUT0 → SOL-62 via RLY-5)
-#   OUT4 = TOUCH_BLAST     → gpio.052   (was 7i97T TB5 SSR OUT1 → SOL-35 via RLY-6)
-#   OUT5 = TAP_COOL_BLAST  → gpio.053   (was 7i97T TB5 SSR OUT2 → SOL-61 via RLY-7)
-#   OUT6 = ATC_BARRIER_SOL → gpio.054   (was 7i97T TB5 SSR OUT3 → PLC Y095 TCME.M)
-#   OUT7 = FLOOD_VALVE     → gpio.055   (was 7i97T TB5 SSR OUT4 → PLC Y011 FCL)
+#   OUT3 = AIR_BLAST       → gpio.051   (SOL-62 via RLY-5)
+#   OUT4 = TOUCH_BLAST     → gpio.052   (SOL-35 via RLY-6)
+#   OUT5 = TAP_COOL_BLAST  → gpio.053   (SOL-61 via RLY-7)
+#   OUT6 = ATC_BARRIER_SOL → gpio.054   (PLC Y095 TCME.M)
+#   OUT7 = FLOOD_VALVE     → gpio.055   (PLC Y011 FCL)
 #   OUT8 = spare           → gpio.056
 # The same drive-enable net also gates the pwmgen output (set above in axis wiring).
 

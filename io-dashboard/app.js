@@ -295,7 +295,7 @@
     } else if (state.view === 'ALL') {
       h = 'All signals';
       p = 'Merged from ' + D.meta.authority_file + ' (wiring authority) and the HAL configuration. ' +
-        'Rows marked "in HAL only" have no authority row and come from the stale mesa/signal_map.csv layout.';
+        'Rows marked "in HAL only" have no authority row.';
       meta.appendChild(el('span', null, SIGNALS.length + ' rows total'));
       meta.appendChild(el('span', null, (SIGNALS.length - D.orphan_nets.length) +
         ' authority rows + ' + D.orphan_nets.length + ' HAL-only nets'));
@@ -727,21 +727,6 @@
       });
       ss.appendChild(sl);
       body.appendChild(ss);
-    }
-
-    /* stale row */
-    if (s.stale_row) {
-      var st2 = section('Stale mapping (do not use)');
-      var p = el('div', 'd-notes');
-      p.appendChild(el('p', null,
-        'mesa/signal_map.csv:' + s.stale_row.line + ' assigns this signal to ' +
-        [s.stale_row.card, s.stale_row.conn, s.stale_row.channel].filter(Boolean).join(' ') +
-        (s.stale_row.status ? ' (' + s.stale_row.status + ')' : '') + '.'));
-      p.appendChild(el('p', null, s.stale_row.differs
-        ? 'This disagrees with the current authority row above. The authority wins.'
-        : 'This agrees with the current authority row.'));
-      st2.appendChild(p);
-      body.appendChild(st2);
     }
 
     $('scrim').hidden = false;

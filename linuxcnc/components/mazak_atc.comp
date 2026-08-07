@@ -75,7 +75,7 @@ pin out bit cycle_active
     "M160 TCME - ATC in progress (rung 6504).";
 pin out bit atc_barrier
     "Y095 TCME.M barrier extend (rung 6505). Net: atc-barrier "
-    "(7i80HDT P3 7i37TA OUT6, PROPOSED - device existence unverified; was 7i97T TB5 SSR OUT3 in the superseded stack).";
+    "(7i80HDT P3 7i37TA OUT6, PROPOSED - device existence unverified on SN 060231).";
 
 //
 // Cycle selection - rungs 6509/6510/6511 (TS0 / T0 / EQTST).

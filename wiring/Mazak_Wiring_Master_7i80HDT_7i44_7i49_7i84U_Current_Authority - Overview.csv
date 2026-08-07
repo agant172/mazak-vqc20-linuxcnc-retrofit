@@ -8,5 +8,3 @@ Feedback rule,"Axis feedback is Tamagawa TS2014N resolver feedback through the 7
 Safety rule,"The hardware E-stop chain removes hazardous power. The 7i80HDT P3 breakout IN9 (gpio.041) is a monitor input only, backed up by 7i84U IN29 as a redundant status."
 Channel order,"7i49 AOUT order is X=AOUT0, Z=AOUT1, Y=AOUT2, FR-SX spindle velocity=AOUT3, FR-SX orient reference=AOUT4 (reserved)."
 Included diagrams,"7i80HDT P1/P2/P3 daughter-card map; 7i44 sserial-port map; 7i49 resolver + analog map; P3 7i37TA terminal map; 7i84U field I/O; HAL cross-reference; open items/conflicts."
-Original workbook,The prior 7i97T-era workbook remains unchanged as the backup/reference copy.
-Supersedes,"Mazak_Wiring_Master_7i97T_7i49_7i84U_Current_Authority (2025 through 2026-08-05) — the 7i97T is being returned to Mesa."

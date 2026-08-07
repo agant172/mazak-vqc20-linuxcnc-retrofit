@@ -39,7 +39,7 @@ STATUS = {
         "tone": "conflict",
         "order": 5,
         "blurb": "This net exists in the HAL config but has no row in current_pin_authority.csv. "
-                 "It traces back to the stale mesa/signal_map.csv layout. Not a wiring instruction.",
+                 "Not a wiring instruction.",
         "safe_to_energize": "BLOCKED. No authority row exists for this channel.",
     },
     "ACCEPTED_VERIFY": {
@@ -245,7 +245,7 @@ LOCATION = {
                    "Axis feedback", "BKO-NC6062A; Z amp cable CA1 / BBIA-1 CN3"),
     "SPINDLE_ENCODER_RESERVED": ("Spindle head \u2014 machine-side A/B/Z encoder if fitted",
                                  "Spindle feedback", "Part number not confirmed. Tacho TGF-3D P402-Sx feeds the FR-SX loop, not LinuxCNC."),
-    "TB2_AXIS_ENCODERS": ("Control cabinet \u2014 legacy 7i97T TB2 encoder inputs, unused (feedback comes through 7i49 P2 resolver channels)",
+    "TB2_AXIS_ENCODERS": ("Control cabinet \u2014 axis encoder inputs, unused; feedback comes through 7i49 P2 resolver channels",
                           "Axis feedback", "Architecturally excluded: feedback is resolver via 7i49."),
     "X_DRIVE_ENABLE": ("Servo bay \u2014 X TRA-series servo amp, S-ON terminal", "Servo drives", "X/Y amp path via CA3/CA4 (BBIA-1 CN1/CN2)"),
     "Y_DRIVE_ENABLE": ("Servo bay \u2014 Y TRA-series servo amp, S-ON terminal", "Servo drives", "X/Y amp path via CA3/CA4"),
@@ -305,8 +305,7 @@ LOCATION = {
     "LUBE_LEVEL": ("Lube pump station \u2014 level/pressure switch", "Lubrication",
                    "PS-5 head lube pressure exists separately. Alarm table shows two lube systems (AL-54 way, AL-56 head)."),
     "COOLANT_LEVEL": ("Coolant tank \u2014 level switch", "Coolant", ""),
-    "HYD_PRESS_OK": ("Hydraulic power unit \u2014 Sanwa SPS-8T-PC-20 pressure switch", "Hydraulics",
-                     "Supersedes the stale signal_map.csv TB5 IN16 row"),
+    "HYD_PRESS_OK": ("Hydraulic power unit \u2014 Sanwa SPS-8T-PC-20 pressure switch", "Hydraulics", ""),
     "CYCLE_START_PB": ("Operating panel A/B \u2014 cycle start pushbutton", "Operator panel", ""),
     "FEED_HOLD_PB": ("Operating panel A/B \u2014 feed hold pushbutton", "Operator panel", ""),
     "SINGLE_BLOCK_SW": ("Operating panel A/B \u2014 single block selector", "Operator panel", ""),
@@ -373,7 +372,7 @@ CONFLICTS = [
             "y-drive-fault: HAL input-13 (field_7i84u.hal:36) vs authority IN11 (current_pin_authority.csv:54)",
             "z-drive-fault: HAL input-14 (field_7i84u.hal:38) vs authority IN12 (current_pin_authority.csv:55)",
             "HAL nets with no authority row at all: mag-in-pos (in-04), tool-code-0..4 (in-05..09), "
-            "coolant-low (in-10), air-ok (in-11). These trace back to the stale mesa/signal_map.csv.",
+            "coolant-low (in-10), air-ok (in-11).",
         ],
         "action": "Re-issue field_7i84u.hal from current_pin_authority.csv before loading HAL against "
                   "live field wiring. Until then the HAL channel numbers must not be used to land wires.",
@@ -408,23 +407,20 @@ CONFLICTS = [
         "id": "C3",
         "title": "Spindle control: 7i49 AOUT3 velocity vs 7i84U FWD/REV/ENA",
         "severity": "conflict",
-        "summary": "Two mutually exclusive plans exist for commanding the FR-SX. The authority marks the "
-                   "TB3 candidate HOLD_CONFLICT while also listing three 7i84U outputs for the same job.",
+        "summary": "The FR-SX has an analog speed command (7i49 AOUT3) and separate digital FWD/REV/ENA "
+                   "lines (7i84U TB2 OUT0-2). The commented HAL channels do not match the authority.",
         "detail": [
-            "SPINDLE_LEGACY_ENABLE_CANDIDATE (historical 7i97T path): TB3.13/TB3.14 ENA3\u00b1, net spindle-enable, "
-            "HOLD_CONFLICT (current_pin_authority.csv:13)",
             "motion_7i80hdt.hal:265 nets spindle-enable from spindle.0.on and line 177 also uses it to "
             "gate pwmgen.03.enable, so the net is already live in the analog path",
             "motion_7i80hdt.hal:266 comment says \"Spindle enable/dir routed via 7i84U sserial\"",
             "field_7i84u.hal:85-90 has spindle-fwd/rev/enable to 7i84U output-11/12/13 \u2014 all commented out",
-            "The authority instead places SPINDLE_FWD/REV/ENA on 7i84U TB2 OUT0/OUT1/OUT2 "
-            "(current_pin_authority.csv:75-77), which does not match the commented HAL channel numbers either",
+            "The authority places SPINDLE_FWD/REV/ENA on 7i84U TB2 OUT0/OUT1/OUT2 "
+            "(current_pin_authority.csv:78-80), which does not match the commented HAL channel numbers",
         ],
         "action": "Pick one control path. Confirm the FR-SX terminal set (2-wire vs 3-wire, sink vs source) "
                   "before wiring either. Note that spindle-enable currently doubles as the pwmgen enable.",
-        "signals": ["SPINDLE_TB3_ENABLE_CANDIDATE", "SPINDLE_FWD", "SPINDLE_REV", "SPINDLE_ENA",
-                    "SPINDLE_SPEED_CMD"],
-        "sources": ["mesa/current_pin_authority.csv:13,75-77", "linuxcnc/motion_7i80hdt.hal:177,265-266",
+        "signals": ["SPINDLE_FWD", "SPINDLE_REV", "SPINDLE_ENA", "SPINDLE_SPEED_CMD"],
+        "sources": ["mesa/current_pin_authority.csv:13,78-80", "linuxcnc/motion_7i80hdt.hal:177,265-266",
                     "linuxcnc/field_7i84u.hal:84-90"],
     },
     {
@@ -518,35 +514,6 @@ CONFLICTS = [
                     "linuxcnc/field_7i84u.hal:42"],
     },
     {
-        "id": "C8",
-        "title": "mesa/signal_map.csv is stale and must not be used for wiring",
-        "severity": "stale",
-        "summary": "The older signal map contradicts the authority on TB5 ordering, drive-fault board, "
-                   "hydraulic pressure, and the 7i84U field layout. It also uses a TB6 output bank that "
-                   "the authority does not recognise.",
-        "detail": [
-            "TB5 order: signal_map.csv:10-18 puts homes first (X_HOME=IN0); the authority puts limits "
-            "first (X_LIMIT_PLUS=TB5.1 IN0) \u2014 current_pin_authority.csv:23-31",
-            "Drive faults: signal_map.csv:19-21 places X/Y/Z drive faults on legacy 7i97T TB5 IN9-11; the "
-            "authority places them on 7i84U IN10-12",
-            "E-stop: signal_map.csv:23 says TB5 IN13; the authority says TB5.10 IN9 gpio.017",
-            "HYD_PRESS_OK: signal_map.csv:26 says legacy 7i97T TB5 IN16; the authority says 7i84U IN27 and "
-            "explicitly calls the old row stale (current_pin_authority.csv:70)",
-            "Outputs: signal_map.csv:30-37 uses a legacy 7i97T \"TB6\" output bank that does not appear in the "
-            "authority at all; drive enables are on TB3 ENA pins instead",
-            "7i84U: signal_map.csv:38-60 is an entirely different field layout that field_7i84u.hal still "
-            "follows",
-            "mesa/README.md:16-19 \u2014 \"Some rows are stale and conflict with the active HAL and Phase 2 "
-            "review, especially TB5 homes/limits/E-stop and 7i84U field I/O.\"",
-        ],
-        "action": "Use current_pin_authority.csv only. Keep signal_map.csv for comparison until it is "
-                  "regenerated.",
-        "signals": ["X_HOME", "Y_HOME", "Z_HOME", "X_LIMIT_PLUS", "ESTOP_CHAIN", "HYD_PRESS_OK",
-                    "X_DRIVE_FAULT", "Y_DRIVE_FAULT", "Z_DRIVE_FAULT"],
-        "sources": ["mesa/signal_map.csv:10-60", "mesa/current_pin_authority.csv:23-34,53-55,70",
-                    "mesa/README.md:16-19"],
-    },
-    {
         "id": "C9",
         "title": "Magazine rotation direction SOL-8A/8B is unassigned and contradicted",
         "severity": "conflict",
@@ -620,7 +587,7 @@ BOARDS = {
         "role": "Motion-critical direct FPGA GPIO breakout (on 7i80HDT P3)",
         "detail": "24-bit isolated field-I/O breakout: 16 isolated IN + 8 isolated OUT. Carries X/Y/Z "
                   "limits (IN0-5), X/Y/Z homes (IN6-8), E-stop monitor (IN9), probe SKIP1 (IN10); "
-                  "X/Y/Z drive-enable (OUT0-2), and 5 former TB5 SSR overflow outputs (OUT3-7) plus "
+                  "X/Y/Z drive-enable (OUT0-2), and 5 relay-driven outputs (OUT3-7) plus "
                   "1 spare (OUT8). Interposing relays (RLY-5/6/7) required for 100VAC solenoid loads.",
         "address": "Direct FPGA GPIO on 7i80HDT P3 (gpio.032-055)",
     },

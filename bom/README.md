@@ -11,7 +11,7 @@
 
 | Item | Planned choice | Status |
 |---|---|---|
-| Primary motion/control board | **Mesa 7i80HDT** Ethernet FPGA host (3×50-pin daughter connectors) | **Buy plan item** — replaces the earlier 7i97T (returned to Mesa) |
+| Primary motion/control board | **Mesa 7i80HDT** Ethernet FPGA host (3×50-pin daughter connectors) | **Buy plan item** |
 | P1 daughter card | **Mesa 7i44** — 8-channel RS-422 smart-serial breakout | **Buy plan item** — port 0 carries the 7i84U; ports 1-7 stay spare |
 | P2 daughter card | **Mesa 7i49** (plain, not 7i49HV) | **Buy plan item** — 6 resolvers + 6× ±10V analog outs; reads original Tamagawa at 5 kHz; also drives X/Z/Y and FR-SX velocity |
 | P3 daughter card | **Mesa 7i37TA** field breakout | **Buy plan item** — motion-critical field I/O (limits, homes, E-stop, probe, drive-enables, SSR overflow) |
@@ -21,10 +21,6 @@
 | Optional pendant | WHB04B-style USB pendant, or MPG on a spare 7i44 port | Only after base machine is safe |
 | Contingency (not currently required) | Mesa 7i49**HV** | **Not needed unless** measurements show a signal-level/ratio mismatch on this machine |
 | Optional future expansion | Additional smart-serial device on a spare 7i44 port | 4th-axis / second 7i84 / MPG all wire into ports 1-7 without a new host card |
-
-> **Superseded stacks (historical, not the plan):**
-> - Original PCIe: 6i25 host card + 7i77 + 7i84 (± 7i85/7i85S).
-> - Interim: Mesa **7i97T** as the Ethernet host (returned to Mesa 2026-08). Some HAL comments and design notes retain 7i97T provenance so the migration can be traced.
 
 
 Additional parts (DIN rail, wire duct, interposing relays, suppression, terminals,

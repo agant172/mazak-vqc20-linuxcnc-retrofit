@@ -13,11 +13,9 @@ The selected retrofit architecture is:
 - LinuxCNC control PC connected to the Mesa **7i80HDT** over Ethernet (`hm2_eth`, static IP 192.168.1.121). The 7i80HDT is a bare-FPGA Ethernet host with three 50-pin daughter connectors (P1/P2/P3) and 72 IO total.
 - Mesa **7i44 on P1** — 8-channel RS-422 smart-serial breakout. Port 0 carries the 7i84U; ports 1-7 are spare for future MPG / 4th-axis / second 7i84.
 - Mesa **7i49 on P2** — plain 7i49 (not 7i49HV). Provides X/Y/Z resolver feedback on RES0/1/2 and X/Y/Z servo velocity commands + FR-SX spindle velocity command + FR-SX orient reference on ±10V analog outputs AOUT0..AOUT4. RES3-RES5 and AOUT5 are spare.
-- **P3 field breakout (7i37TA or equivalent 50-pin card)** — direct FPGA GPIO for motion-critical, host-side, low-latency I/O: X/Y/Z limits, X/Y/Z homes, E-stop chain monitor, Renishaw MP-3 probe SKIP1, X/Y/Z drive-enable outputs, and the six former TB5 SSR overflow outputs (air blast, touch sensor blast, tap coolant blast, ATC barrier, flood valve, spare).
-- Mesa **7i84U on 7i44 port 0** — remote field I/O for ATC, hydraulics, coolant, air, magazine, and utility field I/O, mounted near the existing green breakout PCB / terminal area. Wiring and pin plan unchanged from the single-7i84U I/O plan (2026-08-03).
+- **7i37TA on P3** — direct FPGA GPIO for motion-critical, host-side, low-latency I/O: X/Y/Z limits, X/Y/Z homes, E-stop chain monitor, Renishaw MP-3 probe SKIP1, X/Y/Z drive-enable outputs, and six relay-driven outputs (air blast, touch sensor blast, tap coolant blast, ATC barrier, flood valve, spare).
+- Mesa **7i84U on 7i44 port 0** — remote field I/O for ATC, hydraulics, coolant, air, magazine, and utility field I/O, mounted near the existing green breakout PCB / terminal area.
 - Optional WHB04B-style USB pendant through LinuxCNC after the base machine is safe.
-
-> The earlier PCIe plan (tower PC + 6i25 host card + 7i77 + 7i84, optional 7i85/7i85S third board) is historical and superseded. The 7i97T + 7i84U + 7i49 plan is **also historical/superseded as of 2026-08-06** — the 7i97T is being returned to Mesa.
 
 ## Assumed hardware stack
 
@@ -25,7 +23,7 @@ The selected retrofit architecture is:
 - Mesa 7i80HDT Ethernet FPGA host for motion command, resolver feedback, and motion-critical GPIO (all field I/O routed through daughter cards on P1/P2/P3).
 - Mesa 7i44 on P1 for smart-serial fanout to 7i84U.
 - Mesa 7i49 on P2 for X/Y/Z resolver feedback and analog servo/spindle outputs.
-- P3 field breakout (7i37TA or equivalent) for motion-critical direct FPGA GPIO.
+- Mesa 7i37TA on P3 for motion-critical direct FPGA GPIO.
 - Mesa 7i84U on 7i44 port 0 for ATC, hydraulic, coolant, air, and utility field I/O.
 - Optional WHB04B-style USB pendant through LinuxCNC HAL, not through Mesa I/O.
 
@@ -37,12 +35,11 @@ The selected retrofit architecture is:
 
 - `mazak_vqc_20_40.ini` - placeholder INI sections for the machine, joints, spindle, and HAL file loading.
 - `mazak_vqc_20_40.hal` - main HAL loader (`hm2_eth`) and high-level comments.
-- `motion_7i80hdt.hal` - 7i49 analog outputs and resolver feedback, plus P3 direct-GPIO home/limit/E-stop/probe/drive-enable placeholders. (Replaces the historical `motion_7i97t.hal`.)
+- `motion_7i80hdt.hal` - 7i49 analog outputs and resolver feedback, plus P3 direct-GPIO home/limit/E-stop/probe/drive-enable placeholders.
 - `field_7i84u.hal` - 7i84U ATC, magazine, coolant, air, and utility I/O placeholders (over the 7i44 P1 port 0 smart-serial link).
 - `atc_orient.hal` - orient + ATC HAL wiring and component nets; feeds the ATC barrier through the P3 breakout OUT6.
 - `pendant_whb04b.hal` - optional WHB04B-style pendant net placeholders.
-- `../mesa/signal_map.csv` - historical CSV companion map (SUPERSEDED — see `mesa/signal_map.csv.SUPERSEDED_NOTICE.md`).
-- `../mesa/current_pin_authority.csv` - authoritative pin authority for the new stack.
+- `../mesa/current_pin_authority.csv` - authoritative pin map for the full stack.
 - `../docs/architecture_decision.md` - selected 7i80HDT + 7i44 + 7i49 + 7i84U + P3 breakout architecture decision.
 - `../mesa/mesa_firmware_checklist.md` - firmware, bitfile, Ethernet/IP, smart-serial, and HAL pin information to collect before finalizing the HAL.
 - `../docs/cabinet_photo_checklist.md` - one-page photo checklist for gathering the details needed to order/configure Mesa hardware and finalize HAL pin names.

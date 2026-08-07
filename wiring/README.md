@@ -7,20 +7,14 @@ conceptually here for wiring planning.
 ## Key references
 
 - Consolidated wiring master: [`Mazak_Wiring_Master_7i80HDT_7i44_7i49_7i84U_Current_Authority.xlsx`](Mazak_Wiring_Master_7i80HDT_7i44_7i49_7i84U_Current_Authority.xlsx)
-  — current 7i80HDT / 7i44 / 7i49 / 7i84U + P3 breakout wiring workbook with imported legacy/reference tabs
-  clearly separated from current actionable wiring. Phase 2 cabinet-sequence,
-  BOM-gap, hydraulic/ATC, and conflict-review tabs are integrated as planning
-  aids; check the conflict-review tab before changing final pin assignments.
-  The `... - Overview.csv` sibling file is the plain-text index for that workbook.
-  Historical `Mazak_Wiring_Master_7i97T_7i49_7i84U*` files were renamed on 2026-08-06;
-  the workbook content still describes the 7i97T-era layout and is being reworked
-  against the 7i80HDT stack. Prefer `../mesa/current_pin_authority.csv` for authoritative pin data.
+  — wiring workbook for the 7i80HDT / 7i44 / 7i49 / 7i37TA / 7i84U stack. Phase 2
+  cabinet-sequence, BOM-gap, hydraulic/ATC, and conflict-review tabs are integrated
+  as planning aids; check the conflict-review tab before changing final pin
+  assignments. The `... - Overview.csv` sibling file is the plain-text index for
+  that workbook. Prefer `../mesa/current_pin_authority.csv` for authoritative pin data.
 - Current pin authority: [`../mesa/current_pin_authority.csv`](../mesa/current_pin_authority.csv)
   — current table for connector, pin/channel, HAL net, status, source basis, and
-  cleanup notes. This supersedes stale rows in `signal_map.csv`.
-- **Superseded** legacy signal map: [`../mesa/signal_map.csv`](../mesa/signal_map.csv) — older
-  companion map from the 7i97T era. See [`../mesa/signal_map.csv.SUPERSEDED_NOTICE.md`](../mesa/signal_map.csv.SUPERSEDED_NOTICE.md)
-  before treating any row as authoritative.
+  cleanup notes.
 - I/O map research notes: [`io_map_research_notes.md`](io_map_research_notes.md) —
   designator research from the OEM maintenance/operating manuals and electrical
   circuit diagram (`41434WB.pdf`), including the pallet-changer (2PC) signal set,

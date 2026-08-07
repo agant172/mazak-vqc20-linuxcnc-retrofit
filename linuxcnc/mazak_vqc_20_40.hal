@@ -16,12 +16,8 @@
 # the machine's original Tamagawa TS2014N resolvers - not quadrature encoders.
 # A 7i84U on 7i44 port 0 handles ATC, hydraulic, coolant, air, and utility field I/O
 # near the green breakout PCB.
-# The P3 7i37TA carries limits/homes/E-stop monitor/probe/drive-enables and the six
-# former TB5 SSR overflow outputs (air/touch/tap blast, ATC barrier, flood valve).
-#
-# Historical: this stack replaces an earlier 7i97T + 7i84U + 7i49 plan; the 7i97T
-# is being returned to Mesa. Every `hm2_7i97.0.*` reference in prior versions of
-# this file has been renamed to `hm2_7i80.0.*` under the new firmware.
+# The P3 7i37TA carries limits/homes/E-stop monitor/probe/drive-enables and six
+# relay-driven outputs (air/touch/tap blast, ATC barrier, flood valve).
 
 loadrt trivkins coordinates=XYZ
 # num_dio=16 required by linuxcnc/atc_orient.hal + remap/toolchange.ngc, which use

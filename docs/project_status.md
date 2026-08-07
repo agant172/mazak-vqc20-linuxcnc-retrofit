@@ -16,11 +16,10 @@ control to LinuxCNC using Mesa Electronics FPGA hardware.
 - **LinuxCNC control PC** (Debian 13 / LinuxCNC 2.9.10) driving a **Mesa 7i80HDT** Ethernet FPGA host as the primary control board (`hm2_eth`, static IP 192.168.1.121).
 - **P1: Mesa 7i44** — RS-422 sserial breakout. Port 0 → 7i84U. Ports 1-7 spare for future expansion.
 - **P2: Mesa 7i49** — plain 7i49 (not 7i49HV). X/Y/Z resolver feedback on RES0/1/2 + X/Z/Y servo velocity command and FR-SX spindle velocity + orient reference on AOUT0..AOUT4.
-- **P3: 7i37TA field breakout** — 24-bit direct FPGA GPIO for motion-critical, host-side, low-latency I/O: X/Y/Z limits (6 IN), X/Y/Z homes (3 IN), E-stop monitor (1 IN), Renishaw MP-3 probe SKIP1 (1 IN), X/Y/Z drive-enable (3 OUT), 6 former TB5 SSR overflow outputs (5 used + 1 spare).
-- **7i84U remote field I/O** on 7i44 port 0: ATC, hydraulics, coolant, air, magazine, utility I/O, and cabinet field wiring. Pin plan committed 2026-08-03 preserved unchanged.
+- **P3: Mesa 7i37TA** field breakout — 24-bit direct FPGA GPIO for motion-critical, host-side, low-latency I/O: X/Y/Z limits (6 IN), X/Y/Z homes (3 IN), E-stop monitor (1 IN), Renishaw MP-3 probe SKIP1 (1 IN), X/Y/Z drive-enable (3 OUT), 6 relay-driven outputs (5 used + 1 spare).
+- **7i84U remote field I/O** on 7i44 port 0: ATC, hydraulics, coolant, air, magazine, utility I/O, and cabinet field wiring.
 - **Optional WHB04B-style USB pendant** after base machine safety/motion is proven.
 - **Firmware bitfile**: `7i80hdt_7i44_ss_7i49d.bit` (PCW-provided).
-- **Previous / rejected plans (historical)**: (1) PCIe tower-card stack (6i25 + 7i77 + 7i84) — superseded 2025. (2) 7i97T + 7i84U + 7i49 Ethernet stack — superseded 2026-08-06; 7i97T is going back to Mesa.
 
 See [`architecture_decision.md`](architecture_decision.md) for the full rationale.
 
@@ -28,7 +27,7 @@ See [`architecture_decision.md`](architecture_decision.md) for the full rational
 
 ### Completed
 - Repository created and structured.
-- **7i80HDT + 7i44 + 7i49 + 7i84U + P3 breakout architecture selected (2026-08-06)** — replaces the 7i97T plan.
+- **7i80HDT + 7i44 + 7i49 + 7i37TA + 7i84U architecture selected.**
 - 7i49 resolver feedback interface selected (plain 7i49, 5 kHz baseline).
 - Tamagawa TS2014N resolvers identified on-machine (July 2026 photo survey).
 - Meanwell DR-240-24 retrofit 24V supply installed; kept isolated from OEM HR-11F-24 bus.
@@ -39,7 +38,7 @@ See [`architecture_decision.md`](architecture_decision.md) for the full rational
 - Ladder transcription: ATC (mazak_atc.comp), Orient/Gear (mazak_orient.comp).
 - 385-signal ladder crosswalk; 116 signals covered in io-dashboard.
 - Element list catalog (VQC20-40_060231) — 5,247 elements categorized.
-- Pin authority CSV rewritten around 7i80HDT stack (`mesa/current_pin_authority.csv`).
+- Pin authority CSV finalized for the full stack (`mesa/current_pin_authority.csv`).
 
 ### In progress
 - Purchase list for 7i80HDT + 7i44 + 7i37TA (7i49 already ordered / on hand).
@@ -58,7 +57,6 @@ See [`architecture_decision.md`](architecture_decision.md) for the full rational
 
 ### Immediate
 - [ ] Order the 7i80HDT + 7i44 + 7i37TA. (7i49 and 7i84U already in the buy list / on hand.)
-- [ ] Return the 7i97T to Mesa.
 - [ ] Confirm PCW-generated firmware bitfile `7i80hdt_7i44_ss_7i49d.bit` and stash it in the repo under `mesa/` once received.
 - [ ] Confirm 7i80HDT Ethernet setup: static IP 192.168.1.121, `hm2_eth` `board_ip="192.168.1.121"`, and host NIC `enp0s31f6` at 192.168.1.1/24.
 - [ ] Confirm 24 V field power feed and 7i80HDT / 7i84U / 7i37TA I/O sourcing/sinking behavior before wiring.
