@@ -101,11 +101,11 @@ See [`architecture_decision.md`](architecture_decision.md) for the full rational
 - [ ] Design and commission `mazak_atc_zone` HAL component + `M100`/`M101` user-M-code permit pair that dynamically raises `axis.y.max-pos-limit` from +0.0394 to +9.5000 only after prerequisites are met (homed, no fault, spindle oriented, Z >= -5.9449, PRS-55/66 consistent). Until this exists the remap will not tool-change and `[ATC] DRY_RUN = 1` remains set. See [`y_soft_limit_atc_zone.md`](y_soft_limit_atc_zone.md).
 - [ ] Trace E-stop, door, ready chain, and servo contactor wiring before any control rewiring. Draw the as-built hardwired safety schematic and validate the fault-injection matrix per [`estop_safety_chain.md`](estop_safety_chain.md) BEFORE energizing drives under retrofit control. Until validated, LinuxCNC/HAL is monitoring/inhibit only — not the primary safety element and not a safety-rated backup.
 - [ ] Survey the OEM Mitsubishi TRA rectifier/capacitor/amplifier DC-bus stack per [`dc_bus_stop_fault.md`](dc_bus_stop_fault.md): draw as-built one-line, label test points TP-DC+/TP-DC-/TP-CHG/TP-BRK-Z/TP-RDY-*, measure discharge time from operating voltage to <50 V under both at-rest and post-rapid-decel conditions, and prove single-amp-fault-drops-all-motion-permits by fault injection. LinuxCNC monitors/inhibits only; it is not the primary stop element.
-- [ ] Confirm the bare P3 `gpio.042` probe connection and leave all other P3 pins unused/spare.
+- [ ] Confirm the Renishaw MP-3 probe SKIP1 lands on 7i84U-B TB3 IN15 (opto-isolated 24 V input). Do NOT wire the probe to bare P3 GPIO — that path is RETRACTED (see [`superseded_claims_2026-08-06.md`](superseded_claims_2026-08-06.md) row 15). All P3 pins remain unused/spare.
 
 ### Next
 - [ ] Run LinuxCNC latency test on the selected control PC (already validated on Debian 13 / RT kernel).
-- [ ] Install the 7i80HDT + 7i44 + 7i49 + 7i84U-A + 7i84U-B; retain P3 for the bare `gpio.042` probe connection and save `mesaflash --device 7i80hdt --addr 192.168.1.121 --readhmid` output as `mesa_readhmid.txt`.
+- [ ] Install the 7i80HDT + 7i44 + 7i49 + 7i84U-A + 7i84U-B; leave P3 unused/spare (probe is on 7i84U-B input-15, not bare P3 GPIO) and save `mesaflash --device 7i80hdt --addr 192.168.1.121 --readhmid` output as `mesa_readhmid.txt`.
 - [ ] Dump actual HAL pins after firmware load and save as `mesa_hal_pins.txt`.
 - [ ] Replace placeholder `hm2_7i80.0...` pin names in the HAL files using the real HAL pin dump.
 - [ ] Set 7i49 resolver excitation to **5 kHz** (spec 4.5 kHz; options 2.5/5/10 kHz).
@@ -136,7 +136,7 @@ See [`architecture_decision.md`](architecture_decision.md) for the full rational
 3. Confirm resolver wiring on 7i49 P2 with drives disabled: ohmmeter the winding pairs, wire RESDRV/RESSIN/RESCOS, set 5 kHz excitation, scope the return level, then confirm counts, direction, and scale.
 4. Confirm 7i49 P2 analog command wiring with drives disabled/inhibited (zero command, polarity on AOUT0/1/2/3).
 5. Confirm 7i84U-A and 7i84U-B appear on 7i44 P1 ports 0 and 1 via `halcmd show pin hm2` — verify device tags `hm2_7i80.0.7i84.0.0.*` and `hm2_7i80.0.7i84.0.1.*`.
-6. Confirm P3 breakout wiring (limits/homes/E-stop/probe/drive-enables/SSR overflow outputs) with all outputs disabled.
+6. Confirm 7i84U-A + 7i84U-B TB3 wiring (limits/homes/E-stop/probe/drive-enables/relay-driven outputs) with all outputs disabled; P3 has no field wiring.
 7. Bring up one axis at a time at low gain / low speed per [`servo_commissioning.md`](servo_commissioning.md) (FF1 first, then P; I only for residual bias, D cautiously; explicit rollback criteria).
 8. Confirm home and limit logic before homing.
 9. Confirm spindle analog scaling, run/enable/direction, zero-speed, at-speed, orient.

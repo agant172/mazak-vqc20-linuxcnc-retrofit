@@ -26,7 +26,8 @@
 # All field I/O -- limits/homes/E-stop monitor/drive-enables/spindle digital/
 # 100 VAC solenoids -- lives on the two 7i84U cards via sserial. The 7i80HDT
 # directly owns only motion-critical signals: resolvers, +/-10V velocity
-# commands, and the P3 probe input.
+# commands. The Renishaw MP-3 probe input lives on 7i84U-B TB3 IN15
+# (opto-isolated 24V), NOT bare P3 GPIO; P3 remains unused/spare.
 
 loadrt trivkins coordinates=XYZ
 # num_dio=16 required by linuxcnc/atc_orient.hal + remap/toolchange.ngc, which use

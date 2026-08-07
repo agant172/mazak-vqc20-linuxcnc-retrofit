@@ -16,8 +16,7 @@ control board, with two daughter cards populated on its 50-pin connectors:
   - **Port 1 → 7i84U-B** (X/Y/Z limits, X/Y/Z homes, X/Y/Z drive-enables, and five relay-driven loads: air blast, touch sensor blast, tap coolant blast, ATC barrier, flood valve).
   - Ports 2-7 remain spare (MPG pendant, 4th-axis card, or future 7i84 expansion).
 - **P2: Mesa 7i49** — plain 7i49 resolver-to-digital interface with 6 resolver channels and 6× ±10V analog outputs. Carries X/Y/Z resolver feedback (RES0/1/2) and X/Z/Y servo velocity + FR-SX spindle velocity + FR-SX orient reference (AOUT0..AOUT4).
-- **P3: unused/spare**, with **one** signal populated as a bare direct FPGA GPIO exception:
-  - **`hm2_7i80.0.gpio.042` = Renishaw MP-3 probe SKIP1.** The touch probe is the only field input on this machine whose input-path latency shows up as an accuracy error (touch-position latching), so it earns a direct FPGA pin rather than sitting on sserial. No P3 daughter card is fitted; the remaining P3 GPIO stays available for future direct-FPGA needs.
+- **P3: unused/spare.** No daughter card is fitted and no bare-FPGA GPIO pin is bound to a 24 V field signal. Earlier drafts placed the Renishaw MP-3 probe SKIP1 on `hm2_7i80.0.gpio.042` for latency reasons; that direct-GPIO path was RETRACTED — the 7i80HDT P3 GPIO pins are 3.3 V logic without opto-isolation and would be destroyed by 24 V input. The probe now lands on **7i84U-B TB3 IN15** with proper 24 V opto-isolation. See [`docs/superseded_claims_2026-08-06.md`](superseded_claims_2026-08-06.md) row 15. All remaining P3 pins are held as spare.
 
 The 7i80HDT connects to the control PC over Ethernet using the `hm2_eth` driver at static IP **192.168.1.121** (NIC `enp0s31f6` at 192.168.1.1/24). The machine keeps its original Tamagawa TS2014N resolvers, so feedback is resolver-based (plain 7i49 on P2, 5 kHz excitation baseline) rather than quadrature-encoder.
 
@@ -28,7 +27,7 @@ Earlier drafts of this document called for a **Mesa 7i37TA** field breakout on P
 1. **The 7i84U already covers this I/O.** The 7i37TA is 16 isolated IN + 8 isolated OUT; the 7i84U is 32 DI + 16 DO on sserial. Adding a 7i37TA to the base stack duplicates capability the 7i84U already provides.
 2. **"Motion-critical" was mis-scoped.** True motion-critical signals on this machine are resolver feedback and ±10 V velocity commands — both already on the 7i49 (P2). Limits/homes/drive-enables/E-stop monitor are all sampled by LinuxCNC once per servo cycle; a sserial 7i84U also updates once per servo cycle, so the sample the motion planner sees is identical to what a direct GPIO pin would give it.
 
-The only field signal that genuinely benefits from bypassing sserial is the touch probe (see above), and it takes exactly one bare P3 GPIO pin — not a daughter card.
+The touch probe was originally considered the one exception that might justify bare-FPGA GPIO for latency, but that carve-out has been retracted: exposing bare 3.3 V FPGA pins to 24 V field wiring is not safe, and the added latency from sserial (up to one servo period at 1 kHz) is well inside the touch-position tolerance the Renishaw MP-3 already delivers with its own solid-state trigger circuit. The probe is routed through 7i84U-B input-15.
 
 ## Selected control stack
 
@@ -36,7 +35,7 @@ The only field signal that genuinely benefits from bypassing sserial is the touc
 - **Mesa 7i80HDT** Ethernet FPGA host — 100BaseT, three 50-pin daughter connectors (P1/P2/P3), 72 IO total, 5V-tolerant, `hm2_eth` driver.
 - **Mesa 7i44 on P1** — RS-422 sserial breakout carrying two 7i84Us on ports 0 and 1; ports 2-7 spare.
 - **Mesa 7i49 on P2** — X/Y/Z resolver feedback and analog servo/spindle command DACs.
-- **P3 (direct FPGA GPIO)** — no daughter card; only pin populated is `hm2_7i80.0.gpio.042` = Renishaw MP-3 probe SKIP1 input.
+- **P3 (direct FPGA GPIO)** — no daughter card; no bare-FPGA GPIO pin is bound to a field signal. The probe input is on 7i84U-B input-15, not P3.
 - **Mesa 7i84U-A on 7i44 port 0** — remote field-I/O expansion mounted near the existing green breakout PCB, for ATC, hydraulic, coolant, air, magazine, utility I/O, and cabinet field wiring.
 - **Mesa 7i84U-B on 7i44 port 1** — X/Y/Z limits, X/Y/Z homes, X/Y/Z drive-enables, and the five relay-driven loads formerly assigned to P3 (air blast, touch sensor blast, tap coolant blast, ATC barrier, flood valve).
 - Optional WHB04B-style USB pendant through LinuxCNC, not through Mesa.
@@ -48,7 +47,7 @@ The only field signal that genuinely benefits from bypassing sserial is the touc
 - The **7i44 on P1** carries two 7i84Us over RS-422: 7i84U-A handles the existing 32/16 field I/O near the green breakout PCB; 7i84U-B handles safety I/O (limits/homes/drive-enables) plus the five relay-driven loads. This still leaves 6 spare sserial ports for an MPG pendant, 4th-axis card, or additional 7i84 expansion.
 - Ethernet (`hm2_eth`) avoids dependence on a PCIe slot in the control PC and lets the PC be sited flexibly; a static IP link keeps the motion interface deterministic.
 - The two-7i84U plan lands the field I/O with wide margins: 7i84U-A retains ~6 DI + ~6 DO spare, and 7i84U-B has 23 spare IN and 8 spare OUT after the safety + relay loads are placed.
-- P3 is intentionally left as bare GPIO; only the probe input (one pin, `gpio.042`) is populated. This preserves the option to add a real daughter card later if the field discovers a signal that actually needs direct-FPGA latency.
+- P3 is intentionally left unused/spare — no bare-FPGA GPIO pin is bound to a field signal. This preserves the option to add a real daughter card later if the field discovers a signal that actually needs direct-FPGA latency and can supply its own isolation.
 
 ## Resolver feedback interface (Mesa 7i49 on P2)
 

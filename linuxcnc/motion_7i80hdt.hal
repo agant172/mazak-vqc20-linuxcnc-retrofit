@@ -4,8 +4,8 @@
 # PLACEHOLDER PIN NAMES: every hm2_7i80.* name below is an UNVERIFIED PLACEHOLDER.
 # The Mesa 7i80HDT is a bare-FPGA Ethernet host (hm2_eth) with three 50-pin daughter
 # connectors (P1/P2/P3). Confirm the exact board tag (`hm2_7i80` expected) and the
-# real analog-output (7i49 P2 pwmgen), resolver (7i49 P2 resolver channel), and
-# direct-GPIO (P3, probe only) pin structure from `readhmid` and
+# real analog-output (7i49 P2 pwmgen) and resolver (7i49 P2 resolver channel)
+# pin structure from `readhmid` and
 # `halcmd show pin hm2` before use. Axis feedback is RESOLVER via the 7i49,
 # not quadrature encoder.
 #
