@@ -39,4 +39,4 @@ control PC) depend on cabinet photos and coil/current measurements still to be t
 - **`MS3108B 20-29P` is a connector shell part number, not a resolver model.**
 - **Unknowns still needing measurement before this is settled:** axis-by-axis resolver
   label, winding pairs (ohmmeter before power), return signal level after 7i49 excitation,
-  final HAL scale/orientation, and shield/ground termination.
+  final HAL scale/orientation, and shield/ground termination (see [`../docs/grounding_shielding_plan.md`](../docs/grounding_shielding_plan.md) for the cable schedule and noise-survey acceptance).
