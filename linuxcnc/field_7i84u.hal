@@ -9,136 +9,115 @@
 # The exact smart-serial device tag and pin names differ by firmware and
 # smart-serial port; use `halcmd show pin hm2` after loading the actual
 # firmware, then replace the placeholder pin names below.
-
-#####################################################################
-# 7i84U-A (7i44 port 0) TB1 assumed inputs
-#####################################################################
-
-net tool-clamped <= hm2_7i80.0.7i84.0.0.input-00
-net tool-unclamped <= hm2_7i80.0.7i84.0.0.input-01
-
-net atc-y-zone <= hm2_7i80.0.7i84.0.0.input-02
-net atc-z-zone <= hm2_7i80.0.7i84.0.0.input-03
-
-net mag-in-pos <= hm2_7i80.0.7i84.0.0.input-04
-net tool-code-0 <= hm2_7i80.0.7i84.0.0.input-05
-net tool-code-1 <= hm2_7i80.0.7i84.0.0.input-06
-net tool-code-2 <= hm2_7i80.0.7i84.0.0.input-07
-net tool-code-3 <= hm2_7i80.0.7i84.0.0.input-08
-net tool-code-4 <= hm2_7i80.0.7i84.0.0.input-09
-
-net coolant-low <= hm2_7i80.0.7i84.0.0.input-10
-net air-ok      <= hm2_7i80.0.7i84.0.0.input-11
-
-# Drive faults — in-12/13/14 (verify against Wiring Map before wiring)
-# amp-fault-in: if TRUE, motion module immediately aborts and enters E-stop.
-# CAUTION: confirm input polarity before enabling. If the drive outputs ALM as
-# NC (fault = contact open), add invert_input setp for these GPIO. The Mitsubishi
-# HD81/HD101 ALM output is open-collector-active-low (fault = low/open), so the
-# 7i84U input reads 0 on fault — set invert_input 1 on these channels once wired.
-net x-drive-fault <= hm2_7i80.0.7i84.0.0.input-12
-net x-drive-fault => joint.0.amp-fault-in
-net y-drive-fault <= hm2_7i80.0.7i84.0.0.input-13
-net y-drive-fault => joint.1.amp-fault-in
-net z-drive-fault <= hm2_7i80.0.7i84.0.0.input-14
-net z-drive-fault => joint.2.amp-fault-in
-
-# VFD / spindle status
-# net spindle-at-spd    <= hm2_7i80.0.7i84.0.0.input-15
-# net spindle-fault     <= hm2_7i80.0.7i84.0.0.input-16
-
-# Machine status inputs
-# net door-closed       <= hm2_7i80.0.7i84.0.0.input-24
-# net lube-ok           <= hm2_7i80.0.7i84.0.0.input-25
-# net hydraulic-ok      <= hm2_7i80.0.7i84.0.0.input-27
-
-# Operator panel (uncomment once wired and panel input assignments confirmed)
-# net cycle-start-pb    <= hm2_7i80.0.7i84.0.0.input-28
-# net single-block      <= hm2_7i80.0.7i84.0.0.input-30
-# net servo-ready       <= hm2_7i80.0.7i84.0.0.input-31
 #
-# Feed-hold button → motion.feed-hold. Uncomment once in-29 assignment is confirmed.
-# net feed-hold-pb      <= hm2_7i80.0.7i84.0.0.input-29
-# net feed-hold-pb      => motion.feed-hold
+# AUTHORITY: mesa/current_pin_authority.csv is the single source of truth for
+# pin -> signal mapping on both 7i84U cards. This file, atc_orient.hal, and
+# motion_7i80hdt.hal all agree with that CSV (2026-08-06 reconciliation).
+#
+# TERMINAL BLOCKS: Per Mesa 7i84 manual (http://www.mesanet.com/pdf/parallel/7i84man.pdf)
+# the physical terminal blocks on the 7i84 are TB1 (POWER ONLY: VFIELDA, VFIELDB,
+# VIN, GND), TB3 (INPUT0-15 and OUTPUT0-7), and TB2 (INPUT16-31 and OUTPUT8-15).
+# The hostmot2 pin names below are `input-NN` / `output-NN` regardless of
+# physical terminal - the physical TB assignment is documented for wiring only.
 
 #####################################################################
-# 7i84U-A (7i44 port 0) TB2 assumed outputs
+# 7i84U-A (7i44 port 0 = sserial channel 0) inputs 0..31
+# Physical: IN0-15 on TB3 pins 1-16 ; IN16-31 on TB2 pins 1-16
+#####################################################################
+
+# --- IN0..IN9  (ATC + spindle, TB3 pins 1-10) ---
+net atc-y-zone         <= hm2_7i80.0.7i84.0.0.input-00   # IN0  PRS-55 Y ATC zone
+net atc-z-zone         <= hm2_7i80.0.7i84.0.0.input-01   # IN1  PRS-66 Z ATC zone
+# IN2..IN7 + IN9 are netted in atc_orient.hal (mag-tool-avail, spindle-tool-avail,
+# spindle-oriented, spindle-zero-speed, mag-cover-open-conf, mag-cover-closed-conf,
+# manual-unclamp-pb). Do NOT re-net them here.
+net thermal-alarm      <= hm2_7i80.0.7i84.0.0.input-08   # IN8  X073 THR.M + X07B ONT.M series NC
+
+# --- IN10..IN15  (drive faults + spindle + tool clamp, TB3 pins 11-16) ---
+# amp-fault-in: if TRUE, motion module immediately aborts and enters E-stop.
+# CAUTION: confirm input polarity before enabling. The Mitsubishi HD81/HD101 ALM
+# output is open-collector-active-low (fault = low/open), so the 7i84U input reads
+# 0 on fault - set invert_input 1 on these channels once wired.
+net x-drive-fault      <= hm2_7i80.0.7i84.0.0.input-10   # IN10 X drive ALM
+net x-drive-fault      => joint.0.amp-fault-in
+net y-drive-fault      <= hm2_7i80.0.7i84.0.0.input-11   # IN11 Y drive ALM
+net y-drive-fault      => joint.1.amp-fault-in
+net z-drive-fault      <= hm2_7i80.0.7i84.0.0.input-12   # IN12 Z drive ALM
+net z-drive-fault      => joint.2.amp-fault-in
+net spindle-at-speed   <= hm2_7i80.0.7i84.0.0.input-13   # IN13 FR-SX SPD-REACH
+net spindle-fault      <= hm2_7i80.0.7i84.0.0.input-14   # IN14 FR-SX ALM
+net tool-clamped       <= hm2_7i80.0.7i84.0.0.input-15   # IN15 PRS-9 tool-clamp confirm
+
+# --- IN16..IN23  (tool unclamp confirm + gear + BCD, TB2 pins 1-8) ---
+net tool-unclamped     <= hm2_7i80.0.7i84.0.0.input-16   # IN16 PRS-8 tool-unclamp confirm
+# IN17-IN23 netted in atc_orient.hal (gear-hi-conf/gear-lo-conf/mag-bcd-bit0..4).
+
+# --- IN24..IN27  (safety chain + utility, TB2 pins 9-12) ---
+net door-interlock     <= hm2_7i80.0.7i84.0.0.input-24   # IN24 LS-140+LS-141+X01D ITMDSS series NC
+net lube-ok            <= hm2_7i80.0.7i84.0.0.input-25   # IN25 X042 HLP2 + X079 HLP series NC
+net coolant-low        <= hm2_7i80.0.7i84.0.0.input-26   # IN26 coolant level (polarity TBD)
+# IN27 hydraulic-ok netted in atc_orient.hal.
+
+# --- IN28..IN31  (magazine + panel + estop monitor, TB2 pins 13-16) ---
+# IN28 mag-in-pos netted in atc_orient.hal.
+net estop-monitor      <= hm2_7i80.0.7i84.0.0.input-29   # IN29 OEM MAR aux via interposing relay
+# IN30 manual-clamp-pb reserved (PROPOSED, not netted until wired):
+# net manual-clamp-pb    <= hm2_7i80.0.7i84.0.0.input-30
+# IN31 servo-ready netted in atc_orient.hal.
+
+#####################################################################
+# 7i84U-A (7i44 port 0) outputs 0..15
+# Physical: OUT0-7 on TB3 pins 17-24 ; OUT8-15 on TB2 pins 17-24
 #####################################################################
 
 # WARNING: verify coil/load current and voltage. Use interposing relays or
 # output modules where required. Add suppression appropriate to each coil.
 
-net tool-unclamp-sol => hm2_7i80.0.7i84.0.0.output-00
-net mag-cw-sol => hm2_7i80.0.7i84.0.0.output-01
-net mag-ccw-sol => hm2_7i80.0.7i84.0.0.output-02
-
-net mag-cover-open => hm2_7i80.0.7i84.0.0.output-03
-net mag-cover-close => hm2_7i80.0.7i84.0.0.output-04
-
-net flood-coolant <= iocontrol.0.coolant-flood
-net flood-coolant => hm2_7i80.0.7i84.0.0.output-05
-
-net mist-coolant <= iocontrol.0.coolant-mist
-net mist-coolant => hm2_7i80.0.7i84.0.0.output-06
-
-net air-blast-1 => hm2_7i80.0.7i84.0.0.output-07
-net air-blast-2 => hm2_7i80.0.7i84.0.0.output-08
-net tap-coolant => hm2_7i80.0.7i84.0.0.output-09
-net work-light => hm2_7i80.0.7i84.0.0.output-10
-
-# Spindle FWD/REV/ENA via 7i84U (FR-SX VFD digital control)
-# net spindle-fwd    <= spindle.0.forward
-# net spindle-fwd    => hm2_7i80.0.7i84.0.0.output-11
-# net spindle-rev    <= spindle.0.reverse
-# net spindle-rev    => hm2_7i80.0.7i84.0.0.output-12
-# net spindle-enable <= spindle.0.on
-# net spindle-enable => hm2_7i80.0.7i84.0.0.output-13
-
-# Optional / spare outputs to assign after cabinet tracing.
-# net chip-conveyor-on => hm2_7i80.0.7i84.0.0.output-14
-# net stack-green      => hm2_7i80.0.7i84.0.0.output-15
-
-#####################################################################
-# ATC sequence placeholders
-#####################################################################
-
-# These are only named nets for a future ClassicLadder/component ATC sequence.
-# Do not energize tool clamp, magazine motion, or cover solenoids until all
-# interlocks are proven in HAL and physically verified.
-#
-# Required future logic inputs:
-# - tool-clamped
-# - tool-unclamped
-# - atc-y-zone
-# - atc-z-zone
-# - mag-in-pos
-# - tool-code-0 through tool-code-4
-# - spindle-zero-speed
-# - spindle-orient-ok or spindle-orient-complete
-# - hydraulic-ok
-# - air-ok
-#
-# Required future logic outputs:
-# - spindle-orient-cmd
-# - tool-unclamp-sol
-# - mag-cw-sol
-# - mag-ccw-sol
-# - mag-cover-open / mag-cover-close if present
+net spindle-fwd        <= spindle.0.forward
+net spindle-fwd        => hm2_7i80.0.7i84.0.0.output-00  # OUT0  FR-SX FWD
+net spindle-rev        <= spindle.0.reverse
+net spindle-rev        => hm2_7i80.0.7i84.0.0.output-01  # OUT1  FR-SX REV
+net spindle-ena        <= spindle.0.on
+net spindle-ena        => hm2_7i80.0.7i84.0.0.output-02  # OUT2  FR-SX RUN/STOP
+# OUT3  hyd-pump-on         (netted in atc_orient.hal - Y096 HYD.M)
+# OUT4  spindle-orient-cmd  (netted in atc_orient.hal - Y093 ORCM1.M)
+# OUT5  orient-lo-gear      (netted in atc_orient.hal - Y094 CTL.M)
+# OUT6 Z brake release: net driven below by joint.2.amp-enable-out via z-enable.
+net z-enable           => hm2_7i80.0.7i84.0.0.output-06  # OUT6  N1J-L2-201 Z brake release
+# OUT7  gear-hi-sol        (netted in atc_orient.hal - Y00B GSH.M / RLY-1 to SOL-13)
+# OUT8  gear-lo-sol        (HOLD_CONFLICT in authority CSV; unbound in atc_orient.hal)
+# OUT9  tool-clamp-sol     (netted in atc_orient.hal - dual-coil clamp reserved)
+# OUT10 tool-unclamp-sol   (netted below - single writer)
+net tool-unclamp-sol   => hm2_7i80.0.7i84.0.0.output-10  # OUT10 RLY-4 to SOL-10
+net flood-coolant      <= iocontrol.0.coolant-flood
+net flood-coolant      => hm2_7i80.0.7i84.0.0.output-11  # OUT11 flood pump relay
+net mist-coolant       <= iocontrol.0.coolant-mist
+net mist-coolant       => hm2_7i80.0.7i84.0.0.output-12  # OUT12 (was lube-on; verify)
+# OUT13 atc-fwd / OUT14 atc-rev: driven by mazak-atc.mag-fwd-sol / mag-rev-sol
+# which are netted in atc_orient.hal as mag-cw-sol / mag-ccw-sol.
+net mag-cw-sol         => hm2_7i80.0.7i84.0.0.output-13  # OUT13 ATC motor fwd relay
+net mag-ccw-sol        => hm2_7i80.0.7i84.0.0.output-14  # OUT14 ATC motor rev relay
+# OUT15 alarm-out: optional stack light / horn
+# net alarm-out          => hm2_7i80.0.7i84.0.0.output-15
 
 #####################################################################
 # IOCONTROL loopbacks (active immediately; replace when ATC logic is ready)
 #####################################################################
 #
 # Auto-complete tool-prepare: LinuxCNC marks the pocket prepared without waiting
-# for a physical acknowledgement. Replace with ClassicLadder/ATC component later.
+# for a physical acknowledgement. mazak-atc reads iocontrol.0.tool-prep-pocket
+# directly, so this loopback stays in place even after the M6 remap goes live.
 net tool-prepare-loopback  iocontrol.0.tool-prepare => iocontrol.0.tool-prepared
 
-# Auto-complete tool-change: LinuxCNC immediately considers the change done.
-# Replace this with the real ATC M6 remap / ClassicLadder sequence once ready.
-net tool-change-loopback   iocontrol.0.tool-change  => iocontrol.0.tool-changed
+# tool-change loopback DELETED. The M6 remap in linuxcnc/remap/toolchange.ngc
+# now drives iocontrol.0.tool-changed via its M64 P5 (atc-cycle-finish) rung
+# through the mazak-atc component (see atc_orient.hal). A loopback here would
+# short-circuit the ATC sequence.
 
 #####################################################################
-# 7i84U-B (7i44 port 1) TB1 inputs -- limits and homes
+# 7i84U-B (7i44 port 0 sserial CHANNEL 1) inputs 0..31 - limits and homes
+# NOTE: hostmot2 addresses this as port 0 channel 1 -> hm2_7i80.0.7i84.0.1.*
+# Physical: IN0-15 on TB3 pins 1-16 ; IN16-31 on TB2 pins 1-16
 #####################################################################
 #
 # X/Y/Z overtravel limits (IN0-IN5) are NC contacts -- open (tripped) reads
@@ -148,8 +127,9 @@ net tool-change-loopback   iocontrol.0.tool-change  => iocontrol.0.tool-changed
 # Why 7i84U (sserial) and not P3 direct GPIO: limits and homes are sampled by
 # LinuxCNC once per servo cycle. The 7i84U updates once per servo cycle too,
 # so the switch state a limit routine sees is identical either way. The probe
-# is on P3 (motion_7i80hdt.hal) precisely because it is the only field signal
-# whose latching latency shows up as touch-position error.
+# is also on the 7i84U (input-15 with hardware level-shifting; see below) --
+# nothing sits on P3 bare FPGA GPIO because unshifted 24 V field signals would
+# destroy the 3.3 V LVCMOS FPGA pins.
 
 setp hm2_7i80.0.7i84.0.1.input-00.invert_input  1   # X_LIMIT_PLUS  (NC)
 setp hm2_7i80.0.7i84.0.1.input-01.invert_input  1   # X_LIMIT_MINUS (NC)
@@ -178,30 +158,51 @@ net home-y => joint.1.home-sw-in
 net home-z <= hm2_7i80.0.7i84.0.1.input-08        # LS-62 confirmed TB-51
 net home-z => joint.2.home-sw-in
 
-# IN9-IN31: 23 spare inputs on 7i84U-B
+# Renishaw MP-3 probe SKIP1 on 7i84U-B input-15 (physically TB3 pin 16).
+# Rationale: the 7i84U provides opto-isolated 24 V-tolerant field inputs, which
+# the bare 7i80HDT P3 GPIOs do not (P3 = unbuffered 3.3 V LVCMOS -- 24 V would
+# destroy the FPGA input). Latency: the 7i84U samples all inputs once per
+# sserial update (~1 ms at 2.5 MBd); motion.probe-input is polled at servo
+# rate. This one-servo-period jitter is acceptable for tool setting and
+# workpiece probing at feedrates below ~500 mm/min. If tighter probing
+# accuracy is ever required, install a Mesa 7i34 opto-isolator card on P3 and
+# move probe-in there.
+# Probe interface (Renishaw MI 12 or similar) idles NC -> probe trigger = low,
+# so invert_input=1 makes motion.probe-input TRUE on contact.
+setp hm2_7i80.0.7i84.0.1.input-15.invert_input  1
+net probe-in <= hm2_7i80.0.7i84.0.1.input-15
+net probe-in => motion.probe-input
+
+# IN9..IN14 and IN16..IN31: 22 spare inputs on 7i84U-B
 
 #####################################################################
-# 7i84U-B (7i44 port 1) TB2 outputs -- drive-enables and relay loads
+# 7i84U-B (7i44 port 0 sserial CHANNEL 1) outputs 0..15 - drive-enables + relay loads
+# Physical: OUT0-7 on TB3 pins 17-24 ; OUT8-15 on TB2 pins 17-24
 #####################################################################
 #
 # WARNING: verify coil voltage/current and interpose relays for all 100 VAC
 # solenoid loads (SOL-35/61/62). Add suppression appropriate to each coil.
 # X/Y/Z drive-enable outputs go into MELDAS DK-427 ENA inputs via interposing
 # relay (dry-contact input on the drive side).
+#
+# Drive-enable writers: joint.N.amp-enable-out is the LinuxCNC motion module's
+# per-joint amplifier request. When machine is on and no fault is latched,
+# amp-enable-out goes TRUE; on fault or estop it drops FALSE. This is the
+# authoritative source for the ENA net. Also feeds pwmgen.NN.enable in
+# motion_7i80hdt.hal.
 
+net x-enable <= joint.0.amp-enable-out
 net x-enable => hm2_7i80.0.7i84.0.1.output-00   # X servo S-ON to MELDAS DK-427
+net y-enable <= joint.1.amp-enable-out
 net y-enable => hm2_7i80.0.7i84.0.1.output-01   # Y servo S-ON to MELDAS DK-427
+net z-enable <= joint.2.amp-enable-out
 net z-enable => hm2_7i80.0.7i84.0.1.output-02   # Z servo S-ON to MELDAS DK-427
 
-# Formerly TB5 SSR overflow outputs -- now on 7i84U-B via interposing relays
-# for the 100 VAC solenoids or the PLC-driven barrier/flood devices. Uncomment
-# as each interposing relay is wired.
+# 100 VAC solenoid outputs via interposing relays. Uncomment as each relay is wired.
 # net air-blast          => hm2_7i80.0.7i84.0.1.output-03  # SOL-62 via RLY-5
 # net touch-sensor-blast => hm2_7i80.0.7i84.0.1.output-04  # SOL-35 via RLY-6
 # net tap-coolant-blast  => hm2_7i80.0.7i84.0.1.output-05  # SOL-61 via RLY-7
-# net atc-barrier        => hm2_7i80.0.7i84.0.1.output-06  # PLC Y095 TCME.M
-#     (also driven from linuxcnc/atc_orient.hal; keep only one writer)
+# OUT6 atc-barrier: netted in atc_orient.hal (PLC Y095 TCME.M)
 # net flood-valve        => hm2_7i80.0.7i84.0.1.output-07  # PLC Y011 FCL
 
 # OUT8-OUT15: 8 spare outputs on 7i84U-B
-
