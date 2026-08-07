@@ -12,10 +12,10 @@
 | Item | Planned choice | Status |
 |---|---|---|
 | Primary motion/control board | **Mesa 7i80HDT** Ethernet FPGA host (3×50-pin daughter connectors) | **Buy plan item** |
-| P1 daughter card | **Mesa 7i44** — 8-channel RS-422 smart-serial breakout | **Buy plan item** — port 0 carries the 7i84U; ports 1-7 stay spare |
+| P1 daughter card | **Mesa 7i44** — 8-channel RS-422 smart-serial breakout | **Buy plan item** — port 0 carries 7i84U-A, port 1 carries 7i84U-B, and ports 2-7 stay spare |
 | P2 daughter card | **Mesa 7i49** (plain, not 7i49HV) | **Buy plan item** — 6 resolvers + 6× ±10V analog outs; reads original Tamagawa at 5 kHz; also drives X/Z/Y and FR-SX velocity |
-| P3 daughter card | **Mesa 7i37TA** field breakout | **Buy plan item** — motion-critical field I/O (limits, homes, E-stop, probe, drive-enables, SSR overflow) |
-| Remote field I/O | Mesa 7i84U (smart-serial) near green breakout PCB | Retained — now hangs off the 7i44 port 0 |
+| P3 daughter card | **None** | P3 is unused/spare except bare direct FPGA GPIO `gpio.042` for Renishaw MP-3 probe SKIP1; no daughter card is planned |
+| Remote field I/O | Mesa 7i84U-A on 7i44 port 0 and 7i84U-B on port 1 | 7i84U-A retained near green breakout PCB; 7i84U-B adds limits/homes, drive enables, and relay-driven loads |
 | Firmware bitfile | `7i80hdt_7i44_ss_7i49d.bit` (PCW-provided) | Confirm final revision from Mesa/PCW before load |
 | Control PC | LinuxCNC PC with Ethernet NIC on the 7i80HDT subnet | Confirm latency and static-IP setup (192.168.1.121 target) |
 | Optional pendant | WHB04B-style USB pendant, or MPG on a spare 7i44 port | Only after base machine is safe |

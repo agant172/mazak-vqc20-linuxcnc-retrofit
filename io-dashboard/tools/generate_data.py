@@ -237,17 +237,15 @@ def build(root):
         elif commented_nets:
             hal_state = "commented"
 
-        # Reclassify 7i80HDT rows into the physical daughter card by GPIO index
-        #   gpio.024-031 -> 7i49 (P2)
-        #   gpio.032-055 -> 7i37TA (P3 field breakout)
+        # P3 has no daughter card: gpio.042 is the bare probe input and all other
+        # P3 GPIO remains spare. Preserve 7i80HDT ownership for those authority rows.
+        # gpio.024-031 is retained as the 7i49 P2 classification if it appears.
         board = r["mesa_card"]
         if board == "7i80HDT":
             m_idx = re.search(r"gpio\.(\d+)", r["pin_channel"])
             if m_idx:
                 idx = int(m_idx.group(1))
-                if 32 <= idx <= 55:
-                    board = "7i37TA"
-                elif 24 <= idx <= 31:
+                if 24 <= idx <= 31:
                     board = "7i49"
 
         signals.append({
@@ -307,25 +305,23 @@ def build(root):
         # Surface these as first-class rows so a net search always finds them.
         pin = mesa[0]
         if ".7i84." in pin:
-            board = "7i84U"
+            m_card = re.search(r"\.7i84\.0\.(\d+)\.", pin)
+            board = "7i84U-B" if m_card and m_card.group(1) == "1" else "7i84U-A"
             chan = pin.rsplit(".", 1)[-1]
             conn = "TB1" if chan.startswith("input") else "TB2"
             channel = chan.upper().replace("INPUT-", "IN").replace("OUTPUT-", "OUT")
             channel = re.sub(r"^(IN|OUT)0(\d)$", r"\1\2", channel)
         else:
-            # Classify the daughter card by GPIO index on the 7i80HDT
-            #   gpio.024-047 = P2 (7i49) - not typically bare GPIO here, but classified as 7i49 for display
-            #   gpio.032-055 = P3 (7i37TA field breakout)
-            #   otherwise    = P1 (7i44 sserial breakout)
+            # P3 has no daughter card. gpio.042 is the direct probe exception;
+            # any other P3 GPIO reference is shown as a 7i80HDT P3 spare.
             m_idx = re.search(r"gpio\.(\d+)", pin)
             idx = int(m_idx.group(1)) if m_idx else -1
-            if 32 <= idx <= 55:
-                board = "7i37TA"   # P3 field breakout
-            elif 24 <= idx <= 31:
+            if 24 <= idx <= 31:
                 board = "7i49"      # P2 daughter card
+                conn = "P2"
             else:
-                board = "7i80HDT"   # P1 / other
-            conn = "P3" if board == "7i37TA" else ("P2" if board == "7i49" else "P1")
+                board = "7i80HDT"
+                conn = "P3 GPIO" if idx == 42 else ("P3 GPIO spare" if 32 <= idx <= 62 else "P1")
             channel = pin.split("hm2_7i80.0.", 1)[-1]
         is_in = "input" in pin or pin.endswith(".in")
         direction = "IN" if is_in else "OUT"
@@ -377,7 +373,7 @@ def build(root):
     meta = {
         "machine": "Mazak VQC-20/40",
         "serial": "060231",
-        "architecture": "LinuxCNC + Mesa 7i80HDT (Ethernet FPGA host) + 7i44 on P1 (sserial to 7i84U) + 7i49 on P2 (resolver + analog outs) + 7i37TA on P3 (motion-critical field breakout) + 7i84U on 7i44 port 0 (remote field I/O)",
+        "architecture": "LinuxCNC + Mesa 7i80HDT (Ethernet FPGA host) + 7i44 on P1 (sserial to 7i84U-A on port 0 and 7i84U-B on port 1) + 7i49 on P2 (resolver + analog outs); P3 unused/spare except bare gpio.042 probe input",
         "generated": datetime.datetime.now(datetime.timezone.utc)
                              .strftime("%Y-%m-%d %H:%M UTC"),
         "source_repo": "mazak-vqc20-linuxcnc-retrofit",
@@ -388,11 +384,11 @@ def build(root):
             "mesa/current_pin_authority.csv is the wiring authority.",
             "7i49 AOUT axis order is X=AOUT0, Z=AOUT1, Y=AOUT2.",
             "Axis feedback is Tamagawa TS2014N resolver through the 7i49 on P2, not quadrature encoder.",
-            "The hardware E-stop chain removes hazardous power. The 7i80HDT P3 breakout IN9 (gpio.041) is a monitor input only; 7i84U IN29 is a redundant status.",
+            "The hardware E-stop chain removes hazardous power. 7i84U-A TB1 IN29 is the sole software monitor; the OEM hardware chain remains authoritative.",
             "Every hm2_7i80.* pin name in the HAL set is an unverified placeholder until confirmed against a firmware readhmid.",
             "7i49 AOUT order is X=AOUT0, Z=AOUT1, Y=AOUT2, FR-SX spindle velocity=AOUT3, FR-SX orient=AOUT4 (reserved).",
-            "P3 field breakout (7i37TA baseline): IN0-5 = X/Y/Z limits, IN6-8 = X/Y/Z homes, IN9 = E-stop monitor, IN10 = probe SKIP1; OUT0-2 = X/Y/Z drive-enable, OUT3-7 = SSR overflow (AIR/TOUCH/TAP/ATC barrier/FLOOD), OUT8 = spare.",
-            "7i84U pin plan (2026-08-03 single-7i84U I/O plan) is unchanged and reachable via `hm2_7i80.0.7i84.0.0.*` over 7i44 P1 port 0.",
+            "7i84U-B on 7i44 port 1: TB1 IN0-5 = X/Y/Z limits, IN6-8 = X/Y/Z homes; TB2 OUT0-2 = X/Y/Z drive-enable; OUT3-7 = AIR/TOUCH/TAP/ATC barrier/FLOOD; OUT8-15 spare.",
+            "7i84U-A on 7i44 port 0 remains reachable via `hm2_7i80.0.7i84.0.0.*`; 7i84U-B uses `hm2_7i80.0.7i84.0.1.*`. P3 is otherwise unused/spare; `hm2_7i80.0.gpio.042` is the probe input.",
         ],
     }
 

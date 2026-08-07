@@ -1,13 +1,17 @@
-# 7i84U remote field I/O for ATC, hydraulics, coolant, air, and utilities
+# 7i84U remote field I/O -- two cards on 7i80HDT smart-serial (via 7i44 P1)
 #
-# This assumes a 7i84U on the 7i80HDT smart-serial bus (via 7i44 P1 port 0). Every
-# hm2_7i80.*.7i84.* name below is an UNVERIFIED PLACEHOLDER; the exact smart-serial
-# device tag and pin names differ by firmware and smart-serial port. Use
-# `halcmd show pin hm2` after loading the actual firmware, then replace the placeholder
-# pin names.
+# 7i84U-A (port 0): ATC, hydraulics, coolant, air, utility, spindle digital I/O
+#                   (existing 32/16 field I/O near green breakout PCB).
+# 7i84U-B (port 1): X/Y/Z limits + homes, X/Y/Z drive-enables, and five
+#                   relay-driven loads (air/touch/tap blast, ATC barrier, flood).
+#
+# Naming convention: hm2_7i80.0.7i84.0.<port>.input-NN / output-NN.
+# The exact smart-serial device tag and pin names differ by firmware and
+# smart-serial port; use `halcmd show pin hm2` after loading the actual
+# firmware, then replace the placeholder pin names below.
 
 #####################################################################
-# 7i84U TB1 assumed inputs
+# 7i84U-A (7i44 port 0) TB1 assumed inputs
 #####################################################################
 
 net tool-clamped <= hm2_7i80.0.7i84.0.0.input-00
@@ -58,7 +62,7 @@ net z-drive-fault => joint.2.amp-fault-in
 # net feed-hold-pb      => motion.feed-hold
 
 #####################################################################
-# 7i84U TB2 assumed outputs
+# 7i84U-A (7i44 port 0) TB2 assumed outputs
 #####################################################################
 
 # WARNING: verify coil/load current and voltage. Use interposing relays or
@@ -132,4 +136,72 @@ net tool-prepare-loopback  iocontrol.0.tool-prepare => iocontrol.0.tool-prepared
 # Auto-complete tool-change: LinuxCNC immediately considers the change done.
 # Replace this with the real ATC M6 remap / ClassicLadder sequence once ready.
 net tool-change-loopback   iocontrol.0.tool-change  => iocontrol.0.tool-changed
+
+#####################################################################
+# 7i84U-B (7i44 port 1) TB1 inputs -- limits and homes
+#####################################################################
+#
+# X/Y/Z overtravel limits (IN0-IN5) are NC contacts -- open (tripped) reads
+# as logic 1 with invert_input=1.
+# X/Y/Z home switches (IN6-IN8) are NO contacts on this machine.
+#
+# Why 7i84U (sserial) and not P3 direct GPIO: limits and homes are sampled by
+# LinuxCNC once per servo cycle. The 7i84U updates once per servo cycle too,
+# so the switch state a limit routine sees is identical either way. The probe
+# is on P3 (motion_7i80hdt.hal) precisely because it is the only field signal
+# whose latching latency shows up as touch-position error.
+
+setp hm2_7i80.0.7i84.0.1.input-00.invert_input  1   # X_LIMIT_PLUS  (NC)
+setp hm2_7i80.0.7i84.0.1.input-01.invert_input  1   # X_LIMIT_MINUS (NC)
+setp hm2_7i80.0.7i84.0.1.input-02.invert_input  1   # Y_LIMIT_PLUS  (NC)
+setp hm2_7i80.0.7i84.0.1.input-03.invert_input  1   # Y_LIMIT_MINUS (NC)
+setp hm2_7i80.0.7i84.0.1.input-04.invert_input  1   # Z_LIMIT_PLUS  (NC)
+setp hm2_7i80.0.7i84.0.1.input-05.invert_input  1   # Z_LIMIT_MINUS (NC)
+
+net limit-x-plus  <= hm2_7i80.0.7i84.0.1.input-00
+net limit-x-plus  => joint.0.pos-lim-sw-in
+net limit-x-minus <= hm2_7i80.0.7i84.0.1.input-01
+net limit-x-minus => joint.0.neg-lim-sw-in
+net limit-y-plus  <= hm2_7i80.0.7i84.0.1.input-02
+net limit-y-plus  => joint.1.pos-lim-sw-in
+net limit-y-minus <= hm2_7i80.0.7i84.0.1.input-03
+net limit-y-minus => joint.1.neg-lim-sw-in
+net limit-z-plus  <= hm2_7i80.0.7i84.0.1.input-04
+net limit-z-plus  => joint.2.pos-lim-sw-in
+net limit-z-minus <= hm2_7i80.0.7i84.0.1.input-05
+net limit-z-minus => joint.2.neg-lim-sw-in
+
+net home-x <= hm2_7i80.0.7i84.0.1.input-06        # LS-42 assumed
+net home-x => joint.0.home-sw-in
+net home-y <= hm2_7i80.0.7i84.0.1.input-07        # LS-52 assumed
+net home-y => joint.1.home-sw-in
+net home-z <= hm2_7i80.0.7i84.0.1.input-08        # LS-62 confirmed TB-51
+net home-z => joint.2.home-sw-in
+
+# IN9-IN31: 23 spare inputs on 7i84U-B
+
+#####################################################################
+# 7i84U-B (7i44 port 1) TB2 outputs -- drive-enables and relay loads
+#####################################################################
+#
+# WARNING: verify coil voltage/current and interpose relays for all 100 VAC
+# solenoid loads (SOL-35/61/62). Add suppression appropriate to each coil.
+# X/Y/Z drive-enable outputs go into MELDAS DK-427 ENA inputs via interposing
+# relay (dry-contact input on the drive side).
+
+net x-enable => hm2_7i80.0.7i84.0.1.output-00   # X servo S-ON to MELDAS DK-427
+net y-enable => hm2_7i80.0.7i84.0.1.output-01   # Y servo S-ON to MELDAS DK-427
+net z-enable => hm2_7i80.0.7i84.0.1.output-02   # Z servo S-ON to MELDAS DK-427
+
+# Formerly TB5 SSR overflow outputs -- now on 7i84U-B via interposing relays
+# for the 100 VAC solenoids or the PLC-driven barrier/flood devices. Uncomment
+# as each interposing relay is wired.
+# net air-blast          => hm2_7i80.0.7i84.0.1.output-03  # SOL-62 via RLY-5
+# net touch-sensor-blast => hm2_7i80.0.7i84.0.1.output-04  # SOL-35 via RLY-6
+# net tap-coolant-blast  => hm2_7i80.0.7i84.0.1.output-05  # SOL-61 via RLY-7
+# net atc-barrier        => hm2_7i80.0.7i84.0.1.output-06  # PLC Y095 TCME.M
+#     (also driven from linuxcnc/atc_orient.hal; keep only one writer)
+# net flood-valve        => hm2_7i80.0.7i84.0.1.output-07  # PLC Y011 FCL
+
+# OUT8-OUT15: 8 spare outputs on 7i84U-B
 

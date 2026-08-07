@@ -6,7 +6,7 @@ control to LinuxCNC using Mesa Electronics FPGA hardware.
 **Machine:** Mazak VQC 20/40 Vertical Quality Center (SN 060231, Mazatrol M-2, ladder YM2V39L)
 **Original control:** Mazatrol M-2
 **New control:** LinuxCNC 2.9.10 on Debian 13 (PREEMPT-RT)
-**Interface hardware:** Mesa 7i80HDT (Ethernet FPGA host) + 7i44 on P1 (RS-422 sserial to 7i84U) + 7i49 on P2 (resolver + analog outs) + 7i37TA on P3 (motion-critical field breakout) + 7i84U on 7i44 port 0 (remote field I/O)
+**Interface hardware:** Mesa 7i80HDT (Ethernet FPGA host) + 7i44 on P1 (RS-422 sserial to 7i84U-A on port 0 and 7i84U-B on port 1) + 7i49 on P2 (resolver + analog outs); P3 is spare except for the bare direct-FPGA probe input `gpio.042`.
 
 > ⚠️ **Safety:** The HAL/INI files in [`linuxcnc/`](linuxcnc/) and the pin authority in
 > [`mesa/current_pin_authority.csv`](mesa/current_pin_authority.csv) are **planning /
@@ -19,10 +19,11 @@ control to LinuxCNC using Mesa Electronics FPGA hardware.
 ## Selected architecture (2026-08-06 rev)
 
 - **LinuxCNC control PC** (Debian 13 / LinuxCNC 2.9.10) driving a **Mesa 7i80HDT** Ethernet FPGA host as the primary control board (`hm2_eth`, static IP 192.168.1.121).
-- **P1 → 7i44** — RS-422 smart-serial breakout. Port 0 carries the 7i84U; ports 1-7 are spare for future MPG / 4th-axis / second 7i84.
+- **P1 → 7i44** — RS-422 smart-serial breakout. Port 0 carries **7i84U-A** near the existing green breakout PCB; port 1 carries **7i84U-B** for safety inputs and relay-driven loads; ports 2-7 are spare.
 - **P2 → 7i49** (plain 7i49) — X/Y/Z resolver feedback on RES0/1/2 + X/Z/Y servo velocity command + FR-SX spindle velocity + FR-SX orient reference on AOUT0..AOUT4.
-- **P3 → 7i37TA field breakout** — 24 direct FPGA GPIO for motion-critical, host-side, low-latency I/O: X/Y/Z limits, X/Y/Z homes, E-stop chain monitor, Renishaw MP-3 probe SKIP1, X/Y/Z drive-enable outputs, and 6 relay-driven outputs (5 used + 1 spare).
-- **7i84U on 7i44 port 0** — remote field-I/O expansion for ATC, hydraulics, coolant, air, magazine, utility I/O near the existing green breakout PCB.
+- **P3 → unused/spare** — the sole exception is the Renishaw MP-3 probe SKIP1 on bare direct FPGA GPIO `hm2_7i80.0.gpio.042`; no daughter card is fitted.
+- **7i84U-A on 7i44 port 0** — remote field I/O for ATC, hydraulics, coolant, air, magazine, utility I/O, and cabinet field wiring.
+- **7i84U-B on 7i44 port 1** — TB1 IN0-5 carry X/Y/Z limits, TB1 IN6-8 carry X/Y/Z homes, and TB2 OUT0-2 carry X/Y/Z drive enables; TB2 OUT3-7 carry the planned relay-driven loads.
 - **Optional WHB04B-style USB pendant** after the base machine is proven safe.
 
 Full rationale: [docs/architecture_decision.md](docs/architecture_decision.md).
@@ -32,14 +33,14 @@ Full rationale: [docs/architecture_decision.md](docs/architecture_decision.md).
 | Area | Status |
 |---|---|
 | Repo created & structured | ✅ Completed |
-| **7i80HDT + 7i44 + 7i49 + 7i37TA + 7i84U architecture** | ✅ Completed |
+| **7i80HDT + 7i44 + 7i49 + 7i84U-A + 7i84U-B architecture** | ✅ Completed |
 | 7i49 resolver feedback interface (plain, 5 kHz) | ✅ Completed |
 | Tamagawa TS2014N resolver identification | ✅ Completed |
 | I/O workbook created | ✅ Completed |
 | HAL/INI bring-up skeleton drafted | ✅ Completed |
 | Pin authority CSV finalized | ✅ Completed |
 | Mesa firmware / photo checklists drafted | ✅ Completed |
-| Order 7i80HDT + 7i44 + 7i37TA | 🔄 In progress |
+| Order 7i80HDT + 7i44 + 7i84U-B | 🔄 In progress |
 | Collect cabinet photos | 🔄 In progress |
 | Trace 24 V + safety chain | 🔄 In progress |
 | Live Mesa install | ⬜ Not started |
@@ -52,17 +53,17 @@ Full rationale: [docs/architecture_decision.md](docs/architecture_decision.md).
 ## Current TODO (top priorities)
 
 **Immediate**
-- Order the 7i80HDT, 7i44, and 7i37TA (7i49 and 7i84U already in hand / buy list).
+- Order the 7i80HDT, 7i44, and 7i84U-B (7i49 and 7i84U-A already in hand / buy list).
 - Confirm PCW-generated firmware bitfile `7i80hdt_7i44_ss_7i49d.bit` and stash it under `mesa/` once received.
 - Confirm 7i80HDT Ethernet setup: static IP 192.168.1.121, `hm2_eth` `board_ip="192.168.1.121"`, and host NIC `enp0s31f6` at 192.168.1.1/24.
-- Confirm 24 V field power feed (OEM HR-11F-24 + retrofit DR-240-24, kept isolated) and 7i80HDT / 7i84U / 7i37TA I/O sourcing/sinking behavior before wiring.
+- Confirm 24 V field power feed (OEM HR-11F-24 + retrofit DR-240-24, kept isolated) and 7i84U-A / 7i84U-B I/O sourcing/sinking behavior before wiring.
 - Capture cabinet photo set ([checklist](docs/cabinet_photo_checklist.md)).
 - Record X/Y/Z servo drive + Mitsubishi FR-SX spindle model/terminal labels.
 - Trace E-stop, door, ready chain, and servo contactor wiring.
 
 **Next**
 - LinuxCNC latency test on the control PC (already validated on Debian 13 / RT kernel).
-- Install the 7i80HDT + 7i44 + 7i49 + 7i37TA + 7i84U; save `mesa_readhmid.txt` and the actual `mesa_hal_pins.txt` dump.
+- Install the 7i80HDT + 7i44 + 7i49 + 7i84U-A + 7i84U-B; retain P3 for the bare `gpio.042` probe input and save `mesa_readhmid.txt` and the actual `mesa_hal_pins.txt` dump.
 - Replace placeholder `hm2_7i80.0...` pin names in HAL from the real pin dump.
 - Set the 7i49 resolver excitation to **5 kHz** (Tamagawa TS2014N spec is 4.5 kHz; the 7i49 offers 2.5 / 5 / 10 kHz, so 5 kHz is the closest working baseline).
 - Identify each axis resolver winding pair with an **ohmmeter before applying power** (rotor pair R1/R2 → RESDRV±, matched stator pairs S1-S3, S2-S4 → RESSIN and RESCOS); verify, don't assume.
@@ -132,7 +133,7 @@ any non-GET request. Regenerate `data.js` after editing the repo with
 - [Mesa Electronics](http://www.mesanet.com/)
 - [Mesa 7i80HDT / 7i80HD Ethernet FPGA host](http://www.mesanet.com/fpgacardinfo.html)
 - [Mesa 7i49 manual (resolver interface)](http://www.mesanet.com/pdf/motion/7i49man.pdf)
-- [Mesa 50-pin daughter card catalog (7i37TA, 7i44, 7i49)](https://www.mesanet.com/aiodaughter.html)
+- [Mesa 50-pin daughter card catalog (7i44, 7i49)](https://www.mesanet.com/aiodaughter.html)
 - [Servo PID tuning thread — VQC 15/40, TRA-31, HD81-12S, 7i49 @ 5 kHz](https://forum.linuxcnc.org/10-advanced-configuration/32061-servo-pid-tuning-can-t-clamp-down-on-overshoot) — sister-machine retrofit confirming a **plain 7i49** at 5 kHz against the 4.5 kHz spec.
 - [srdco/MazakVQC1540 configs](https://github.com/srdco/MazakVQC1540) — LinuxCNC configs for the sister VQC 15/40.
 - [SRDCO MazakVQC1540 complete 2017 reference package](https://github.com/srdco/MazakVQC1540/tree/master/MAZAK-VQC1540-20170501) — full 2017-05-01 config/wiring snapshot for planning and retrofit comparison.

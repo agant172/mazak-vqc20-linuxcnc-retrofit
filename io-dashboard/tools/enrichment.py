@@ -204,7 +204,7 @@ EXPECTED = {
         "HAL currently forces this net TRUE \u2014 field input not read",
         "motion_7i80hdt.hal:102-103 \u2014 \"Until encoder is wired, spindle-at-speed is forced true "
         "(open-loop, no speed verification)\": sets spindle-at-speed true. "
-        "current_pin_authority.csv:56 allocates a real 7i84U IN13 for it.",
+        "current_pin_authority.csv allocates 7i84U-A TB1 IN13 for it.",
         "conflict",
     ),
     # --- Field power / smart-serial link ------------------------------------
@@ -254,7 +254,7 @@ LOCATION = {
     "Y_AXIS_CMD": ("Servo bay \u2014 Y servo amp analog command input", "Servo drives", "Verify velocity vs torque input and polarity before enabling"),
     "Z_AXIS_CMD": ("Servo bay \u2014 Z servo amp analog command input", "Servo drives", "Verify velocity vs torque input and polarity before enabling"),
     "SPINDLE_TB3_ENABLE_CANDIDATE": ("Spindle/servo bay \u2014 Mitsubishi FR-SX, SX-IO1 board (CON1/CONA)",
-                                     "Spindle drive", "Conflicts with the 7i84U FWD/REV/ENA plan"),
+                                     "Spindle drive", "Conflicts with the 7i84U-A FWD/REV/ENA plan"),
     "SPINDLE_SPEED_CMD": ("Spindle/servo bay \u2014 FR-SX V-IN speed reference terminal", "Spindle drive",
                           "FR-SX drawing 4143075403, PDF pg 127 of 41434WB.pdf"),
     "X_LIMIT_PLUS": ("X axis way \u2014 positive overtravel switch", "Axis overtravel", "OT+X"),
@@ -331,26 +331,26 @@ LOCATION = {
     "ATC_REV": ("ATC magazine \u2014 motor reverse relay", "ATC magazine",
                 "SOL-8A/8B direction mapping unresolved (crossref says 8A=CCW/forward, alarm-table OCR says 8A=CW)."),
     "ALARM_OUT": ("Operating panel \u2014 alarm light or horn", "Operator panel", ""),
-    "SECOND_SSERIAL_CARD": ("Retired 2026-08-03", "Expansion", "Not required. Single-7i84U plan committed 2026-08-03: drops (Y091 OTR, X078 MPWS, X02F INHRLS, Y023-Y025 M43-M45T) + series consolidations (HLP+HLP2, THR+ONT, ITMDSS+LS-140/141) + panel moves (FEED_HOLD/SINGLE_BLOCK to touchscreen, panel-power-on to software state, reset-out to TB5 SSR) fit 5 DI + 5 DO of gap load into 6 DI + 6 DO available."),
+    "SECOND_SSERIAL_CARD": ("Replaced by 7i84U-B on 7i44 port 1", "Expansion", "No third smart-serial field-I/O card is currently required. The prior single-7i84U plan used: drops (Y091 OTR, X078 MPWS, X02F INHRLS, Y023-Y025 M43-M45T) + series consolidations (HLP+HLP2, THR+ONT, ITMDSS+LS-140/141) + panel moves (FEED_HOLD/SINGLE_BLOCK to touchscreen, panel-power-on to software state, reset-out to TB5 SSR) fit 5 DI + 5 DO of gap load into 6 DI + 6 DO available before the dual-7i84U architecture revision."),
 }
 
-SSERIAL_LOC = ("Control cabinet \u2014 7i80HDT P1 (7i44 port 0) to 7i84U RJ45 (RS-422 smart-serial)", "Field I/O link",
+SSERIAL_LOC = ("Control cabinet \u2014 7i80HDT P1 (7i44 port 0) to 7i84U-A RJ45 (RS-422 smart-serial)", "Field I/O link",
                "Use absolute 7i44 port 0 pin numbers. Shield drain at the 7i80HDT / 7i44 end only.")
 for _k in ("SSERIAL_GND_A", "SSERIAL_GND_B", "SSERIAL_RX_PLUS", "SSERIAL_RX_MINUS",
            "SSERIAL_TX_PLUS", "SSERIAL_TX_MINUS", "SSERIAL_5V_A", "SSERIAL_5V_B"):
     LOCATION[_k] = SSERIAL_LOC
 
 SPARE_LOC = {
-    "TB5_SSR_OUT3_SPARE": ("Control cabinet \u2014 7i80HDT P3 7i37TA OUT bank (gpio.054), historical TB5 SSR3", "Spare", "Now on P3 7i37TA OUT6 via interposing relay if driven"),
-    "TB5_SSR_OUT4_SPARE": ("Control cabinet \u2014 7i80HDT P3 7i37TA OUT bank (gpio.055), historical TB5 SSR4", "Spare", "Now on P3 7i37TA OUT7 via interposing relay if driven"),
-    "TB5_SSR_OUT5_SPARE": ("Control cabinet \u2014 7i80HDT P3 7i37TA OUT bank (gpio.056), historical TB5 SSR5", "Spare", "Now on P3 7i37TA OUT8 via interposing relay if driven"),
+    "TB5_SSR_OUT3_SPARE": ("Control cabinet \u2014 7i84U-B TB2 OUT6, historical TB5 SSR3", "Spare", "Assigned to the ATC barrier via an interposing relay if driven."),
+    "TB5_SSR_OUT4_SPARE": ("Control cabinet \u2014 7i84U-B TB2 OUT7, historical TB5 SSR4", "Spare", "Assigned to the flood valve via an interposing relay if driven."),
+    "TB5_SSR_OUT5_SPARE": ("Control cabinet \u2014 7i84U-B TB2 OUT8-OUT15", "Spare", "No direct replacement allocation; these 7i84U-B outputs remain spare."),
 }
 LOCATION.update(SPARE_LOC)
 for i in range(4, 10):
-    LOCATION["SEVENI84U_IN%d_SPARE" % i] = ("Field I/O enclosure \u2014 7i84U TB1, unlanded", "Spare", "")
+    LOCATION["SEVENI84U_IN%d_SPARE" % i] = ("Field I/O enclosure \u2014 7i84U-A TB1, unlanded", "Spare", "")
 for i in range(3, 6):
-    LOCATION["SEVENI84U_OUT%d_SPARE" % i] = ("Field I/O enclosure \u2014 7i84U TB2, unlanded", "Spare",
-                                             "Drive S-ON is handled by the P3 7i37TA OUT0-2 (gpio.048/049/050).")
+    LOCATION["SEVENI84U_OUT%d_SPARE" % i] = ("Field I/O enclosure \u2014 7i84U-A TB2, unlanded", "Spare",
+                                             "Drive S-ON is handled by 7i84U-B TB2 OUT0-2 (`hm2_7i80.0.7i84.0.1.output-00..02`).")
 
 # ---------------------------------------------------------------------------
 # Conflict register. Each entry links to the signal rows it affects.
@@ -358,9 +358,9 @@ for i in range(3, 6):
 CONFLICTS = [
     {
         "id": "C1",
-        "title": "7i84U input allocation: field_7i84u.hal disagrees with the pin authority",
+        "title": "7i84U-A input allocation: field_7i84u.hal disagrees with the pin authority",
         "severity": "conflict",
-        "summary": "Seven active input nets in field_7i84u.hal are wired to different 7i84U channels "
+        "summary": "Seven active input nets in field_7i84u.hal are wired to different 7i84U-A channels "
                    "than current_pin_authority.csv assigns. The authority wins; the HAL file has not "
                    "been updated yet.",
         "detail": [
@@ -382,9 +382,9 @@ CONFLICTS = [
     },
     {
         "id": "C2",
-        "title": "7i84U output allocation: field_7i84u.hal disagrees with the pin authority",
+        "title": "7i84U-A output allocation: field_7i84u.hal disagrees with the pin authority",
         "severity": "conflict",
-        "summary": "The active output block in field_7i84u.hal drives eleven outputs that mostly do not "
+        "summary": "The active output block in field_7i84u.hal drives eleven 7i84U-A outputs that mostly do not "
                    "exist in the authority table, while most authority outputs are commented out or absent.",
         "detail": [
             "tool-unclamp-sol: HAL output-00 (field_7i84u.hal:66) vs authority OUT10 (current_pin_authority.csv:85)",
@@ -396,7 +396,7 @@ CONFLICTS = [
             "field_7i84u.hal:85-90), z-brake-rel (OUT6), gear-hi-sol (OUT7), gear-lo-sol (OUT8), "
             "tool-clamp-sol (OUT9), lube-on (OUT12), atc-fwd (OUT13), atc-rev (OUT14), alarm-out (OUT15)",
         ],
-        "action": "Do not energize any 7i84U output until the HAL output block is regenerated from the "
+        "action": "Do not energize any 7i84U-A output until the HAL output block is regenerated from the "
                   "authority table and each load is traced and measured.",
         "signals": ["TOOL_UNCLAMP_SOL", "COOLANT_ON", "SPINDLE_FWD", "SPINDLE_REV", "SPINDLE_ENA",
                     "Z_BRAKE_REL", "GEAR_HI_SOL", "GEAR_LO_SOL", "TOOL_CLAMP_SOL", "LUBE_ON",
@@ -405,16 +405,16 @@ CONFLICTS = [
     },
     {
         "id": "C3",
-        "title": "Spindle control: 7i49 AOUT3 velocity vs 7i84U FWD/REV/ENA",
+        "title": "Spindle control: 7i49 AOUT3 velocity vs 7i84U-A FWD/REV/ENA",
         "severity": "conflict",
         "summary": "The FR-SX has an analog speed command (7i49 AOUT3) and separate digital FWD/REV/ENA "
-                   "lines (7i84U TB2 OUT0-2). The commented HAL channels do not match the authority.",
+                   "lines (7i84U-A TB2 OUT0-2). The commented HAL channels do not match the authority.",
         "detail": [
             "motion_7i80hdt.hal:265 nets spindle-enable from spindle.0.on and line 177 also uses it to "
             "gate pwmgen.03.enable, so the net is already live in the analog path",
-            "motion_7i80hdt.hal:266 comment says \"Spindle enable/dir routed via 7i84U sserial\"",
-            "field_7i84u.hal:85-90 has spindle-fwd/rev/enable to 7i84U output-11/12/13 \u2014 all commented out",
-            "The authority places SPINDLE_FWD/REV/ENA on 7i84U TB2 OUT0/OUT1/OUT2 "
+            "motion_7i80hdt.hal:266 comment says \"Spindle enable/dir routed via 7i84U-A sserial\"",
+            "field_7i84u.hal:85-90 has spindle-fwd/rev/enable to 7i84U-A output-11/12/13 \u2014 all commented out",
+            "The authority places SPINDLE_FWD/REV/ENA on 7i84U-A TB2 OUT0/OUT1/OUT2 "
             "(current_pin_authority.csv:78-80), which does not match the commented HAL channel numbers",
         ],
         "action": "Pick one control path. Confirm the FR-SX terminal set (2-wire vs 3-wire, sink vs source) "
@@ -498,12 +498,12 @@ CONFLICTS = [
         "id": "C7",
         "title": "spindle-at-speed is forced true in HAL while the authority allocates a real input",
         "severity": "conflict",
-        "summary": "motion_7i80hdt.hal short-circuits the at-speed net, so the planned 7i84U IN13 field "
+        "summary": "motion_7i80hdt.hal short-circuits the at-speed net, so the planned 7i84U-A IN13 field "
                    "signal would be ignored even once wired.",
         "detail": [
             "motion_7i80hdt.hal:102-103 \u2014 \"Until encoder is wired, spindle-at-speed is forced true "
             "(open-loop, no speed verification)\": sets spindle-at-speed true",
-            "current_pin_authority.csv:56 \u2014 SPINDLE_AT_SPEED on 7i84U TB1 IN13, net spindle-at-speed",
+            "current_pin_authority.csv:56 \u2014 SPINDLE_AT_SPEED on 7i84U-A TB1 IN13, net spindle-at-speed",
             "field_7i84u.hal:42 \u2014 the matching input net is commented out and uses a different name "
             "(spindle-at-spd) and a different channel (input-15)",
         ],
@@ -548,10 +548,10 @@ CONFLICTS = [
             "position sensors, tool-measure stand switches (io_map_research_notes.md:287-295)",
             "Two lube systems (head AL-56, way AL-54) share one generic LUBE_ON output "
             "(io_map_research_notes.md:293-295)",
-            "SECOND_SSERIAL_CARD was retired 2026-08-03 after single-7i84U plan committed (open_issues.md §3)",
+            "7i84U-B on port 1 superseded the prior single-7i84U plan (open_issues.md §3)",
         ],
-        "action": "Decide whether the pallet changer is retained before finalising the 7i84U channel budget. "
-                  "Single-7i84U plan committed 2026-08-03; second smart-serial card retired — do not order.",
+        "action": "Decide whether the pallet changer is retained before finalising the 7i84U-A/B channel budget. "
+                  "Prior single-7i84U plan was superseded by 7i84U-B on port 1 — do not order.",
         "signals": ["SECOND_SSERIAL_CARD", "DOOR_INTERLOCK", "LUBE_ON", "COOLANT_ON"],
         "sources": ["wiring/io_map_research_notes.md:94-170,287-295", "mesa/current_pin_authority.csv:91"],
     },
@@ -564,15 +564,15 @@ BOARDS = {
     "7i80HDT": {
         "name": "Mesa 7i80HDT",
         "role": "Ethernet FPGA host (hm2_eth)",
-        "detail": "Primary control board. 3× 50-pin daughter connectors carry 72 IO: P1 = 7i44 sserial "
-                  "breakout, P2 = 7i49 resolvers + analog outs, P3 = 7i37TA field breakout.",
+        "detail": "Primary control board. P1 = 7i44 sserial breakout, P2 = 7i49 resolvers + analog outs; "
+                  "P3 is unused/spare except bare direct FPGA GPIO gpio.042 for the probe.",
         "address": "board_ip 192.168.1.121 (host NIC enp0s31f6 at 192.168.1.1/24)",
     },
     "7i44": {
         "name": "Mesa 7i44",
         "role": "8-channel RS-422 smart-serial breakout (on 7i80HDT P1)",
-        "detail": "Port 0 carries the 7i84U. Ports 1-7 spare for future MPG / 4th-axis / second 7i84.",
-        "address": "sserial_port_0=00000000 on 7i80HDT P1",
+        "detail": "Port 0 carries 7i84U-A; port 1 carries 7i84U-B. Ports 2-7 spare for future MPG / 4th-axis / additional 7i84.",
+        "address": "7i80HDT P1 sserial ports 0 and 1",
     },
     "7i49": {
         "name": "Mesa 7i49",
@@ -582,21 +582,20 @@ BOARDS = {
                   "the FR-SX spindle velocity, AOUT4 an FR-SX orient reference (reserved).",
         "address": "num_resolvers=3, num_pwmgens=4 on 7i80HDT P2",
     },
-    "7i37TA": {
-        "name": "Mesa 7i37TA (P3 field breakout)",
-        "role": "Motion-critical direct FPGA GPIO breakout (on 7i80HDT P3)",
-        "detail": "24-bit isolated field-I/O breakout: 16 isolated IN + 8 isolated OUT. Carries X/Y/Z "
-                  "limits (IN0-5), X/Y/Z homes (IN6-8), E-stop monitor (IN9), probe SKIP1 (IN10); "
-                  "X/Y/Z drive-enable (OUT0-2), and 5 relay-driven outputs (OUT3-7) plus "
-                  "1 spare (OUT8). Interposing relays (RLY-5/6/7) required for 100VAC solenoid loads.",
-        "address": "Direct FPGA GPIO on 7i80HDT P3 (gpio.032-055)",
+    "7i84U-A": {
+        "name": "Mesa 7i84U-A",
+        "role": "Remote smart-serial field I/O (7i44 port 0)",
+        "detail": "32 field inputs on TB1 and 16 field outputs on TB2. Mounted near the original green "
+                  "breakout PCB for ATC, hydraulics, coolant, air, magazine, and utility I/O.",
+        "address": "On 7i44 port 0 (`hm2_7i80.0.7i84.0.0.*`)",
     },
-    "7i84U": {
-        "name": "Mesa 7i84U",
-        "role": "Remote smart-serial field I/O",
-        "detail": "32 field inputs on TB1, 16 field outputs on TB2. Mounted near the original green "
-                  "breakout PCB. Two independent field power banks. Pin plan committed 2026-08-03 preserved.",
-        "address": "On 7i44 port 0 (sserial_port_0=00000000)",
+    "7i84U-B": {
+        "name": "Mesa 7i84U-B",
+        "role": "Remote smart-serial safety and relay I/O (7i44 port 1)",
+        "detail": "32 DI + 16 DO remote I/O: TB1 IN0-8 carries limits and homes; TB2 OUT0-2 carries "
+                  "drive enables; TB2 OUT3-7 drives relay-managed air, coolant, and ATC loads. "
+                  "Interposing relays remain required for 100VAC solenoid loads.",
+        "address": "On 7i44 port 1 (`hm2_7i80.0.7i84.0.1.*`)",
     },
     "none": {
         "name": "Unassigned",

@@ -22,7 +22,7 @@
   /* ---------------------------------------------------------------- state */
 
   var state = {
-    view: 'ALL',                 // ALL | 7i80HDT | 7i44 | 7i49 | 7i37TA | 7i84U | CONFLICTS
+    view: 'ALL',                 // ALL | 7i80HDT | 7i44 | 7i49 | 7i84U-A | 7i84U-B | CONFLICTS
     q: '',
     board: '', conn: '', dir: '', sub: '', status: '',
     selected: null,              // signal id
@@ -85,7 +85,7 @@
   function sortSignals(list) {
     return list.slice().sort(function (a, b) {
       if (a.board !== b.board) {
-        var order = ['7i80HDT', '7i44', '7i49', '7i37TA', '7i84U', 'none'];
+        var order = ['7i80HDT', '7i44', '7i49', '7i84U-A', '7i84U-B', 'none'];
         return order.indexOf(a.board) - order.indexOf(b.board);
       }
       if (a.connector !== b.connector) return a.connector < b.connector ? -1 : 1;
@@ -113,7 +113,7 @@
   function fillMeta() {
     var m = D.meta;
     document.querySelector('[data-bind="arch"]').textContent =
-      'Mesa 7i80HDT + 7i44 + 7i49 + 7i37TA + 7i84U';
+      'Mesa 7i80HDT + 7i44 + 7i49 + 7i84U-A + 7i84U-B';
     document.querySelector('[data-bind="serial"]').textContent = m.serial;
     document.querySelector('[data-bind="generated"]').textContent = m.generated;
     document.querySelector('[data-bind="generated2"]').textContent = m.generated;
@@ -127,8 +127,8 @@
     { id: 'ALL', name: 'All signals', sub: 'authority + config' },
     { id: '7i80HDT', name: '7i80HDT', sub: 'Ethernet FPGA host' },
     { id: '7i44',    name: '7i44',    sub: 'RS-422 sserial on P1' },
-    { id: '7i37TA',  name: '7i37TA',  sub: 'P3 field breakout' },
-    { id: '7i84U', name: '7i84U', sub: 'smart-serial field I/O' },
+    { id: '7i84U-A', name: '7i84U-A', sub: 'sserial field I/O on port 0' },
+    { id: '7i84U-B', name: '7i84U-B', sub: 'safety and relay I/O on port 1' },
     { id: '7i49', name: '7i49', sub: 'resolver interface' },
     { id: 'none', name: 'Unassigned', sub: 'no hardware allocated' },
     { id: 'CONFLICTS', name: 'Conflicts / unverified', sub: 'hold before wiring', tone: 'conflict' }
@@ -173,7 +173,7 @@
   }
 
   function buildFilters() {
-    var boards = ['7i80HDT', '7i44', '7i49', '7i37TA', '7i84U', 'none'];
+    var boards = ['7i80HDT', '7i44', '7i49', '7i84U-A', '7i84U-B', 'none'];
     var dirs = {};
     SIGNALS.forEach(function (s) { dirs[s.direction] = s.direction_label; });
 

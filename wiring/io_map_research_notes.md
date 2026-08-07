@@ -23,7 +23,7 @@ photo/scan review of `41434WB.pdf` (Electrical Circuit Diagram), pages
 24, 30–34, 50, 61–66, 70, 95, 100, 105, 110–120, 121–130 — see "New from
 electrical diagram review" below for what each page contributed.
 
-Target hardware: Mesa 7i80HDT (Ethernet FPGA host) + 7i44 on P1 (RS-422 sserial to 7i84U) + 7i49 on P2 (resolver feedback + analog outs) + 7i37TA on P3 (motion-critical field breakout) + 7i84U on 7i44 port 0 (remote field I/O).
+Target hardware: Mesa 7i80HDT (Ethernet FPGA host) + 7i44 on P1 (RS-422 sserial to 7i84U-A on port 0 and 7i84U-B on port 1) + 7i49 on P2 (resolver feedback + analog outs). P3 is unused/spare except bare direct FPGA GPIO `gpio.042` for Renishaw MP-3 probe SKIP1.
 Pin assignments below are placeholders (TBD) pending final 7i84U channel
 allocation — fill in once total I/O count is confirmed.
 

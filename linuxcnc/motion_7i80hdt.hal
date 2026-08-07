@@ -1,22 +1,29 @@
-# 7i80HDT + 7i49 + P3-breakout motion, spindle, safety, and core panel I/O
+# 7i80HDT + 7i44 (sserial) + 7i49 motion, spindle, safety, and core panel I/O
 # Logical allocation from the Mazak VQC 20/40 retrofit workbook.
 #
 # PLACEHOLDER PIN NAMES: every hm2_7i80.* name below is an UNVERIFIED PLACEHOLDER.
 # The Mesa 7i80HDT is a bare-FPGA Ethernet host (hm2_eth) with three 50-pin daughter
 # connectors (P1/P2/P3). Confirm the exact board tag (`hm2_7i80` expected) and the
 # real analog-output (7i49 P2 pwmgen), resolver (7i49 P2 resolver channel), and
-# direct-GPIO (P3 breakout) pin structure from `readhmid` and `halcmd show pin hm2`
-# before use. Axis feedback is RESOLVER via the 7i49, not quadrature encoder.
+# direct-GPIO (P3, probe only) pin structure from `readhmid` and
+# `halcmd show pin hm2` before use. Axis feedback is RESOLVER via the 7i49,
+# not quadrature encoder.
 #
 # Stack summary (2026-08-06 rev):
-#   P1: 7i44 sserial breakout (port 0 → 7i84U; ports 1-7 spare)
+#   P1: 7i44 sserial breakout
+#        port 0 → 7i84U-A (existing 32/16 field I/O)
+#        port 1 → 7i84U-B (limits, homes, drive-enables, relay-driven loads)
+#        ports 2-7 spare
 #   P2: 7i49 (6 resolver channels + 6× ±10V analog outs)
-#   P3: 7i37TA field breakout (motion-critical direct FPGA GPIO)
+#   P3: unused/spare, EXCEPT gpio.042 = Renishaw MP-3 probe SKIP1 (bare direct
+#       FPGA GPIO). Latency exception justified in-block below; no daughter card.
 #
-# X/Y/Z limits, homes, E-stop monitor, probe SKIP1, drive-enables, and the
-# TB5 SSR overflow outputs all land on the P3 7i37TA as direct FPGA GPIO.
-# The `hm2_7i80.0.gpio.NNN.*` indices below are placeholders — replace with
-# the real indices reported by `halcmd show pin hm2` after firmware load.
+# All field I/O — limits, homes, E-stop monitor, drive-enables, spindle
+# digital I/O, and 100 VAC solenoid outputs — is on the two 7i84U cards
+# (see field_7i84u.hal). The 7i80HDT motion HAL owns only motion-critical
+# signals: resolvers, ±10V velocity commands, and the P3 probe input.
+# The `hm2_7i80.0.gpio.042.*` index below is a placeholder — replace with the
+# real probe pin reported by `halcmd show pin hm2` after firmware load.
 
 #####################################################################
 # Resolver feedback channels (via Mesa 7i49 on P2)
@@ -201,135 +208,32 @@ net spindle-enable => hm2_7i80.0.pwmgen.03.enable
 # net spindle-orient-ena => hm2_7i80.0.pwmgen.04.enable
 
 #####################################################################
-# P3 field breakout (7i37TA) direct FPGA GPIO — motion-critical inputs
+# P3 direct FPGA GPIO — probe SKIP1 exception only
 #####################################################################
 #
-# The P3 breakout is direct FPGA GPIO: pins appear as hm2_7i80.0.gpio.NNN.in /.out
-# (NOT `input-NN`; that naming belongs to the 7i84 smart-serial device). The gpio.NNN
-# INDICES BELOW ARE PLACEHOLDERS -- 7i80HDT P3 GPIO occupies its own firmware-determined
-# index range (expect roughly 032..055 with 24 IO on P3, but confirm from
-# `halcmd show pin hm2` after loading firmware). NC switches (limits, estop) need
-# `setp hm2_7i80.0.gpio.NNN.invert_input 1` once the real indices and normal states
-# are confirmed.
-
-# P3 7i37TA IN block (limits + homes + E-stop + probe) — confirmed physical mapping:
-#   IN0=X_LIMIT_PLUS  → gpio.032        IN1=X_LIMIT_MINUS → gpio.033
-#   IN2=Y_LIMIT_PLUS  → gpio.034        IN3=Y_LIMIT_MINUS → gpio.035
-#   IN4=Z_LIMIT_PLUS  → gpio.036        IN5=Z_LIMIT_MINUS → gpio.037
-#   IN6=X_HOME (LS-42) → gpio.038       IN7=Y_HOME (LS-52) → gpio.039
-#   IN8=Z_HOME (LS-62) → gpio.040       IN9=ESTOP chain   → gpio.041
-#   IN10=PROBE SKIP1 (Renishaw MP-3)    → gpio.042
+# The stack uses P1 (7i44 sserial) and P2 (7i49 analog+resolver). P3 is
+# unused/spare with ONE exception: the Renishaw MP-3 probe SKIP1 input,
+# wired to a bare P3 GPIO for lowest possible latency.
 #
-# Limit switches are NC: invert_input so open (tripped) = logic 1
-# Home switches are NO: no invert needed
-# E-stop chain monitored via interposing relay dry contact (NC): invert_input=1
-# Probe MP-3 SKIP1 is NC (normally closed on probe stylus deflected): confirm polarity;
-# invert_input is likely required so probe trigger = logic 1
-setp hm2_7i80.0.gpio.032.invert_input  1   # X_LIMIT_PLUS  (NC)
-setp hm2_7i80.0.gpio.033.invert_input  1   # X_LIMIT_MINUS (NC)
-setp hm2_7i80.0.gpio.034.invert_input  1   # Y_LIMIT_PLUS  (NC)
-setp hm2_7i80.0.gpio.035.invert_input  1   # Y_LIMIT_MINUS (NC)
-setp hm2_7i80.0.gpio.036.invert_input  1   # Z_LIMIT_PLUS  (NC)
-setp hm2_7i80.0.gpio.037.invert_input  1   # Z_LIMIT_MINUS (NC)
-
-net limit-x-plus  <= hm2_7i80.0.gpio.032.in
-net limit-x-plus  => joint.0.pos-lim-sw-in
-
-net limit-x-minus <= hm2_7i80.0.gpio.033.in
-net limit-x-minus => joint.0.neg-lim-sw-in
-
-net limit-y-plus  <= hm2_7i80.0.gpio.034.in
-net limit-y-plus  => joint.1.pos-lim-sw-in
-
-net limit-y-minus <= hm2_7i80.0.gpio.035.in
-net limit-y-minus => joint.1.neg-lim-sw-in
-
-net limit-z-plus  <= hm2_7i80.0.gpio.036.in
-net limit-z-plus  => joint.2.pos-lim-sw-in
-
-net limit-z-minus <= hm2_7i80.0.gpio.037.in
-net limit-z-minus => joint.2.neg-lim-sw-in
-
-net home-x <= hm2_7i80.0.gpio.038.in
-net home-x => joint.0.home-sw-in
-
-net home-y <= hm2_7i80.0.gpio.039.in
-net home-y => joint.1.home-sw-in
-
-net home-z <= hm2_7i80.0.gpio.040.in
-net home-z => joint.2.home-sw-in
-
-# Drive faults, door, lube, hydraulic, panel buttons routed via 7i84U — see field_7i84u.hal
-
-#####################################################################
-# E-stop chain (P3 7i37TA IN9 = gpio.041, NC contact)
-#####################################################################
+# Why the probe is the exception (and nothing else is):
+#   - The motion planner latches position on the probe edge; any jitter in the
+#     input path becomes touch-position error. Sserial's up-to-one-servo-period
+#     update delay is not acceptable for probing.
+#   - Limits, homes, drive-enables, and field solenoids do NOT have this
+#     requirement. LinuxCNC samples them at servo rate anyway, and sserial is
+#     well inside that. Those signals are all on the 7i84U cards (see
+#     field_7i84u.hal).
 #
-# invert_input=1: chain closed (24V, normal) → in=0; chain open (fault) → in=1
-# estop-latch loaded in mazak_vqc_20_40.hal, added to servo-thread there.
-# Hardware safety chain MUST still remove hazardous power independently.
-# Note: the 7i84U row IN29 ESTOP_MONITOR remains available as a REDUNDANT status
-# input to LinuxCNC; primary safety-chain break is monitored here on the P3 GPIO
-# for host-side low-latency response.
-setp hm2_7i80.0.gpio.041.invert_input    1
-net estop-reset  iocontrol.0.user-request-enable  =>  estop-latch.0.reset
-net estop-ok     estop-latch.0.ok-out             =>  iocontrol.0.emc-enable-in
-net estop-ext    hm2_7i80.0.gpio.041.in           =>  estop-latch.0.fault-in
+# P3 pin index below is a PLACEHOLDER — confirm from `halcmd show pin hm2`
+# after loading the bitfile. The 7i80HDT firmware places P3 GPIO in its own
+# index range (typically 032..062).
 
-#####################################################################
-# Probe (P3 7i37TA IN10 = gpio.042, Renishaw MP-3 SKIP1)
-#####################################################################
-#
-# Renishaw MP-3 fitted per parts list pp.273-274. SKIP1 (PLC X03F) now on
-# P3 direct FPGA GPIO for lowest possible latency (host-side; not routed
-# through the sserial 7i84U).
-# TODO: verify SKIP1 idle/triggered polarity on the probe interface (MI 12 or
-# similar) and set invert_input accordingly. Renishaw probe interfaces default
-# to normally-closed → set invert_input=1 so probe trigger = logic 1.
+# Renishaw MP-3 fitted per parts list pp.273-274. Probe interfaces default to
+# normally-closed idle → invert_input=1 so probe trigger = logic 1. Verify the
+# probe interface's idle polarity (MI 12 or similar) before final wiring.
 setp hm2_7i80.0.gpio.042.invert_input    1
 net probe-in <= hm2_7i80.0.gpio.042.in
 net probe-in => motion.probe-input
 
-#####################################################################
-# Drive enable outputs — P3 7i37TA OUT0/1/2 (direct FPGA GPIO)
-#####################################################################
-#
-# P3 7i37TA OUT block — confirmed mapping:
-#   OUT0 = X_DRIVE_ENABLE  → gpio.048   (X servo S-ON to MELDAS DK-427)
-#   OUT1 = Z_DRIVE_ENABLE  → gpio.049   (Z servo S-ON to MELDAS DK-427)
-#   OUT2 = Y_DRIVE_ENABLE  → gpio.050   (Y servo S-ON to MELDAS DK-427)
-#   OUT3 = AIR_BLAST       → gpio.051   (SOL-62 via RLY-5)
-#   OUT4 = TOUCH_BLAST     → gpio.052   (SOL-35 via RLY-6)
-#   OUT5 = TAP_COOL_BLAST  → gpio.053   (SOL-61 via RLY-7)
-#   OUT6 = ATC_BARRIER_SOL → gpio.054   (PLC Y095 TCME.M)
-#   OUT7 = FLOOD_VALVE     → gpio.055   (PLC Y011 FCL)
-#   OUT8 = spare           → gpio.056
-# The same drive-enable net also gates the pwmgen output (set above in axis wiring).
-
-net x-enable <= joint.0.amp-enable-out
-net x-enable => hm2_7i80.0.gpio.048.out    # P3 7i37TA OUT0 → X drive S-ON
-
-net y-enable <= joint.1.amp-enable-out
-net y-enable => hm2_7i80.0.gpio.050.out    # P3 7i37TA OUT2 → Y drive S-ON
-
-net z-enable <= joint.2.amp-enable-out
-net z-enable => hm2_7i80.0.gpio.049.out    # P3 7i37TA OUT1 → Z drive S-ON
-
-net spindle-enable <= spindle.0.on
-# Spindle enable/dir routed via 7i84U sserial — see field_7i84u.hal
-
-# Former TB5 SSR overflow outputs — now on P3 7i37TA OUT3..OUT7 via interposing
-# relays for the 100VAC solenoids (SOL-35/61/62) or the PLC-driven barrier/flood
-# devices. Uncomment when the interposing relay wiring is complete.
-# net air-blast          => hm2_7i80.0.gpio.051.out    # OUT3
-# net touch-sensor-blast => hm2_7i80.0.gpio.052.out    # OUT4
-# net tap-coolant-blast  => hm2_7i80.0.gpio.053.out    # OUT5
-# net atc-barrier        => hm2_7i80.0.gpio.054.out    # OUT6
-# net flood-valve        => hm2_7i80.0.gpio.055.out    # OUT7
-
-# Contactor and lamp outputs — GPIO indices unconfirmed; assign after readhmid
-# net main-servo-on <= iocontrol.0.user-enable-out
-# net main-servo-on => hm2_7i80.0.gpio.NNN.out
-# net lamp-ready    <= iocontrol.0.user-enable-out
-# net lamp-ready    => hm2_7i80.0.gpio.NNN.out
-# net lamp-alarm    => hm2_7i80.0.gpio.NNN.out
+# Drive faults, drive-enables, limits, homes, E-stop monitor, and all field
+# solenoid outputs are routed via the 7i84U cards — see field_7i84u.hal.

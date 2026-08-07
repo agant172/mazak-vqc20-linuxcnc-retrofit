@@ -73,7 +73,7 @@ Python 3 standard library only. No pip installs, no internet access.
 | Theme                 | Sun icon in the header (dark is the default for shop lighting)         |
 | Deep link a signal    | `index.html#signal=ESTOP_CHAIN`                                        |
 
-**Views:** All signals, 7i80HDT, 7i44, 7i49, 7i37TA (P3 field breakout), 7i84U, and Conflicts / unverified. The conflicts view puts
+**Views:** All signals, 7i80HDT, 7i44, 7i49, 7i84U-A, 7i84U-B, and Conflicts / unverified. The conflicts view puts
 the C1–C10 register above the affected rows.
 
 **Manual state (wiring checkout).** Each signal detail panel has `0` / `1` / `clear` buttons and a
@@ -195,5 +195,5 @@ tools/
 - The live bridge reads HAL signal values only. It cannot see anything that is not a HAL signal,
   and a HAL value tells you what the software thinks, not what the wire is doing.
 - Manual checkout state is lost on refresh by design. Export CSV.
-- 7i84U channel numbers in `field_7i84u.hal` currently disagree with the authority (C1, C2).
+- 7i84U-A channel numbers in `field_7i84u.hal` currently disagree with the authority (C1, C2).
   Do not land wire from the HAL numbers.

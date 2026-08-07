@@ -154,14 +154,14 @@ straight to `mazak-atc.target-pot`.
 | magazine direction fwd→CW | `atc_orient.hal` | `authority_conflicts.md` §3 (SOL-8A/8B) |
 | every `hm2_7i80.0.7i84.0.0.*` name | `atc_orient.hal` | `halcmd show pin hm2` against real firmware |
 | every input polarity | `atc_orient.hal` | measure normal states, then `invert_input` |
-| SSET (Y092) Mesa pin | `spindle-drive-arm` net, unbound | decide whether the FR-SX needs it; P3 7i37TA OUT8 (`gpio.056`) is the last spare |
-| `atc-barrier` device | `gpio.054` (P3 7i37TA OUT6) | confirm the barrier solenoid exists on SN 060231 |
+| SSET (Y092) Mesa pin | `spindle-drive-arm` net, unbound | decide whether the FR-SX needs it; 7i84U-B TB2 OUT8-15 remain spare |
+| `atc-barrier` device | `hm2_7i80.0.7i84.0.1.output-06` (7i84U-B TB2 OUT6) | confirm the barrier solenoid exists on SN 060231 |
 
 ## Blocking gaps found while writing this
 
 1. **MIPRS (X00D, magazine in-position) — RESOLVED 2026-07-27.** The magazine
    cannot index without it, and the BCD pot number is only valid while it is
-   true. The authority CSV now carries `MAG_IN_POS` on 7i84U **IN28**
+   true. The authority CSV now carries `MAG_IN_POS` on 7i84U-A **IN28**
    (PROPOSED), reclaimed from the optional cycle-start panel PB (the WHB04B
    pendant provides cycle start; the panel PB moves to the second sserial card
    if ordered). `linuxcnc/field_7i84u.hal` still sources `mag-in-pos` from IN4
@@ -188,7 +188,7 @@ straight to `mazak-atc.target-pot`.
 4. Apply `linuxcnc/atc_orient.ini.snippet` to `linuxcnc/mazak_vqc_20_40.ini`,
    including `num_dio=16` on the `motmod` loadrt line in
    `linuxcnc/mazak_vqc_20_40.hal`.
-5. Start LinuxCNC with **no field power on the 7i84U outputs**. Confirm every
+5. Start LinuxCNC with **no field power on the 7i84U-A/B outputs**. Confirm every
    pin exists and no net is double-driven (`halcmd show net`).
 6. Force the inputs in halscope / `halcmd setp` and watch the state machines:
    orient with faked ORA1 and SZS; index with faked BCD and MIPRS; the cover

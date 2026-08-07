@@ -4,91 +4,96 @@ Y_RESOLVER,Motion,RESOLVER_IN,7i49,P2 Resolver channel,RES1,y-pos-fb,Tamagawa TS
 Z_RESOLVER,Motion,RESOLVER_IN,7i49,P2 Resolver channel,RES2,z-pos-fb,Tamagawa TS2014N Z resolver,COMMISSIONING_PENDING,motion_7i80hdt.hal,Ohmmeter winding pairs and scope return before power
 SPINDLE_ENCODER,Spindle,ENCODER_IN,7i80HDT,P3 direct GPIO,gpio.NN,spindle-pos-fb,Machine-side A/B/Z spindle encoder if fitted,RESERVED_VERIFY,motion_7i80hdt.hal,Spindle uses separate encoder not 7i49 resolver channel; part# TBD
 RES3_RES5_SPARE,Motion,RESOLVER_IN,7i49,P2 Resolver channels,RES3-RES5,none,7i49 spare resolver channels,SPARE,mesa_firmware_checklist.md,Available for 4th axis or spindle resolver if ever fitted
-X_DRIVE_ENABLE,Motion,OUT,7i80HDT,P3 GPIO / 7i37TA OUT0,gpio.048.out,x-enable,X servo S-ON to MELDAS DK-427 (X-drive ENA input),COMMISSIONING_PENDING,motion_7i80hdt.hal,Direct FPGA GPIO on P3 breakout; confirm drive terminal and enable polarity
 X_AXIS_CMD,Motion,ANALOG_OUT,7i49,P2 Analog TB,AOUT0,x-vel-cmd,X servo analog velocity command to MELDAS TRA,COMMISSIONING_PENDING,motion_7i80hdt.hal,7i49 pwmgen.00 driven by pid.x.output
-Z_DRIVE_ENABLE,Motion,OUT,7i80HDT,P3 GPIO / 7i37TA OUT1,gpio.049.out,z-enable,Z servo S-ON to MELDAS DK-427 (Z-drive ENA input),COMMISSIONING_PENDING,motion_7i80hdt.hal,Direct FPGA GPIO on P3 breakout; confirm drive terminal and enable polarity
 Z_AXIS_CMD,Motion,ANALOG_OUT,7i49,P2 Analog TB,AOUT1,z-vel-cmd,Z servo analog velocity command to MELDAS TRA,COMMISSIONING_PENDING,motion_7i80hdt.hal,7i49 pwmgen.01 driven by pid.z.output
-Y_DRIVE_ENABLE,Motion,OUT,7i80HDT,P3 GPIO / 7i37TA OUT2,gpio.050.out,y-enable,Y servo S-ON to MELDAS DK-427 (Y-drive ENA input),COMMISSIONING_PENDING,motion_7i80hdt.hal,Direct FPGA GPIO on P3 breakout; confirm drive terminal and enable polarity
 Y_AXIS_CMD,Motion,ANALOG_OUT,7i49,P2 Analog TB,AOUT2,y-vel-cmd,Y servo analog velocity command to MELDAS TRA,COMMISSIONING_PENDING,motion_7i80hdt.hal,7i49 pwmgen.02 driven by pid.y.output
 SPINDLE_SPEED_CMD,Spindle,ANALOG_OUT,7i49,P2 Analog TB,AOUT3,spindle-speed-cmd,FR-SX V-IN speed reference,COMMISSIONING_PENDING,motion_7i80hdt.hal,Confirm 0-10V unipolar vs bipolar; pwmgen.03 offset-mode
 SPINDLE_ORIENT_REF,Spindle,ANALOG_OUT,7i49,P2 Analog TB,AOUT4,spindle-orient-ref,FR-SX orient reference (if analog),RESERVED,mesa_firmware_checklist.md,Reserved for FR-SX analog orient input if used; otherwise SPARE
 AOUT5_SPARE,Spare,ANALOG_OUT,7i49,P2 Analog TB,AOUT5,none,Spare 7i49 analog output,SPARE,mesa_firmware_checklist.md,Available for future analog use
-SSERIAL_PORT0_TXA,Field I/O,LINK,7i44,P1 sserial port 0,port0.TX+,none,7i84U RJ45 pin 2 RX+,ACCEPTED,mesa_firmware_checklist.md,7i44 P1 port 0 to 7i84U CN0; RS-422 differential pair
-SSERIAL_PORT0_TXB,Field I/O,LINK,7i44,P1 sserial port 0,port0.TX-,none,7i84U RJ45 pin 1 RX-,ACCEPTED,mesa_firmware_checklist.md,RS-422 differential pair
-SSERIAL_PORT0_RXA,Field I/O,LINK,7i44,P1 sserial port 0,port0.RX+,none,7i84U RJ45 pin 6 TX+,ACCEPTED,mesa_firmware_checklist.md,RS-422 differential pair
-SSERIAL_PORT0_RXB,Field I/O,LINK,7i44,P1 sserial port 0,port0.RX-,none,7i84U RJ45 pin 3 TX-,ACCEPTED,mesa_firmware_checklist.md,RS-422 differential pair
-SSERIAL_PORT0_GND,Field I/O,LINK,7i44,P1 sserial port 0,port0.GND,none,7i84U RJ45 pin 4/5 ground,ACCEPTED,mesa_firmware_checklist.md,Shield drain to 7i44 end only
-SSERIAL_PORT0_5V,Field I/O,LINK,7i44,P1 sserial port 0,port0.+5V,none,7i84U RJ45 pin 7/8 +5V,ACCEPTED,mesa_firmware_checklist.md,Serial power for 7i84U logic
-SSERIAL_PORT1_SPARE,Expansion,LINK,7i44,P1 sserial port 1,port1,none,Spare sserial port,SPARE,mesa_firmware_checklist.md,Available for second 7i84 / MPG / 4th-axis expansion
-SSERIAL_PORTS_2_7_SPARE,Expansion,LINK,7i44,P1 sserial ports 2-7,ports2-7,none,Spare sserial ports,SPARE,mesa_firmware_checklist.md,7i44 has 8 RS-422 channels; 6 remain after 7i84U on port 0
-X_LIMIT_PLUS,Axis safety,IN,7i80HDT,P3 GPIO / 7i37TA IN0,gpio.032.in,limit-x-plus,X positive overtravel limit (NC),ACCEPTED_VERIFY,motion_7i80hdt.hal,Direct FPGA GPIO on P3 breakout; NC contact so invert_input=1
-X_LIMIT_MINUS,Axis safety,IN,7i80HDT,P3 GPIO / 7i37TA IN1,gpio.033.in,limit-x-minus,X negative overtravel limit (NC),ACCEPTED_VERIFY,motion_7i80hdt.hal,Direct FPGA GPIO on P3 breakout; NC contact so invert_input=1
-Y_LIMIT_PLUS,Axis safety,IN,7i80HDT,P3 GPIO / 7i37TA IN2,gpio.034.in,limit-y-plus,Y positive overtravel limit (NC),ACCEPTED_VERIFY,motion_7i80hdt.hal,Direct FPGA GPIO on P3 breakout; NC contact so invert_input=1
-Y_LIMIT_MINUS,Axis safety,IN,7i80HDT,P3 GPIO / 7i37TA IN3,gpio.035.in,limit-y-minus,Y negative overtravel limit (NC),ACCEPTED_VERIFY,motion_7i80hdt.hal,Direct FPGA GPIO on P3 breakout; NC contact so invert_input=1
-Z_LIMIT_PLUS,Axis safety,IN,7i80HDT,P3 GPIO / 7i37TA IN4,gpio.036.in,limit-z-plus,Z positive overtravel limit (NC),ACCEPTED_VERIFY,motion_7i80hdt.hal,Direct FPGA GPIO on P3 breakout; NC contact so invert_input=1
-Z_LIMIT_MINUS,Axis safety,IN,7i80HDT,P3 GPIO / 7i37TA IN5,gpio.037.in,limit-z-minus,Z negative overtravel limit (NC),ACCEPTED_VERIFY,motion_7i80hdt.hal,Direct FPGA GPIO on P3 breakout; NC contact so invert_input=1
-X_HOME,Axis safety,IN,7i80HDT,P3 GPIO / 7i37TA IN6,gpio.038.in,home-x,X home switch (LS-42 assumed),ACCEPTED_VERIFY,motion_7i80hdt.hal,Direct FPGA GPIO on P3 breakout; NO contact
-Y_HOME,Axis safety,IN,7i80HDT,P3 GPIO / 7i37TA IN7,gpio.039.in,home-y,Y home switch (LS-52 assumed),ACCEPTED_VERIFY,motion_7i80hdt.hal,Direct FPGA GPIO on P3 breakout; NO contact
-Z_HOME,Axis safety,IN,7i80HDT,P3 GPIO / 7i37TA IN8,gpio.040.in,home-z,Z home switch (LS-62 confirmed TB-51),ACCEPTED_VERIFY,motion_7i80hdt.hal,Direct FPGA GPIO on P3 breakout; NO contact
-ESTOP_CHAIN,Safety,IN,7i80HDT,P3 GPIO / 7i37TA IN9,gpio.041.in,estop-ext,External E-stop chain monitor (MAR-MON contact via interposing relay),ACCEPTED_VERIFY,motion_7i80hdt.hal,Direct FPGA GPIO on P3 breakout; OEM safety chain remains authoritative. NC contact invert_input=1.
-PROBE_SKIP1,Motion,IN,7i80HDT,P3 GPIO / 7i37TA IN10,gpio.042.in,probe-in,Renishaw MP-3 probe SKIP1 (PLC X03F SKIP1.M),ACCEPTED_VERIFY,motion_7i80hdt.hal,Direct FPGA GPIO on P3 breakout for lowest latency; Renishaw MP-3 fitted per parts list pp.273-274
-P3_FIELD_GND,Power,POWER,7i80HDT,P3 breakout TB,GND,none,24V field common on P3 breakout,COMMISSIONING_PENDING,mesa_firmware_checklist.md,Confirm field common and fusing on 7i37TA (or chosen breakout)
-P3_FIELD_24V,Power,POWER,7i80HDT,P3 breakout TB,+VFIELD,none,24V field supply on P3 breakout,COMMISSIONING_PENDING,mesa_firmware_checklist.md,From Meanwell DR-240-24 retrofit bus
-AIR_BLAST,Air,OUT,7i80HDT,P3 GPIO / 7i37TA OUT3,gpio.051.out,air-blast,SOL-62 via RLY-5 (interposing relay for 100VAC coil),COMMISSIONING_PENDING,motion_7i80hdt.hal,P3 breakout relay output
-TOUCH_SENSOR_BLAST,Air,OUT,7i80HDT,P3 GPIO / 7i37TA OUT4,gpio.052.out,touch-sensor-blast,SOL-35 via RLY-6 (interposing relay for 100VAC coil),COMMISSIONING_PENDING,motion_7i80hdt.hal,P3 breakout relay output
-TAP_COOLANT_BLAST,Coolant,OUT,7i80HDT,P3 GPIO / 7i37TA OUT5,gpio.053.out,tap-coolant-blast,SOL-61 via RLY-7 (interposing relay for 100VAC coil),COMMISSIONING_PENDING,motion_7i80hdt.hal,P3 breakout relay output
-ATC_BARRIER_SOL,ATC interlock,OUT,7i80HDT,P3 GPIO / 7i37TA OUT6,gpio.054.out,atc-barrier,ATC barrier expand solenoid (PLC Y095 TCME.M),PROPOSED,element_list_crosswalk_2026-07-27,P3 breakout relay output. Verify device exists on SN 060231
-FLOOD_VALVE,Coolant,OUT,7i80HDT,P3 GPIO / 7i37TA OUT7,gpio.055.out,flood-valve,"Flood coolant valve, separate from pump motor (PLC Y011 FCL)",PROPOSED,element_list_crosswalk_2026-07-27,P3 breakout relay output. SOL-31 confirmed via TB-51 diagram
-P3_OUT8_SPARE,Spare,OUT,7i80HDT,P3 GPIO / 7i37TA OUT8,gpio.056.out,none,Spare P3 relay output,SPARE,mesa_firmware_checklist.md,"Reserved for SSET (Y092) or through-hole coolant (Y012) pending ladder check"
-SEVENI84U_FIELD_A_24V,Power,POWER,7i84U,TB1,TB1 pin 1 + and pin 2 -,none,Field power bank A,COMMISSIONING_PENDING,archived_wiring_map,Powers outputs 0-7 and inputs 0-15
-SEVENI84U_FIELD_B_24V,Power,POWER,7i84U,TB1,TB1 pin 3 + and pin 4 -,none,Field power bank B,COMMISSIONING_PENDING,archived_wiring_map,Powers outputs 8-15 and inputs 16-31
-ATC_ZONE_Y,ATC interlock,IN,7i84U,TB1,IN0,atc-y-zone,PRS-55 Y ATC zone,COMMISSIONING_PENDING,archived_wiring_map,Update field_7i84u.hal because it currently uses input-02
-ATC_ZONE_Z,ATC interlock,IN,7i84U,TB1,IN1,atc-z-zone,PRS-66 Z ATC zone,COMMISSIONING_PENDING,archived_wiring_map,Update field_7i84u.hal because it currently uses input-03
-MAG_TOOL_AVAILABLE,ATC interlock,IN,7i84U,TB1,IN2,mag-tool-avail,PHS-181 magazine tool available,COMMISSIONING_PENDING,phase2_plan,Add HAL net when confirmed
-SPINDLE_TOOL_AVAILABLE,ATC interlock,IN,7i84U,TB1,IN3,spindle-tool-avail,PHS-182 spindle tool available,COMMISSIONING_PENDING,phase2_plan,Add HAL net when confirmed
-SPINDLE_ORIENT_ARRIVAL,Spindle,IN,7i84U,TB1,IN4,spindle-oriented,FR-SX orient arrival (PLC X003 ORA1),PROPOSED,element_list_crosswalk_2026-07-27,ATC cannot cycle without orient; confirm FR-SX terminal and polarity
-SPINDLE_ZERO_SPEED,Spindle safety,IN,7i84U,TB1,IN5,spindle-zero-speed,FR-SX zero-speed output (PLC X001 SZS.M),PROPOSED,element_list_crosswalk_2026-07-27,Distinct from IN13 speed-reach; gear shift interlock needs zero-speed
-MAG_COVER_OPEN_CONF,Magazine,IN,7i84U,TB1,IN6,mag-cover-open-conf,Magazine cover open reed switch (PLC X052 MGCORS),PROPOSED,element_list_crosswalk_2026-07-27,Pairs with NET_MAG_COVER_OPEN/CLOSE solenoids; locate RS on cover
-MAG_COVER_CLOSE_CONF,Magazine,IN,7i84U,TB1,IN7,mag-cover-closed-conf,Magazine cover close reed switch (PLC X053 MGCCRS),PROPOSED,element_list_crosswalk_2026-07-27,Interlock magazine rotation on cover closed
-THERMAL_ALARM_CHAIN,Machine safety,IN,7i84U,TB1,IN8,thermal-alarm,Motor thermal trip + main transformer overheat in series (PLC X073 THR.M + X07B ONT.M),PROPOSED,element_list_crosswalk_2026-07-27 + open_issues.md §3 (2026-08-03),"Series-wired NC X073 THR.M + X07B ONT.M; alarm-only, not in E-stop chain. Reaffirmed 2026-08-03 single-7i84U plan."
-MANUAL_TOOL_UNCLAMP_PB,ATC tool,IN,7i84U,TB1,IN9,manual-unclamp-pb,Manual tool unclamp switch at head (PLC X01A TUCFS.M),PROPOSED,element_list_crosswalk_2026-07-27,Commissioning aid; pairs with MANUAL_TOOL_CLAMP_PB on IN30 (TCFS X01B reinstated 2026-08-03 after single-7i84U plan freed pins).
-X_DRIVE_FAULT,Drive safety,IN,7i84U,TB1,IN10,x-drive-fault,X drive fault relay,COMMISSIONING_PENDING,archived_wiring_map,Update field_7i84u.hal because it currently uses input-12
-Y_DRIVE_FAULT,Drive safety,IN,7i84U,TB1,IN11,y-drive-fault,Y drive fault relay,COMMISSIONING_PENDING,archived_wiring_map,Update field_7i84u.hal because it currently uses input-13
-Z_DRIVE_FAULT,Drive safety,IN,7i84U,TB1,IN12,z-drive-fault,Z drive fault relay,COMMISSIONING_PENDING,archived_wiring_map,Update field_7i84u.hal because it currently uses input-14
-SPINDLE_AT_SPEED,Spindle safety,IN,7i84U,TB1,IN13,spindle-at-speed,FR-SX speed reach output,COMMISSIONING_PENDING,archived_wiring_map,Confirm VFD terminal and polarity
-SPINDLE_FAULT,Spindle safety,IN,7i84U,TB1,IN14,spindle-fault,FR-SX fault output,COMMISSIONING_PENDING,archived_wiring_map,Confirm VFD terminal and polarity
-TOOL_CLAMP_CONF,ATC tool,IN,7i84U,TB1,IN15,tool-clamped,PRS-9 tool clamp confirm,COMMISSIONING_PENDING,archived_wiring_map,Update field_7i84u.hal because it currently uses input-00
-TOOL_UNCLAMP_CONF,ATC tool,IN,7i84U,TB1,IN16,tool-unclamped,PRS-8 tool unclamp confirm,COMMISSIONING_PENDING,archived_wiring_map,Update field_7i84u.hal because it currently uses input-01
-GEAR_HI_CONF,Spindle gear,IN,7i84U,TB1,IN17,gear-hi-conf,PRS-10 gear high confirm,COMMISSIONING_PENDING,archived_wiring_map,Add HAL net when confirmed
-GEAR_LO_CONF,Spindle gear,IN,7i84U,TB1,IN18,gear-lo-conf,PRS-12 gear low confirm,COMMISSIONING_PENDING,archived_wiring_map,Add HAL net when confirmed
-MAG_BCD_BIT0,Magazine,IN,7i84U,TB1,IN19,mag-bcd-bit0,PRS-21 magazine BCD bit 0,COMMISSIONING_PENDING,archived_wiring_map,Decode with bcd2s or custom mux
-MAG_BCD_BIT1,Magazine,IN,7i84U,TB1,IN20,mag-bcd-bit1,PRS-22 magazine BCD bit 1,COMMISSIONING_PENDING,archived_wiring_map,Decode with bcd2s or custom mux
-MAG_BCD_BIT2,Magazine,IN,7i84U,TB1,IN21,mag-bcd-bit2,PRS-23 magazine BCD bit 2,COMMISSIONING_PENDING,archived_wiring_map,Decode with bcd2s or custom mux
-MAG_BCD_BIT3,Magazine,IN,7i84U,TB1,IN22,mag-bcd-bit3,PRS-24 magazine BCD bit 3,COMMISSIONING_PENDING,archived_wiring_map,Decode with bcd2s or custom mux
-MAG_BCD_BIT4,Magazine,IN,7i84U,TB1,IN23,mag-bcd-bit4,PRS-25 magazine BCD bit 4,COMMISSIONING_PENDING,archived_wiring_map,Decode with bcd2s or custom mux
-DOOR_INTERLOCK,Safety,IN,7i84U,TB1,IN24,door-interlock,Door interlock switches series (LS-141 + LS-140 + PLC X01D ITMDSS.M all in one chain),COMMISSIONING_PENDING,archived_wiring_map + open_issues.md §3 (2026-08-03),Series-wired 2026-08-03: X01D ITMDSS consolidated with LS-140/141 pair. Choose door-open versus door-closed net after normal state is measured.
-LUBE_OK,Utility,IN,7i84U,TB1,IN25,lube-ok,Two head-lube pressure switches (PLC X042 HLP2.M + X079 HLP.M) series-wired NC,PROPOSED,element_list_crosswalk_2026-07-27 + open_issues.md §3 (2026-08-03),Series-wired 2026-08-03: both pressure switches on same reservoir per parts list. Fail-open NC. Choose lube-ok versus lube-fault net after normal state is measured.
-COOLANT_LEVEL,Coolant,IN,7i84U,TB1,IN26,coolant-level,Coolant level switch,COMMISSIONING_PENDING,archived_wiring_map,Choose low versus ok net after normal state is measured
-HYD_PRESS_OK,Hydraulic safety,IN,7i84U,TB1,IN27,hydraulic-ok,Sanwa SPS-8T-PC-20 pressure switch,COMMISSIONING_PENDING,phase2_plan,This supersedes stale signal_map.csv TB5 IN16 row
+SSERIAL_PORT0_TXA,Field I/O,LINK,7i44,P1 sserial port 0,port0.TX+,none,7i84U-A RJ45 pin 2 RX+,ACCEPTED,mesa_firmware_checklist.md,7i44 P1 port 0 to 7i84U-A CN0; RS-422 differential pair
+SSERIAL_PORT0_TXB,Field I/O,LINK,7i44,P1 sserial port 0,port0.TX-,none,7i84U-A RJ45 pin 1 RX-,ACCEPTED,mesa_firmware_checklist.md,RS-422 differential pair
+SSERIAL_PORT0_RXA,Field I/O,LINK,7i44,P1 sserial port 0,port0.RX+,none,7i84U-A RJ45 pin 6 TX+,ACCEPTED,mesa_firmware_checklist.md,RS-422 differential pair
+SSERIAL_PORT0_RXB,Field I/O,LINK,7i44,P1 sserial port 0,port0.RX-,none,7i84U-A RJ45 pin 3 TX-,ACCEPTED,mesa_firmware_checklist.md,RS-422 differential pair
+SSERIAL_PORT0_GND,Field I/O,LINK,7i44,P1 sserial port 0,port0.GND,none,7i84U-A RJ45 pin 4/5 ground,ACCEPTED,mesa_firmware_checklist.md,Shield drain to 7i44 end only
+SSERIAL_PORT0_5V,Field I/O,LINK,7i44,P1 sserial port 0,port0.+5V,none,7i84U-A RJ45 pin 7/8 +5V,ACCEPTED,mesa_firmware_checklist.md,Serial power for 7i84U-A logic
+SSERIAL_PORTS_2_7_SPARE,Expansion,LINK,7i44,P1 sserial ports 2-7,ports2-7,none,Spare sserial ports,SPARE,mesa_firmware_checklist.md,"7i44 has 8 RS-422 channels; port 0 = 7i84U-A, port 1 = 7i84U-B; ports 2-7 remain spare for MPG pendant, 4th-axis card, or additional 7i84 expansion."
+SEVENI84U_FIELD_A_24V,Power,POWER,7i84U-A,TB1,TB1 pin 1 + and pin 2 -,none,Field power bank A,COMMISSIONING_PENDING,archived_wiring_map,Powers outputs 0-7 and inputs 0-15
+SEVENI84U_FIELD_B_24V,Power,POWER,7i84U-A,TB1,TB1 pin 3 + and pin 4 -,none,Field power bank B,COMMISSIONING_PENDING,archived_wiring_map,Powers outputs 8-15 and inputs 16-31
+ATC_ZONE_Y,ATC interlock,IN,7i84U-A,TB1,IN0,atc-y-zone,PRS-55 Y ATC zone,COMMISSIONING_PENDING,archived_wiring_map,Update field_7i84u.hal because it currently uses input-02
+ATC_ZONE_Z,ATC interlock,IN,7i84U-A,TB1,IN1,atc-z-zone,PRS-66 Z ATC zone,COMMISSIONING_PENDING,archived_wiring_map,Update field_7i84u.hal because it currently uses input-03
+MAG_TOOL_AVAILABLE,ATC interlock,IN,7i84U-A,TB1,IN2,mag-tool-avail,PHS-181 magazine tool available,COMMISSIONING_PENDING,phase2_plan,Add HAL net when confirmed
+SPINDLE_TOOL_AVAILABLE,ATC interlock,IN,7i84U-A,TB1,IN3,spindle-tool-avail,PHS-182 spindle tool available,COMMISSIONING_PENDING,phase2_plan,Add HAL net when confirmed
+SPINDLE_ORIENT_ARRIVAL,Spindle,IN,7i84U-A,TB1,IN4,spindle-oriented,FR-SX orient arrival (PLC X003 ORA1),PROPOSED,element_list_crosswalk_2026-07-27,ATC cannot cycle without orient; confirm FR-SX terminal and polarity
+SPINDLE_ZERO_SPEED,Spindle safety,IN,7i84U-A,TB1,IN5,spindle-zero-speed,FR-SX zero-speed output (PLC X001 SZS.M),PROPOSED,element_list_crosswalk_2026-07-27,Distinct from IN13 speed-reach; gear shift interlock needs zero-speed
+MAG_COVER_OPEN_CONF,Magazine,IN,7i84U-A,TB1,IN6,mag-cover-open-conf,Magazine cover open reed switch (PLC X052 MGCORS),PROPOSED,element_list_crosswalk_2026-07-27,Pairs with NET_MAG_COVER_OPEN/CLOSE solenoids; locate RS on cover
+MAG_COVER_CLOSE_CONF,Magazine,IN,7i84U-A,TB1,IN7,mag-cover-closed-conf,Magazine cover close reed switch (PLC X053 MGCCRS),PROPOSED,element_list_crosswalk_2026-07-27,Interlock magazine rotation on cover closed
+THERMAL_ALARM_CHAIN,Machine safety,IN,7i84U-A,TB1,IN8,thermal-alarm,Motor thermal trip + main transformer overheat in series (PLC X073 THR.M + X07B ONT.M),PROPOSED,element_list_crosswalk_2026-07-27 + open_issues.md §3 (2026-08-03),"Series-wired NC X073 THR.M + X07B ONT.M; alarm-only, not in E-stop chain. Reaffirmed 2026-08-03 single-7i84U plan."
+MANUAL_TOOL_UNCLAMP_PB,ATC tool,IN,7i84U-A,TB1,IN9,manual-unclamp-pb,Manual tool unclamp switch at head (PLC X01A TUCFS.M),PROPOSED,element_list_crosswalk_2026-07-27,Commissioning aid; pairs with MANUAL_TOOL_CLAMP_PB on IN30 (TCFS X01B reinstated 2026-08-03 after single-7i84U plan freed pins).
+X_DRIVE_FAULT,Drive safety,IN,7i84U-A,TB1,IN10,x-drive-fault,X drive fault relay,COMMISSIONING_PENDING,archived_wiring_map,Update field_7i84u.hal because it currently uses input-12
+Y_DRIVE_FAULT,Drive safety,IN,7i84U-A,TB1,IN11,y-drive-fault,Y drive fault relay,COMMISSIONING_PENDING,archived_wiring_map,Update field_7i84u.hal because it currently uses input-13
+Z_DRIVE_FAULT,Drive safety,IN,7i84U-A,TB1,IN12,z-drive-fault,Z drive fault relay,COMMISSIONING_PENDING,archived_wiring_map,Update field_7i84u.hal because it currently uses input-14
+SPINDLE_AT_SPEED,Spindle safety,IN,7i84U-A,TB1,IN13,spindle-at-speed,FR-SX speed reach output,COMMISSIONING_PENDING,archived_wiring_map,Confirm VFD terminal and polarity
+SPINDLE_FAULT,Spindle safety,IN,7i84U-A,TB1,IN14,spindle-fault,FR-SX fault output,COMMISSIONING_PENDING,archived_wiring_map,Confirm VFD terminal and polarity
+TOOL_CLAMP_CONF,ATC tool,IN,7i84U-A,TB1,IN15,tool-clamped,PRS-9 tool clamp confirm,COMMISSIONING_PENDING,archived_wiring_map,Update field_7i84u.hal because it currently uses input-00
+TOOL_UNCLAMP_CONF,ATC tool,IN,7i84U-A,TB1,IN16,tool-unclamped,PRS-8 tool unclamp confirm,COMMISSIONING_PENDING,archived_wiring_map,Update field_7i84u.hal because it currently uses input-01
+GEAR_HI_CONF,Spindle gear,IN,7i84U-A,TB1,IN17,gear-hi-conf,PRS-10 gear high confirm,COMMISSIONING_PENDING,archived_wiring_map,Add HAL net when confirmed
+GEAR_LO_CONF,Spindle gear,IN,7i84U-A,TB1,IN18,gear-lo-conf,PRS-12 gear low confirm,COMMISSIONING_PENDING,archived_wiring_map,Add HAL net when confirmed
+MAG_BCD_BIT0,Magazine,IN,7i84U-A,TB1,IN19,mag-bcd-bit0,PRS-21 magazine BCD bit 0,COMMISSIONING_PENDING,archived_wiring_map,Decode with bcd2s or custom mux
+MAG_BCD_BIT1,Magazine,IN,7i84U-A,TB1,IN20,mag-bcd-bit1,PRS-22 magazine BCD bit 1,COMMISSIONING_PENDING,archived_wiring_map,Decode with bcd2s or custom mux
+MAG_BCD_BIT2,Magazine,IN,7i84U-A,TB1,IN21,mag-bcd-bit2,PRS-23 magazine BCD bit 2,COMMISSIONING_PENDING,archived_wiring_map,Decode with bcd2s or custom mux
+MAG_BCD_BIT3,Magazine,IN,7i84U-A,TB1,IN22,mag-bcd-bit3,PRS-24 magazine BCD bit 3,COMMISSIONING_PENDING,archived_wiring_map,Decode with bcd2s or custom mux
+MAG_BCD_BIT4,Magazine,IN,7i84U-A,TB1,IN23,mag-bcd-bit4,PRS-25 magazine BCD bit 4,COMMISSIONING_PENDING,archived_wiring_map,Decode with bcd2s or custom mux
+DOOR_INTERLOCK,Safety,IN,7i84U-A,TB1,IN24,door-interlock,Door interlock switches series (LS-141 + LS-140 + PLC X01D ITMDSS.M all in one chain),COMMISSIONING_PENDING,archived_wiring_map + open_issues.md §3 (2026-08-03),Series-wired 2026-08-03: X01D ITMDSS consolidated with LS-140/141 pair. Choose door-open versus door-closed net after normal state is measured.
+LUBE_OK,Utility,IN,7i84U-A,TB1,IN25,lube-ok,Two head-lube pressure switches (PLC X042 HLP2.M + X079 HLP.M) series-wired NC,PROPOSED,element_list_crosswalk_2026-07-27 + open_issues.md §3 (2026-08-03),Series-wired 2026-08-03: both pressure switches on same reservoir per parts list. Fail-open NC. Choose lube-ok versus lube-fault net after normal state is measured.
+COOLANT_LEVEL,Coolant,IN,7i84U-A,TB1,IN26,coolant-level,Coolant level switch,COMMISSIONING_PENDING,archived_wiring_map,Choose low versus ok net after normal state is measured
+HYD_PRESS_OK,Hydraulic safety,IN,7i84U-A,TB1,IN27,hydraulic-ok,Sanwa SPS-8T-PC-20 pressure switch,COMMISSIONING_PENDING,phase2_plan,This supersedes stale signal_map.csv TB5 IN16 row
 CYCLE_START_PB,Panel,IN,none,none,none,cycle-start-pb,Operator cycle start pushbutton,DEFERRED,archived_wiring_map,Displaced 2026-07-27: IN28 reclaimed for MAG_IN_POS (mandatory ATC input). Pendant WHB04B provides cycle start; panel PB moves to second sserial card if ordered
-MAG_IN_POS,ATC,IN,7i84U,TB1,IN28,mag-in-pos,Magazine index in-position prox (PLC X00D MIPRS); BCD pot number valid only while TRUE,PROPOSED,atc_ladder_transcription_2026-07-27,Mandatory for magazine indexing (rungs 3401/33xx). Move mag-in-pos off legacy IN4 in field_7i84u.hal (IN4 = spindle-oriented). Verify prox type/polarity
-ESTOP_MONITOR,Machine safety,IN,7i84U,TB1,IN29,estop-monitor,OEM MAR relay aux contact via interposing relay (Omron G2R-1-SND-DC24 or Phoenix PLC-RSC-24DC/21) driven from EHB bus,PROPOSED,front_control_panel_wiring.md §6.5 + open_issues.md §3 (2026-08-03),"Note: primary ESTOP_CHAIN monitor is now on P3 GPIO IN9 (host-side low-latency). This 7i84U row is a REDUNDANT status input; keep or drop pending 7i84U pin pressure. OEM/new-side boundary: dry contact only, no OEM P24 into 7i84U common."
-MANUAL_TOOL_CLAMP_PB,ATC tool,IN,7i84U,TB1,IN30,manual-clamp-pb,Manual tool clamp switch at head (PLC X01B TCFS.M),PROPOSED,element_list_crosswalk_2026-07-27 + open_issues.md §3 (2026-08-03),Reinstated 2026-08-03 after single-7i84U plan freed pins from Y091/Y023-Y025/X078/X02F drops. Pairs with MANUAL_TOOL_UNCLAMP_PB on IN9.
-SERVO_READY,Drive safety,IN,7i84U,TB1,IN31,servo-ready,Servo drives ready relay contact,COMMISSIONING_PENDING,archived_wiring_map,Wire before first motion if available
-SPINDLE_FWD,Spindle,OUT,7i84U,TB2,OUT0,spindle-fwd,FR-SX forward input,COMMISSIONING_PENDING,archived_wiring_map,Digital FWD signal to FR-SX
-SPINDLE_REV,Spindle,OUT,7i84U,TB2,OUT1,spindle-rev,FR-SX reverse input,COMMISSIONING_PENDING,archived_wiring_map,Digital REV signal to FR-SX
-SPINDLE_ENA,Spindle,OUT,7i84U,TB2,OUT2,spindle-ena,FR-SX enable input,COMMISSIONING_PENDING,archived_wiring_map,Digital RUN/STOP signal to FR-SX
-HYD_PUMP_ON,Hydraulic,OUT,7i84U,TB2,OUT3,hyd-pump-on,Hydraulic + head-lube pump contactor (PLC Y096 HYD.M),PROPOSED,element_list_crosswalk_2026-07-27,Required before clamp/gear/ATC; interposing relay for contactor coil; prove HYD_PRESS_OK after start
-SPINDLE_ORIENT_CMD,Spindle,OUT,7i84U,TB2,OUT4,spindle-orient-cmd,FR-SX orient command (PLC Y093 ORCM1.M),PROPOSED,element_list_crosswalk_2026-07-27,Sequence per ladder 28xx-29xx before ATC HAL component
-SPINDLE_ORIENT_LOGEAR,Spindle,OUT,7i84U,TB2,OUT5,orient-lo-gear,Low-gear orient assist (PLC Y094 CTL.M),PROPOSED,element_list_crosswalk_2026-07-27,Verify in ladder whether required in high gear too
-Z_BRAKE_REL,Motion,OUT,7i84U,TB2,OUT6,z-brake-rel,N1J-L2-201 Z brake release,COMMISSIONING_PENDING,phase2_plan,Add flyback diode or suitable suppression
-GEAR_HI_SOL,Spindle gear,OUT,7i84U,TB2,OUT7,gear-hi-sol,RLY-1 to SOL-13 Fujikoshi hydraulic valve,COMMISSIONING_PENDING,phase2_plan,Measure coil voltage before selecting relay contacts
-GEAR_LO_SOL,Spindle gear,OUT,7i84U,TB2,OUT8,gear-lo-sol,RLY-2 to SOL-12 Fujikoshi hydraulic valve,HOLD_CONFLICT,phase2_plan,Conflict: connector_crossref.md omits SOL-12 and identifies SOL-13 as low; verify both gear-shift coils before wiring
-TOOL_CLAMP_SOL,ATC tool,OUT,7i84U,TB2,OUT9,tool-clamp-sol,RLY-3 to SOL-10 Fujikoshi hydraulic valve,COMMISSIONING_PENDING,phase2_plan,Confirm single valve versus dual coil behavior
-TOOL_UNCLAMP_SOL,ATC tool,OUT,7i84U,TB2,OUT10,tool-unclamp-sol,RLY-4 to SOL-10 Fujikoshi hydraulic valve,COMMISSIONING_PENDING,phase2_plan,Evidence supports SOL-10 tool unclamp; verify relay path and whether the valve is single-coil or dual-coil before energizing
-COOLANT_ON,Coolant,OUT,7i84U,TB2,OUT11,flood-coolant,Coolant pump relay,COMMISSIONING_PENDING,archived_wiring_map,May need interposing relay
-LUBE_ON,Utility,OUT,7i84U,TB2,OUT12,lube-on,Lube pump relay,COMMISSIONING_PENDING,archived_wiring_map,May need interposing relay
-ATC_FWD,ATC motor,OUT,7i84U,TB2,OUT13,atc-fwd,ATC motor forward relay,COMMISSIONING_PENDING,archived_wiring_map,Do not energize before interlocks are proven
-ATC_REV,ATC motor,OUT,7i84U,TB2,OUT14,atc-rev,ATC motor reverse relay,COMMISSIONING_PENDING,archived_wiring_map,Do not energize before interlocks are proven
-ALARM_OUT,Panel,OUT,7i84U,TB2,OUT15,alarm-out,Alarm light or horn,OPTIONAL_VERIFY,archived_wiring_map,Confirm load and behavior
-SECOND_SSERIAL_CARD,Expansion,REVIEW,none,none,none,none,Additional 7i84 or equivalent on 7i44 spare port,RETIRED_2026-08-03,open_issues.md §3 (2026-08-03) single-7i84U plan,"Retired 2026-08-03: single-7i84U plan committed. New stack has 6 spare 7i44 sserial ports available if ever needed; no additional card required for planned scope."
+MAG_IN_POS,ATC,IN,7i84U-A,TB1,IN28,mag-in-pos,Magazine index in-position prox (PLC X00D MIPRS); BCD pot number valid only while TRUE,PROPOSED,atc_ladder_transcription_2026-07-27,Mandatory for magazine indexing (rungs 3401/33xx). Move mag-in-pos off legacy IN4 in field_7i84u.hal (IN4 = spindle-oriented). Verify prox type/polarity
+ESTOP_MONITOR,Machine safety,IN,7i84U-A,TB1,IN29,estop-monitor,OEM MAR relay aux contact via interposing relay (Omron G2R-1-SND-DC24 or Phoenix PLC-RSC-24DC/21) driven from EHB bus,PROPOSED,front_control_panel_wiring.md §6.5 + open_issues.md §3 (2026-08-03),"OEM MAR relay aux contact via interposing relay (Omron G2R-1-SND-DC24 or Phoenix PLC-RSC-24DC/21) driven from EHB bus. OEM/new-side boundary: dry contact only, no OEM P24 into 7i84U common. This is the sole software E-stop monitor; OEM hardware chain remains authoritative."
+MANUAL_TOOL_CLAMP_PB,ATC tool,IN,7i84U-A,TB1,IN30,manual-clamp-pb,Manual tool clamp switch at head (PLC X01B TCFS.M),PROPOSED,element_list_crosswalk_2026-07-27 + open_issues.md §3 (2026-08-03),Reinstated 2026-08-03 after single-7i84U plan freed pins from Y091/Y023-Y025/X078/X02F drops. Pairs with MANUAL_TOOL_UNCLAMP_PB on IN9.
+SERVO_READY,Drive safety,IN,7i84U-A,TB1,IN31,servo-ready,Servo drives ready relay contact,COMMISSIONING_PENDING,archived_wiring_map,Wire before first motion if available
+SPINDLE_FWD,Spindle,OUT,7i84U-A,TB2,OUT0,spindle-fwd,FR-SX forward input,COMMISSIONING_PENDING,archived_wiring_map,Digital FWD signal to FR-SX
+SPINDLE_REV,Spindle,OUT,7i84U-A,TB2,OUT1,spindle-rev,FR-SX reverse input,COMMISSIONING_PENDING,archived_wiring_map,Digital REV signal to FR-SX
+SPINDLE_ENA,Spindle,OUT,7i84U-A,TB2,OUT2,spindle-ena,FR-SX enable input,COMMISSIONING_PENDING,archived_wiring_map,Digital RUN/STOP signal to FR-SX
+HYD_PUMP_ON,Hydraulic,OUT,7i84U-A,TB2,OUT3,hyd-pump-on,Hydraulic + head-lube pump contactor (PLC Y096 HYD.M),PROPOSED,element_list_crosswalk_2026-07-27,Required before clamp/gear/ATC; interposing relay for contactor coil; prove HYD_PRESS_OK after start
+SPINDLE_ORIENT_CMD,Spindle,OUT,7i84U-A,TB2,OUT4,spindle-orient-cmd,FR-SX orient command (PLC Y093 ORCM1.M),PROPOSED,element_list_crosswalk_2026-07-27,Sequence per ladder 28xx-29xx before ATC HAL component
+SPINDLE_ORIENT_LOGEAR,Spindle,OUT,7i84U-A,TB2,OUT5,orient-lo-gear,Low-gear orient assist (PLC Y094 CTL.M),PROPOSED,element_list_crosswalk_2026-07-27,Verify in ladder whether required in high gear too
+Z_BRAKE_REL,Motion,OUT,7i84U-A,TB2,OUT6,z-brake-rel,N1J-L2-201 Z brake release,COMMISSIONING_PENDING,phase2_plan,Add flyback diode or suitable suppression
+GEAR_HI_SOL,Spindle gear,OUT,7i84U-A,TB2,OUT7,gear-hi-sol,RLY-1 to SOL-13 Fujikoshi hydraulic valve,COMMISSIONING_PENDING,phase2_plan,Measure coil voltage before selecting relay contacts
+GEAR_LO_SOL,Spindle gear,OUT,7i84U-A,TB2,OUT8,gear-lo-sol,RLY-2 to SOL-12 Fujikoshi hydraulic valve,HOLD_CONFLICT,phase2_plan,Conflict: connector_crossref.md omits SOL-12 and identifies SOL-13 as low; verify both gear-shift coils before wiring
+TOOL_CLAMP_SOL,ATC tool,OUT,7i84U-A,TB2,OUT9,tool-clamp-sol,RLY-3 to SOL-10 Fujikoshi hydraulic valve,COMMISSIONING_PENDING,phase2_plan,Confirm single valve versus dual coil behavior
+TOOL_UNCLAMP_SOL,ATC tool,OUT,7i84U-A,TB2,OUT10,tool-unclamp-sol,RLY-4 to SOL-10 Fujikoshi hydraulic valve,COMMISSIONING_PENDING,phase2_plan,Evidence supports SOL-10 tool unclamp; verify relay path and whether the valve is single-coil or dual-coil before energizing
+COOLANT_ON,Coolant,OUT,7i84U-A,TB2,OUT11,flood-coolant,Coolant pump relay,COMMISSIONING_PENDING,archived_wiring_map,May need interposing relay
+LUBE_ON,Utility,OUT,7i84U-A,TB2,OUT12,lube-on,Lube pump relay,COMMISSIONING_PENDING,archived_wiring_map,May need interposing relay
+ATC_FWD,ATC motor,OUT,7i84U-A,TB2,OUT13,atc-fwd,ATC motor forward relay,COMMISSIONING_PENDING,archived_wiring_map,Do not energize before interlocks are proven
+ATC_REV,ATC motor,OUT,7i84U-A,TB2,OUT14,atc-rev,ATC motor reverse relay,COMMISSIONING_PENDING,archived_wiring_map,Do not energize before interlocks are proven
+ALARM_OUT,Panel,OUT,7i84U-A,TB2,OUT15,alarm-out,Alarm light or horn,OPTIONAL_VERIFY,archived_wiring_map,Confirm load and behavior
+SSERIAL_PORT1_TXA,Field I/O,LINK,7i44,P1 sserial port 1,port1.TX+,none,7i84U-B RJ45 pin 2 RX+,ACCEPTED,mesa_firmware_checklist.md,7i44 P1 port 1 to 7i84U-B CN0; RS-422 differential pair
+SSERIAL_PORT1_TXB,Field I/O,LINK,7i44,P1 sserial port 1,port1.TX-,none,7i84U-B RJ45 pin 1 RX-,ACCEPTED,mesa_firmware_checklist.md,RS-422 differential pair
+SSERIAL_PORT1_RXA,Field I/O,LINK,7i44,P1 sserial port 1,port1.RX+,none,7i84U-B RJ45 pin 6 TX+,ACCEPTED,mesa_firmware_checklist.md,RS-422 differential pair
+SSERIAL_PORT1_RXB,Field I/O,LINK,7i44,P1 sserial port 1,port1.RX-,none,7i84U-B RJ45 pin 3 TX-,ACCEPTED,mesa_firmware_checklist.md,RS-422 differential pair
+SSERIAL_PORT1_GND,Field I/O,LINK,7i44,P1 sserial port 1,port1.GND,none,7i84U-B RJ45 pin 4/5 ground,ACCEPTED,mesa_firmware_checklist.md,Shield drain to 7i44 end only
+SSERIAL_PORT1_5V,Field I/O,LINK,7i44,P1 sserial port 1,port1.+5V,none,7i84U-B RJ45 pin 7/8 +5V,ACCEPTED,mesa_firmware_checklist.md,Serial power for 7i84U-B logic
+SEVENI84UB_FIELD_A_24V,Power,POWER,7i84U-B,TB1,TB1 pin 1 + and pin 2 -,none,Field power bank A,COMMISSIONING_PENDING,mesa_firmware_checklist.md,Powers 7i84U-B outputs 0-7 and inputs 0-15; from Meanwell DR-240-24 retrofit bus
+SEVENI84UB_FIELD_B_24V,Power,POWER,7i84U-B,TB1,TB1 pin 3 + and pin 4 -,none,Field power bank B,COMMISSIONING_PENDING,mesa_firmware_checklist.md,Powers 7i84U-B outputs 8-15 and inputs 16-31; from Meanwell DR-240-24 retrofit bus
+X_LIMIT_PLUS,Axis safety,IN,7i84U-B,TB1,IN0,limit-x-plus,X positive overtravel limit (NC),ACCEPTED_VERIFY,field_7i84u.hal,NC contact so invert_input=1
+X_LIMIT_MINUS,Axis safety,IN,7i84U-B,TB1,IN1,limit-x-minus,X negative overtravel limit (NC),ACCEPTED_VERIFY,field_7i84u.hal,NC contact so invert_input=1
+Y_LIMIT_PLUS,Axis safety,IN,7i84U-B,TB1,IN2,limit-y-plus,Y positive overtravel limit (NC),ACCEPTED_VERIFY,field_7i84u.hal,NC contact so invert_input=1
+Y_LIMIT_MINUS,Axis safety,IN,7i84U-B,TB1,IN3,limit-y-minus,Y negative overtravel limit (NC),ACCEPTED_VERIFY,field_7i84u.hal,NC contact so invert_input=1
+Z_LIMIT_PLUS,Axis safety,IN,7i84U-B,TB1,IN4,limit-z-plus,Z positive overtravel limit (NC),ACCEPTED_VERIFY,field_7i84u.hal,NC contact so invert_input=1
+Z_LIMIT_MINUS,Axis safety,IN,7i84U-B,TB1,IN5,limit-z-minus,Z negative overtravel limit (NC),ACCEPTED_VERIFY,field_7i84u.hal,NC contact so invert_input=1
+X_HOME,Axis safety,IN,7i84U-B,TB1,IN6,home-x,X home switch (LS-42 assumed),ACCEPTED_VERIFY,field_7i84u.hal,NO contact
+Y_HOME,Axis safety,IN,7i84U-B,TB1,IN7,home-y,Y home switch (LS-52 assumed),ACCEPTED_VERIFY,field_7i84u.hal,NO contact
+Z_HOME,Axis safety,IN,7i84U-B,TB1,IN8,home-z,Z home switch (LS-62 confirmed TB-51),ACCEPTED_VERIFY,field_7i84u.hal,NO contact
+SEVENI84UB_IN9_31_SPARE,Spare,IN,7i84U-B,TB1,IN9-IN31,none,Spare inputs on 7i84U-B,SPARE,mesa_firmware_checklist.md,23 spare digital inputs available for future field wiring
+X_DRIVE_ENABLE,Motion,OUT,7i84U-B,TB2,OUT0,x-enable,X servo S-ON to MELDAS DK-427 (X-drive ENA input),COMMISSIONING_PENDING,field_7i84u.hal,Interposing relay for drive enable input. Latency: sserial update ~1ms is fine for latched enable signal.
+Y_DRIVE_ENABLE,Motion,OUT,7i84U-B,TB2,OUT1,y-enable,Y servo S-ON to MELDAS DK-427 (Y-drive ENA input),COMMISSIONING_PENDING,field_7i84u.hal,Interposing relay for drive enable input.
+Z_DRIVE_ENABLE,Motion,OUT,7i84U-B,TB2,OUT2,z-enable,Z servo S-ON to MELDAS DK-427 (Z-drive ENA input),COMMISSIONING_PENDING,field_7i84u.hal,Interposing relay for drive enable input.
+AIR_BLAST,Air,OUT,7i84U-B,TB2,OUT3,air-blast,SOL-62 via RLY-5 (interposing relay for 100VAC coil),COMMISSIONING_PENDING,field_7i84u.hal,Verify SOL-62 identification against parts list pp.85-91
+TOUCH_SENSOR_BLAST,Air,OUT,7i84U-B,TB2,OUT4,touch-sensor-blast,SOL-35 via RLY-6 (interposing relay for 100VAC coil),COMMISSIONING_PENDING,field_7i84u.hal,MMS touch-sensor air jet
+TAP_COOLANT_BLAST,Coolant,OUT,7i84U-B,TB2,OUT5,tap-coolant-blast,SOL-61 via RLY-7 (interposing relay for 100VAC coil),COMMISSIONING_PENDING,field_7i84u.hal,
+ATC_BARRIER_SOL,ATC interlock,OUT,7i84U-B,TB2,OUT6,atc-barrier,ATC barrier expand solenoid (PLC Y095 TCME.M),PROPOSED,element_list_crosswalk_2026-07-27,Verify device exists on SN 060231
+FLOOD_VALVE,Coolant,OUT,7i84U-B,TB2,OUT7,flood-valve,"Flood coolant valve, separate from pump motor (PLC Y011 FCL)",PROPOSED,element_list_crosswalk_2026-07-27,SOL-31 confirmed via TB-51 diagram. Separate from OUT11 pump on 7i84U-A.
+SEVENI84UB_OUT8_15_SPARE,Spare,OUT,7i84U-B,TB2,OUT8-OUT15,none,Spare outputs on 7i84U-B,SPARE,mesa_firmware_checklist.md,8 spare digital outputs available for future field wiring
+PROBE_SKIP1,Motion,IN,7i80HDT,"P3 GPIO (bare, no daughter card)",gpio.042.in,probe-in,Renishaw MP-3 probe SKIP1 (PLC X03F SKIP1.M),ACCEPTED_VERIFY,motion_7i80hdt.hal,Direct FPGA GPIO on P3 for lowest latency. Single-wire exception; the rest of P3 is unused/spare. Motion planner latches position on probe edge and sserial jitter would corrupt touch-position accuracy. Renishaw MP-3 fitted per parts list pp.273-274.
+P3_GPIO_SPARE,Spare,GPIO,7i80HDT,"P3 GPIO (bare, no daughter card)",gpio.032-062,none,Spare direct FPGA GPIO on P3 (except gpio.042 = PROBE_SKIP1),SPARE,mesa_firmware_checklist.md,"P3 is otherwise unused. Available for future direct-FPGA needs (extra probe, second MPG, low-latency handshake) without a daughter card."

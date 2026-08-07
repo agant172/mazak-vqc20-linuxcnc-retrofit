@@ -127,8 +127,9 @@ net gear-hi-sol           => hm2_7i80.0.7i84.0.0.output-07  # OUT7  Y00B GSH.M
 # wiring/authority_conflicts.md section 1). Left unbound on purpose: the comp
 # still drives the net, so it can be watched in halscope before wiring.
 # net gear-lo-sol         => hm2_7i80.0.7i84.0.0.output-08  # OUT8  Y00C GSL.M
-net atc-barrier           => hm2_7i80.0.gpio.054.out        # P3 7i37TA OUT6 (PLC Y095 TCME.M)
-setp hm2_7i80.0.gpio.054.is_output 1
+# ATC barrier solenoid: on 7i84U-B (7i44 port 1) OUT6 -- verify device exists
+# on SN 060231 before wiring (PLC Y095 TCME.M, PROPOSED).
+net atc-barrier           => hm2_7i80.0.7i84.0.1.output-06  # 7i84U-B OUT6 (PLC Y095 TCME.M)
 
 #####################################################################
 # Orient component - docs/ladder/orient_ladder_transcription.md
