@@ -65,6 +65,7 @@ See [`architecture_decision.md`](architecture_decision.md) for the full rational
 - [ ] Capture/record Mitsubishi FR-SX spindle drive model and analog/run/direction/alarm terminals.
 - [ ] Trace HR-11F-24 (OEM) and DR-240-24 (retrofit) 24 V supplies, P24/G24 distribution, remote sense, TOG/CNT, and branch fusing.
 - [ ] Trace E-stop, door, ready chain, and servo contactor wiring before any control rewiring.
+- [ ] Survey the OEM Mitsubishi TRA rectifier/capacitor/amplifier DC-bus stack per [`dc_bus_stop_fault.md`](dc_bus_stop_fault.md): draw as-built one-line, label test points TP-DC+/TP-DC-/TP-CHG/TP-BRK-Z/TP-RDY-*, measure discharge time from operating voltage to <50 V under both at-rest and post-rapid-decel conditions, and prove single-amp-fault-drops-all-motion-permits by fault injection. LinuxCNC monitors/inhibits only; it is not the primary stop element.
 - [ ] Confirm the bare P3 `gpio.042` probe connection and leave all other P3 pins unused/spare.
 
 ### Next
