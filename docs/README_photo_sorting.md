@@ -29,7 +29,7 @@ Use this folder structure to keep cabinet photos, Mesa firmware notes, and Linux
 | `12_Grounding_Shields_Common` | PE ground bars, 0 V common points, shield drain/clamp locations, analog/encoder shield landings. |
 | `13_DIN_Rail_Panel_Space` | Open DIN rail, wire duct, panel space, door clearance, possible Mesa card mounting spots. |
 | `14_Operator_Panel` | Cycle start, feed hold, single block, overrides, lamps, pendant-related panel notes. |
-| `15_Mesa_Cards_Firmware` | Mesa board labels, firmware/bitfile notes, 7i97T Ethernet/IP settings, 7i84U smart-serial connection photos. |
+| `15_Mesa_Cards_Firmware` | Mesa board labels, firmware/bitfile notes, 7i80HDT Ethernet/IP settings, 7i44 P1 smart-serial daughter card, 7i49 P2 resolver/analog daughter card, P3 field breakout, 7i84U on 7i44 port 0 smart-serial connection photos. |
 | `16_Manuals_Schematics` | Mazak manuals, schematics, terminal charts, inside-door legends, printed references. |
 | `17_LinuxCNC_Config_Outputs` | LinuxCNC configs, HAL/INI files, `mesa_readhmid.txt`, `mesa_hal_pins.txt`, latency-test screenshots. |
 

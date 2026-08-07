@@ -73,7 +73,7 @@ Python 3 standard library only. No pip installs, no internet access.
 | Theme                 | Sun icon in the header (dark is the default for shop lighting)         |
 | Deep link a signal    | `index.html#signal=ESTOP_CHAIN`                                        |
 
-**Views:** All signals, 7i97T, 7i84U, 7i49, and Conflicts / unverified. The conflicts view puts
+**Views:** All signals, 7i80HDT, 7i44, 7i49, 7i37TA (P3 field breakout), 7i84U, and Conflicts / unverified. The conflicts view puts
 the C1–C10 register above the affected rows.
 
 **Manual state (wiring checkout).** Each signal detail panel has `0` / `1` / `clear` buttons and a
@@ -190,7 +190,7 @@ tools/
 ## Limitations
 
 - Values are from planning documents, not measurements. Nothing here has been rung out.
-- Every `hm2_7i97.*` pin name in the config is an unverified placeholder (conflict C6).
+- Every `hm2_7i80.*` pin name in the config is an unverified placeholder (conflict C6).
   Confirm real names with `halcmd show pin` after the first `hm2_eth` load.
 - The live bridge reads HAL signal values only. It cannot see anything that is not a HAL signal,
   and a HAL value tells you what the software thinks, not what the wire is doing.

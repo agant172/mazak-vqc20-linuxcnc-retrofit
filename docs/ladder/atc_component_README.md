@@ -152,10 +152,10 @@ straight to `mazak-atc.target-pot`.
 | `gear-range.in1 = 800` RPM | `atc_orient.hal` | the two-speed head's crossover speed |
 | BCD weights 1/2/4/8/10 | `mazak_atc.comp` | confirm T21P really is the tens digit and not a 16-weight bit |
 | magazine direction fwd→CW | `atc_orient.hal` | `authority_conflicts.md` §3 (SOL-8A/8B) |
-| every `hm2_7i97.0.7i84.0.0.*` name | `atc_orient.hal` | `halcmd show pin hm2` against real firmware |
+| every `hm2_7i80.0.7i84.0.0.*` name | `atc_orient.hal` | `halcmd show pin hm2` against real firmware |
 | every input polarity | `atc_orient.hal` | measure normal states, then `invert_input` |
-| SSET (Y092) Mesa pin | `spindle-drive-arm` net, unbound | decide whether the FR-SX needs it; TB5 SSR OUT5 is the last spare |
-| `atc-barrier` device | `gpio.023` | confirm the barrier solenoid exists on SN 060231 |
+| SSET (Y092) Mesa pin | `spindle-drive-arm` net, unbound | decide whether the FR-SX needs it; P3 7i37TA OUT8 (`gpio.056`) is the last spare |
+| `atc-barrier` device | `gpio.054` (P3 7i37TA OUT6) | confirm the barrier solenoid exists on SN 060231 |
 
 ## Blocking gaps found while writing this
 

@@ -121,11 +121,11 @@ DIRECTION_LABEL = {
 # else is "Unknown - measure/verify".
 # ---------------------------------------------------------------------------
 NC_LIMIT_BASIS = (
-    "motion_7i97t.hal:197-204 \u2014 \"Limit switches are NC: invert_input so open (tripped) "
-    "= logic 1\"; setp hm2_7i97.0.gpio.0NN.invert_input 1"
+    "motion_7i80hdt.hal:197-204 \u2014 \"Limit switches are NC: invert_input so open (tripped) "
+    "= logic 1\"; setp hm2_7i80.0.gpio.0NN.invert_input 1"
 )
 NO_HOME_BASIS = (
-    "motion_7i97t.hal:198 \u2014 \"Home switches are NO: no invert needed\"; "
+    "motion_7i80hdt.hal:198 \u2014 \"Home switches are NO: no invert needed\"; "
     "no invert_input setp for gpio.014-016"
 )
 
@@ -145,44 +145,44 @@ EXPECTED = {
     "ESTOP_CHAIN": (
         "0",
         "Logic 0 \u2014 safety chain closed / healthy, after inversion",
-        "motion_7i97t.hal:239-245 \u2014 \"invert_input=1: chain closed (24V, normal) \u2192 in=0; "
+        "motion_7i80hdt.hal:239-245 \u2014 \"invert_input=1: chain closed (24V, normal) \u2192 in=0; "
         "chain open (fault) \u2192 in=1\"; net estop-ext \u2192 estop-latch.0.fault-in",
         "evidenced",
     ),
     # --- Analog commands -----------------------------------------------------
     "X_AXIS_CMD": ("0 V", "0 V idle \u2014 pwmgen.00 parked until enabled and commanded",
-                   "motion_7i97t.hal:114 \u2014 \"The pwmgen .enable pin MUST be true or the output "
+                   "motion_7i80hdt.hal:114 \u2014 \"The pwmgen .enable pin MUST be true or the output "
                    "stays parked at zero\"; 119-128 output-type 4, scale 10", "evidenced"),
     "Y_AXIS_CMD": ("0 V", "0 V idle \u2014 pwmgen.02 parked until enabled and commanded",
-                   "motion_7i97t.hal:114, 127-128, 148-149", "evidenced"),
+                   "motion_7i80hdt.hal:114, 127-128, 148-149", "evidenced"),
     "Z_AXIS_CMD": ("0 V", "0 V idle \u2014 pwmgen.01 parked until enabled and commanded",
-                   "motion_7i97t.hal:114, 125-126, 157-158", "evidenced"),
+                   "motion_7i80hdt.hal:114, 125-126, 157-158", "evidenced"),
     "SPINDLE_SPEED_CMD": (
         "0 V",
         "0 V idle \u2014 unipolar reference, offset-mode 0, zero speed command",
-        "motion_7i97t.hal:162-166 \u2014 offset-mode 0 (0 V at zero command), scale 10. "
+        "motion_7i80hdt.hal:162-166 \u2014 offset-mode 0 (0 V at zero command), scale 10. "
         "0-10 V vs bipolar still to be confirmed against the FR-SX.",
         "evidenced",
     ),
     # --- Drive enables -------------------------------------------------------
     "X_DRIVE_ENABLE": ("0", "0 / de-energized \u2014 amp-enable-out false until machine is on",
-                       "motion_7i97t.hal:256-257 net x-enable \u2190 joint.0.amp-enable-out", "evidenced"),
+                       "motion_7i80hdt.hal:256-257 net x-enable \u2190 joint.0.amp-enable-out", "evidenced"),
     "Y_DRIVE_ENABLE": ("0", "0 / de-energized \u2014 amp-enable-out false until machine is on",
-                       "motion_7i97t.hal:259-260", "evidenced"),
+                       "motion_7i80hdt.hal:259-260", "evidenced"),
     "Z_DRIVE_ENABLE": ("0", "0 / de-energized \u2014 amp-enable-out false until machine is on",
-                       "motion_7i97t.hal:262-263", "evidenced"),
+                       "motion_7i80hdt.hal:262-263", "evidenced"),
     # --- Resolvers -----------------------------------------------------------
     "X_RESOLVER": ("Dynamic", "Dynamic position value \u2014 validity to be verified on commissioning",
-                   "motion_7i97t.hal:35-39 pre-power ohmmeter checks; 42-44 scale placeholders; "
+                   "motion_7i80hdt.hal:35-39 pre-power ohmmeter checks; 42-44 scale placeholders; "
                    "current_pin_authority.csv:2 COMMISSIONING_PENDING", "dynamic"),
     "Y_RESOLVER": ("Dynamic", "Dynamic position value \u2014 validity to be verified on commissioning",
-                   "motion_7i97t.hal:35-39, 43; current_pin_authority.csv:3", "dynamic"),
+                   "motion_7i80hdt.hal:35-39, 43; current_pin_authority.csv:3", "dynamic"),
     "Z_RESOLVER": ("Dynamic", "Dynamic position value \u2014 validity to be verified on commissioning",
-                   "motion_7i97t.hal:35-39, 44; current_pin_authority.csv:4", "dynamic"),
+                   "motion_7i80hdt.hal:35-39, 44; current_pin_authority.csv:4", "dynamic"),
     "SPINDLE_ENCODER_RESERVED": (
         "Dynamic",
         "Dynamic once fitted \u2014 encoder not identified, channel reserved",
-        "motion_7i97t.hal:88-99 \u2014 spindle encoder part number not yet confirmed; "
+        "motion_7i80hdt.hal:88-99 \u2014 spindle encoder part number not yet confirmed; "
         "resolver.03 explicitly NOT used for spindle",
         "dynamic",
     ),
@@ -202,7 +202,7 @@ EXPECTED = {
     "SPINDLE_AT_SPEED": (
         "Forced 1",
         "HAL currently forces this net TRUE \u2014 field input not read",
-        "motion_7i97t.hal:102-103 \u2014 \"Until encoder is wired, spindle-at-speed is forced true "
+        "motion_7i80hdt.hal:102-103 \u2014 \"Until encoder is wired, spindle-at-speed is forced true "
         "(open-loop, no speed verification)\": sets spindle-at-speed true. "
         "current_pin_authority.csv:56 allocates a real 7i84U IN13 for it.",
         "conflict",
@@ -245,7 +245,7 @@ LOCATION = {
                    "Axis feedback", "BKO-NC6062A; Z amp cable CA1 / BBIA-1 CN3"),
     "SPINDLE_ENCODER_RESERVED": ("Spindle head \u2014 machine-side A/B/Z encoder if fitted",
                                  "Spindle feedback", "Part number not confirmed. Tacho TGF-3D P402-Sx feeds the FR-SX loop, not LinuxCNC."),
-    "TB2_AXIS_ENCODERS": ("Control cabinet \u2014 7i97T TB2, left unlanded",
+    "TB2_AXIS_ENCODERS": ("Control cabinet \u2014 legacy 7i97T TB2 encoder inputs, unused (feedback comes through 7i49 P2 resolver channels)",
                           "Axis feedback", "Architecturally excluded: feedback is resolver via 7i49."),
     "X_DRIVE_ENABLE": ("Servo bay \u2014 X TRA-series servo amp, S-ON terminal", "Servo drives", "X/Y amp path via CA3/CA4 (BBIA-1 CN1/CN2)"),
     "Y_DRIVE_ENABLE": ("Servo bay \u2014 Y TRA-series servo amp, S-ON terminal", "Servo drives", "X/Y amp path via CA3/CA4"),
@@ -335,23 +335,23 @@ LOCATION = {
     "SECOND_SSERIAL_CARD": ("Retired 2026-08-03", "Expansion", "Not required. Single-7i84U plan committed 2026-08-03: drops (Y091 OTR, X078 MPWS, X02F INHRLS, Y023-Y025 M43-M45T) + series consolidations (HLP+HLP2, THR+ONT, ITMDSS+LS-140/141) + panel moves (FEED_HOLD/SINGLE_BLOCK to touchscreen, panel-power-on to software state, reset-out to TB5 SSR) fit 5 DI + 5 DO of gap load into 6 DI + 6 DO available."),
 }
 
-SSERIAL_LOC = ("Control cabinet \u2014 7i97T TB4 to 7i84U RJ45 (RS-422 smart-serial)", "Field I/O link",
-               "Use absolute TB4 pin numbers, not the Phase 2 TB4.1-TB4.6 numbering. Shield drain at the 7i97T end only.")
+SSERIAL_LOC = ("Control cabinet \u2014 7i80HDT P1 (7i44 port 0) to 7i84U RJ45 (RS-422 smart-serial)", "Field I/O link",
+               "Use absolute 7i44 port 0 pin numbers. Shield drain at the 7i80HDT / 7i44 end only.")
 for _k in ("SSERIAL_GND_A", "SSERIAL_GND_B", "SSERIAL_RX_PLUS", "SSERIAL_RX_MINUS",
            "SSERIAL_TX_PLUS", "SSERIAL_TX_MINUS", "SSERIAL_5V_A", "SSERIAL_5V_B"):
     LOCATION[_k] = SSERIAL_LOC
 
 SPARE_LOC = {
-    "TB5_SSR_OUT3_SPARE": ("Control cabinet \u2014 7i97T TB5 SSR bank, unlanded", "Spare", ""),
-    "TB5_SSR_OUT4_SPARE": ("Control cabinet \u2014 7i97T TB5 SSR bank, unlanded", "Spare", ""),
-    "TB5_SSR_OUT5_SPARE": ("Control cabinet \u2014 7i97T TB5 SSR bank, unlanded", "Spare", ""),
+    "TB5_SSR_OUT3_SPARE": ("Control cabinet \u2014 7i80HDT P3 7i37TA OUT bank (gpio.054), historical TB5 SSR3", "Spare", "Now on P3 7i37TA OUT6 via interposing relay if driven"),
+    "TB5_SSR_OUT4_SPARE": ("Control cabinet \u2014 7i80HDT P3 7i37TA OUT bank (gpio.055), historical TB5 SSR4", "Spare", "Now on P3 7i37TA OUT7 via interposing relay if driven"),
+    "TB5_SSR_OUT5_SPARE": ("Control cabinet \u2014 7i80HDT P3 7i37TA OUT bank (gpio.056), historical TB5 SSR5", "Spare", "Now on P3 7i37TA OUT8 via interposing relay if driven"),
 }
 LOCATION.update(SPARE_LOC)
 for i in range(4, 10):
     LOCATION["SEVENI84U_IN%d_SPARE" % i] = ("Field I/O enclosure \u2014 7i84U TB1, unlanded", "Spare", "")
 for i in range(3, 6):
     LOCATION["SEVENI84U_OUT%d_SPARE" % i] = ("Field I/O enclosure \u2014 7i84U TB2, unlanded", "Spare",
-                                             "Drive S-ON is handled by the 7i97T TB3 ENA pins.")
+                                             "Drive S-ON is handled by the P3 7i37TA OUT0-2 (gpio.048/049/050).")
 
 # ---------------------------------------------------------------------------
 # Conflict register. Each entry links to the signal rows it affects.
@@ -406,16 +406,16 @@ CONFLICTS = [
     },
     {
         "id": "C3",
-        "title": "Spindle control: 7i97T TB3 ENA3 vs 7i84U FWD/REV/ENA",
+        "title": "Spindle control: 7i49 AOUT3 velocity vs 7i84U FWD/REV/ENA",
         "severity": "conflict",
         "summary": "Two mutually exclusive plans exist for commanding the FR-SX. The authority marks the "
                    "TB3 candidate HOLD_CONFLICT while also listing three 7i84U outputs for the same job.",
         "detail": [
-            "SPINDLE_TB3_ENABLE_CANDIDATE: 7i97T TB3.13/TB3.14 ENA3\u00b1, net spindle-enable, "
+            "SPINDLE_LEGACY_ENABLE_CANDIDATE (historical 7i97T path): TB3.13/TB3.14 ENA3\u00b1, net spindle-enable, "
             "HOLD_CONFLICT (current_pin_authority.csv:13)",
-            "motion_7i97t.hal:265 nets spindle-enable from spindle.0.on and line 177 also uses it to "
+            "motion_7i80hdt.hal:265 nets spindle-enable from spindle.0.on and line 177 also uses it to "
             "gate pwmgen.03.enable, so the net is already live in the analog path",
-            "motion_7i97t.hal:266 comment says \"Spindle enable/dir routed via 7i84U sserial\"",
+            "motion_7i80hdt.hal:266 comment says \"Spindle enable/dir routed via 7i84U sserial\"",
             "field_7i84u.hal:85-90 has spindle-fwd/rev/enable to 7i84U output-11/12/13 \u2014 all commented out",
             "The authority instead places SPINDLE_FWD/REV/ENA on 7i84U TB2 OUT0/OUT1/OUT2 "
             "(current_pin_authority.csv:75-77), which does not match the commented HAL channel numbers either",
@@ -424,7 +424,7 @@ CONFLICTS = [
                   "before wiring either. Note that spindle-enable currently doubles as the pwmgen enable.",
         "signals": ["SPINDLE_TB3_ENABLE_CANDIDATE", "SPINDLE_FWD", "SPINDLE_REV", "SPINDLE_ENA",
                     "SPINDLE_SPEED_CMD"],
-        "sources": ["mesa/current_pin_authority.csv:13,75-77", "linuxcnc/motion_7i97t.hal:177,265-266",
+        "sources": ["mesa/current_pin_authority.csv:13,75-77", "linuxcnc/motion_7i80hdt.hal:177,265-266",
                     "linuxcnc/field_7i84u.hal:84-90"],
     },
     {
@@ -474,17 +474,17 @@ CONFLICTS = [
         "id": "C6",
         "title": "All HostMot2 pin names are unverified placeholders",
         "severity": "unverified",
-        "summary": "Every hm2_7i97.* name in the HAL set is a placeholder. Board tag, GPIO index ranges, "
+        "summary": "Every hm2_7i80.* name in the HAL set is a placeholder. Board tag, GPIO index ranges, "
                    "resolver pin names, pwmgen instances, and the smart-serial device tag all need "
                    "readhmid / halcmd show pin hm2 confirmation.",
         "detail": [
-            "motion_7i97t.hal:4-7 \u2014 \"every hm2_7i97.* name below is an UNVERIFIED PLACEHOLDER... "
-            "Confirm the exact board tag (hm2_7i97 vs hm2_7i97)\"",
-            "motion_7i97t.hal:32-33 \u2014 resolver pin names unverified",
-            "motion_7i97t.hal:183-188 \u2014 \"The gpio.NNN INDICES BELOW ARE PLACEHOLDERS \u2014 inputs and "
+            "motion_7i80hdt.hal:4-7 \u2014 \"every hm2_7i80.* name below is an UNVERIFIED PLACEHOLDER... "
+            "Confirm the exact board tag (hm2_7i80 expected)\"",
+            "motion_7i80hdt.hal:32-33 \u2014 resolver pin names unverified",
+            "motion_7i80hdt.hal:183-188 \u2014 \"The gpio.NNN INDICES BELOW ARE PLACEHOLDERS \u2014 inputs and "
             "outputs occupy separate, firmware-determined ranges... do not wire by these numbers\"",
-            "motion_7i97t.hal:116 \u2014 pwmgen instance to axis mapping unconfirmed",
-            "field_7i84u.hal:3-6 \u2014 \"Every hm2_7i97.*.7i84.* name below is an UNVERIFIED PLACEHOLDER\"",
+            "motion_7i80hdt.hal:116 \u2014 pwmgen instance to axis mapping unconfirmed",
+            "field_7i84u.hal:3-6 \u2014 \"Every hm2_7i80.*.7i84.* name below is an UNVERIFIED PLACEHOLDER\"",
             "mazak_vqc_20_40.hal:4-7 \u2014 board name, IP, firmware, resolver scales, drive polarity, "
             "normal states and safety wiring all unverified",
             "mazak_vqc_20_40.hal:25-26 \u2014 board_ip and config string still TODO despite 192.168.1.121 "
@@ -495,17 +495,17 @@ CONFLICTS = [
         "signals": ["X_LIMIT_PLUS", "X_LIMIT_MINUS", "Y_LIMIT_PLUS", "Y_LIMIT_MINUS", "Z_LIMIT_PLUS",
                     "Z_LIMIT_MINUS", "X_HOME", "Y_HOME", "Z_HOME", "ESTOP_CHAIN", "AIR_BLAST",
                     "TOUCH_SENSOR_BLAST", "TAP_COOLANT_BLAST", "X_RESOLVER", "Y_RESOLVER", "Z_RESOLVER"],
-        "sources": ["linuxcnc/motion_7i97t.hal:4-7,32-33,116,183-188", "linuxcnc/field_7i84u.hal:3-6",
+        "sources": ["linuxcnc/motion_7i80hdt.hal:4-7,32-33,116,183-188", "linuxcnc/field_7i84u.hal:3-6",
                     "linuxcnc/mazak_vqc_20_40.hal:4-7,25-26"],
     },
     {
         "id": "C7",
         "title": "spindle-at-speed is forced true in HAL while the authority allocates a real input",
         "severity": "conflict",
-        "summary": "motion_7i97t.hal short-circuits the at-speed net, so the planned 7i84U IN13 field "
+        "summary": "motion_7i80hdt.hal short-circuits the at-speed net, so the planned 7i84U IN13 field "
                    "signal would be ignored even once wired.",
         "detail": [
-            "motion_7i97t.hal:102-103 \u2014 \"Until encoder is wired, spindle-at-speed is forced true "
+            "motion_7i80hdt.hal:102-103 \u2014 \"Until encoder is wired, spindle-at-speed is forced true "
             "(open-loop, no speed verification)\": sets spindle-at-speed true",
             "current_pin_authority.csv:56 \u2014 SPINDLE_AT_SPEED on 7i84U TB1 IN13, net spindle-at-speed",
             "field_7i84u.hal:42 \u2014 the matching input net is commented out and uses a different name "
@@ -514,7 +514,7 @@ CONFLICTS = [
         "action": "Remove the sets line before relying on at-speed for any interlock, and reconcile the "
                   "net name (spindle-at-speed vs spindle-at-spd) and channel.",
         "signals": ["SPINDLE_AT_SPEED"],
-        "sources": ["linuxcnc/motion_7i97t.hal:102-103", "mesa/current_pin_authority.csv:56",
+        "sources": ["linuxcnc/motion_7i80hdt.hal:102-103", "mesa/current_pin_authority.csv:56",
                     "linuxcnc/field_7i84u.hal:42"],
     },
     {
@@ -527,12 +527,12 @@ CONFLICTS = [
         "detail": [
             "TB5 order: signal_map.csv:10-18 puts homes first (X_HOME=IN0); the authority puts limits "
             "first (X_LIMIT_PLUS=TB5.1 IN0) \u2014 current_pin_authority.csv:23-31",
-            "Drive faults: signal_map.csv:19-21 places X/Y/Z drive faults on 7i97T TB5 IN9-11; the "
+            "Drive faults: signal_map.csv:19-21 places X/Y/Z drive faults on legacy 7i97T TB5 IN9-11; the "
             "authority places them on 7i84U IN10-12",
             "E-stop: signal_map.csv:23 says TB5 IN13; the authority says TB5.10 IN9 gpio.017",
-            "HYD_PRESS_OK: signal_map.csv:26 says 7i97T TB5 IN16; the authority says 7i84U IN27 and "
+            "HYD_PRESS_OK: signal_map.csv:26 says legacy 7i97T TB5 IN16; the authority says 7i84U IN27 and "
             "explicitly calls the old row stale (current_pin_authority.csv:70)",
-            "Outputs: signal_map.csv:30-37 uses a 7i97T \"TB6\" output bank that does not appear in the "
+            "Outputs: signal_map.csv:30-37 uses a legacy 7i97T \"TB6\" output bank that does not appear in the "
             "authority at all; drive enables are on TB3 ENA pins instead",
             "7i84U: signal_map.csv:38-60 is an entirely different field layout that field_7i84u.hal still "
             "follows",
@@ -594,26 +594,42 @@ CONFLICTS = [
 # Board metadata
 # ---------------------------------------------------------------------------
 BOARDS = {
-    "7i97T": {
-        "name": "Mesa 7i97T",
-        "role": "Ethernet analog servo controller (hm2_eth)",
-        "detail": "Primary motion/control board. X/Y/Z analog command on TB3, core safety inputs on TB5, "
-                  "SSR overflow outputs on TB5, smart-serial to the 7i84U on TB4.",
+    "7i80HDT": {
+        "name": "Mesa 7i80HDT",
+        "role": "Ethernet FPGA host (hm2_eth)",
+        "detail": "Primary control board. 3× 50-pin daughter connectors carry 72 IO: P1 = 7i44 sserial "
+                  "breakout, P2 = 7i49 resolvers + analog outs, P3 = 7i37TA field breakout.",
         "address": "board_ip 192.168.1.121 (host NIC enp0s31f6 at 192.168.1.1/24)",
+    },
+    "7i44": {
+        "name": "Mesa 7i44",
+        "role": "8-channel RS-422 smart-serial breakout (on 7i80HDT P1)",
+        "detail": "Port 0 carries the 7i84U. Ports 1-7 spare for future MPG / 4th-axis / second 7i84.",
+        "address": "sserial_port_0=00000000 on 7i80HDT P1",
+    },
+    "7i49": {
+        "name": "Mesa 7i49",
+        "role": "Resolver-to-digital interface + ±10V DACs (on 7i80HDT P2)",
+        "detail": "Plain 7i49 (not HV). Reads the machine's original Tamagawa TS2014N shaft resolvers "
+                  "for X/Y/Z on RES0/1/2 at 5 kHz excitation. AOUT0/1/2 drive the X/Z/Y servos, AOUT3 "
+                  "the FR-SX spindle velocity, AOUT4 an FR-SX orient reference (reserved).",
+        "address": "num_resolvers=3, num_pwmgens=4 on 7i80HDT P2",
+    },
+    "7i37TA": {
+        "name": "Mesa 7i37TA (P3 field breakout)",
+        "role": "Motion-critical direct FPGA GPIO breakout (on 7i80HDT P3)",
+        "detail": "24-bit isolated field-I/O breakout: 16 isolated IN + 8 isolated OUT. Carries X/Y/Z "
+                  "limits (IN0-5), X/Y/Z homes (IN6-8), E-stop monitor (IN9), probe SKIP1 (IN10); "
+                  "X/Y/Z drive-enable (OUT0-2), and 5 former TB5 SSR overflow outputs (OUT3-7) plus "
+                  "1 spare (OUT8). Interposing relays (RLY-5/6/7) required for 100VAC solenoid loads.",
+        "address": "Direct FPGA GPIO on 7i80HDT P3 (gpio.032-055)",
     },
     "7i84U": {
         "name": "Mesa 7i84U",
         "role": "Remote smart-serial field I/O",
         "detail": "32 field inputs on TB1, 16 field outputs on TB2. Mounted near the original green "
-                  "breakout PCB. Two independent field power banks.",
-        "address": "sserial_port_0=00000000 on 7i97T TB4",
-    },
-    "7i49": {
-        "name": "Mesa 7i49",
-        "role": "Resolver-to-digital interface (plain, not HV)",
-        "detail": "Reads the machine's original Tamagawa TS2014N shaft resolvers for X/Y/Z at 5 kHz "
-                  "excitation. Channel 03 is explicitly not used for the spindle.",
-        "address": "num_resolvers=3",
+                  "breakout PCB. Two independent field power banks. Pin plan committed 2026-08-03 preserved.",
+        "address": "On 7i44 port 0 (sserial_port_0=00000000)",
     },
     "none": {
         "name": "Unassigned",

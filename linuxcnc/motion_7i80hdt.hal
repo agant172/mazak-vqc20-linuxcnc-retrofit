@@ -1,0 +1,336 @@
+# 7i80HDT + 7i49 + P3-breakout motion, spindle, safety, and core panel I/O
+# Logical allocation from the Mazak VQC 20/40 retrofit workbook.
+#
+# PLACEHOLDER PIN NAMES: every hm2_7i80.* name below is an UNVERIFIED PLACEHOLDER.
+# The Mesa 7i80HDT is a bare-FPGA Ethernet host (hm2_eth) with three 50-pin daughter
+# connectors (P1/P2/P3). Confirm the exact board tag (`hm2_7i80` expected) and the
+# real analog-output (7i49 P2 pwmgen), resolver (7i49 P2 resolver channel), and
+# direct-GPIO (P3 breakout) pin structure from `readhmid` and `halcmd show pin hm2`
+# before use. Axis feedback is RESOLVER via the 7i49, not quadrature encoder.
+#
+# Stack summary (2026-08-06 rev):
+#   P1: 7i44 sserial breakout (port 0 → 7i84U; ports 1-7 spare)
+#   P2: 7i49 (6 resolver channels + 6× ±10V analog outs)
+#   P3: 7i37TA field breakout (motion-critical direct FPGA GPIO)
+#
+# The old 7i97T TB3/TB5 assignments (X/Y/Z limits, homes, E-stop, drive-enables,
+# probe, and TB5 SSR outputs) now live on the P3 7i37TA as direct FPGA GPIO.
+# Every previous `hm2_7i97.0.gpio.NNN.*` reference has been renamed to
+# `hm2_7i80.0.gpio.NNN.*` with a placeholder index — replace with the real
+# indices reported by `halcmd show pin hm2` after firmware load.
+
+#####################################################################
+# Resolver feedback channels (via Mesa 7i49 on P2)
+#####################################################################
+#
+# Axis feedback on this machine is RESOLVER, not quadrature encoder.
+#
+# CONFIRMED (July 2026 on-machine photos):
+#   Tamagawa Seiki TS2014N series SHAFT resolvers — Size 25, BRX type.
+#   Mitsubishi/Mazak part: BKO-NC6062A.
+#   Physical mounting: non-drive end of each ball screw, coupled via small flex coupling.
+#   These are STANDALONE shaft resolvers, NOT motor-mounted (the HD-101/HD-81 DC servo
+#   motors have integral tachogenerators for the TRAxxA velocity loop — completely
+#   separate from the resolver position feedback path).
+#
+# Electrical spec (TS2014N datasheet):
+#   Excitation: 10 Vrms at 4.5 kHz nominal, Primary R1-R2 (rotor, BRX type)
+#   Transformation ratio K: 0.5 ±10%    Output type: check nameplate (Normal or Reverse)
+#   If Reverse, position counts backwards — fix with negative scale setp below.
+#
+# 7i49 drives at ~2 Vrms → output SIN/COS ≈ 1 Vrms (vs. ~5 Vrms the M-2 saw).
+# Within 7i49 input spec; scope-check on commissioning and upgrade to 7i49HV if marginal.
+#
+# PLACEHOLDER: hm2_7i80.0.resolver.NN.* pin names unverified — confirm from
+# `readhmid` / `halcmd show pin hm2` after loading firmware with resolver module.
+#
+# Pre-power ohmmeter checks (all values approximate — measure before energizing):
+#   R1-R2 rotor winding: expect ~few tens of ohms (TS2014N ZRO ≈ 250+j377 Ω at 4.5 kHz)
+#   S1-S3 (sin pair):    expect similar range (ZSS ≈ 326+j623 Ω at 4.5 kHz)
+#   S2-S4 (cos pair):    expect same as S1-S3
+#   Any winding shorted to resolver case/shield = do not energize until resolved.
+
+# TODO: set actual resolver scales after measuring counts and machine units.
+setp hm2_7i80.0.resolver.00.scale 1
+setp hm2_7i80.0.resolver.01.scale 1
+setp hm2_7i80.0.resolver.02.scale 1
+setp hm2_7i80.0.resolver.03.scale 1
+
+# 7i49 global excitation frequency.
+# Confirmed resolvers (July 2026 photos): Tamagawa TS2014N series (Size 25 SHAFT resolvers),
+# Mitsubishi/Mazak part BKO-NC6062A. Mounted at non-drive end of each ball screw via flex
+# coupling — NOT motor-mounted. Rated 10 Vrms at 4.5 kHz; K = 0.5 ±10%.
+# 7i49 plain supports 2 / 5 / 10 kHz only — 4.5 kHz is not a valid step. Use 5 kHz.
+# At 5 kHz and ~2 Vrms drive the resolver operates within tolerance (±10% freq deviation
+# is acceptable; SNR is lower than original NC saw but within 7i49 input range).
+# If signal quality is marginal on scope (< ~500 mVpp), switch to 7i49HV — drop-in swap.
+setp hm2_7i80.0.resolver.excitation-khz 5
+
+# Per-channel velocity scale (separate from position scale; used by the resolver
+# velocity estimator). Set to match position scale. 1.0 is correct when scale=1.
+# index-divisor: synthetic index every N resolver revolutions. 1 = one index/rev (standard).
+# These come from INI so they can be adjusted without editing HAL.
+# Only axes 00/01/02 are resolvers. Resolver 03 is NOT used (spindle uses encoder instead).
+setp hm2_7i80.0.resolver.00.velocity-scale  [JOINT_0]RESOLVER_VELOCITY_SCALE
+setp hm2_7i80.0.resolver.01.velocity-scale  [JOINT_1]RESOLVER_VELOCITY_SCALE
+setp hm2_7i80.0.resolver.02.velocity-scale  [JOINT_2]RESOLVER_VELOCITY_SCALE
+setp hm2_7i80.0.resolver.00.index-divisor   [JOINT_0]RESOLVER_INDEX_DIVISOR
+setp hm2_7i80.0.resolver.01.index-divisor   [JOINT_1]RESOLVER_INDEX_DIVISOR
+setp hm2_7i80.0.resolver.02.index-divisor   [JOINT_2]RESOLVER_INDEX_DIVISOR
+
+net x-pos-fb        <= hm2_7i80.0.resolver.00.position
+net x-vel-fb        <= hm2_7i80.0.resolver.00.velocity
+net x-pos-rawcounts <= hm2_7i80.0.resolver.00.rawcounts
+net x-pos-fb        => joint.0.motor-pos-fb
+# Bidirectional index-enable: joint resets it after latching home position
+net x-index-enable    joint.0.index-enable <=> hm2_7i80.0.resolver.00.index-enable
+
+net y-pos-fb        <= hm2_7i80.0.resolver.01.position
+net y-vel-fb        <= hm2_7i80.0.resolver.01.velocity
+net y-pos-rawcounts <= hm2_7i80.0.resolver.01.rawcounts
+net y-pos-fb        => joint.1.motor-pos-fb
+net y-index-enable    joint.1.index-enable <=> hm2_7i80.0.resolver.01.index-enable
+
+net z-pos-fb        <= hm2_7i80.0.resolver.02.position
+net z-vel-fb        <= hm2_7i80.0.resolver.02.velocity
+net z-pos-rawcounts <= hm2_7i80.0.resolver.02.rawcounts
+net z-pos-fb        => joint.2.motor-pos-fb
+net z-index-enable    joint.2.index-enable <=> hm2_7i80.0.resolver.02.index-enable
+
+# Spindle feedback — NOT a resolver channel.
+# Confirmed (July 2026 analysis):
+#   Tachogenerator: Tamagawa TGF-3D P402-Sx (from schematic 4143075313 sh3) — feeds the
+#     FR-SX drive's own internal speed loop; LinuxCNC does not read this directly.
+#   Spindle encoder: separate machine-side A/B/Z encoder → 7i80HDT encoder input.
+#     Physical model not yet confirmed; connect to hm2_7i80.0.encoder.NN.* once identified.
+# resolver.03 is NOT used for spindle — this channel is available for other use or unused.
+#
+# TODO: wire spindle encoder once part number confirmed (see open-questions item 8):
+# net spindle-pos-fb   <= hm2_7i80.0.encoder.NN.position
+# net spindle-vel-fb   <= hm2_7i80.0.encoder.NN.velocity
+# net spindle-index-enable  motion.spindle-index-enable <=> hm2_7i80.0.encoder.NN.index-enable
+# net spindle-revs     motion.spindle-revs
+#
+# Until encoder is wired, spindle-at-speed is forced true (open-loop, no speed verification):
+sets spindle-at-speed true
+
+#####################################################################
+# Analog servo outputs (7i49 P2 ±10V DACs, driven by pwmgen)
+#####################################################################
+#
+# On the 7i49 the ±10V analog outputs are hostmot2 PWMGEN instances feeding
+# onboard DACs -- there is no "analogout" pin. For a bipolar ±10V servo command:
+#   output-type 4   (Up/Down bipolar mode used by 7i49 pipeline)
+#   scale 10        (command  1.0 => +10V,  -1.0 => -10V)
+# The pwmgen .enable pin MUST be true or the output stays parked at zero.
+#
+# 7i49 P2 analog assignment (2026-08-06 rev):
+#   AOUT0 = X axis velocity command  -> pwmgen.00
+#   AOUT1 = Z axis velocity command  -> pwmgen.01
+#   AOUT2 = Y axis velocity command  -> pwmgen.02
+#   AOUT3 = FR-SX spindle velocity   -> pwmgen.03
+#   AOUT4 = FR-SX orient reference   -> pwmgen.04 (reserved)
+#   AOUT5 = spare                    -> pwmgen.05 (spare)
+#
+# TODO: confirm pwmgen instance -> axis mapping and pin names from readhmid / show pin hm2.
+# TODO: verify drive command polarity before enabling. A reversed command can cause runaway.
+
+setp hm2_7i80.0.pwmgen.pwm_frequency 20000
+# output-type 4 = Up/Down mode: 7i49 onboard DAC converts to ±10V analog
+# scale 10: value=1.0 → +10V, value=-1.0 → -10V
+setp hm2_7i80.0.pwmgen.00.output-type 4    # X axis  → 7i49 AOUT0
+setp hm2_7i80.0.pwmgen.00.scale       10
+setp hm2_7i80.0.pwmgen.01.output-type 4    # Z axis  → 7i49 AOUT1
+setp hm2_7i80.0.pwmgen.01.scale       10
+setp hm2_7i80.0.pwmgen.02.output-type 4    # Y axis  → 7i49 AOUT2
+setp hm2_7i80.0.pwmgen.02.scale       10
+
+net x-pos-cmd  <= joint.0.motor-pos-cmd
+net x-pos-cmd  => pid.x.command
+net x-pos-fb   => pid.x.feedback
+# Velocity feedforward: derivative of commanded position fed to PID command-deriv input.
+# joint.N.vel-cmd is the trajectory planner velocity output (LinuxCNC 2.9+).
+# VERIFY: confirm pin name with `halcmd show pin joint.0` before enabling drives.
+net x-traj-vel <= joint.0.vel-cmd
+net x-traj-vel => pid.x.command-deriv
+net x-vel-cmd  <= pid.x.output
+net x-vel-cmd  => hm2_7i80.0.pwmgen.00.value
+net x-enable   => hm2_7i80.0.pwmgen.00.enable
+
+net y-pos-cmd  <= joint.1.motor-pos-cmd
+net y-pos-cmd  => pid.y.command
+net y-pos-fb   => pid.y.feedback
+net y-traj-vel <= joint.1.vel-cmd
+net y-traj-vel => pid.y.command-deriv
+net y-vel-cmd  <= pid.y.output
+net y-vel-cmd  => hm2_7i80.0.pwmgen.02.value    # Y → pwmgen.02 (7i49 AOUT2)
+net y-enable   => hm2_7i80.0.pwmgen.02.enable
+
+net z-pos-cmd  <= joint.2.motor-pos-cmd
+net z-pos-cmd  => pid.z.command
+net z-pos-fb   => pid.z.feedback
+net z-traj-vel <= joint.2.vel-cmd
+net z-traj-vel => pid.z.command-deriv
+net z-vel-cmd  <= pid.z.output
+net z-vel-cmd  => hm2_7i80.0.pwmgen.01.value    # Z → pwmgen.01 (7i49 AOUT1)
+net z-enable   => hm2_7i80.0.pwmgen.01.enable
+
+# Spindle analog speed command to Mitsubishi FR-SX (pwmgen.03 → 7i49 AOUT3).
+# TODO: confirm whether the FR-SX wants 0-10 V, +/-10 V, separate FWD/REV, or another mode.
+# FR-SX speed reference is most likely 0-10V UNIPOLAR -> offset-mode 0 (0V at zero command).
+# If it turns out to want bipolar ±10V, set offset-mode 1 to match the axis outputs above.
+setp hm2_7i80.0.pwmgen.03.output-type 1
+setp hm2_7i80.0.pwmgen.03.offset-mode 0
+setp hm2_7i80.0.pwmgen.03.scale 10
+# OPEN-LOOP spindle: speed command goes directly to pwmgen without PID.
+# pid.s is loaded (mazak_vqc_20_40.hal) but unconnected — pid.s.enable defaults
+# to false so it outputs 0 harmlessly. To close the loop once encoder feedback is
+# confirmed, replace the direct net below with:
+#   net spindle-vel-cmd-rpm  spindle.0.speed-out     => pid.s.command
+#   net spindle-vel-fb-rpm   hm2_7i80.0.encoder.NN.velocity => pid.s.feedback
+#   net spindle-pid-out      pid.s.output             => hm2_7i80.0.pwmgen.03.value
+#   net spindle-enable                                => pid.s.enable
+net spindle-speed-cmd <= spindle.0.speed-out
+net spindle-speed-cmd => hm2_7i80.0.pwmgen.03.value
+net spindle-enable => hm2_7i80.0.pwmgen.03.enable
+
+# FR-SX orient reference — analog output reserved on 7i49 AOUT4 (pwmgen.04).
+# Kept parked at zero until orient sequencing is wired in atc_orient.hal.
+# setp hm2_7i80.0.pwmgen.04.output-type 1
+# setp hm2_7i80.0.pwmgen.04.scale       10
+# net spindle-orient-ref => hm2_7i80.0.pwmgen.04.value
+# net spindle-orient-ena => hm2_7i80.0.pwmgen.04.enable
+
+#####################################################################
+# P3 field breakout (7i37TA) direct FPGA GPIO — motion-critical inputs
+#####################################################################
+#
+# The P3 breakout is direct FPGA GPIO: pins appear as hm2_7i80.0.gpio.NNN.in /.out
+# (NOT `input-NN`; that naming belongs to the 7i84 smart-serial device). The gpio.NNN
+# INDICES BELOW ARE PLACEHOLDERS -- 7i80HDT P3 GPIO occupies its own firmware-determined
+# index range (expect roughly 032..055 with 24 IO on P3, but confirm from
+# `halcmd show pin hm2` after loading firmware). NC switches (limits, estop) need
+# `setp hm2_7i80.0.gpio.NNN.invert_input 1` once the real indices and normal states
+# are confirmed.
+
+# P3 7i37TA IN block (limits + homes + E-stop + probe) — confirmed physical mapping:
+#   IN0=X_LIMIT_PLUS  → gpio.032        IN1=X_LIMIT_MINUS → gpio.033
+#   IN2=Y_LIMIT_PLUS  → gpio.034        IN3=Y_LIMIT_MINUS → gpio.035
+#   IN4=Z_LIMIT_PLUS  → gpio.036        IN5=Z_LIMIT_MINUS → gpio.037
+#   IN6=X_HOME (LS-42) → gpio.038       IN7=Y_HOME (LS-52) → gpio.039
+#   IN8=Z_HOME (LS-62) → gpio.040       IN9=ESTOP chain   → gpio.041
+#   IN10=PROBE SKIP1 (Renishaw MP-3)    → gpio.042
+#
+# Limit switches are NC: invert_input so open (tripped) = logic 1
+# Home switches are NO: no invert needed
+# E-stop chain monitored via interposing relay dry contact (NC): invert_input=1
+# Probe MP-3 SKIP1 is NC (normally closed on probe stylus deflected): confirm polarity;
+# invert_input is likely required so probe trigger = logic 1
+setp hm2_7i80.0.gpio.032.invert_input  1   # X_LIMIT_PLUS  (NC)
+setp hm2_7i80.0.gpio.033.invert_input  1   # X_LIMIT_MINUS (NC)
+setp hm2_7i80.0.gpio.034.invert_input  1   # Y_LIMIT_PLUS  (NC)
+setp hm2_7i80.0.gpio.035.invert_input  1   # Y_LIMIT_MINUS (NC)
+setp hm2_7i80.0.gpio.036.invert_input  1   # Z_LIMIT_PLUS  (NC)
+setp hm2_7i80.0.gpio.037.invert_input  1   # Z_LIMIT_MINUS (NC)
+
+net limit-x-plus  <= hm2_7i80.0.gpio.032.in
+net limit-x-plus  => joint.0.pos-lim-sw-in
+
+net limit-x-minus <= hm2_7i80.0.gpio.033.in
+net limit-x-minus => joint.0.neg-lim-sw-in
+
+net limit-y-plus  <= hm2_7i80.0.gpio.034.in
+net limit-y-plus  => joint.1.pos-lim-sw-in
+
+net limit-y-minus <= hm2_7i80.0.gpio.035.in
+net limit-y-minus => joint.1.neg-lim-sw-in
+
+net limit-z-plus  <= hm2_7i80.0.gpio.036.in
+net limit-z-plus  => joint.2.pos-lim-sw-in
+
+net limit-z-minus <= hm2_7i80.0.gpio.037.in
+net limit-z-minus => joint.2.neg-lim-sw-in
+
+net home-x <= hm2_7i80.0.gpio.038.in
+net home-x => joint.0.home-sw-in
+
+net home-y <= hm2_7i80.0.gpio.039.in
+net home-y => joint.1.home-sw-in
+
+net home-z <= hm2_7i80.0.gpio.040.in
+net home-z => joint.2.home-sw-in
+
+# Drive faults, door, lube, hydraulic, panel buttons routed via 7i84U — see field_7i84u.hal
+
+#####################################################################
+# E-stop chain (P3 7i37TA IN9 = gpio.041, NC contact)
+#####################################################################
+#
+# invert_input=1: chain closed (24V, normal) → in=0; chain open (fault) → in=1
+# estop-latch loaded in mazak_vqc_20_40.hal, added to servo-thread there.
+# Hardware safety chain MUST still remove hazardous power independently.
+# Note: the 7i84U row IN29 ESTOP_MONITOR remains available as a REDUNDANT status
+# input to LinuxCNC; primary safety-chain break is monitored here on the P3 GPIO
+# for host-side low-latency response.
+setp hm2_7i80.0.gpio.041.invert_input    1
+net estop-reset  iocontrol.0.user-request-enable  =>  estop-latch.0.reset
+net estop-ok     estop-latch.0.ok-out             =>  iocontrol.0.emc-enable-in
+net estop-ext    hm2_7i80.0.gpio.041.in           =>  estop-latch.0.fault-in
+
+#####################################################################
+# Probe (P3 7i37TA IN10 = gpio.042, Renishaw MP-3 SKIP1)
+#####################################################################
+#
+# Renishaw MP-3 fitted per parts list pp.273-274. SKIP1 (PLC X03F) now on
+# P3 direct FPGA GPIO for lowest possible latency (host-side; not routed
+# through the sserial 7i84U).
+# TODO: verify SKIP1 idle/triggered polarity on the probe interface (MI 12 or
+# similar) and set invert_input accordingly. Renishaw probe interfaces default
+# to normally-closed → set invert_input=1 so probe trigger = logic 1.
+setp hm2_7i80.0.gpio.042.invert_input    1
+net probe-in <= hm2_7i80.0.gpio.042.in
+net probe-in => motion.probe-input
+
+#####################################################################
+# Drive enable outputs — P3 7i37TA OUT0/1/2 (direct FPGA GPIO)
+#####################################################################
+#
+# P3 7i37TA OUT block (drive enables + former TB5 SSR overflow) — confirmed mapping:
+#   OUT0 = X_DRIVE_ENABLE  → gpio.048   (X servo S-ON to MELDAS DK-427)
+#   OUT1 = Z_DRIVE_ENABLE  → gpio.049   (Z servo S-ON to MELDAS DK-427)
+#   OUT2 = Y_DRIVE_ENABLE  → gpio.050   (Y servo S-ON to MELDAS DK-427)
+#   OUT3 = AIR_BLAST       → gpio.051   (was 7i97T TB5 SSR OUT0 → SOL-62 via RLY-5)
+#   OUT4 = TOUCH_BLAST     → gpio.052   (was 7i97T TB5 SSR OUT1 → SOL-35 via RLY-6)
+#   OUT5 = TAP_COOL_BLAST  → gpio.053   (was 7i97T TB5 SSR OUT2 → SOL-61 via RLY-7)
+#   OUT6 = ATC_BARRIER_SOL → gpio.054   (was 7i97T TB5 SSR OUT3 → PLC Y095 TCME.M)
+#   OUT7 = FLOOD_VALVE     → gpio.055   (was 7i97T TB5 SSR OUT4 → PLC Y011 FCL)
+#   OUT8 = spare           → gpio.056
+# The same drive-enable net also gates the pwmgen output (set above in axis wiring).
+
+net x-enable <= joint.0.amp-enable-out
+net x-enable => hm2_7i80.0.gpio.048.out    # P3 7i37TA OUT0 → X drive S-ON
+
+net y-enable <= joint.1.amp-enable-out
+net y-enable => hm2_7i80.0.gpio.050.out    # P3 7i37TA OUT2 → Y drive S-ON
+
+net z-enable <= joint.2.amp-enable-out
+net z-enable => hm2_7i80.0.gpio.049.out    # P3 7i37TA OUT1 → Z drive S-ON
+
+net spindle-enable <= spindle.0.on
+# Spindle enable/dir routed via 7i84U sserial — see field_7i84u.hal
+
+# Former TB5 SSR overflow outputs — now on P3 7i37TA OUT3..OUT7 via interposing
+# relays for the 100VAC solenoids (SOL-35/61/62) or the PLC-driven barrier/flood
+# devices. Uncomment when the interposing relay wiring is complete.
+# net air-blast          => hm2_7i80.0.gpio.051.out    # OUT3
+# net touch-sensor-blast => hm2_7i80.0.gpio.052.out    # OUT4
+# net tap-coolant-blast  => hm2_7i80.0.gpio.053.out    # OUT5
+# net atc-barrier        => hm2_7i80.0.gpio.054.out    # OUT6
+# net flood-valve        => hm2_7i80.0.gpio.055.out    # OUT7
+
+# Contactor and lamp outputs — GPIO indices unconfirmed; assign after readhmid
+# net main-servo-on <= iocontrol.0.user-enable-out
+# net main-servo-on => hm2_7i80.0.gpio.NNN.out
+# net lamp-ready    <= iocontrol.0.user-enable-out
+# net lamp-ready    => hm2_7i80.0.gpio.NNN.out
+# net lamp-alarm    => hm2_7i80.0.gpio.NNN.out

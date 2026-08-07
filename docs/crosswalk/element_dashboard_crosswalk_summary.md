@@ -56,7 +56,7 @@ Full row-by-row detail: `element_dashboard_crosswalk.csv` (385 rows, one per PLC
 | Y011 | FCL | COOLANT_ON | Flood **valve** is a separate load from the pump motor (Y010) — may need its own output |
 | Y018 | SAB | AIR_BLAST | Verify SOL-62 is the spindle air blast (parts list pp.85–91) |
 | Y035 | A-JET | TOUCH_SENSOR_BLAST | Verify SOL-35 is the MMS touch-sensor air jet |
-| X03F | SKIP1.M | NET_PROBE_IN | MP-3 probe skip path — route to 7i97T probe input, latency matters |
+| X03F | SKIP1.M | NET_PROBE_IN | MP-3 probe skip path — route to 7i80HDT P3 breakout IN10 (gpio.042), direct FPGA GPIO, latency matters |
 
 ## Option packages (91 signals — verify before wiring)
 

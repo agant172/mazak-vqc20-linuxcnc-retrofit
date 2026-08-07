@@ -23,7 +23,7 @@ import enrichment as E  # noqa: E402
 
 HAL_FILES = [
     "linuxcnc/mazak_vqc_20_40.hal",
-    "linuxcnc/motion_7i97t.hal",
+    "linuxcnc/motion_7i80hdt.hal",
     "linuxcnc/field_7i84u.hal",
     "linuxcnc/postgui.hal",
     "linuxcnc/pendant_whb04b.hal",
@@ -203,7 +203,7 @@ def build(root):
             pin_bases.add(p.rsplit(".", 1)[0])
         # also catch gpio index mentioned in the channel column
         for m in re.finditer(r"gpio\.(\d+)", r["pin_channel"]):
-            pin_bases.add("hm2_7i97.0.gpio.%s" % m.group(1))
+            pin_bases.add("hm2_7i80.0.gpio.%s" % m.group(1))
         for s in setps:
             base = s["target"].rsplit(".", 1)[0]
             if base in pin_bases or (has_net and s["target"] == net):
@@ -271,10 +271,23 @@ def build(root):
         elif commented_nets:
             hal_state = "commented"
 
+        # Reclassify 7i80HDT rows into the physical daughter card by GPIO index
+        #   gpio.024-031 -> 7i49 (P2)
+        #   gpio.032-055 -> 7i37TA (P3 field breakout)
+        board = r["mesa_card"]
+        if board == "7i80HDT":
+            m_idx = re.search(r"gpio\.(\d+)", r["pin_channel"])
+            if m_idx:
+                idx = int(m_idx.group(1))
+                if 32 <= idx <= 55:
+                    board = "7i37TA"
+                elif 24 <= idx <= 31:
+                    board = "7i49"
+
         signals.append({
             "id": sid,
             "name": sid.replace("_", " ").title(),
-            "board": r["mesa_card"],
+            "board": board,
             "connector": r["connector"],
             "channel": r["pin_channel"],
             "hal_net": net if has_net else "",
@@ -334,9 +347,20 @@ def build(root):
             channel = chan.upper().replace("INPUT-", "IN").replace("OUTPUT-", "OUT")
             channel = re.sub(r"^(IN|OUT)0(\d)$", r"\1\2", channel)
         else:
-            board = "7i97T"
-            conn = "unconfirmed"
-            channel = pin.split("hm2_7i97.0.", 1)[-1]
+            # Classify the daughter card by GPIO index on the 7i80HDT
+            #   gpio.024-047 = P2 (7i49) - not typically bare GPIO here, but classified as 7i49 for display
+            #   gpio.032-055 = P3 (7i37TA field breakout)
+            #   otherwise    = P1 (7i44 sserial breakout)
+            m_idx = re.search(r"gpio\.(\d+)", pin)
+            idx = int(m_idx.group(1)) if m_idx else -1
+            if 32 <= idx <= 55:
+                board = "7i37TA"   # P3 field breakout
+            elif 24 <= idx <= 31:
+                board = "7i49"      # P2 daughter card
+            else:
+                board = "7i80HDT"   # P1 / other
+            conn = "P3" if board == "7i37TA" else ("P2" if board == "7i49" else "P1")
+            channel = pin.split("hm2_7i80.0.", 1)[-1]
         is_in = "input" in pin or pin.endswith(".in")
         direction = "IN" if is_in else "OUT"
         prod2, cons2 = linuxcnc_endpoints(net, nets)
@@ -395,7 +419,7 @@ def build(root):
     meta = {
         "machine": "Mazak VQC-20/40",
         "serial": "060231",
-        "architecture": "LinuxCNC + Mesa 7i97T + Mesa 7i49 resolver interface + Mesa 7i84U field I/O",
+        "architecture": "LinuxCNC + Mesa 7i80HDT (Ethernet FPGA host) + 7i44 on P1 (sserial to 7i84U) + 7i49 on P2 (resolver + analog outs) + 7i37TA on P3 (motion-critical field breakout) + 7i84U on 7i44 port 0 (remote field I/O)",
         "generated": datetime.datetime.now(datetime.timezone.utc)
                              .strftime("%Y-%m-%d %H:%M UTC"),
         "source_repo": "mazak-vqc20-linuxcnc-retrofit",
@@ -404,10 +428,13 @@ def build(root):
         "board_ip": "192.168.1.121",
         "rules": [
             "mesa/current_pin_authority.csv is the wiring authority. It supersedes mesa/signal_map.csv.",
-            "TB3 analog axis order is X=0, Z=1, Y=2.",
-            "Axis feedback is Tamagawa resolver through the 7i49, not quadrature encoder.",
-            "The hardware E-stop chain removes hazardous power. 7i97T TB5.10 is a monitor input only.",
-            "Every hm2_7i97.* pin name in the HAL set is an unverified placeholder.",
+            "7i49 AOUT axis order is X=AOUT0, Z=AOUT1, Y=AOUT2.",
+            "Axis feedback is Tamagawa TS2014N resolver through the 7i49 on P2, not quadrature encoder.",
+            "The hardware E-stop chain removes hazardous power. The 7i80HDT P3 breakout IN9 (gpio.041) is a monitor input only; 7i84U IN29 is a redundant status.",
+            "Every hm2_7i80.* pin name in the HAL set is an unverified placeholder until confirmed against a firmware readhmid.",
+            "7i49 AOUT order is X=AOUT0, Z=AOUT1, Y=AOUT2, FR-SX spindle velocity=AOUT3, FR-SX orient=AOUT4 (reserved).",
+            "P3 field breakout (7i37TA baseline): IN0-5 = X/Y/Z limits, IN6-8 = X/Y/Z homes, IN9 = E-stop monitor, IN10 = probe SKIP1; OUT0-2 = X/Y/Z drive-enable, OUT3-7 = SSR overflow (AIR/TOUCH/TAP/ATC barrier/FLOOD), OUT8 = spare.",
+            "7i84U pin plan (2026-08-03 single-7i84U I/O plan) is unchanged and reachable via `hm2_7i80.0.7i84.0.0.*` over 7i44 P1 port 0.",
         ],
     }
 

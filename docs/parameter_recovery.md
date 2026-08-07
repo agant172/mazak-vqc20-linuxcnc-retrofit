@@ -55,7 +55,7 @@ control's battery-backed memory (or must be re-measured).**
 | RF1–4, RT1–4, RFR | rapid speed, rapid time constant, decel | `MAX_VELOCITY`, `MAX_ACCELERATION` starting points |
 | SFC, STC | feed clamp speed, feed time constant | `MAX_LINEAR_VELOCITY`, accel cross-check |
 | BL1–4 (G00), MD1–4 (G01) | backlash compensation | `[JOINT_*] BACKLASH` (note: M-2 splits G00/G01 — LinuxCNC has one value; reconcile) |
-| MA1–4, MC1–4 | servo constant bits, servo coefficient | record only — informs 7i97T PID + resolver scaling sanity checks |
+| MA1–4, MC1–4 | servo constant bits, servo coefficient | record only — informs 7i49 (on 7i80HDT P2) PID + resolver scaling sanity checks |
 | GH1–4, GL1–4 | gear up/down-shift rpm breakpoints | `mazak_orient` gear-select thresholds (currently `setp gear-range.in1 800` placeholder) |
 | SPI | spindle indexing (orient) speed | FR-SX orient config cross-check |
 | SPO, GYN | gear-change speed coefficient, number of gear steps | confirms 2-speed gearbox config |

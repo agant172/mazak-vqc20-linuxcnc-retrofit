@@ -40,7 +40,7 @@ component mazak_orient "Mazak VQC 20/40 spindle gear-shift + orient state machin
 
 description """
 Gear-shift + spindle-orient sequencer for the Mazak VQC 20/40 retrofit
-(Mesa 7i97T + 7i84U). Equivalent to Mazatrol M-2 ladder sheets 23/28/29/30/55.
+(Mesa 7i80HDT + 7i44 + 7i49 + 7i84U + P3 breakout). Equivalent to Mazatrol M-2 ladder sheets 23/28/29/30/55.
 Consumed by mazak_atc: the \\fBoriented-latch\\fR output is the SOSA bit that
 gates tool unclamp and every ATC cycle step 1.
 """;

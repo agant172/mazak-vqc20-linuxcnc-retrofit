@@ -6,17 +6,21 @@ conceptually here for wiring planning.
 
 ## Key references
 
-- Consolidated wiring master: [`Mazak_Wiring_Master_7i97T_7i49_7i84U.xlsx`](Mazak_Wiring_Master_7i97T_7i49_7i84U.xlsx)
-  — current 7i97T / 7i49 / 7i84U wiring workbook with imported legacy/reference tabs
+- Consolidated wiring master: [`Mazak_Wiring_Master_7i80HDT_7i44_7i49_7i84U_Current_Authority.xlsx`](Mazak_Wiring_Master_7i80HDT_7i44_7i49_7i84U_Current_Authority.xlsx)
+  — current 7i80HDT / 7i44 / 7i49 / 7i84U + P3 breakout wiring workbook with imported legacy/reference tabs
   clearly separated from current actionable wiring. Phase 2 cabinet-sequence,
   BOM-gap, hydraulic/ATC, and conflict-review tabs are integrated as planning
   aids; check the conflict-review tab before changing final pin assignments.
+  The `... - Overview.csv` sibling file is the plain-text index for that workbook.
+  Historical `Mazak_Wiring_Master_7i97T_7i49_7i84U*` files were renamed on 2026-08-06;
+  the workbook content still describes the 7i97T-era layout and is being reworked
+  against the 7i80HDT stack. Prefer `../mesa/current_pin_authority.csv` for authoritative pin data.
 - Current pin authority: [`../mesa/current_pin_authority.csv`](../mesa/current_pin_authority.csv)
   — current table for connector, pin/channel, HAL net, status, source basis, and
   cleanup notes. This supersedes stale rows in `signal_map.csv`.
-- Legacy signal map: [`../mesa/signal_map.csv`](../mesa/signal_map.csv) — older
-  companion map. Keep it for comparison until it is regenerated from the current
-  authority table.
+- **Superseded** legacy signal map: [`../mesa/signal_map.csv`](../mesa/signal_map.csv) — older
+  companion map from the 7i97T era. See [`../mesa/signal_map.csv.SUPERSEDED_NOTICE.md`](../mesa/signal_map.csv.SUPERSEDED_NOTICE.md)
+  before treating any row as authoritative.
 - I/O map research notes: [`io_map_research_notes.md`](io_map_research_notes.md) —
   designator research from the OEM maintenance/operating manuals and electrical
   circuit diagram (`41434WB.pdf`), including the pallet-changer (2PC) signal set,
@@ -61,8 +65,8 @@ verification state and cleanup notes.
 ## Resolver wiring warning (Tamagawa resolvers → Mesa 7i49)
 
 Axis feedback is **resolver, not encoder**. The machine keeps its original **Tamagawa
-resolvers** (documented models **RT-5XA-11** and **RT-5XA-L1**), read through a **plain
-Mesa 7i49** at **5 kHz** excitation. Wire the resolvers carefully:
+resolvers** (**Tamagawa TS2014N** / Mitsubishi BKO-NC6062A, confirmed on-machine July 2026), read through a **plain
+Mesa 7i49** on the 7i80HDT P2 daughter-card connector at **5 kHz** excitation. Wire the resolvers carefully:
 
 - **Do not trust the original wire names.** The original **Meldas M2 / TRA** wiring may
   run the resolver "backwards" or phase-analog: **two-phase excitation into the stator,
@@ -70,8 +74,8 @@ Mesa 7i49** at **5 kHz** excitation. Wire the resolvers carefully:
   excitation** and **reads sin/cos amplitude**.
 - **Identify the winding pairs with an ohmmeter BEFORE applying power.** Expected mapping
   once verified:
-  - Rotor pair (likely **RO1/RO2**) → **RESDRV+ / RESDRV−** (excitation).
-  - Two matched stator pairs → **RESSIN** and **RESCOS**.
+  - Rotor pair (likely **R1/R2**) → **RESDRV+ / RESDRV−** (excitation).
+  - Two matched stator pairs (**S1-S3** and **S2-S4**) → **RESSIN** and **RESCOS**.
   - Verify each pairing by resistance/continuity — do not assume the labeled wire names
     match this scheme.
 - **The 7i49 must be the sole resolver excitation source.** TRA-type drives close their

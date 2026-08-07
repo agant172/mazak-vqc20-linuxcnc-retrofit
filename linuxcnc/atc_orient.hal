@@ -8,7 +8,7 @@
 #   mesa/current_pin_authority.csv               (net names + Mesa channels)
 #   docs/ladder/atc_component_README.md          (rung-to-code map, integration)
 #
-# STATUS: SKELETON. Nothing here has been run. Every hm2_7i97.0.7i84.0.0.*
+# STATUS: SKELETON. Nothing here has been run. Every hm2_7i80.0.7i84.0.0.*
 # name is an unverified placeholder exactly as in linuxcnc/field_7i84u.hal -
 # confirm the real smart-serial device tag with `halcmd show pin hm2` first.
 #
@@ -46,10 +46,10 @@ addf mazak-atc.update    servo-thread
 addf atc-fault-or        servo-thread
 
 # NOTE ON THREAD ORDER: addf appends, and mazak_vqc_20_40.hal already added
-# hm2_7i97.0.write. These functions therefore run AFTER the write, so outputs
+# hm2_7i80.0.write. These functions therefore run AFTER the write, so outputs
 # reach the card one servo period (1 ms) late. Harmless for solenoids and
 # contactors. If that latency ever matters, move the
-# `addf hm2_7i97.0.write servo-thread` line out of mazak_vqc_20_40.hal and put
+# `addf hm2_7i80.0.write servo-thread` line out of mazak_vqc_20_40.hal and put
 # it at the end of THIS file instead.
 
 #####################################################################
@@ -95,40 +95,40 @@ setp gear-range.hyst                 50
 #
 # These are the new orient/ATC channels. They do not exist in
 # linuxcnc/field_7i84u.hal, so they can be netted here without conflict.
-# Polarity is unverified: add `setp hm2_7i97.0.7i84.0.0.input-NN.invert` (or
+# Polarity is unverified: add `setp hm2_7i80.0.7i84.0.0.input-NN.invert` (or
 # the firmware's equivalent) once each contact's normal state is measured.
 
 # --- inputs ------------------------------------------------------------
-net mag-tool-avail        <= hm2_7i97.0.7i84.0.0.input-02   # IN2  X005 MGTDPRS
-net spindle-tool-avail    <= hm2_7i97.0.7i84.0.0.input-03   # IN3  X05B SPTDPRS
-net spindle-oriented      <= hm2_7i97.0.7i84.0.0.input-04   # IN4  X003 ORA1
-net spindle-zero-speed    <= hm2_7i97.0.7i84.0.0.input-05   # IN5  X001 SZS.M
-net mag-cover-open-conf   <= hm2_7i97.0.7i84.0.0.input-06   # IN6  X052 MGCORS
-net mag-cover-closed-conf <= hm2_7i97.0.7i84.0.0.input-07   # IN7  X053 MGCCRS
-net manual-unclamp-pb     <= hm2_7i97.0.7i84.0.0.input-09   # IN9  X01A TUCFS.M
-net gear-hi-conf          <= hm2_7i97.0.7i84.0.0.input-17   # IN17 PRS-10 HGPRS
-net gear-lo-conf          <= hm2_7i97.0.7i84.0.0.input-18   # IN18 PRS-12 LGPRS
-net mag-bcd-bit0          <= hm2_7i97.0.7i84.0.0.input-19   # IN19 X008 T11P  (1)
-net mag-bcd-bit1          <= hm2_7i97.0.7i84.0.0.input-20   # IN20 X009 T12P  (2)
-net mag-bcd-bit2          <= hm2_7i97.0.7i84.0.0.input-21   # IN21 X00A T14P  (4)
-net mag-bcd-bit3          <= hm2_7i97.0.7i84.0.0.input-22   # IN22 X00B T18P  (8)
-net mag-bcd-bit4          <= hm2_7i97.0.7i84.0.0.input-23   # IN23 X00C T21P (10)
-net hydraulic-ok          <= hm2_7i97.0.7i84.0.0.input-27   # IN27 pressure switch
-net servo-ready           <= hm2_7i97.0.7i84.0.0.input-31   # IN31 SA.N
+net mag-tool-avail        <= hm2_7i80.0.7i84.0.0.input-02   # IN2  X005 MGTDPRS
+net spindle-tool-avail    <= hm2_7i80.0.7i84.0.0.input-03   # IN3  X05B SPTDPRS
+net spindle-oriented      <= hm2_7i80.0.7i84.0.0.input-04   # IN4  X003 ORA1
+net spindle-zero-speed    <= hm2_7i80.0.7i84.0.0.input-05   # IN5  X001 SZS.M
+net mag-cover-open-conf   <= hm2_7i80.0.7i84.0.0.input-06   # IN6  X052 MGCORS
+net mag-cover-closed-conf <= hm2_7i80.0.7i84.0.0.input-07   # IN7  X053 MGCCRS
+net manual-unclamp-pb     <= hm2_7i80.0.7i84.0.0.input-09   # IN9  X01A TUCFS.M
+net gear-hi-conf          <= hm2_7i80.0.7i84.0.0.input-17   # IN17 PRS-10 HGPRS
+net gear-lo-conf          <= hm2_7i80.0.7i84.0.0.input-18   # IN18 PRS-12 LGPRS
+net mag-bcd-bit0          <= hm2_7i80.0.7i84.0.0.input-19   # IN19 X008 T11P  (1)
+net mag-bcd-bit1          <= hm2_7i80.0.7i84.0.0.input-20   # IN20 X009 T12P  (2)
+net mag-bcd-bit2          <= hm2_7i80.0.7i84.0.0.input-21   # IN21 X00A T14P  (4)
+net mag-bcd-bit3          <= hm2_7i80.0.7i84.0.0.input-22   # IN22 X00B T18P  (8)
+net mag-bcd-bit4          <= hm2_7i80.0.7i84.0.0.input-23   # IN23 X00C T21P (10)
+net hydraulic-ok          <= hm2_7i80.0.7i84.0.0.input-27   # IN27 pressure switch
+net servo-ready           <= hm2_7i80.0.7i84.0.0.input-31   # IN31 SA.N
 
 # --- outputs -----------------------------------------------------------
 # WARNING: do not energise any of these until the coil voltage/current is
 # measured and interposing relays and suppression are fitted.
-net hyd-pump-on           => hm2_7i97.0.7i84.0.0.output-03  # OUT3  Y096 HYD.M
-net spindle-orient-cmd    => hm2_7i97.0.7i84.0.0.output-04  # OUT4  Y093 ORCM1.M
-net orient-lo-gear        => hm2_7i97.0.7i84.0.0.output-05  # OUT5  Y094 CTL.M
-net gear-hi-sol           => hm2_7i97.0.7i84.0.0.output-07  # OUT7  Y00B GSH.M
+net hyd-pump-on           => hm2_7i80.0.7i84.0.0.output-03  # OUT3  Y096 HYD.M
+net spindle-orient-cmd    => hm2_7i80.0.7i84.0.0.output-04  # OUT4  Y093 ORCM1.M
+net orient-lo-gear        => hm2_7i80.0.7i84.0.0.output-05  # OUT5  Y094 CTL.M
+net gear-hi-sol           => hm2_7i80.0.7i84.0.0.output-07  # OUT7  Y00B GSH.M
 # OUT8 gear-lo-sol is HOLD_CONFLICT (SOL-12 vs SOL-13 identity unresolved,
 # wiring/authority_conflicts.md section 1). Left unbound on purpose: the comp
 # still drives the net, so it can be watched in halscope before wiring.
-# net gear-lo-sol         => hm2_7i97.0.7i84.0.0.output-08  # OUT8  Y00C GSL.M
-net atc-barrier           => hm2_7i97.0.gpio.023.out        # TB5 SSR OUT3 Y095
-setp hm2_7i97.0.gpio.023.is_output 1
+# net gear-lo-sol         => hm2_7i80.0.7i84.0.0.output-08  # OUT8  Y00C GSL.M
+net atc-barrier           => hm2_7i80.0.gpio.054.out        # P3 7i37TA OUT6 (was 7i97T TB5 SSR OUT3 Y095)
+setp hm2_7i80.0.gpio.054.is_output 1
 
 #####################################################################
 # Orient component - docs/ladder/orient_ladder_transcription.md
@@ -255,7 +255,7 @@ net atc-fault-mech      mazak-atc.fault-any    => atc-fault-or.in1
 net atc-fault-any       atc-fault-or.out       => motion.digital-in-06
 
 # Fault reset. Reuses the existing estop-reset net (driven by
-# iocontrol.0.user-request-enable in motion_7i97t.hal) so the machine-on /
+# iocontrol.0.user-request-enable in motion_7i80hdt.hal) so the machine-on /
 # reset button clears the latched ATC and orient alarms. Swap in a dedicated
 # panel button once one is assigned.
 net estop-reset => mazak-orient.fault-reset

@@ -1,6 +1,6 @@
 # Mazak VQC 20/40 Cabinet Photo Checklist
 
-Use this checklist before ordering/flashing Mesa hardware. The goal is to capture enough detail to confirm the 7i97T + 7i84U setup, drive interfaces, encoder wiring, 24 VDC I/O, and cabinet layout.
+Use this checklist before ordering/flashing Mesa hardware. The goal is to capture enough detail to confirm the 7i80HDT + 7i44 + 7i49 + 7i84U + P3 field breakout setup, drive interfaces, resolver wiring, 24 VDC I/O, and cabinet layout.
 
 ## Photo rules
 
@@ -29,7 +29,7 @@ Use this checklist before ordering/flashing Mesa hardware. The goal is to captur
 | Medium | Magazine hydraulics | SOL-8A/SOL-8B, PRS-13, PRS-21 through PRS-25, cover switches/solenoids | Confirms magazine rotation and tool-position bit logic. |
 | Medium | Coolant / air / utility outputs | Coolant contactors, air blast valves, tap coolant, work light, relays | Determines which outputs need 7i84U direct output vs interposing relay. |
 | Medium | Cabinet grounding/shield bars | PE bar, 0 V common bar, shield clamp areas, analog/encoder shield landings | Prevents noise and ground-loop problems. |
-| Medium | Available DIN rail / panel space | Open rail length, wire duct space, door clearance around proposed 7i97T/7i84U area | Drives the parts list for DIN rail, duct, terminals, and mounting. |
+| Medium | Available DIN rail / panel space | Open rail length, wire duct space, door clearance around proposed 7i80HDT / 7i44 / 7i49 / P3 breakout / 7i84U area | Drives the parts list for DIN rail, duct, terminals, and mounting. |
 | Low | Operator panel wiring | Cycle start, feed hold, single block, overrides, lamps | Helps decide which original panel controls to keep. |
 | Low | Existing manuals/labels | Any cabinet schematic pockets, inside-door legends, terminal charts | May save tracing time. |
 
