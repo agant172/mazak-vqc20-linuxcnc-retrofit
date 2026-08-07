@@ -31,7 +31,8 @@ conceptually here for wiring planning.
 - [Authority conflicts](authority_conflicts.md) — unresolved solenoid and magazine-direction conflicts that must be cleared before affected outputs are wired.
 - **BBIA-1 terminal unit ("Honda" MR-series connectors):** [`bbia1_terminal_unit.md`](bbia1_terminal_unit.md) — board role, connector family (HTK MR-50RMW / MR-20RMW), and connector map (CN1–CN6, CN7, CN11, CN12).
 - **BBIA-1 CN1–CN6 & CN11 detailed pinouts:** [`bbia1_cn_pinouts.md`](bbia1_cn_pinouts.md) and [`bbia1_cn_pinouts.csv`](bbia1_cn_pinouts.csv) — per-pin wire number, signal name, function, and inside/outside connector for the connectors being cut and re-labeled for the Mesa retrofit.
-- **Epson LW-PX700 label batch:** [`bbia1_cn_labels_epson.md`](bbia1_cn_labels_epson.md) and [`bbia1_cn_labels_epson.csv`](bbia1_cn_labels_epson.csv) — 164 label rows (Wire / Location / Signal / Destination) formatted for Epson Label Editor for Mac batch import, ready to print heat-shrink ferrules for every active pin on CN1–CN6 and CN11.
+- **Epson LW-PX700 BBIA-1 ferrule batch:** [`bbia1_cn_labels_epson.md`](bbia1_cn_labels_epson.md) and [`bbia1_cn_labels_epson.csv`](bbia1_cn_labels_epson.csv) — 164 label rows (`Wire` / `Location` / `Signal`) for identifying each cut OEM connector end. It intentionally has no new Mesa destination column.
+- **Epson LW-PX700 7i84U-B terminal batch:** [`7i84u_b_terminal_legend_epson.md`](7i84u_b_terminal_legend_epson.md) and [`7i84u_b_terminal_legend_epson.csv`](7i84u_b_terminal_legend_epson.csv) — physical terminal position plus logical channel, signal, HAL reference, authority status, and a print-release hold. Regenerate both printer CSVs with `python3 scripts/generate_label_csvs.py --write`.
 
 ## Status
 

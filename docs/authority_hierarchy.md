@@ -183,6 +183,11 @@ file in `linuxcnc/` and checks:
 8. **Active 7i49 resolver-position and pwmgen-value bindings match RES/AOUT
    rows**, the capacity table matches the exact allocation, and every allocated
    7i84U-B terminal is present in the printable terminal legend.
+9. **Both Epson printer CSVs match deterministic generated output.** The
+   7i84U-B legend derives physical pin, HAL net, authority status, and release
+   hold from current authority; the BBIA-1 ferrule batch derives from the OEM
+   connector pinout CSV. Regenerate with
+   `python3 scripts/generate_label_csvs.py --write`.
 
 **Exit code.** `0` if no ERRORS; `1` if any ERROR. Warnings do not fail
 the check.

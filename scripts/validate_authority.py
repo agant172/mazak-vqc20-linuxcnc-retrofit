@@ -53,6 +53,8 @@ import sys
 from collections import defaultdict
 from pathlib import Path
 
+from generate_label_csvs import expected_texts as expected_label_texts, read_text_exact
+
 # ----------------------------------------------------------------------
 # Paths (repo-root relative).  The script figures out repo root by
 # walking up from its own location; running it from any subdirectory
@@ -450,6 +452,24 @@ def check_capacity_and_legend(rows: list[dict]) -> list[Finding]:
     return findings
 
 
+def check_generated_label_csvs() -> list[Finding]:
+    """Reject hand-edited or stale printer CSVs, including their visible label text."""
+    findings: list[Finding] = []
+    try:
+        expected = expected_label_texts()
+    except (KeyError, ValueError) as exc:
+        return [Finding("ERROR", "scripts/generate_label_csvs.py", str(exc))]
+    for path, content in expected.items():
+        relative = str(path.relative_to(REPO_ROOT))
+        if not path.exists() or read_text_exact(path) != content:
+            findings.append(Finding(
+                "ERROR", relative,
+                "printer CSV is stale or was hand-edited; run "
+                "'python3 scripts/generate_label_csvs.py --write'."
+            ))
+    return findings
+
+
 # ----------------------------------------------------------------------
 # HAL parser.
 # ----------------------------------------------------------------------
@@ -666,6 +686,7 @@ def main() -> int:
         + cross_check(csv_by_pin, hal_pins)
         + check_7i49_motion_bindings(all_rows)
         + check_capacity_and_legend(all_rows)
+        + check_generated_label_csvs()
     )
 
     errors = [f for f in findings if f.level == "ERROR"]
