@@ -74,7 +74,7 @@ See [`architecture_decision.md`](architecture_decision.md) for the full rational
 - [ ] Replace placeholder `hm2_7i80.0...` pin names in the HAL files using the real HAL pin dump.
 - [ ] Set 7i49 resolver excitation to **5 kHz** (spec 4.5 kHz; options 2.5/5/10 kHz).
 - [ ] Identify each axis resolver winding pair with an **ohmmeter before power**: rotor pair (R1/R2) → RESDRV±, matched stator pairs (S1-S3, S2-S4) → RESSIN and RESCOS. Verify, don't assume.
-- [ ] Scope the resolver return signal level after 7i49 excitation; expect ~1 V RMS sin/cos from ~2 V RMS drive on a 2:1 resolver. Low signal → noise/sluggish; too hot → divider or **W2 half-drive (field-verification option, not default)**; far too weak → consider 7i49HV.
+- [ ] Scope RESDRV excitation and RESSIN/RESCOS amplitude and phase at rest and under motion; expect ~1 V RMS sin/cos from ~2 V RMS drive on a 2:1 resolver. **W2 does NOT affect axis channels 0/1/2** (only 3/4/5), so it is not a valid remedy for a hot X/Y/Z return; if the return is far off the ~1 V RMS target, escalate to Mesa (PCW) for review of the specific TS2014N suffix before adding external dividers or a 7i49HV.
 - [ ] Confirm the 7i49 is the **sole resolver excitation source** — nothing from the old drive/control still driving the windings before energizing.
 - [ ] Verify resolver-to-machine-unit scale and axis orientation for X/Y/Z.
 - [ ] Verify analog command polarity/scaling for X/Y/Z on 7i49 AOUT0/1/2 before enabling drives.

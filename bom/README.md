@@ -13,7 +13,7 @@
 |---|---|---|
 | Primary motion/control board | **Mesa 7i80HDT** Ethernet FPGA host (3×50-pin daughter connectors) | **Buy plan item** |
 | P1 daughter card | **Mesa 7i44** — 8-channel RS-422 smart-serial breakout | **Buy plan item** — port 0 carries 7i84U-A, port 1 carries 7i84U-B, and ports 2-7 stay spare |
-| P2 daughter card | **Mesa 7i49** (plain, not 7i49HV) | **Buy plan item** — 6 resolvers + 6× ±10V analog outs; reads original Tamagawa at 5 kHz; also drives X/Z/Y and FR-SX velocity |
+| P2 daughter card | **Mesa 7i49** (plain, not 7i49HV) | **Buy plan item** — 6 resolvers + 6× ±10V analog outs; reads original Tamagawa (TS2014N141E26 spec 4.5 kHz; 7i49 selectable options 2.5/5/10 kHz, use 5 kHz — verify on scope, Tamagawa page publishes no frequency tolerance); also drives X/Z/Y and FR-SX velocity |
 | P3 daughter card | **None** | P3 is unused/spare except bare direct FPGA GPIO `gpio.042` for Renishaw MP-3 probe SKIP1; no daughter card is planned |
 | Remote field I/O | Mesa 7i84U-A on 7i44 port 0 and 7i84U-B on port 1 | 7i84U-A retained near green breakout PCB; 7i84U-B adds limits/homes, drive enables, and relay-driven loads |
 | Firmware bitfile | `7i80hdt_7i44_ss_7i49d.bit` (PCW-provided) | Confirm final revision from Mesa/PCW before load |
@@ -33,7 +33,7 @@ control PC) depend on cabinet photos and coil/current measurements still to be t
   not encoder. A **VQC 15/40 sister retrofit** on the **same Mitsubishi TRA drives and
   HD81-12S motors** runs a plain 7i49 (not HV) at 5 kHz, which anchors this choice.
   In the new stack the 7i49 sits on 7i80HDT **P2**.
-- **7i49HV is not currently required** and stays on the contingency list unless
+- **7i49HV is not currently required** and stays on the contingency list unless a Mesa (PCW) review of the specific TS2014N suffix on this machine says otherwise. (**W2 on the plain 7i49 does not affect axis channels 0/1/2**, only 3/4/5, so it is not a valid signal-level remedy for X/Y/Z.) Any escalation should follow
   measurements contradict the plain-7i49 plan (return signal far too weak at full drive,
   or a resolver ratio other than 2:1).
 - **`MS3108B 20-29P` is a connector shell part number, not a resolver model.**

@@ -65,9 +65,9 @@ Full rationale: [docs/architecture_decision.md](docs/architecture_decision.md).
 - LinuxCNC latency test on the control PC (already validated on Debian 13 / RT kernel).
 - Install the 7i80HDT + 7i44 + 7i49 + 7i84U-A + 7i84U-B; retain P3 for the bare `gpio.042` probe input and save `mesa_readhmid.txt` and the actual `mesa_hal_pins.txt` dump.
 - Replace placeholder `hm2_7i80.0...` pin names in HAL from the real pin dump.
-- Set the 7i49 resolver excitation to **5 kHz** (Tamagawa TS2014N spec is 4.5 kHz; the 7i49 offers 2.5 / 5 / 10 kHz, so 5 kHz is the closest working baseline).
+- Set the 7i49 resolver excitation to **5 kHz** (TS2014N141E26 datasheet spec is 4.5 kHz; the 7i49 offers 2.5 / 5 / 10 kHz, so 5 kHz is the closest available option — about 11 % above nominal). The Tamagawa page publishes **no frequency tolerance**, so 5 kHz operation must be **verified at commissioning** by scoping RESDRV excitation and RESSIN/RESCOS amplitude and phase at rest and under motion. Record the exact `TS2014N###E##` suffix on every axis nameplate and match it to its own datasheet — PCW has warned that some TS2014 variants (e.g. E1/BRT) are not 7i49-compatible.
 - Identify each axis resolver winding pair with an **ohmmeter before applying power** (rotor pair R1/R2 → RESDRV±, matched stator pairs S1-S3, S2-S4 → RESSIN and RESCOS); verify, don't assume.
-- Scope the return signal level after 7i49 excitation; expect ~1 V RMS sin/cos from ~2 V RMS drive on a 2:1 resolver. Only consider the W2 half-drive jumper / a divider if the return is too hot; 7i49HV only if it is far too weak.
+- Scope the return signal level after 7i49 excitation; expect ~1 V RMS sin/cos from ~2 V RMS drive on a 2:1 resolver. **W2 is not a valid remedy for X/Y/Z:** per the 7i49 manual, W2 down halves reference drive on channels **3/4/5 only**, and X/Y/Z live on channels **0/1/2**. If the return is far off-target, escalate to Mesa (PCW) for review of the specific TS2014N suffix before adding external dividers or a 7i49HV.
 - Verify resolver scale/orientation and analog command polarity/scaling before enabling drives.
 - Verify FR-SX spindle command mode; verify ATC prox/solenoid labels and normal states.
 - Measure coil voltages/currents to size interposing relays (RLY-5/6/7 mandatory for the 100VAC SSR overflow loads driven from P3 breakout OUT3/4/5).
@@ -134,7 +134,9 @@ any non-GET request. Regenerate `data.js` after editing the repo with
 - [Mesa 7i80HDT / 7i80HD Ethernet FPGA host](http://www.mesanet.com/fpgacardinfo.html)
 - [Mesa 7i49 manual (resolver interface)](http://www.mesanet.com/pdf/motion/7i49man.pdf)
 - [Mesa 50-pin daughter card catalog (7i44, 7i49)](https://www.mesanet.com/aiodaughter.html)
-- [Servo PID tuning thread — VQC 15/40, TRA-31, HD81-12S, 7i49 @ 5 kHz](https://forum.linuxcnc.org/10-advanced-configuration/32061-servo-pid-tuning-can-t-clamp-down-on-overshoot) — sister-machine retrofit confirming a **plain 7i49** at 5 kHz against the 4.5 kHz spec.
+- [Servo PID tuning thread — VQC 15/40, TRA-31, HD81-12S, 7i49 @ 5 kHz](https://forum.linuxcnc.org/10-advanced-configuration/32061-servo-pid-tuning-can-t-clamp-down-on-overshoot) — sister-machine retrofit running a **plain 7i49** at 5 kHz against the 4.5 kHz spec. Supporting anecdote only; not a substitute for scoping this machine.
+- [Tamagawa FA-SOLVER page](https://tamagawa.eu/products/resolvers/brushless-resolvers-fa-solver/) — TS2014N141E26 electrical specs (10 Vrms, 4.5 kHz, K = 0.5, rotor DC 121 Ω, stator DC 69 Ω; no frequency tolerance published).
+- [PCW on TS2014 variant compatibility with the 7i49](https://forum.linuxcnc.org/27-driver-boards/39171-7i49-with-tamagawa-ts2014-e1-type-resolvers) — explicit warning that some TS2014 variants are not 7i49-compatible; the suffix matters.
 - [srdco/MazakVQC1540 configs](https://github.com/srdco/MazakVQC1540) — LinuxCNC configs for the sister VQC 15/40.
 - [SRDCO MazakVQC1540 complete 2017 reference package](https://github.com/srdco/MazakVQC1540/tree/master/MAZAK-VQC1540-20170501) — full 2017-05-01 config/wiring snapshot for planning and retrofit comparison.
 - [User's thread — Mesa conversion for a Mazak VQC 20/40 M2 mill](https://forum.linuxcnc.org/27-driver-boards/58767-mesa-conversion-for-a-mazak-vqc-20-40-m2-mill)

@@ -48,8 +48,8 @@ bare P3 probe GPIO exception, and LinuxCNC HAL pin names.
 | P2 (7i49) | Analog output count/scaling | 6× ±10 V; X/Z/Y axes on AOUT0/1/2, spindle AOUT3, orient AOUT4 | Required before safe first motion. 7i49 exposes analog outs as `hm2_7i80.0.pwmgen.NN` bipolar. |
 | P2 (7i49) | Resolver interface present | Plain 7i49 (not 7i49HV) | Axis feedback is resolver, not encoder; firmware must expose resolver channels. |
 | P2 (7i49) | Host connection path | On 7i80HDT connector P2 | Determines board tag and `num_resolvers` config; how the 7i49 attaches must be verified. |
-| P2 (7i49) | Excitation frequency | 5 kHz (Tamagawa TS2014N spec 4.5 kHz; ±10% acceptable) | Must match Tamagawa/Mitsubishi resolver spec closely. |
-| P2 (7i49) | Transformation ratio / signal level | K=0.5 (TS2014N nameplate): 5 V drive → ~2.5 V return; W2 half-drive if needed | Determines plain-7i49 vs 7i49HV and W2 half-drive/divider need. |
+| P2 (7i49) | Excitation frequency | 5 kHz (7i49 selectable: 2.5/5/10 kHz; TS2014N141E26 datasheet is 4.5 kHz — 5 kHz is closest available, ~11% above nominal; **Tamagawa page publishes no frequency tolerance**, verify on scope at commissioning) | 5 kHz is a working baseline to verify, not a tolerance claim. |
+| P2 (7i49) | Transformation ratio / signal level | K=0.5 (TS2014N141E26 datasheet, no tolerance published); 7i49 default drive ~2 V RMS → SIN/COS ~1 V RMS on a 2:1 resolver | Scope RESDRV excitation and RESSIN/RESCOS amplitude and phase at rest and under motion; **W2 does NOT affect axis channels 0/1/2** (only 3/4/5). |
 | P2 (7i49) | Excitation ownership | 7i49 is sole excitation source | TRA drives use tacho velocity loop; nothing else may drive the resolver windings. |
 | P1 (7i44) | Smart-serial channel assignment | Port 0 with channel 0 → 7i84U-A, channel 1 → 7i84U-B, channels 2-7 disabled | The 7i44 exposes one sserial port with 8 channels; both 7i84Us share port 0. Configured via `sserial_port_0=00xxxxxx`. |
 | P1 (7i44) | RS-422 pinout to 7i84U-A/B | Standard sserial 5-wire (TX+/TX-/RX+/RX-/GND, +5V) | Confirms each RJ45 → 7i44 screw-terminal connection. |
@@ -159,7 +159,7 @@ halcmd show pin hm2 > mesa_hal_pins.txt
 - Photo of the 7i80HDT board label (part number and revision).
 - Photo of the 7i80HDT Ethernet connector and any IP/jumper settings.
 - Photo of the 7i44 board label, its RS-422 screw terminals, and the P1 ribbon to the 7i80HDT.
-- Photo of the 7i49 label/revision, the W2 (half-drive) jumper area, RESDRV/RESSIN/RESCOS terminals, and the P2 ribbon to the 7i80HDT.
+- Photo of the 7i49 label/revision, the W2 jumper area (documentary — W2 does not affect axis channels 0/1/2, only 3/4/5), RESDRV/RESSIN/RESCOS terminals, and the P2 ribbon to the 7i80HDT.
 - Photo of the Renishaw MP-3 probe SKIP1 wiring landing on 7i84U-B TB3 IN15 with 24 V opto-isolated input, and confirmation that bare P3 GPIO is not used for any field signal.
 - Photo of each 7i84U label, jumper areas, smart-serial RJ45 connections to 7i44 ports 0 and 1, and field power terminals.
 - Photo of each axis resolver nameplate/connector and the ohmmeter-verified winding-pair notes.
@@ -172,7 +172,7 @@ Send or save the following:
 1. Exact 7i80HDT board revision.
 2. 7i80HDT IP address and confirmed `hm2_eth` `board_ip` / config string.
 3. Confirmed 7i44 P1 seating, sserial port assignments, and 7i84U-A/B cable pinouts.
-4. Confirmed 7i49 P2 seating and W2 (half-drive) jumper state.
+4. Confirmed 7i49 P2 seating and W2 jumper state (documentary only — W2 does not affect axis channels 0/1/2).
 5. Confirmed probe SKIP1 landing on 7i84U-B TB3 IN15 with 24 V opto-isolated input, and that all bare P3 GPIO pins are unused/spare (no 24 V field connections).
 6. Exact 7i84U-A and 7i84U-B variants/revisions and their 7i44 ports (0 and 1).
 7. The `mesa_readhmid.txt` output.

@@ -38,21 +38,38 @@
 #   motors have integral tachogenerators for the TRAxxA velocity loop — completely
 #   separate from the resolver position feedback path).
 #
-# Electrical spec (TS2014N datasheet):
-#   Excitation: 10 Vrms at 4.5 kHz nominal, Primary R1-R2 (rotor, BRX type)
-#   Transformation ratio K: 0.5 ±10%    Output type: check nameplate (Normal or Reverse)
+# Electrical spec (Tamagawa FA-SOLVER page, TS2014N141E26 row):
+#   Excitation: 10 Vrms at 4.5 kHz, Primary R1-R2 (rotor, BRX type)
+#   Transformation ratio K: 0.5 (no tolerance published on the Tamagawa page)
+#   Rotor DC resistance:  121 ohms
+#   Stator DC resistance:  69 ohms
+#   Phase shift: -7.5 degrees;  Residual voltage: 15 mVrms max
+#   Output type: check nameplate (Normal or Reverse)
 #   If Reverse, position counts backwards — fix with negative scale setp below.
 #
-# 7i49 drives at ~2 Vrms → output SIN/COS ≈ 1 Vrms (vs. ~5 Vrms the M-2 saw).
-# Within 7i49 input spec; scope-check on commissioning and upgrade to 7i49HV if marginal.
+#   *** Full suffix matters. The values above are for TS2014N141E26 specifically.
+#       Every axis's exact TS2014N###E## suffix must be read off the nameplate
+#       and matched against its own datasheet before these values can be trusted.
+#       PCW has warned on the LinuxCNC forum that some TS2014 variants (e.g.
+#       the E1/BRT family) are not compatible with the 7i49 at all. ***
+#
+# 7i49 default drive is ~2 Vrms and it expects ~1 Vrms on SIN/COS (2:1 ratio
+# per the 7i49 manual). With a K=0.5 resolver at ~2 Vrms drive the return should
+# sit near 1 Vrms. Confirm on scope; do NOT add external dividers or 7i49HV
+# hardware without a Mesa (PCW) review of the specific suffix.
 #
 # PLACEHOLDER: hm2_7i80.0.resolver.NN.* pin names unverified — confirm from
 # `readhmid` / `halcmd show pin hm2` after loading firmware with resolver module.
 #
 # Pre-power ohmmeter checks (all values approximate — measure before energizing):
-#   R1-R2 rotor winding: expect ~few tens of ohms (TS2014N ZRO ≈ 250+j377 Ω at 4.5 kHz)
-#   S1-S3 (sin pair):    expect similar range (ZSS ≈ 326+j623 Ω at 4.5 kHz)
-#   S2-S4 (cos pair):    expect same as S1-S3
+#   R1-R2 rotor winding: DC resistance ~121 ohms (TS2014N141E26 datasheet)
+#                        (ZRO = 250 + j377 ohms at 4.5 kHz)
+#   S1-S3 (sin pair):    DC resistance ~69 ohms  (TS2014N141E26 datasheet)
+#                        (ZSS = 326 + j623 ohms at 4.5 kHz)
+#   S2-S4 (cos pair):    same as S1-S3
+#   Measure DC resistance FIRST and compare to the datasheet for the exact
+#   suffix stamped on this resolver to confirm the variant before trusting
+#   downstream signal-level predictions.
 #   Any winding shorted to resolver case/shield = do not energize until resolved.
 
 # TODO: set actual resolver scales after measuring counts and machine units.
@@ -65,11 +82,23 @@ setp hm2_7i80.0.resolver.02.scale 1
 # 7i49 global excitation frequency.
 # Confirmed resolvers (July 2026 photos): Tamagawa TS2014N series (Size 25 SHAFT resolvers),
 # Mitsubishi/Mazak part BKO-NC6062A. Mounted at non-drive end of each ball screw via flex
-# coupling — NOT motor-mounted. Rated 10 Vrms at 4.5 kHz; K = 0.5 ±10%.
-# 7i49 plain supports 2 / 5 / 10 kHz only — 4.5 kHz is not a valid step. Use 5 kHz.
-# At 5 kHz and ~2 Vrms drive the resolver operates within tolerance (±10% freq deviation
-# is acceptable; SNR is lower than original NC saw but within 7i49 input range).
-# If signal quality is marginal on scope (< ~500 mVpp), switch to 7i49HV — drop-in swap.
+# coupling — NOT motor-mounted. TS2014N141E26 datasheet: 10 Vrms at 4.5 kHz, K = 0.5.
+# The full suffix on each axis is NOT yet confirmed from the nameplate photos; treat
+# the E26 datasheet as tentative until each axis suffix is read and its own datasheet
+# is obtained.
+#
+# 7i49 selectable carrier frequencies per the 7i49 manual (RESMOD register): 2.5 / 5
+# / 10 kHz. 4.5 kHz is not selectable, so the closest option is 5 kHz — about 11%
+# above nominal. Tamagawa's FA-SOLVER page publishes NO frequency tolerance for
+# TS2014N141E26, so 5 kHz operation is an assumption to VERIFY at commissioning by
+# scoping RESDRV excitation and RESSIN/RESCOS amplitude and phase at rest and under
+# motion — not to declare acceptable from a tolerance figure the datasheet doesn't
+# provide.
+#
+# W2 does NOT help the axis channels: per the 7i49 manual, W2 down halves reference
+# drive on channels 3/4/5 only. X/Y/Z live on channels 0/1/2 and W2 does not affect
+# them. If measured SIN/COS at rest is well below the ~1 Vrms target, escalate to
+# Mesa (PCW) review of the specific suffix before adding dividers or a 7i49HV.
 setp hm2_7i80.0.resolver.excitation-khz 5
 
 # Per-channel velocity scale (separate from position scale; used by the resolver

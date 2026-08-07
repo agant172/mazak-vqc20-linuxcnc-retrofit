@@ -55,17 +55,19 @@ The Mazak VQC 20/40 keeps its **original Tamagawa TS2014N resolvers** for axis p
 - Older documentation references to `RT-5XA-11` / `RT-5XA-L1` were superseded by the July 2026 identification.
 - **Caution — connector vs. model:** `MS3108B 20-29P` is a **connector shell part number** (an MS/MIL circular connector), **not** a resolver model.
 
-### Working baseline: plain 7i49 at 5 kHz excitation
+### Working baseline: plain 7i49 at 5 kHz excitation (VERIFY on scope)
 
 - **Plain Mesa 7i49** on P2 as the resolver interface. This is the intended starting point.
-- Set the **resolver excitation frequency to 5 kHz**. The Tamagawa TS2014N nameplate spec is **4.5 kHz** at 10 Vrms; the 7i49 offers **2.5 / 5 / 10 kHz**, so 5 kHz is the closest available setting. Within the ±10% frequency deviation the TS2014N tolerates.
-- Strong supporting evidence comes from a **Mazak VQC 15/40 sister retrofit** that uses the **same Mitsubishi TRA drives and HD81-12S motors** and runs a **plain Mesa 7i49 (not 7i49HV)**.
+- The **7i49 selectable carrier frequencies are 2.5 / 5 / 10 kHz** (per the 7i49 manual RESMOD register); 4.5 kHz is not selectable, so the closest option is **5 kHz** — about **11 %** above the TS2014N141E26 nominal 4.5 kHz.
+- **The Tamagawa FA-SOLVER page does not publish a frequency tolerance for TS2014N141E26.** "5 kHz is within ±10 %" appears in some older notes here but is **not sourced** — remove it from decision reasoning. Whether 5 kHz operation is acceptable is an assumption to **verify at commissioning** by scoping RESDRV excitation and RESSIN/RESCOS amplitude and phase at rest and under motion.
+- **Every axis suffix must be recorded and matched to its own datasheet.** The nameplate photos show `TS2014N###E##` with the trailing digits illegible on all three axes; treat the E26 datasheet as tentative until each axis's exact suffix is read and its own datasheet is obtained. PCW has stated on the LinuxCNC forum that some TS2014 variants (e.g. E1/BRT) are not compatible with the 7i49 at all — the suffix matters.
+- Supporting anecdote (not proof for this machine): a **Mazak VQC 15/40 sister retrofit** with **Mitsubishi TRA drives and HD81-12S motors** runs a **plain Mesa 7i49 (not 7i49HV)** — useful as a data point but not a substitute for scoping this machine's resolvers.
 
 ### Transformation ratio and signal levels
 
-- Tamagawa TS2014N nameplate: **K = 0.5 ±10%**. 5 V drive → ~2.5 V return.
-- The **7i49 drives about 2 V RMS** excitation and expects about **1 V RMS** sin/cos return.
-- Because the resolver ratio and the 7i49 design center on similar 2:1-ish behavior, the **plain 7i49 is the intended starting point**. **7i49HV is a contingency** only justified if measurements prove a signal-level mismatch on this machine.
+- **TS2014N141E26 datasheet (Tamagawa FA-SOLVER page):** K = 0.5, rotor DC 121 Ω, stator DC 69 Ω, phase shift −7.5°, residual voltage 15 mVrms max. **No K tolerance is published on the Tamagawa page** — previous "K = 0.5 ±10 %" wording in this repo was not sourced and has been removed.
+- **7i49 manual:** default drive ≈ **2 V RMS**, expected SIN/COS input ≈ **1 V RMS**, i.e. a 2:1 reference:output ratio. With a K = 0.5 resolver at ~2 V RMS drive the return should sit near 1 V RMS.
+- Because the resolver ratio and the 7i49 design center on similar 2:1 behavior, the **plain 7i49 is the intended starting point**. **7i49HV is a contingency** only justified if measurements on this machine show a signal-level mismatch — and any such escalation should go through a Mesa (PCW) review of the specific TS2014N suffix rather than a blind swap.
 
 ### Wiring warning — old Meldas M2 / TRA resolver wiring may differ
 
@@ -76,10 +78,11 @@ The original **Meldas M2 / TRA** resolver wiring may run the resolver "backwards
 
 ### Measurement and tuning notes (7i49 on P2)
 
-- After wiring, scope the return signal level on the sin/cos inputs with the 7i49 excitation running.
+- Before power: measure **DC resistance** of every winding on every axis and compare to the datasheet for that axis's exact TS2014N suffix. Rotor DC ≈ 121 Ω and stator DC ≈ 69 Ω for TS2014N141E26; other suffixes may differ. Confirming the variant this way is a prerequisite for trusting any downstream signal-level prediction.
+- After wiring, scope the RESDRV excitation and the SIN/COS return at rest and under motion. Compare amplitude and phase against expected ~2 V RMS drive / ~1 V RMS return.
 - Too low a signal shows up as position noise and sluggish axis response.
-- Too hot / too weak a signal is corrected with the **W2 half-drive jumper** to halve excitation drive, or a divider on the return. Treat W2 half-drive as a field-verification option only.
-- Escalate to **7i49HV** only if the signal is far too weak at full drive.
+- **W2 does not help the X/Y/Z axis channels.** Per the 7i49 manual, W2 down halves reference drive on channels **3/4/5 only**; X/Y/Z live on channels **0/1/2**, which W2 does not affect. Prior notes here that treated W2 as a possible fix for a hot axis-channel return were wrong and have been removed.
+- If measured SIN/COS at rest is well below the 7i49's ~1 V RMS target, do **not** add external dividers or 7i49HV hardware without a Mesa (PCW) review of the specific TS2014N suffix on this machine.
 
 ### Drive ownership — LinuxCNC/7i49 owns resolver excitation
 
@@ -92,7 +95,7 @@ The original **Meldas M2 / TRA** resolver wiring may run the resolver "backwards
 - Confirm the correct firmware bitfile: **`7i80hdt_7i44_ss_7i49d.bit`** (PCW-provided). This bitfile already provisions a 7i44 + 7i49 layout; no additional P3 field-breakout firmware work is required.
 - Confirm both 7i84Us are detected on 7i44 ports 0 and 1 after firmware load (`sserial_port_0` and `sserial_port_1` both enabled in `hm2_eth config=`). Assign a distinct sserial device tag/serial number per card during commissioning so the two are pinned to their intended ports.
 - Confirm 7i49 on P2 host connection and firmware `num_resolvers=3` config. Set excitation to **5 kHz**.
-- Identify resolver winding pairs per axis with an ohmmeter before power; scope the return signal level; only then decide on W2 half-drive / divider or a 7i49HV escalation.
+- Identify resolver winding pairs per axis with an ohmmeter before power; scope RESDRV excitation and RESSIN/RESCOS amplitude and phase at rest and under motion on all three axis channels (0/1/2). **W2 is not a valid remedy on the axis channels** — it only affects channels 3/4/5. Any 7i49HV / divider escalation must go through Mesa (PCW) review of the specific TS2014N suffix rather than a unilateral hardware swap.
 - Confirm 7i80HDT Ethernet setup: static IP 192.168.1.121, `hm2_eth` `board_ip="192.168.1.121"`, and host NIC `enp0s31f6` at 192.168.1.1/24.
 - Run LinuxCNC latency testing on the actual control PC (already validated on the current hardware).
 - Confirm X/Y/Z drive command polarity and scaling on 7i49 AOUT0/1/2.
@@ -104,13 +107,15 @@ The original **Meldas M2 / TRA** resolver wiring may run the resolver "backwards
 ## Resolver unknowns still needing measurement
 
 - Winding pairs (rotor vs. stator) identified by ohmmeter before power.
-- Return signal level scoped after 7i49 excitation (drives the full-drive vs. W2 half-drive / divider, and the plain-7i49 vs. 7i49HV decision).
+- Return signal level scoped after 7i49 excitation — at rest and under motion, on all three axis channels (0/1/2). Feeds any plain-7i49 vs. 7i49HV escalation, which must go through Mesa/PCW rather than a unilateral hardware swap. **W2 is not a valid remedy on the axis channels.**
 - Final HAL resolver scale and axis orientation (direction/counts per machine unit).
 - Shield / ground termination strategy for the resolver cabling.
 
 ## Sources
 
 - Servo PID tuning thread — VQC 15/40, TRA-31, HD81-12S, plain 7i49 @ 5 kHz vs. the 4.5 kHz spec: <https://forum.linuxcnc.org/10-advanced-configuration/32061-servo-pid-tuning-can-t-clamp-down-on-overshoot>
+- Tamagawa FA-SOLVER page (TS2014N141E26 electrical specs): <https://tamagawa.eu/products/resolvers/brushless-resolvers-fa-solver/>
+- PCW on TS2014 variant compatibility with the 7i49: <https://forum.linuxcnc.org/27-driver-boards/39171-7i49-with-tamagawa-ts2014-e1-type-resolvers>
 - Mesa 7i49 manual (resolver interface, excitation options, W2 jumper, RESDRV/RESSIN/RESCOS): <http://www.mesanet.com/pdf/motion/7i49man.pdf>
 - Mesa 7i80HDT overview (72 IO across three 50-pin daughtercard connectors, 5V-tolerant): <http://www.mesanet.com/fpgacardinfo.html>
 - Mesa 7i44 forum thread on 7i80HD-compatible RS-422 interfaces: <https://www.forum.linuxcnc.org/27-driver-boards/35743-mesa-i-o>

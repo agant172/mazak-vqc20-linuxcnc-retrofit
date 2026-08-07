@@ -79,8 +79,10 @@ Mesa 7i49** on the 7i80HDT P2 daughter-card connector at **5 kHz** excitation. W
   record it as the resolver type.
 - **Signal level / tuning:** on a 2:1 resolver the 7i49 drives ~2 V RMS and expects ~1 V
   RMS sin/cos back. **Scope the return level after excitation.** Low signal shows as
-  position noise / sluggish response; too hot/too weak may need a divider or the **W2
-  half-drive jumper** — treat W2 half-drive as a field-verification option, not a default.
-  Escalate to a **7i49HV only** if the return is far too weak at full drive.
+  position noise / sluggish response. **W2 does not help the X/Y/Z axis channels** —
+  per the 7i49 manual, W2 down halves reference drive on channels 3/4/5 only, and X/Y/Z
+  live on channels 0/1/2. If the return is far off the ~1 V RMS target, escalate to
+  Mesa (PCW) for review of the specific TS2014N suffix on this machine before adding
+  external dividers or a 7i49HV.
 - **Shield / ground:** keep resolver cabling shielded and separated from power wiring;
   the shield/ground termination point is still to be finalized.
