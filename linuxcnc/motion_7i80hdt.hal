@@ -204,8 +204,15 @@ net z-pos-fb        => joint.2.motor-pos-fb
 # net spindle-index-enable  motion.spindle-index-enable <=> hm2_7i80.0.encoder.NN.index-enable
 # net spindle-revs     motion.spindle-revs
 #
-# Until encoder is wired, spindle-at-speed is forced true (open-loop, no speed verification):
-sets spindle-at-speed true
+# spindle-at-speed is written EXCLUSIVELY by field_7i84u.hal from the FR-SX
+# SPD-REACH discrete (7i84U-A IN13). Do NOT `sets spindle-at-speed` here or
+# anywhere else - HAL rejects multiple writers on the same signal at load time.
+# If the FR-SX SPD-REACH terminal is not yet wired, comment out the `net
+# spindle-at-speed <= hm2_7i80.0.7i84.0.0.input-13` line in field_7i84u.hal
+# and add `sets spindle-at-speed true` here as a BENCH-ONLY override (never
+# leave both writers active).
+# Note: motion.spindle-at-speed's reader is motion.spindle-at-speed itself -
+# LinuxCNC uses it to gate G96/G97, tap sync, and rigid-tap start.
 
 #####################################################################
 # Analog servo outputs (7i49 P2 ±10V DACs, driven by pwmgen)
