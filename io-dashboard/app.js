@@ -22,6 +22,8 @@
   /* ---------------------------------------------------------------- state */
 
   var state = {
+    mode: 'io',                  // io | wiring
+    layer: 'signal',             // signal | power | return | shield
     view: 'ALL',                 // ALL | 7i80HDT | 7i44 | 7i49 | 7i84U-A | 7i84U-B | CONFLICTS
     q: '',
     board: '', conn: '', dir: '', sub: '', status: '',
@@ -38,6 +40,33 @@
     return n;
   };
   function esc(s) { return String(s == null ? '' : s); }
+
+  var REPO_BLOB = 'https://github.com/agant172/mazak-vqc20-linuxcnc-retrofit/blob/main/';
+  function sourceHref(file, lines) {
+    if (!file) return '';
+    if (/^https?:\/\//i.test(file)) return file;
+    if (/\.hal$/i.test(file) && file.indexOf('/') === -1 &&
+        (D.meta.halfiles || []).indexOf(file) !== -1) file = 'linuxcnc/' + file;
+    if (!(/[\/]/.test(file) && !/\s/.test(file)) &&
+        !/\.(md|hal|ini|csv|py|json|js|html|css|txt|ya?ml)$/i.test(file)) return '';
+    var path = String(file).replace(/^\.\//, '').split('/').map(encodeURIComponent).join('/');
+    var firstLine = String(lines == null ? '' : lines).match(/\d+/);
+    return REPO_BLOB + path + (firstLine ? '#L' + firstLine[0] : '');
+  }
+
+  function appendSourceFile(parent, file, lines, extra) {
+    var label = file + (lines ? ':' + lines : '') + (extra || '');
+    var href = sourceHref(file, lines);
+    if (href) {
+      var a = el('a', 'src-file', label);
+      a.href = href;
+      a.target = '_blank';
+      a.rel = 'noopener noreferrer';
+      parent.appendChild(a);
+    } else {
+      parent.appendChild(el('span', 'src-file', label));
+    }
+  }
 
   /* ---------------------------------------------------------- search index */
 
@@ -708,7 +737,7 @@
     }
     refs.forEach(function (r) {
       var li = el('li');
-      li.appendChild(el('span', 'src-file', r.file + ':' + r.line + (r.commented ? '  (commented out)' : '')));
+      appendSourceFile(li, r.file, r.line, r.commented ? '  (commented out)' : '');
       li.appendChild(el('span', 'src-note', r.text));
       hl.appendChild(li);
     });
@@ -721,7 +750,7 @@
       var sl = el('ul', 'src-list');
       s.sources.forEach(function (src) {
         var li = el('li');
-        li.appendChild(el('span', 'src-file', src.file + (src.lines ? ':' + src.lines : '')));
+        appendSourceFile(li, src.file, src.lines);
         if (src.note) li.appendChild(el('span', 'src-note', src.note));
         sl.appendChild(li);
       });
@@ -911,6 +940,7 @@
     }
     renderChips(rows);
     renderStatusCounts(rows);
+    if (window.MAZAK_COMMISSIONING) window.MAZAK_COMMISSIONING.render(rows);
   }
 
   /* -------------------------------------------------------------- keyboard */
@@ -928,7 +958,12 @@
     if (typing) return;
 
     if (e.key === '/') { e.preventDefault(); $('q').focus(); $('q').select(); return; }
-    if (e.key === 'e' && (e.metaKey || e.ctrlKey)) { e.preventDefault(); exportCSV(); return; }
+    if (e.key === 'e' && (e.metaKey || e.ctrlKey)) {
+      e.preventDefault();
+      if (state.mode === 'wiring' && window.MAZAK_COMMISSIONING) window.MAZAK_COMMISSIONING.exportCSV();
+      else exportCSV();
+      return;
+    }
 
     if (e.key === 'ArrowDown' || e.key === 'ArrowUp' || e.key === 'j' || e.key === 'k') {
       var rs = rowEls();
@@ -963,5 +998,16 @@
   var h = location.hash.match(/signal=([A-Za-z0-9_]+)/);
   if (h && SIG_BY_ID[h[1]]) openDrawer(h[1]);
 
-  window.MAZAK_APP = { state: state, render: render, openDrawer: openDrawer, exportCSV: exportCSV };
+  window.MAZAK_APP = {
+    state: state,
+    render: render,
+    openDrawer: openDrawer,
+    closeDrawer: closeDrawer,
+    exportCSV: exportCSV,
+    toast: toast,
+    sourceHref: sourceHref,
+    statuses: STATUS,
+    signalsById: SIG_BY_ID,
+    sortedFiltered: function () { return sortSignals(filtered()); }
+  };
 })();

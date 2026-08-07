@@ -80,12 +80,14 @@ Full rationale: [docs/architecture_decision.md](docs/architecture_decision.md).
 
 Full, checkbox-tracked TODO and progress: **[docs/project_status.md](docs/project_status.md)**.
 
-## I/O dashboard
+## I/O and commissioning workspace
 
-[`io-dashboard/`](io-dashboard/) is a single-page, offline I/O navigator generated from
-`mesa/current_pin_authority.csv`, the HAL config and the wiring notes. It walks
-LinuxCNC pin → HAL net → Mesa pin → connector/channel → field device → machine location
-for all 132 current authority rows, and flags the open conflicts. Full guide:
+[`io-dashboard/`](io-dashboard/) is one offline app with two views generated from the same
+`mesa/current_pin_authority.csv`, HAL config, and wiring notes. The I/O navigator walks
+LinuxCNC pin → HAL net → Mesa pin → connector/channel → field device → machine location.
+The commissioning view renders those rows as signal/power/return/shield paths, links to repo
+evidence, and keeps browser-local checkout records that can be exported as JSON or CSV. It flags
+unknown physical details instead of guessing and never changes wiring authority. Full guide:
 [io-dashboard/README.md](io-dashboard/README.md).
 
 ```bash
@@ -111,7 +113,7 @@ they are static checks and do not replace a LinuxCNC load test or fault injectio
 ├── README.md          # This file — project overview, status, and top TODOs
 ├── bom/               # I/O workbook and parts-planning material
 ├── docs/              # Architecture decision, checklists, photo-sorting, project status
-├── io-dashboard/      # Offline single-page I/O navigator (generated from mesa/ + linuxcnc/)
+├── io-dashboard/      # Offline I/O navigator + commissioning wiring workspace
 ├── linuxcnc/          # LinuxCNC INI/HAL bring-up skeletons, ATC/orient components, remapped M6
 ├── mesa/              # Mesa pin authority (`current_pin_authority.csv`), firmware checklist
 ├── wiring/            # Wiring / field-I/O planning references
@@ -131,7 +133,7 @@ they are static checks and do not replace a LinuxCNC load test or fault injectio
 - [docs/photo_survey_misc.md](docs/photo_survey_misc.md) — survey of 213 shop photos (2026-07-29): hardware nameplate inventory, OEM wire-label/terminal maps, and the OEM CN6/CN5/CN11 pin tables incl. 712/713 GEAR SHIFT HIGH/LOW and ORCM1 orient command.
 - [docs/parameters_sn060231.md](docs/parameters_sn060231.md) — LIVE parameter values photographed 2026-07-28: ATC 2nd zero point RP=(0, +9.5000, -5.9055) in, both soft-limit boxes, gear crossover 434 rpm, backlash.
 - [docs/parameter_recovery.md](docs/parameter_recovery.md) — M-2 parameter recovery: SN 060231 values are NOT in the manuals; capture checklist + fallback measurement procedure.
-- [io-dashboard/README.md](io-dashboard/README.md) — offline I/O navigator: how to run it and how to regenerate its data.
+- [io-dashboard/README.md](io-dashboard/README.md) — I/O/commissioning workspace: use, records, live polling, and data regeneration.
 - [bom/Mazak_VQC_20-40_Retrofit_IO_Workbook.xlsx](bom/Mazak_VQC_20-40_Retrofit_IO_Workbook.xlsx) — full I/O workbook.
 
 ## References

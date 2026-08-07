@@ -1,12 +1,20 @@
-# Mazak VQC-20/40 — I/O Navigator
+# Mazak VQC-20/40 — I/O and Commissioning Workspace
 
-A single-page, offline wiring navigator for the Mazak VQC-20/40 LinuxCNC + Mesa retrofit
-(machine S/N 060231). It turns `mesa/current_pin_authority.csv`, the HAL config and the
-wiring notes into a click-through path:
+A single-page, offline I/O authority navigator and commissioning wiring workspace for the
+Mazak VQC-20/40 LinuxCNC + Mesa retrofit (machine S/N 060231). Both modes use the same filters,
+authority rows, HAL references, conflict status, and optional read-only live values.
+
+**I/O navigator** turns `mesa/current_pin_authority.csv`, the HAL config and the wiring notes
+into a searchable table and click-through path:
 
 ```
 LinuxCNC pin -> HAL net -> HostMot2/Mesa pin -> connector/channel -> field device -> machine location
 ```
+
+**Commissioning wiring** renders the same filtered rows as four-node circuit paths. Its layer
+selector exposes the signal, power, return/common, and shield/cable context without filling
+unknown physical details with guesses. Each path has direct repo source links and a browser-local
+checkout record.
 
 **This is a configuration snapshot, not a safety controller.** Nothing in it is a permission to
 energize. The hardware E-stop chain must remove hazardous power independently of LinuxCNC.
@@ -72,6 +80,8 @@ Python 3 standard library only. No pip installs, no internet access.
 | Export the filtered view | **Export CSV**, or `Ctrl/Cmd + E`                                   |
 | Theme                 | Sun icon in the header (dark is the default for shop lighting)         |
 | Deep link a signal    | `index.html#signal=ESTOP_CHAIN`                                        |
+| Switch workspace      | **I/O navigator** / **Commissioning wiring** in the header              |
+| Deep link a circuit   | `index.html#wiring=AIR_BLAST`                                           |
 
 **Views:** All signals, 7i80HDT, 7i44, 7i49, 7i84U-A, 7i84U-B, and Conflicts / unverified. The conflicts view puts
 the C1–C10 register above the affected rows.
@@ -84,6 +94,25 @@ to keep it: the `manual_state` and `manual_note` columns come along.
 **Observed column.** Shows `MAN n` for a manual override, a live value when the bridge is
 connected, and `—` otherwise. A manual override always wins over the live value so a checkout note
 is never silently overwritten.
+
+### Commissioning wiring records
+
+The commissioning workspace has four layers:
+
+- **Signal path** — LinuxCNC/HAL, computed Mesa connector pin, known interface, field device.
+- **Power context** — documented 7i84U field-power bank, with untraced source/fuse/load details flagged.
+- **Return / common** — documented 7i84U common terminals, kept distinct from the untraced load return.
+- **Shield / cable** — project grounding rules where specific, with unknown cable-end treatment flagged.
+
+Checkout fields include wire and cable IDs, both terminal landings, relay/interface terminals,
+fuse, return and shield paths, voltage readings, continuity, normal state, verifier, date, evidence
+reference, and notes. They autosave in the current browser using `localStorage`. Use **Export JSON**
+for backup/transfer, **Import JSON** to merge a saved record, **Export filtered CSV** for a work
+package, and **Print view** for paper/PDF output.
+
+These local records are evidence notes only. They do not edit `current_pin_authority.csv`, promote
+an authority status, write HAL, or permit energization. Promote authority only through the repo's
+documented review and validation process.
 
 ---
 
@@ -186,6 +215,8 @@ Update conventions:
 index.html        markup, inline SVG mark
 styles.css        design system, dark + light, responsive to 375px
 app.js            all behaviour (vanilla, no build step, no dependencies)
+commissioning.css commissioning circuit paths, evidence form, responsive and print layout
+commissioning.js  wiring layers, source links, local checkout record import/export
 data.js           GENERATED — window.MAZAK_DATA
 serve_live.py     optional read-only halcmd bridge (stdlib only)
 tools/
@@ -200,6 +231,7 @@ tools/
   Confirm real names with `halcmd show pin` after the first `hm2_eth` load.
 - The live bridge reads HAL signal values only. It cannot see anything that is not a HAL signal,
   and a HAL value tells you what the software thinks, not what the wire is doing.
-- Manual checkout state is lost on refresh by design. Export CSV.
+- The table drawer's manual 0/1 scratch state is session-only. Commissioning wiring records persist
+  in that browser, but still require JSON export for backup, transfer, or version-controlled retention.
 - 7i84U-A channel numbers in `field_7i84u.hal` currently disagree with the authority (C1, C2).
   Do not land wire from the HAL numbers.
