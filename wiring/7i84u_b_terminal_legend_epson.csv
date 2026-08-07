@@ -1,0 +1,22 @@
+Terminal,Signal,HAL_Net
+TB1-1,FIELD_A +24V,7i84U-B field bank A +
+TB1-2,FIELD_A 0V,7i84U-B field bank A -
+TB1-3,FIELD_B +24V,7i84U-B field bank B +
+TB1-4,FIELD_B 0V,7i84U-B field bank B -
+TB1-IN0,X LIMIT+ (NC),limit-x-plus
+TB1-IN1,X LIMIT- (NC),limit-x-minus
+TB1-IN2,Y LIMIT+ (NC),limit-y-plus
+TB1-IN3,Y LIMIT- (NC),limit-y-minus
+TB1-IN4,Z LIMIT+ (NC),limit-z-plus
+TB1-IN5,Z LIMIT- (NC),limit-z-minus
+TB1-IN6,X HOME (LS-42),home-x
+TB1-IN7,Y HOME (LS-52),home-y
+TB1-IN8,Z HOME (LS-62),home-z
+TB2-OUT0,X ENABLE (DK-427),x-enable
+TB2-OUT1,Y ENABLE (DK-427),y-enable
+TB2-OUT2,Z ENABLE (DK-427),z-enable
+TB2-OUT3,AIR BLAST (SOL-62 via RLY-5),air-blast
+TB2-OUT4,TOUCH SENSOR BLAST (SOL-35 via RLY-6),touch-sensor-blast
+TB2-OUT5,TAP COOLANT BLAST (SOL-61 via RLY-7),tap-coolant-blast
+TB2-OUT6,ATC BARRIER (Y095 TCME.M),atc-barrier
+TB2-OUT7,FLOOD VALVE (Y011 FCL),flood-valve
