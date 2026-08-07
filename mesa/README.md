@@ -28,8 +28,14 @@ VQC 20/40 retrofit.
   limits, X/Y/Z homes, X/Y/Z drive enables, relay-driven loads, and the
   Renishaw MP-3 probe SKIP1 (input-15), addressed as `hm2_7i80.0.7i84.0.1.*`.
   See `current_pin_authority.csv` for the exact TB2/TB3 pin map.
-- **Firmware bitfile**: `7i80hdt_7i44_ss_7i49d` (PCW-provided; sserial on P1,
-  7i49 on P2, GPIO on P3).
+- **Firmware bitfile**: `7i80hdt_7i44_ss_7i49d` — **PROVENANCE UNVERIFIED.**
+  This name is what the HAL and this project's docs assume, but it has not
+  been confirmed against a source we can cite (PCW/Mesa email or forum thread)
+  and it has not been read back from a running board with `readhmid`. Until
+  one of those exists, treat the exact bitfile name and its module layout
+  (sserial ports on P1 via the 7i44, 7i49 resolver+analog on P2, bare GPIO
+  on P3) as an assumption. See `mesa_firmware_checklist.md` (Bitfile
+  provenance) for the verification procedure.
 
 ## Files
 

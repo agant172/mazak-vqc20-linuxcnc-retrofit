@@ -28,9 +28,12 @@ bare P3 probe GPIO exception, and LinuxCNC HAL pin names.
   24 V field wiring** (3.3 V logic without opto-isolation). The Renishaw MP-3
   probe was previously bound to P3 `gpio.042` in an earlier revision; it has
   been moved to 7i84U-B input-15 (opto-isolated 24 V input).
-- Chosen firmware/bitfile is `7i80hdt_7i44_ss_7i49d.bit` (PCW-provided). Bitfile
-  configuration: sserial ports on P1 (from 7i44), 7i49 resolver+analog on P2, with
-  P3 otherwise unused/spare.
+- Chosen firmware/bitfile is `7i80hdt_7i44_ss_7i49d.bit`. **The name is
+  UNVERIFIED**: this is the working assumption, not a value that has been
+  read back from the board with `readhmid` or cited from a PCW/Mesa email
+  or forum thread. See "Bitfile provenance" below for how to close that gap.
+  Assumed configuration: sserial port on P1 (from 7i44), 7i49 resolver +
+  analog on P2, bare GPIO on P3.
 
 ## Information to record
 
@@ -84,13 +87,59 @@ sudo mesaflash --device 7i80hdt --addr 192.168.1.121 --write 7i80hdt_7i44_ss_7i4
 sudo mesaflash --device 7i80hdt --addr 192.168.1.121 --reload
 ```
 
+## Bitfile provenance (verification procedure)
+
+The project's HAL currently assumes the bitfile `7i80hdt_7i44_ss_7i49d.bit`.
+Until that assumption is backed by a source that can be cited, the bitfile
+should be treated as **UNVERIFIED** in every doc that names it.
+
+Any ONE of the following closes the gap; commit the artifact into `mesa/`
+and update `README.md` to remove the "provenance unverified" note.
+
+1. **Read the running board.** With the 7i80HDT powered and on the network,
+   run:
+
+   ```bash
+   mesaflash --device 7i80hdt --addr 192.168.1.121 --readhmid \
+     > mesa/readhmid_$(date +%Y%m%d).txt
+   git add mesa/readhmid_*.txt
+   ```
+
+   Then check the dumped header against what this stack expects:
+   - `PIN INFO` block reports 3 IO connectors (P1/P2/P3).
+   - P1 modules include a smart-serial instance (name usually `SSerial`
+     with 8 channels) - matches the 7i44 breakout.
+   - P2 modules include a `Resolver` block with at least 3 channels and a
+     `PWM` block with at least 4 channels - matches the 7i49.
+   - P3 modules list only `IOPort` (bare GPIO), no smart-serial or analog.
+   - Pin counts: `num_resolvers=3`, `num_pwmgens>=4`, `num_encoders>=1`
+     (matches the `hm2_eth config="..."` string in `mazak_vqc_20_40.hal`).
+
+   If any of those disagree, the loaded bitfile is NOT `7i80hdt_7i44_ss_7i49d`
+   and every HAL pin name that starts with `hm2_7i80.0.*` needs to be
+   re-derived from the readhmid output before first motion.
+
+2. **Cite the source.** If PCW or Mesa provided the bitfile by email or in a
+   forum thread, save the message/URL and add a note to this file
+   ("Bitfile confirmed as `<name>` via <source>, <date>").
+
+3. **Cross-check with the LinuxCNC pin dump.** After a successful `halrun`
+   load, capture the pin list and commit it as `mesa/hal_pins_YYYYMMDD.txt`
+   (see "After the firmware and smart-serial config are close" section
+   above). The pin names present there are authoritative regardless of what
+   the bitfile is called.
+
+Until at least one of the three exists, `linuxcnc/*.hal` pin names,
+`sserial_port_0=00xxxxxx`, `num_resolvers=3`, and `num_pwmgens=4` remain
+informed guesses aligned to the assumed bitfile.
+
 After the firmware and smart-serial config are close, dump HAL pins:
 
 ```bash
 halrun
 loadrt hostmot2
-loadrt hm2_eth board_ip="192.168.1.121" config="num_encoders=1 num_resolvers=3 num_pwmgens=4 num_stepgens=0 sserial_port_0=00000000"
-show pin hm2
+loadrt hm2_eth board_ip="192.168.1.121" config="num_encoders=1 num_resolvers=3 num_pwmgens=4 num_stepgens=0 sserial_port_0=00xxxxxx"
+show pin hm2 > mesa/hal_pins_$(date +%Y%m%d).txt
 exit
 ```
 
