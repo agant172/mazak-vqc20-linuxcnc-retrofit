@@ -19,12 +19,13 @@ Scope of this validator (v1)
 Physical pin references it understands:
 
   hm2_7i80.0.7i84.0.<0|1>.<input|output>-<NN>
+  hm2_7i80.0.resolver.<NN>.position        -> 7i49 RES<N>
+  hm2_7i80.0.pwmgen.<NN>.value             -> 7i49 AOUT<N>
 
-That covers the two smart-serial 7i84U channels, which is where the vast
-majority of field authority lives.  7i80HDT direct GPIO on P3
-(`hm2_7i80.0.gpio.NNN...`) and 7i49 resolver / analog pins are not
-validated by this script yet.  Extending the physical-reference regex is
-the intended way to widen scope.
+It also requires one exact CSV row for every physical 7i84U input/output;
+aggregate range rows are rejected because they can overlap explicit pins.
+Any active direct 7i80HDT P3 GPIO reference is rejected by the companion
+control-logic validator.
 
 Exit code
 ---------
@@ -59,6 +60,8 @@ SCRIPT_DIR = Path(__file__).resolve().parent
 REPO_ROOT = SCRIPT_DIR.parent
 CSV_PATH = REPO_ROOT / "mesa" / "current_pin_authority.csv"
 HAL_DIR = REPO_ROOT / "linuxcnc"
+CAPACITY_DOC = REPO_ROOT / "docs" / "io_capacity_reconciliation.md"
+LEGEND_PATH = REPO_ROOT / "wiring" / "7i84u_b_terminal_legend_epson.csv"
 
 # ----------------------------------------------------------------------
 # Regexes for HAL parsing.
@@ -72,6 +75,9 @@ PIN_RE = re.compile(
     r"hm2_7i80\.0\.7i84\.0\.(?P<port>[01])\.(?P<dir>input|output)-(?P<nn>\d{2})"
     r"(?P<attr>\.\w+)?"
 )
+
+RESOLVER_RE = re.compile(r"hm2_7i80\.0\.resolver\.(?P<nn>\d{2})\.position")
+PWMGEN_RE = re.compile(r"hm2_7i80\.0\.pwmgen\.(?P<nn>\d{2})\.value")
 
 # A HAL 'net' statement.  The subset we care about is the ones that
 # bind a physical pin either as source (=>) or sink (<=) of a net.
@@ -148,6 +154,138 @@ def load_csv() -> tuple[dict[str, dict], list[dict]]:
         else:
             by_pin[key] = r
     return by_pin, rows
+
+
+def check_csv_integrity(rows: list[dict], by_pin: dict[str, dict]) -> list[Finding]:
+    """Enforce one exact authority row per 7i84U terminal and unique IDs."""
+    findings: list[Finding] = []
+    ids: dict[str, int] = {}
+    for lineno, row in enumerate(rows, start=2):
+        sid = (row.get("signal_id") or "").strip()
+        if sid in ids:
+            findings.append(Finding("ERROR", f"{CSV_PATH.name}:{lineno}",
+                                    f"duplicate signal_id '{sid}' (first at line {ids[sid]})."))
+        ids[sid] = lineno
+
+        if (row.get("mesa_card") or "").startswith("7i84U"):
+            channel = (row.get("pin_channel") or "").strip()
+            if re.fullmatch(r"(?:IN|OUT)\d+\s*-\s*(?:(?:IN|OUT))?\d+", channel):
+                findings.append(Finding(
+                    "ERROR", f"{CSV_PATH.name}:{lineno}",
+                    f"aggregate 7i84U range '{channel}' is forbidden; create one row per terminal."
+                ))
+
+    expected = {
+        f"7i84U-{card}/{direction}-{nn:02d}"
+        for card in ("A", "B")
+        for direction, limit in (("input", 32), ("output", 16))
+        for nn in range(limit)
+    }
+    actual = set(by_pin)
+    for key, row in sorted(by_pin.items()):
+        if row.get("__duplicate__"):
+            findings.append(Finding("ERROR", CSV_PATH.name,
+                                    f"more than one authority row claims physical terminal {key}."))
+    for key in sorted(expected - actual):
+        findings.append(Finding("ERROR", CSV_PATH.name,
+                                f"missing exact authority row for physical terminal {key}."))
+    for key in sorted(actual - expected):
+        findings.append(Finding("ERROR", CSV_PATH.name,
+                                f"out-of-range 7i84U terminal row {key}."))
+    return findings
+
+
+def check_7i49_motion_bindings(rows: list[dict]) -> list[Finding]:
+    """Cross-check active resolver position and analog command bindings."""
+    findings: list[Finding] = []
+    authority = {
+        (r.get("pin_channel") or "").strip(): r
+        for r in rows if (r.get("mesa_card") or "").strip() == "7i49"
+    }
+    for hal_file in sorted(HAL_DIR.glob("*.hal")):
+        for lineno, raw in enumerate(hal_file.read_text().splitlines(), start=1):
+            code = strip_comment(raw).strip()
+            m_net = NET_RE.match(code)
+            if not m_net:
+                continue
+            net_name = m_net.group("name")
+            for regex, prefix in ((RESOLVER_RE, "RES"), (PWMGEN_RE, "AOUT")):
+                for match in regex.finditer(code):
+                    channel = f"{prefix}{int(match.group('nn'))}"
+                    row = authority.get(channel)
+                    where = f"{hal_file.relative_to(REPO_ROOT)}:{lineno}"
+                    if row is None:
+                        findings.append(Finding(
+                            "ERROR", where,
+                            f"active {channel} binding has no exact 7i49 authority row."
+                        ))
+                        continue
+                    csv_net = (row.get("hal_net") or "").strip()
+                    if csv_net != net_name:
+                        findings.append(Finding(
+                            "ERROR", where,
+                            f"HAL binds {channel} to '{net_name}' but CSV says '{csv_net}'."
+                        ))
+    return findings
+
+
+def check_capacity_and_legend(rows: list[dict]) -> list[Finding]:
+    """Keep documented counts and the B-card terminal legend tied to authority."""
+    findings: list[Finding] = []
+    counts: dict[tuple[str, str], int] = defaultdict(int)
+    expected_legend: dict[str, str] = {}
+
+    for row in rows:
+        card = (row.get("mesa_card") or "").strip()
+        direction = (row.get("direction") or "").strip()
+        status = (row.get("authority_status") or "").strip()
+        channel = (row.get("pin_channel") or "").strip()
+        if card not in {"7i84U-A", "7i84U-B"} or direction not in {"IN", "OUT"}:
+            continue
+        if status != "SPARE":
+            counts[(card, direction)] += 1
+        if card != "7i84U-B" or status == "SPARE":
+            continue
+        match = re.fullmatch(r"(IN|OUT)(\d+)", channel)
+        if not match:
+            continue
+        number = int(match.group(2))
+        block = "TB3" if (direction == "IN" and number < 16) or (direction == "OUT" and number < 8) else "TB2"
+        expected_legend[f"{block}-{direction}{number}"] = (row.get("hal_net") or "").strip()
+
+    a_in, a_out = counts[("7i84U-A", "IN")], counts[("7i84U-A", "OUT")]
+    b_in, b_out = counts[("7i84U-B", "IN")], counts[("7i84U-B", "OUT")]
+    capacity = CAPACITY_DOC.read_text()
+    required_lines = (
+        f"| 7i84U-A | {a_in} | {a_out} |",
+        f"| 7i84U-B | {b_in} | {b_out} |",
+        f"| **Total** | **{a_in + b_in}** | **{a_out + b_out}** |",
+    )
+    for line in required_lines:
+        if line not in capacity:
+            findings.append(Finding("ERROR", str(CAPACITY_DOC.relative_to(REPO_ROOT)),
+                                    f"capacity table does not match authority; expected text '{line}'."))
+
+    legend_rows = list(csv.DictReader(LEGEND_PATH.open()))
+    actual_legend = {
+        (row.get("Terminal") or "").strip(): (row.get("HAL_Net") or "").strip()
+        for row in legend_rows
+        if not (row.get("Terminal") or "").startswith("TB1-")
+    }
+    for terminal in sorted(expected_legend.keys() - actual_legend.keys()):
+        findings.append(Finding("ERROR", str(LEGEND_PATH.relative_to(REPO_ROOT)),
+                                f"allocated 7i84U-B terminal {terminal} is missing from the print legend."))
+    for terminal in sorted(actual_legend.keys() - expected_legend.keys()):
+        findings.append(Finding("ERROR", str(LEGEND_PATH.relative_to(REPO_ROOT)),
+                                f"legend labels unallocated/spare 7i84U-B terminal {terminal}."))
+    for terminal in sorted(expected_legend.keys() & actual_legend.keys()):
+        if actual_legend[terminal] != expected_legend[terminal]:
+            findings.append(Finding(
+                "ERROR", str(LEGEND_PATH.relative_to(REPO_ROOT)),
+                f"{terminal} legend net '{actual_legend[terminal]}' does not match authority "
+                f"'{expected_legend[terminal]}'."
+            ))
+    return findings
 
 
 # ----------------------------------------------------------------------
@@ -296,7 +434,7 @@ def cross_check(
         if status in {"SPARE"} and hal_net_names:
             findings.append(
                 Finding(
-                    "WARN",
+                    "ERROR",
                     where,
                     f"HAL binds net(s) {sorted(hal_net_names)} to {pin} but CSV "
                     f"status is {status}. Either promote the CSV row or drop "
@@ -359,7 +497,13 @@ def main() -> int:
     csv_by_pin, all_rows = load_csv()
     hal_pins, parse_findings = parse_hal_files()
 
-    findings = parse_findings + cross_check(csv_by_pin, hal_pins)
+    findings = (
+        parse_findings
+        + check_csv_integrity(all_rows, csv_by_pin)
+        + cross_check(csv_by_pin, hal_pins)
+        + check_7i49_motion_bindings(all_rows)
+        + check_capacity_and_legend(all_rows)
+    )
 
     errors = [f for f in findings if f.level == "ERROR"]
     warnings = [f for f in findings if f.level == "WARN"]

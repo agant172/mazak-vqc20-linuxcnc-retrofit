@@ -23,6 +23,8 @@ component mazak_orient "Mazak VQC 20/40 spindle gear-shift + orient state machin
  *   6. Three watchdogs: orient timeout (AL45), oriented-while-rotating (AL46,
  *      hard fault - drops the drive arm and the orient command), oriented with
  *      no command (AL44, warning). Gear shift has its own watchdog (AL47).
+ *      The external FR-SX fault input also drops the drive arm, gear outputs,
+ *      and orient command; HAL separately aborts the ATC on that input.
  *
  * NOT MODELLED HERE (belongs in HAL/G-code, see linuxcnc/atc_orient.hal):
  *   - M38/M39 decode and the HSR/LSR range memories: the retrofit derives the
@@ -40,7 +42,7 @@ component mazak_orient "Mazak VQC 20/40 spindle gear-shift + orient state machin
 
 description """
 Gear-shift + spindle-orient sequencer for the Mazak VQC 20/40 retrofit
-(Mesa 7i80HDT + 7i44 + 7i49 + 7i84U + P3 breakout). Equivalent to Mazatrol M-2 ladder sheets 23/28/29/30/55.
+(Mesa 7i80HDT + 7i44 + 7i49 + two 7i84U remotes; P3 unused). Equivalent to Mazatrol M-2 ladder sheets 23/28/29/30/55.
 Consumed by mazak_atc: the \\fBoriented-latch\\fR output is the SOSA bit that
 gates tool unclamp and every ATC cycle step 1.
 """;
@@ -61,13 +63,13 @@ pin in bit servo_ready = false
     "X119 SA.N - servo ready (rung 2302). Net to servo-ready (7i84U IN31).";
 pin in bit estop_ok = false
     "X000 ESP.M - E-stop chain healthy. TRUE = healthy (rung 2302).";
+pin in bit drive_fault = false
+    "FR-SX alarm input. TRUE drops drive-arm, gear commands, and ORCM1.  Net: spindle-fault (7i84U-A IN14; polarity must be field-verified).";
 
 pin out bit hyd_pump_on
-    "Y096 HYD.M - hydraulic + head-lube pump contactor (rung 2302). "
-    "Net: hyd-pump-on (7i84U TB3 OUT3, PROPOSED).";
+    "Y096 HYD.M - hydraulic + head-lube pump contactor (rung 2302).  Net: hyd-pump-on (7i84U TB3 OUT3, PROPOSED).";
 pin out bit drive_arm
-    "Y092 SSET.M - spindle drive arm/permissive (rung 2305). Held once made; "
-    "dropped only by AL46. No Mesa pin assigned yet - candidate TB5 SSR OUT5.";
+    "Y092 SSET.M - spindle drive arm/permissive (rung 2305). Held once made;  dropped by AL46 or the external drive-fault input. No Mesa pin assigned.";
 
 //
 // ---------------------------------------------------------------------------
@@ -75,13 +77,11 @@ pin out bit drive_arm
 // ---------------------------------------------------------------------------
 //
 pin in bit orient_request = false
-    "SOME2 set condition: M19 decode, or an ATC/recess prep step (rung 3003). "
-    "Level or pulse - the component latches it.";
+    "SOME2 set condition: M19 decode, or an ATC/recess prep step (rung 3003).  Level or pulse - the component latches it.";
 pin in bit orient_cancel = false
-    "UOME2 set condition (rung 3008): gear M-code, ATC FIN pulse, jog, "
-    "program end, or spindle start. Clears the orient memory.";
+    "UOME2 set condition (rung 3008): gear M-code, ATC FIN pulse, jog,  program end, or spindle start. Clears the orient memory.";
 pin in bit fault_reset = false
-    "RST / ALRST - clears the latched alarms AL44-AL47 and both memories.";
+    "RST / ALRST - rising edge clears the latched alarms AL44-AL47 and both  memories. A held input does not continuously erase new faults.";
 
 //
 // ---------------------------------------------------------------------------
@@ -93,8 +93,7 @@ pin in bit spindle_oriented = false
 pin in bit spindle_zero_speed = false
     "X001 SZS.M - FR-SX zero-speed. Net: spindle-zero-speed (7i84U IN5).";
 pin in bit spindle_run = false
-    "M78 SMR - spindle run memory (any FWD/REV command active). Blocks the "
-    "zero-speed dwell (rung 2905) and is an AL46 contributor.";
+    "M78 SMR - spindle run memory (any FWD/REV command active). Blocks the  zero-speed dwell (rung 2905) and is an AL46 contributor.";
 
 //
 // ---------------------------------------------------------------------------
@@ -104,19 +103,16 @@ pin in bit spindle_run = false
 pin in bit gear_select_hi = false
     "HSR (M83) target range = high. Derived from commanded spindle speed / M39.";
 pin in bit gear_select_lo = false
-    "LSR (M84) target range = low. Derived from commanded spindle speed / M38. "
-    "If neither or both are asserted the last valid target is held (default low).";
+    "LSR (M84) target range = low. Derived from commanded spindle speed / M38.  If neither or both are asserted the last valid target is held (default low).";
 pin in bit gear_hi_conf = false
     "HGPRS / PRS-10 gear high confirm. Net: gear-hi-conf (7i84U IN17).";
 pin in bit gear_lo_conf = false
     "LGPRS / PRS-12 gear low confirm. Net: gear-lo-conf (7i84U IN18).";
 
 pin out bit gear_hi_sol
-    "Y00B GSH.M gear-high solenoid (rung 2907). Net: gear-hi-sol (TB3 OUT7). "
-    "Sealed while high range is selected - the solenoid holds the shift fork.";
+    "Y00B GSH.M gear-high solenoid (rung 2907). Net: gear-hi-sol (TB3 OUT7).  Sealed while high range is selected - the solenoid holds the shift fork.";
 pin out bit gear_lo_sol
-    "Y00C GSL.M gear-low solenoid (rung 2910). Net: gear-lo-sol (TB2 OUT8). "
-    "AUTHORITY NOTE: OUT8 is HOLD_CONFLICT - see wiring/authority_conflicts.md.";
+    "Y00C GSL.M gear-low solenoid (rung 2910). Net: gear-lo-sol (TB2 OUT8).  AUTHORITY NOTE: OUT8 is HOLD_CONFLICT - see wiring/authority_conflicts.md.";
 
 //
 // ---------------------------------------------------------------------------
@@ -124,14 +120,11 @@ pin out bit gear_lo_sol
 // ---------------------------------------------------------------------------
 //
 pin out bit spindle_orient_cmd
-    "Y093 ORCM1.M orient command to the FR-SX (rung 3004). "
-    "Net: spindle-orient-cmd (7i84U TB3 OUT4, PROPOSED).";
+    "Y093 ORCM1.M orient command to the FR-SX (rung 3004).  Net: spindle-orient-cmd (7i84U-A TB3 OUT4, PROPOSED).";
 pin out bit orient_lo_gear
-    "Y094 CTL.M low-gear orient (rung 3001). COMBINATIONAL MIRROR of "
-    "gear-lo-sol - not a sequenced step. Net: orient-lo-gear (TB3 OUT5).";
+    "Y094 CTL.M low-gear orient (rung 3001). COMBINATIONAL MIRROR of  gear-lo-sol - not a sequenced step. Net: orient-lo-gear (TB3 OUT5).";
 pin out bit oriented_latch
-    "M92 SOSA spindle orient safety (rung 5509). THE bit the ATC consumes - "
-    "gate every ATC step and the tool unclamp on this, never on raw ORA1.";
+    "M92 SOSA spindle orient safety (rung 5509). THE bit the ATC consumes -  gate every ATC step and the tool unclamp on this, never on raw ORA1.";
 
 //
 // ---------------------------------------------------------------------------
@@ -141,15 +134,13 @@ pin out bit oriented_latch
 pin out bit orient_memory
     "M90 SOME2 orient memory latch (rung 3003).";
 pin out bit gear_shifting
-    "M86 GSFME / Y124 GSF.N - gear shift in progress (rungs 2902/2904). "
-    "Blocks the orient command.";
+    "M86 GSFME / Y124 GSF.N - gear shift in progress (rungs 2902/2904).  Blocks the orient command.";
 pin out bit gear_shift_enable
     "M88 ENGS (rung 2906) - zero-speed dwell satisfied, solenoids permitted.";
 pin out bit gear_confirmed
     "Target range confirmed by its PRS. Diagnostic.";
 pin out s32 state
-    "0=IDLE 1=GEAR_EVAL 2=ZERO_SPEED_DWELL 3=SHIFTING 4=ORIENT_CMD "
-    "5=ORIENTED 6=FAULT.";
+    "0=IDLE 1=GEAR_EVAL 2=ZERO_SPEED_DWELL 3=SHIFTING 4=ORIENT_CMD  5=ORIENTED 6=FAULT.";
 
 //
 // ---------------------------------------------------------------------------
@@ -157,19 +148,15 @@ pin out s32 state
 // ---------------------------------------------------------------------------
 //
 pin out bit fault_orient_no_cmd
-    "F44 AL44 orient malfunction 1 (rung 5506): oriented state present with no "
-    "orient command. WARNING only - does not drop anything.";
+    "F44 AL44 orient malfunction 1 (rung 5506): oriented state present with no  orient command. WARNING only - does not drop anything.";
 pin out bit fault_orient_timeout
-    "F45 AL45 orient malfunction 2 (rung 5507): commanded, timed out, never "
-    "arrived. Drops the orient command.";
+    "F45 AL45 orient malfunction 2 (rung 5507): commanded, timed out, never  arrived. Drops the orient command.";
 pin out bit fault_oriented_rotating
-    "F46 AL46 orient malfunction 3 (rung 5508): oriented latch true while the "
-    "spindle is NOT at zero speed. HARD FAULT - drops drive-arm and ORCM1.";
+    "F46 AL46 orient malfunction 3 (rung 5508): oriented latch true while the  spindle is NOT at zero speed. HARD FAULT - drops drive-arm and ORCM1.";
 pin out bit fault_gear_timeout
-    "F47 AL47 (rung 5511): gear shift did not confirm. Blocks BOTH gear "
-    "solenoids until reset.";
+    "F47 AL47 (rung 5511): gear shift did not confirm. Blocks BOTH gear  solenoids until reset.";
 pin out bit fault_any
-    "Logical OR of AL45/AL46/AL47 (the three that inhibit motion).";
+    "Logical OR of the external drive fault and AL45/AL46/AL47.";
 
 //
 // ---------------------------------------------------------------------------
@@ -178,29 +165,19 @@ pin out bit fault_any
 // ---------------------------------------------------------------------------
 //
 param rw float zero_speed_dwell = 0.3
-    "T-5 (rung 2905), ladder K 3. Zero speed + no run command must persist this "
-    "long before a gear solenoid may be energised. UNVERIFIED (0.3 s assumes a "
-    "100 ms timer base).";
+    "T-5 (rung 2905), ladder K 3. Zero speed + no run command must persist this  long before a gear solenoid may be energised. UNVERIFIED (0.3 s assumes a  100 ms timer base).";
 param rw float arrival_debounce = 0.3
-    "T-6 (rung 3006), ladder K 3. ORA1 debounce before the oriented latch sets. "
-    "UNVERIFIED (0.3 s assumes a 100 ms timer base).";
+    "T-6 (rung 3006), ladder K 3. ORA1 debounce before the oriented latch sets.  UNVERIFIED (0.3 s assumes a 100 ms timer base).";
 param rw float orient_timeout = 10.0
-    "T-18 (rung 5504), ladder K 100. Orient commanded -> arrival watchdog "
-    "(AL45). UNVERIFIED (10 s assumes a 100 ms timer base).";
+    "T-18 (rung 5504), ladder K 100. Orient commanded -> arrival watchdog  (AL45). UNVERIFIED (10 s assumes a 100 ms timer base).";
 param rw float no_cmd_alarm_delay = 1.0
-    "T-17 (rung 5503), ladder K 10. Oriented-with-no-command delay (AL44). "
-    "UNVERIFIED.";
+    "T-17 (rung 5503), ladder K 10. Oriented-with-no-command delay (AL44).  UNVERIFIED.";
 param rw float gear_shift_timeout = 30.0
-    "T-19 (rung 5510), ladder K 3000(?) - the transcription flags this K value "
-    "as ambiguous (300 s vs 30 s). 30 s is the doc's '30 s-class' engineering "
-    "value. UNVERIFIED - measure a real shift before trusting it.";
+    "T-19 (rung 5510), ladder K 3000(?) - the transcription flags this K value  as ambiguous (300 s vs 30 s). 30 s is the doc's '30 s-class' engineering  value. UNVERIFIED - measure a real shift before trusting it.";
 param rw float drive_arm_delay = 2.0
-    "T-0 (rung 2304), ladder K 201 (= 20.1 s at a 100 ms base). Power-on delay "
-    "before the drive arm is asserted. UNVERIFIED - 2.0 s is a bring-up value, "
-    "NOT the transcribed 20.1 s.";
+    "T-0 (rung 2304), ladder K 201 (= 20.1 s at a 100 ms base). Power-on delay  before the drive arm is asserted. UNVERIFIED - 2.0 s is a bring-up value,  NOT the transcribed 20.1 s.";
 param rw float zero_speed_debounce = 0.1
-    "T-16 (rung 5501), ladder K 30. SZSK zero-speed echo debounce, used to "
-    "qualify the AL46 test so a normal spin-up does not trip it. UNVERIFIED.";
+    "T-16 (rung 5501), ladder K 30. SZSK zero-speed echo debounce, used to  qualify the AL46 test so a normal spin-up does not trip it. UNVERIFIED.";
 
 //
 // Internal state.
@@ -209,6 +186,7 @@ variable int prev_hi_sol = 0;
 variable int prev_lo_sol = 0;
 variable int prev_orcm1 = 0;
 variable int prev_sosa = 0;
+variable int prev_fault_reset = 0;
 variable int target_hi = 0;          // HSR/LSR range memory, low at power-up
 variable int shift_pending = 0;
 variable float t_dwell = 0.0;
@@ -235,7 +213,10 @@ function update "Run in the servo thread, after the hostmot2 read function.";
 FUNCTION(update)
 {
     int any_prs, tgt_conf, engs, mid_shift, hi, lo, arm_ok, orcm1, sosa;
-    int cancel;
+    int cancel, reset_pulse;
+
+    reset_pulse = fault_reset && !prev_fault_reset;
+    prev_fault_reset = fault_reset;
 
     /* -----------------------------------------------------------------
      * Sheet 23 - permissives. Rung 2302: HYD.M = MA.N * SA.N * ESP.M.
@@ -245,7 +226,7 @@ FUNCTION(update)
     /* Rung 2305: SSET.M = HYD.M * PW1.M * ESPT(T-0) * #AL46, sealed.
      * AL46 is the only orient-related bit that drops it. */
     TMR(t_arm, hyd_pump_on, drive_arm_delay);
-    arm_ok = hyd_pump_on && !fault_oriented_rotating;
+    arm_ok = hyd_pump_on && !fault_oriented_rotating && !drive_fault;
     if (!arm_ok) {
         drive_arm = false;
     } else if (ELAPSED(t_arm, drive_arm_delay) || drive_arm) {
@@ -255,7 +236,7 @@ FUNCTION(update)
     /* -----------------------------------------------------------------
      * Fault reset. ALRST breaks every alarm seal (sheet 55).
      * ----------------------------------------------------------------- */
-    if (fault_reset) {
+    if (reset_pulse) {
         fault_orient_no_cmd = false;
         fault_orient_timeout = false;
         fault_oriented_rotating = false;
@@ -271,7 +252,7 @@ FUNCTION(update)
      * Sheet 30 rungs 3003/3008 - orient memory SOME2 / unorient UOME2.
      * UOME2 dominates: any cancel condition clears the memory.
      * ----------------------------------------------------------------- */
-    cancel = orient_cancel || fault_reset || !drive_arm;
+    cancel = orient_cancel || reset_pulse || !drive_arm;
     if (cancel) {
         orient_memory = false;
     } else if (orient_request) {
@@ -376,7 +357,7 @@ FUNCTION(update)
     TMR(t_nocmd, sosa && !orcm1, no_cmd_alarm_delay);
     if (ELAPSED(t_nocmd, no_cmd_alarm_delay)) fault_orient_no_cmd = true;
 
-    fault_any = fault_orient_timeout || fault_oriented_rotating
+    fault_any = drive_fault || fault_orient_timeout || fault_oriented_rotating
                 || fault_gear_timeout;
 
     /* -----------------------------------------------------------------

@@ -33,8 +33,9 @@ is the authority. Verbatim points that drive this plan:
   time waiting to receive a packet on most systems, but on at least
   some Marvel-chipset NICs it is harmful. If the line does not
   improve system performance, then remove it." — [hm2_eth(9)](https://linuxcnc.org/docs/2.9/html/man/man9/hm2_eth.9.html)
-- **Firewall.** "hm2_eth uses an iptables chain called
-  'hm2-eth-rules-output'." — [hm2_eth(9)](https://linuxcnc.org/docs/2.9/html/man/man9/hm2_eth.9.html)
+- **Firewall.** Current `hm2_eth(9)` documents automatic, iptables, nftables,
+  and externally managed modes. Verify the mode and startup diagnostics from
+  the installed 2.9.10 build rather than assuming one backend.
 - **`packet-read-timeout` parameter.** "If the value is less than or
   equal to 0, it is interpreted as 80% of the thread period. If the
   value is less than 100, it is interpreted as a percentage of the
@@ -117,32 +118,32 @@ and combined with [2.9.10 notes](https://linuxcnc.org/2026/07/09/LinuxCNC-2.9.10
    backported detection from PR #4022) or a hand-built RT kernel.
    Verify with `uname -r` — the string must contain `-rt-` or
    `PREEMPT_RT`.
-5. Confirm real-time budget: `cat /proc/sys/kernel/sched_rt_runtime_us`
-   should be `-1`; if positive, set it via
-   `/etc/sysctl.d/60-linuxcnc.conf`.
-6. Install `mesaflash` (Mesa's flashing tool), `ethtool` (needed for
+5. Record `uname -a`, `/sys/kernel/realtime` if present, LinuxCNC's reported
+   realtime flavor, and any RT-throttling setting. Do not change a global
+   scheduler sysctl merely because this worksheet suggested a value; validate
+   changes against Debian/LinuxCNC guidance for the installed kernel.
+6. Install `mesaflash` (Mesa's flashing tool), `ethtool` (used for
    `hardware-irq-coalesce-rx-usecs`), and `stress-ng` and
    `linuxcnc-doc-en` for validation.
 
 ## NIC pinning
 
-**This retrofit will use an Intel-chipset NIC pinned to the
-LinuxCNC control PC.** Pin the actual chipset and MAC:
+Record and qualify the actual NIC; the repository has not selected or tested a
+specific chipset:
 
-- [ ] Physical part: **RECORD** during commissioning. Preference
-  order: Intel i225-V (2.5 G, but forced to 100BaseT for the
-  7i80HDT), Intel i210, Intel i219. Avoid Marvell (see caveat
-  above). Avoid Realtek desktop NICs.
+- [ ] Physical part and chipset: **RECORD** during commissioning. Apply the
+  manpage's Marvell coalescing caveat if applicable; do not accept or reject a
+  NIC brand without latency/packet-loss evidence on the installed host.
 - [ ] Interface name at boot: `enp0s31f6` in the current repo docs;
   **verify** with `ip -o link show`.
 - [ ] MAC address: **RECORD** with `ip -o link show <iface>`.
 - [ ] Chipset: **RECORD** with
   `lspci -nn | grep -i ethernet` and
   `ethtool -i <iface> | grep -E "driver|firmware|bus-info"`.
-- [ ] Link negotiated at **100 Mbit/s full-duplex** for the 7i80HDT
-  (the board is 100BaseT per the Mesa 7i80HDT product page —
-  [Mesa 7i80HDT store](https://store.mesanet.com/index.php?product_id=386)).
-  Force with `ethtool -s <iface> speed 100 duplex full autoneg off`.
+- [ ] Confirm the link negotiates **100 Mbit/s full-duplex** for the 100BaseT
+  7i80HDT ([Mesa product page](https://store.mesanet.com/index.php?product_id=386)).
+  Do not force autonegotiation off unless an evidence-backed NIC/board test
+  requires it.
 
 Rename the interface deterministically. In
 `/etc/systemd/network/10-linuxcnc.link`:
@@ -155,8 +156,8 @@ MACAddress=aa:bb:cc:dd:ee:ff
 Name=lcnc0
 ```
 
-Then reference `lcnc0` in `/etc/network/interfaces` and in HAL. This
-removes udev interface-name volatility across kernel updates.
+Then reference `lcnc0` in the host network and host-specific IRQ/offload
+configuration. HAL addresses the board by IP, not by Linux interface name.
 
 ## NIC configuration
 
@@ -201,37 +202,39 @@ net.ipv6.conf.lcnc0.accept_ra = 0
 
 Load with `sudo sysctl --system`.
 
-### ethtool: hardware offloads off
+### Offload/coalescing experiment
 
-The manpage does not mandate this, but hardware offloads (TSO, GSO,
-GRO, LRO) can defer packet processing beyond one thread period and
-cause spurious `packet-error` on cycle boundaries. Set in
-`/etc/network/interfaces` under the `iface` stanza:
+The manpage specifies the `hardware-irq-coalesce-rx-usecs 0` experiment and its
+Marvell exception. It does not mandate a universal offload or ring-buffer
+recipe. Record `ethtool -k`, `ethtool -c`, and `ethtool -g`, then compare
+latency and packet counters before/after each supported change. Persist only
+the settings that improve the actual host. Examples to test individually are:
 
 ```ini
-    post-up /sbin/ethtool -K lcnc0 tso off gso off gro off lro off
-    post-up /sbin/ethtool -K lcnc0 rx off tx off
-    post-up /sbin/ethtool -K lcnc0 sg off
-    post-up /sbin/ethtool -G lcnc0 rx 128 tx 128
-    post-up /sbin/ip link set lcnc0 mtu 1500
+sudo ethtool -K lcnc0 tso off gso off gro off lro off
 ```
 
-MTU stays at 1500 — the 7i80HDT does not use jumbo frames.
+Do not disable RX/TX checksum offload, change ring sizes, force link speed, or
+alter MTU without showing that the NIC supports the setting and that the A/B
+test improves the error/latency record.
 
 ### IRQ affinity
 
-The manpage does not mandate this either, but on a multi-core CPU
-with an isolated real-time core (kernel argument `isolcpus=1,2,3`),
-NIC IRQs should not run on the isolated cores.
+The manpage does not mandate IRQ affinity. If the installed kernel/IRQ topology
+shows the control NIC interrupt sharing a loaded or isolated realtime CPU,
+test a host-specific affinity assignment and record the result. Do not copy an
+example CPU mask or IRQ number into production.
 
 ```bash
 # Find the IRQ number:
 cat /proc/interrupts | grep lcnc0
-# Set affinity to CPU 0:
-echo 1 > /proc/irq/<N>/smp_affinity
+# Record current affinity before any experiment:
+cat /proc/irq/<N>/smp_affinity_list
 ```
 
-Persist via `/etc/systemd/system/set-lcnc-irq.service`:
+If testing proves an affinity change is required, implement a boot-time service
+that resolves the current IRQ dynamically; the following is only a service
+shape, not a complete configuration:
 
 ```ini
 [Unit]
@@ -249,19 +252,11 @@ WantedBy=multi-user.target
 
 ### Firewall
 
-Per the manpage, hm2_eth creates and manages an iptables chain
-`hm2-eth-rules-output`. On Debian 13 with `nftables` as the default,
-either:
-
-- Keep `iptables-nft` compatibility installed
-  (`sudo apt install iptables`), which is the default and lets
-  hm2_eth's iptables invocation work transparently, **or**
-- Add explicit nftables rules that don't block the 192.168.1/24
-  subnet on `lcnc0`.
-
-Verify no `ufw` or `firewalld` DROP rule affects `lcnc0` before
-loading hm2_eth. `iptables -L hm2-eth-rules-output -v` after
-`realtime start` should show the chain populated.
+Current `hm2_eth(9)` documents `firewall=auto|iptables|nft|none`; the default
+selects a usable backend and reports if rule installation fails. Use the mode
+provided by the installed LinuxCNC 2.9.10 build, inspect its startup log, and
+verify that no other firewall manager interferes with `lcnc0`. Do not assume
+the legacy iptables chain exists when the driver selected its nft backend.
 
 ## Real-time validation — multi-hour latency-under-load
 
@@ -276,8 +271,8 @@ Log for **≥ 15 minutes idle**. Record:
 - Base thread jitter (ns).
 - Servo thread jitter (ns).
 - Max servo-thread jitter must be under the servo-thread period.
-  With a 1 ms servo thread, sustained max jitter above 50 µs (5 %)
-  is a red flag.
+  Establish a signed jitter/packet budget for the actual position-loop and
+  following-error settings; this repo does not define a universal 50 µs limit.
 
 Save to `docs/commissioning_logs/latency_baseline_YYYY-MM-DD.txt`.
 
@@ -321,18 +316,20 @@ acceptable rate.
 
 ### Cable-yank test
 
-With LinuxCNC running and jogging, physically disconnect the
-Ethernet cable to the 7i80HDT. Confirm:
-- `packet-error` goes TRUE within 1-2 cycles.
+With field power isolated, both commissioning holds FALSE, and no possible
+machine motion, disconnect the Ethernet cable to the 7i80HDT. Confirm and time:
+- `packet-error` response; do not assume a 1-2-cycle bound.
 - `packet-error-level` climbs to `packet-error-limit`.
 - `packet-error-exceeded` latches TRUE.
 - `hm2_7i80.0.watchdog.has_bit` latches TRUE within the watchdog
   period.
 - **All motion inhibits fire** — see wiring section below.
 
-Reconnect the cable. The condition must **NOT auto-clear**; a
-manual `halcmd setp hm2_7i80.0.packet-error-level 0` and
-watchdog reset must be required before motion resumes.
+Reconnect the cable. The condition must **NOT restore motion automatically**.
+`packet-error-level` is an output pin and cannot be cleared with `setp` as an
+earlier draft claimed. Record and validate the supported driver/watchdog reset
+or controlled LinuxCNC restart procedure, then require the normal manual E-stop
+reset before motion can resume.
 
 ## Wiring into the E-stop / motion-inhibit chain
 
@@ -342,16 +339,12 @@ packet-error latch to that chain as follows in
 `linuxcnc/mazak_vqc_20_40.hal` (or in a new
 `linuxcnc/hm2_eth_healthcheck.hal` sourced from the main HAL):
 
-```hal
-# hm2_eth health check
-# Any packet-error-exceeded latch or watchdog trip drops all motion
-# permits and prevents drive enable.
-net hm2_eth_bad     hm2_7i80.0.packet-error-exceeded  =>  or2.hm2fault.in0
-net hm2_eth_wdog    hm2_7i80.0.watchdog.has_bit       =>  or2.hm2fault.in1
-net hm2_eth_fault   or2.hm2fault.out                  =>  and2.motion-permit.in-not
-
-# and2.motion-permit.out already feeds axis-enable per estop_safety_chain.md.
-```
+The active implementation is the `Safety watchdog` block in
+`linuxcnc/mazak_vqc_20_40.hal`. It ORs
+`packet-error-exceeded` and `watchdog.has_bit`, feeds the active-high result
+to `estop-latch.0.fault-in`, inverts it with a one-input NAND, and AND-gates
+all joint enable requests with the resulting `motion-permit`. The inverter is
+scheduled before the enable gates and the HostMot2 write.
 
 Verified pin availability from the [hm2_eth(9) manpage](https://linuxcnc.org/docs/2.9/html/man/man9/hm2_eth.9.html)
 and the existing `estop_safety_chain.md`.
@@ -362,20 +355,13 @@ still the authority for de-energizing motion.
 
 ## packet-error-limit and packet-read-timeout tuning
 
-The manpage documents the following parameters. Set as follows and
-document actual values in the log:
-
-- `hm2_7i80.0.packet-error-limit = 200` (default is manpage-defined,
-  but explicitly setting it means the config is portable).
-- `hm2_7i80.0.packet-error-decrement = 1`
-- `hm2_7i80.0.packet-error-increment = 10`
-- `hm2_7i80.0.packet-read-timeout = 0` (interpreted as 80 % of
-  thread period, per manpage).
-
-Rationale: a rare single-packet glitch (increment=10) will decrement
-back to 0 in ~10 clean cycles. A sustained pattern of glitches (say
-5 % of cycles) reaches limit=200 in ~4 seconds. That is well below
-any interesting cut time and gives ample early warning.
+The manpage documents `packet-error-limit`, `packet-error-decrement`,
+`packet-error-increment`, and `packet-read-timeout`; it does not prescribe
+production values for this machine. First record the installed defaults. Test
+candidate values under load and cable-loss fault injection, document the
+resulting trip/recovery behavior, and persist only a reviewed set. A
+`packet-read-timeout` value of 0 means 80% of the thread period, but that
+definition alone does not prove it is optimal for this NIC/CPU.
 
 ## Deferred / TBD
 
@@ -385,14 +371,6 @@ any interesting cut time and gives ample early warning.
   above but not yet checked into the repo — it belongs in the
   commissioning phase because the IRQ number is host-specific and
   determined at first boot.
-
-## What has changed in the repo (this commit)
-
-- New `docs/hm2_eth_nic_validation.md` (this document).
-- `docs/project_status.md` — TODO added for the multi-hour latency
-  test and the packet-error-into-motion-permit HAL wiring.
-- `linuxcnc/README.md` — commissioning step 1 now points at this
-  document for the NIC configuration and validation sequence.
 
 ## Sources (all URLs cited inline above)
 

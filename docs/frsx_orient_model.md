@@ -20,10 +20,10 @@
 
 ## Standing position
 
-**The audit is correct.** The retrofit does not (and cannot) command
-the FR-SX orient position through an analog voltage. AOUT4 is now
-documented as SPARE. This document establishes the authoritative model
-for how orient is actually issued, monitored, and dropped.
+The active retrofit design does not command orient position through an analog
+voltage. AOUT4 is spare and ORCM1 is a discrete output. This is the active
+control model, but the exact FR-SX terminal mapping remains unverified until
+the drive nameplate, terminal strip, and matching primary manual are captured.
 
 ## What the Mitsubishi documentation actually says
 
@@ -111,21 +111,25 @@ Practical translation for this retrofit:
 
 ## How this retrofit issues, monitors, and drops orient
 
-The physical signal path is already in place in the HAL, matching the
-OEM wire-tag survey:
+The logical assignments are present in HAL. They remain PROPOSED or
+COMMISSIONING_PENDING in `mesa/current_pin_authority.csv`; this table is not a
+claim that the field wiring or FR-SX terminals have been proven:
 
 | Signal | Direction | Field wire | Retrofit terminal |
 |---|---|---|---|
-| ORCM1 orient command | LinuxCNC → FR-SX | Y093 ORCM1.M | 7i84U-B TB3 **OUT4** (via interposing relay to the FR-SX ORC input) |
-| CTL low-gear select | LinuxCNC → FR-SX | Y094 CTL.M | 7i84U-B TB3 **OUT5** |
-| GSH high-gear solenoid | LinuxCNC → hydraulics | Y00B GSH.M | 7i84U-B TB3 **OUT7** |
-| ZS1 spindle zero-speed | FR-SX → LinuxCNC | CN6 ZS1 | 7i84U-B TB3 IN (per pin map) |
-| SSET spindle set / orient arrival | FR-SX → LinuxCNC | CN6 SSET | 7i84U-B TB3 IN (per pin map) |
+| ORCM1 orient command | LinuxCNC → FR-SX | Y093 ORCM1.M | 7i84U-A TB3 **OUT4** (planned interposing relay; exact drive terminal unverified) |
+| CTL low-gear select | LinuxCNC → FR-SX | Y094 CTL.M | 7i84U-A TB3 **OUT5** |
+| GSH high-gear solenoid | LinuxCNC → hydraulics | Y00B GSH.M | 7i84U-A TB3 **OUT7** |
+| ORA1 orient arrival | FR-SX → LinuxCNC | X003 ORA1 | 7i84U-A TB3 **IN4** (exact drive terminal unverified) |
+| SZS spindle zero-speed | FR-SX → LinuxCNC | X001 SZS.M | 7i84U-A TB3 **IN5** (exact drive terminal unverified) |
+| Speed reach | FR-SX → LinuxCNC | archived signal identity pending trace | 7i84U-A TB3 **IN13** |
+| FR-SX alarm | FR-SX → LinuxCNC | archived signal identity pending trace | 7i84U-A TB3 **IN14** |
+| SSET drive arm/permissive | LinuxCNC → FR-SX | Y092 SSET.M | **Unassigned and physically unbound** pending proof that it is required |
 
 References:
 - OEM wire-tag survey with CN6/CN5/CN11 pin table:
   [`docs/photo_survey_misc.md`](photo_survey_misc.md)
-- 7i84U-B pin/output allocation:
+- 7i84U-A/B field-I/O allocation:
   [`linuxcnc/field_7i84u.hal`](../linuxcnc/field_7i84u.hal)
 - ATC/orient HAL nets:
   [`linuxcnc/atc_orient.hal`](../linuxcnc/atc_orient.hal)
@@ -139,34 +143,34 @@ against the OEM ladder rungs transcribed under
 [`docs/ladder/orient_ladder_transcription.md`](ladder/orient_ladder_transcription.md)):
 
 1. **Prerequisites gate**
-   - Drive READY (`SET1` && `SET2`) asserted.
-   - No E-stop, no drive-fault.
-   - Spindle command speed set to zero (or a defined low-orient speed
-     if the OEM ladder uses one — verify against the transcription).
-   - Correct gear range selected and confirmed (CTL for low; GSH for
-     high). Orient in the wrong gear range is refused.
-   - Optional: wait for `ZS1` (zero-speed feedback) before asserting
-     ORCM1 if the OEM ladder requires it.
-2. **Assert ORCM1** (OUT4). ORC has priority over SFR/SRV per the
-   drive manual, but the ladder-transcribed sequence should be
-   preserved — do not drop the run bits before ORCM1 unless the OEM
-   sequence does so.
-3. **Debounce arrival**: `SSET` (orient arrival) must be TRUE for a
-   configurable dwell (default 100 ms; adjustable via
-   `mazak-orient.arrival-debounce-ms`) before the component reports
-   `orient-done`.
-4. **Timeout**: if `SSET` does not assert stably within
-   `[SPINDLE] ORIENT_TIMEOUT` seconds (currently 15.0 in
-   `mazak_vqc_20_40.ini`), raise `mazak-orient.orient-fault` and log.
+   - `machine-ready`, `servo-ready`, and `estop-ok` are TRUE and
+     `spindle-fault` is FALSE. These polarities are fail-off placeholders until
+     field verified.
+   - A zero-speed dwell is required before any needed gear shift, then the
+     selected gear's confirmation input must be TRUE.
+   - The active `spindle-motion-permit` additionally requires the static
+     commissioning hold, watchdog health, LinuxCNC machine-on, and no indicated
+     spindle fault before a physical FR-SX command can energize.
+2. **Assert ORCM1** (7i84U-A OUT4). The component asserts its logical command
+   only after the selected gear confirms and the gear-shift state is inactive;
+   HAL then gates the physical output with `spindle-motion-permit`.
+3. **Debounce arrival**: `ORA1` (`spindle-oriented`, 7i84U-A IN4) must remain
+   TRUE for `mazak-orient.arrival-debounce` (currently 0.3 s). The value is
+   unverified because the OEM timer base has not been established.
+4. **Timeout**: the component raises AL45 after
+   `mazak-orient.orient-timeout` (currently 10.0 s) without a debounced arrival.
+   The remap has a separate outer `[ATC] ORIENT_TIMEOUT` wait of 15.0 s so the
+   component alarm should occur first. Both values require machine measurement.
 5. **De-assert ORCM1** when the remap or operator drops the orient
    request. Per the drive manual, dropping ORC returns to run-at-speed
    if SFR/SRV is still asserted, or to free-run if neither run bit is
    asserted. `mazak_orient.comp` must not assume the drive
    automatically brakes to a stop when ORCM1 drops.
-6. **Fault handling**: any drop of drive READY or any drive-fault
-   during orient must immediately drop ORCM1, SFR, SRV, and any
-   in-flight ATC step. Recovery requires a reset (see
-   [`docs/estop_safety_chain.md`](estop_safety_chain.md)).
+6. **Fault handling**: loss of machine-ready, servo-ready, or E-stop health
+   drops the component drive-arm and ORCM1. An indicated spindle fault also
+   removes the dynamic permit from FWD, REV, RUN, ORCM1, and the analog-output
+   enable, feeds `mazak-orient.drive-fault`, and asserts the ATC abort path.
+   These are software interlocks; the hardwired E-stop chain remains primary.
 
 ### Arrival timing budget
 
@@ -179,17 +183,11 @@ depends on:
   encoder orient).
 - Detector type (magnetic single-point vs encoder multi-point).
 
-Practical field expectations from experience with FR-SF-class drives:
-
-| Mode | Typical arrival time (from ORC, spindle already at low speed) |
-|---|---|
-| Magnetic sensor, single-point | ~200-400 ms |
-| Encoder, multi-point | ~150-300 ms |
-
-Set `[SPINDLE] ORIENT_TIMEOUT = 15.0` — well above these numbers but
-short enough that a stuck ORCM1 raises a fault instead of hanging the
-tool-change. This should be re-tuned once we measure actual arrival
-time on the machine.
+No supported source establishes an arrival-time range for this exact FR-SX,
+motor, detector, gearbox, and machine inertia. Record commanded speed, gear,
+ORCM1 edge, ORA1 edge, and repeatability on the machine. Set the component
+watchdog from those measurements, then keep the remap's outer wait longer than
+the component watchdog.
 
 ## What has changed in the repo
 
@@ -201,25 +199,27 @@ time on the machine.
 3. **`linuxcnc/README.md`** — the 7i49 line no longer claims AOUT4
    carries an orient reference; it now points here.
 4. **`linuxcnc/atc_orient.hal`** — the ORCM1 discrete output on
-   7i84U-B TB3 OUT4 is already the orient command path and is
+   7i84U-A TB3 OUT4 is already the orient command path and is
    unchanged.
 
 ## Follow-up work required
 
-- [ ] Transcribe OEM ladder rungs (28xx-29xx) for orient/gear to
-  confirm the exact ORCM1 / CTL / SSET / ZS1 sequencing before we
-  rewrite `mazak_orient.comp` (already tracked in the crosswalk
-  summary).
+- [ ] Validate the existing orient/gear transcription and
+  `mazak_orient.comp` against readable OEM sheets 28xx-30xx and 55xx; resolve
+  every ambiguous contact, timer base, and SSET/SET1/SET2 identity before live
+  operation.
 - [ ] Verify from the FR-SX drive nameplate and its parameter dump
   which detector mode is provisioned on this machine (magnetic
   sensor on CN6, external encoder on CN6, or PLG on CN5). The physical
   cabling determines which `#41 OSL` / `SP037` bits are valid; the
   ladder transcription and orient tuning depend on this.
 - [ ] Measure actual orient arrival time in low gear once orient is
-  wired end-to-end and set `ORIENT_TIMEOUT` / arrival debounce
+  wired end-to-end and set `mazak-orient.orient-timeout`,
+  `mazak-orient.arrival-debounce`, and the outer `[ATC] ORIENT_TIMEOUT`
   appropriately.
-- [ ] Regenerate the 7i80HDT firmware with `num_pwmgens = 3` (drop the
-  unused pwmgen.04/05 pair) at the next Mesa firmware refresh.
+- [ ] Keep `num_pwmgens = 4` while AOUT3 supplies the spindle velocity
+  command. Four instances are pwmgen.00-.03; reducing the count to three
+  would remove the spindle command rather than an unused channel.
 
 ## Sources
 
@@ -232,5 +232,5 @@ time on the machine.
 - Repo cross-references (internal): `docs/photo_survey_misc.md`,
   `docs/crosswalk/element_dashboard_crosswalk_summary.md`,
   `linuxcnc/atc_orient.hal`, `linuxcnc/field_7i84u.hal`,
-  `linuxcnc/mazak_vqc_20_40.ini` (`[SPINDLE] ORIENT_TIMEOUT`),
+  `linuxcnc/mazak_vqc_20_40.ini` (`[ATC] ORIENT_TIMEOUT`),
   `docs/estop_safety_chain.md`, `docs/dc_bus_stop_fault.md`.

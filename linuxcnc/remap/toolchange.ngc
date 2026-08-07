@@ -36,9 +36,7 @@
 (    P5  atc-cycle-finish     -> mazak-atc.cycle-finish      (AFINPLS)   )
 (    P6  orient-req           -> mazak-orient.orient-request (SOME2)     )
 (    P7  orient-cancel        -> mazak-orient.orient-cancel  (UOME2)     )
-(    P8  atc-abort-pulse      -> or2.1.in0 -> mazak-atc.cycle-abort     )
-(        Raised ONLY by remap/on_abort.ngc during ON_ABORT_COMMAND      )
-(        cleanup. Do NOT toggle P8 from toolchange.ngc.                 )
+(    P8  atc-abort-request    -> mazak-atc.cycle-abort                     )
 (                                                                        )
 (  INPUTS   M66 P<n> L3 Q<sec> waits for HIGH, result in #5399           )
 (           (#5399 = 1 satisfied, -1 timed out)                          )
@@ -121,6 +119,18 @@ o<toolchange> sub
     M72                        ( restore modal state saved by M70          )
     o<toolchange> return [1]
   o<tc_dryrun> endif
+
+  ( Clear the latched abort request and every stale command from a previous )
+  ( interrupted cycle before asserting TCME. on_abort.ngc leaves P8 high.   )
+  M65 P0
+  M65 P1
+  M65 P2
+  M65 P3
+  M65 P4
+  M65 P5
+  M65 P6
+  M65 P7
+  M65 P8
 
   (  ------------------------------------------------------------------ )
   (  Cycle entry - sheet 65. TCME extends the barrier and holds feed.    )

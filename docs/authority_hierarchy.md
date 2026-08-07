@@ -172,6 +172,11 @@ file in `linuxcnc/` and checks:
 6. **Every CSV row with a non-empty `hal_net` has a corresponding HAL
    binding.** No binding is a WARN, not an ERROR, because signals can
    be planned in the CSV before their HAL logic is written.
+7. **All 96 physical 7i84U input/output terminals have exactly one row.**
+   Aggregate spare ranges and out-of-range/duplicate terminals are errors.
+8. **Active 7i49 resolver-position and pwmgen-value bindings match RES/AOUT
+   rows**, the capacity table matches the exact allocation, and every allocated
+   7i84U-B terminal is present in the printable terminal legend.
 
 **Exit code.** `0` if no ERRORS; `1` if any ERROR. Warnings do not fail
 the check.
@@ -188,20 +193,16 @@ CSV rows, unique HAL pin references, ERRORS, and WARNINGS.
 
 ### 4.1 Current scope
 
-The v1 validator understands only 7i84U-A and 7i84U-B smart-serial pin
-references of the form
-`hm2_7i80.0.7i84.0.<port>.<input|output>-<NN>`. That covers where the
-vast majority of field-I/O authority lives.
+The authority validator covers 7i84U-A/B smart-serial terminals plus active
+7i49 resolver `.position` and pwmgen `.value` bindings. The companion
+`scripts/validate_control_logic.py` rejects active direct P3 GPIO and spindle
+encoder bindings while P3 is empty, checks duplicate signal writers and
+real-time module loads, verifies servo-thread ordering, and enforces the
+spindle/Z/ATC commissioning holds and abort paths.
 
-Not yet validated:
-
-- 7i80HDT direct P3 GPIO pin references
-  (`hm2_7i80.0.gpio.NNN.*`).
-- 7i49 resolver and analog pin references
-  (`hm2_7i80.0.resolver.NN.*`, `hm2_7i80.0.pwmgen.NN.*` in analog mode).
-
-The intended extension path is to widen the physical-pin regex and
-add a per-card CSV lookup, keeping the same rule set.
+Neither script can prove real generated HAL pin names, electrical polarity,
+timing, component compilation, or machine behavior. Those require the verified
+bitfile, `readhmid`/HAL dumps, LinuxCNC startup, and physical fault injection.
 
 ## 5. Change workflow
 
@@ -215,7 +216,8 @@ For any edit that changes what a physical pin does:
    the new pin if the pin changed. If the CSV moves the pin to
    `HOLD_CONFLICT` or `SPARE`, comment out the active `net` binding in
    HAL.
-3. Run `python3 scripts/validate_authority.py`. It must exit 0.
+3. Run `python3 scripts/validate_authority.py` and
+   `python3 scripts/validate_control_logic.py`. Both must exit 0.
 4. Commit both files in one commit. The commit message should name the
    pin and the reason (e.g. `hal, mesa: reassign 7i84U-A OUT12 from
    lube-on to mist-coolant (HOLD_CONFLICT until cabinet trace)`).

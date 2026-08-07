@@ -100,7 +100,7 @@ Note: the M92 bit is labeled SDSA on some rungs and SOSA on others — same elem
 |---|---|---|
 | X003 ORA1 | 7i84U IN4 | spindle-oriented |
 | X001 SZS.M | 7i84U IN5 | spindle-zero-speed |
-| Y093 ORCM1.M | 7i84U OUT4 | spindle-orient-cmd |
+| Y093 ORCM1.M | 7i84U-A OUT4 | spindle-orient-cmd |
 | Y094 CTL.M | 7i84U OUT5 | orient-lo-gear |
 | Y096 HYD.M | 7i84U OUT3 | hyd-pump-on |
 | Y092 SSET.M | — unassigned | candidate for TB5 SSR OUT5 (see below) |

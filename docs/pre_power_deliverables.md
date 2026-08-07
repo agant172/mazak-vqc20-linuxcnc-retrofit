@@ -67,6 +67,15 @@ their name attached, or countersigned PDF).
 The status column in the table below is a **planning state**, not
 an evidence claim — it says whether the deliverable exists yet.
 
+The checked-in HAL also contains two deliberate fail-off commissioning holds:
+`drive-output-permit` gates all three axis drive enables and
+`spindle-output-permit` feeds a dynamic gate covering FWD, REV, RUN, ORCM1,
+and the spindle analog-output enable. The dynamic gate also requires watchdog
+health, E-stop health, machine-on, servo-ready, and no indicated spindle fault.
+Both static holds initialize FALSE. A hold may be changed to TRUE only in a
+reviewed commissioning edit after the corresponding signed hold point below;
+it must never be bypassed with an ad-hoc `halcmd sets` instruction.
+
 ### D1 — As-built one-line and terminal plan
 
 - **Contents required:** electrical one-line for the retrofit
@@ -158,9 +167,13 @@ an evidence claim — it says whether the deliverable exists yet.
      states.
   3. Every input is exercised at its physical source (switch,
      sensor, prox) and the HAL pin toggle observed.
-  4. Every output is exercised via `halcmd setp` and the load
-     verified (motor rotation, coil energisation, indicator
-     light).
+  4. Every output is exercised one at a time through a reviewed,
+     low-energy checkout path and the intended load is verified. Linked
+     output pins must be commanded through their normal HAL request path;
+     do not use `halcmd setp` to bypass the axis/spindle commissioning holds
+     or the component interlocks. An unbound proposed output requires a
+     temporary checkout configuration that is reviewed and removed after
+     the test.
   5. The sheet is signed and dated by the person performing the
      test.
 - **Owner:** retrofit commissioner. **Status:** NOT YET DRAFTED.
@@ -202,12 +215,16 @@ an evidence claim — it says whether the deliverable exists yet.
   Mitsubishi TRA DC-bus stack up (precharge sequence), how to
   discharge it safely, how regen is handled, how to lock out
   for service, and the measured safe-discharge time from
-  operating voltage to <50 V.
+  operating voltage to the touch-safe/service threshold specified by the
+  identified Mitsubishi bus documentation and the site's lockout procedure.
+  No numeric threshold is assumed until those sources are captured.
 - **Acceptance criteria:**
   1. Precharge sequence documents the contactor / resistor /
      bypass timing.
-  2. Discharge test log shows time from at-rest and from
-     post-rapid-decel to <50 V. Measured, not calculated.
+  2. Discharge test log shows time from at-rest and from post-rapid-decel to
+     the documented service threshold. Record the source for that threshold
+     and the measured voltage/time trace; do not substitute a calculated
+     decay time.
   3. Regen path documented (does the machine dump to a resistor,
      or return to bus?).
   4. Lockout procedure documented per OSHA / lockout-tagout
@@ -224,36 +241,16 @@ an evidence claim — it says whether the deliverable exists yet.
 - **Contents required:** timing diagram covering normal stop,
   hardware E-stop, mains loss, NIC loss, and single-axis fault.
   Each timing must show S-ON deassert, brake command, brake
-  physical drop time, and drive coast time. In addition, the two
-  Z-brake asymmetric-sequencer timing constants used in HAL
-  (`timedelay.0.on-delay` = `T_torque_build`; `timedelay.1.off-delay`
-  = `T_brake_engage`) must be measured **separately** — they are
-  physically distinct quantities and are both currently placeholder
-  100 ms in `linuxcnc/field_7i84u.hal` and
-  `mesa/current_pin_authority.csv:Z_BRAKE_REL_ENABLE`.
+  physical drop time, and drive coast time.
 - **Acceptance criteria:**
   1. Diagram for each of the five stop conditions above.
-  2. Brake drop time (mechanical engagement, i.e. `T_brake_engage`)
-     measured from the SOL-201 solenoid (N1J-L2-201 Z brake release)
-     under representative Z head load, with scope traces saved to
-     `docs/commissioning_logs/z_brake_traces/`.
-  3. Drive torque-build time (`T_torque_build`) measured from S-ON
-     assert to DK-427 rated holding torque available on the Z motor
-     shaft, with scope traces of the DK-427 SERVO_READY (or an
-     equivalent tach/current signal) and the S-ON output relay.
-  4. Coast time measured from drive spec sheets, cross-checked
-     against a hardwired-E-stop test (Section 2 above; bypasses the
-     HAL sequencer entirely).
-  5. E-stop timing verified against the fault-injection matrix.
-  6. HAL timedelay values (`timedelay.0.on-delay`,
-     `timedelay.1.off-delay`) updated with measured `T_torque_build`
-     and `T_brake_engage` — add ~50 % margin per side, then bench-
-     verify head does NOT drop on either edge with the drives
-     energised and a representative load on the Z spindle.
-- **Owner:** retrofit commissioner. **Status:** PARTIAL —
-  [`estop_safety_chain.md`](estop_safety_chain.md) covers the
-  E-stop chain; the timing budget for the five stop conditions
-  is not yet drawn.
+  2. Brake drop time measured from the SOL-201 solenoid
+     (N1J-L2-201 Z brake release) datasheet or measurement.
+  3. Coast time measured from drive spec sheets.
+  4. E-stop timing verified against the fault-injection matrix.
+- **Owner:** retrofit commissioner. **Status:** TEMPLATE DRAFTED —
+  [`stop_timing_budget.md`](stop_timing_budget.md); physical measurements are
+  not yet captured.
 - **Where it lands:** `docs/stop_timing_budget.md`.
 - **Blocks:** amp-enable hold point, brake-release hold point.
 
@@ -276,13 +273,13 @@ an evidence claim — it says whether the deliverable exists yet.
      `docs/commissioning_logs/resolver_traces/`.
   5. Signed scale value populated in
      [`../linuxcnc/mazak_vqc_20_40.ini`](../linuxcnc/mazak_vqc_20_40.ini).
-  6. Independent-travel test: command a 25 mm move via HAL
-     jog, measure the actual travel with a dial indicator, and
-     confirm the resolver count agrees.
-- **Owner:** retrofit commissioner. **Status:** PARTIAL —
-  [`linuxcnc/README.md`](../linuxcnc/README.md) bring-up step 3
-  drafts the procedure; scope traces and signed scale not yet
-  captured.
+  6. Independent scale/direction proof with drive torque disabled: move the
+     mechanism by an approved manual/service method over a measured distance
+     or rotate the screw a known number of turns, then compare resolver counts
+     and dial-indicator travel. A powered commanded move belongs to D9.
+- **Owner:** retrofit commissioner. **Status:** PROCEDURE DRAFTED —
+  [`resolver_commissioning.md`](resolver_commissioning.md); per-axis suffixes,
+  scope traces, and signed scales are not yet captured.
 - **Where it lands:** `docs/resolver_commissioning.md` and
   scope traces under `docs/commissioning_logs/`.
 - **Blocks:** first-motion hold point.
@@ -291,25 +288,28 @@ an evidence claim — it says whether the deliverable exists yet.
 
 - **Contents required:** one-axis, low-clamp, direction-proof
   first motion. Specifies which axis moves first, the analog
-  clamp value that limits torque, the direction to be commanded
+  command clamp and resulting speed bound, the direction to be commanded
   first, a reachable E-stop, the mechanical clearance zone, the
   following-error limit, and the rollback criteria.
 - **Acceptance criteria:**
-  1. Axis chosen (Z first is conventional — lowest inertia,
-     brake already engaged, gravity assists rollback).
-  2. Analog clamp value written into the HAL (e.g. clamp
-     `motor-cmd` to ±0.5 V for first move).
+  1. Axis chosen from a documented hazard/clearance review. Do not choose Z
+     first by convention; the gravity axis remains blocked until brake
+     sequencing and holding capacity are proven.
+  2. Analog-command clamp written into HAL and converted to measured voltage
+     and predicted maximum speed. It limits velocity command, not motor torque.
   3. Direction pre-computed from the resolver phasing (D8).
   4. E-stop button within reach of the operator standing at the
      commanded direction of motion.
-  5. Clearance: the axis has at least 100 mm of travel in the
-     commanded direction before any hard stop.
-  6. Following-error limit set aggressively low (0.5 mm) so a
-     wrong-direction move faults fast.
+  5. Clearance exceeds the measured worst-case stop distance plus a signed
+     margin; this repo does not prescribe a universal distance.
+  6. Following-error limit trips a direction/scale fault before the clearance
+     margin is consumed but remains above verified feedback/noise error.
   7. Rollback: if any of `packet-error-exceeded`, `watchdog`,
      following-error, or E-stop trips, the operator does not
      retry until the log is reviewed.
-- **Owner:** retrofit commissioner. **Status:** NOT YET DRAFTED.
+- **Owner:** retrofit commissioner. **Status:** PROCEDURE DRAFTED — machine-
+  specific values and signatures remain blank in
+  [`first_move_plan.md`](first_move_plan.md).
 - **Where it lands:** `docs/first_move_plan.md`.
 - **Blocks:** first-motion hold point.
 
@@ -346,9 +346,9 @@ an evidence claim — it says whether the deliverable exists yet.
      activation.
   3. Home strategy documented (which axis first, in which
      direction).
-  4. Stop-distance margin: rapid velocity divided by
-     `MAX_ACCELERATION` gives the minimum stop distance;
-     limit-switch position must exceed this by 20 %.
+  4. Stop-distance margin measured under commanded stop, drive-fault, E-stop,
+     and power-loss cases. A velocity/acceleration calculation may be a
+     lower-bound check but is not acceptance evidence.
 - **Owner:** retrofit commissioner. **Status:** PARTIAL — Y
   envelope covered by [`y_soft_limit_atc_zone.md`](y_soft_limit_atc_zone.md);
   X and Z envelopes and stop-distance measurements not yet
@@ -367,16 +367,17 @@ an evidence claim — it says whether the deliverable exists yet.
      forward), SRV asserted (spindle reverse), ORCM1 asserted
      (orient), gear change (high/low SOL-12/SOL-13), and
      fault.
-  2. Every transition has a debounce time (default 50 ms) and a
-     timeout (default 5 s for orient arrival).
+  2. Every transition has a measured or manufacturer-justified debounce
+     interval and timeout. No generic 50 ms debounce or 5 s orient timeout is
+     assumed; record the selected values and the evidence used to choose them.
   3. Failure cleanup: what happens if orient never arrives, if
      zero-speed never asserts, if the drive faults mid-move.
   4. Signal terminal designations from the FR-SX manual page,
      not inferred.
-- **Owner:** retrofit commissioner. **Status:** PARTIAL —
-  [`frsx_orient_model.md`](frsx_orient_model.md) documents the
-  orient model; the full state diagram and gear-change flow are
-  not yet drawn.
+- **Owner:** retrofit commissioner. **Status:** DIAGRAM DRAFTED —
+  [`frsx_state_diagram.md`](frsx_state_diagram.md) and
+  [`frsx_orient_model.md`](frsx_orient_model.md); exact terminals,
+  polarities, and measured timing are still open.
 - **Where it lands:** `docs/frsx_state_diagram.md`.
 - **Blocks:** spindle-rotation hold point.
 
@@ -392,35 +393,11 @@ an evidence claim — it says whether the deliverable exists yet.
   1. Hazard list: pinch points, tool-drop risk, magazine
      motion, ATC arm swing.
   2. Dry-cycle fixture designed and photographed.
-  3. Mutual-exclusion proof: for each pair of mutually
-     exclusive HAL outputs, an interlock net exists in the HAL
-     that prevents both from being TRUE. Verified by
-     `halcmd setp` injection tests.
+  3. Mutual-exclusion proof: for each pair of mutually exclusive HAL outputs,
+     an interlock exists and is verified in a dedicated no-hardware test
+     configuration. Do not `setp` linked hm2 pins in the active machine HAL.
   4. Abort scenario: E-stop mid-tool-change leaves the machine
      in a state that can be safely recovered manually.
-  5. **ON_ABORT_COMMAND cleanup (audit 2026-08-07 rev3):** at
-     every step of `remap/toolchange.ngc` (after P0, P1, P2,
-     P3, P4, P5, P6, P7 have been asserted in turn) trigger
-     each of the four abort sources below in a dry-cycle
-     fixture with `[ATC] DRY_RUN = 1` and confirm via `halcmd
-     show sig` that motion.digital-out-00..07 all read FALSE
-     and the mapped comp outputs (atc_barrier, mag_cover_sol,
-     tool_unclamp_sol, mag_fwd_sol, mag_rev_sol,
-     spindle_orient, orient_lo_gear) all read FALSE within
-     500 ms of the trigger:
-     - Operator Abort button (halui.abort)
-     - E-stop trip (estop-latch fault-in)
-     - M66 timeout inside toolchange.ngc (force by setting
-       the matched `M66 P<n>` input FALSE and letting the
-       `Q<t>` guard expire, so `(abort, ATC: ...)` fires)
-     - Motion fault (halcmd setp injection on
-       `hm2_7i80.0.watchdog.has_bit` or joint following-error
-       trigger)
-     Record halscope traces of `atc-abort-pulse`,
-     `atc-cycle-abort`, and each of the eight NGC outputs for
-     each of the 4 sources x 8 assertion points = 32 shots.
-     Passing test = every output drops FALSE within one servo
-     cycle of atc-cycle-abort going TRUE.
 - **Owner:** retrofit commissioner. **Status:** NOT YET DRAFTED.
   `[ATC] DRY_RUN = 1` remains set in the INI per
   [`y_soft_limit_atc_zone.md`](y_soft_limit_atc_zone.md) until
@@ -469,9 +446,9 @@ an evidence claim — it says whether the deliverable exists yet.
   4. "Known-safe" tag: a signed dated tag applied to the M-2
      cabinet stating what was left as-is at the moment the
      retrofit began.
-- **Owner:** machine owner. **Status:** PARTIAL — parameter
-  recovery drafted; photograph and wire-ledger portions not
-  yet captured.
+- **Owner:** machine owner. **Status:** TEMPLATE DRAFTED —
+  [`restore_rollback_package.md`](restore_rollback_package.md); parameter
+  recovery is partial and photograph/wire-ledger evidence is not captured.
 - **Where it lands:** `docs/restore_rollback_package.md` plus
   `docs/photos/m2_cabinet/`.
 - **Blocks:** control-power hold point (partially — you should

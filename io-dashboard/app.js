@@ -127,8 +127,8 @@
     { id: 'ALL', name: 'All signals', sub: 'authority + config' },
     { id: '7i80HDT', name: '7i80HDT', sub: 'Ethernet FPGA host' },
     { id: '7i44',    name: '7i44',    sub: 'RS-422 sserial on P1' },
-    { id: '7i84U-A', name: '7i84U-A', sub: 'sserial field I/O on port 0' },
-    { id: '7i84U-B', name: '7i84U-B', sub: 'safety and relay I/O on port 1' },
+    { id: '7i84U-A', name: '7i84U-A', sub: 'sserial field I/O on channel 0' },
+    { id: '7i84U-B', name: '7i84U-B', sub: 'limit/home and relay I/O on channel 1' },
     { id: '7i49', name: '7i49', sub: 'resolver interface' },
     { id: 'none', name: 'Unassigned', sub: 'no hardware allocated' },
     { id: 'CONFLICTS', name: 'Conflicts / unverified', sub: 'hold before wiring', tone: 'conflict' }

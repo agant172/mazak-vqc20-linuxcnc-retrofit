@@ -42,7 +42,7 @@ during the change (`ATCFHDME`, rung 6701) for free.
 | Rung | Element | Implementation |
 |---|---|---|
 | 2302 | HYD.M (Y096) | `hyd_pump_on = machine_ready && servo_ready && estop_ok` |
-| 2304/2305 | T-0 → SSET.M (Y092) | `drive_arm`, on-delay `drive-arm-delay`, sealed, dropped only by AL46 |
+| 2304/2305 | T-0 → SSET.M (Y092) | `drive_arm`, on-delay `drive-arm-delay`, sealed; dropped by loss of the machine/servo/E-stop permissive, AL46, or the external FR-SX fault input |
 | 2806–2809 | M38CD/M39CD, HSR/LSR | **not** in the comp — `gear-select-hi/lo` are inputs, driven in HAL from commanded RPM (`comp` block in `atc_orient.hal`) |
 | 2901 | GSFTC gear shift command | `shift_pending`, set when the target PRS is not made and a range or the orient memory is active |
 | 2902/2904 | GSFME / GSF.N | `gear_shifting` = pending-and-unconfirmed, or neither PRS made |
@@ -88,7 +88,8 @@ during the change (`ATCFHDME`, rung 6701) for free.
 | D-4 / E-3 / F-3 | Z to ref-1, `M65 P2`, `M66 P2` (clamp confirmed) |
 | D-5 / F-4 | retract, close cover, `M66 P7` |
 | AFINPLS (3007) | `M64 P5` finish pulse, `M64 P7` unorient, `M65 P0` |
-| OTNEG.N (7505) | not implemented — set the soft limits to include the toolchange positions instead (ATC doc note 6) |
+| Abort / E-stop | `ON_ABORT_COMMAND` calls `on_abort.ngc`; P8 drives `cycle_abort`, P0-P7 are cleared, and no recovery motion is attempted |
+| OTNEG.N (7505) | not implemented — normal Y soft limit remains +0.0394 and `DRY_RUN=1` blocks the live change until the dedicated ATC-zone permit is implemented |
 | INTF.N / INTF2.N | not implemented — plain clearance move; needs tool-length-aware Z (ATC doc open question #3) |
 
 ## Digital pin map (M62–M66)
@@ -105,6 +106,7 @@ Requires `num_dio=16` on the `motmod` loadrt line.
 | out | P5 | `atc-cycle-finish` | `mazak-atc.cycle-finish` (AFINPLS) |
 | out | P6 | `orient-req` | `mazak-orient.orient-request` (SOME2) |
 | out | P7 | `orient-cancel-req` | `mazak-orient.orient-cancel` (UOME2) |
+| out | P8 | `atc-abort-request` | ORed with inverted `estop-ok` and `spindle-fault` into `mazak-atc.cycle-abort` |
 | in | P0 | `atc-step1-permit` | `mazak-atc.step1-permit` |
 | in | P1 | `atc-unclamp-conf` | `mazak-atc.unclamp-confirmed` (M69) |
 | in | P2 | `atc-clamp-conf` | `mazak-atc.clamp-confirmed` (M64) |
@@ -148,52 +150,49 @@ straight to `mazak-atc.target-pot`.
 | `cover-confirm-delay` (T30), `pot-lost-timeout` (T29) | `mazak_atc.comp` | M-2 timer table (ATC doc open question #4) |
 | `index-timeout`, `unclamp-timeout`, `clamp-timeout` | `mazak_atc.comp` | pure engineering guesses, no ladder equivalent |
 | `pot-count = 20` | `mazak_atc.comp` | the real magazine size (ATC doc open question #5) |
-| `REF1_Z`, `REF2_Z`, `REF1_Y`, `REF2_Y` = 0.0 | `[ATC]` in the INI snippet | ZP1/ZP2 recovery or measurement (ATC doc open question #2) |
-| `gear-range.in1 = 800` RPM | `atc_orient.hal` | the two-speed head's crossover speed |
+| `REF1_Z=-5.9055`, `REF2_Z=0`, `REF1_Y=0`, `REF2_Y=9.5000` in | `[ATC]` in the active INI | Recovered from the live M-2 RP values; still requires reduced-rapid dry verification before motion |
+| `gear-range.in1 = 434` RPM | `atc_orient.hal` | Recovered GH3 low-range maximum; verify actual shift behavior and hysteresis |
 | BCD weights 1/2/4/8/10 | `mazak_atc.comp` | confirm T21P really is the tens digit and not a 16-weight bit |
 | magazine direction fwd→CW | `atc_orient.hal` | `authority_conflicts.md` §3 (SOL-8A/8B) |
 | every `hm2_7i80.0.7i84.0.0.*` name | `atc_orient.hal` | `halcmd show pin hm2` against real firmware |
 | every input polarity | `atc_orient.hal` | measure normal states, then consume `input-NN` (raw) or `input-NN-not` (complement) per [sserial(9)](https://linuxcnc.org/docs/html/man/man9/sserial.9.html); no `invert_input` parameter exists |
-| SSET (Y092) Mesa pin | `spindle-drive-arm` net, unbound | decide whether the FR-SX needs it; 7i84U-B TB2 OUT8-15 remain spare |
+| SSET (Y092) Mesa pin | `spindle-drive-arm` net, unbound | Decide whether this exact FR-SX needs a physical drive-arm input and allocate it before use |
 | `atc-barrier` device | `hm2_7i80.0.7i84.0.1.output-06` (7i84U-B TB3 OUT6) | confirm the barrier solenoid exists on SN 060231 |
 
-## Blocking gaps found while writing this
+## Remaining blocking gaps
 
-1. **MIPRS (X00D, magazine in-position) — RESOLVED 2026-07-27.** The magazine
-   cannot index without it, and the BCD pot number is only valid while it is
-   true. The authority CSV now carries `MAG_IN_POS` on 7i84U-A **IN28**
-   (PROPOSED), reclaimed from the optional cycle-start panel PB (the WHB04B
-   pendant provides cycle start; the panel PB moves to the second sserial card
-   if ordered). `linuxcnc/field_7i84u.hal` still sources `mag-in-pos` from IN4
-   — which the authority CSV gives to `spindle-oriented` — fix it during the
-   field-HAL reconciliation.
-2. **No authority rows for MFWD/MREV.** The generic `ATC_FWD` / `ATC_REV` rows
-   on OUT13/OUT14 are explicitly *not* equivalent per
-   `authority_conflicts.md` §3.
+1. **MIPRS (X00D, magazine in-position)** has a current PROPOSED assignment on
+   7i84U-A IN28 and HAL uses IN28. The remaining blocker is physical identity,
+   polarity, and end-to-end behavior; the BCD pot value is only captured while
+   this input is true.
+2. **Magazine direction** has authority rows `MAG_CW_SOL` / `MAG_CCW_SOL` on
+   OUT13/OUT14, but both are `HOLD_CONFLICT` and physically unbound because the
+   SOL-8A/SOL-8B direction mapping is unproven.
 3. **`gear-lo-sol` (TB2 OUT8) is `HOLD_CONFLICT`** and is intentionally left
    unbound to hardware in `atc_orient.hal`. The component drives the net, so it
    can be watched in halscope before anything is wired.
-4. **`linuxcnc/field_7i84u.hal` predates the authority CSV** and contradicts it
-   on eight channels. The full reconciliation list is at the bottom of
-   `linuxcnc/atc_orient.hal`.
+4. **SSET, timer bases, input polarities, pot count, valve identity, and the
+   exact FR-SX terminal map remain unverified.** These cannot be resolved by a
+   HAL-only edit.
 
 ## Integration steps
 
-1. Resolve the blocking gaps above (MIPRS now has IN28 PROPOSED — verify it).
-2. Reconcile `linuxcnc/field_7i84u.hal` against the authority CSV using the
-   cleanup list at the bottom of `linuxcnc/atc_orient.hal`.
+1. Resolve the blocking gaps above and promote authority rows only when the
+   corresponding continuity/polarity evidence is filed.
+2. Run `scripts/validate_authority.py` and
+   `scripts/validate_control_logic.py`; both must report zero errors.
 3. `halcompile --install linuxcnc/components/mazak_orient.comp` and the same for
    `mazak_atc.comp`. Expect to fix compile errors — these files have never been
    through the compiler.
-4. Apply `linuxcnc/atc_orient.ini.snippet` to `linuxcnc/mazak_vqc_20_40.ini`,
-   including `num_dio=16` on the `motmod` loadrt line in
-   `linuxcnc/mazak_vqc_20_40.hal`.
+4. Confirm the already-merged active INI/HAL settings against
+   `linuxcnc/atc_orient.ini.snippet`, including `num_dio=16`, the M6 remap,
+   abort handler, `[ATC]` values, and `DRY_RUN=1`.
 5. Start LinuxCNC with **no field power on the 7i84U-A/B outputs**. Confirm every
    pin exists and no net is double-driven (`halcmd show net`).
-6. Force the inputs in halscope / `halcmd setp` and watch the state machines:
-   orient with faked ORA1 and SZS; index with faked BCD and MIPRS; the cover
-   alarms with mismatched reed switches. Every alarm should latch and clear
-   with the reset.
+6. Use a dedicated no-hardware component test configuration to drive simulated
+   ORA1/SZS, BCD/MIPRS, and cover inputs. Do not try to `setp` a component input
+   or signal that is still linked to an hm2 output pin. Verify every alarm,
+   abort source, and output-safe transition in the test harness.
 7. Recover the real timer values and the ZP1/ZP2 coordinates. Replace the
    placeholders.
 8. Only then bring up hardware, one output at a time, per the bring-up order in

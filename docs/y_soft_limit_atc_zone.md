@@ -127,11 +127,12 @@ The simplest supportable pattern:
   - `M101` — clear ATC-zone permit (drops the bit).
 - The remap asserts `M100` immediately before the `G53 G0 Y#<y_ref2>`
   move and asserts `M101` after `G53 G0 Y#<y_ref1>` on the way out.
-- With the permit asserted, `[AXIS_Y] MAX_LIMIT` is dynamically
-  raised to `+9.5000` via `halcmd setp axis.y.max-pos-limit 9.5000`
-  (LinuxCNC exposes `axis.<L>.max-pos-limit` / `min-pos-limit` as
-  writable pins). When the permit is cleared, the limit drops back to
-  `+0.0394`.
+- With the permit asserted, a real-time component drives the documented
+  `ini.y.max_limit` HAL input to `+9.5000`; when the permit is cleared, it
+  drives that input back to `+0.0394`. The former draft's
+  `axis.y.max-pos-limit` name does not exist in LinuxCNC 2.9. This dynamic
+  path remains a proposal until a HAL startup test proves the pin direction,
+  update behavior, and fault-drop timing.
 
 This preserves the LinuxCNC-native soft-limit enforcement path (still
 the motion controller doing the checking) while making the authorization
@@ -158,8 +159,10 @@ The `mazak_atc_zone` component should require:
    proximity switch disagrees with commanded position by more than a
    configurable tolerance for more than a configurable time, the
    permit is dropped and an alarm is raised.
-6. Once the permit drops, `axis.y.max-pos-limit` is written back to
-   `+0.0394` immediately (before the next servo cycle).
+6. Once the permit drops, the component drives `ini.y.max_limit` back to
+   `+0.0394`. Acceptance requires a halscope trace proving when motmod begins
+   enforcing the restored limit; the repo does not assume a one-servo-cycle
+   response without that test.
 
 ### 4. Update the remap to obtain the permit explicitly
 
@@ -171,7 +174,7 @@ M64 P6                  ( SOME2 orient request )
 M66 P5 L3 Q#<t_orient>  ( wait SOSA oriented latch )
 ...
 M100                    ( request ATC-zone permit; blocks until granted or fault )
-G53 G0 Y#<y_ref2>       ( now legal: axis.y.max-pos-limit was raised to +9.5 )
+G53 G0 Y#<y_ref2>       ( legal only after tested ini.y.max_limit update )
 ...
 G53 G0 Y#<y_ref1>       ( back inside main envelope )
 M101                    ( clear ATC-zone permit; max-pos-limit reverts to +0.0394 )

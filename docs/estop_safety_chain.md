@@ -15,7 +15,8 @@ nor a backup safety element.
 
 ## Standing position
 
-- **The OEM MAR relay / hardwired E-stop chain is the primary safety.**
+- **The retained OEM MAR relay / hardwired E-stop chain is intended to be the
+  primary safety path, but its as-built behavior is not yet proven.**
   This is stated in `linuxcnc/mazak_vqc_20_40.hal` around the `estop-latch`
   wiring: *"The OEM MAR relay hardware E-stop chain is the primary
   safety. This latch is an additional software overlay for orderly LinuxCNC
@@ -33,12 +34,12 @@ nor a backup safety element.
   is that a physical safety relay must sit between the E-stop button and
   the drive-power contactor, and that software E-stop latches are
   supplementary indicators, never the sole path.
-- **Smart-serial cannot be the sole E-stop path.** The 7i84U's smart-serial
-  link has a bounded, non-zero watchdog and per-cycle age. See
-  [smart_serial_latency.md](smart_serial_latency.md) for the calculated
-  budget. A software round trip through the 7i84U on the 7i44 sserial
-  port to LinuxCNC and back to a drive-enable output is not appropriate
-  for hard overtravel or torque removal.
+- **Smart-serial cannot be the sole E-stop path.** The actual input age,
+  output-drop time, and remote safe-state behavior are not established for this
+  bitfile/card configuration; see
+  [smart_serial_latency.md](smart_serial_latency.md). Even after measurement, a
+  software round trip through the 7i84U is not a safety-rated hard-overtravel or
+  torque-removal path.
 
 ## What the hardwired schematic must show
 
@@ -101,13 +102,13 @@ with a signature and witness.
 | 7 | 24 V control loss to safety relay | Open 24 V feed | Yes (chain fails safe) | Yes | Yes | Yes | Yes | N/A |
 | 8 | Main contactor coil open | Cut coil feed | N/A (already dropped) | Yes stays dropped | Yes | Yes (READY chain drops) | Yes | Force-guided mirror contact signals to safety relay |
 | 9 | Main contactor mirror contact fails open | Sim: mirror stuck open after coil OK | Yes | Yes (safety relay refuses to close on next reset) | Yes | Yes | Yes | Yes (contactor-monitoring detects mismatch) |
-| 10 | LinuxCNC PC lockup while machine running | Kill LinuxCNC process | Yes (7i84U watchdog fires — see below) | Yes (drive-enable outputs drop) | Yes | Yes | Yes | N/A |
-| 11 | 7i44 sserial link to 7i84U dies | Pull P1 cable | Yes (7i84U watchdog fires within 50 ms default) | Yes | Yes | Yes | Yes | N/A |
-| 12 | 7i80HDT loses Ethernet | Pull P1 Ethernet | Yes (hm2_eth watchdog) | Yes | Yes | Yes | Yes | N/A |
+| 10 | LinuxCNC PC lockup while machine running | Kill LinuxCNC process | Yes; measure remote-output drop and prove the hardwired chain acts independently | Yes | Yes | Yes | Yes | N/A |
+| 11 | 7i44 smart-serial link to either 7i84U dies | Disconnect the selected channel under an approved test setup | Yes; measure rather than assume a watchdog time | Yes | Yes | Yes | Yes | N/A |
+| 12 | 7i80HDT loses Ethernet | Disconnect the dedicated Ethernet link under an approved test setup | Yes; measure HostMot2 and hardwired response | Yes | Yes | Yes | Yes | N/A |
 | 13 | Runaway axis (drive output stuck at full V) | Sim: pid.x.output-clamp bypass | Hard limit switch fires and drops safety chain (must NOT rely on 7i84U-input path) | Yes | Yes | Yes | Yes | N/A |
-| 14 | Rectifier overvoltage alarm | Sim: force alarm | Yes (Alarm E7 propagates per MDS §Ch. 11) | Yes | Yes | Yes | Yes | N/A |
+| 14 | Rectifier overvoltage alarm | Use the manufacturer's approved alarm-test method | Yes; do not assume adjacent-family E7 behavior applies | Yes | Yes | Yes | Yes | N/A |
 | 15 | Single axis (X) amplifier fault | Sim: force ALM on X | Yes on all axes (single-fault-drops-all rule) | Yes | Yes | Yes | Yes | N/A |
-| 16 | Z brake solenoid coil open | Cut brake coil feed | Detect within 1 servo cycle (7i84U-B monitors brake state) | Yes | Yes on de-energize | Yes | Yes | N/A |
+| 16 | Z brake solenoid coil open | Open the coil circuit under a restrained-axis test | **Detection gap:** no brake-current or brake-state input is assigned; add verified feedback or document the residual risk | Main contactor behavior to verify | Spring-set brake must still set; prove mechanically | Software indication requires added feedback | Yes | N/A |
 | 17 | 24 V field power to 7i84U-B lost | Open field 24 V | Yes (all outputs drop) | Yes | Yes | Yes | Yes | N/A |
 | 18 | Multiple simultaneous inputs discrepant (dual-channel fault) | Sim: single-channel activation only | Yes | Yes | Yes | Yes | Yes | Yes within safety-relay's discrepancy window |
 
@@ -143,8 +144,8 @@ Until the schematic exists and the matrix is validated:
 ## Z-brake hardwired sequencing (cabinet-level requirement)
 
 The `linuxcnc/field_7i84u.hal` asymmetric Z-brake sequencer
-(`timedelay.0` on-delay for release, `timedelay.1` off-delay for
-S-ON hold) is a **software-only** sequencer. It sees only what the
+(`z-brake-delay` on-delay for release, `z-drive-drop-delay` off-delay
+for S-ON hold) is a **software-only** sequencer. It sees only what the
 HAL motion controller and watchdog logic hand it. It has NO effect on
 transitions initiated by:
 
@@ -155,7 +156,7 @@ transitions initiated by:
 - Anyone yanking the amp AC supply at the disconnect.
 
 On all of those paths, S-ON collapses when bus voltage collapses,
-and the software `timedelay.1.off-delay` gives no protection. If the
+and the software `z-drive-drop-delay.off-delay` gives no protection. If the
 SOL-201 Z-brake solenoid is slower to engage than the DC bus is to
 discharge, the head drops for the duration of that difference.
 

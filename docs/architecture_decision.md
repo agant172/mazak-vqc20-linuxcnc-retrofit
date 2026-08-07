@@ -12,10 +12,10 @@ Use a LinuxCNC control PC driving a **Mesa 7i80HDT Ethernet FPGA host** as the p
 control board, with two daughter cards populated on its 50-pin connectors:
 
 - **P1: Mesa 7i44** — 8-channel RS-422 smart-serial breakout carrying **two 7i84U cards**:
-  - **Port 0 → 7i84U-A** (existing 32 DI / 16 DO plan: ATC, hydraulic, coolant, air, magazine, spindle FWD/REV/ENA, utility).
-  - **Port 1 → 7i84U-B** (X/Y/Z limits, X/Y/Z homes, X/Y/Z drive-enables, and five relay-driven loads: air blast, touch sensor blast, tap coolant blast, ATC barrier, flood valve).
-  - Ports 2-7 remain spare (MPG pendant, 4th-axis card, or future 7i84 expansion).
-- **P2: Mesa 7i49** — plain 7i49 resolver-to-digital interface with 6 resolver channels and 6× ±10V analog outputs. Carries X/Y/Z resolver feedback (RES0/1/2) and X/Z/Y servo velocity + FR-SX spindle velocity + FR-SX orient reference (AOUT0..AOUT4).
+  - **Physical channel 0 → 7i84U-A** (existing 32 DI / 16 DO plan: ATC, hydraulic, coolant, air, magazine, spindle FWD/REV/ENA, utility).
+  - **Physical channel 1 → 7i84U-B** (X/Y/Z limits, X/Y/Z homes, X/Y/Z drive-enables, and relay-driven loads).
+  - Channels 2-7 remain spare (MPG pendant, 4th-axis card, or future 7i84 expansion). Both active channels are configured within HostMot2 smart-serial port 0.
+- **P2: Mesa 7i49** — plain 7i49 resolver-to-digital interface with 6 resolver channels and 6× ±10V analog outputs. Carries X/Y/Z resolver feedback (RES0/1/2) and X/Z/Y servo velocity plus FR-SX spindle velocity on AOUT0..AOUT3. AOUT4/AOUT5 are spare; orient is discrete ORCM1.
 - **P3: unused/spare.** No daughter card is fitted and no bare-FPGA GPIO pin is bound to a 24 V field signal. Earlier drafts placed the Renishaw MP-3 probe SKIP1 on `hm2_7i80.0.gpio.042` for latency reasons; that direct-GPIO path was RETRACTED — the 7i80HDT P3 GPIO pins are 3.3 V logic without opto-isolation and would be destroyed by 24 V input. The probe now lands on **7i84U-B TB3 IN15** with proper 24 V opto-isolation. See [`docs/superseded_claims_2026-08-06.md`](superseded_claims_2026-08-06.md) row 15. All remaining P3 pins are held as spare.
 
 The 7i80HDT connects to the control PC over Ethernet using the `hm2_eth` driver at static IP **192.168.1.121** (NIC `enp0s31f6` at 192.168.1.1/24). The machine keeps its original Tamagawa TS2014N resolvers, so feedback is resolver-based (plain 7i49 on P2, 5 kHz excitation baseline) rather than quadrature-encoder.
@@ -25,28 +25,28 @@ The 7i80HDT connects to the control PC over Ethernet using the `hm2_eth` driver 
 Earlier drafts of this document called for a **Mesa 7i37TA** field breakout on P3 to host limits, homes, drive-enables, and 100 VAC solenoid outputs. That was wrong on two counts:
 
 1. **The 7i84U already covers this I/O.** The 7i37TA is 16 isolated IN + 8 isolated OUT; the 7i84U is 32 DI + 16 DO on sserial. Adding a 7i37TA to the base stack duplicates capability the 7i84U already provides.
-2. **"Motion-critical" was mis-scoped.** True motion-critical signals on this machine are resolver feedback and ±10 V velocity commands — both already on the 7i49 (P2). Limits/homes/drive-enables/E-stop monitor are all sampled by LinuxCNC once per servo cycle; a sserial 7i84U also updates once per servo cycle, so the sample the motion planner sees is identical to what a direct GPIO pin would give it.
+2. **"Motion-critical" was mis-scoped.** Resolver feedback and ±10 V velocity commands remain on the 7i49 (P2). Limits, homes, drive enables, and the E-stop monitor may use isolated field I/O, but their end-to-end update age and fault response must be measured; servo-thread cadence alone does not make smart-serial and direct-GPIO behavior identical.
 
-The touch probe was originally considered the one exception that might justify bare-FPGA GPIO for latency, but that carve-out has been retracted: exposing bare 3.3 V FPGA pins to 24 V field wiring is not safe, and the added latency from sserial (up to one servo period at 1 kHz) is well inside the touch-position tolerance the Renishaw MP-3 already delivers with its own solid-state trigger circuit. The probe is routed through 7i84U-B input-15.
+The touch probe was originally considered the one exception that might justify bare-FPGA GPIO for latency, but that carve-out has been retracted: exposing bare 3.3 V FPGA pins to 24 V field wiring is not safe. The probe is routed through 7i84U-B input-15; trigger-to-HAL latency, jitter, and stopping error must be measured at every approved probing feed before acceptance.
 
 ## Selected control stack
 
 - LinuxCNC control PC located at the machine (Debian 13 / LinuxCNC 2.9.10 / PREEMPT-RT kernel 6.12.100+deb13-rt-amd64).
 - **Mesa 7i80HDT** Ethernet FPGA host — 100BaseT, three 50-pin daughter connectors (P1/P2/P3), 72 IO total, 5V-tolerant, `hm2_eth` driver.
-- **Mesa 7i44 on P1** — RS-422 sserial breakout carrying two 7i84Us on ports 0 and 1; ports 2-7 spare.
+- **Mesa 7i44 on P1** — RS-422 breakout carrying two 7i84Us on physical channels 0 and 1 within HostMot2 smart-serial port 0; channels 2-7 spare.
 - **Mesa 7i49 on P2** — X/Y/Z resolver feedback and analog servo/spindle command DACs.
 - **P3 (direct FPGA GPIO)** — no daughter card; no bare-FPGA GPIO pin is bound to a field signal. The probe input is on 7i84U-B input-15, not P3.
-- **Mesa 7i84U-A on 7i44 port 0** — remote field-I/O expansion mounted near the existing green breakout PCB, for ATC, hydraulic, coolant, air, magazine, utility I/O, and cabinet field wiring.
-- **Mesa 7i84U-B on 7i44 port 1** — X/Y/Z limits, X/Y/Z homes, X/Y/Z drive-enables, and the five relay-driven loads formerly assigned to P3 (air blast, touch sensor blast, tap coolant blast, ATC barrier, flood valve).
+- **Mesa 7i84U-A on 7i44 channel 0** — remote field-I/O expansion mounted near the existing green breakout PCB, for ATC, hydraulic, coolant, air, magazine, utility I/O, and cabinet field wiring.
+- **Mesa 7i84U-B on 7i44 channel 1** — X/Y/Z limits, X/Y/Z homes, X/Y/Z drive-enables, probe, air-pressure input, relay-driven loads, and the proposed magazine-cover output.
 - Optional WHB04B-style USB pendant through LinuxCNC, not through Mesa.
 
 ## Why this stack fits the Mazak
 
 - The 7i80HDT is a bare-FPGA Ethernet host with three 50-pin daughter connectors, so each I/O class — analog/resolver and sserial — gets its own daughter card sized for the job.
-- The **7i49 on P2** dedicates 6 analog outputs to the analog motion path (X/Z/Y + spindle velocity + orient reference + spare) and reads all three axis resolvers on RES0/1/2.
-- The **7i44 on P1** carries two 7i84Us over RS-422: 7i84U-A handles the existing 32/16 field I/O near the green breakout PCB; 7i84U-B handles safety I/O (limits/homes/drive-enables) plus the five relay-driven loads. This still leaves 6 spare sserial ports for an MPG pendant, 4th-axis card, or additional 7i84 expansion.
+- The **7i49 on P2** uses AOUT0..AOUT3 for X/Z/Y and spindle velocity and reads all three axis resolvers on RES0/1/2. AOUT4/AOUT5 are spare; orient is discrete ORCM1.
+- The **7i44 on P1** carries two 7i84Us over RS-422: 7i84U-A handles the existing 32/16 field I/O near the green breakout PCB; 7i84U-B handles limit/home monitoring and added loads. These are not safety-rated I/O; the hardwired chain remains authoritative. Physical channels 2-7 remain available for verified future expansion.
 - Ethernet (`hm2_eth`) avoids dependence on a PCIe slot in the control PC and lets the PC be sited flexibly; a static IP link keeps the motion interface deterministic.
-- The two-7i84U plan lands the field I/O with wide margins: 7i84U-A retains ~6 DI + ~6 DO spare, and 7i84U-B has 23 spare IN and 8 spare OUT after the safety + relay loads are placed.
+- The exact authority count is 32 DI + 16 DO on 7i84U-A and 11 DI + 9 DO on 7i84U-B, leaving 21 DI + 7 DO total reserve. See `io_capacity_reconciliation.md`.
 - P3 is intentionally left unused/spare — no bare-FPGA GPIO pin is bound to a field signal. This preserves the option to add a real daughter card later if the field discovers a signal that actually needs direct-FPGA latency and can supply its own isolation.
 
 ## Resolver feedback interface (Mesa 7i49 on P2)
@@ -93,13 +93,13 @@ The original **Meldas M2 / TRA** resolver wiring may run the resolver "backwards
 
 - The **TRA-type drives close their velocity loop on a tachogenerator (Tamagawa TGF-3D P402-Sx), not on the resolver.** The resolver is a position device for the control, independent of the drive's own velocity loop.
 - Therefore **LinuxCNC + the 7i49 on P2 own the resolver excitation outright.** The **7i49 must be the sole resolver excitation source** — confirm nothing else is still driving the resolver windings before energizing the 7i49.
-- **LinuxCNC's PID is the outer position loop; the TRA velocity loop is the inner loop.** Commission with the FF1-first procedure in [`servo_commissioning.md`](servo_commissioning.md): confirm zero-command null at each 7i49 AOUT_N, measure volts-per-speed with `pid.output` driven manually at low `MAX_OUTPUT`, set per-axis `OUTPUT_SCALE` so `pid.output` is in user units per second (PID(9) requirement), then FF1, then P, and only add I/D if the residual behavior demands it. The zero-gain placeholders in the INI are safe defaults, not a tuning baseline.
+- **LinuxCNC's PID is the outer position loop; the TRA velocity loop is the inner loop.** Commission with the FF1-first procedure in [`servo_commissioning.md`](servo_commissioning.md): confirm zero-command null at each 7i49 AOUT_N, measure volts-per-speed with a small controlled `pid.N.bias` while all gains/feed-forwards remain zero and `MAX_OUTPUT` is clamped, set per-axis `OUTPUT_SCALE = 10 × (measured speed per volt)` so `pid.output` is in user units per second (PID(9) requirement), then return bias to zero, add FF1, then P, and only add I/D if the residual behavior demands it. The zero-gain settings and fail-off output holds are commissioning interlocks, not proof of a safe live configuration.
 
 ## Remaining checks before final hardware purchase
 
 - Confirm exact 7i80HDT and 7i44 part numbers and board revisions from Mesa (buy list).
-- Confirm the correct firmware bitfile: **`7i80hdt_7i44_ss_7i49d.bit`** (PCW-provided). This bitfile already provisions a 7i44 + 7i49 layout; no additional P3 field-breakout firmware work is required.
-- Confirm both 7i84Us are detected on 7i44 ports 0 and 1 after firmware load (`sserial_port_0` and `sserial_port_1` both enabled in `hm2_eth config=`). Assign a distinct sserial device tag/serial number per card during commissioning so the two are pinned to their intended ports.
+- Obtain and confirm the Efinix resolver firmware from Mesa/PCW. **`7i80hdt_7i44_ss_7i49d.bit` is only a working placeholder name**; the repo has no binary, hash, or IDROM proof that it provisions this 7i44 + 7i49 layout. Do not flash it until the provenance checklist is complete.
+- Confirm both 7i84Us are detected on 7i44 physical channels 0 and 1 after firmware load (`sserial_port_0=00xxxxxx`: two channels of one HostMot2 smart-serial port). Record both device serial numbers and physical cable destinations during commissioning.
 - Confirm 7i49 on P2 host connection and firmware `num_resolvers=3` config. Set excitation to **5 kHz**.
 - Identify resolver winding pairs per axis with an ohmmeter before power; scope RESDRV excitation and RESSIN/RESCOS amplitude and phase at rest and under motion on all three axis channels (0/1/2). **W2 is not a valid remedy on the axis channels** — it only affects channels 3/4/5. Any 7i49HV / divider escalation must go through Mesa (PCW) review of the specific TS2014N suffix rather than a unilateral hardware swap.
 - Confirm 7i80HDT Ethernet setup: static IP 192.168.1.121, `hm2_eth` `board_ip="192.168.1.121"`, and host NIC `enp0s31f6` at 192.168.1.1/24.
@@ -125,7 +125,7 @@ The original **Meldas M2 / TRA** resolver wiring may run the resolver "backwards
 - HostMot2(9) man page — resolver `.scale`, `.velocity-scale`, `.index-divisor`, PWMGen `dc = value / scale` and output-type/offset-mode semantics: <https://linuxcnc.org/docs/2.9/html/man/man9/hostmot2.9.html>
 - LinuxCNC PID(9) man page — feed-forward semantics (FF0/FF1/FF2/FF3), integrator windup, deadband, bias, direction warning, and the explicit "When using FF1 tuning, scaling must be set so that output is in user units per second" requirement that drives the servo commissioning procedure: <https://linuxcnc.org/docs/2.9/html/man/man9/pid.9.html>
 - Mesa 7i49 manual (resolver interface, excitation options, W2 jumper, RESDRV/RESSIN/RESCOS): <http://www.mesanet.com/pdf/motion/7i49man.pdf>
-- Mesa 7i80HDT overview (72 IO across three 50-pin daughtercard connectors, 5V-tolerant): <http://www.mesanet.com/fpgacardinfo.html>
+- Mesa 7i80HDT product page (100BaseT, 72 IO across three 50-pin daughtercard connectors, 5V-tolerant): <https://store.mesanet.com/index.php?product_id=386&route=product/product>
 - Mesa 7i44 forum thread on 7i80HD-compatible RS-422 interfaces: <https://www.forum.linuxcnc.org/27-driver-boards/35743-mesa-i-o>
 - Mesa 50-pin daughter card catalog (7i44, 7i49, 7i84, etc.): <https://www.mesanet.com/aiodaughter.html>
 - srdco/MazakVQC1540 — LinuxCNC configs for the sister VQC 15/40 retrofit: <https://github.com/srdco/MazakVQC1540>
