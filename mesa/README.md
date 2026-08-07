@@ -3,13 +3,23 @@
 **Mapping status: COMPLETE — documentation and planning map finalized for the
 7i80HDT / 7i44 / 7i49 / 7i84U-A / 7i84U-B stack.**
 
-The remaining `COMMISSIONING_PENDING`, `ACCEPTED_VERIFY`, and `HOLD_CONFLICT`
+> **Authority hierarchy.** `current_pin_authority.csv` is the single
+> source of truth for pin → signal assignment. `linuxcnc/*.hal` must
+> agree with it on every physical pin reference; the check runs as
+> `python3 scripts/validate_authority.py` from the repository root.
+> Wiring notes, research notes, and rendered PDFs are non-authoritative.
+> Full definition: [`../docs/authority_hierarchy.md`](../docs/authority_hierarchy.md).
+
+The remaining `COMMISSIONING_PENDING`, `PROPOSED`, and `HOLD_CONFLICT`
 entries are cabinet-verification and commissioning tasks; they do not mean the
 mapping documentation is incomplete. `HOLD_CONFLICT` rows must not be wired or
-energized until the conflict register and cabinet trace are complete.
+energized until the conflict register and cabinet trace are complete. The
+validator enforces this: any active HAL `net` binding on a `HOLD_CONFLICT`
+pin is a hard error.
 
 Use `current_pin_authority.csv` as the current pin-planning source for the Mazak
-VQC 20/40 retrofit.
+VQC 20/40 retrofit. Evidence-state taxonomy defined in
+[`../docs/pre_power_deliverables.md`](../docs/pre_power_deliverables.md).
 
 ## Hardware stack
 

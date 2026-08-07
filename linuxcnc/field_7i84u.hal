@@ -12,7 +12,9 @@
 #
 # AUTHORITY: mesa/current_pin_authority.csv is the single source of truth for
 # pin -> signal mapping on both 7i84U cards. This file, atc_orient.hal, and
-# motion_7i80hdt.hal all agree with that CSV (2026-08-06 reconciliation).
+# motion_7i80hdt.hal all agree with that CSV. The agreement is enforced by
+# scripts/validate_authority.py -- run it before every commit that touches
+# this file or the CSV. See docs/authority_hierarchy.md for the full hierarchy.
 #
 # TERMINAL BLOCKS: Per Mesa 7i84 manual (http://www.mesanet.com/pdf/parallel/7i84man.pdf)
 # the physical terminal blocks on the 7i84 are TB1 (POWER ONLY: VFIELDA, VFIELDB,
@@ -93,12 +95,18 @@ net z-enable           => hm2_7i80.0.7i84.0.0.output-06  # OUT6  N1J-L2-201 Z br
 net tool-unclamp-sol   => hm2_7i80.0.7i84.0.0.output-10  # OUT10 RLY-4 to SOL-10
 net flood-coolant      <= iocontrol.0.coolant-flood
 net flood-coolant      => hm2_7i80.0.7i84.0.0.output-11  # OUT11 flood pump relay
-net mist-coolant       <= iocontrol.0.coolant-mist
-net mist-coolant       => hm2_7i80.0.7i84.0.0.output-12  # OUT12 (was lube-on; verify)
-# OUT13 atc-fwd / OUT14 atc-rev: driven by mazak-atc.mag-fwd-sol / mag-rev-sol
-# which are netted in atc_orient.hal as mag-cw-sol / mag-ccw-sol.
-net mag-cw-sol         => hm2_7i80.0.7i84.0.0.output-13  # OUT13 ATC motor fwd relay
-net mag-ccw-sol        => hm2_7i80.0.7i84.0.0.output-14  # OUT14 ATC motor rev relay
+# HOLD_CONFLICT: OUT12 physical load identity unverified.
+# See wiring/authority_conflicts.md and mesa/current_pin_authority.csv MIST_COOLANT row.
+# Do NOT restore this binding until the physical load is traced at the cabinet.
+# net mist-coolant       <= iocontrol.0.coolant-mist
+# net mist-coolant       => hm2_7i80.0.7i84.0.0.output-12  # OUT12 (was lube-on; verify)
+
+# HOLD_CONFLICT: OUT13/OUT14 magazine rotation direction unproven.
+# See wiring/authority_conflicts.md #3 and mesa/current_pin_authority.csv MAG_CW_SOL / MAG_CCW_SOL rows.
+# atc_orient.hal creates the mag-cw-sol / mag-ccw-sol nets from mazak-atc; keeping them
+# off the physical relays until SOL-8A/SOL-8B mapping is verified under controlled commissioning.
+# net mag-cw-sol         => hm2_7i80.0.7i84.0.0.output-13  # OUT13 ATC motor fwd relay
+# net mag-ccw-sol        => hm2_7i80.0.7i84.0.0.output-14  # OUT14 ATC motor rev relay
 # OUT15 alarm-out: optional stack light / horn
 # net alarm-out          => hm2_7i80.0.7i84.0.0.output-15
 

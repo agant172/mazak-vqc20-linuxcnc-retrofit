@@ -40,7 +40,7 @@ The selected retrofit architecture is:
 - `field_7i84u.hal` - 7i84U-A ATC, magazine, coolant, air, and utility I/O placeholders on 7i44 P1 port 0, plus 7i84U-B safety and relay I/O nets on port 1.
 - `atc_orient.hal` - orient + ATC HAL wiring and component nets; feeds the ATC barrier through 7i84U-B TB3 OUT6.
 - `pendant_whb04b.hal` - optional WHB04B-style pendant net placeholders.
-- `../mesa/current_pin_authority.csv` - authoritative pin map for the full stack.
+- `../mesa/current_pin_authority.csv` - authoritative pin map for the full stack. `../docs/authority_hierarchy.md` defines the hierarchy and `../scripts/validate_authority.py` enforces it: run `python3 scripts/validate_authority.py` before every commit that touches any HAL file or the CSV; exit 0 required.
 - `../docs/architecture_decision.md` - selected 7i80HDT + 7i44 + 7i49 + 7i84U-A + 7i84U-B architecture decision, with the bare P3 probe exception.
 - `../mesa/mesa_firmware_checklist.md` - firmware, bitfile, Ethernet/IP, smart-serial, and HAL pin information to collect before finalizing the HAL.
 - `../docs/cabinet_photo_checklist.md` - one-page photo checklist for gathering the details needed to order/configure Mesa hardware and finalize HAL pin names.

@@ -3,9 +3,14 @@
 # Loads and nets linuxcnc/components/mazak_orient.comp and linuxcnc/components/mazak_atc.comp.
 #
 # AUTHORITATIVE SOURCES
-#   docs/ladder/orient_ladder_transcription.md   (orient / gear shift)
-#   docs/ladder/atc_ladder_transcription.md      (ATC confirmations)
-#   mesa/current_pin_authority.csv               (net names + Mesa channels)
+#   mesa/current_pin_authority.csv               (SINGLE SOURCE OF TRUTH for
+#                                                 pin -> signal mapping;
+#                                                 enforced by
+#                                                 scripts/validate_authority.py;
+#                                                 hierarchy defined in
+#                                                 docs/authority_hierarchy.md)
+#   docs/ladder/orient_ladder_transcription.md   (orient / gear shift logic)
+#   docs/ladder/atc_ladder_transcription.md      (ATC confirmations logic)
 #   docs/ladder/atc_component_README.md          (rung-to-code map, integration)
 #
 # STATUS: SKELETON. Nothing here has been run. Every hm2_7i80.0.7i84.0.0.*
