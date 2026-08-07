@@ -129,3 +129,51 @@ setp pid.s.deadband               [SPINDLE_0]DEADBAND
 setp pid.s.maxoutput              [SPINDLE_0]MAX_OUTPUT
 setp pid.s.error-previous-target  true
 setp pid.s.maxerror               [SPINDLE_0]MAX_ERROR
+
+#####################################################################
+# Safety chain: E-stop latch + iocontrol enable
+#####################################################################
+#
+# LinuxCNC's standard E-stop pattern using the estop-latch component
+# (see estop_latch(9) man page for pin details):
+#
+#   estop-monitor (7i84U-A IN29)   -> estop-latch.0.ok-in
+#     Physical E-stop chain aux contact: TRUE when NOT tripped. Any drop to
+#     FALSE forces the latch to Faulted.
+#   estop-reset                    -> estop-latch.0.reset
+#     Momentary pulse that transitions the latch Faulted -> OK when ok-in and
+#     fault-in permit. Sourced from iocontrol.0.user-request-enable so the
+#     machine-on button clears the latch.
+#   estop-latch.0.ok-out           -> iocontrol.0.emc-enable-in
+#     Motion module enable. Also carried by 'estop-ok' for downstream readers
+#     (atc_orient.hal, field_7i84u.hal).
+#   estop-latch.0.fault-in         (unconnected - spare)
+#     Wire drive-fault-any here (or any other summary-alarm bit) if desired
+#     to force a fault beyond the physical E-stop chain.
+#
+# CAUTION - hardware chain remains authoritative:
+#   The OEM MAR relay hardware E-stop chain is the primary safety. This latch
+#   is the SOFTWARE monitor of that chain (see wiring/front_control_panel_wiring.md).
+#   estop-monitor comes from a dry-contact aux on the MAR relay via an
+#   interposing relay; it does NOT bypass any hardware interlock.
+
+net estop-reset       <= iocontrol.0.user-request-enable
+net estop-reset       => estop-latch.0.reset
+net estop-monitor     => estop-latch.0.ok-in
+net estop-ok          <= estop-latch.0.ok-out
+net estop-ok          => iocontrol.0.emc-enable-in
+
+# estop-reset also feeds atc_orient.hal to clear its latched ATC / orient
+# alarms in sync with the LinuxCNC re-enable. Additional readers pick up the
+# same signal declared above.
+
+# air-ok signal is sourced from 7i84U-A input-11 in field_7i84u.hal. If that
+# terminal is not yet wired, uncomment the following to force TRUE for bench
+# testing (comment it back out before energising anything):
+# sets air-ok true
+
+# spindle-enable (open-loop) is currently sourced by spindle.0.on via the
+# spindle-ena net in field_7i84u.hal. atc_orient.hal reads spindle-enable
+# separately; alias it here so the ATC component sees the same signal.
+# (Both nets carry the same value; alias saves declaring a second writer.)
+net spindle-enable    <= spindle.0.on

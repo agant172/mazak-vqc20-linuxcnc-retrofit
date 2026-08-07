@@ -77,8 +77,10 @@ net spindle-fwd        <= spindle.0.forward
 net spindle-fwd        => hm2_7i80.0.7i84.0.0.output-00  # OUT0  FR-SX FWD
 net spindle-rev        <= spindle.0.reverse
 net spindle-rev        => hm2_7i80.0.7i84.0.0.output-01  # OUT1  FR-SX REV
-net spindle-ena        <= spindle.0.on
-net spindle-ena        => hm2_7i80.0.7i84.0.0.output-02  # OUT2  FR-SX RUN/STOP
+# spindle-enable is sourced in mazak_vqc_20_40.hal from spindle.0.on and also
+# drives pid.s.enable / pwmgen.03.enable in motion_7i80hdt.hal. Reuse it here
+# so the FR-SX RUN/STOP signal follows the same enable state as the DAC.
+net spindle-enable     => hm2_7i80.0.7i84.0.0.output-02  # OUT2  FR-SX RUN/STOP
 # OUT3  hyd-pump-on         (netted in atc_orient.hal - Y096 HYD.M)
 # OUT4  spindle-orient-cmd  (netted in atc_orient.hal - Y093 ORCM1.M)
 # OUT5  orient-lo-gear      (netted in atc_orient.hal - Y094 CTL.M)
