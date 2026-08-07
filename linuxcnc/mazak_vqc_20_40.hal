@@ -173,7 +173,11 @@ setp pid.s.maxerror               [SPINDLE_0]MAX_ERROR
 #     to force a fault beyond the physical E-stop chain.
 #
 # CAUTION - hardware chain remains authoritative:
-#   The OEM MAR relay hardware E-stop chain is the primary safety. This latch
+#   The OEM MAR relay hardware E-stop chain is the primary safety. See
+#   docs/estop_safety_chain.md for the required hardwired safety schematic
+#   and fault-injection matrix that must be validated before drives are
+#   energized under retrofit control. Per estop_latch(9), this component is
+#   'part of a simple software ESTOP chain' - not the whole chain. This latch
 #   is the SOFTWARE monitor of that chain (see wiring/front_control_panel_wiring.md).
 #   estop-monitor comes from a dry-contact aux on the MAR relay via an
 #   interposing relay; it does NOT bypass any hardware interlock.
