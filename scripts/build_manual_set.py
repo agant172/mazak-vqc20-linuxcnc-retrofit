@@ -128,6 +128,14 @@ SMALL = ParagraphStyle(
 TINY = ParagraphStyle(
     "ManualTiny", parent=BODY, fontSize=6.2, leading=7.5, spaceAfter=0,
 )
+TABLE_HEADER_SMALL = ParagraphStyle(
+    "TableHeaderSmall", parent=SMALL, fontName="Helvetica-Bold",
+    textColor=colors.white,
+)
+TABLE_HEADER_TINY = ParagraphStyle(
+    "TableHeaderTiny", parent=TINY, fontName="Helvetica-Bold",
+    textColor=colors.white,
+)
 CAPTION = ParagraphStyle(
     "ManualCaption", parent=SMALL, fontName="Helvetica-Oblique",
     textColor=HexColor("#4B5560"), alignment=TA_CENTER, spaceBefore=3, spaceAfter=7,
@@ -211,8 +219,12 @@ def data_table(
     status_column: int | None = None,
     landscape_mode: bool = False,
 ) -> LongTable:
-    style = TINY if font_size <= 6.3 else SMALL
-    wrapped = [[P(str(cell), style) for cell in row] for row in rows]
+    body_style = TINY if font_size <= 6.3 else SMALL
+    header_style = TABLE_HEADER_TINY if font_size <= 6.3 else TABLE_HEADER_SMALL
+    wrapped = [
+        [P(str(cell), header_style if row_number == 0 else body_style) for cell in row]
+        for row_number, row in enumerate(rows)
+    ]
     tab = LongTable(wrapped, colWidths=list(widths), repeatRows=repeat_rows, splitByRow=1)
     commands: list[tuple] = [
         ("BACKGROUND", (0, 0), (-1, 0), NAVY),
