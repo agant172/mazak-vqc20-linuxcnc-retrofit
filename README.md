@@ -6,7 +6,7 @@ control to LinuxCNC using Mesa Electronics FPGA hardware.
 **Machine:** Mazak VQC 20/40 Vertical Quality Center (SN 060231, Mazatrol M-2, ladder YM2V39L)
 **Original control:** Mazatrol M-2
 **New control:** LinuxCNC 2.9.10 on Debian 13 (PREEMPT-RT)
-**Interface hardware:** Mesa 7i80HDT (Ethernet FPGA host) + 7i44 on P1 (RS-422 sserial to 7i84U-A on port 0 and 7i84U-B on port 1) + 7i49 on P2 (resolver + analog outs); P3 is unused/spare. The Renishaw MP-3 probe input is on **7i84U-B input-15** (opto-isolated 24 V), not on bare P3 GPIO.
+**Interface hardware:** Mesa 7i80HDT (Ethernet FPGA host) + 7i44 on P1 (RS-422 sserial to 7i84U-A/B on physical channels 0/1 of HostMot2 port 0) + 7i49 on P2 (resolver + analog outs); P3 is unused/spare. The Renishaw MP-3 probe input is on **7i84U-B input-15** (opto-isolated 24 V), not on bare P3 GPIO.
 
 > ⚠️ **Safety:** The HAL/INI files in [`linuxcnc/`](linuxcnc/) and the pin authority in
 > [`mesa/current_pin_authority.csv`](mesa/current_pin_authority.csv) are **planning /
@@ -19,11 +19,11 @@ control to LinuxCNC using Mesa Electronics FPGA hardware.
 ## Selected architecture (2026-08-06 rev)
 
 - **LinuxCNC control PC** (Debian 13 / LinuxCNC 2.9.10) driving a **Mesa 7i80HDT** Ethernet FPGA host as the primary control board (`hm2_eth`, static IP 192.168.1.121).
-- **P1 → 7i44** — RS-422 smart-serial breakout. Port 0 carries **7i84U-A** near the existing green breakout PCB; port 1 carries **7i84U-B** for safety inputs and relay-driven loads; ports 2-7 are spare.
-- **P2 → 7i49** (plain 7i49) — X/Y/Z resolver feedback on RES0/1/2 + X/Z/Y servo velocity command + FR-SX spindle velocity + FR-SX orient reference on AOUT0..AOUT4.
+- **P1 → 7i44** — RS-422 smart-serial breakout. Physical channel 0 carries **7i84U-A** near the existing green breakout PCB; channel 1 carries **7i84U-B** for limit/home monitoring and relay-driven loads; channels 2-7 are spare. Both remotes are under HostMot2 smart-serial port 0.
+- **P2 → 7i49** (plain 7i49) — X/Y/Z resolver feedback on RES0/1/2 plus X/Z/Y servo velocity and FR-SX spindle velocity commands on AOUT0..AOUT3. AOUT4/AOUT5 are spare; FR-SX orient uses discrete ORCM1.
 - **P3 → unused/spare** — no daughter card fitted. All bare FPGA GPIO. Not safe for 24 V field wiring (probe was moved to 7i84U-B for opto-isolation).
-- **7i84U-A on 7i44 port 0** — remote field I/O for ATC, hydraulics, coolant, air, magazine, utility I/O, and cabinet field wiring.
-- **7i84U-B on 7i44 sserial channel 1** — TB3 IN0-5 carry X/Y/Z limits, TB3 IN6-8 carry X/Y/Z homes, TB3 IN15 carries the Renishaw MP-3 probe, TB3 OUT0-2 carry X/Y/Z drive enables, and TB3 OUT3-7 carry the planned relay-driven loads. (7i84 layout: TB1 = power only, TB3 = IN0-15 + OUT0-7, TB2 = IN16-31 + OUT8-15.)
+- **7i84U-A on 7i44 channel 0** — remote field I/O for ATC, hydraulics, coolant, air, magazine, utility I/O, and cabinet field wiring.
+- **7i84U-B on 7i44 sserial channel 1** — TB3 IN0-5 carry X/Y/Z limits, IN6-8 homes, IN9 the air permissive, and IN15 the Renishaw MP-3 probe; TB3 OUT0-2 carry X/Y/Z drive enables and OUT3-7 the planned relay loads; TB2 OUT8 is the proposed magazine-cover close command. (7i84 layout: TB1 = power only, TB3 = IN0-15 + OUT0-7, TB2 = IN16-31 + OUT8-15.)
 - **Optional WHB04B-style USB pendant** after the base machine is proven safe.
 
 Full rationale: [docs/architecture_decision.md](docs/architecture_decision.md).
@@ -33,12 +33,12 @@ Full rationale: [docs/architecture_decision.md](docs/architecture_decision.md).
 | Area | Status |
 |---|---|
 | Repo created & structured | ✅ Completed |
-| **7i80HDT + 7i44 + 7i49 + 7i84U-A + 7i84U-B architecture** | ✅ Completed |
-| 7i49 resolver feedback interface (plain, 5 kHz) | ✅ Completed |
-| Tamagawa TS2014N resolver identification | ✅ Completed |
+| **7i80HDT + 7i44 + 7i49 + 7i84U-A + 7i84U-B architecture** | Selected; hardware/bitfile proof pending |
+| 7i49 resolver feedback interface (plain, 5 kHz baseline) | Selected; suffix compatibility and scope proof pending |
+| Tamagawa TS2014N resolver identification | Family identified; exact per-axis suffixes unresolved |
 | I/O workbook created | ✅ Completed |
 | HAL/INI bring-up skeleton drafted | ✅ Completed |
-| Pin authority CSV finalized | ✅ Completed |
+| Pin authority CSV structurally reconciled; field evidence pending | 🔄 In progress |
 | Mesa firmware / photo checklists drafted | ✅ Completed |
 | Order 7i80HDT + 7i44 + 7i84U-B | 🔄 In progress |
 | Collect cabinet photos | 🔄 In progress |
@@ -54,7 +54,7 @@ Full rationale: [docs/architecture_decision.md](docs/architecture_decision.md).
 
 **Immediate**
 - Order the 7i80HDT, 7i44, and 7i84U-B (7i49 and 7i84U-A already in hand / buy list).
-- Confirm PCW-generated firmware bitfile `7i80hdt_7i44_ss_7i49d.bit` and stash it under `mesa/` once received. **Bitfile provenance is UNVERIFIED** — MD5, IDROM readback, and pin dump must be recorded per [`docs/superseded_claims_2026-08-06.md`](docs/superseded_claims_2026-08-06.md) #14 before it is treated as authoritative.
+- Confirm the Mesa/PCW-supplied Efinix resolver bitfile and stash it under `mesa/` once received; `7i80hdt_7i44_ss_7i49d.bit` is only a placeholder name. **Bitfile provenance is UNVERIFIED** — SHA-256, source/build provenance, IDROM readback, and pin dump must be recorded per [`mesa/mesa_firmware_checklist.md`](mesa/mesa_firmware_checklist.md) before it is treated as authoritative.
 - Confirm 7i80HDT Ethernet setup: static IP 192.168.1.121, `hm2_eth` `board_ip="192.168.1.121"`, and host NIC `enp0s31f6` at 192.168.1.1/24.
 - Confirm 24 V field power feed (OEM HR-11F-24 + retrofit DR-240-24, kept isolated) and 7i84U-A / 7i84U-B I/O sourcing/sinking behavior before wiring.
 - Capture cabinet photo set ([checklist](docs/cabinet_photo_checklist.md)).
@@ -62,15 +62,18 @@ Full rationale: [docs/architecture_decision.md](docs/architecture_decision.md).
 - Trace E-stop, door, ready chain, and servo contactor wiring.
 
 **Next**
-- LinuxCNC latency test on the control PC (already validated on Debian 13 / RT kernel).
+- Run the full LinuxCNC latency and hm2_eth test on the exact control PC, NIC,
+  kernel, BIOS, and workload that will operate the machine.
 - Install the 7i80HDT + 7i44 + 7i49 + 7i84U-A + 7i84U-B; leave P3 unused/spare (probe is on 7i84U-B input-15, not bare P3 GPIO) and save `mesa_readhmid.txt` and the actual `mesa_hal_pins.txt` dump.
 - Replace placeholder `hm2_7i80.0...` pin names in HAL from the real pin dump.
 - Set the 7i49 resolver excitation to **5 kHz** (TS2014N141E26 datasheet spec is 4.5 kHz; the 7i49 offers 2.5 / 5 / 10 kHz, so 5 kHz is the closest available option — about 11 % above nominal). The Tamagawa page publishes **no frequency tolerance**, so 5 kHz operation must be **verified at commissioning** by scoping RESDRV excitation and RESSIN/RESCOS amplitude and phase at rest and under motion. Record the exact `TS2014N###E##` suffix on every axis nameplate and match it to its own datasheet — PCW has warned that some TS2014 variants (e.g. E1/BRT) are not 7i49-compatible.
 - Identify each axis resolver winding pair with an **ohmmeter before applying power** (rotor pair R1/R2 → RESDRV±, matched stator pairs S1-S3, S2-S4 → RESSIN and RESCOS); verify, don't assume.
 - Scope the return signal level after 7i49 excitation; expect ~1 V RMS sin/cos from ~2 V RMS drive on a 2:1 resolver. **W2 is not a valid remedy for X/Y/Z:** per the 7i49 manual, W2 down halves reference drive on channels **3/4/5 only**, and X/Y/Z live on channels **0/1/2**. If the return is far off-target, escalate to Mesa (PCW) for review of the specific TS2014N suffix before adding external dividers or a 7i49HV.
 - Verify resolver scale/orientation and analog command polarity/scaling before enabling drives.
+- Complete and sign the per-axis [`resolver_commissioning.md`](docs/resolver_commissioning.md)
+  record and [`first_move_plan.md`](docs/first_move_plan.md) before powered motion.
 - Verify FR-SX spindle command mode; verify ATC prox/solenoid labels and normal states.
-- Measure coil voltages/currents to size interposing relays (RLY-5/6/7 mandatory for the 100VAC SSR overflow loads driven from P3 breakout OUT3/4/5).
+- Measure coil voltages/currents to size interposing relays (RLY-5/6/7 required by the current plan for the 100 VAC air/touch/tap loads on 7i84U-B OUT3/4/5).
 
 **Later**
 - Resolver feedback via 7i49 (drives disabled) → one axis at a time (low gain/speed) → homes/limits and hardware E-stop → spindle at low RPM → ATC/hydraulic dry run → decide on any optional future expansion I/O and pendant.
@@ -82,7 +85,7 @@ Full, checkbox-tracked TODO and progress: **[docs/project_status.md](docs/projec
 [`io-dashboard/`](io-dashboard/) is a single-page, offline I/O navigator generated from
 `mesa/current_pin_authority.csv`, the HAL config and the wiring notes. It walks
 LinuxCNC pin → HAL net → Mesa pin → connector/channel → field device → machine location
-for all 116 signal rows, and flags the open conflicts. Full guide:
+for all 128 current authority rows, and flags the open conflicts. Full guide:
 [io-dashboard/README.md](io-dashboard/README.md).
 
 ```bash
@@ -93,6 +96,10 @@ cd io-dashboard && python3 serve_live.py         # adds read-only /api/io on the
 `serve_live.py` only ever runs `halcmd -s show sig`; it never writes a HAL value and refuses
 any non-GET request. Regenerate `data.js` after editing the repo with
 `cd io-dashboard && python3 tools/generate_data.py`.
+
+For configuration changes, run `python3 scripts/validate_authority.py` and
+`python3 scripts/validate_control_logic.py` from the repo root. Both must pass;
+they are static checks and do not replace a LinuxCNC load test or fault injection.
 
 > ⚠️ The dashboard is a **configuration snapshot and navigation aid, not a safety
 > controller.** Nothing in it is a permission to energize, and no row has been field

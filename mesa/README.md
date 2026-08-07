@@ -25,11 +25,11 @@ VQC 20/40 retrofit. Evidence-state taxonomy defined in
 
 - **7i80HDT** — Ethernet FPGA host, 100BaseT, three 50-pin daughter connectors
   (P1/P2/P3), 72 IO total. Host-only — the board carries no field terminals.
-- **7i44 on P1** — 8-channel RS-422 sserial breakout. Port 0 serves
-  7i84U-A, port 1 serves 7i84U-B, and ports 2-7 remain available for expansion.
+- **7i44 on P1** — 8-channel RS-422 sserial breakout. Physical channels 0/1
+  serve 7i84U-A/B under HostMot2 port 0; channels 2-7 remain available.
 - **7i49 on P2** — 6× resolver channels + 6× ±10V analog outputs. Carries X/Y/Z
   resolver feedback and X/Y/Z servo velocity commands plus FR-SX spindle
-  velocity / orient reference.
+  velocity. AOUT4/AOUT5 are spare; orient is discrete ORCM1.
 - **P3 unused/spare** — no daughter card is fitted; all bare-FPGA GPIO. Not
   safe for 24 V field wiring (3.3 V logic without opto-isolation).
 - **7i84U-A on 7i44 sserial channel 0** — 32/16 remote field I/O near the
@@ -59,8 +59,9 @@ VQC 20/40 retrofit. Evidence-state taxonomy defined in
 ## Current Authority Rules
 
 - Use **7i84U-B on 7i44 sserial channel 1** for X/Y/Z limits (TB3 IN0-5),
-  X/Y/Z homes (TB3 IN6-8), X/Y/Z drive enables (TB3 OUT0-2), relay-driven
-  loads (TB3 OUT3-7), and the Renishaw MP-3 probe (TB3 IN15). Use
+  X/Y/Z homes (TB3 IN6-8), air permissive (TB3 IN9), the Renishaw MP-3
+  probe (TB3 IN15), X/Y/Z drive enables (TB3 OUT0-2), relay-driven loads
+  (TB3 OUT3-7), and the proposed cover-close command (TB2 OUT8). Use
   **7i84U-A TB2 IN29** as the sole software E-stop monitor. Note the
   Mesa 7i84 layout: TB1 is the 8-pin power connector, TB3 carries IN0-15
   and OUT0-7, and TB2 carries IN16-31 and OUT8-15.
@@ -69,12 +70,12 @@ VQC 20/40 retrofit. Evidence-state taxonomy defined in
   The probe was moved from a former P3 `gpio.042` binding to 7i84U-B input-15
   for that reason. All P3 pins are unused/spare in this configuration.
 - Use **7i49 P2 analog outputs** for X/Z/Y servo velocity commands and FR-SX
-  spindle velocity command; AOUT4 reserved for FR-SX orient reference; AOUT5
-  spare.
+  spindle velocity on AOUT0..AOUT3. AOUT4/AOUT5 are spare; FR-SX orient is
+  commanded by discrete ORCM1.
 - Use **7i49 P2 resolver channels 0/1/2** for X/Y/Z Tamagawa TS2014N feedback.
-- Use **7i84U-A** (via 7i44 P1 sserial port 0) for ATC, hydraulics, magazine,
-  coolant, lube, alarm, and cabinet field I/O; use **7i84U-B** on port 1 for
-  the safety inputs, drive enables, and relay-driven loads listed above.
+- Use **7i84U-A** (via 7i44 P1 channel 0) for ATC, hydraulics, magazine,
+  coolant, lube, alarm, and cabinet field I/O; use **7i84U-B** on channel 1 for
+  the limit/home monitoring inputs, drive enables, and relay-driven loads listed above.
 - OEM E-stop safety chain remains hardwired and authoritative. LinuxCNC only
   monitors the chain through an interposing relay dry contact.
 - OEM 24V (Shindengen HR-11F-24) and retrofit 24V (Meanwell DR-240-24) buses
@@ -83,4 +84,4 @@ VQC 20/40 retrofit. Evidence-state taxonomy defined in
 
 Do not order a third smart-serial card until the input count in
 `current_pin_authority.csv` is proven insufficient. The 7i44 has 6 spare
-sserial ports available for future expansion (MPG, 4th axis, second 7i84).
+physical channels available for future expansion (MPG, 4th axis, additional 7i84).

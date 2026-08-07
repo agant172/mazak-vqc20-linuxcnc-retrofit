@@ -1,13 +1,13 @@
 # 7i84U remote field I/O -- two cards on 7i80HDT smart-serial (via 7i44 P1)
 #
-# 7i84U-A (port 0): ATC, hydraulics, coolant, air, utility, spindle digital I/O
+# 7i84U-A (physical 7i44 channel 0): ATC, hydraulics, coolant, air, utility, spindle digital I/O
 #                   (existing 32/16 field I/O near green breakout PCB).
-# 7i84U-B (port 1): X/Y/Z limits + homes, X/Y/Z drive-enables, and five
+# 7i84U-B (physical 7i44 channel 1): X/Y/Z limits + homes, X/Y/Z drive-enables, and five
 #                   relay-driven loads (air/touch/tap blast, ATC barrier, flood).
 #
-# Naming convention: hm2_7i80.0.7i84.0.<port>.input-NN / output-NN.
+# Naming convention: hm2_7i80.0.7i84.<hostmot2-port>.<channel>.input-NN / output-NN.
 # The exact smart-serial device tag and pin names differ by firmware and
-# smart-serial port; use `halcmd show pin hm2` after loading the actual
+# smart-serial channel; use `halcmd show pin hm2` after loading the actual
 # firmware, then replace the placeholder pin names below.
 #
 # AUTHORITY: mesa/current_pin_authority.csv is the single source of truth for
@@ -23,7 +23,7 @@
 # physical terminal - the physical TB assignment is documented for wiring only.
 
 #####################################################################
-# 7i84U-A (7i44 port 0 = sserial channel 0) inputs 0..31
+# 7i84U-A (7i44 physical channel 0 = HostMot2 sserial port 0 channel 0) inputs 0..31
 # Physical: IN0-15 on TB3 pins 1-16 ; IN16-31 on TB2 pins 1-16
 #####################################################################
 
@@ -48,13 +48,21 @@ net thermal-alarm      <= hm2_7i80.0.7i84.0.0.input-08   # IN8  X073 THR.M + X07
 # BEFORE these inputs are wired into the safety chain. See
 # docs/superseded_claims_2026-08-06.md #16.
 net x-drive-fault      <= hm2_7i80.0.7i84.0.0.input-10   # IN10 X drive ALM
-net x-drive-fault      => joint.0.amp-fault-in
+net x-drive-fault      => resolver-fault-x.in0
 net y-drive-fault      <= hm2_7i80.0.7i84.0.0.input-11   # IN11 Y drive ALM
-net y-drive-fault      => joint.1.amp-fault-in
+net y-drive-fault      => resolver-fault-y.in0
 net z-drive-fault      <= hm2_7i80.0.7i84.0.0.input-12   # IN12 Z drive ALM
-net z-drive-fault      => joint.2.amp-fault-in
+net z-drive-fault      => resolver-fault-z.in0
+net x-axis-fault       <= resolver-fault-x.out
+net x-axis-fault       => joint.0.amp-fault-in
+net y-axis-fault       <= resolver-fault-y.out
+net y-axis-fault       => joint.1.amp-fault-in
+net z-axis-fault       <= resolver-fault-z.out
+net z-axis-fault       => joint.2.amp-fault-in
 net spindle-at-speed   <= hm2_7i80.0.7i84.0.0.input-13   # IN13 FR-SX SPD-REACH
+net spindle-at-speed   => spindle.0.at-speed
 net spindle-fault      <= hm2_7i80.0.7i84.0.0.input-14   # IN14 FR-SX ALM
+net spindle-fault      => spindle.0.amp-fault-in
 net tool-clamped       <= hm2_7i80.0.7i84.0.0.input-15   # IN15 PRS-9 tool-clamp confirm
 
 # --- IN16..IN23  (tool unclamp confirm + gear + BCD, TB2 pins 1-8) ---
@@ -83,64 +91,72 @@ net estop-monitor      <= hm2_7i80.0.7i84.0.0.input-29   # IN29 OEM MAR aux via 
 # IN31 servo-ready netted in atc_orient.hal.
 
 #####################################################################
-# 7i84U-A (7i44 port 0) outputs 0..15
+# 7i84U-A (7i44 physical channel 0) outputs 0..15
 # Physical: OUT0-7 on TB3 pins 17-24 ; OUT8-15 on TB2 pins 17-24
 #####################################################################
 
 # WARNING: verify coil/load current and voltage. Use interposing relays or
 # output modules where required. Add suppression appropriate to each coil.
 
-net spindle-fwd        <= spindle.0.forward
+# Global commissioning hold for every FR-SX motion-producing command. It has
+# no HAL writer and is initialised FALSE here. mazak_vqc_20_40.hal combines it
+# with watchdog health, estop-ok, the inverted spindle-fault input, machine-on,
+# and servo-ready to form spindle-motion-permit. FWD, REV, RUN,
+# pwmgen.03.enable, and ORCM1 all use that combined permit. After the FR-SX
+# architecture and polarity are proven, change this initialization to true;
+# do not bypass only one of the five paths.
+net spindle-fwd-command <= spindle.0.forward
+net spindle-fwd-command => and2.3.in0
+net spindle-motion-permit => and2.3.in1
+sets spindle-output-permit false
+net spindle-fwd        <= and2.3.out
 net spindle-fwd        => hm2_7i80.0.7i84.0.0.output-00  # OUT0  FR-SX FWD
-net spindle-rev        <= spindle.0.reverse
+net spindle-rev-command <= spindle.0.reverse
+net spindle-rev-command => and2.4.in0
+net spindle-motion-permit => and2.4.in1
+net spindle-rev        <= and2.4.out
 net spindle-rev        => hm2_7i80.0.7i84.0.0.output-01  # OUT1  FR-SX REV
-# HOLD (audit 2026-08-07): spindle drive polarity is UNVERIFIED. The three
-# spindle output nets below (spindle-fwd on OUT0, spindle-rev on OUT1,
-# spindle-enable on OUT2 = FR-SX RUN/STOP) remain nominally connected to
-# their sources, but pwmgen.03.enable is force-false in motion_7i80hdt.hal:
-# so AOUT3 sits at 0 V and the drive will not respond even if these
-# discrete outputs momentarily float TRUE. See motion_7i80hdt.hal 'HOLD
-# POINT - SPINDLE DRIVE POLARITY UNVERIFIED' for the full clearance path.
-# spindle-enable is sourced in mazak_vqc_20_40.hal from spindle.0.on. Under
-# normal (non-HOLD) operation it would follow the same M3/M4 timing as
-# pwmgen.03.enable; while the HOLD is asserted, the FR-SX still sees
-# spindle-enable transition on M3/M4 but AOUT3 stays at 0 V because
-# pwmgen.03.enable is force-false in motion_7i80hdt.hal, so no rotation occurs.
-net spindle-enable     => hm2_7i80.0.7i84.0.0.output-02  # OUT2  FR-SX RUN/STOP
+net spindle-enable-command => and2.5.in0
+net spindle-motion-permit => and2.5.in1
+net spindle-run-output <= and2.5.out
+net spindle-run-output => hm2_7i80.0.7i84.0.0.output-02  # OUT2  FR-SX RUN/STOP
 # OUT3  hyd-pump-on         (netted in atc_orient.hal - Y096 HYD.M)
 # OUT4  spindle-orient-cmd  (netted in atc_orient.hal - Y093 ORCM1.M)
 # OUT5  orient-lo-gear      (netted in atc_orient.hal - Y094 CTL.M)
-# OUT6 Z brake release: gated by a 100 ms on/off timedelay driven from
-# z-enable (joint.2.amp-enable-out).
+# OUT6 Z brake release: asymmetric sequencing from z-enable-request.
 #
 # WHY: releasing the Z brake at the SAME instant as asserting the drive S-ON
 # opens the mechanical hold before the drive has developed holding torque,
 # so the Z head drops on gravity. Symmetric problem on shutdown: dropping
 # drive S-ON at the same instant as the brake removes torque while the
-# brake is still spinning free, so the head coasts. timedelay.0 solves both:
+# brake is still spinning free, so the head coasts. The two named delays provide:
 #
-#   S-ON rises  -> brake release fires 100 ms LATER  (drive builds torque first)
-#   S-ON falls  -> brake drops 100 ms LATER          (brake engages first)
+#   request rises  -> S-ON immediately; brake and PID/pwm enable 100 ms later
+#   request falls  -> PID/pwm disable and brake engages immediately;
+#                    S-ON drops 100 ms later
 #
-# Wiring: z-enable goes to output-02 (S-ON) immediately AND to timedelay.0.in;
-# timedelay.0.out drives output-06 (brake release). The timedelay component
-# uses on-delay and off-delay parameters set in mazak_vqc_20_40.hal.
+# z-brake-delay delays the rising brake-release/PID-enable edge and drops it
+# immediately on disable. z-drive-drop-delay delays only the falling S-ON
+# edge. This cannot be implemented by one
+# symmetric timedelay because an off-delay on brake release is unsafe.
 #
 # LIMITATION: this is a fixed OPEN-LOOP delay. It does not observe an actual
 # drive-ready signal, so it assumes 100 ms is always enough for the MELDAS
 # DK-427 to develop torque. If a drive-ready feedback contact from the DK-427
-# is later wired to a 7i84U input, add an and2 between timedelay.0.out and
-# output-06 (both timedelay.out AND drive-ready must be TRUE to release the
+# is later wired to a 7i84U input, add an and2 between z-brake-delay.out and
+# output-06 (both delayed request AND drive-ready must be TRUE to release the
 # brake). Also add a SERVO_READY row to mesa/current_pin_authority.csv.
 #
 # The 100 ms figure is a placeholder pending measurement of the DK-427 torque
 # build-up time and the SOL-201 brake solenoid drop-out time per
 # docs/pre_power_deliverables.md D7. Update once measured and cite the
 # measurement in docs/stop_timing_budget.md.
-setp timedelay.0.on-delay  0.100    # 100 ms drive-torque-build before brake release
-setp timedelay.0.off-delay 0.100    # 100 ms brake-engage before S-ON drop
-net z-enable           => timedelay.0.in
-net z-brake-release    <= timedelay.0.out
+setp z-brake-delay.on-delay       0.100  # torque-build time before brake release
+setp z-brake-delay.off-delay      0.000  # engage brake immediately on disable
+setp z-drive-drop-delay.on-delay  0.000  # assert S-ON immediately on enable
+setp z-drive-drop-delay.off-delay 0.100  # retain torque while brake engages
+net z-enable-request   => z-brake-delay.in
+net z-brake-release    <= z-brake-delay.out
 net z-brake-release    => hm2_7i80.0.7i84.0.0.output-06  # OUT6  N1J-L2-201 Z brake release
 # OUT7  gear-hi-sol        (netted in atc_orient.hal - Y00B GSH.M / RLY-1 to SOL-13)
 # OUT8  gear-lo-sol        (HOLD_CONFLICT in authority CSV; unbound in atc_orient.hal)
@@ -223,21 +239,23 @@ net home-y => joint.1.home-sw-in
 net home-z <= hm2_7i80.0.7i84.0.1.input-08        # LS-62 confirmed TB-51
 net home-z => joint.2.home-sw-in
 
+# ATC pressure permissive. An open/unwired circuit reads FALSE and blocks the
+# ATC. Confirm whether the installed pressure switch closes on healthy pressure
+# before changing this raw/complement choice.
+net air-ok <= hm2_7i80.0.7i84.0.1.input-09
+
 # Renishaw MP-3 probe SKIP1 on 7i84U-B input-15 (physically TB3 pin 16).
 # Rationale: the 7i84U provides opto-isolated 24 V-tolerant field inputs, which
 # the bare 7i80HDT P3 GPIOs do not (P3 = unbuffered 3.3 V LVCMOS -- 24 V would
-# destroy the FPGA input). Latency (worst case): approximately one servo
-# period, dominated by the wait for the next hm2_eth.read invocation. The
-# 2.5 Mbaud SSLBP link itself adds only ~100 us DOIT round trip per Mesa's
-# 7i44 manual - it does NOT set a '1 ms per bit rate' figure. See
-# docs/smart_serial_latency.md for the derivation from primary sources:
-# 7i44 DOIT bound and hostmot2(9) sample rhythm. The hostmot2(9) man page
-# <https://linuxcnc.org/docs/html/man/man9/hostmot2.9.html> does not
-# document sserial as DPLL-synchronous with the servo thread.
-# This one-servo-period jitter is acceptable for tool setting and workpiece
-# probing at moderate feedrates. If tighter probing accuracy is ever
-# required, use a Mesa daughter card designed for opto-isolated fast inputs
-# rather than bare P3 GPIO.
+# destroy the FPGA input). End-to-end probe latency and jitter are not
+# established by baud rate or servo period alone. The Mesa manual gives a
+# transaction-time bound, but neither it nor hostmot2(9) proves a fixed
+# input-age bound, debounce delay, or DPLL relationship for this configuration.
+# Measure the complete probe-interface -> 7i84U -> HostMot2 ->
+# motion.probe-input path at the intended servo period and probing feeds before
+# accepting it; see docs/smart_serial_latency.md. If the measured stopping error
+# is excessive, use an isolated input interface designed for the required
+# capture behavior; never use bare P3 GPIO on a 24 V field circuit.
 # Probe interface (Renishaw MI 12 or similar) idles NC -> probe trigger = low,
 # so consume the '-not' complement pin to make motion.probe-input TRUE on
 # contact. (sserial input pins have no invert_input parameter - see the note
@@ -245,7 +263,7 @@ net home-z => joint.2.home-sw-in
 net probe-in <= hm2_7i80.0.7i84.0.1.input-15-not
 net probe-in => motion.probe-input
 
-# IN9..IN14 and IN16..IN31: 22 spare inputs on 7i84U-B
+# IN10..IN14 and IN16..IN31: 21 spare inputs on 7i84U-B
 
 #####################################################################
 # 7i84U-B (7i44 port 0 sserial CHANNEL 1) outputs 0..15 - drive-enables + relay loads
@@ -262,15 +280,19 @@ net probe-in => motion.probe-input
 # amp-enable-out goes TRUE; on fault or estop it drops FALSE.
 #
 # WATCHDOG-INHIBIT: the raw amp-enable-out signal is gated through and2
-# components against 'motion-permit' (nominally TRUE; goes FALSE when the
-# hm2_eth watchdog trips or the packet-error-exceeded threshold is hit).
+# components against 'motion-permit'. It remains FALSE until the axis
+# commissioning hold is deliberately cleared, and returns FALSE when the
+# hm2_eth watchdog trips or the packet-error-exceeded threshold is hit.
 # See the 'Safety watchdog' block in mazak_vqc_20_40.hal for the fault-source
-# wiring. Belt-and-suspenders: the same fault also trips estop-latch.0.fault-in,
-# so a NIC/watchdog fault has two independent paths to disable drives:
+# wiring. The same fault summary also trips estop-latch.0.fault-in, so a
+# NIC/watchdog fault has two software consumers that disable drives:
 #   (a) motion-permit=FALSE opens the and2 gates below -> x/y/z-enable=FALSE
 #       -> S-ON outputs drop and pwmgen enables drop
 #   (b) estop-latch.0.fault-in=TRUE -> estop-latch.0.ok-out=FALSE ->
 #       iocontrol.0.emc-enable-in=FALSE -> LinuxCNC drops amp-enable-out anyway
+# These are not independent safety channels; both depend on the same host and
+# HAL execution. The hardwired E-stop chain and Mesa watchdog safe state remain
+# the independent backstops.
 
 net x-enable-raw <= joint.0.amp-enable-out
 net x-enable-raw => and2.0.in0
@@ -287,7 +309,9 @@ net y-enable     => hm2_7i80.0.7i84.0.1.output-01   # Y servo S-ON to MELDAS DK-
 net z-enable-raw <= joint.2.amp-enable-out
 net z-enable-raw => and2.2.in0
 net motion-permit => and2.2.in1
-net z-enable     <= and2.2.out
+net z-enable-request <= and2.2.out
+net z-enable-request => z-drive-drop-delay.in
+net z-enable     <= z-drive-drop-delay.out
 net z-enable     => hm2_7i80.0.7i84.0.1.output-02   # Z servo S-ON to MELDAS DK-427
 
 # 100 VAC solenoid outputs via interposing relays. Uncomment as each relay is wired.
@@ -297,4 +321,5 @@ net z-enable     => hm2_7i80.0.7i84.0.1.output-02   # Z servo S-ON to MELDAS DK-
 # OUT6 atc-barrier: netted in atc_orient.hal (PLC Y095 TCME.M)
 # net flood-valve        => hm2_7i80.0.7i84.0.1.output-07  # PLC Y011 FCL
 
-# OUT8-OUT15: 8 spare outputs on 7i84U-B
+# OUT8 is the proposed single-coil magazine-cover close command, bound in
+# atc_orient.hal. OUT9-OUT15 remain spare.

@@ -28,8 +28,9 @@ mirror [Mitsubishi_Manuals_538.pdf](https://s3.amazonaws.com/Icarus/DOCUMENTS/Mi
   1,000 mm or less."* The MDS troubleshooting instructions repeatedly
   refer to *"PN wiring between the units"* and instruct the technician
   to *"check the axis where the alarm occurred, and the axis farthest
-  from the power supply"* — i.e. the drives sit in series on one bus,
-  not on independent supplies.
+  from the power supply"* — evidence of a shared P/N distribution. The
+  amplifier DC inputs are connected across the common bus, not electrically
+  in series.
 - **Optional capacitor unit.** TRA-41A p. 3 (Note 2) shows the rectifier
   PN connected to a capacitor unit at ≤ 250 mm; p. 1 notes that this
   capacitor unit *"may be added or not according to the load inertia
@@ -115,7 +116,8 @@ can compensate for gaps in the physical stop chain.
   - Overvoltage trip threshold — MDS manual states *"The voltage between
     PN exceeded 410 V"* for the overvoltage alarm; verify actual trip
     on this rectifier.
-  - **Discharge time from operating voltage to < 50 V DC after the AC
+  - **Discharge time from operating voltage to the service threshold specified
+    by the exact rectifier/capacitor manual after the AC
     contactor drops out**, with the machine at rest (no regeneration
     contribution). Time this with a scope or DMM in max-hold on the
     P/N test points. Log to `docs/commissioning_logs/dc_bus_discharge_YYYYMMDD.md`.
@@ -123,8 +125,8 @@ can compensate for gaps in the physical stop chain.
     (the worst case, since the drive dumps kinetic energy back onto the
     bus and can drive it *higher* than steady-state before regen /
     bleeder resistors dissipate it).
-  - CHARGE lamp: verify it lights when P/N > ~ 50 V DC and only extinguishes
-    below that threshold.
+  - CHARGE lamp: characterize its actual on/off voltage against a meter; do not
+    infer a safe bus voltage solely from the lamp.
 - [ ] Prove **stop sequence** by controlled test with the servo motors
       disconnected from the machine (safe stand-alone bench, or physical
       stops fitted to each axis):
@@ -133,7 +135,8 @@ can compensate for gaps in the physical stop chain.
   3. Main AC contactor OFF → P/N discharges through bleeder / regen.
   4. Z brake solenoid de-energizes → mechanical brake sets (spring-set,
      electrically-released is the safe design).
-  5. CHARGE lamp goes out only when P/N < ~ 50 V.
+  5. Compare the CHARGE-lamp transition to the measured P/N voltage and the
+     exact unit manual's service threshold.
 - [ ] Prove **fault propagation** with the same controlled setup:
   - Simulate an amplifier alarm on X: verify Y, Z, and spindle amplifiers
     all drop READY. Verify the main contactor is dropped by the fault,
@@ -149,15 +152,14 @@ can compensate for gaps in the physical stop chain.
 - [ ] **Categorize the stop** per relevant standards
       ([EN 60204-1](https://www.iso.org/standard/62409.html) /
       [IEC 61800-5-2](https://webstore.iec.ch/publication/29331)):
-  - Category 0 (uncontrolled by removal of power) is what the OEM chain
-    provides today via the main contactor.
-  - Category 1 (controlled deceleration then power removal) is often
-    preferable on machining centers; requires that the drives be capable
-    of controlled ramp-down before power removal.
-  - **Do not upgrade the category on paper alone.** Any category-1
-    implementation requires either drive-side STO with SIL-rated
-    feedback or a validated time-delay contactor drop with proven
-    deceleration under all fault modes.
+  - The existing chain's stopping category is **unverified**. A direct main-
+    contactor drop may implement a category-0 stop, but that must be established
+    from the as-built sequence and measured stop behavior.
+  - A category-1 claim requires a validated safety-related controlled stop
+    followed by power removal; normal drive ramp capability alone is not proof.
+  - **Do not upgrade the category on paper alone.** Select and validate the
+    safety architecture against the applicable risk assessment and standards;
+    a HAL timer or ordinary time-delay relay is not sufficient evidence.
 
 ## Test points to establish and label
 
@@ -166,10 +168,10 @@ for both commissioning and future service:
 
 | Label | Description | Expected reading (typical) |
 |-------|-------------|----------------------------|
-| TP-DC+ | Rectifier P (positive DC bus) | +150 V DC nominal to case GND on 3-phase 200 V; ~300 V DC across P/N |
-| TP-DC- | Rectifier N (negative DC bus) | -150 V DC nominal to case GND on 3-phase 200 V |
-| TP-CHG | CHARGE lamp output (indicator) | Lit above ~50 V DC across P/N |
-| TP-BRK-Z | Z brake solenoid coil (24 V DC nominal) | +24 V DC when Z is enabled and moving/holding; 0 V when brake is set |
+| TP-DC+ | Rectifier P test point | Measure only P-to-N using the exact manual's procedure; do not assume either pole's voltage to chassis |
+| TP-DC- | Rectifier N test point | Measure only P-to-N using the exact manual's procedure; do not assume either pole's voltage to chassis |
+| TP-CHG | CHARGE lamp output (indicator) | Characterize against measured P/N; lamp threshold is unverified |
+| TP-BRK-Z | Z brake solenoid coil | Voltage and polarity unverified; determine whether de-energized truly means brake set |
 | TP-RDY-X | X amplifier READY contact | closed (or +24 V) when X is ready |
 | TP-RDY-Y | Y amplifier READY contact | closed (or +24 V) when Y is ready |
 | TP-RDY-Z | Z amplifier READY contact | closed (or +24 V) when Z is ready |
@@ -177,7 +179,7 @@ for both commissioning and future service:
 | TP-RDY-CV | Rectifier READY contact | closed (or +24 V) when rectifier is ready |
 | TP-MAIN-K | Main AC contactor coil | +24 V DC (or 100 V AC per OEM design) when energized |
 
-Update the [7i84U-B legend](../wiring/7i84u_b_terminal_legend.csv) once
+Update the [7i84U-B legend](../wiring/7i84u_b_terminal_legend_epson.md) once
 which of these signals LinuxCNC needs to monitor (READY chain in) or
 inhibit (drive-enable outputs out) is decided — remembering that
 LinuxCNC **monitors and inhibits** but is **not** the primary safety
@@ -190,20 +192,19 @@ element. See [E-stop schematic and fault-injection matrix](estop_safety_chain.md
   enable inputs and the OEM READY chain. Removing a 7i84U output must
   disable the drives; failing to remove one must NOT bypass an OEM
   interlock.
-- LinuxCNC must monitor the rectifier and per-axis READY contacts on
-  7i84U-B TB3 inputs (assignment to be finalized once the survey is
-  complete) and drop `motion.motion-enabled` (or the servo-off HAL
-  net) on any READY-off transition. Failure to detect a READY-off
-  must not silently allow the position loop to keep issuing commands.
+- The current authority has only a combined `SERVO_READY` candidate on
+  7i84U-A IN31; it has no rectifier-ready or per-axis-ready input rows. If the
+  stop-chain survey requires individual monitoring, allocate exact authority
+  rows and HAL fault consumers before claiming LinuxCNC detects those states.
 - The Z brake must have a dedicated 7i84U output only if we are
   certain that de-energizing that output causes the brake to *set*
   (spring-set, electrically-released). If the OEM brake is
   electrically-set / spring-released, do NOT put LinuxCNC in that
   path — retain the OEM brake control chain unchanged.
-- **The 7i84U smart-serial link cannot be the sole path for any
-  stop or brake permit.** Its watchdog default is 50 ms; hardware
-  overtravel and torque removal must not require a software round
-  trip. See [smart-serial latency budget](smart_serial_latency.md).
+- **The 7i84U smart-serial link cannot be the sole path for any stop or brake
+  permit.** No fixed watchdog/drop time is accepted for this configuration
+  until measured; hardware overtravel and torque removal must not require a
+  software round trip. See [smart-serial latency plan](smart_serial_latency.md).
 
 ## Sources
 

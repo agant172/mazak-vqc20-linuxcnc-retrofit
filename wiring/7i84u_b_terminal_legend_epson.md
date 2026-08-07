@@ -1,6 +1,6 @@
 # 7i84U-B TB1/TB2/TB3 Terminal Legend — Epson Label Editor Batch Import
 
-Companion CSV: [`7i84u_b_terminal_legend_epson.csv`](7i84u_b_terminal_legend_epson.csv) — 22 label rows covering the 4 field-power terminals on TB1 and the 18 active I/O terminals on TB3 of 7i84U-B (7i44 sserial channel 1).
+Companion CSV: [`7i84u_b_terminal_legend_epson.csv`](7i84u_b_terminal_legend_epson.csv) — 24 label rows covering 4 field-power terminals plus 20 allocated I/O terminals on 7i84U-B (7i44 sserial channel 1).
 
 Formatted for **Epson Label Editor (Mac)** — same schema conventions as the BBIA-1 ferrule CSV, but the labels here go on the **7i84U-B card face / terminal-block skirt**, not on individual conductors.
 
@@ -8,16 +8,16 @@ Formatted for **Epson Label Editor (Mac)** — same schema conventions as the BB
 
 - **TB1** (8-pin): field power only — VFIELDA/VFIELDB/VIN/GND (rows 1–4 here).
 - **TB3** (24-pin): IN0–IN15 on pins 1–16, OUT0–OUT7 on pins 17–24.
-- **TB2** (24-pin): IN16–IN31 on pins 1–16, OUT8–OUT15 on pins 17–24 — all spare on 7i84U-B and not labeled here.
+- **TB2** (24-pin): IN16–IN31 on pins 1–16, OUT8–OUT15 on pins 17–24. OUT8 is the proposed magazine-cover close command; the remaining TB2 I/O is spare.
 
 ## What these labels are for
 
-The 7i84U-B carries the safety inputs (X/Y/Z limits + homes), the Renishaw MP-3 probe SKIP1, and the relay-driven load outputs (X/Y/Z drive enables plus the five 24 VDC → interposing-relay loads: air blast, touch-sensor blast, tap-coolant blast, ATC barrier, flood valve). Its TB1/TB2/TB3 terminal blocks are not silk-screened with the machine-signal names — only the pin-position numbers — so a printed legend goes on the card or on a strip of tape stuck to the cabinet backplate next to the card.
+The 7i84U-B carries limit/home monitoring inputs, air-pressure permissive, Renishaw MP-3 probe SKIP1, drive enables, relay-driven loads, and the proposed magazine-cover close output. These channels are not a safety-rated substitute for the hardwired E-stop chain. Its TB1/TB2/TB3 terminal blocks are not silk-screened with the machine-signal names — only the pin-position numbers — so a printed legend goes on the card or on a strip of tape stuck to the cabinet backplate next to the card.
 
 **Blank terminals not included:**
-- TB3-IN9 through TB3-IN14 (6 spare inputs)
+- TB3-IN10 through TB3-IN14 (5 spare inputs)
 - TB2-IN16 through TB2-IN31 (16 spare inputs)
-- TB2-OUT8 through TB2-OUT15 (8 spare outputs)
+- TB2-OUT9 through TB2-OUT15 (7 spare outputs)
 
 If you want blank ferrules pre-made for the spare terminals, add them by hand in Label Editor or extend the CSV.
 
@@ -46,7 +46,7 @@ If you want blank ferrules pre-made for the spare terminals, add them by hand in
 
 ## Suggested print order
 
-Rows are ordered by terminal position: power pins first (TB1-1 → TB1-4), then TB3 inputs by ascending IN number (TB3-IN0 → TB3-IN8, then TB3-IN15 for the probe), then TB3 outputs by ascending OUT number (TB3-OUT0 → TB3-OUT7). Peel and stick in the same sequence and the layout matches the card face.
+Rows are ordered by terminal position: power pins first (TB1-1 → TB1-4), then TB3 inputs by ascending IN number (including IN9 air and IN15 probe), TB3 outputs OUT0 → OUT7, and TB2 OUT8. Peel and stick in the same sequence and the layout matches the card face.
 
 ## Rebuild trigger
 

@@ -6,8 +6,9 @@
 # was NOT applied - atc_orient.hal still hardcodes gear-range.in1 to 434. Kept here
 # as a reference / diff source, not as still-pending work.
 #
-# Paste these into linuxcnc/mazak_vqc_20_40.ini. Kept as a separate snippet so
-# the working INI is not modified by the skeleton drop.
+# Reference copy of the settings already merged into
+# linuxcnc/mazak_vqc_20_40.ini. Do not paste this over the active file; compare
+# it when reviewing later ATC changes.
 #
 # Companion files:
 #   linuxcnc/atc_orient.hal                  net wiring
@@ -38,7 +39,7 @@ HALUI = halui
 #####################################################################
 # 2. motmod digital I/O - REQUIRED
 #####################################################################
-# The remap uses motion.digital-out-00..07 and motion.digital-in-00..07.
+# The remap uses motion.digital-out-00..08 and motion.digital-in-00..07.
 # motmod only creates 4 of each by default, so the loadrt line in
 # linuxcnc/mazak_vqc_20_40.hal must gain num_dio:
 #
@@ -59,12 +60,15 @@ HALUI = halui
 PARAMETER_FILE = linuxcnc.var
 SUBROUTINE_PATH = remap
 REMAP = M6 modalgroup=6 ngc=toolchange
+ON_ABORT_COMMAND = O <on_abort> call
 
 # Deliberately NO prolog/epilog: the stdglue change_prolog/change_epilog pair
 # needs the Python interpreter plumbing ([PYTHON] TOPLEVEL etc). This skeleton
 # stays pure NGC and closes the loop itself with M61 Q-. If Python glue is
 # added later the line becomes:
 #   REMAP = M6 modalgroup=6 prolog=change_prolog ngc=toolchange epilog=change_epilog
+# on_abort.ngc is still required without Python glue. It asserts the dedicated
+# P8 ATC-abort request, clears P0-P7, and leaves P8 set until the next M6 entry.
 
 
 #####################################################################
@@ -72,13 +76,10 @@ REMAP = M6 modalgroup=6 ngc=toolchange
 #####################################################################
 # Read from G-code as #<_ini[ATC]NAME>.
 #
-# ALL COORDINATES ARE PLACEHOLDERS. ZP1 and ZP2 are the OEM reference points
-# (ATC doc open question #2). Confirmed 2026-07-27: the values are NOT in the
-# uploaded Parameters manual (generic M-2 dictionary, Setting column blank) -
-# the OEM numbers are M-2 params RP1-RP3 ("2nd zero point coordinate") in the
-# control's battery-backed CMOS. See docs/parameter_recovery.md for the
-# capture checklist and the measurement fallback. Values are MACHINE
-# coordinates (the NGC moves with G53) in the [TRAJ] units, currently inches.
+# ZP1/ZP2 were absent from the generic uploaded parameter dictionary. The
+# values below were later recovered from this machine's live battery-backed
+# RP1-RP3 display. They are evidence-backed candidates, not commissioned motion
+# coordinates: keep DRY_RUN enabled and verify limits/direction at reduced rapid.
 
 # VALUES FILLED 2026-07-28 from the live control's MACH CONSTANT PAR NO.2
 # screen (RP1-RP3 "2nd zero point" = 0 / +95000 / -59055 in 0.0001-inch
@@ -102,8 +103,9 @@ ORIENT_TIMEOUT  = 15.0
 CONFIRM_TIMEOUT = 10.0
 INDEX_TIMEOUT   = 40.0
 
-# 1 = print progress to the console; the moves still execute. Set 0 for
-# normal running. This is a comment aid only - it does not inhibit motion.
+# 1 = return from the remap before any output or axis motion. The requested
+# tool number is simulated with M61 for offline smoke tests. Set 0 only after
+# every ATC commissioning hold is cleared and the abort tests pass.
 DRY_RUN = 1
 
 

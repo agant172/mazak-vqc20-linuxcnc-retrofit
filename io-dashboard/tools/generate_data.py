@@ -25,6 +25,7 @@ HAL_FILES = [
     "linuxcnc/mazak_vqc_20_40.hal",
     "linuxcnc/motion_7i80hdt.hal",
     "linuxcnc/field_7i84u.hal",
+    "linuxcnc/atc_orient.hal",
     "linuxcnc/postgui.hal",
     "linuxcnc/pendant_whb04b.hal",
 ]
@@ -237,8 +238,8 @@ def build(root):
         elif commented_nets:
             hal_state = "commented"
 
-        # P3 has no daughter card: gpio.042 is the bare probe input and all other
-        # P3 GPIO remains spare. Preserve 7i80HDT ownership for those authority rows.
+        # P3 has no daughter card and all of its GPIO remains spare. Preserve
+        # 7i80HDT ownership for those authority rows.
         # gpio.024-031 is retained as the 7i49 P2 classification if it appears.
         board = r["mesa_card"]
         if board == "7i80HDT":
@@ -282,9 +283,10 @@ def build(root):
     # HAL nets that exist in the config but have NO authority row at all.
     known = {s["hal_net"] for s in signals if s["hal_net"]}
     internal = re.compile(
-        r"^(x|y|z)-(pos-cmd|pos-fb|vel-fb|pos-rawcounts|index-enable|traj-vel)$|"
+        r"^(x|y|z)-(pos-cmd|pos-fb|vel-fb|pos-rawcounts|index-enable|traj-vel|resolver-fault|axis-fault)$|"
         r"^estop-(ok|reset)$|^tool-(prepare|change)-loopback$|^spindle-(pos-fb|vel-fb|revs|index-enable)$|"
-        r"^spindle-vel-(cmd|fb)-rpm$|^spindle-pid-out$")
+        r"^spindle-vel-(cmd|fb)-rpm$|^spindle-pid-out$|^spindle-speed-mag$|"
+        r"^watchdog-(hm2-bit|pkt-err)$")
     orphans = []
     for net, refs in sorted(nets.items()):
         if net in known or internal.match(net):
@@ -308,12 +310,13 @@ def build(root):
             m_card = re.search(r"\.7i84\.0\.(\d+)\.", pin)
             board = "7i84U-B" if m_card and m_card.group(1) == "1" else "7i84U-A"
             chan = pin.rsplit(".", 1)[-1]
-            conn = "TB1" if chan.startswith("input") else "TB2"
+            m_num = re.search(r"-(\d+)", chan)
+            pin_num = int(m_num.group(1)) if m_num else -1
+            conn = "TB3" if 0 <= pin_num <= 15 else "TB2"
             channel = chan.upper().replace("INPUT-", "IN").replace("OUTPUT-", "OUT")
             channel = re.sub(r"^(IN|OUT)0(\d)$", r"\1\2", channel)
         else:
-            # P3 has no daughter card. gpio.042 is the direct probe exception;
-            # any other P3 GPIO reference is shown as a 7i80HDT P3 spare.
+            # P3 has no daughter card and no active field-signal exception.
             m_idx = re.search(r"gpio\.(\d+)", pin)
             idx = int(m_idx.group(1)) if m_idx else -1
             if 24 <= idx <= 31:
@@ -321,7 +324,7 @@ def build(root):
                 conn = "P2"
             else:
                 board = "7i80HDT"
-                conn = "P3 GPIO" if idx == 42 else ("P3 GPIO spare" if 32 <= idx <= 62 else "P1")
+                conn = "P3 GPIO spare" if 32 <= idx <= 62 else "P1"
             channel = pin.split("hm2_7i80.0.", 1)[-1]
         is_in = "input" in pin or pin.endswith(".in")
         direction = "IN" if is_in else "OUT"
@@ -364,7 +367,9 @@ def build(root):
         })
 
     # Authority nets that never appear in HAL
-    missing = [s["id"] for s in signals if s["hal_net"] and s["hal_state"] == "absent"]
+    missing = [s["id"] for s in signals
+               if s["hal_net"] and s["hal_state"] == "absent"
+               and s["status"] not in {"DEFERRED", "SPARE", "RESERVED", "RESERVED_VERIFY"}]
 
     ini_lines = read_lines(os.path.join(root, INI_FILE))
     halfiles = [l.split("=", 1)[1].strip() for l in ini_lines
@@ -373,7 +378,7 @@ def build(root):
     meta = {
         "machine": "Mazak VQC-20/40",
         "serial": "060231",
-        "architecture": "LinuxCNC + Mesa 7i80HDT (Ethernet FPGA host) + 7i44 on P1 (sserial to 7i84U-A on port 0 and 7i84U-B on port 1) + 7i49 on P2 (resolver + analog outs); P3 unused/spare except bare gpio.042 probe input",
+        "architecture": "LinuxCNC + Mesa 7i80HDT (Ethernet FPGA host) + 7i44 on P1 (HostMot2 sserial port 0 channels 0/1 to 7i84U-A/B) + 7i49 on P2 (resolver + analog outs); P3 unused/spare",
         "generated": datetime.datetime.now(datetime.timezone.utc)
                              .strftime("%Y-%m-%d %H:%M UTC"),
         "source_repo": "mazak-vqc20-linuxcnc-retrofit",
@@ -384,11 +389,11 @@ def build(root):
             "mesa/current_pin_authority.csv is the wiring authority.",
             "7i49 AOUT axis order is X=AOUT0, Z=AOUT1, Y=AOUT2.",
             "Axis feedback is Tamagawa TS2014N resolver through the 7i49 on P2, not quadrature encoder.",
-            "The hardware E-stop chain removes hazardous power. 7i84U-A TB1 IN29 is the sole software monitor; the OEM hardware chain remains authoritative.",
+            "The hardware E-stop chain removes hazardous power. 7i84U-A TB2 IN29 is the sole software monitor; the OEM hardware chain remains authoritative.",
             "Every hm2_7i80.* pin name in the HAL set is an unverified placeholder until confirmed against a firmware readhmid.",
-            "7i49 AOUT order is X=AOUT0, Z=AOUT1, Y=AOUT2, FR-SX spindle velocity=AOUT3, FR-SX orient=AOUT4 (reserved).",
-            "7i84U-B on 7i44 port 1: TB1 IN0-5 = X/Y/Z limits, IN6-8 = X/Y/Z homes; TB2 OUT0-2 = X/Y/Z drive-enable; OUT3-7 = AIR/TOUCH/TAP/ATC barrier/FLOOD; OUT8-15 spare.",
-            "7i84U-A on 7i44 port 0 remains reachable via `hm2_7i80.0.7i84.0.0.*`; 7i84U-B uses `hm2_7i80.0.7i84.0.1.*`. P3 is otherwise unused/spare; `hm2_7i80.0.gpio.042` is the probe input.",
+            "7i49 AOUT order is X=AOUT0, Z=AOUT1, Y=AOUT2, FR-SX spindle velocity=AOUT3; AOUT4/AOUT5 spare.",
+            "7i84U-B on 7i44 channel 1: TB3 IN0-5 limits, IN6-8 homes, IN9 air pressure, IN15 probe; TB3 OUT0-2 drive enable, OUT3-7 relay loads; TB2 OUT8 proposed cover valve; OUT9-15 spare.",
+            "7i84U-A on sserial channel 0 is `hm2_7i80.0.7i84.0.0.*`; 7i84U-B on channel 1 is `hm2_7i80.0.7i84.0.1.*`; P3 has no active field binding.",
         ],
     }
 

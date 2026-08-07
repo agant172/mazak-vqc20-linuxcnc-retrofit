@@ -30,7 +30,7 @@ with the actual correction applied.
 ### 2. 7i80HD-16 vs 7i80HDT — flashing hazard
 
 - **Audit claim:** The 7i80HD-16 is a distinct product from the
-  7i80HDT; flashing an HD bitfile to an HDT bricks the card.
+  7i80HDT; an HD bitfile is incompatible with an HDT.
 - **Verification:** [Forum #281014](https://forum.linuxcnc.org/27-driver-boards/50101-bitfile-for-7i80hdt-with-7i44-and-7i48)
   (PCW): "You need a 7I80HDT bitfile as it uses a different
   FPGA." [Efinix thread #292419](https://forum.linuxcnc.org/27-driver-boards/51589-7i80hdt-efinix-project-file)
@@ -40,8 +40,10 @@ with the actual correction applied.
 - **Correction:** Any reference to 7i80HD-16 as an alternative in
   current architecture docs should be **removed**. Retain the
   hazard note: "Never flash a 7I80HD or 7I80HD-16 bitfile onto a
-  7I80HDT — the FPGAs are different and the card will not
-  respond after bricking." Cite the two forum posts above.
+  7I80HDT — the FPGAs and bitstreams differ; an incompatible image
+  can leave the board requiring its documented recovery path." The
+  cited posts do not establish permanent unrecoverable damage, so do
+  not call this a permanent brick.
 
 ### 3. 7i84U field voltage range — 5-28 V, not 5-32 V
 
@@ -71,12 +73,13 @@ with the actual correction applied.
 - **Verification:** [7i84U manual](https://www.mesanet.com/pdf/parallel/7i84uman.pdf)
   page 1 DESCRIPTION: "Outputs have per output short circuit
   protection, overvoltage clamps and per driver chip thermal
-  shutdown." The clamps eliminate the need for external flyback
-  diodes on **DC coils driven directly by the 7i84U**.
+  shutdown." This verifies that clamps exist; it does not state a
+  blanket rule that external suppression is always unnecessary.
 - **Correction:** Update repo language:
-  - DC solenoids driven by 7i84U outputs at ≤ 500 mA / ≤ 28 V
-    do NOT need external flyback diodes — the built-in output
-    clamps handle inductive recovery.
+  - For a DC coil within the output rating, use the 7i84U's documented
+    built-in clamp as part of the transient design, but choose any added
+    diode/TVS from the required release time and EMC measurement. Do not
+    state either "always required" or "never required" without that analysis.
   - 100 VAC solenoids (SOL-10, SOL-12, SOL-13, SOL-35, SOL-61,
     SOL-62, and the ATC barrier if AC) are driven via
     interposing relays. The 7i84U output drives the relay's
@@ -114,14 +117,11 @@ with the actual correction applied.
 - **Audit claim:** 7i37TA appears in some current docs as an
   I/O expansion option; the plan of record uses two 7i84Us on
   the 7i44, not a 7i37TA.
-- **Verification:** Repo grep confirms `7i37TA` does not appear
-  in current active architecture files (spot check:
-  `linuxcnc/`, `mesa/`, `wiring/`, `README.md`). If any legacy
-  mention remains, it belongs in `docs/history/` (rejected
-  alternatives), not in current planning.
-- **Correction:** Move any surviving 7i37TA reference to a
-  future `docs/history/rejected_hardware_alternatives.md`
-  (deferred; not a blocker for commissioning).
+- **Verification:** `7i37TA` remains only in explicitly labelled rejected-
+  alternative/history passages; it is absent from the selected stack, BOM,
+  active HAL, and authority CSV.
+- **Correction:** Keep the historical mention only where it is clearly marked
+  contradicted. Do not add it to current planning or purchase lists.
 
 ### 7. Serial-number pinning for 7i84Us
 
@@ -135,8 +135,9 @@ with the actual correction applied.
   number) — pinning is NOT active. Any repo prose suggesting
   serial-number pinning should be removed.
 - **Correction:** In any doc that mentions serial-number
-  pinning as required, replace with: "smart-serial cards are
-  addressed by port (0, 1) on the 7i44, not by serial number.
+  pinning as required, replace with: "the two smart-serial cards are
+  addressed on physical 7i44 channels 0 and 1 within HostMot2 port 0,
+  not by serial number.
   `use_serial_numbers=1` is available in
   [hostmot2(9)](https://linuxcnc.org/docs/2.9/html/man/man9/hostmot2.9.html)
   but is NOT used in this retrofit because it prevents card
@@ -153,7 +154,7 @@ with the actual correction applied.
   boards. There is no `.invert` HAL pin on sserial input.
 - **Correction:** In any doc that references "invert" on
   7i84U inputs, replace with: "connect from
-  `hm2_7i80.0.7i84u.0.0.input-NN-not` (the inverted duplicate
+  `hm2_7i80.0.7i84.0.0.input-NN-not` (the inverted duplicate
   pin) instead of `input-NN` — the HostMot2 firmware always
   publishes both polarities for every sserial input, no
   runtime inversion step."
@@ -185,30 +186,29 @@ with the actual correction applied.
   model) which cited the FR-SF manual bnp-c3016eng showing
   speed reference and rotation direction on separate terminals.
   Not repeated here.
-- **Correction:** Do not test bipolar analog on AOUT3 until the
-  exact FR-SX (not FR-SF) terminal designation is verified from
-  the machine nameplate photograph — the retrofit has been
-  presuming FR-SF-compatible behavior from the FR-SX. Keep the
-  HAL command clamped to 0..+10 V until proven otherwise.
+- **Correction:** Do not test either command architecture until the exact
+  FR-SX model, terminal designation, and polarity are verified. The checked-in
+  HAL keeps the static `spindle-output-permit` FALSE and combines it with
+  watchdog, E-stop, machine-on, servo-ready, and spindle-fault state; it does
+  not claim that a signed or a unipolar speed command is correct. After
+  measurement, implement exactly one architecture and test it at low energy.
 
 ### 11. Spindle A/B/Z encoder — hardware and receiver
 
-- **Audit claim:** The 7i80HDT P3 GPIO used for encoder input
-  is bare FPGA — it is NOT an RS-422 differential receiver. A
+- **Audit claim:** The previously proposed 7i80HDT P3 encoder path
+  would use bare FPGA GPIO — it is NOT an RS-422 differential receiver. A
   differential encoder needs a receiver in the signal chain.
 - **Verification:** [7i80HDT store page](https://store.mesanet.com/index.php?product_id=386)
-  and repo docs confirm bare-FPGA GPIO on P3. Repo currently
-  documents a single encoder (`num_encoders=1` in HAL loader)
-  for the spindle; the encoder part is not yet identified in
-  the CSV.
-- **Correction:** Add commissioning prerequisite: **identify
-  the spindle encoder part before wiring**. If it turns out to
-  be single-ended TTL, wire direct to P3 GPIO. If it turns out
-  to be differential RS-422 (common on Tamagawa / Nemicon
-  spindle sensors), insert a 7i85 or 7i74 differential receiver
-  board between the encoder and the P3 GPIO — do not connect
-  differential outputs to bare FPGA pins. Cross-link to
-  [`grounding_shielding_plan.md`](grounding_shielding_plan.md)
+  and repo docs confirm bare-FPGA GPIO on P3. The encoder part,
+  electrical format, and receiver are not identified; the active
+  HAL therefore requests `num_encoders=0` and the authority leaves
+  the spindle-feedback path unassigned.
+- **Correction:** Keep the current target's P3 connector empty and
+  request `num_encoders=0`. Identify the spindle encoder part and
+  electrical format, then select a compatible receiver/daughter
+  interface and IDROM-proven connector pins before allocating it.
+  Differential outputs must not be landed on bare FPGA pins.
+  Cross-link to [`grounding_shielding_plan.md`](grounding_shielding_plan.md)
   S-1 cable schedule row.
 
 ### 12. MELDAS ENA / ALM terminal designations

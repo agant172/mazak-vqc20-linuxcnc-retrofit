@@ -121,12 +121,11 @@ DIRECTION_LABEL = {
 # else is "Unknown - measure/verify".
 # ---------------------------------------------------------------------------
 NC_LIMIT_BASIS = (
-    "motion_7i80hdt.hal:197-204 \u2014 \"Limit switches are NC: invert_input so open (tripped) "
-    "= logic 1\"; setp hm2_7i80.0.gpio.0NN.invert_input 1"
+    "field_7i84u.hal limit block \u2014 NC contacts use the smart-serial "
+    "input-NN-not complementary pins; no invert_input parameter"
 )
 NO_HOME_BASIS = (
-    "motion_7i80hdt.hal:198 \u2014 \"Home switches are NO: no invert needed\"; "
-    "no invert_input setp for gpio.014-016"
+    "field_7i84u.hal home block \u2014 NO contacts use raw input-NN pins"
 )
 
 EXPECTED = {
@@ -142,12 +141,12 @@ EXPECTED = {
     "Y_HOME": ("0", "Logic 0 \u2014 NO switch, carriage off the home target", NO_HOME_BASIS, "evidenced"),
     "Z_HOME": ("0", "Logic 0 \u2014 NO switch, carriage off the home target", NO_HOME_BASIS, "evidenced"),
     # --- E-stop monitor ------------------------------------------------------
-    "ESTOP_CHAIN": (
-        "0",
-        "Logic 0 \u2014 safety chain closed / healthy, after inversion",
-        "motion_7i80hdt.hal:239-245 \u2014 \"invert_input=1: chain closed (24V, normal) \u2192 in=0; "
-        "chain open (fault) \u2192 in=1\"; net estop-ext \u2192 estop-latch.0.fault-in",
-        "evidenced",
+    "ESTOP_MONITOR": (
+        "1",
+        "Logic 1 \u2014 hardware E-stop chain healthy",
+        "field_7i84u.hal: estop-monitor raw IN29 feeds estop-latch.ok-in; "
+        "contact polarity remains field-verification pending",
+        "proposed",
     ),
     # --- Analog commands -----------------------------------------------------
     "X_AXIS_CMD": ("0 V", "0 V idle \u2014 pwmgen.00 parked until enabled and commanded",
@@ -179,17 +178,17 @@ EXPECTED = {
                    "motion_7i80hdt.hal:35-39, 43; current_pin_authority.csv:3", "dynamic"),
     "Z_RESOLVER": ("Dynamic", "Dynamic position value \u2014 validity to be verified on commissioning",
                    "motion_7i80hdt.hal:35-39, 44; current_pin_authority.csv:4", "dynamic"),
-    "SPINDLE_ENCODER_RESERVED": (
+    "SPINDLE_ENCODER": (
         "Dynamic",
-        "Dynamic once fitted \u2014 encoder not identified, channel reserved",
-        "motion_7i80hdt.hal:88-99 \u2014 spindle encoder part number not yet confirmed; "
-        "resolver.03 explicitly NOT used for spindle",
+        "Unavailable \u2014 encoder and receiver not identified; num_encoders=0",
+        "motion_7i80hdt.hal spindle-feedback hold; P3 remains physically empty and "
+        "resolver.03 is not used for spindle",
         "dynamic",
     ),
     # --- Drive faults: polarity unknown --------------------------------------
     "X_DRIVE_FAULT": ("Unknown", "Unknown \u2014 polarity not confirmed; inversion not commissioned",
-                      "field_7i84u.hal:28-33 \u2014 \"confirm input polarity before enabling... "
-                      "set invert_input 1 on these channels once wired\"", "unknown-polarity"),
+                      "field_7i84u.hal drive-fault block \u2014 select raw input or input-NN-not "
+                      "only after bench verification", "unknown-polarity"),
     "Y_DRIVE_FAULT": ("Unknown", "Unknown \u2014 polarity not confirmed; inversion not commissioned",
                       "field_7i84u.hal:28-33", "unknown-polarity"),
     "Z_DRIVE_FAULT": ("Unknown", "Unknown \u2014 polarity not confirmed; inversion not commissioned",
@@ -198,14 +197,13 @@ EXPECTED = {
                       "current_pin_authority.csv:57 \u2014 \"Confirm VFD terminal and polarity\"", "unknown-polarity"),
     "SERVO_READY": ("Unknown", "Unknown \u2014 relay contact form not confirmed",
                     "current_pin_authority.csv:74 \u2014 \"Wire before first motion if available\"", "unknown"),
-    # --- Spindle at speed: HAL currently forces it ---------------------------
+    # --- Spindle at speed -----------------------------------------------------
     "SPINDLE_AT_SPEED": (
-        "Forced 1",
-        "HAL currently forces this net TRUE \u2014 field input not read",
-        "motion_7i80hdt.hal:102-103 \u2014 \"Until encoder is wired, spindle-at-speed is forced true "
-        "(open-loop, no speed verification)\": sets spindle-at-speed true. "
-        "current_pin_authority.csv allocates 7i84U-A TB1 IN13 for it.",
-        "conflict",
+        "Unknown",
+        "FR-SX speed-reach field input; normal state and terminal remain unverified",
+        "field_7i84u.hal: spindle-at-speed is sourced only from 7i84U-A IN13; "
+        "no forced writer remains",
+        "unknown-polarity",
     ),
     # --- Field power / smart-serial link ------------------------------------
     "TB5_FIELD_GND": ("n/a", "Power common \u2014 not a logic signal", "current_pin_authority.csv:33", "na"),
@@ -243,8 +241,8 @@ LOCATION = {
                    "Axis feedback", "BKO-NC6062A; via BBIA-1 CNA1"),
     "Z_RESOLVER": ("Z ball screw, non-drive end \u2014 Tamagawa TS2014N shaft resolver on flex coupling",
                    "Axis feedback", "BKO-NC6062A; Z amp cable CA1 / BBIA-1 CN3"),
-    "SPINDLE_ENCODER_RESERVED": ("Spindle head \u2014 machine-side A/B/Z encoder if fitted",
-                                 "Spindle feedback", "Part number not confirmed. Tacho TGF-3D P402-Sx feeds the FR-SX loop, not LinuxCNC."),
+    "SPINDLE_ENCODER": ("Spindle head \u2014 machine-side A/B/Z encoder if fitted",
+                         "Spindle feedback", "Unassigned: part, electrical format, receiver/interface and FPGA pins are not confirmed. P3 remains empty."),
     "TB2_AXIS_ENCODERS": ("Control cabinet \u2014 axis encoder inputs, unused; feedback comes through 7i49 P2 resolver channels",
                           "Axis feedback", "Architecturally excluded: feedback is resolver via 7i49."),
     "X_DRIVE_ENABLE": ("Servo bay \u2014 X TRA-series servo amp, S-ON terminal", "Servo drives", "X/Y amp path via CA3/CA4 (BBIA-1 CN1/CN2)"),
@@ -331,97 +329,60 @@ LOCATION = {
     "ATC_REV": ("ATC magazine \u2014 motor reverse relay", "ATC magazine",
                 "SOL-8A/8B direction mapping unresolved (crossref says 8A=CCW/forward, alarm-table OCR says 8A=CW)."),
     "ALARM_OUT": ("Operating panel \u2014 alarm light or horn", "Operator panel", ""),
-    "SECOND_SSERIAL_CARD": ("Replaced by 7i84U-B on 7i44 port 1", "Expansion", "No third smart-serial field-I/O card is currently required. The prior single-7i84U plan used: drops (Y091 OTR, X078 MPWS, X02F INHRLS, Y023-Y025 M43-M45T) + series consolidations (HLP+HLP2, THR+ONT, ITMDSS+LS-140/141) + panel moves (FEED_HOLD/SINGLE_BLOCK to touchscreen, panel-power-on to software state, reset-out to TB5 SSR) fit 5 DI + 5 DO of gap load into 6 DI + 6 DO available before the dual-7i84U architecture revision."),
+    "SECOND_SSERIAL_CARD": ("Replaced by 7i84U-B on 7i44 channel 1", "Expansion", "No third smart-serial field-I/O card is currently required. The prior single-7i84U plan used: drops (Y091 OTR, X078 MPWS, X02F INHRLS, Y023-Y025 M43-M45T) + series consolidations (HLP+HLP2, THR+ONT, ITMDSS+LS-140/141) + panel moves (FEED_HOLD/SINGLE_BLOCK to touchscreen, panel-power-on to software state, reset-out to TB5 SSR) fit 5 DI + 5 DO of gap load into 6 DI + 6 DO available before the dual-7i84U architecture revision."),
 }
 
-SSERIAL_LOC = ("Control cabinet \u2014 7i80HDT P1 (7i44 port 0) to 7i84U-A RJ45 (RS-422 smart-serial)", "Field I/O link",
-               "Use absolute 7i44 port 0 pin numbers. Shield drain at the 7i80HDT / 7i44 end only.")
+SSERIAL_LOC = ("Control cabinet \u2014 7i80HDT P1 (7i44 channel 0) to 7i84U-A RJ45 (RS-422 smart-serial)", "Field I/O link",
+               "Use the verified 7i44 channel-0 pinout. Shield drain at the 7i80HDT / 7i44 end only.")
 for _k in ("SSERIAL_GND_A", "SSERIAL_GND_B", "SSERIAL_RX_PLUS", "SSERIAL_RX_MINUS",
            "SSERIAL_TX_PLUS", "SSERIAL_TX_MINUS", "SSERIAL_5V_A", "SSERIAL_5V_B"):
     LOCATION[_k] = SSERIAL_LOC
 
 SPARE_LOC = {
-    "TB5_SSR_OUT3_SPARE": ("Control cabinet \u2014 7i84U-B TB2 OUT6, historical TB5 SSR3", "Spare", "Assigned to the ATC barrier via an interposing relay if driven."),
-    "TB5_SSR_OUT4_SPARE": ("Control cabinet \u2014 7i84U-B TB2 OUT7, historical TB5 SSR4", "Spare", "Assigned to the flood valve via an interposing relay if driven."),
-    "TB5_SSR_OUT5_SPARE": ("Control cabinet \u2014 7i84U-B TB2 OUT8-OUT15", "Spare", "No direct replacement allocation; these 7i84U-B outputs remain spare."),
+    "TB5_SSR_OUT3_SPARE": ("Control cabinet \u2014 historical TB5 SSR3", "Reallocated",
+                           "Historical spare row only. Current authority allocates 7i84U-B TB3 OUT6 to the ATC barrier via an interposing relay if driven."),
+    "TB5_SSR_OUT4_SPARE": ("Control cabinet \u2014 historical TB5 SSR4", "Reallocated",
+                           "Historical spare row only. Current authority allocates 7i84U-B TB3 OUT7 to the flood valve via an interposing relay if driven."),
+    "TB5_SSR_OUT5_SPARE": ("Control cabinet \u2014 historical TB5 SSR5", "Reallocated",
+                           "Historical spare row only. 7i84U-B TB2 OUT8 is allocated to magazine-cover close; only OUT9-OUT15 remain spare."),
 }
 LOCATION.update(SPARE_LOC)
 for i in range(4, 10):
     LOCATION["SEVENI84U_IN%d_SPARE" % i] = ("Field I/O enclosure \u2014 7i84U-A TB1, unlanded", "Spare", "")
 for i in range(3, 6):
     LOCATION["SEVENI84U_OUT%d_SPARE" % i] = ("Field I/O enclosure \u2014 7i84U-A TB2, unlanded", "Spare",
-                                             "Drive S-ON is handled by 7i84U-B TB2 OUT0-2 (`hm2_7i80.0.7i84.0.1.output-00..02`).")
+                                             "Drive S-ON is handled by 7i84U-B TB3 OUT0-2 (`hm2_7i80.0.7i84.0.1.output-00..02`).")
+
+# Per-terminal spare rows on 7i84U-B (aggregate range rows are forbidden).
+for i in list(range(10, 15)) + list(range(16, 32)):
+    LOCATION["SEVENI84UB_IN%d_SPARE" % i] = ("Field I/O enclosure - 7i84U-B, unlanded", "Spare", "")
+for i in range(9, 16):
+    LOCATION["SEVENI84UB_OUT%d_SPARE" % i] = ("Field I/O enclosure - 7i84U-B TB2, unlanded", "Spare", "")
 
 # ---------------------------------------------------------------------------
 # Conflict register. Each entry links to the signal rows it affects.
 # ---------------------------------------------------------------------------
 CONFLICTS = [
     {
-        "id": "C1",
-        "title": "7i84U-A input allocation: field_7i84u.hal disagrees with the pin authority",
-        "severity": "conflict",
-        "summary": "Seven active input nets in field_7i84u.hal are wired to different 7i84U-A channels "
-                   "than current_pin_authority.csv assigns. The authority wins; the HAL file has not "
-                   "been updated yet.",
-        "detail": [
-            "tool-clamped: HAL input-00 (field_7i84u.hal:12) vs authority IN15 (current_pin_authority.csv:58)",
-            "tool-unclamped: HAL input-01 (field_7i84u.hal:13) vs authority IN16 (current_pin_authority.csv:59)",
-            "atc-y-zone: HAL input-02 (field_7i84u.hal:15) vs authority IN0 (current_pin_authority.csv:43)",
-            "atc-z-zone: HAL input-03 (field_7i84u.hal:16) vs authority IN1 (current_pin_authority.csv:44)",
-            "x-drive-fault: HAL input-12 (field_7i84u.hal:34) vs authority IN10 (current_pin_authority.csv:53)",
-            "y-drive-fault: HAL input-13 (field_7i84u.hal:36) vs authority IN11 (current_pin_authority.csv:54)",
-            "z-drive-fault: HAL input-14 (field_7i84u.hal:38) vs authority IN12 (current_pin_authority.csv:55)",
-            "HAL nets with no authority row at all: mag-in-pos (in-04), tool-code-0..4 (in-05..09), "
-            "coolant-low (in-10), air-ok (in-11).",
-        ],
-        "action": "Re-issue field_7i84u.hal from current_pin_authority.csv before loading HAL against "
-                  "live field wiring. Until then the HAL channel numbers must not be used to land wires.",
-        "signals": ["TOOL_CLAMP_CONF", "TOOL_UNCLAMP_CONF", "ATC_ZONE_Y", "ATC_ZONE_Z",
-                    "X_DRIVE_FAULT", "Y_DRIVE_FAULT", "Z_DRIVE_FAULT"],
-        "sources": ["linuxcnc/field_7i84u.hal:12-39", "mesa/current_pin_authority.csv:43-59"],
-    },
-    {
-        "id": "C2",
-        "title": "7i84U-A output allocation: field_7i84u.hal disagrees with the pin authority",
-        "severity": "conflict",
-        "summary": "The active output block in field_7i84u.hal drives eleven 7i84U-A outputs that mostly do not "
-                   "exist in the authority table, while most authority outputs are commented out or absent.",
-        "detail": [
-            "tool-unclamp-sol: HAL output-00 (field_7i84u.hal:66) vs authority OUT10 (current_pin_authority.csv:85)",
-            "flood-coolant: HAL output-05 (field_7i84u.hal:74) vs authority OUT11 (current_pin_authority.csv:86)",
-            "HAL-only outputs with no authority row: mag-cw-sol (out-01), mag-ccw-sol (out-02), "
-            "mag-cover-open (out-03), mag-cover-close (out-04), mist-coolant (out-06), air-blast-1 (out-07), "
-            "air-blast-2 (out-08), tap-coolant (out-09), work-light (out-10)",
-            "Authority outputs with no active HAL net: spindle-fwd/rev/ena (OUT0-2, commented at "
-            "field_7i84u.hal:85-90), z-brake-rel (OUT6), gear-hi-sol (OUT7), gear-lo-sol (OUT8), "
-            "tool-clamp-sol (OUT9), lube-on (OUT12), atc-fwd (OUT13), atc-rev (OUT14), alarm-out (OUT15)",
-        ],
-        "action": "Do not energize any 7i84U-A output until the HAL output block is regenerated from the "
-                  "authority table and each load is traced and measured.",
-        "signals": ["TOOL_UNCLAMP_SOL", "COOLANT_ON", "SPINDLE_FWD", "SPINDLE_REV", "SPINDLE_ENA",
-                    "Z_BRAKE_REL", "GEAR_HI_SOL", "GEAR_LO_SOL", "TOOL_CLAMP_SOL", "LUBE_ON",
-                    "ATC_FWD", "ATC_REV", "ALARM_OUT"],
-        "sources": ["linuxcnc/field_7i84u.hal:66-94", "mesa/current_pin_authority.csv:75-90"],
-    },
-    {
         "id": "C3",
-        "title": "Spindle control: 7i49 AOUT3 velocity vs 7i84U-A FWD/REV/ENA",
+        "title": "FR-SX command architecture and polarity remain unverified",
         "severity": "conflict",
-        "summary": "The FR-SX has an analog speed command (7i49 AOUT3) and separate digital FWD/REV/ENA "
-                   "lines (7i84U-A TB2 OUT0-2). The commented HAL channels do not match the authority.",
+        "summary": "The field wiring has not established whether AOUT3 is an unsigned 0-10 V magnitude "
+                   "with discrete direction or a signed bipolar command. All motion-producing spindle "
+                   "paths are held by the fail-off spindle permit chain.",
         "detail": [
-            "motion_7i80hdt.hal:265 nets spindle-enable from spindle.0.on and line 177 also uses it to "
-            "gate pwmgen.03.enable, so the net is already live in the analog path",
-            "motion_7i80hdt.hal:266 comment says \"Spindle enable/dir routed via 7i84U-A sserial\"",
-            "field_7i84u.hal:85-90 has spindle-fwd/rev/enable to 7i84U-A output-11/12/13 \u2014 all commented out",
-            "The authority places SPINDLE_FWD/REV/ENA on 7i84U-A TB2 OUT0/OUT1/OUT2 "
-            "(current_pin_authority.csv:78-80), which does not match the commented HAL channel numbers",
+            "AOUT3 currently receives signed spindle.0.speed-out.",
+            "7i84U-A OUT0/OUT1/OUT2 carry gated FWD/REV/RUN outputs.",
+            "The static spindle-output-permit initializes FALSE; the combined gate covers FWD, REV, RUN, "
+            "ORCM1, and pwmgen.03.enable and also requires watchdog, E-stop, machine-on, servo-ready, and "
+            "no indicated spindle fault.",
         ],
-        "action": "Pick one control path. Confirm the FR-SX terminal set (2-wire vs 3-wire, sink vs source) "
-                  "before wiring either. Note that spindle-enable currently doubles as the pwmgen enable.",
-        "signals": ["SPINDLE_FWD", "SPINDLE_REV", "SPINDLE_ENA", "SPINDLE_SPEED_CMD"],
-        "sources": ["mesa/current_pin_authority.csv:13,78-80", "linuxcnc/motion_7i80hdt.hal:177,265-266",
-                    "linuxcnc/field_7i84u.hal:84-90"],
+        "action": "Bench-prove the FR-SX input mode and polarity, then implement either an absolute-value "
+                  "analog magnitude with discrete direction or a signed analog command without conflicting "
+                  "direction inputs. Clear the common permit only after that change is reviewed.",
+        "signals": ["SPINDLE_FWD", "SPINDLE_REV", "SPINDLE_ENABLE", "SPINDLE_ORIENT_CMD", "SPINDLE_SPEED_CMD"],
+        "sources": ["linuxcnc/motion_7i80hdt.hal", "linuxcnc/field_7i84u.hal",
+                    "docs/frsx_orient_model.md"],
     },
     {
         "id": "C4",
@@ -495,25 +456,6 @@ CONFLICTS = [
                     "linuxcnc/mazak_vqc_20_40.hal:4-7,25-26"],
     },
     {
-        "id": "C7",
-        "title": "spindle-at-speed is forced true in HAL while the authority allocates a real input",
-        "severity": "conflict",
-        "summary": "motion_7i80hdt.hal short-circuits the at-speed net, so the planned 7i84U-A IN13 field "
-                   "signal would be ignored even once wired.",
-        "detail": [
-            "motion_7i80hdt.hal:102-103 \u2014 \"Until encoder is wired, spindle-at-speed is forced true "
-            "(open-loop, no speed verification)\": sets spindle-at-speed true",
-            "current_pin_authority.csv:56 \u2014 SPINDLE_AT_SPEED on 7i84U-A TB1 IN13, net spindle-at-speed",
-            "field_7i84u.hal:42 \u2014 the matching input net is commented out and uses a different name "
-            "(spindle-at-spd) and a different channel (input-15)",
-        ],
-        "action": "Remove the sets line before relying on at-speed for any interlock, and reconcile the "
-                  "net name (spindle-at-speed vs spindle-at-spd) and channel.",
-        "signals": ["SPINDLE_AT_SPEED"],
-        "sources": ["linuxcnc/motion_7i80hdt.hal:102-103", "mesa/current_pin_authority.csv:56",
-                    "linuxcnc/field_7i84u.hal:42"],
-    },
-    {
         "id": "C9",
         "title": "Magazine rotation direction SOL-8A/8B is unassigned and contradicted",
         "severity": "conflict",
@@ -548,10 +490,10 @@ CONFLICTS = [
             "position sensors, tool-measure stand switches (io_map_research_notes.md:287-295)",
             "Two lube systems (head AL-56, way AL-54) share one generic LUBE_ON output "
             "(io_map_research_notes.md:293-295)",
-            "7i84U-B on port 1 superseded the prior single-7i84U plan (open_issues.md §3)",
+            "7i84U-B on physical channel 1 superseded the prior single-7i84U plan",
         ],
-        "action": "Decide whether the pallet changer is retained before finalising the 7i84U-A/B channel budget. "
-                  "Prior single-7i84U plan was superseded by 7i84U-B on port 1 — do not order.",
+        "action": "The current two-card allocation has 21 DI and 7 DO spare after AIR_OK and cover output. "
+                  "Inventory every pallet-changer device before restoring that scope; do not order a third remote from an estimate.",
         "signals": ["SECOND_SSERIAL_CARD", "DOOR_INTERLOCK", "LUBE_ON", "COOLANT_ON"],
         "sources": ["wiring/io_map_research_notes.md:94-170,287-295", "mesa/current_pin_authority.csv:91"],
     },
@@ -565,37 +507,37 @@ BOARDS = {
         "name": "Mesa 7i80HDT",
         "role": "Ethernet FPGA host (hm2_eth)",
         "detail": "Primary control board. P1 = 7i44 sserial breakout, P2 = 7i49 resolvers + analog outs; "
-                  "P3 is unused/spare except bare direct FPGA GPIO gpio.042 for the probe.",
+                  "P3 is unused/spare; the probe is on 7i84U-B IN15.",
         "address": "board_ip 192.168.1.121 (host NIC enp0s31f6 at 192.168.1.1/24)",
     },
     "7i44": {
         "name": "Mesa 7i44",
         "role": "8-channel RS-422 smart-serial breakout (on 7i80HDT P1)",
-        "detail": "Port 0 carries 7i84U-A; port 1 carries 7i84U-B. Ports 2-7 spare for future MPG / 4th-axis / additional 7i84.",
-        "address": "7i80HDT P1 sserial ports 0 and 1",
+        "detail": "Physical channel 0 carries 7i84U-A and channel 1 carries 7i84U-B. Channels 2-7 are spare.",
+        "address": "7i80HDT P1 HostMot2 sserial port 0, channels 0 and 1",
     },
     "7i49": {
         "name": "Mesa 7i49",
         "role": "Resolver-to-digital interface + ±10V DACs (on 7i80HDT P2)",
         "detail": "Plain 7i49 (not HV). Reads the machine's original Tamagawa TS2014N shaft resolvers "
                   "for X/Y/Z on RES0/1/2 at 5 kHz excitation. AOUT0/1/2 drive the X/Z/Y servos, AOUT3 "
-                  "the FR-SX spindle velocity, AOUT4 an FR-SX orient reference (reserved).",
+                  "drives FR-SX spindle velocity, and AOUT4/AOUT5 are spare.",
         "address": "num_resolvers=3, num_pwmgens=4 on 7i80HDT P2",
     },
     "7i84U-A": {
         "name": "Mesa 7i84U-A",
-        "role": "Remote smart-serial field I/O (7i44 port 0)",
-        "detail": "32 field inputs on TB1 and 16 field outputs on TB2. Mounted near the original green "
+        "role": "Remote smart-serial field I/O (7i44 channel 0)",
+        "detail": "32 field inputs and 16 field outputs on TB3/TB2; TB1 is field power. Mounted near the original green "
                   "breakout PCB for ATC, hydraulics, coolant, air, magazine, and utility I/O.",
-        "address": "On 7i44 port 0 (`hm2_7i80.0.7i84.0.0.*`)",
+        "address": "On 7i44 channel 0 (`hm2_7i80.0.7i84.0.0.*`)",
     },
     "7i84U-B": {
         "name": "Mesa 7i84U-B",
-        "role": "Remote smart-serial safety and relay I/O (7i44 port 1)",
-        "detail": "32 DI + 16 DO remote I/O: TB1 IN0-8 carries limits and homes; TB2 OUT0-2 carries "
-                  "drive enables; TB2 OUT3-7 drives relay-managed air, coolant, and ATC loads. "
+        "role": "Remote smart-serial limit/home and relay I/O (7i44 channel 1)",
+        "detail": "32 DI + 16 DO remote I/O: TB3 IN0-15 carries limits, homes, air pressure and probe; "
+                  "TB3 OUT0-7 carries drive enables and relay-managed loads; TB2 OUT8 carries the proposed cover valve. "
                   "Interposing relays remain required for 100VAC solenoid loads.",
-        "address": "On 7i44 port 1 (`hm2_7i80.0.7i84.0.1.*`)",
+        "address": "On 7i44 channel 1 (`hm2_7i80.0.7i84.0.1.*`)",
     },
     "none": {
         "name": "Unassigned",

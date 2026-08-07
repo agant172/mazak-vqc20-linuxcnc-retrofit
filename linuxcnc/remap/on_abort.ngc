@@ -1,0 +1,35 @@
+( Mazak VQC 20/40 ATC/remap abort cleanup. )
+( Called by [RS274NGC] ON_ABORT_COMMAND for interpreter, motion, E-stop, )
+( task-state, and operator aborts. It commands no axis motion. )
+
+o<on_abort> sub
+
+  ( Assert the component-level abort first. Leave it asserted until the )
+  ( next live M6 explicitly clears P8 at cycle entry. )
+  M64 P8
+
+  ( Stop magazine and remove tool/cover requests. The cover valve is )
+  ( energise-to-close, so P1 off removes power rather than commanding )
+  ( an unverified motion. Mechanical state must be inspected by operator. )
+  M65 P3
+  M65 P2
+  M65 P4
+  M65 P1
+
+  ( Drop finish/cycle requests and cancel spindle orient. )
+  M65 P5
+  M65 P0
+  M65 P6
+  M64 P7
+  G4 P0.1
+  M65 P7
+
+  ( Restore non-motion modal state without attempting any recovery move. )
+  M5
+  M9
+  G80
+  G90
+  G94
+
+o<on_abort> endsub
+M2

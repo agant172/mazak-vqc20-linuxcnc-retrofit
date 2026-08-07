@@ -17,12 +17,9 @@
 # name is an unverified placeholder exactly as in linuxcnc/field_7i84u.hal -
 # confirm the real smart-serial device tag with `halcmd show pin hm2` first.
 #
-# !! READ THIS BEFORE ADDING THE HALFILE LINE !!
-# linuxcnc/field_7i84u.hal predates mesa/current_pin_authority.csv and puts
-# several of these signals on different channels. Loading both files unchanged
-# is safe for HAL (no pin is claimed twice) but leaves the config wired to two
-# different pin plans. The reconciliation list is at the bottom of this file
-# under "FIELD I/O CLEANUP REQUIRED".
+# The physical field-I/O assignments in this file and field_7i84u.hal are
+# mirrored in mesa/current_pin_authority.csv.  The authority validator checks
+# the combined HAL set for duplicate writers and mapping drift.
 
 #####################################################################
 # Components
@@ -41,23 +38,22 @@ loadrt mazak_atc
 # (rungs 2806-2809); the retrofit picks the range from the commanded RPM.
 # comp.out is TRUE when in0 > in1, i.e. "high range wanted".
 loadrt comp names=gear-range
-loadrt not  names=gear-range-lo
-loadrt or2  names=atc-fault-or
+loadrt not  names=gear-range-lo,atc-estop-abort
+# The ATC or2 gates are loaded with the watchdog instance in
+# mazak_vqc_20_40.hal so the real-time module is loaded exactly once.
 
 addf gear-range          servo-thread
 addf gear-range-lo       servo-thread
+addf atc-estop-abort     servo-thread
+addf atc-safety-abort-or servo-thread
+addf atc-abort-or        servo-thread
 addf mazak-orient.update servo-thread
 addf mazak-atc.update    servo-thread
 addf atc-fault-or        servo-thread
+addf hm2_7i80.0.write    servo-thread
 
-# NOTE ON THREAD ORDER: addf appends, and mazak_vqc_20_40.hal already added
-# hm2_7i80.0.write. These functions therefore run AFTER the write, so outputs
-# reach the card one servo period late (i.e. the ATC-computed outputs are
-# picked up by the next hm2_7i80.0.write invocation). Harmless for solenoids
-# and contactors whose mechanical response time dwarfs one servo cycle.
-# If that latency ever matters, move the
-# `addf hm2_7i80.0.write servo-thread` line out of mazak_vqc_20_40.hal and put
-# it at the end of THIS file instead.
+# hm2 write is scheduled here, after every output-producing component. This
+# avoids the one-servo-cycle stale-output behavior of the earlier ordering.
 
 #####################################################################
 # Component parameters
@@ -102,8 +98,9 @@ setp gear-range.hyst                 50
 #
 # These are the new orient/ATC channels. They do not exist in
 # linuxcnc/field_7i84u.hal, so they can be netted here without conflict.
-# Polarity is unverified: add `setp hm2_7i80.0.7i84.0.0.input-NN.invert` (or
-# the firmware's equivalent) once each contact's normal state is measured.
+# Polarity is unverified. After measuring each contact, consume either the
+# raw `input-NN` pin or the complementary `input-NN-not` pin; smart-serial
+# digital inputs do not expose an `invert_input` parameter.
 
 # --- inputs ------------------------------------------------------------
 net mag-tool-avail        <= hm2_7i80.0.7i84.0.0.input-02   # IN2  X005 MGTDPRS
@@ -134,9 +131,13 @@ net gear-hi-sol           => hm2_7i80.0.7i84.0.0.output-07  # OUT7  Y00B GSH.M
 # wiring/authority_conflicts.md section 1). Left unbound on purpose: the comp
 # still drives the net, so it can be watched in halscope before wiring.
 # net gear-lo-sol         => hm2_7i80.0.7i84.0.0.output-08  # OUT8  Y00C GSL.M
-# ATC barrier solenoid: on 7i84U-B (7i44 port 1) OUT6 -- verify device exists
+# ATC barrier solenoid: on 7i84U-B (7i44 channel 1) OUT6 -- verify device exists
 # on SN 060231 before wiring (PLC Y095 TCME.M, PROPOSED).
 net atc-barrier           => hm2_7i80.0.7i84.0.1.output-06  # 7i84U-B OUT6 (PLC Y095 TCME.M)
+# Proposed 7i84U-B OUT8 assignment for the single energise-to-close magazine
+# cover valve. Do not land the field wire until valve identity, coil voltage,
+# relay topology, and safe direction have been traced and recorded.
+net mag-cover-close       => hm2_7i80.0.7i84.0.1.output-08
 
 #####################################################################
 # Orient component - docs/ladder/orient_ladder_transcription.md
@@ -156,7 +157,8 @@ net spindle-drive-arm <= mazak-orient.drive-arm
 # Spindle status.
 net spindle-oriented    => mazak-orient.spindle-oriented
 net spindle-zero-speed  => mazak-orient.spindle-zero-speed
-net spindle-enable      => mazak-orient.spindle-run
+net spindle-enable-command => mazak-orient.spindle-run
+net spindle-fault       => mazak-orient.drive-fault
 
 # Gear range: target from commanded RPM, confirms from the PRS switches.
 net spindle-speed-abs   spindle.0.speed-out-abs => gear-range.in0
@@ -169,7 +171,10 @@ net gear-hi-sol         <= mazak-orient.gear-hi-sol
 net gear-lo-sol         <= mazak-orient.gear-lo-sol
 
 # Orient outputs. orient-lo-gear mirrors the low-gear solenoid (rung 3001).
-net spindle-orient-cmd  <= mazak-orient.spindle-orient-cmd
+net spindle-orient-command <= mazak-orient.spindle-orient-cmd
+net spindle-orient-command => and2.7.in0
+net spindle-motion-permit  => and2.7.in1
+net spindle-orient-cmd     <= and2.7.out
 net orient-lo-gear      <= mazak-orient.orient-lo-gear
 net spindle-oriented-latch <= mazak-orient.oriented-latch
 
@@ -189,15 +194,13 @@ net tool-prep-pocket       iocontrol.0.tool-prep-pocket => mazak-atc.target-pot
 
 # Spindle / permissives.
 net spindle-zero-speed  => mazak-atc.spindle-stopped
-net spindle-enable      => mazak-atc.spindle-run
+net spindle-enable-command => mazak-atc.spindle-run
 net hydraulic-ok        => mazak-atc.hydraulic-ok
 net air-ok              => mazak-atc.air-ok
 
-# Magazine. mag-in-pos and the two direction solenoids are existing nets from
-# linuxcnc/field_7i84u.hal - see the cleanup list at the bottom. The authority
-# CSV now has MAG_IN_POS on 7i84U IN28 (PROPOSED, reclaimed from the optional
-# cycle-start panel PB), but field_7i84u.hal still sources the net from IN4;
-# its ATC_FWD/ATC_REV rows (OUT13/OUT14) are not the same thing as MFWD/MREV.
+# Magazine. mag-in-pos is sourced by field_7i84u.hal from authority input
+# 7i84U-A IN28. Direction nets remain physically unbound because OUT13/OUT14
+# are HOLD_CONFLICT until SOL-8A/SOL-8B direction is traced.
 net mag-in-pos     => mazak-atc.mag-in-pos
 net mag-bcd-bit0   => mazak-atc.mag-bcd-bit0
 net mag-bcd-bit1   => mazak-atc.mag-bcd-bit1
@@ -236,7 +239,7 @@ net atc-barrier         <= mazak-atc.atc-barrier
 #####################################################################
 #
 # Pin map is documented at the top of linuxcnc/remap/toolchange.ngc.
-# Requires num_dio >= 16 on the motmod loadrt line - see the INI snippet.
+# Requires num_dio >= 9 outputs and >= 8 inputs; the config provisions 16.
 
 # --- NGC -> components (M62/M63/M64/M65) --------------------------------
 net atc-cycle-active    motion.digital-out-00 => mazak-atc.cycle-start
@@ -247,6 +250,19 @@ net atc-detect-check    motion.digital-out-04 => mazak-atc.tool-detect-check
 net atc-cycle-finish    motion.digital-out-05 => mazak-atc.cycle-finish
 net orient-req          motion.digital-out-06 => mazak-orient.orient-request
 net orient-cancel-req   motion.digital-out-07 => mazak-orient.orient-cancel
+net atc-abort-request   motion.digital-out-08 => atc-abort-or.in0
+
+# E-stop and an indicated FR-SX fault are independent ATC-abort sources.
+# Operator/program aborts set P8 through remap/on_abort.ngc and leave it
+# asserted until the next M6 entry.
+net estop-ok            => atc-estop-abort.in
+net atc-estop-fault     <= atc-estop-abort.out
+net atc-estop-fault     => atc-safety-abort-or.in0
+net spindle-fault       => atc-safety-abort-or.in1
+net atc-safety-abort    <= atc-safety-abort-or.out
+net atc-safety-abort    => atc-abort-or.in1
+net atc-cycle-abort     <= atc-abort-or.out
+net atc-cycle-abort     => mazak-atc.cycle-abort
 
 # --- components -> NGC (M66) --------------------------------------------
 net atc-step1-permit    mazak-atc.step1-permit        => motion.digital-in-00
@@ -270,33 +286,11 @@ net estop-reset => mazak-orient.fault-reset
 net estop-reset => mazak-atc.fault-reset
 
 #####################################################################
-# FIELD I/O CLEANUP REQUIRED in linuxcnc/field_7i84u.hal
+# Physical commissioning holds
 #####################################################################
 #
-# These are pin-plan contradictions, not HAL load errors. Resolve them before
-# wiring anything, then delete this block.
-#
-#  1. input-00 / input-01 -> tool-clamped / tool-unclamped.
-#     Authority says IN15 / IN16. Not re-netted here (it would double-drive
-#     the nets); fix the channel numbers in field_7i84u.hal.
-#  2. input-02 / input-03 -> atc-y-zone / atc-z-zone.
-#     Authority puts ATC_ZONE_Y/Z on IN0/IN1 and gives IN2/IN3 to
-#     mag-tool-avail / spindle-tool-avail (netted above). Move them.
-#  3. input-04 -> mag-in-pos. Authority gives IN4 to spindle-oriented (netted
-#     above). MAG_IN_POS now has a PROPOSED row on IN28 (reclaimed from the
-#     optional cycle-start panel PB; pendant provides cycle start) - move
-#     mag-in-pos from input-04 to input-28 when reconciling this file.
-#  4. input-05..09 -> tool-code-0..4. Superseded by mag-bcd-bit0..4 on
-#     IN19..IN23 (netted above). Delete the tool-code-* nets.
-#  5. output-00 -> tool-unclamp-sol. Authority says TB2 OUT10.
-#  6. output-01 / output-02 -> mag-cw-sol / mag-ccw-sol. The authority CSV
-#     only has the generic ATC_FWD/ATC_REV rows on OUT13/OUT14 and
-#     authority_conflicts.md section 3 says they must not be treated as
-#     equivalent. Add proper MFWD/MREV rows.
-#  7. output-03 / output-04 -> mag-cover-open / mag-cover-close. The valve is
-#     a SINGLE solenoid, energised to close (ladder sheet 31). Delete
-#     mag-cover-open and keep one output.
-#  8. Delete the tool-change loopback once the remap is live:
-#       net tool-change-loopback iocontrol.0.tool-change => iocontrol.0.tool-changed
-#     Keep the tool-prepare loopback - T-word preparation still completes
-#     through iocontrol, and mazak-atc reads tool-prep-pocket from it.
+# The former field-I/O contradiction list has been reconciled into
+# mesa/current_pin_authority.csv and field_7i84u.hal. Remaining HOLD_CONFLICT
+# outputs (gear low, dual-coil clamp, magazine direction, mist) stay physically
+# unbound until their cabinet traces are complete. The proposed cover output
+# above and air-pressure input in field_7i84u.hal must also be field-verified.

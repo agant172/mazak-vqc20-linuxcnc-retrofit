@@ -1,10 +1,10 @@
 Mazak VQC-20/40 Wiring Master — Current Pin Authority,
 Machine,"Mazak VQC-20/40, S/N 060231"
-Current architecture,"LinuxCNC + Mesa 7i80HDT (Ethernet FPGA host) with 7i44 on P1 (RS-422 sserial to 7i84U-A on port 0 and 7i84U-B on port 1) + 7i49 on P2 (X/Y/Z resolvers + AOUT0..4 servo/spindle command); P3 unused/spare except bare gpio.042 probe input"
+Current architecture,"LinuxCNC + Mesa 7i80HDT (Ethernet FPGA host) with 7i44 on P1 (HostMot2 sserial port 0 channels 0/1 to 7i84U-A/B) + 7i49 on P2 (X/Y/Z resolvers + AOUT0..3 servo/spindle commands); AOUT4/AOUT5 and P3 unused/spare; probe on 7i84U-B IN15"
 Source of truth,/Users/andygant/GitHub/Github LinuxCNC/mesa/current_pin_authority.csv
 Generated,2026-08-06
 Status rule,COMMISSIONING_PENDING and ACCEPTED_VERIFY require cabinet verification before wiring or energizing outputs. HOLD_CONFLICT requires resolution first.
 Feedback rule,"Axis feedback is Tamagawa TS2014N resolver feedback through the 7i49 on P2, not quadrature encoder feedback."
 Safety rule,"The hardware E-stop chain removes hazardous power. 7i84U-A TB2 IN29 is the sole software monitor input; the OEM hardware chain remains authoritative."
-Channel order,"7i49 AOUT order is X=AOUT0, Z=AOUT1, Y=AOUT2, FR-SX spindle velocity=AOUT3, FR-SX orient reference=AOUT4 (reserved)."
-Included diagrams,"7i80HDT P1/P2/P3 map; 7i44 sserial-port map; 7i49 resolver + analog map; 7i84U-A and 7i84U-B field I/O; bare P3 gpio.042 probe exception; HAL cross-reference; open items/conflicts."
+Channel order,"7i49 AOUT order is X=AOUT0, Z=AOUT1, Y=AOUT2, FR-SX spindle velocity=AOUT3; AOUT4/AOUT5 spare. FR-SX orient is discrete ORCM1."
+Included diagrams,"7i80HDT P1/P2/P3 map; 7i44 smart-serial channel map; 7i49 resolver + analog map; 7i84U-A and 7i84U-B field I/O; probe on 7i84U-B IN15; HAL cross-reference; open items/conflicts."
