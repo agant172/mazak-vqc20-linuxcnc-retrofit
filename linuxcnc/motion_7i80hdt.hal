@@ -72,12 +72,49 @@
 #   downstream signal-level predictions.
 #   Any winding shorted to resolver case/shield = do not energize until resolved.
 
-# TODO: set actual resolver scales after measuring counts and machine units.
+# ----------------------------------------------------------------------------
+# Resolver position/velocity/index-divisor scales — PLACEHOLDERS
+# ----------------------------------------------------------------------------
+# Per the HostMot2(9) man page for the resolver component:
+#   .scale          = machine units per RESOLVER ELECTRICAL revolution.
+#                     NOT per motor rev and NOT per ballscrew rev unless the
+#                     resolver is 1:1 coupled to the screw. On this machine the
+#                     resolvers are flex-coupled to the ballscrew tail with no
+#                     documented reduction, so one resolver electrical rev is
+#                     expected to equal one ballscrew rev — but that must be
+#                     verified by counting rawcounts against dial indicator
+#                     travel over multiple full revolutions before it is trusted.
+#   .velocity-scale = conversion factor between resolver rotation speed and
+#                     machine velocity. Value 1 gives motor speed in RPS; it is
+#                     an INDEPENDENT parameter from .scale, not automatically
+#                     derived from it. To make .velocity report the same units
+#                     as machine linear velocity, set velocity-scale to the
+#                     same signed inches-per-revolution as .scale.
+#   .index-divisor  = cycles per rev of the resolver (multi-speed resolvers
+#                     have >1). TS2014N with K = 0.5 is documented as a
+#                     single-speed BRX resolver so 1 is expected; verify from
+#                     the exact suffix datasheet. The HostMot2 doc warns:
+#                     'It is not appropriate to use this parameter for
+#                     index-homing of axis drives.' — see the index-enable
+#                     note further down.
+#
+# Derivation procedure (do before trusting these values):
+#   1. Read the ballscrew lead off the screw or Mazak service data (inches or mm
+#      per screw revolution; convert to inches for this inch config).
+#   2. Confirm there is no reduction between screw and resolver (flex coupling
+#      is 1:1; if any belt/pulley or gearbox is present, factor in its ratio).
+#   3. Set RESOLVER_SCALE in the INI to signed inches-per-resolver-rev. The
+#      sign selects axis direction: use a NEGATIVE value if the axis counts
+#      backwards vs. the intended machine coordinate system.
+#   4. Set RESOLVER_VELOCITY_SCALE to the same signed value so the .velocity
+#      pin reports machine linear velocity in inches per second.
+#   5. Verify by jogging a known distance with a dial indicator, then adjust.
+#
 # Only resolvers 00-02 exist (num_resolvers=3 in mazak_vqc_20_40.hal); the
 # spindle uses a separate encoder, not a 7i49 resolver channel.
-setp hm2_7i80.0.resolver.00.scale 1
-setp hm2_7i80.0.resolver.01.scale 1
-setp hm2_7i80.0.resolver.02.scale 1
+setp hm2_7i80.0.resolver.00.scale [JOINT_0]RESOLVER_SCALE
+setp hm2_7i80.0.resolver.01.scale [JOINT_1]RESOLVER_SCALE
+setp hm2_7i80.0.resolver.02.scale [JOINT_2]RESOLVER_SCALE
 
 # 7i49 global excitation frequency.
 # Confirmed resolvers (July 2026 photos): Tamagawa TS2014N series (Size 25 SHAFT resolvers),
@@ -101,36 +138,57 @@ setp hm2_7i80.0.resolver.02.scale 1
 # Mesa (PCW) review of the specific suffix before adding dividers or a 7i49HV.
 setp hm2_7i80.0.resolver.excitation-khz 5
 
-# Per-channel velocity scale (separate from position scale; used by the resolver
-# velocity estimator). Set to match position scale. 1.0 is correct when scale=1.
-# index-divisor: synthetic index every N resolver revolutions. 1 = one index/rev (standard).
-# These come from INI so they can be adjusted without editing HAL.
-# Only axes 00/01/02 are resolvers. Resolver 03 is NOT used (spindle uses encoder instead).
+# Per-channel velocity scale (independent from position scale — see HostMot2
+# resolver docs). Set to the same signed inches-per-resolver-rev as .scale so
+# the .velocity pin reads machine linear velocity in in/s. Configured from INI.
 setp hm2_7i80.0.resolver.00.velocity-scale  [JOINT_0]RESOLVER_VELOCITY_SCALE
 setp hm2_7i80.0.resolver.01.velocity-scale  [JOINT_1]RESOLVER_VELOCITY_SCALE
 setp hm2_7i80.0.resolver.02.velocity-scale  [JOINT_2]RESOLVER_VELOCITY_SCALE
+
+# Index-divisor: cycles per rev of the resolver itself. TS2014N K=0.5 is a
+# single-speed BRX resolver so 1 is expected — verify against the exact suffix
+# datasheet. HostMot2 doc: 'It is not appropriate to use this parameter for
+# index-homing of axis drives.' Homing on this machine is switch-based
+# (HOME_USE_INDEX not set → NO), so the emulated index is only present to
+# keep threading and rigid-tap math happy per the doc's guidance; it is not
+# used for axis position homing.
 setp hm2_7i80.0.resolver.00.index-divisor   [JOINT_0]RESOLVER_INDEX_DIVISOR
 setp hm2_7i80.0.resolver.01.index-divisor   [JOINT_1]RESOLVER_INDEX_DIVISOR
 setp hm2_7i80.0.resolver.02.index-divisor   [JOINT_2]RESOLVER_INDEX_DIVISOR
+
+# Only axes 00/01/02 are resolvers. Resolver 03 is NOT used (spindle uses encoder instead).
 
 net x-pos-fb        <= hm2_7i80.0.resolver.00.position
 net x-vel-fb        <= hm2_7i80.0.resolver.00.velocity
 net x-pos-rawcounts <= hm2_7i80.0.resolver.00.rawcounts
 net x-pos-fb        => joint.0.motor-pos-fb
-# Bidirectional index-enable: joint resets it after latching home position
-net x-index-enable    joint.0.index-enable <=> hm2_7i80.0.resolver.00.index-enable
 
 net y-pos-fb        <= hm2_7i80.0.resolver.01.position
 net y-vel-fb        <= hm2_7i80.0.resolver.01.velocity
 net y-pos-rawcounts <= hm2_7i80.0.resolver.01.rawcounts
 net y-pos-fb        => joint.1.motor-pos-fb
-net y-index-enable    joint.1.index-enable <=> hm2_7i80.0.resolver.01.index-enable
 
 net z-pos-fb        <= hm2_7i80.0.resolver.02.position
 net z-vel-fb        <= hm2_7i80.0.resolver.02.velocity
 net z-pos-rawcounts <= hm2_7i80.0.resolver.02.rawcounts
 net z-pos-fb        => joint.2.motor-pos-fb
-net z-index-enable    joint.2.index-enable <=> hm2_7i80.0.resolver.02.index-enable
+
+# Index-enable nets INTENTIONALLY OMITTED.
+# Homing on this machine is switch-based (HOME_SEARCH_VEL + HOME_LATCH_VEL,
+# HOME_USE_INDEX defaults to NO). Wiring joint.N.index-enable to the resolver
+# emulated index has no useful effect when HOME_USE_INDEX = NO and can be
+# actively harmful: the HostMot2 doc warns the emulated index is not
+# appropriate for index-homing of axis drives, and the pseudo-index position
+# is not repeatable across LinuxCNC restarts.
+#
+# If a future homing design switches to index-homing, re-enable per axis with:
+#   net x-index-enable    joint.0.index-enable <=> hm2_7i80.0.resolver.00.index-enable
+#   net y-index-enable    joint.1.index-enable <=> hm2_7i80.0.resolver.01.index-enable
+#   net z-index-enable    joint.2.index-enable <=> hm2_7i80.0.resolver.02.index-enable
+# and set HOME_USE_INDEX = YES in each [JOINT_N] section — but only after
+# reading the HostMot2 caution and confirming the resolver has an appropriate
+# physical index. The single-speed TS2014N does not, and the emulated index
+# from resolver.NN is explicitly not recommended for this use.
 
 # Spindle feedback — NOT a resolver channel.
 # Confirmed (July 2026 analysis):

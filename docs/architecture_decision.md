@@ -108,7 +108,7 @@ The original **Meldas M2 / TRA** resolver wiring may run the resolver "backwards
 
 - Winding pairs (rotor vs. stator) identified by ohmmeter before power.
 - Return signal level scoped after 7i49 excitation — at rest and under motion, on all three axis channels (0/1/2). Feeds any plain-7i49 vs. 7i49HV escalation, which must go through Mesa/PCW rather than a unilateral hardware swap. **W2 is not a valid remedy on the axis channels.**
-- Final HAL resolver scale and axis orientation (direction/counts per machine unit).
+- Final HAL resolver `RESOLVER_SCALE` and `RESOLVER_VELOCITY_SCALE` per axis. HostMot2 defines `.scale` as **machine units per resolver electrical revolution**, not per motor rev, and treats `.velocity-scale` as an independent parameter. Derive from ballscrew lead × any resolver/screw ratio (flex-coupled on this machine, expected 1:1 but verify), then confirm by counting `rawcounts` against a dial indicator over multiple full revolutions and flip the sign if the axis counts backwards. Do not leave the 1.0 placeholders in place.
 - Shield / ground termination strategy for the resolver cabling.
 
 ## Sources
@@ -116,6 +116,7 @@ The original **Meldas M2 / TRA** resolver wiring may run the resolver "backwards
 - Servo PID tuning thread — VQC 15/40, TRA-31, HD81-12S, plain 7i49 @ 5 kHz vs. the 4.5 kHz spec: <https://forum.linuxcnc.org/10-advanced-configuration/32061-servo-pid-tuning-can-t-clamp-down-on-overshoot>
 - Tamagawa FA-SOLVER page (TS2014N141E26 electrical specs): <https://tamagawa.eu/products/resolvers/brushless-resolvers-fa-solver/>
 - PCW on TS2014 variant compatibility with the 7i49: <https://forum.linuxcnc.org/27-driver-boards/39171-7i49-with-tamagawa-ts2014-e1-type-resolvers>
+- HostMot2(9) man page — resolver `.scale`, `.velocity-scale`, `.index-divisor`, and the index-homing caution: <https://linuxcnc.org/docs/2.9/html/man/man9/hostmot2.9.html>
 - Mesa 7i49 manual (resolver interface, excitation options, W2 jumper, RESDRV/RESSIN/RESCOS): <http://www.mesanet.com/pdf/motion/7i49man.pdf>
 - Mesa 7i80HDT overview (72 IO across three 50-pin daughtercard connectors, 5V-tolerant): <http://www.mesanet.com/fpgacardinfo.html>
 - Mesa 7i44 forum thread on 7i80HD-compatible RS-422 interfaces: <https://www.forum.linuxcnc.org/27-driver-boards/35743-mesa-i-o>
