@@ -57,10 +57,11 @@
 #   Any winding shorted to resolver case/shield = do not energize until resolved.
 
 # TODO: set actual resolver scales after measuring counts and machine units.
+# Only resolvers 00-02 exist (num_resolvers=3 in mazak_vqc_20_40.hal); the
+# spindle uses a separate encoder, not a 7i49 resolver channel.
 setp hm2_7i80.0.resolver.00.scale 1
 setp hm2_7i80.0.resolver.01.scale 1
 setp hm2_7i80.0.resolver.02.scale 1
-setp hm2_7i80.0.resolver.03.scale 1
 
 # 7i49 global excitation frequency.
 # Confirmed resolvers (July 2026 photos): Tamagawa TS2014N series (Size 25 SHAFT resolvers),
@@ -126,8 +127,16 @@ sets spindle-at-speed true
 #
 # On the 7i49 the ±10V analog outputs are hostmot2 PWMGEN instances feeding
 # onboard DACs -- there is no "analogout" pin. For a bipolar ±10V servo command:
-#   output-type 4   (Up/Down bipolar mode used by 7i49 pipeline)
-#   scale 10        (command  1.0 => +10V,  -1.0 => -10V)
+#   output-type 2   (Up/Down mode, per Mesa 7i49 manual section "HostMot2 config":
+#                    "The PWM generators should be set for UP/DOWN mode when
+#                    used with HostMot2 firmware.")
+#   scale 4000     (command in engineering units; see per-axis scale below)
+#   pwm_frequency  24000 Hz (per 7i49 manual: below 24 kHz produces excessive
+#                            output ripple; supported range 24 kHz to 500 kHz)
+# In hostmot2, output-type 2 uses Out0=Up and Out1=Down. Type 4 (previously set
+# here) is "locked antiphase" - WRONG for the 7i49. Refs:
+#   https://linuxcnc.org/docs/html/man/man9/hostmot2.9.html (pwmgen output-type)
+#   http://www.mesanet.com/pdf/parallel/7i49man.pdf (HostMot2 config section)
 # The pwmgen .enable pin MUST be true or the output stays parked at zero.
 #
 # 7i49 P2 analog assignment (2026-08-06 rev):
@@ -141,15 +150,26 @@ sets spindle-at-speed true
 # TODO: confirm pwmgen instance -> axis mapping and pin names from readhmid / show pin hm2.
 # TODO: verify drive command polarity before enabling. A reversed command can cause runaway.
 
-setp hm2_7i80.0.pwmgen.pwm_frequency 20000
-# output-type 4 = Up/Down mode: 7i49 onboard DAC converts to ±10V analog
-# scale 10: value=1.0 → +10V, value=-1.0 → -10V
-setp hm2_7i80.0.pwmgen.00.output-type 4    # X axis  → 7i49 AOUT0
-setp hm2_7i80.0.pwmgen.00.scale       10
-setp hm2_7i80.0.pwmgen.01.output-type 4    # Z axis  → 7i49 AOUT1
-setp hm2_7i80.0.pwmgen.01.scale       10
-setp hm2_7i80.0.pwmgen.02.output-type 4    # Y axis  → 7i49 AOUT2
-setp hm2_7i80.0.pwmgen.02.scale       10
+setp hm2_7i80.0.pwmgen.pwm_frequency 24000
+# output-type 2 = Up/Down mode (Mesa 7i49 required config). Type 4 was WRONG
+# (locked antiphase). Per hostmot2(9) man page:
+#   type 1 = PWM+Dir      type 2 = Up/Down      type 3 = PDM+Dir
+#   type 4 = Dir+PWM (locked antiphase, unsuitable for 7i49 DAC pipeline)
+#
+# Per-axis scale: duty = pid.output / scale, clipped to +/-1.0. With pid.output
+# in machine units per second (velocity command from the position loop), scale
+# should equal the max velocity the drive command should reach at +/-10 V.
+# From INI axis MAX_VELOCITY (in/s):  X = Y ~= 0.5, Z ~= 0.4. Setting scale
+# equal to that value maps +/-10 V to +/-MAX_VELOCITY.
+# TODO: pull the exact per-axis scale from [JOINT_N]OUTPUT_SCALE once the INI
+# has that key; for now these three constants match the current MAX_VELOCITY
+# values in linuxcnc/mazak_vqc_20_40.ini.
+setp hm2_7i80.0.pwmgen.00.output-type 2    # X axis  -> 7i49 AOUT0
+setp hm2_7i80.0.pwmgen.00.scale       [JOINT_0]OUTPUT_SCALE
+setp hm2_7i80.0.pwmgen.01.output-type 2    # Z axis  -> 7i49 AOUT1
+setp hm2_7i80.0.pwmgen.01.scale       [JOINT_2]OUTPUT_SCALE
+setp hm2_7i80.0.pwmgen.02.output-type 2    # Y axis  -> 7i49 AOUT2
+setp hm2_7i80.0.pwmgen.02.scale       [JOINT_1]OUTPUT_SCALE
 
 net x-pos-cmd  <= joint.0.motor-pos-cmd
 net x-pos-cmd  => pid.x.command
@@ -181,13 +201,17 @@ net z-vel-cmd  <= pid.z.output
 net z-vel-cmd  => hm2_7i80.0.pwmgen.01.value    # Z → pwmgen.01 (7i49 AOUT1)
 net z-enable   => hm2_7i80.0.pwmgen.01.enable
 
-# Spindle analog speed command to Mitsubishi FR-SX (pwmgen.03 → 7i49 AOUT3).
+# Spindle analog speed command to Mitsubishi FR-SX (pwmgen.03 -> 7i49 AOUT3).
 # TODO: confirm whether the FR-SX wants 0-10 V, +/-10 V, separate FWD/REV, or another mode.
 # FR-SX speed reference is most likely 0-10V UNIPOLAR -> offset-mode 0 (0V at zero command).
-# If it turns out to want bipolar ±10V, set offset-mode 1 to match the axis outputs above.
-setp hm2_7i80.0.pwmgen.03.output-type 1
+# If it turns out to want bipolar +/-10V, set offset-mode 1 to match the axis outputs above.
+#
+# output-type 2 = Up/Down mode (7i49 requires this on all four analog channels).
+# scale = max spindle RPM at full-scale output. Per [SPINDLE_0]MAX_FORWARD_VELOCITY
+# in the INI, currently 4000 RPM. Previous value of 10 made 10 RPM = full-scale.
+setp hm2_7i80.0.pwmgen.03.output-type 2
 setp hm2_7i80.0.pwmgen.03.offset-mode 0
-setp hm2_7i80.0.pwmgen.03.scale 10
+setp hm2_7i80.0.pwmgen.03.scale       [SPINDLE_0]OUTPUT_SCALE
 # OPEN-LOOP spindle: speed command goes directly to pwmgen without PID.
 # pid.s is loaded (mazak_vqc_20_40.hal) but unconnected — pid.s.enable defaults
 # to false so it outputs 0 harmlessly. To close the loop once encoder feedback is
