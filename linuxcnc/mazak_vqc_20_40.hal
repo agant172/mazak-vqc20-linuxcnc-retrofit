@@ -72,6 +72,23 @@ loadrt hm2_eth board_ip="192.168.1.121" config="num_encoders=1 num_resolvers=3 n
 
 loadrt pid names=pid.x,pid.y,pid.z,pid.s
 loadrt estop-latch
+
+# timedelay component: used for Z-brake sequencing (see field_7i84u.hal).
+# On-delay = time between drive S-ON asserting and brake release going TRUE
+# (drive must develop holding torque before brake releases).
+# Off-delay = time between drive S-ON dropping and brake dropping (brake
+# should engage BEFORE drive torque goes away).
+# For a symmetric 100 ms on/off delay we use one timedelay instance whose
+# .in follows joint.2.amp-enable-out and whose .out drives z-brake-release.
+loadrt timedelay count=1
+
+# or2 component: used to combine watchdog fault sources into the
+# software E-stop chain (see safety-watchdog block below).
+loadrt or2 count=1
+
+# and2 component: used to gate each joint's amp-enable-out with the
+# watchdog-permit net (see safety-watchdog block below).
+loadrt and2 count=3
 # NOTE: do NOT loadrt threads — [EMCMOT]EMCMOT above creates the servo-thread from INI SERVO_PERIOD
 
 addf hm2_7i80.0.read           servo-thread
@@ -81,6 +98,11 @@ addf pid.x.do-pid-calcs        servo-thread
 addf pid.y.do-pid-calcs        servo-thread
 addf pid.z.do-pid-calcs        servo-thread
 addf pid.s.do-pid-calcs        servo-thread
+addf timedelay.0               servo-thread
+addf or2.0                     servo-thread
+addf and2.0                    servo-thread
+addf and2.1                    servo-thread
+addf and2.2                    servo-thread
 addf estop-latch.0             servo-thread
 addf hm2_7i80.0.write          servo-thread
 
