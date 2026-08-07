@@ -1,5 +1,13 @@
 # FR-SX / SJ spindle orient model — corrected
 
+> **UNVERIFIED FR-SX model & terminal layout (2026-08-06).** The exact FR-SX
+> model number on this machine and its terminal-strip layout have not been added
+> to the repo. The orient control model below is derived from the general
+> Mitsubishi FR-SF / MDS-CH family and is consistent with that family's discrete
+> orient command, but the terminals named here (`ORCM`, `ORAR`, `SPD-REACH`,
+> `ALM`) must be re-mapped against the actual model's manual before energizing
+> the spindle. See [`superseded_claims_2026-08-06.md`](superseded_claims_2026-08-06.md) #17.
+
 ## Audit finding #16 (verbatim)
 
 > The FR-SX orient description in this repository claims an "analog orient

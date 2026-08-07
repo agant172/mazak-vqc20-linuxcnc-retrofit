@@ -21,10 +21,10 @@ The selected retrofit architecture is:
 ## Assumed hardware stack
 
 - LinuxCNC control PC with an Ethernet NIC on the 7i80HDT subnet (`enp0s31f6` at `192.168.1.1/24`; board at `192.168.1.121`).
-- Mesa 7i80HDT Ethernet FPGA host for motion command, resolver feedback, and the bare P3 probe GPIO exception.
+- Mesa 7i80HDT Ethernet FPGA host for motion command and, via its daughter cards, resolver feedback and field I/O.
 - Mesa 7i44 on P1 for smart-serial fanout to 7i84U-A (port 0) and 7i84U-B (port 1).
 - Mesa 7i49 on P2 for X/Y/Z resolver feedback and analog servo/spindle outputs.
-- P3 otherwise unused/spare; `hm2_7i80.0.gpio.042` is the Renishaw MP-3 probe SKIP1 input.
+- P3 is unused/spare. The Renishaw MP-3 probe input is on **7i84U-B input-15** (opto-isolated 24 V), not on bare P3 GPIO — see [`../docs/superseded_claims_2026-08-06.md`](../docs/superseded_claims_2026-08-06.md) #15.
 - Mesa 7i84U-A on 7i44 port 0 for ATC, hydraulic, coolant, air, and utility I/O; 7i84U-B on port 1 for limits/homes, drive enables, and relay-driven loads.
 - Optional WHB04B-style USB pendant through LinuxCNC HAL, not through Mesa I/O.
 

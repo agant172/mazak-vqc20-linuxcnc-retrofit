@@ -50,7 +50,11 @@ loadrt hm2_eth board_ip="192.168.1.121" config="num_encoders=1 num_resolvers=3 n
 # board_ip: 192.168.1.121 (static, NIC enp0s31f6 at 192.168.1.1/24, confirmed pinging)
 # num_resolvers=3: confirmed — three TS2014N shaft resolvers (X=00, Y=01, Z=02 ball screws)
 #   Spindle does NOT use a resolver; it has a separate machine-side A/B/Z encoder.
-# num_encoders=1: reserve one encoder channel for the spindle encoder (part# TBD).
+# num_encoders=1: reserves ONE FPGA encoder-counter module in the bitfile for
+#   future spindle feedback. It does NOT wire any physical GPIO to that counter
+#   and no active HAL nets connect hm2_7i80.0.encoder.00.* to any spindle-position
+#   signal. Do NOT interpret num_encoders=1 as "spindle feedback is present" -
+#   see docs/superseded_claims_2026-08-06.md #24.
 #   Adjust count if readhmid shows a different layout for the encoder instances.
 # num_pwmgens=4: 7i49 P2 AOUT0=X, AOUT1=Z, AOUT2=Y, AOUT3=spindle velocity.
 #   AOUT4/AOUT5 spare. All bipolar +/-10V. FR-SX orient uses a DISCRETE

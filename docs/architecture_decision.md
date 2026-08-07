@@ -1,5 +1,11 @@
 # Architecture Decision: Mesa 7i80HDT + 7i44 + 7i49 + two 7i84Us (Ethernet)
 
+> **Historical alternatives note (2026-08-06).** Some earlier design branches
+> (notably a **Mesa 7i37TA** field breakout on P3) are retained further down this
+> file as history so the reasoning for rejecting them is not lost. They are NOT
+> part of the active plan. The single index of retired / unverified claims is
+> [`superseded_claims_2026-08-06.md`](superseded_claims_2026-08-06.md).
+
 ## Decision
 
 Use a LinuxCNC control PC driving a **Mesa 7i80HDT Ethernet FPGA host** as the primary

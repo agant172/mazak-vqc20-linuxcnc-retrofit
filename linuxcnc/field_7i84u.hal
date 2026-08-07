@@ -38,8 +38,13 @@ net thermal-alarm      <= hm2_7i80.0.7i84.0.0.input-08   # IN8  X073 THR.M + X07
 # --- IN10..IN15  (drive faults + spindle + tool clamp, TB3 pins 11-16) ---
 # amp-fault-in: if TRUE, motion module immediately aborts and enters E-stop.
 # CAUTION: confirm input polarity before enabling. The Mitsubishi HD81/HD101 ALM
-# output is open-collector-active-low (fault = low/open), so the 7i84U input reads
-# 0 on fault - set invert_input 1 on these channels once wired.
+# output is BELIEVED to be open-collector-active-low (fault = low/open), so the
+# 7i84U input WOULD read 0 on fault and invert_input=1 WOULD be correct.
+# **UNVERIFIED** - no primary Mitsubishi manual for HD81/HD101 is in this repo;
+# the polarity assumption comes from a PCW forum discussion, not manufacturer
+# documentation. Bench-verify the actual ALM contact behavior against the amp
+# BEFORE these inputs are wired into the safety chain. See
+# docs/superseded_claims_2026-08-06.md #16.
 net x-drive-fault      <= hm2_7i80.0.7i84.0.0.input-10   # IN10 X drive ALM
 net x-drive-fault      => joint.0.amp-fault-in
 net y-drive-fault      <= hm2_7i80.0.7i84.0.0.input-11   # IN11 Y drive ALM

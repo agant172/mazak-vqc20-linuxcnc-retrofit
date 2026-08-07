@@ -250,9 +250,12 @@ setp hm2_7i80.0.pwmgen.pwm_frequency 24000
 # MAX_VELOCITY (in/s) maps pid.output = MAX_VELOCITY to +/-10 V ONLY IF the
 # TRA drive is calibrated so 10 V equals MAX_VELOCITY shaft speed.
 # That drive calibration is NOT yet measured; see docs/servo_commissioning.md
-# steps 2 (zero-command null) and 3 (volts-per-speed). Placeholder
-# [JOINT_N]OUTPUT_SCALE = 1.0 in mazak_vqc_20_40.ini keeps the PID output safely
-# scaled during power-on. Update per axis once volts-per-speed is measured.
+# steps 2 (zero-command null) and 3 (volts-per-speed). The [JOINT_N]OUTPUT_SCALE
+# placeholder value in mazak_vqc_20_40.ini is **NOT** a safe electrical scale -
+# LinuxCNC scaling means user-units-per-output-unit, and any non-measured value
+# is guaranteed wrong. Bring-up policy: keep drives DISABLED (amp enable = 0)
+# until OUTPUT_SCALE is measured per axis. Do not treat OUTPUT_SCALE=1.0 as
+# 'safe' - see docs/superseded_claims_2026-08-06.md #23.
 setp hm2_7i80.0.pwmgen.00.output-type 2    # X axis  -> 7i49 AOUT0
 setp hm2_7i80.0.pwmgen.00.scale       [JOINT_0]OUTPUT_SCALE
 setp hm2_7i80.0.pwmgen.01.output-type 2    # Z axis  -> 7i49 AOUT1

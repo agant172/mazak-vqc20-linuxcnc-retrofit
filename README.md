@@ -6,7 +6,7 @@ control to LinuxCNC using Mesa Electronics FPGA hardware.
 **Machine:** Mazak VQC 20/40 Vertical Quality Center (SN 060231, Mazatrol M-2, ladder YM2V39L)
 **Original control:** Mazatrol M-2
 **New control:** LinuxCNC 2.9.10 on Debian 13 (PREEMPT-RT)
-**Interface hardware:** Mesa 7i80HDT (Ethernet FPGA host) + 7i44 on P1 (RS-422 sserial to 7i84U-A on port 0 and 7i84U-B on port 1) + 7i49 on P2 (resolver + analog outs); P3 is spare except for the bare direct-FPGA probe input `gpio.042`.
+**Interface hardware:** Mesa 7i80HDT (Ethernet FPGA host) + 7i44 on P1 (RS-422 sserial to 7i84U-A on port 0 and 7i84U-B on port 1) + 7i49 on P2 (resolver + analog outs); P3 is unused/spare. The Renishaw MP-3 probe input is on **7i84U-B input-15** (opto-isolated 24 V), not on bare P3 GPIO.
 
 > ⚠️ **Safety:** The HAL/INI files in [`linuxcnc/`](linuxcnc/) and the pin authority in
 > [`mesa/current_pin_authority.csv`](mesa/current_pin_authority.csv) are **planning /
@@ -54,7 +54,7 @@ Full rationale: [docs/architecture_decision.md](docs/architecture_decision.md).
 
 **Immediate**
 - Order the 7i80HDT, 7i44, and 7i84U-B (7i49 and 7i84U-A already in hand / buy list).
-- Confirm PCW-generated firmware bitfile `7i80hdt_7i44_ss_7i49d.bit` and stash it under `mesa/` once received.
+- Confirm PCW-generated firmware bitfile `7i80hdt_7i44_ss_7i49d.bit` and stash it under `mesa/` once received. **Bitfile provenance is UNVERIFIED** — MD5, IDROM readback, and pin dump must be recorded per [`docs/superseded_claims_2026-08-06.md`](docs/superseded_claims_2026-08-06.md) #14 before it is treated as authoritative.
 - Confirm 7i80HDT Ethernet setup: static IP 192.168.1.121, `hm2_eth` `board_ip="192.168.1.121"`, and host NIC `enp0s31f6` at 192.168.1.1/24.
 - Confirm 24 V field power feed (OEM HR-11F-24 + retrofit DR-240-24, kept isolated) and 7i84U-A / 7i84U-B I/O sourcing/sinking behavior before wiring.
 - Capture cabinet photo set ([checklist](docs/cabinet_photo_checklist.md)).
@@ -63,7 +63,7 @@ Full rationale: [docs/architecture_decision.md](docs/architecture_decision.md).
 
 **Next**
 - LinuxCNC latency test on the control PC (already validated on Debian 13 / RT kernel).
-- Install the 7i80HDT + 7i44 + 7i49 + 7i84U-A + 7i84U-B; retain P3 for the bare `gpio.042` probe input and save `mesa_readhmid.txt` and the actual `mesa_hal_pins.txt` dump.
+- Install the 7i80HDT + 7i44 + 7i49 + 7i84U-A + 7i84U-B; leave P3 unused/spare (probe is on 7i84U-B input-15, not bare P3 GPIO) and save `mesa_readhmid.txt` and the actual `mesa_hal_pins.txt` dump.
 - Replace placeholder `hm2_7i80.0...` pin names in HAL from the real pin dump.
 - Set the 7i49 resolver excitation to **5 kHz** (TS2014N141E26 datasheet spec is 4.5 kHz; the 7i49 offers 2.5 / 5 / 10 kHz, so 5 kHz is the closest available option — about 11 % above nominal). The Tamagawa page publishes **no frequency tolerance**, so 5 kHz operation must be **verified at commissioning** by scoping RESDRV excitation and RESSIN/RESCOS amplitude and phase at rest and under motion. Record the exact `TS2014N###E##` suffix on every axis nameplate and match it to its own datasheet — PCW has warned that some TS2014 variants (e.g. E1/BRT) are not 7i49-compatible.
 - Identify each axis resolver winding pair with an **ohmmeter before applying power** (rotor pair R1/R2 → RESDRV±, matched stator pairs S1-S3, S2-S4 → RESSIN and RESCOS); verify, don't assume.
