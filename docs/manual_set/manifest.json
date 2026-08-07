@@ -1,0 +1,48 @@
+{
+  "manual_set_revision": "B",
+  "generated": "2026-08-07",
+  "source_commit": "a3730f9",
+  "authority_rows": 132,
+  "files": [
+    {
+      "file": "Vol0_Master_Guide_and_TOC.pdf",
+      "pages": 3,
+      "sha256": "d9815b4f7cbf1b94baf568bff40b3d071766174fd1147aa3cb80f7443ecd50eb"
+    },
+    {
+      "file": "Vol1_Overview_and_Safety.pdf",
+      "pages": 4,
+      "sha256": "6ab578fa3c53fa7fc6ef5ec4238400424997f6ba4746cdfec0c99d6560ce8921"
+    },
+    {
+      "file": "Vol2_Operation_Manual.pdf",
+      "pages": 4,
+      "sha256": "368c099f59ed4e46326ff66972b5804ab2595bccc22f8ba137abb8bf88e2d706"
+    },
+    {
+      "file": "Vol3_Mesa_Conversion_Manual.pdf",
+      "pages": 5,
+      "sha256": "76e2cd9768c02126fbb1be6ff11450a649191abb9c0a0743c7831b879bdc26d9"
+    },
+    {
+      "file": "Vol4_Wiring_Diagrams_and_IO_Reference.pdf",
+      "pages": 10,
+      "sha256": "52a07542cea60e9bac5273a01e56c543bffe2caf628fa794d38a9cafdc4f3979"
+    },
+    {
+      "file": "Vol5_Maintenance_and_Troubleshooting.pdf",
+      "pages": 4,
+      "sha256": "b5ba6360b02873afd32e82820c993077d52168c42e2ca957bbda6e02cd28e00e"
+    },
+    {
+      "file": "Vol6_Reference_Glossary_Index.pdf",
+      "pages": 4,
+      "sha256": "614a652ab5297a1daace39cba31c41a6cf7c0cce319dc9204d750ee35f40a69d"
+    },
+    {
+      "file": "Mazak_VQC2040_Complete_Manual_RevB.pdf",
+      "pages": 34,
+      "sha256": "f85db8e851baa3076664d5c2a15741284bcf99dacb4c9fe0e53d20b3a240e4b4"
+    }
+  ]
+}
