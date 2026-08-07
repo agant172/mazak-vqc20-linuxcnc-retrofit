@@ -91,9 +91,18 @@ loadrt estop-latch
 # timedelay.1 = S-ON path (off-delay only, on-delay=0)
 loadrt timedelay count=2
 
-# or2 component: used to combine watchdog fault sources into the
-# software E-stop chain (see safety-watchdog block below).
-loadrt or2 count=1
+# or2 components:
+#   or2.0 = combines watchdog fault sources into the software E-stop
+#           chain (see safety-watchdog block below).
+#   or2.1 = combines the on_abort digital-out pulse with the E-stop
+#           trip so an operator Abort OR an E-stop drops mazak-atc's
+#           cycle_abort input in one place. See atc_orient.hal.
+loadrt or2 count=2
+
+# logic component: used to invert estop-latch.0.ok-out into an
+# estop-tripped level for the atc-cycle-abort OR gate. See the
+# safety-watchdog block for the 1-input NAND (= NOT) idiom.
+# (The other logic instance, logic.watchdog-not, is loaded below.)
 
 # and2 component: used to gate each joint's amp-enable-out with the
 # watchdog-permit net (see safety-watchdog block below).
@@ -108,6 +117,7 @@ addf pid.y.do-pid-calcs        servo-thread
 addf pid.z.do-pid-calcs        servo-thread
 addf pid.s.do-pid-calcs        servo-thread
 addf or2.0                     servo-thread
+addf or2.1                     servo-thread
 addf and2.0                    servo-thread
 addf and2.1                    servo-thread
 addf and2.2                    servo-thread
@@ -291,10 +301,16 @@ net watchdog-fault-any  => estop-latch.0.fault-in
 #   loadrt logic count=1 personality=0x801
 #   'nand' with a single input equals the boolean inverse of that input.
 # Reference: <https://linuxcnc.org/docs/html/man/man9/logic.9.html>
-loadrt logic names=logic.watchdog-not personality=0x801
+loadrt logic names=logic.watchdog-not,logic.estop-not personality=0x801,0x801
 addf logic.watchdog-not servo-thread
+addf logic.estop-not    servo-thread
 net watchdog-fault-any  => logic.watchdog-not.in-00
 net motion-permit       <= logic.watchdog-not.nand
+# logic.estop-not inverts estop-latch.0.ok-out into an estop-tripped level
+# so the ATC abort OR gate (or2.1 in atc_orient.hal) can consume it. See
+# 'ATC cycle abort routing' block in linuxcnc/atc_orient.hal for wiring.
+net estop-ok            => logic.estop-not.in-00
+net estop-tripped       <= logic.estop-not.nand
 
 # estop-reset also feeds atc_orient.hal to clear its latched ATC / orient
 # alarms in sync with the LinuxCNC re-enable. Additional readers pick up the

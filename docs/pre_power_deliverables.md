@@ -398,6 +398,29 @@ an evidence claim — it says whether the deliverable exists yet.
      `halcmd setp` injection tests.
   4. Abort scenario: E-stop mid-tool-change leaves the machine
      in a state that can be safely recovered manually.
+  5. **ON_ABORT_COMMAND cleanup (audit 2026-08-07 rev3):** at
+     every step of `remap/toolchange.ngc` (after P0, P1, P2,
+     P3, P4, P5, P6, P7 have been asserted in turn) trigger
+     each of the four abort sources below in a dry-cycle
+     fixture with `[ATC] DRY_RUN = 1` and confirm via `halcmd
+     show sig` that motion.digital-out-00..07 all read FALSE
+     and the mapped comp outputs (atc_barrier, mag_cover_sol,
+     tool_unclamp_sol, mag_fwd_sol, mag_rev_sol,
+     spindle_orient, orient_lo_gear) all read FALSE within
+     500 ms of the trigger:
+     - Operator Abort button (halui.abort)
+     - E-stop trip (estop-latch fault-in)
+     - M66 timeout inside toolchange.ngc (force by setting
+       the matched `M66 P<n>` input FALSE and letting the
+       `Q<t>` guard expire, so `(abort, ATC: ...)` fires)
+     - Motion fault (halcmd setp injection on
+       `hm2_7i80.0.watchdog.has_bit` or joint following-error
+       trigger)
+     Record halscope traces of `atc-abort-pulse`,
+     `atc-cycle-abort`, and each of the eight NGC outputs for
+     each of the 4 sources x 8 assertion points = 32 shots.
+     Passing test = every output drops FALSE within one servo
+     cycle of atc-cycle-abort going TRUE.
 - **Owner:** retrofit commissioner. **Status:** NOT YET DRAFTED.
   `[ATC] DRY_RUN = 1` remains set in the INI per
   [`y_soft_limit_atc_zone.md`](y_soft_limit_atc_zone.md) until

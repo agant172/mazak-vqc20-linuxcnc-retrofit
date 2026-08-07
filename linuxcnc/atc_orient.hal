@@ -270,6 +270,57 @@ net estop-reset => mazak-orient.fault-reset
 net estop-reset => mazak-atc.fault-reset
 
 #####################################################################
+# ATC cycle abort routing
+#####################################################################
+#
+# mazak-atc.cycle-abort is the comp input that forces cycle_active FALSE
+# on the next servo tick and drops every gated ATC output (atc_barrier,
+# mag_cover_sol, tool_unclamp_sol, mag_fwd/rev_sol) through the comp's
+# permissives = ...!cycle_abort chain. Nothing wrote this input before
+# audit 2026-08-07 rev3, so operator Abort, halui.abort, and (abort,...)
+# calls inside remap/toolchange.ngc left P0..P7 latched.
+#
+# Sources (either drops cycle-abort into the comp):
+#   (a) motion.digital-out-08 raised by remap/on_abort.ngc during the
+#       task-level ON_ABORT_COMMAND cleanup. This is the primary path
+#       for operator Abort / halui.abort / (abort,...) inside a remap.
+#   (b) estop-tripped level (inverted estop-latch.0.ok-out via
+#       logic.estop-not in mazak_vqc_20_40.hal). E-stop cases where
+#       ON_ABORT_COMMAND does not fire in time still drop the comp.
+#
+# or2.1 combines the two into atc-cycle-abort and feeds:
+#   - mazak-atc.cycle-abort
+#   - mazak-orient.orient-cancel (orient-cancel-req from P7 is still
+#     available for the sequenced graceful drop inside toolchange.ngc; the
+#     two nets are separate on purpose - do not collapse them, or the
+#     remap's P7 pulse would be gated by cycle-abort.)
+#
+# Reference: LinuxCNC remap docs recommend ON_ABORT_COMMAND for cleanup
+# after task aborts. See <https://linuxcnc.org/docs/html/remap/remap.html>
+# section on abort handling.
+
+net atc-abort-pulse motion.digital-out-08 => or2.1.in0
+net estop-tripped                         => or2.1.in1
+net atc-cycle-abort or2.1.out             => mazak-atc.cycle-abort
+# mazak-orient exposes orient_cancel (see mazak_orient.comp line 80). Keep
+# the P7-driven orient-cancel-req net authoritative for graceful drops
+# during a cycle; ADD an or of atc-cycle-abort into the orient reset path
+# via mazak-orient.fault-reset which we already net to estop-reset above.
+# To also react to an ATC abort, additionally feed atc-cycle-abort into
+# mazak-orient.fault-reset. Multiple writers on a bit signal are additive-OR
+# through hal's 'net' semantics only when they are through an or2 gate;
+# instead of loading another or2, drive fault-reset via a shared signal.
+# Cleanest: connect orient.fault-reset to (estop-reset OR atc-cycle-abort)
+# via an or2. We already have or2.1 dedicated to atc-cycle-abort, so add a
+# second or2 in mazak_vqc_20_40.hal only if a hardened path is required.
+# For now, rely on:
+#   - toolchange.ngc P7 pulse for graceful orient cancel
+#   - on_abort.ngc pulses P7 (see remap/on_abort.ngc step 2f) for the
+#     abort path -> orient_cancel via existing orient-cancel-req net
+# This avoids an additional or2 instance and matches the comp's own
+# 'orient_cancel is a hard reset' semantics (mazak_orient.comp:274).
+
+#####################################################################
 # FIELD I/O CLEANUP REQUIRED in linuxcnc/field_7i84u.hal
 #####################################################################
 #
