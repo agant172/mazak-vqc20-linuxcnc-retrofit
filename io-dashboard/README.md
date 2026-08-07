@@ -92,17 +92,23 @@ is never silently overwritten.
 Statuses are taken from `authority_status` in `mesa/current_pin_authority.csv` and are deliberately
 literal. No unverified pin is ever described as safe.
 
-| Status                       | Meaning                                                                  |
-| ---------------------------- | ------------------------------------------------------------------------ |
-| Field verified               | Measured in the cabinet and signed off. **Currently zero rows qualify.**  |
-| Accepted — verify continuity | Assignment accepted; still ring out before power                         |
-| Accepted — verify in cabinet | Assignment accepted; landing point not confirmed on the machine          |
-| Reserved / Optional — verify | Channel held or optional; confirm intent before wiring                   |
-| Commissioning pending        | Planned, awaiting cabinet tracing, polarity confirmation or measurement  |
-| In HAL only — no authority row | Net exists in HAL but has no authority row (came from the stale map)   |
-| Conflict — hold, do not wire | Two sources disagree. Resolve against schematic set 41434WB.pdf first    |
-| Hold — hardware not ordered  | No hardware allocated                                                    |
-| Spare / Not used             | Deliberately free                                                        |
+The taxonomy is defined in [`../docs/pre_power_deliverables.md`](../docs/pre_power_deliverables.md).
+The legacy `ACCEPTED` and `ACCEPTED_VERIFY` states were retired
+as of that document; existing rows migrated to `PROPOSED`.
+
+| Status | Meaning |
+| --- | --- |
+| `PROPOSED` | Paper design carries this claim. No physical verification. |
+| `TRACED` | Wire path physically traced end-to-end with a meter; continuity confirmed in both states. |
+| `ELECTRICALLY_VERIFIED` | Powered to nominal voltage and measured; normal and tripped voltages recorded. |
+| `HAL_VERIFIED` | HAL pin toggles correctly against physical stimulus, captured in a `halscope` trace. |
+| `COMMISSIONED` | Passed the safety / functional acceptance for its role, including fault injection. |
+| `COMMISSIONING_PENDING` | Signal defined; physical verification deferred to commissioning. Compatible with `PROPOSED`. |
+| `SPARE` | Pin allocated for future use, no signal assigned. |
+| `RESERVED` / `RESERVED_VERIFY` | Pin held for a specific future function. |
+| `DEFERRED` | Signal out of first-power scope by decision. |
+| `HOLD_CONFLICT` | Conflicting authority claims between docs; requires reconciliation before promotion. |
+| `OPTIONAL_VERIFY` | Signal is not on the critical path. |
 
 Green is used only for *verified*. Because no row is verified yet, you should see no green.
 That is intentional and honest.

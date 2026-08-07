@@ -47,6 +47,14 @@ The selected retrofit architecture is:
 
 ## Bring-up order
 
+> **Pre-power gate.** Every step below is gated by the sixteen
+> pre-power deliverables and hold points defined in
+> [`../docs/pre_power_deliverables.md`](../docs/pre_power_deliverables.md).
+> Do not apply live power to any element of the retrofit stack until
+> that document's hold points for the corresponding milestone are
+> signed off.
+
+
 1. Confirm 7i80HDT detection over Ethernet: host static IP, `ping 192.168.1.121`, `mesaflash --device 7i80hdt --addr 192.168.1.121 --readhmid`, and `hm2_eth` HAL loading. The dedicated-NIC pinning, coalescing/offload settings, multi-hour latency-under-load test, and packet-error-into-motion-permit HAL wiring are documented in [`../docs/hm2_eth_nic_validation.md`](../docs/hm2_eth_nic_validation.md); commissioning must not enable drives until that acceptance passes.
 2. Confirm the 24 VDC P24/G24 bus (Meanwell DR-240-24 retrofit supply), fusing, and 0 V common/reference strategy.
 3. Confirm resolver wiring with drives disabled. **Record the exact `TS2014N###E##` suffix on every axis nameplate and pull its own datasheet** (the E26 variant is 10 Vrms / 4.5 kHz / K = 0.5, rotor DC 121 Ω, stator DC 69 Ω — other suffixes may differ, and PCW has flagged some TS2014 variants as 7i49-incompatible). Ohmmeter the winding pairs before power (rotor pair → RESDRV±, matched stator pairs → RESSIN/RESCOS) and compare DC resistance to the datasheet to confirm the variant. Then set the 7i49 to 5 kHz excitation (closest to the 4.5 kHz spec; the Tamagawa page publishes no frequency tolerance, so verify on scope rather than by tolerance calc), confirm the 7i49 is the sole excitation source, scope RESDRV excitation and RESSIN/RESCOS amplitude and phase at rest and under motion, then verify counts, direction, shielding, and scale.

@@ -2,6 +2,36 @@
 
 _Last updated: 2026-08-06_
 
+## Pre-power deliverables (D1–D16)
+
+Sixteen pre-power deliverables gate every live-power hold point.
+See [`pre_power_deliverables.md`](pre_power_deliverables.md) for full acceptance criteria.
+Summary of planning state as of this commit:
+
+| # | Deliverable | Planning state |
+| --- | --- | --- |
+| D1 | As-built one-line + terminal plan | NOT DRAFTED |
+| D2 | Installed nameplate register | PARTIAL (checklists drafted; photos pending) |
+| D3 | Immutable Mesa firmware package | NOT ASSEMBLED (bitfile TBD) |
+| D4 | I/O checkout sheet | NOT DRAFTED |
+| D5 | Hardware E-stop risk assessment + schematic | PARTIAL (software chain drafted) |
+| D6 | Shared-bus precharge / discharge procedure | DRAFTED (measurements pending) |
+| D7 | Enable / fault / ready / Z-brake timing budget | PARTIAL |
+| D8 | Resolver phasing / commissioning procedure | PARTIAL (traces pending) |
+| D9 | First-move plan | NOT DRAFTED |
+| D10 | Velocity-mode tuning procedure + saved traces | PROCEDURE DRAFTED (traces pending) |
+| D11 | Physical travel / envelope survey | PARTIAL (Y done; X, Z pending) |
+| D12 | FR-SX speed / orient / gear state diagram | PARTIAL |
+| D13 | ATC hazard analysis + dry-cycle fixture | NOT DRAFTED |
+| D14 | Network / real-time qualification + automatic response | PROCEDURE DRAFTED (logs pending) |
+| D15 | Restore / rollback package | PARTIAL (parameters drafted; photos pending) |
+| D16 | Signed hold points | NOT DRAFTED |
+
+Evidence-state taxonomy migration completed: `ACCEPTED` and
+`ACCEPTED_VERIFY` retired in favour of `PROPOSED`, `TRACED`,
+`ELECTRICALLY_VERIFIED`, `HAL_VERIFIED`, and `COMMISSIONED`.
+See [`pre_power_deliverables.md`](pre_power_deliverables.md#new-evidence-state-taxonomy).
+
 Conversion of a Mazak VQC 20/40 vertical machining center from the original Mazatrol
 control to LinuxCNC using Mesa Electronics FPGA hardware.
 
