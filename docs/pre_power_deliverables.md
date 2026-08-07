@@ -224,13 +224,32 @@ an evidence claim — it says whether the deliverable exists yet.
 - **Contents required:** timing diagram covering normal stop,
   hardware E-stop, mains loss, NIC loss, and single-axis fault.
   Each timing must show S-ON deassert, brake command, brake
-  physical drop time, and drive coast time.
+  physical drop time, and drive coast time. In addition, the two
+  Z-brake asymmetric-sequencer timing constants used in HAL
+  (`timedelay.0.on-delay` = `T_torque_build`; `timedelay.1.off-delay`
+  = `T_brake_engage`) must be measured **separately** — they are
+  physically distinct quantities and are both currently placeholder
+  100 ms in `linuxcnc/field_7i84u.hal` and
+  `mesa/current_pin_authority.csv:Z_BRAKE_REL_ENABLE`.
 - **Acceptance criteria:**
   1. Diagram for each of the five stop conditions above.
-  2. Brake drop time measured from the SOL-201 solenoid
-     (N1J-L2-201 Z brake release) datasheet or measurement.
-  3. Coast time measured from drive spec sheets.
-  4. E-stop timing verified against the fault-injection matrix.
+  2. Brake drop time (mechanical engagement, i.e. `T_brake_engage`)
+     measured from the SOL-201 solenoid (N1J-L2-201 Z brake release)
+     under representative Z head load, with scope traces saved to
+     `docs/commissioning_logs/z_brake_traces/`.
+  3. Drive torque-build time (`T_torque_build`) measured from S-ON
+     assert to DK-427 rated holding torque available on the Z motor
+     shaft, with scope traces of the DK-427 SERVO_READY (or an
+     equivalent tach/current signal) and the S-ON output relay.
+  4. Coast time measured from drive spec sheets, cross-checked
+     against a hardwired-E-stop test (Section 2 above; bypasses the
+     HAL sequencer entirely).
+  5. E-stop timing verified against the fault-injection matrix.
+  6. HAL timedelay values (`timedelay.0.on-delay`,
+     `timedelay.1.off-delay`) updated with measured `T_torque_build`
+     and `T_brake_engage` — add ~50 % margin per side, then bench-
+     verify head does NOT drop on either edge with the drives
+     energised and a representative load on the Z spindle.
 - **Owner:** retrofit commissioner. **Status:** PARTIAL —
   [`estop_safety_chain.md`](estop_safety_chain.md) covers the
   E-stop chain; the timing budget for the five stop conditions

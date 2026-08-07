@@ -110,36 +110,12 @@ net spindle-enable     => hm2_7i80.0.7i84.0.0.output-02  # OUT2  FR-SX RUN/STOP
 # OUT3  hyd-pump-on         (netted in atc_orient.hal - Y096 HYD.M)
 # OUT4  spindle-orient-cmd  (netted in atc_orient.hal - Y093 ORCM1.M)
 # OUT5  orient-lo-gear      (netted in atc_orient.hal - Y094 CTL.M)
-# OUT6 Z brake release: gated by a 100 ms on/off timedelay driven from
-# z-enable (joint.2.amp-enable-out).
-#
-# WHY: releasing the Z brake at the SAME instant as asserting the drive S-ON
-# opens the mechanical hold before the drive has developed holding torque,
-# so the Z head drops on gravity. Symmetric problem on shutdown: dropping
-# drive S-ON at the same instant as the brake removes torque while the
-# brake is still spinning free, so the head coasts. timedelay.0 solves both:
-#
-#   S-ON rises  -> brake release fires 100 ms LATER  (drive builds torque first)
-#   S-ON falls  -> brake drops 100 ms LATER          (brake engages first)
-#
-# Wiring: z-enable goes to output-02 (S-ON) immediately AND to timedelay.0.in;
-# timedelay.0.out drives output-06 (brake release). The timedelay component
-# uses on-delay and off-delay parameters set in mazak_vqc_20_40.hal.
-#
-# LIMITATION: this is a fixed OPEN-LOOP delay. It does not observe an actual
-# drive-ready signal, so it assumes 100 ms is always enough for the MELDAS
-# DK-427 to develop torque. If a drive-ready feedback contact from the DK-427
-# is later wired to a 7i84U input, add an and2 between timedelay.0.out and
-# output-06 (both timedelay.out AND drive-ready must be TRUE to release the
-# brake). Also add a SERVO_READY row to mesa/current_pin_authority.csv.
-#
-# The 100 ms figure is a placeholder pending measurement of the DK-427 torque
-# build-up time and the SOL-201 brake solenoid drop-out time per
-# docs/pre_power_deliverables.md D7. Update once measured and cite the
-# measurement in docs/stop_timing_budget.md.
-setp timedelay.0.on-delay  0.100    # 100 ms drive-torque-build before brake release
-setp timedelay.0.off-delay 0.100    # 100 ms brake-engage before S-ON drop
-net z-enable           => timedelay.0.in
+# OUT6 Z brake release: asymmetric sequencer, on-delay on rising edge only.
+# See detailed rationale and wiring in the 7i84U-B S-ON section below
+# (both the Z S-ON via timedelay.1 and the Z brake release via timedelay.0
+# are driven from the same z-enable-req signal defined there).
+setp timedelay.0.on-delay  0.100    # T_torque_build: PLACEHOLDER, measure per D7
+setp timedelay.0.off-delay 0.000    # brake drops the instant z-enable-req falls
 net z-brake-release    <= timedelay.0.out
 net z-brake-release    => hm2_7i80.0.7i84.0.0.output-06  # OUT6  N1J-L2-201 Z brake release
 # OUT7  gear-hi-sol        (netted in atc_orient.hal - Y00B GSH.M / RLY-1 to SOL-13)
@@ -284,10 +260,62 @@ net motion-permit => and2.1.in1
 net y-enable     <= and2.1.out
 net y-enable     => hm2_7i80.0.7i84.0.1.output-01   # Y servo S-ON to MELDAS DK-427
 
+# Z axis - ASYMMETRIC brake/S-ON sequencer.
+#
+# WHY this is different from X/Y: the Z axis has a gravity load (spindle head)
+# and a mechanical brake (SOL-201) that must be sequenced against the drive
+# S-ON to prevent head-drop. Two edges have OPPOSITE requirements:
+#
+#   Rising edge (enable):
+#     - S-ON must assert FIRST so the DK-427 develops holding torque.
+#     - Brake release must LAG S-ON by T_torque_build (~100 ms placeholder).
+#     - Achieved by: z-enable-req -> output-02 IMMEDIATELY (via timedelay.1
+#       whose on-delay=0); z-enable-req -> timedelay.0.in whose on-delay
+#       holds z-brake-release=FALSE for T_torque_build.
+#
+#   Falling edge (disable / fault / E-stop from software):
+#     - Brake must ENGAGE FIRST so the mechanical hold catches the head.
+#     - S-ON drop must LAG the brake-drop by T_brake_engage (~100 ms
+#       placeholder). During that window the drive is still commanded ON
+#       and the brake is CLOSED - torque and brake overlap by design.
+#     - Achieved by: z-enable-req -> timedelay.0.in whose off-delay=0
+#       (brake drops immediately); z-enable-req -> timedelay.1.in whose
+#       off-delay=T_brake_engage keeps output-02 (S-ON) TRUE while the
+#       brake bites.
+#
+# The earlier symmetric implementation (single timedelay with equal on-delay
+# and off-delay driving only the brake path) was BACKWARDS on the falling
+# edge - it dropped S-ON immediately and held the brake OPEN for another
+# 100 ms, opening the exact head-drop window it was supposed to prevent.
+# Reference: timedelay(9) 'off-delay = time the output stays TRUE after
+# the input goes FALSE': <https://linuxcnc.org/docs/html/man/man9/timedelay.9.html>
+#
+# LIMITATIONS (open loop):
+#   - Both T_torque_build and T_brake_engage are PLACEHOLDERS. Real values
+#     depend on the DK-427 torque-build time (rising) and the SOL-201 brake
+#     mechanical engagement time (falling). See docs/pre_power_deliverables.md
+#     D7 - both must be measured separately.
+#   - This sequencer only protects software-driven transitions. A hardwired
+#     E-stop that yanks the amp AC contactor independent of HAL bypasses
+#     timedelay.1 entirely - S-ON collapses when bus voltage collapses,
+#     with no software-imposed brake-lead. That protection MUST come from
+#     a cabinet-level brake-drop-before-amp-drop interlock (relay logic
+#     ahead of the E-stop chain). See docs/estop_safety_chain.md.
+#   - No drive-ready feedback is observed. If a SERVO_READY contact from the
+#     DK-427 is later wired to a 7i84U input, AND-gate z-brake-release with
+#     drive-ready via another and2 so the brake only opens once torque is
+#     confirmed present, not merely elapsed.
+
+setp timedelay.1.on-delay  0.000    # S-ON asserts immediately on request
+setp timedelay.1.off-delay 0.100    # T_brake_engage: PLACEHOLDER, measure per D7
+
 net z-enable-raw <= joint.2.amp-enable-out
 net z-enable-raw => and2.2.in0
 net motion-permit => and2.2.in1
-net z-enable     <= and2.2.out
+net z-enable-req <= and2.2.out            # motion + watchdog permit
+net z-enable-req => timedelay.0.in        # brake-release path (on-delay only)
+net z-enable-req => timedelay.1.in        # S-ON path (off-delay only)
+net z-enable     <= timedelay.1.out
 net z-enable     => hm2_7i80.0.7i84.0.1.output-02   # Z servo S-ON to MELDAS DK-427
 
 # 100 VAC solenoid outputs via interposing relays. Uncomment as each relay is wired.

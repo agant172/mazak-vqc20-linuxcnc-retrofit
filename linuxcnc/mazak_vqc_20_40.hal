@@ -74,14 +74,22 @@ loadrt hm2_eth board_ip="192.168.1.121" config="num_encoders=1 num_resolvers=3 n
 loadrt pid names=pid.x,pid.y,pid.z,pid.s
 loadrt estop-latch
 
-# timedelay component: used for Z-brake sequencing (see field_7i84u.hal).
+# timedelay components: used for asymmetric Z-brake sequencing (see field_7i84u.hal).
 # On-delay = time between drive S-ON asserting and brake release going TRUE
 # (drive must develop holding torque before brake releases).
 # Off-delay = time between drive S-ON dropping and brake dropping (brake
 # should engage BEFORE drive torque goes away).
-# For a symmetric 100 ms on/off delay we use one timedelay instance whose
-# .in follows joint.2.amp-enable-out and whose .out drives z-brake-release.
-loadrt timedelay count=1
+# TWO instances are required because the two edges have OPPOSITE timing
+# requirements:
+#   Rising edge: brake release must LAG S-ON so the drive develops holding
+#   torque before the mechanical brake opens (else the head drops).
+#   Falling edge: brake engage must LEAD S-ON drop so the mechanical brake
+#   catches the head before torque disappears (else the head coasts/drops).
+# A single symmetric timedelay cannot do both. See timedelay(9):
+#   <https://linuxcnc.org/docs/html/man/man9/timedelay.9.html>
+# timedelay.0 = brake-release path (on-delay only, off-delay=0)
+# timedelay.1 = S-ON path (off-delay only, on-delay=0)
+loadrt timedelay count=2
 
 # or2 component: used to combine watchdog fault sources into the
 # software E-stop chain (see safety-watchdog block below).
@@ -99,11 +107,14 @@ addf pid.x.do-pid-calcs        servo-thread
 addf pid.y.do-pid-calcs        servo-thread
 addf pid.z.do-pid-calcs        servo-thread
 addf pid.s.do-pid-calcs        servo-thread
-addf timedelay.0               servo-thread
 addf or2.0                     servo-thread
 addf and2.0                    servo-thread
 addf and2.1                    servo-thread
 addf and2.2                    servo-thread
+# timedelay.0/.1 must run AFTER and2.2 so z-enable-req is fresh this cycle,
+# and BEFORE hm2_7i80.0.write so z-brake-release and z-enable land this cycle.
+addf timedelay.0               servo-thread
+addf timedelay.1               servo-thread
 addf estop-latch.0             servo-thread
 addf hm2_7i80.0.write          servo-thread
 
@@ -255,8 +266,12 @@ net estop-ok          => iocontrol.0.emc-enable-in
 # loadrt logic. We accept adding logic count=1 (single 'not' gate) here.
 #
 # Component ordering in the servo thread (see addf block above):
-#   read -> motion-controller -> or2.0 (fault OR) -> not (permit)
-#   -> and2.0..2 (amp gates) -> estop-latch -> write
+#   read -> motion-controller -> pids -> or2.0 (fault OR)
+#   -> and2.0..2 (amp gates, produces x/y-enable and z-enable-req)
+#   -> timedelay.0/.1 (Z-brake asymmetric sequencer, produces z-enable and
+#      z-brake-release from z-enable-req)
+#   -> estop-latch -> write
+# The logic.watchdog-not inverter is addf'd separately near its loadrt below.
 #
 # NOTE: This wiring is DECLARED but the hm2 pin names below are subject
 # to the NIC validation in docs/hm2_eth_nic_validation.md. Bench-verify

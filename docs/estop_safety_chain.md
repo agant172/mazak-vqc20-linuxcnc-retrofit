@@ -140,6 +140,44 @@ Until the schematic exists and the matrix is validated:
   Omron G9SP, Schneider Preventa, or equivalent), which is not in
   the current retrofit scope.
 
+## Z-brake hardwired sequencing (cabinet-level requirement)
+
+The `linuxcnc/field_7i84u.hal` asymmetric Z-brake sequencer
+(`timedelay.0` on-delay for release, `timedelay.1` off-delay for
+S-ON hold) is a **software-only** sequencer. It sees only what the
+HAL motion controller and watchdog logic hand it. It has NO effect on
+transitions initiated by:
+
+- The hardwired E-stop chain dropping the MAR relay (main amp
+  contactor) directly.
+- Mains loss.
+- An amp fault that trips its own protection inside the DK-427.
+- Anyone yanking the amp AC supply at the disconnect.
+
+On all of those paths, S-ON collapses when bus voltage collapses,
+and the software `timedelay.1.off-delay` gives no protection. If the
+SOL-201 Z-brake solenoid is slower to engage than the DC bus is to
+discharge, the head drops for the duration of that difference.
+
+**Requirement:** the cabinet must impose a brake-drop-before-amp-drop
+interlock in hardwired relay logic, ahead of (or in parallel with)
+the E-stop chain. Concretely:
+
+- The Z-brake solenoid drop-out must be triggered by the same relay
+  contact that requests the amp contactor to drop, but on a faster
+  path (no time delay), OR
+- The Z-brake solenoid drop-out must be paired with an off-delay
+  timer in the cabinet that holds the amp contactor picked up long
+  enough for the brake to bite, matching the software
+  `T_brake_engage` value used in HAL.
+
+This interlock must be documented in the as-built cabinet schematic
+(a D-series deliverable) and fault-injected in the row of the matrix
+above that covers "mains loss". Until that hardwired interlock is in
+place and verified, treat every hardwired-E-stop press as capable of
+dropping the head; do not stand under the Z spindle when powering
+down the machine from the hardwired chain.
+
 ## Sources
 
 - [LinuxCNC estop_latch(9) man page](https://linuxcnc.org/docs/2.9/html/man/man9/estop_latch.9.html)
@@ -157,3 +195,6 @@ Until the schematic exists and the matrix is validated:
   — STO / SS1 / SS2 definitions for drive-side safety functions.
 - [Mitsubishi Meldas MDS-B/C1 maintenance manual (BNP-B3977)](https://www.servo-repair.com/documents/mitsubishi/BNP-B3977.PDF)
   — Alarm E7 cross-axis propagation; the OEM path this retrofit inherits.
+- [LinuxCNC timedelay(9) man page](https://linuxcnc.org/docs/html/man/man9/timedelay.9.html)
+  — defines `on-delay` and `off-delay` semantics used by the asymmetric
+  Z-brake sequencer in `linuxcnc/field_7i84u.hal`.
