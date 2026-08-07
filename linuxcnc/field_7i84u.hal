@@ -226,12 +226,18 @@ net home-z => joint.2.home-sw-in
 # Renishaw MP-3 probe SKIP1 on 7i84U-B input-15 (physically TB3 pin 16).
 # Rationale: the 7i84U provides opto-isolated 24 V-tolerant field inputs, which
 # the bare 7i80HDT P3 GPIOs do not (P3 = unbuffered 3.3 V LVCMOS -- 24 V would
-# destroy the FPGA input). Latency: the 7i84U samples all inputs once per
-# sserial update (~1 ms at 2.5 MBd); motion.probe-input is polled at servo
-# rate. This one-servo-period jitter is acceptable for tool setting and
-# workpiece probing at feedrates below ~500 mm/min. If tighter probing
-# accuracy is ever required, install a Mesa 7i34 opto-isolator card on P3 and
-# move probe-in there.
+# destroy the FPGA input). Latency (worst case): approximately one servo
+# period, dominated by the wait for the next hm2_eth.read invocation. The
+# 2.5 Mbaud SSLBP link itself adds only ~100 us DOIT round trip per Mesa's
+# 7i44 manual - it does NOT set a '1 ms per bit rate' figure. See
+# docs/smart_serial_latency.md for the derivation from primary sources:
+# 7i44 DOIT bound and hostmot2(9) sample rhythm. The hostmot2(9) man page
+# <https://linuxcnc.org/docs/html/man/man9/hostmot2.9.html> does not
+# document sserial as DPLL-synchronous with the servo thread.
+# This one-servo-period jitter is acceptable for tool setting and workpiece
+# probing at moderate feedrates. If tighter probing accuracy is ever
+# required, use a Mesa daughter card designed for opto-isolated fast inputs
+# rather than bare P3 GPIO.
 # Probe interface (Renishaw MI 12 or similar) idles NC -> probe trigger = low,
 # so consume the '-not' complement pin to make motion.probe-input TRUE on
 # contact. (sserial input pins have no invert_input parameter - see the note

@@ -52,8 +52,10 @@ addf atc-fault-or        servo-thread
 
 # NOTE ON THREAD ORDER: addf appends, and mazak_vqc_20_40.hal already added
 # hm2_7i80.0.write. These functions therefore run AFTER the write, so outputs
-# reach the card one servo period (1 ms) late. Harmless for solenoids and
-# contactors. If that latency ever matters, move the
+# reach the card one servo period late (i.e. the ATC-computed outputs are
+# picked up by the next hm2_7i80.0.write invocation). Harmless for solenoids
+# and contactors whose mechanical response time dwarfs one servo cycle.
+# If that latency ever matters, move the
 # `addf hm2_7i80.0.write servo-thread` line out of mazak_vqc_20_40.hal and put
 # it at the end of THIS file instead.
 

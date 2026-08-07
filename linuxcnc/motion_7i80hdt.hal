@@ -401,9 +401,13 @@ sets spindle-enable-hold false
 # wiring risks destroying the FPGA. The probe is now routed through the
 # 7i84U-B card (isolated 24 V input) - see field_7i84u.hal (input-15) and
 # mesa/current_pin_authority.csv row PROBE_SKIP1. Latency added by sserial
-# is up to one servo period (~1 ms at 1 kHz servo-thread), which is well
-# inside the touch-position tolerance the MP-3 already delivers with its
-# own solid-state trigger circuit.
+# is up to one servo period (dominated by the servo-thread wait, per the
+# derivation in docs/smart_serial_latency.md), which is well inside the
+# touch-position tolerance the MP-3 already delivers with its own
+# solid-state trigger circuit. No primary Mesa or LinuxCNC source states a
+# '1 ms sserial per 2.5 MBd' figure; that number as written in earlier
+# drafts conflated the servo-thread period with the SSLBP baud rate.
+# See <https://linuxcnc.org/docs/html/man/man9/hostmot2.9.html>.
 #
 # Drive faults, drive-enables, limits, homes, E-stop monitor, probe, and all
 # field solenoid outputs are routed via the 7i84U cards - see field_7i84u.hal.
