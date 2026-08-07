@@ -1,48 +1,48 @@
 {
   "manual_set_revision": "B",
   "generated": "2026-08-07",
-  "source_commit": "a3730f9",
+  "source_commit": "3e9c4e6",
   "authority_rows": 132,
   "files": [
     {
       "file": "Vol0_Master_Guide_and_TOC.pdf",
       "pages": 3,
-      "sha256": "d9815b4f7cbf1b94baf568bff40b3d071766174fd1147aa3cb80f7443ecd50eb"
+      "sha256": "9f2c3605915e13b9eaa1f5490e783a6e5d484a61e7a6bd0fdca87b2de02a080f"
     },
     {
       "file": "Vol1_Overview_and_Safety.pdf",
       "pages": 4,
-      "sha256": "6ab578fa3c53fa7fc6ef5ec4238400424997f6ba4746cdfec0c99d6560ce8921"
+      "sha256": "f8aeed25214208d2626170275d5e3f80323b86586ef705f2b4fe6ab77cce2a86"
     },
     {
       "file": "Vol2_Operation_Manual.pdf",
       "pages": 4,
-      "sha256": "368c099f59ed4e46326ff66972b5804ab2595bccc22f8ba137abb8bf88e2d706"
+      "sha256": "aa148793c35b11953b903ac57612398e626aebb6653d4e0a05cd51c661b69f06"
     },
     {
       "file": "Vol3_Mesa_Conversion_Manual.pdf",
       "pages": 5,
-      "sha256": "76e2cd9768c02126fbb1be6ff11450a649191abb9c0a0743c7831b879bdc26d9"
+      "sha256": "467e41ecd47cf9989c53e35db2f308b118a7e8fae25f8ac93181488a6cc7a981"
     },
     {
       "file": "Vol4_Wiring_Diagrams_and_IO_Reference.pdf",
       "pages": 10,
-      "sha256": "52a07542cea60e9bac5273a01e56c543bffe2caf628fa794d38a9cafdc4f3979"
+      "sha256": "a0ed668572d446f73c6b9dba9b4e57904e70dd7b1c7e4bedbf6e818b9550b76d"
     },
     {
       "file": "Vol5_Maintenance_and_Troubleshooting.pdf",
       "pages": 4,
-      "sha256": "b5ba6360b02873afd32e82820c993077d52168c42e2ca957bbda6e02cd28e00e"
+      "sha256": "33e93770757aed921c5e5d7196d191e29b3e02ecaf3894a0075de4e3469549ff"
     },
     {
       "file": "Vol6_Reference_Glossary_Index.pdf",
       "pages": 4,
-      "sha256": "614a652ab5297a1daace39cba31c41a6cf7c0cce319dc9204d750ee35f40a69d"
+      "sha256": "119fe5e484aa705c2ef4ffa96adbbafed6df875e8248b458ee36581325b05cd6"
     },
     {
       "file": "Mazak_VQC2040_Complete_Manual_RevB.pdf",
       "pages": 34,
-      "sha256": "f85db8e851baa3076664d5c2a15741284bcf99dacb4c9fe0e53d20b3a240e4b4"
+      "sha256": "748622902167cf1c4d484b000afb6f3f4b28af211c16bd0108fc311cbe153941"
     }
   ]
 }

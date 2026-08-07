@@ -1,6 +1,6 @@
 # Mazak VQC-20/40 LinuxCNC/Mesa Retrofit Manual Set
 
-**Revision B - generated 2026-08-07 from source commit `a3730f9`.**
+**Revision B - generated 2026-08-07 from source commit `3e9c4e6`.**
 
 > **PLANNING / COMMISSIONING DOCUMENTS - NOT AS-BUILT.** No live-power hold point is signed. Use the authority status printed with each wiring row and the D1-D16 gates in Volume 0. Rev A is superseded and must not be used.
 
