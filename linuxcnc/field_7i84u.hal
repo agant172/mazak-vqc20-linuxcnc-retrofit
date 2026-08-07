@@ -38,8 +38,10 @@ net thermal-alarm      <= hm2_7i80.0.7i84.0.0.input-08   # IN8  X073 THR.M + X07
 # --- IN10..IN15  (drive faults + spindle + tool clamp, TB3 pins 11-16) ---
 # amp-fault-in: if TRUE, motion module immediately aborts and enters E-stop.
 # CAUTION: confirm input polarity before enabling. The Mitsubishi HD81/HD101 ALM
-# output is BELIEVED to be open-collector-active-low (fault = low/open), so the
-# 7i84U input WOULD read 0 on fault and invert_input=1 WOULD be correct.
+# output is BELIEVED to be open-collector-active-low (fault = low/open), so
+# consuming '-not' on these inputs would present logic 1 to joint.N.amp-fault-in
+# on a fault. Do NOT use a nonexistent invert_input parameter - see the input-
+# polarity note above the limit block.
 # **UNVERIFIED** - no primary Mitsubishi manual for HD81/HD101 is in this repo;
 # the polarity assumption comes from a PCW forum discussion, not manufacturer
 # documentation. Bench-verify the actual ALM contact behavior against the amp
@@ -136,34 +138,35 @@ net tool-prepare-loopback  iocontrol.0.tool-prepare => iocontrol.0.tool-prepared
 #####################################################################
 #
 # X/Y/Z overtravel limits (IN0-IN5) are NC contacts -- open (tripped) reads
-# as logic 1 with invert_input=1.
+# as logic 1 by consuming the '-not' complementary input pin.
 # X/Y/Z home switches (IN6-IN8) are NO contacts on this machine.
 #
-# Why 7i84U (sserial) and not P3 direct GPIO: limits and homes are sampled by
-# LinuxCNC once per servo cycle. The 7i84U updates once per servo cycle too,
-# so the switch state a limit routine sees is identical either way. The probe
-# is also on the 7i84U (input-15 with hardware level-shifting; see below) --
-# nothing sits on P3 bare FPGA GPIO because unshifted 24 V field signals would
-# destroy the 3.3 V LVCMOS FPGA pins.
+# Input polarity note: per sserial(9), sserial remote cards (7i64/7i76/7i77/
+# 7i70/7i73 - the 7i84U follows the same family pattern) expose EACH digital
+# input twice: 'input-NN' (raw) and 'input-NN-not' (complement). There is NO
+# 'invert_input' parameter documented for sserial input pins. Earlier revisions
+# of this file called `setp hm2_...input-NN.invert_input 1` on the NC limits;
+# HAL rejects that at load time because no such parameter exists on the pin.
+# Correct pattern for an NC input that must read logic 1 when tripped:
+#     net limit-x-plus <= hm2_7i80.0.7i84.0.1.input-00-not
+# Reference: <https://linuxcnc.org/docs/html/man/man9/sserial.9.html>
+#
+# Why 7i84U (sserial) and not P3 direct GPIO: bare P3 GPIO is 3.3 V LVCMOS
+# without opto-isolation - direct connection to 24 V field wiring would destroy
+# the FPGA. The 7i84U provides opto-isolated 24 V-tolerant inputs. Timing
+# characteristics of the sserial link are discussed in `docs/smart_serial_latency.md`.
 
-setp hm2_7i80.0.7i84.0.1.input-00.invert_input  1   # X_LIMIT_PLUS  (NC)
-setp hm2_7i80.0.7i84.0.1.input-01.invert_input  1   # X_LIMIT_MINUS (NC)
-setp hm2_7i80.0.7i84.0.1.input-02.invert_input  1   # Y_LIMIT_PLUS  (NC)
-setp hm2_7i80.0.7i84.0.1.input-03.invert_input  1   # Y_LIMIT_MINUS (NC)
-setp hm2_7i80.0.7i84.0.1.input-04.invert_input  1   # Z_LIMIT_PLUS  (NC)
-setp hm2_7i80.0.7i84.0.1.input-05.invert_input  1   # Z_LIMIT_MINUS (NC)
-
-net limit-x-plus  <= hm2_7i80.0.7i84.0.1.input-00
+net limit-x-plus  <= hm2_7i80.0.7i84.0.1.input-00-not   # X_LIMIT_PLUS  (NC contact)
 net limit-x-plus  => joint.0.pos-lim-sw-in
-net limit-x-minus <= hm2_7i80.0.7i84.0.1.input-01
+net limit-x-minus <= hm2_7i80.0.7i84.0.1.input-01-not   # X_LIMIT_MINUS (NC contact)
 net limit-x-minus => joint.0.neg-lim-sw-in
-net limit-y-plus  <= hm2_7i80.0.7i84.0.1.input-02
+net limit-y-plus  <= hm2_7i80.0.7i84.0.1.input-02-not   # Y_LIMIT_PLUS  (NC contact)
 net limit-y-plus  => joint.1.pos-lim-sw-in
-net limit-y-minus <= hm2_7i80.0.7i84.0.1.input-03
+net limit-y-minus <= hm2_7i80.0.7i84.0.1.input-03-not   # Y_LIMIT_MINUS (NC contact)
 net limit-y-minus => joint.1.neg-lim-sw-in
-net limit-z-plus  <= hm2_7i80.0.7i84.0.1.input-04
+net limit-z-plus  <= hm2_7i80.0.7i84.0.1.input-04-not   # Z_LIMIT_PLUS  (NC contact)
 net limit-z-plus  => joint.2.pos-lim-sw-in
-net limit-z-minus <= hm2_7i80.0.7i84.0.1.input-05
+net limit-z-minus <= hm2_7i80.0.7i84.0.1.input-05-not   # Z_LIMIT_MINUS (NC contact)
 net limit-z-minus => joint.2.neg-lim-sw-in
 
 net home-x <= hm2_7i80.0.7i84.0.1.input-06        # LS-42 assumed
@@ -183,9 +186,10 @@ net home-z => joint.2.home-sw-in
 # accuracy is ever required, install a Mesa 7i34 opto-isolator card on P3 and
 # move probe-in there.
 # Probe interface (Renishaw MI 12 or similar) idles NC -> probe trigger = low,
-# so invert_input=1 makes motion.probe-input TRUE on contact.
-setp hm2_7i80.0.7i84.0.1.input-15.invert_input  1
-net probe-in <= hm2_7i80.0.7i84.0.1.input-15
+# so consume the '-not' complement pin to make motion.probe-input TRUE on
+# contact. (sserial input pins have no invert_input parameter - see the note
+# above the limit inputs.)
+net probe-in <= hm2_7i80.0.7i84.0.1.input-15-not
 net probe-in => motion.probe-input
 
 # IN9..IN14 and IN16..IN31: 22 spare inputs on 7i84U-B

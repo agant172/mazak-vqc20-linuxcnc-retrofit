@@ -153,7 +153,7 @@ straight to `mazak-atc.target-pot`.
 | BCD weights 1/2/4/8/10 | `mazak_atc.comp` | confirm T21P really is the tens digit and not a 16-weight bit |
 | magazine direction fwd→CW | `atc_orient.hal` | `authority_conflicts.md` §3 (SOL-8A/8B) |
 | every `hm2_7i80.0.7i84.0.0.*` name | `atc_orient.hal` | `halcmd show pin hm2` against real firmware |
-| every input polarity | `atc_orient.hal` | measure normal states, then `invert_input` |
+| every input polarity | `atc_orient.hal` | measure normal states, then consume `input-NN` (raw) or `input-NN-not` (complement) per [sserial(9)](https://linuxcnc.org/docs/html/man/man9/sserial.9.html); no `invert_input` parameter exists |
 | SSET (Y092) Mesa pin | `spindle-drive-arm` net, unbound | decide whether the FR-SX needs it; 7i84U-B TB2 OUT8-15 remain spare |
 | `atc-barrier` device | `hm2_7i80.0.7i84.0.1.output-06` (7i84U-B TB3 OUT6) | confirm the barrier solenoid exists on SN 060231 |
 

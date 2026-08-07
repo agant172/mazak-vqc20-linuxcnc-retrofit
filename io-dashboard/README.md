@@ -120,7 +120,7 @@ That is intentional and honest.
 Expected states come from explicit repo evidence, and every value carries its basis
 (file:line) in the detail panel:
 
-- NC limit inputs are inverted in HAL (`invert_input 1`) → normal logical **0**.
+- NC limit inputs are inverted in HAL by consuming the sserial `-not` complement pin (`input-NN-not`) — there is no `invert_input` parameter on sserial input pins. Normal (untripped) reads as logical **0**; open (tripped) reads as **1**. See [sserial(9)](https://linuxcnc.org/docs/html/man/man9/sserial.9.html).
 - NO home inputs idle at **0**.
 - E-stop chain closed/healthy → `estop-ext` logical **0** after inversion.
 - Digital outputs idle **0** unless commanded.

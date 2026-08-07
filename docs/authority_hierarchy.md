@@ -46,7 +46,7 @@ that mechanically enforces it.
        │  linuxcnc/*.hal                                         │
        │  Every physical pin reference must match the CSV.       │
        │  Enforced by scripts/validate_authority.py.             │
-       │  HAL owns the LOGIC (net topology, invert_input,        │
+       │  HAL owns the LOGIC (net topology, polarity choice     │
        │  joint routing, comments, rationale).                   │
        └─────────────────────────────────────────────────────────┘
                               │  informs
@@ -88,7 +88,7 @@ that mechanically enforces it.
 - `primary_source` — where this row's claim came from
 - `cleanup_notes` — TODOs, polarity assumptions, promotion criteria
 
-**Does not own.** HAL logic. Joint routing. `invert_input` polarity.
+**Does not own.** HAL logic. Joint routing. Input polarity choice (raw vs `-not` complement pin, per [sserial(9)](https://linuxcnc.org/docs/html/man/man9/sserial.9.html)).
 Prose. The CSV is the pin-to-signal map, not the control program.
 
 **Editing rules.**
@@ -107,7 +107,7 @@ Prose. The CSV is the pin-to-signal map, not the control program.
 
 - `net <name> <=|=> hm2_7i80.0.7i84.0.<port>.<input|output>-<NN>`
   bindings
-- `setp hm2_...invert_input 1` polarity choices
+- Input polarity choice: consuming `input-NN` (raw) vs `input-NN-not` (complement) - sserial input pins do NOT have an `invert_input` parameter (see [sserial(9)](https://linuxcnc.org/docs/html/man/man9/sserial.9.html))
 - `net <name> => joint.N.amp-fault-in` and other module routing
 - `iocontrol` loopbacks
 - Comments explaining *why* a design choice was made (latency
@@ -247,7 +247,7 @@ The validator is a bookkeeping tool, not a safety proof. It cannot:
 - Confirm that the field device (limit switch, relay coil, hydraulic
   solenoid) is what the CSV says it is. That is what the D2 installed
   nameplate register does.
-- Confirm that `setp invert_input` matches the actual switch polarity.
+- Confirm that the choice between raw `input-NN` and `input-NN-not` matches the actual switch polarity. (Sserial input pins have no `invert_input` parameter - see [sserial(9)](https://linuxcnc.org/docs/html/man/man9/sserial.9.html).)
   That is what the D4 checkout sheet and D14 fault-injection matrix do.
 - Confirm resolver phasing or analog scaling. That is what D8 and D10
   do.
@@ -259,4 +259,5 @@ disagree. Everything else remains a pre-power deliverable.
 
 - Mesa 7i84 manual: [7i84man.pdf](http://www.mesanet.com/pdf/parallel/7i84man.pdf) — physical terminal-block layout that anchors the `pin_channel` values.
 - Mesa 7i44 product page: [store.mesanet.com](https://store.mesanet.com/index.php?product_id=44) — RJ45 pinout for the smart-serial ports that carry the 7i84U channels.
-- LinuxCNC `hostmot2(9)` manual: [linuxcnc.org](https://linuxcnc.org/docs/html/man/man9/hostmot2.9.html) — canonical HAL pin naming (`input-NN`, `output-NN`, `invert_input`).
+- LinuxCNC `hostmot2(9)` manual: [linuxcnc.org](https://linuxcnc.org/docs/html/man/man9/hostmot2.9.html) — canonical HAL pin naming for HostMot2 GPIO (`input-NN`, `output-NN`, `in-not`).
+- LinuxCNC `sserial(9)` manual: [linuxcnc.org](https://linuxcnc.org/docs/html/man/man9/sserial.9.html) — canonical HAL pin naming for sserial-remote I/O (7i64/7i76/7i77/7i70/7i73/7i84-family), including the `input-NN`/`input-NN-not` complement-pin convention for input inversion. No `invert_input` parameter is documented for sserial digital-input pins; the parameter `output-NN-invert` exists for outputs only.

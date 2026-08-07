@@ -59,7 +59,7 @@ drive interprets as 1 user unit per second of commanded velocity.
 - `RESOLVER_SCALE` and `RESOLVER_VELOCITY_SCALE` **measured and set** per
   axis (rawcounts vs dial indicator, signed). Placeholder 1.0 must not
   remain. See [project_status.md](project_status.md) resolver-scale task.
-- 7i84U-B safety inputs (limits/homes) confirmed and their `invert_input`
+- 7i84U-B safety inputs (limits/homes) confirmed and their polarity choice (raw `input-NN` vs `-not` complement pin, per [sserial(9)](https://linuxcnc.org/docs/html/man/man9/sserial.9.html))
   set. E-stop chain proven to remove drive power.
 - Drive-enable outputs on 7i84U-B TB3 OUT0/1/2 wired and their coil
   polarities measured.
