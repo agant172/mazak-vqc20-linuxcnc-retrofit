@@ -31,6 +31,7 @@ HAL_FILES = [
 ]
 INI_FILE = "linuxcnc/mazak_vqc_20_40.ini"
 AUTHORITY = "mesa/current_pin_authority.csv"
+EPSON_FERRULES = "wiring/bbia1_mesa_end_ferrules_epson.csv"
 
 NET_RE = re.compile(r"^\s*(#\s*)?net\s+(\S+)\s*(.*)$")
 SETP_RE = re.compile(r"^\s*(#\s*)?setp\s+(\S+)\s+(\S+)")
@@ -172,6 +173,22 @@ def expected_for(sig_id, direction, status):
 def build(root):
     nets, setps = parse_hal(root)
     auth = csv_rows_with_lines(os.path.join(root, AUTHORITY))
+    epson_by_signal = {}
+    for r in csv_rows_with_lines(os.path.join(root, EPSON_FERRULES)):
+        sid = r["Authority_ID"]
+        epson_by_signal.setdefault(sid, []).append({
+            "label_text": r["Label_Text"],
+            "wire": r["Wire"],
+            "old_location": r["Old_Location"],
+            "signal": r["Signal"],
+            "mesa_card": r["Mesa_Card"],
+            "connector": r["Connector"],
+            "logical_channel": r["Logical_Channel"],
+            "physical_pin": r["Physical_Pin"],
+            "crosswalk_status": r["Crosswalk_Status"],
+            "release_status": r["Release_Status"],
+            "source_line": r["_line"],
+        })
     conflict_by_signal = {}
     for c in E.CONFLICTS:
         for s in c["signals"]:
@@ -180,6 +197,7 @@ def build(root):
     signals = []
     for r in auth:
         sid = r["signal_id"]
+        epson_ferrules = epson_by_signal.get(sid, [])
         net = r["hal_net"]
         has_net = net and net.lower() != "none"
         direction = r["direction"]
@@ -228,6 +246,13 @@ def build(root):
                 "file": r["primary_source"], "lines": "",
                 "note": "primary_source column in the authority table",
             })
+        for ferrule in epson_ferrules:
+            sources.append({
+                "file": EPSON_FERRULES,
+                "lines": str(ferrule["source_line"]),
+                "note": "Epson Mesa-end ferrule %s; %s" % (
+                    ferrule["label_text"], ferrule["release_status"]),
+            })
 
         active_nets = [x for x in hal_refs if not x["commented"]]
         commented_nets = [x for x in hal_refs if x["commented"]]
@@ -274,7 +299,7 @@ def build(root):
             "consumers": cons,
             "hal_refs": hal_refs,
             "setp_refs": setp_refs,
-
+            "epson_ferrules": epson_ferrules,
             "sources": sources,
             "conflicts": conflict_by_signal.get(sid, []),
             "authority_line": r["_line"],
@@ -361,6 +386,7 @@ def build(root):
             "consumers": cons2,
             "hal_refs": refs,
             "setp_refs": [],
+            "epson_ferrules": [],
             "sources": srcs,
             "conflicts": ["C1" if is_in else "C2"],
             "authority_line": None,
@@ -383,6 +409,7 @@ def build(root):
                              .strftime("%Y-%m-%d %H:%M UTC"),
         "source_repo": "mazak-vqc20-linuxcnc-retrofit",
         "authority_file": AUTHORITY,
+        "epson_ferrule_file": EPSON_FERRULES,
         "halfiles": halfiles,
         "board_ip": "192.168.1.121",
         "rules": [

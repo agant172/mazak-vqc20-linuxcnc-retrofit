@@ -11,6 +11,11 @@ into a searchable table and click-through path:
 LinuxCNC pin -> HAL net -> HostMot2/Mesa pin -> connector/channel -> field device -> machine location
 ```
 
+The table and commissioning paths also show the short Epson Mesa-end ferrule codes from
+`wiring/bbia1_mesa_end_ferrules_epson.csv`. Search accepts the printed code (`B3-07`), OEM wire
+(`*DECX`), or old connector location (`CN2-15`). Current ferrule rows are explicitly shown as
+`HOLD_SOURCE_TRACE`; a displayed code is a planned destination, not permission to terminate.
+
 **Commissioning wiring** renders the same filtered rows as four-node circuit paths. Its layer
 selector exposes the signal, power, return/common, and shield/cable context without filling
 unknown physical details with guesses. Each path has direct repo source links and a browser-local
@@ -167,6 +172,7 @@ Expected states come from explicit repo evidence, and every value carries its ba
 | `mesa/current_pin_authority.csv` | **Wiring authority.** Wins every disagreement. |
 | `linuxcnc/*.hal`, `mazak_vqc_20_40.ini` | Configured HAL chains. Contain placeholders and known conflicts. |
 | `wiring/connector_crossref.md`, `wiring/io_map_research_notes.md` | Machine-side designations, locations, conflict notes. |
+| `wiring/bbia1_mesa_end_ferrules_epson.csv` | Draft short Epson codes for conservative BBIA cut-wire matches; release status is preserved. |
 | `mesa/signal_map.csv` | **Stale.** Surfaced only as "do not use" context in the detail panel. |
 
 Current snapshot: **132 rows**, all from the authority, with 6 registered conflicts,

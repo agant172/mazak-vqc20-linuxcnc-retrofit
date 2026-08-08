@@ -109,6 +109,26 @@
       (s.connector || 'connector unknown') + (s.channel ? ' · ' + s.channel : '');
   }
 
+  function epsonFerruleText(s) {
+    return (s.epson_ferrules || []).map(function (f) { return f.label_text; }).join(' / ');
+  }
+
+  function epsonFerruleRelease(s) {
+    var states = [];
+    (s.epson_ferrules || []).forEach(function (f) {
+      if (states.indexOf(f.release_status) === -1) states.push(f.release_status);
+    });
+    return states.join(' / ');
+  }
+
+  function epsonFerruleSub(s) {
+    var ferrules = s.epson_ferrules || [];
+    if (!ferrules.length) return '';
+    return ferrules.map(function (f) {
+      return 'Epson ' + f.label_text + ' · OEM ' + f.wire + ' from ' + f.old_location + ' · ' + f.release_status;
+    }).join(' / ');
+  }
+
   function interfaceText(s) {
     var all = [s.field_point, s.cleanup_notes, s.location_note].join(' ');
     var relay = all.match(/RLY-\d+/i);
@@ -124,9 +144,10 @@
   function signalNodes(s) {
     var control = isInput(s) ? (s.consumers || []).join(', ') : (s.producers || []).join(', ');
     var iface = interfaceText(s);
+    var mesaSub = [(s.mesa_pins || []).join(', '), epsonFerruleSub(s)].filter(Boolean).join(' · ');
     return [
       { stage: isInput(s) ? 'LinuxCNC consumer' : 'LinuxCNC source', main: control || 'No active HAL endpoint', sub: s.hal_net ? 'HAL net · ' + s.hal_net : 'HAL net not defined', unknown: !control },
-      { stage: 'Mesa terminal', main: mesaTerminal(s), sub: (s.mesa_pins || []).join(', ') || 'HostMot2 binding unverified', kind: 'mesa', unknown: s.board === 'none' },
+      { stage: 'Mesa terminal', main: mesaTerminal(s), sub: mesaSub || 'HostMot2 binding unverified', kind: 'mesa', unknown: s.board === 'none' },
       { stage: 'Interface / conductor', main: iface.main, sub: iface.sub, kind: 'interface', unknown: iface.unknown },
       { stage: 'Field destination', main: s.field_point || 'Field device not assigned', sub: s.location || 'Machine location not recorded', unknown: !s.field_point || /unknown|unassigned/i.test((s.field_point || '') + ' ' + (s.location || '')) }
     ];
@@ -207,6 +228,8 @@
         nodeHTML(nodes[2]) + '<span class="circuit-wire" aria-hidden="true"></span>' +
         nodeHTML(nodes[3]) + '<span class="row-footer"><strong>' + esc(s.name) + '</strong>' +
         '<span class="row-status">' + esc(st.label) + '</span>' +
+        (epsonFerruleText(s) ? '<span class="row-label" data-release="' + esc(epsonFerruleRelease(s)) + '">Epson ' +
+          esc(epsonFerruleText(s)) + ' · ' + esc(epsonFerruleRelease(s)) + '</span>' : '') +
         (s.conflicts && s.conflicts.length ? '<span class="row-status row-conflict">' + esc(s.conflicts.join(' ')) + '</span>' : '') +
         (hasRecord(s.id) ? '<span class="row-record">local evidence</span>' : '') +
         '<span>' + esc(s.id) + '</span></span>';
@@ -287,10 +310,17 @@
     var nodes = nodesFor(s);
     var r = records[s.id] || {};
     var path = nodes.map(function (n) { return '<li><strong>' + esc(n.stage) + '</strong><span>' + esc(n.main) + (n.sub ? ' · ' + esc(n.sub) : '') + '</span></li>'; }).join('');
+    var ferrules = s.epson_ferrules || [];
+    var ferruleEvidence = ferrules.length ? '<section class="evidence-section"><h3>Epson Mesa-end ferrule</h3><ul class="ferrule-evidence">' +
+      ferrules.map(function (f) {
+        return '<li><strong>' + esc(f.label_text) + '</strong><span>OEM wire ' + esc(f.wire) + ' · ' + esc(f.old_location) + ' · ' + esc(f.physical_pin) + '</span>' +
+          '<small data-release="' + esc(f.release_status) + '">' + esc(f.release_status) + ' · continuity trace required before termination</small></li>';
+      }).join('') + '</ul></section>' : '';
     box.innerHTML = '<div class="evidence-head"><div><h2>' + esc(s.name) + '</h2><p>' + esc(s.id + ' · ' + s.board + ' · ' + s.connector + ' ' + s.channel) + '</p></div>' +
       '<button type="button" class="btn" id="open-authority-detail">Table detail</button></div>' +
       '<section class="evidence-section"><div class="evidence-banner" data-tone="' + esc(st.tone || 'spare') + '"><strong>' + esc(st.label) + '</strong>' + esc(st.blurb || '') + '</div></section>' +
       '<section class="evidence-section"><h3>' + esc(APP.state.layer) + ' path in this view</h3><ul class="path-summary">' + path + '</ul></section>' +
+      ferruleEvidence +
       '<section class="evidence-section"><h3>Source evidence</h3><ul class="source-links">' + sourcesHTML(s) + '</ul></section>' +
       '<section class="evidence-section"><h3>Local checkout record</h3><div class="record-grid">' +
       FIELD_META.map(function (item) { return fieldHTML(r, item); }).join('') +
@@ -389,11 +419,18 @@
 
   function exportCSV() {
     var rows = APP.sortedFiltered();
-    var keys = ['signal_id', 'signal_name', 'authority_status', 'board', 'connector', 'channel', 'hal_net'].concat(RECORD_FIELDS, ['record_updated_at']);
+    var keys = ['signal_id', 'signal_name', 'authority_status', 'board', 'connector', 'channel', 'hal_net',
+      'epson_label', 'epson_oem_wire', 'epson_oem_source', 'epson_physical_pin', 'epson_release_status'].concat(RECORD_FIELDS, ['record_updated_at']);
     var lines = [keys.join(',')];
     rows.forEach(function (s) {
       var r = records[s.id] || {};
-      var vals = [s.id, s.name, s.status, s.board, s.connector, s.channel, s.hal_net];
+      var ferrules = s.epson_ferrules || [];
+      var vals = [s.id, s.name, s.status, s.board, s.connector, s.channel, s.hal_net,
+        ferrules.map(function (f) { return f.label_text; }).join(' | '),
+        ferrules.map(function (f) { return f.wire; }).join(' | '),
+        ferrules.map(function (f) { return f.old_location; }).join(' | '),
+        ferrules.map(function (f) { return f.physical_pin; }).join(' | '),
+        ferrules.map(function (f) { return f.release_status; }).join(' | ')];
       RECORD_FIELDS.forEach(function (key) { vals.push(r[key] || ''); });
       vals.push(r.updated_at || '');
       lines.push(vals.map(csvCell).join(','));

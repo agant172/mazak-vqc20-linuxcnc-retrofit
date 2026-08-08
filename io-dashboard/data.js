@@ -6,9 +6,10 @@ window.MAZAK_DATA = {
   "machine": "Mazak VQC-20/40",
   "serial": "060231",
   "architecture": "LinuxCNC + Mesa 7i80HDT (Ethernet FPGA host) + 7i44 on P1 (HostMot2 sserial port 0 channels 0/1 to 7i84U-A/B) + 7i49 on P2 (resolver + analog outs); P3 unused/spare",
-  "generated": "2026-08-07 18:05 UTC",
+  "generated": "2026-08-08 00:34 UTC",
   "source_repo": "mazak-vqc20-linuxcnc-retrofit",
   "authority_file": "mesa/current_pin_authority.csv",
+  "epson_ferrule_file": "wiring/bbia1_mesa_end_ferrules_epson.csv",
   "halfiles": [
    "mazak_vqc_20_40.hal",
    "motion_7i80hdt.hal",
@@ -246,6 +247,7 @@ window.MAZAK_DATA = {
      "value": "[JOINT_0]RESOLVER_INDEX_DIVISOR"
     }
    ],
+   "epson_ferrules": [],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -387,6 +389,7 @@ window.MAZAK_DATA = {
      "value": "[JOINT_1]RESOLVER_INDEX_DIVISOR"
     }
    ],
+   "epson_ferrules": [],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -528,6 +531,7 @@ window.MAZAK_DATA = {
      "value": "[JOINT_2]RESOLVER_INDEX_DIVISOR"
     }
    ],
+   "epson_ferrules": [],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -605,6 +609,7 @@ window.MAZAK_DATA = {
    "consumers": [],
    "hal_refs": [],
    "setp_refs": [],
+   "epson_ferrules": [],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -650,6 +655,7 @@ window.MAZAK_DATA = {
    "consumers": [],
    "hal_refs": [],
    "setp_refs": [],
+   "epson_ferrules": [],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -695,6 +701,7 @@ window.MAZAK_DATA = {
    "consumers": [],
    "hal_refs": [],
    "setp_refs": [],
+   "epson_ferrules": [],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -740,6 +747,7 @@ window.MAZAK_DATA = {
    "consumers": [],
    "hal_refs": [],
    "setp_refs": [],
+   "epson_ferrules": [],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -829,6 +837,7 @@ window.MAZAK_DATA = {
      "value": "[JOINT_0]OUTPUT_SCALE"
     }
    ],
+   "epson_ferrules": [],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -938,6 +947,7 @@ window.MAZAK_DATA = {
      "value": "[JOINT_2]OUTPUT_SCALE"
     }
    ],
+   "epson_ferrules": [],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -1047,6 +1057,7 @@ window.MAZAK_DATA = {
      "value": "[JOINT_1]OUTPUT_SCALE"
     }
    ],
+   "epson_ferrules": [],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -1164,6 +1175,7 @@ window.MAZAK_DATA = {
      "value": "[SPINDLE_0]OUTPUT_SCALE"
     }
    ],
+   "epson_ferrules": [],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -1236,6 +1248,7 @@ window.MAZAK_DATA = {
    "consumers": [],
    "hal_refs": [],
    "setp_refs": [],
+   "epson_ferrules": [],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -1281,6 +1294,7 @@ window.MAZAK_DATA = {
    "consumers": [],
    "hal_refs": [],
    "setp_refs": [],
+   "epson_ferrules": [],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -1326,6 +1340,7 @@ window.MAZAK_DATA = {
    "consumers": [],
    "hal_refs": [],
    "setp_refs": [],
+   "epson_ferrules": [],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -1371,6 +1386,7 @@ window.MAZAK_DATA = {
    "consumers": [],
    "hal_refs": [],
    "setp_refs": [],
+   "epson_ferrules": [],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -1416,6 +1432,7 @@ window.MAZAK_DATA = {
    "consumers": [],
    "hal_refs": [],
    "setp_refs": [],
+   "epson_ferrules": [],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -1461,6 +1478,7 @@ window.MAZAK_DATA = {
    "consumers": [],
    "hal_refs": [],
    "setp_refs": [],
+   "epson_ferrules": [],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -1506,6 +1524,7 @@ window.MAZAK_DATA = {
    "consumers": [],
    "hal_refs": [],
    "setp_refs": [],
+   "epson_ferrules": [],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -1551,6 +1570,7 @@ window.MAZAK_DATA = {
    "consumers": [],
    "hal_refs": [],
    "setp_refs": [],
+   "epson_ferrules": [],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -1596,6 +1616,7 @@ window.MAZAK_DATA = {
    "consumers": [],
    "hal_refs": [],
    "setp_refs": [],
+   "epson_ferrules": [],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -1643,6 +1664,7 @@ window.MAZAK_DATA = {
    "consumers": [],
    "hal_refs": [],
    "setp_refs": [],
+   "epson_ferrules": [],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -1690,6 +1712,7 @@ window.MAZAK_DATA = {
    "consumers": [],
    "hal_refs": [],
    "setp_refs": [],
+   "epson_ferrules": [],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -1751,6 +1774,7 @@ window.MAZAK_DATA = {
     }
    ],
    "setp_refs": [],
+   "epson_ferrules": [],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -1817,6 +1841,7 @@ window.MAZAK_DATA = {
     }
    ],
    "setp_refs": [],
+   "epson_ferrules": [],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -1897,6 +1922,7 @@ window.MAZAK_DATA = {
     }
    ],
    "setp_refs": [],
+   "epson_ferrules": [],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -1982,6 +2008,7 @@ window.MAZAK_DATA = {
     }
    ],
    "setp_refs": [],
+   "epson_ferrules": [],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -2064,6 +2091,7 @@ window.MAZAK_DATA = {
     }
    ],
    "setp_refs": [],
+   "epson_ferrules": [],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -2158,6 +2186,21 @@ window.MAZAK_DATA = {
     }
    ],
    "setp_refs": [],
+   "epson_ferrules": [
+    {
+     "label_text": "A3-06",
+     "wire": "231",
+     "old_location": "CN4-1",
+     "signal": "SPINDLE ZERO SPEED",
+     "mesa_card": "7i84U-A",
+     "connector": "TB3",
+     "logical_channel": "IN5",
+     "physical_pin": "TB3-06",
+     "crosswalk_status": "PLANNED_MATCH",
+     "release_status": "HOLD_SOURCE_TRACE",
+     "source_line": 14
+    }
+   ],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -2183,6 +2226,11 @@ window.MAZAK_DATA = {
      "file": "element_list_crosswalk_2026-07-27",
      "lines": "",
      "note": "primary_source column in the authority table"
+    },
+    {
+     "file": "wiring/bbia1_mesa_end_ferrules_epson.csv",
+     "lines": "14",
+     "note": "Epson Mesa-end ferrule A3-06; HOLD_SOURCE_TRACE"
     }
    ],
    "conflicts": [],
@@ -2245,6 +2293,7 @@ window.MAZAK_DATA = {
     }
    ],
    "setp_refs": [],
+   "epson_ferrules": [],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -2327,6 +2376,7 @@ window.MAZAK_DATA = {
     }
    ],
    "setp_refs": [],
+   "epson_ferrules": [],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -2396,6 +2446,7 @@ window.MAZAK_DATA = {
     }
    ],
    "setp_refs": [],
+   "epson_ferrules": [],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -2473,6 +2524,7 @@ window.MAZAK_DATA = {
     }
    ],
    "setp_refs": [],
+   "epson_ferrules": [],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -2555,6 +2607,7 @@ window.MAZAK_DATA = {
     }
    ],
    "setp_refs": [],
+   "epson_ferrules": [],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -2637,6 +2690,7 @@ window.MAZAK_DATA = {
     }
    ],
    "setp_refs": [],
+   "epson_ferrules": [],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -2719,6 +2773,7 @@ window.MAZAK_DATA = {
     }
    ],
    "setp_refs": [],
+   "epson_ferrules": [],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -2801,6 +2856,7 @@ window.MAZAK_DATA = {
     }
    ],
    "setp_refs": [],
+   "epson_ferrules": [],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -2919,6 +2975,7 @@ window.MAZAK_DATA = {
     }
    ],
    "setp_refs": [],
+   "epson_ferrules": [],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -3018,6 +3075,7 @@ window.MAZAK_DATA = {
     }
    ],
    "setp_refs": [],
+   "epson_ferrules": [],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -3104,6 +3162,7 @@ window.MAZAK_DATA = {
     }
    ],
    "setp_refs": [],
+   "epson_ferrules": [],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -3190,6 +3249,7 @@ window.MAZAK_DATA = {
     }
    ],
    "setp_refs": [],
+   "epson_ferrules": [],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -3279,6 +3339,7 @@ window.MAZAK_DATA = {
     }
    ],
    "setp_refs": [],
+   "epson_ferrules": [],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -3365,6 +3426,21 @@ window.MAZAK_DATA = {
     }
    ],
    "setp_refs": [],
+   "epson_ferrules": [
+    {
+     "label_text": "A2-04",
+     "wire": "150",
+     "old_location": "CN2-4",
+     "signal": "MAGAZINE ROT POS 1",
+     "mesa_card": "7i84U-A",
+     "connector": "TB2",
+     "logical_channel": "IN19",
+     "physical_pin": "TB2-04",
+     "crosswalk_status": "PLANNED_MATCH",
+     "release_status": "HOLD_SOURCE_TRACE",
+     "source_line": 3
+    }
+   ],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -3385,6 +3461,11 @@ window.MAZAK_DATA = {
      "file": "archived_wiring_map",
      "lines": "",
      "note": "primary_source column in the authority table"
+    },
+    {
+     "file": "wiring/bbia1_mesa_end_ferrules_epson.csv",
+     "lines": "3",
+     "note": "Epson Mesa-end ferrule A2-04; HOLD_SOURCE_TRACE"
     }
    ],
    "conflicts": [],
@@ -3449,6 +3530,21 @@ window.MAZAK_DATA = {
     }
    ],
    "setp_refs": [],
+   "epson_ferrules": [
+    {
+     "label_text": "A2-05",
+     "wire": "221",
+     "old_location": "CN2-5",
+     "signal": "MAGAZINE ROT POS 2",
+     "mesa_card": "7i84U-A",
+     "connector": "TB2",
+     "logical_channel": "IN20",
+     "physical_pin": "TB2-05",
+     "crosswalk_status": "PLANNED_MATCH",
+     "release_status": "HOLD_SOURCE_TRACE",
+     "source_line": 4
+    }
+   ],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -3469,6 +3565,11 @@ window.MAZAK_DATA = {
      "file": "archived_wiring_map",
      "lines": "",
      "note": "primary_source column in the authority table"
+    },
+    {
+     "file": "wiring/bbia1_mesa_end_ferrules_epson.csv",
+     "lines": "4",
+     "note": "Epson Mesa-end ferrule A2-05; HOLD_SOURCE_TRACE"
     }
    ],
    "conflicts": [],
@@ -3533,6 +3634,21 @@ window.MAZAK_DATA = {
     }
    ],
    "setp_refs": [],
+   "epson_ferrules": [
+    {
+     "label_text": "A2-06",
+     "wire": "222",
+     "old_location": "CN2-6",
+     "signal": "MAGAZINE ROT POS 4",
+     "mesa_card": "7i84U-A",
+     "connector": "TB2",
+     "logical_channel": "IN21",
+     "physical_pin": "TB2-06",
+     "crosswalk_status": "PLANNED_MATCH",
+     "release_status": "HOLD_SOURCE_TRACE",
+     "source_line": 5
+    }
+   ],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -3553,6 +3669,11 @@ window.MAZAK_DATA = {
      "file": "archived_wiring_map",
      "lines": "",
      "note": "primary_source column in the authority table"
+    },
+    {
+     "file": "wiring/bbia1_mesa_end_ferrules_epson.csv",
+     "lines": "5",
+     "note": "Epson Mesa-end ferrule A2-06; HOLD_SOURCE_TRACE"
     }
    ],
    "conflicts": [],
@@ -3617,6 +3738,21 @@ window.MAZAK_DATA = {
     }
    ],
    "setp_refs": [],
+   "epson_ferrules": [
+    {
+     "label_text": "A2-07",
+     "wire": "223",
+     "old_location": "CN2-7",
+     "signal": "MAGAZINE ROT POS 8",
+     "mesa_card": "7i84U-A",
+     "connector": "TB2",
+     "logical_channel": "IN22",
+     "physical_pin": "TB2-07",
+     "crosswalk_status": "PLANNED_MATCH",
+     "release_status": "HOLD_SOURCE_TRACE",
+     "source_line": 6
+    }
+   ],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -3637,6 +3773,11 @@ window.MAZAK_DATA = {
      "file": "archived_wiring_map",
      "lines": "",
      "note": "primary_source column in the authority table"
+    },
+    {
+     "file": "wiring/bbia1_mesa_end_ferrules_epson.csv",
+     "lines": "6",
+     "note": "Epson Mesa-end ferrule A2-07; HOLD_SOURCE_TRACE"
     }
    ],
    "conflicts": [],
@@ -3701,6 +3842,21 @@ window.MAZAK_DATA = {
     }
    ],
    "setp_refs": [],
+   "epson_ferrules": [
+    {
+     "label_text": "A2-08",
+     "wire": "224",
+     "old_location": "CN2-8",
+     "signal": "MAGAZINE ROT POS 10",
+     "mesa_card": "7i84U-A",
+     "connector": "TB2",
+     "logical_channel": "IN23",
+     "physical_pin": "TB2-08",
+     "crosswalk_status": "PLANNED_MATCH",
+     "release_status": "HOLD_SOURCE_TRACE",
+     "source_line": 7
+    }
+   ],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -3721,6 +3877,11 @@ window.MAZAK_DATA = {
      "file": "archived_wiring_map",
      "lines": "",
      "note": "primary_source column in the authority table"
+    },
+    {
+     "file": "wiring/bbia1_mesa_end_ferrules_epson.csv",
+     "lines": "7",
+     "note": "Epson Mesa-end ferrule A2-08; HOLD_SOURCE_TRACE"
     }
    ],
    "conflicts": [],
@@ -3775,6 +3936,7 @@ window.MAZAK_DATA = {
     }
    ],
    "setp_refs": [],
+   "epson_ferrules": [],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -3841,6 +4003,7 @@ window.MAZAK_DATA = {
     }
    ],
    "setp_refs": [],
+   "epson_ferrules": [],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -3905,6 +4068,7 @@ window.MAZAK_DATA = {
     }
    ],
    "setp_refs": [],
+   "epson_ferrules": [],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -3982,6 +4146,7 @@ window.MAZAK_DATA = {
     }
    ],
    "setp_refs": [],
+   "epson_ferrules": [],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -4037,6 +4202,7 @@ window.MAZAK_DATA = {
    "consumers": [],
    "hal_refs": [],
    "setp_refs": [],
+   "epson_ferrules": [],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -4109,6 +4275,21 @@ window.MAZAK_DATA = {
     }
    ],
    "setp_refs": [],
+   "epson_ferrules": [
+    {
+     "label_text": "A2-13",
+     "wire": "225",
+     "old_location": "CN2-9",
+     "signal": "MAGAZINE POSITION OK",
+     "mesa_card": "7i84U-A",
+     "connector": "TB2",
+     "logical_channel": "IN28",
+     "physical_pin": "TB2-13",
+     "crosswalk_status": "PLANNED_MATCH",
+     "release_status": "HOLD_SOURCE_TRACE",
+     "source_line": 8
+    }
+   ],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -4129,6 +4310,11 @@ window.MAZAK_DATA = {
      "file": "atc_ladder_transcription_2026-07-27",
      "lines": "",
      "note": "primary_source column in the authority table"
+    },
+    {
+     "file": "wiring/bbia1_mesa_end_ferrules_epson.csv",
+     "lines": "8",
+     "note": "Epson Mesa-end ferrule A2-13; HOLD_SOURCE_TRACE"
     }
    ],
    "conflicts": [],
@@ -4193,6 +4379,7 @@ window.MAZAK_DATA = {
     }
    ],
    "setp_refs": [],
+   "epson_ferrules": [],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -4262,6 +4449,7 @@ window.MAZAK_DATA = {
     }
    ],
    "setp_refs": [],
+   "epson_ferrules": [],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -4351,6 +4539,21 @@ window.MAZAK_DATA = {
     }
    ],
    "setp_refs": [],
+   "epson_ferrules": [
+    {
+     "label_text": "A2-16",
+     "wire": "SA",
+     "old_location": "CN6-7",
+     "signal": "SERVO READY",
+     "mesa_card": "7i84U-A",
+     "connector": "TB2",
+     "logical_channel": "IN31",
+     "physical_pin": "TB2-16",
+     "crosswalk_status": "PLANNED_MATCH",
+     "release_status": "HOLD_SOURCE_TRACE",
+     "source_line": 15
+    }
+   ],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -4376,6 +4579,11 @@ window.MAZAK_DATA = {
      "file": "archived_wiring_map",
      "lines": "",
      "note": "primary_source column in the authority table"
+    },
+    {
+     "file": "wiring/bbia1_mesa_end_ferrules_epson.csv",
+     "lines": "15",
+     "note": "Epson Mesa-end ferrule A2-16; HOLD_SOURCE_TRACE"
     }
    ],
    "conflicts": [],
@@ -4438,6 +4646,7 @@ window.MAZAK_DATA = {
     }
    ],
    "setp_refs": [],
+   "epson_ferrules": [],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -4522,6 +4731,7 @@ window.MAZAK_DATA = {
     }
    ],
    "setp_refs": [],
+   "epson_ferrules": [],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -4643,6 +4853,7 @@ window.MAZAK_DATA = {
      "value": "[SPINDLE_0]OUTPUT_SCALE"
     }
    ],
+   "epson_ferrules": [],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -4747,6 +4958,7 @@ window.MAZAK_DATA = {
     }
    ],
    "setp_refs": [],
+   "epson_ferrules": [],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -4829,6 +5041,7 @@ window.MAZAK_DATA = {
     }
    ],
    "setp_refs": [],
+   "epson_ferrules": [],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -4913,6 +5126,7 @@ window.MAZAK_DATA = {
     }
    ],
    "setp_refs": [],
+   "epson_ferrules": [],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -5037,6 +5251,7 @@ window.MAZAK_DATA = {
      "value": "[JOINT_2]OUTPUT_SCALE"
     }
    ],
+   "epson_ferrules": [],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -5142,6 +5357,7 @@ window.MAZAK_DATA = {
     }
    ],
    "setp_refs": [],
+   "epson_ferrules": [],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -5229,6 +5445,7 @@ window.MAZAK_DATA = {
     }
    ],
    "setp_refs": [],
+   "epson_ferrules": [],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -5303,6 +5520,7 @@ window.MAZAK_DATA = {
     }
    ],
    "setp_refs": [],
+   "epson_ferrules": [],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -5386,6 +5604,7 @@ window.MAZAK_DATA = {
     }
    ],
    "setp_refs": [],
+   "epson_ferrules": [],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -5474,6 +5693,7 @@ window.MAZAK_DATA = {
     }
    ],
    "setp_refs": [],
+   "epson_ferrules": [],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -5558,6 +5778,7 @@ window.MAZAK_DATA = {
     }
    ],
    "setp_refs": [],
+   "epson_ferrules": [],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -5642,6 +5863,7 @@ window.MAZAK_DATA = {
     }
    ],
    "setp_refs": [],
+   "epson_ferrules": [],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -5726,6 +5948,7 @@ window.MAZAK_DATA = {
     }
    ],
    "setp_refs": [],
+   "epson_ferrules": [],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -5795,6 +6018,7 @@ window.MAZAK_DATA = {
     }
    ],
    "setp_refs": [],
+   "epson_ferrules": [],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -5845,6 +6069,7 @@ window.MAZAK_DATA = {
    "consumers": [],
    "hal_refs": [],
    "setp_refs": [],
+   "epson_ferrules": [],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -5890,6 +6115,7 @@ window.MAZAK_DATA = {
    "consumers": [],
    "hal_refs": [],
    "setp_refs": [],
+   "epson_ferrules": [],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -5935,6 +6161,7 @@ window.MAZAK_DATA = {
    "consumers": [],
    "hal_refs": [],
    "setp_refs": [],
+   "epson_ferrules": [],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -5980,6 +6207,7 @@ window.MAZAK_DATA = {
    "consumers": [],
    "hal_refs": [],
    "setp_refs": [],
+   "epson_ferrules": [],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -6025,6 +6253,7 @@ window.MAZAK_DATA = {
    "consumers": [],
    "hal_refs": [],
    "setp_refs": [],
+   "epson_ferrules": [],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -6070,6 +6299,7 @@ window.MAZAK_DATA = {
    "consumers": [],
    "hal_refs": [],
    "setp_refs": [],
+   "epson_ferrules": [],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -6117,6 +6347,7 @@ window.MAZAK_DATA = {
    "consumers": [],
    "hal_refs": [],
    "setp_refs": [],
+   "epson_ferrules": [],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -6164,6 +6395,7 @@ window.MAZAK_DATA = {
    "consumers": [],
    "hal_refs": [],
    "setp_refs": [],
+   "epson_ferrules": [],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -6249,6 +6481,7 @@ window.MAZAK_DATA = {
     }
    ],
    "setp_refs": [],
+   "epson_ferrules": [],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -6340,6 +6573,7 @@ window.MAZAK_DATA = {
     }
    ],
    "setp_refs": [],
+   "epson_ferrules": [],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -6426,6 +6660,21 @@ window.MAZAK_DATA = {
     }
    ],
    "setp_refs": [],
+   "epson_ferrules": [
+    {
+     "label_text": "B3-03",
+     "wire": "+LY",
+     "old_location": "CN3-37",
+     "signal": "+Y OVER TRAVEL",
+     "mesa_card": "7i84U-B",
+     "connector": "TB3",
+     "logical_channel": "IN2",
+     "physical_pin": "TB3-03",
+     "crosswalk_status": "PLANNED_MATCH",
+     "release_status": "HOLD_SOURCE_TRACE",
+     "source_line": 12
+    }
+   ],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -6446,6 +6695,11 @@ window.MAZAK_DATA = {
      "file": "field_7i84u.hal",
      "lines": "",
      "note": "primary_source column in the authority table"
+    },
+    {
+     "file": "wiring/bbia1_mesa_end_ferrules_epson.csv",
+     "lines": "12",
+     "note": "Epson Mesa-end ferrule B3-03; HOLD_SOURCE_TRACE"
     }
    ],
    "conflicts": [
@@ -6512,6 +6766,7 @@ window.MAZAK_DATA = {
     }
    ],
    "setp_refs": [],
+   "epson_ferrules": [],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -6598,6 +6853,21 @@ window.MAZAK_DATA = {
     }
    ],
    "setp_refs": [],
+   "epson_ferrules": [
+    {
+     "label_text": "B3-05",
+     "wire": "+LTZ",
+     "old_location": "CN2-14",
+     "signal": "Z-AXIS OVER TRAVEL",
+     "mesa_card": "7i84U-B",
+     "connector": "TB3",
+     "logical_channel": "IN4",
+     "physical_pin": "TB3-05",
+     "crosswalk_status": "PLANNED_MATCH",
+     "release_status": "HOLD_SOURCE_TRACE",
+     "source_line": 9
+    }
+   ],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -6618,6 +6888,11 @@ window.MAZAK_DATA = {
      "file": "field_7i84u.hal",
      "lines": "",
      "note": "primary_source column in the authority table"
+    },
+    {
+     "file": "wiring/bbia1_mesa_end_ferrules_epson.csv",
+     "lines": "9",
+     "note": "Epson Mesa-end ferrule B3-05; HOLD_SOURCE_TRACE"
     }
    ],
    "conflicts": [
@@ -6684,6 +6959,21 @@ window.MAZAK_DATA = {
     }
    ],
    "setp_refs": [],
+   "epson_ferrules": [
+    {
+     "label_text": "B3-06",
+     "wire": "-LZ",
+     "old_location": "CN3-38",
+     "signal": "-Z OVER TRAVEL",
+     "mesa_card": "7i84U-B",
+     "connector": "TB3",
+     "logical_channel": "IN5",
+     "physical_pin": "TB3-06",
+     "crosswalk_status": "PLANNED_MATCH",
+     "release_status": "HOLD_SOURCE_TRACE",
+     "source_line": 13
+    }
+   ],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -6704,6 +6994,11 @@ window.MAZAK_DATA = {
      "file": "field_7i84u.hal",
      "lines": "",
      "note": "primary_source column in the authority table"
+    },
+    {
+     "file": "wiring/bbia1_mesa_end_ferrules_epson.csv",
+     "lines": "13",
+     "note": "Epson Mesa-end ferrule B3-06; HOLD_SOURCE_TRACE"
     }
    ],
    "conflicts": [
@@ -6770,6 +7065,21 @@ window.MAZAK_DATA = {
     }
    ],
    "setp_refs": [],
+   "epson_ferrules": [
+    {
+     "label_text": "B3-07",
+     "wire": "*DECX",
+     "old_location": "CN2-15",
+     "signal": "X-AXIS ZERO RETURN DEC",
+     "mesa_card": "7i84U-B",
+     "connector": "TB3",
+     "logical_channel": "IN6",
+     "physical_pin": "TB3-07",
+     "crosswalk_status": "PLANNED_MATCH",
+     "release_status": "HOLD_SOURCE_TRACE",
+     "source_line": 10
+    }
+   ],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -6790,6 +7100,11 @@ window.MAZAK_DATA = {
      "file": "field_7i84u.hal",
      "lines": "",
      "note": "primary_source column in the authority table"
+    },
+    {
+     "file": "wiring/bbia1_mesa_end_ferrules_epson.csv",
+     "lines": "10",
+     "note": "Epson Mesa-end ferrule B3-07; HOLD_SOURCE_TRACE"
     }
    ],
    "conflicts": [
@@ -6856,6 +7171,21 @@ window.MAZAK_DATA = {
     }
    ],
    "setp_refs": [],
+   "epson_ferrules": [
+    {
+     "label_text": "B3-08",
+     "wire": "*DECY",
+     "old_location": "CN2-16",
+     "signal": "Y-AXIS ZERO RETURN DEC",
+     "mesa_card": "7i84U-B",
+     "connector": "TB3",
+     "logical_channel": "IN7",
+     "physical_pin": "TB3-08",
+     "crosswalk_status": "PLANNED_MATCH",
+     "release_status": "HOLD_SOURCE_TRACE",
+     "source_line": 11
+    }
+   ],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -6876,6 +7206,11 @@ window.MAZAK_DATA = {
      "file": "field_7i84u.hal",
      "lines": "",
      "note": "primary_source column in the authority table"
+    },
+    {
+     "file": "wiring/bbia1_mesa_end_ferrules_epson.csv",
+     "lines": "11",
+     "note": "Epson Mesa-end ferrule B3-08; HOLD_SOURCE_TRACE"
     }
    ],
    "conflicts": [
@@ -6943,6 +7278,21 @@ window.MAZAK_DATA = {
     }
    ],
    "setp_refs": [],
+   "epson_ferrules": [
+    {
+     "label_text": "B3-09",
+     "wire": "*DECZ",
+     "old_location": "CN1-14",
+     "signal": "Z-AXIS ZERO RETURN DEC",
+     "mesa_card": "7i84U-B",
+     "connector": "TB3",
+     "logical_channel": "IN8",
+     "physical_pin": "TB3-09",
+     "crosswalk_status": "PLANNED_MATCH",
+     "release_status": "HOLD_SOURCE_TRACE",
+     "source_line": 2
+    }
+   ],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -6963,6 +7313,11 @@ window.MAZAK_DATA = {
      "file": "field_7i84u.hal",
      "lines": "",
      "note": "primary_source column in the authority table"
+    },
+    {
+     "file": "wiring/bbia1_mesa_end_ferrules_epson.csv",
+     "lines": "2",
+     "note": "Epson Mesa-end ferrule B3-09; HOLD_SOURCE_TRACE"
     }
    ],
    "conflicts": [
@@ -7027,6 +7382,7 @@ window.MAZAK_DATA = {
     }
    ],
    "setp_refs": [],
+   "epson_ferrules": [],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -7082,6 +7438,7 @@ window.MAZAK_DATA = {
    "consumers": [],
    "hal_refs": [],
    "setp_refs": [],
+   "epson_ferrules": [],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -7127,6 +7484,7 @@ window.MAZAK_DATA = {
    "consumers": [],
    "hal_refs": [],
    "setp_refs": [],
+   "epson_ferrules": [],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -7172,6 +7530,7 @@ window.MAZAK_DATA = {
    "consumers": [],
    "hal_refs": [],
    "setp_refs": [],
+   "epson_ferrules": [],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -7217,6 +7576,7 @@ window.MAZAK_DATA = {
    "consumers": [],
    "hal_refs": [],
    "setp_refs": [],
+   "epson_ferrules": [],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -7262,6 +7622,7 @@ window.MAZAK_DATA = {
    "consumers": [],
    "hal_refs": [],
    "setp_refs": [],
+   "epson_ferrules": [],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -7334,6 +7695,7 @@ window.MAZAK_DATA = {
     }
    ],
    "setp_refs": [],
+   "epson_ferrules": [],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -7389,6 +7751,7 @@ window.MAZAK_DATA = {
    "consumers": [],
    "hal_refs": [],
    "setp_refs": [],
+   "epson_ferrules": [],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -7434,6 +7797,7 @@ window.MAZAK_DATA = {
    "consumers": [],
    "hal_refs": [],
    "setp_refs": [],
+   "epson_ferrules": [],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -7479,6 +7843,7 @@ window.MAZAK_DATA = {
    "consumers": [],
    "hal_refs": [],
    "setp_refs": [],
+   "epson_ferrules": [],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -7524,6 +7889,7 @@ window.MAZAK_DATA = {
    "consumers": [],
    "hal_refs": [],
    "setp_refs": [],
+   "epson_ferrules": [],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -7569,6 +7935,7 @@ window.MAZAK_DATA = {
    "consumers": [],
    "hal_refs": [],
    "setp_refs": [],
+   "epson_ferrules": [],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -7614,6 +7981,7 @@ window.MAZAK_DATA = {
    "consumers": [],
    "hal_refs": [],
    "setp_refs": [],
+   "epson_ferrules": [],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -7659,6 +8027,7 @@ window.MAZAK_DATA = {
    "consumers": [],
    "hal_refs": [],
    "setp_refs": [],
+   "epson_ferrules": [],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -7704,6 +8073,7 @@ window.MAZAK_DATA = {
    "consumers": [],
    "hal_refs": [],
    "setp_refs": [],
+   "epson_ferrules": [],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -7749,6 +8119,7 @@ window.MAZAK_DATA = {
    "consumers": [],
    "hal_refs": [],
    "setp_refs": [],
+   "epson_ferrules": [],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -7794,6 +8165,7 @@ window.MAZAK_DATA = {
    "consumers": [],
    "hal_refs": [],
    "setp_refs": [],
+   "epson_ferrules": [],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -7839,6 +8211,7 @@ window.MAZAK_DATA = {
    "consumers": [],
    "hal_refs": [],
    "setp_refs": [],
+   "epson_ferrules": [],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -7884,6 +8257,7 @@ window.MAZAK_DATA = {
    "consumers": [],
    "hal_refs": [],
    "setp_refs": [],
+   "epson_ferrules": [],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -7929,6 +8303,7 @@ window.MAZAK_DATA = {
    "consumers": [],
    "hal_refs": [],
    "setp_refs": [],
+   "epson_ferrules": [],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -7974,6 +8349,7 @@ window.MAZAK_DATA = {
    "consumers": [],
    "hal_refs": [],
    "setp_refs": [],
+   "epson_ferrules": [],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -8019,6 +8395,7 @@ window.MAZAK_DATA = {
    "consumers": [],
    "hal_refs": [],
    "setp_refs": [],
+   "epson_ferrules": [],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -8064,6 +8441,7 @@ window.MAZAK_DATA = {
    "consumers": [],
    "hal_refs": [],
    "setp_refs": [],
+   "epson_ferrules": [],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -8178,6 +8556,7 @@ window.MAZAK_DATA = {
      "value": "[JOINT_0]OUTPUT_SCALE"
     }
    ],
+   "epson_ferrules": [],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -8322,6 +8701,7 @@ window.MAZAK_DATA = {
      "value": "[JOINT_1]OUTPUT_SCALE"
     }
    ],
+   "epson_ferrules": [],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -8424,6 +8804,7 @@ window.MAZAK_DATA = {
     }
    ],
    "setp_refs": [],
+   "epson_ferrules": [],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -8496,6 +8877,7 @@ window.MAZAK_DATA = {
     }
    ],
    "setp_refs": [],
+   "epson_ferrules": [],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -8566,6 +8948,7 @@ window.MAZAK_DATA = {
     }
    ],
    "setp_refs": [],
+   "epson_ferrules": [],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -8636,6 +9019,7 @@ window.MAZAK_DATA = {
     }
    ],
    "setp_refs": [],
+   "epson_ferrules": [],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -8715,6 +9099,7 @@ window.MAZAK_DATA = {
     }
    ],
    "setp_refs": [],
+   "epson_ferrules": [],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -8784,6 +9169,7 @@ window.MAZAK_DATA = {
     }
    ],
    "setp_refs": [],
+   "epson_ferrules": [],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -8861,6 +9247,7 @@ window.MAZAK_DATA = {
     }
    ],
    "setp_refs": [],
+   "epson_ferrules": [],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -8916,6 +9303,7 @@ window.MAZAK_DATA = {
    "consumers": [],
    "hal_refs": [],
    "setp_refs": [],
+   "epson_ferrules": [],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -8961,6 +9349,7 @@ window.MAZAK_DATA = {
    "consumers": [],
    "hal_refs": [],
    "setp_refs": [],
+   "epson_ferrules": [],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -9006,6 +9395,7 @@ window.MAZAK_DATA = {
    "consumers": [],
    "hal_refs": [],
    "setp_refs": [],
+   "epson_ferrules": [],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -9051,6 +9441,7 @@ window.MAZAK_DATA = {
    "consumers": [],
    "hal_refs": [],
    "setp_refs": [],
+   "epson_ferrules": [],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -9096,6 +9487,7 @@ window.MAZAK_DATA = {
    "consumers": [],
    "hal_refs": [],
    "setp_refs": [],
+   "epson_ferrules": [],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -9141,6 +9533,7 @@ window.MAZAK_DATA = {
    "consumers": [],
    "hal_refs": [],
    "setp_refs": [],
+   "epson_ferrules": [],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -9186,6 +9579,7 @@ window.MAZAK_DATA = {
    "consumers": [],
    "hal_refs": [],
    "setp_refs": [],
+   "epson_ferrules": [],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -9231,6 +9625,7 @@ window.MAZAK_DATA = {
    "consumers": [],
    "hal_refs": [],
    "setp_refs": [],
+   "epson_ferrules": [],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -9276,6 +9671,7 @@ window.MAZAK_DATA = {
    "consumers": [],
    "hal_refs": [],
    "setp_refs": [],
+   "epson_ferrules": [],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -9321,6 +9717,7 @@ window.MAZAK_DATA = {
    "consumers": [],
    "hal_refs": [],
    "setp_refs": [],
+   "epson_ferrules": [],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -9366,6 +9763,7 @@ window.MAZAK_DATA = {
    "consumers": [],
    "hal_refs": [],
    "setp_refs": [],
+   "epson_ferrules": [],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -9411,6 +9809,7 @@ window.MAZAK_DATA = {
    "consumers": [],
    "hal_refs": [],
    "setp_refs": [],
+   "epson_ferrules": [],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",

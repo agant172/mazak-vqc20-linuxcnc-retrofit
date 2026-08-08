@@ -71,13 +71,17 @@
   /* ---------------------------------------------------------- search index */
 
   SIGNALS.forEach(function (s) {
+    var ferruleSearch = (s.epson_ferrules || []).map(function (f) {
+      return [f.label_text, f.wire, f.old_location, f.signal, f.physical_pin,
+        f.crosswalk_status, f.release_status].join(' ');
+    }).join(' ');
     s._hay = [
       s.id, s.name, s.hal_net, s.board, s.connector, s.channel, s.direction,
       s.subsystem, s.machine_subsystem, s.field_point, s.location, s.location_note,
       s.cleanup_notes, (s.designations || []).join(' '),
       (s.mesa_pins || []).join(' '), (s.producers || []).join(' '),
       (s.consumers || []).join(' '), (STATUS[s.status] || {}).label,
-      (s.conflicts || []).join(' ')
+      (s.conflicts || []).join(' '), ferruleSearch
     ].join(' ').toLowerCase();
   });
 
@@ -406,6 +410,26 @@
         (s.connector === 'none' ? '\u2014' : s.connector) + (s.channel ? ' \u00b7 ' + s.channel : '')));
       tr.appendChild(c4);
 
+      // Epson Mesa-end ferrule designation (draft until source continuity is traced)
+      var cLabel = td('c-label', 'Epson ferrule');
+      var ferrules = s.epson_ferrules || [];
+      if (ferrules.length) {
+        ferrules.forEach(function (ferrule) {
+          var labelWrap = el('span', 'ferrule-cell');
+          labelWrap.appendChild(el('span', 'ferrule-code', ferrule.label_text));
+          var release = el('span', 'ferrule-state',
+            ferrule.release_status === 'RELEASED' ? 'released' : 'hold \u00b7 trace');
+          release.dataset.release = ferrule.release_status;
+          labelWrap.appendChild(release);
+          labelWrap.title = 'OEM wire ' + ferrule.wire + ' from ' + ferrule.old_location +
+            '; ' + ferrule.release_status;
+          cLabel.appendChild(labelWrap);
+        });
+      } else {
+        cLabel.appendChild(el('span', 'mono-cell none', '\u2014'));
+      }
+      tr.appendChild(cLabel);
+
       // hal net
       var c5 = td('c-net', 'HAL net');
       c5.appendChild(el('span', 'mono-cell' + (s.hal_net ? '' : ' none'), s.hal_net || 'no net'));
@@ -712,6 +736,13 @@
     kvRow(dl, 'Board', (BOARDS[s.board] || {}).name || s.board);
     kvRow(dl, 'Connector', s.connector, true);
     kvRow(dl, 'Channel', s.channel, true);
+    var ferrules = s.epson_ferrules || [];
+    if (ferrules.length) {
+      kvRow(dl, 'Epson ferrule', ferrules.map(function (f) { return f.label_text; }).join(', '), true);
+      kvRow(dl, 'OEM wire', ferrules.map(function (f) { return f.wire; }).join(', '), true);
+      kvRow(dl, 'OEM source', ferrules.map(function (f) { return f.old_location; }).join(', '), true);
+      kvRow(dl, 'Label release', ferrules.map(function (f) { return f.release_status; }).join(', '), true);
+    }
     kvRow(dl, 'Direction', s.direction_label);
     kvRow(dl, 'HAL net', s.hal_net || 'not defined', true);
     kvRow(dl, 'Subsystem', s.subsystem + (s.machine_subsystem && s.machine_subsystem !== s.subsystem ? ' \u2192 ' + s.machine_subsystem : ''));
@@ -805,12 +836,14 @@
       'direction', 'subsystem', 'machine_subsystem', 'expected_idle', 'expected_basis',
       'authority_status', 'status_label', 'hal_state', 'mesa_pins', 'linuxcnc_producers',
       'linuxcnc_consumers', 'designations', 'field_point', 'machine_location',
-      'conflicts', 'authority_ref', 'manual_state', 'manual_note', 'live_value'];
+      'epson_label', 'epson_oem_wire', 'epson_oem_source', 'epson_physical_pin',
+      'epson_release_status', 'conflicts', 'authority_ref', 'manual_state', 'manual_note', 'live_value'];
     var lines = [head.join(',')];
 
     rows.forEach(function (s) {
       var sim = state.sim[s.id] || {};
       var lv = (state.live.on && state.live.ok && s.hal_net) ? state.live.values[s.hal_net] : '';
+      var ferrules = s.epson_ferrules || [];
       lines.push([
         s.id, s.name, s.board, s.connector, s.channel, s.hal_net,
         s.direction_label, s.subsystem, s.machine_subsystem,
@@ -818,7 +851,13 @@
         s.status, (STATUS[s.status] || {}).label, s.hal_state,
         (s.mesa_pins || []).join(' | '), (s.producers || []).join(' | '),
         (s.consumers || []).join(' | '), (s.designations || []).join(' | '),
-        s.field_point, s.location, (s.conflicts || []).join(' '),
+        s.field_point, s.location,
+        ferrules.map(function (f) { return f.label_text; }).join(' | '),
+        ferrules.map(function (f) { return f.wire; }).join(' | '),
+        ferrules.map(function (f) { return f.old_location; }).join(' | '),
+        ferrules.map(function (f) { return f.physical_pin; }).join(' | '),
+        ferrules.map(function (f) { return f.release_status; }).join(' | '),
+        (s.conflicts || []).join(' '),
         s.authority_line ? D.meta.authority_file + ':' + s.authority_line : '',
         sim.value == null ? '' : sim.value, sim.note || '',
         lv === undefined ? '' : lv
