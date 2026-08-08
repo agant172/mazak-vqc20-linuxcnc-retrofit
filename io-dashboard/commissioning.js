@@ -29,11 +29,41 @@
       .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
   }
 
+  function dayMonthYear(value) {
+    var text = String(value || '').trim();
+    var iso = text.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+    return iso ? iso[3] + '-' + iso[2] + '-' + iso[1] : text;
+  }
+
+  function currentDayMonthYear() {
+    var now = new Date();
+    var day = String(now.getDate()).padStart(2, '0');
+    var month = String(now.getMonth() + 1).padStart(2, '0');
+    return day + '-' + month + '-' + now.getFullYear();
+  }
+
+  function displayTimestamp(value) {
+    var date = new Date(value);
+    if (isNaN(date.getTime())) return value || '';
+    var day = String(date.getDate()).padStart(2, '0');
+    var month = String(date.getMonth() + 1).padStart(2, '0');
+    var time = [date.getHours(), date.getMinutes(), date.getSeconds()].map(function (part) {
+      return String(part).padStart(2, '0');
+    }).join(':');
+    return day + '-' + month + '-' + date.getFullYear() + ' ' + time;
+  }
+
+  function normalizeRecord(record) {
+    if (record && record.verified_date) record.verified_date = dayMonthYear(record.verified_date);
+    return record;
+  }
+
   function loadRecords() {
     try {
       var raw = localStorage.getItem(RECORD_KEY);
       var parsed = raw ? JSON.parse(raw) : null;
       if (parsed && parsed.schema_version === 1 && parsed.records) records = parsed.records;
+      Object.keys(records).forEach(function (id) { normalizeRecord(records[id]); });
     } catch (e) {
       records = Object.create(null);
     }
@@ -283,7 +313,7 @@
     ['active_voltage', 'Active voltage', 'Measured value + reference'],
     ['normal_state', 'Normal / fault state', 'NO/NC, active-high/low'],
     ['verified_by', 'Verified by', 'Name or initials'],
-    ['verified_date', 'Verified date', 'YYYY-MM-DD'],
+    ['verified_date', 'Verified date', 'DD-MM-YYYY'],
     ['evidence_ref', 'Evidence reference', 'Photo/log/test record'],
     ['note', 'Checkout note', 'Conditions, meter, anomalies']
   ];
@@ -294,7 +324,8 @@
     if (key === 'note') {
       return '<label class="record-field full"><span>' + esc(label) + '</span><textarea data-field="' + key + '" placeholder="' + esc(placeholder) + '">' + esc(r[key] || '') + '</textarea></label>';
     }
-    return '<label class="record-field' + (full ? ' full' : '') + '"><span>' + esc(label) + '</span><input data-field="' + key + '" value="' + esc(r[key] || '') + '" placeholder="' + esc(placeholder) + '"></label>';
+    var dateAttrs = key === 'verified_date' ? ' inputmode="numeric" maxlength="10" pattern="[0-3][0-9]-[01][0-9]-[0-9]{4}" title="Use DD-MM-YYYY"' : '';
+    return '<label class="record-field' + (full ? ' full' : '') + '"><span>' + esc(label) + '</span><input data-field="' + key + '" value="' + esc(r[key] || '') + '" placeholder="' + esc(placeholder) + '"' + dateAttrs + '></label>';
   }
 
   function renderEvidence(s) {
@@ -327,7 +358,7 @@
       '<label class="record-field"><span>Continuity</span><select data-field="continuity"><option value="">Untested</option><option value="pass">Pass</option><option value="fail">Fail</option></select></label></div>' +
       '<p class="record-note">Saved only in this browser. Recording evidence does not promote the authority status.</p>' +
       '<div class="record-controls"><button type="button" class="btn" id="save-record">Save now</button><button type="button" class="btn btn-danger" id="clear-record">Clear this record</button></div>' +
-      '<span class="record-stamp" id="record-stamp">' + (r.updated_at ? 'Last saved ' + esc(r.updated_at) : 'Not yet recorded') + '</span></section>';
+      '<span class="record-stamp" id="record-stamp">' + (r.updated_at ? 'Last saved ' + esc(displayTimestamp(r.updated_at)) : 'Not yet recorded') + '</span></section>';
     var sel = box.querySelector('[data-field="continuity"]');
     if (sel) sel.value = r.continuity || '';
     box.querySelectorAll('[data-field]').forEach(function (input) {
@@ -348,7 +379,7 @@
     records[id].updated_at = new Date().toISOString();
     saveRecords();
     var stamp = $('record-stamp');
-    if (stamp) stamp.textContent = 'Saved ' + records[id].updated_at;
+    if (stamp) stamp.textContent = 'Saved ' + displayTimestamp(records[id].updated_at);
     var lane = $('circuit-list').querySelector('[data-id="' + id + '"] .row-footer');
     if (lane && hasRecord(id) && !lane.querySelector('.row-record')) lane.insertAdjacentHTML('beforeend', '<span class="row-record">local evidence</span>');
     updateStats(APP.sortedFiltered());
@@ -435,7 +466,7 @@
       vals.push(r.updated_at || '');
       lines.push(vals.map(csvCell).join(','));
     });
-    download('mazak_commissioning_' + new Date().toISOString().slice(0, 10) + '.csv', lines.join('\n') + '\n', 'text/csv;charset=utf-8');
+    download('mazak_commissioning_' + currentDayMonthYear() + '.csv', lines.join('\n') + '\n', 'text/csv;charset=utf-8');
     APP.toast(rows.length + ' commissioning rows exported');
   }
 
@@ -447,7 +478,9 @@
         if (!parsed || parsed.schema_version !== 1 || !parsed.records) throw new Error('Unsupported record format.');
         if (parsed.machine_serial && parsed.machine_serial !== D.meta.serial) throw new Error('Machine serial does not match ' + D.meta.serial + '.');
         if (!window.confirm('Merge ' + Object.keys(parsed.records).length + ' imported circuit records into this browser? Existing matching records will be replaced.')) return;
-        Object.keys(parsed.records).forEach(function (id) { if (APP.signalsById[id]) records[id] = parsed.records[id]; });
+        Object.keys(parsed.records).forEach(function (id) {
+          if (APP.signalsById[id]) records[id] = normalizeRecord(parsed.records[id]);
+        });
         saveRecords(); APP.render(); APP.toast('Commissioning records imported');
       } catch (e) { APP.toast('Import refused: ' + e.message); }
     };
@@ -468,7 +501,7 @@
     APP.render();
   });
   $('btn-record-export').addEventListener('click', function () {
-    download('mazak_commissioning_records_' + new Date().toISOString().slice(0, 10) + '.json', JSON.stringify(recordEnvelope(), null, 2) + '\n', 'application/json');
+    download('mazak_commissioning_records_' + currentDayMonthYear() + '.json', JSON.stringify(recordEnvelope(), null, 2) + '\n', 'application/json');
     APP.toast(recordCount() + ' local records exported');
   });
   $('btn-record-import').addEventListener('click', function () { $('record-import-file').click(); });

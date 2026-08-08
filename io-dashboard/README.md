@@ -111,7 +111,8 @@ The commissioning workspace has four layers:
 
 Checkout fields include wire and cable IDs, both terminal landings, relay/interface terminals,
 fuse, return and shield paths, voltage readings, continuity, normal state, verifier, date, evidence
-reference, and notes. They autosave in the current browser using `localStorage`. Use **Export JSON**
+reference, and notes. User-entered verification dates and export filenames use `DD-MM-YYYY`;
+machine-readable save timestamps remain ISO 8601. Records autosave in the current browser using `localStorage`. Use **Export JSON**
 for backup/transfer, **Import JSON** to merge a saved record, **Export filtered CSV** for a work
 package, and **Print view** for paper/PDF output.
 
