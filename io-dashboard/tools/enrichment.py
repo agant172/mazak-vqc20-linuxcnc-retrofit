@@ -101,6 +101,59 @@ STATUS = {
         "blurb": "Architecturally excluded on this machine.",
         "safe_to_energize": "Not part of the retrofit.",
     },
+    # ---- Full taxonomy entries below (some may have 0 current rows) --------
+    "TRACED": {
+        "label": "Traced \u2014 continuity confirmed",
+        "tone": "accepted",
+        "order": 1,
+        "blurb": "Wire path physically traced end-to-end with a meter; "
+                 "continuity confirmed in both states.",
+        "safe_to_energize": "Traced but not yet powered-up verified.",
+    },
+    "ELECTRICALLY_VERIFIED": {
+        "label": "Electrically verified",
+        "tone": "verified",
+        "order": 0,
+        "blurb": "Powered to nominal voltage and measured; normal and tripped voltages recorded.",
+        "safe_to_energize": "Verified per repo records.",
+    },
+    "HAL_VERIFIED": {
+        "label": "HAL verified",
+        "tone": "verified",
+        "order": 0,
+        "blurb": "HAL pin toggles correctly against physical stimulus, "
+                 "captured in a halscope trace.",
+        "safe_to_energize": "HAL binding confirmed.",
+    },
+    "COMMISSIONED": {
+        "label": "Commissioned",
+        "tone": "verified",
+        "order": 0,
+        "blurb": "Passed the safety / functional acceptance for its role, "
+                 "including fault injection.",
+        "safe_to_energize": "Commissioned and accepted.",
+    },
+    "RESERVED": {
+        "label": "Reserved \u2014 future use",
+        "tone": "reserved",
+        "order": 2,
+        "blurb": "Pin held for a named future function. Do not wire until the function is defined.",
+        "safe_to_energize": "Not verified. Do not wire.",
+    },
+    "DEFERRED": {
+        "label": "Deferred \u2014 out of scope",
+        "tone": "spare",
+        "order": 7,
+        "blurb": "Signal out of first-power scope by decision. Not planned for this phase.",
+        "safe_to_energize": "Deferred. Do not wire.",
+    },
+    "UNBOUND": {
+        "label": "Unbound \u2014 no signal assignment",
+        "tone": "spare",
+        "order": 7,
+        "blurb": "Physical channel exists but no signal has been assigned to it yet.",
+        "safe_to_energize": "Unassigned. Leave unlanded.",
+    },
 }
 
 DIRECTION_LABEL = {

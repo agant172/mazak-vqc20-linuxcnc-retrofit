@@ -6,7 +6,7 @@ window.MAZAK_DATA = {
   "machine": "Mazak VQC-20/40",
   "serial": "060231",
   "architecture": "LinuxCNC + Mesa 7i80HDT (Ethernet FPGA host) + 7i44 on P1 (HostMot2 sserial port 0 channels 0/1 to 7i84U-A/B) + 7i49 on P2 (resolver + analog outs); P3 unused/spare",
-  "generated": "2026-08-08 05:29 UTC",
+  "generated": "2026-08-08 05:30 UTC",
   "source_repo": "mazak-vqc20-linuxcnc-retrofit",
   "authority_file": "mesa/current_pin_authority.csv",
   "epson_ferrule_file": "wiring/bbia1_mesa_end_ferrules_epson.csv",
@@ -150,6 +150,55 @@ window.MAZAK_DATA = {
    "order": 8,
    "blurb": "Architecturally excluded on this machine.",
    "safe_to_energize": "Not part of the retrofit."
+  },
+  "TRACED": {
+   "label": "Traced — continuity confirmed",
+   "tone": "accepted",
+   "order": 1,
+   "blurb": "Wire path physically traced end-to-end with a meter; continuity confirmed in both states.",
+   "safe_to_energize": "Traced but not yet powered-up verified."
+  },
+  "ELECTRICALLY_VERIFIED": {
+   "label": "Electrically verified",
+   "tone": "verified",
+   "order": 0,
+   "blurb": "Powered to nominal voltage and measured; normal and tripped voltages recorded.",
+   "safe_to_energize": "Verified per repo records."
+  },
+  "HAL_VERIFIED": {
+   "label": "HAL verified",
+   "tone": "verified",
+   "order": 0,
+   "blurb": "HAL pin toggles correctly against physical stimulus, captured in a halscope trace.",
+   "safe_to_energize": "HAL binding confirmed."
+  },
+  "COMMISSIONED": {
+   "label": "Commissioned",
+   "tone": "verified",
+   "order": 0,
+   "blurb": "Passed the safety / functional acceptance for its role, including fault injection.",
+   "safe_to_energize": "Commissioned and accepted."
+  },
+  "RESERVED": {
+   "label": "Reserved — future use",
+   "tone": "reserved",
+   "order": 2,
+   "blurb": "Pin held for a named future function. Do not wire until the function is defined.",
+   "safe_to_energize": "Not verified. Do not wire."
+  },
+  "DEFERRED": {
+   "label": "Deferred — out of scope",
+   "tone": "spare",
+   "order": 7,
+   "blurb": "Signal out of first-power scope by decision. Not planned for this phase.",
+   "safe_to_energize": "Deferred. Do not wire."
+  },
+  "UNBOUND": {
+   "label": "Unbound — no signal assignment",
+   "tone": "spare",
+   "order": 7,
+   "blurb": "Physical channel exists but no signal has been assigned to it yet.",
+   "safe_to_energize": "Unassigned. Leave unlanded."
   }
  },
  "signals": [

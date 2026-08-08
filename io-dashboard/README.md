@@ -89,7 +89,7 @@ Python 3 standard library only. No pip installs, no internet access.
 | Deep link a circuit   | `index.html#wiring=AIR_BLAST`                                           |
 
 **Views:** All signals, 7i80HDT, 7i44, 7i49, 7i84U-A, 7i84U-B, and Conflicts / unverified. The conflicts view puts
-the C1–C10 register above the affected rows.
+the active conflict register above the affected rows.
 
 **Manual state (wiring checkout).** Each signal detail panel has `0` / `1` / `clear` buttons and a
 free-text checkout note. This is **session-only scratch state held in memory** — it is not written
@@ -138,15 +138,16 @@ as of that document; existing rows migrated to `PROPOSED`.
 | `ELECTRICALLY_VERIFIED` | Powered to nominal voltage and measured; normal and tripped voltages recorded. |
 | `HAL_VERIFIED` | HAL pin toggles correctly against physical stimulus, captured in a `halscope` trace. |
 | `COMMISSIONED` | Passed the safety / functional acceptance for its role, including fault injection. |
-| `COMMISSIONING_PENDING` | Signal defined; physical verification deferred to commissioning. Compatible with `PROPOSED`. |
+| `COMMISSIONING_PENDING` | Signal defined; physical verification deferred to commissioning. |
 | `SPARE` | Pin allocated for future use, no signal assigned. |
-| `RESERVED` / `RESERVED_VERIFY` | Pin held for a specific future function. |
+| `RESERVED` | Pin held for a specific future function. |
 | `DEFERRED` | Signal out of first-power scope by decision. |
 | `HOLD_CONFLICT` | Conflicting authority claims between docs; requires reconciliation before promotion. |
 | `OPTIONAL_VERIFY` | Signal is not on the critical path. |
+| `UNBOUND` | Physical channel exists but no signal has been assigned to it yet. |
 
-Green is used only for *verified*. Because no row is verified yet, you should see no green.
-That is intentional and honest.
+Green is used only for *verified* statuses (`ELECTRICALLY_VERIFIED`, `HAL_VERIFIED`, `COMMISSIONED`).
+Rows showing green have passed the stated verification level per the repo authority.
 
 ---
 
@@ -176,7 +177,7 @@ Expected states come from explicit repo evidence, and every value carries its ba
 | `wiring/bbia1_mesa_end_ferrules_epson.csv` | Draft short Epson codes for conservative BBIA cut-wire matches; release status is preserved. |
 | `mesa/signal_map.csv` | **Stale.** Surfaced only as "do not use" context in the detail panel. |
 
-Current snapshot: **132 rows**, all from the authority, with 6 registered conflicts,
+Current snapshot: **132 rows**, all from the authority, with 6 registered conflicts (C3, C4, C5, C6, C9, C10),
 0 HAL-only orphan nets, and 0 authority nets missing from HAL.
 
 ---
@@ -210,9 +211,36 @@ Update conventions:
    `tools/enrichment.py` and cite the file:line it came from.
 3. When a conflict is resolved, remove its entry from `CONFLICTS` and change the affected rows'
    `authority_status` in the source CSV — do not just delete the warning.
-4. `FIELD_VERIFIED` is reserved for signals actually measured in the cabinet. Do not promote
-   a row to it to make the dashboard look better.
+4. `ELECTRICALLY_VERIFIED`, `HAL_VERIFIED`, and `COMMISSIONED` are reserved for signals actually measured in the cabinet. Do not promote
+   a row to any of them to make the dashboard look better.
 5. Re-run the generator and commit `data.js` with the change.
+
+---
+
+## Validator results
+
+Run from the repository root after the last `data.js` regeneration:
+
+```
+$ python3 scripts/validate_authority.py
+CSV rows:              132
+CSV 7i84U pin rows:    96
+HAL physical refs:     57
+Unique HAL pins used:  57
+ERRORS:   0
+WARNINGS: 11
+```
+
+The 11 warnings are all "plans net X (status=PROPOSED/COMMISSIONING_PENDING/HOLD_CONFLICT/OPTIONAL_VERIFY)
+but no HAL file binds that net to that physical pin". These reflect planned-but-not-yet-wired signals
+and are expected at this stage. No authority row has been changed to suppress them.
+
+```
+$ python3 scripts/validate_control_logic.py
+HAL files in load order: 4
+ERRORS: 0
+Clean: all static control-logic invariants passed.
+```
 
 ---
 
@@ -233,12 +261,10 @@ tools/
 
 ## Limitations
 
-- Values are from planning documents, not measurements. Nothing here has been rung out.
+- Values are from planning documents, not measurements. Only the single `ELECTRICALLY_VERIFIED` row has a measured record per the authority; all others have not been rung out.
 - Every `hm2_7i80.*` pin name in the config is an unverified placeholder (conflict C6).
   Confirm real names with `halcmd show pin` after the first `hm2_eth` load.
 - The live bridge reads HAL signal values only. It cannot see anything that is not a HAL signal,
   and a HAL value tells you what the software thinks, not what the wire is doing.
 - The table drawer's manual 0/1 scratch state is session-only. Commissioning wiring records persist
   in that browser, but still require JSON export for backup, transfer, or version-controlled retention.
-- 7i84U-A channel numbers in `field_7i84u.hal` currently disagree with the authority (C1, C2).
-  Do not land wire from the HAL numbers.
