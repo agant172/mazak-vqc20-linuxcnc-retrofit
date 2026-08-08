@@ -2,7 +2,9 @@
 
 Companion CSV: [`7i84u_b_terminal_legend_epson.csv`](7i84u_b_terminal_legend_epson.csv) — 28 label rows covering all 8 TB1 power/logic/common terminals plus 20 allocated I/O terminals on 7i84U-B (7i44 sserial channel 1).
 
-Formatted for **Epson Label Editor (Mac)** — same schema conventions as the BBIA-1 ferrule CSV, but the labels here go on the **7i84U-B card face / terminal-block skirt**, not on individual conductors.
+Formatted for **Epson Label Editor on Windows**. The generated CSV uses Windows
+CRLF records and plain ASCII label text. These labels go on the **7i84U-B card
+face / terminal-block skirt**, not on individual conductors.
 
 > **Print-release hold:** every current row is `HOLD_TRACE` or
 > `HOLD_COMMISSIONING`. The CSV is suitable for layout proofs and draft labels,
@@ -29,7 +31,7 @@ If you want blank ferrules pre-made for the spare terminals, add them by hand in
 
 ## Printer / tape
 
-- **Printer:** Epson LabelWorks LW-PX700 (USB to Mac)
+- **Printer:** Epson LabelWorks LW-PX700 connected to the Windows computer
 - **Recommended tape:** 9 mm or 12 mm vinyl (non-shrink) — these are card-face labels, not conductor ferrules, so heat-shrink is unnecessary
 - 6 mm vinyl is suitable only for abbreviated draft labels; omit `HAL_Net` and verify that the longest `Signal` values remain readable.
 
@@ -44,15 +46,17 @@ If you want blank ferrules pre-made for the spare terminals, add them by hand in
 | **Authority_Status** | Exact status from `current_pin_authority.csv` | Do not print permanently | Evidence state, regenerated mechanically. |
 | **Release_Status** | `RELEASED` or an explicit hold | Do not print permanently | Batch filter. Current values are `HOLD_TRACE` and `HOLD_COMMISSIONING`. |
 
-## Import steps (Epson Label Editor for Mac)
+## Import steps (Epson Label Editor for Windows)
 
-1. Open Epson Label Editor and start a new label at the tape width you're loading (9 mm or 12 mm vinyl).
-2. Insert text boxes for `Physical_Pin`, `Terminal`, and `Signal`. Make
+1. Open Epson Label Editor and select **Import (Horizontal Text)** on the
+   New/Open screen.
+2. Choose **Load Import Data** and open
+   `7i84u_b_terminal_legend_epson.csv`.
+3. Insert import frames for `Physical_Pin`, `Terminal`, and `Signal`. Make
    `Physical_Pin` largest. Add `HAL_Net` only if the selected tape width remains
    readable. Do not print `Authority_Status` or `Release_Status` as permanent
    machine labels.
-3. **File → Import** (or the database/batch-print button) and pick `7i84u_b_terminal_legend_epson.csv`.
-4. Map the text boxes: Field 1 → `Physical_Pin`, Field 2 → `Terminal`, Field 3 →
+4. Map the frames: Field 1 → `Physical_Pin`, Field 2 → `Terminal`, Field 3 →
    `Signal`, and optional Field 4 → `HAL_Net`.
 5. Filter `Release_Status`. At present there are no `RELEASED` rows; printing
    unfiltered produces draft labels only.
@@ -78,7 +82,7 @@ python3 scripts/generate_label_csvs.py --write
 python3 scripts/generate_label_csvs.py --check
 ```
 
-`scripts/validate_authority.py` also rejects either printer CSV if it no longer
+`scripts/validate_authority.py` also rejects any printer CSV if it no longer
 matches the generated result. Compact human-facing text lives in the generator's
 curated `SIGNAL_LABELS`; assignment, physical pin, HAL net, and status are derived
 from authority.
@@ -88,3 +92,5 @@ The relay-driven load outputs (TB3-OUT3 through OUT7) are still `COMMISSIONING_P
 ## Provenance
 
 Generated from `mesa/current_pin_authority.csv` and cross-checked against `linuxcnc/field_7i84u.hal` HAL net names and the Mesa 7i84U manual TB1 table.
+
+Epson references: [Windows imported-data workflow](https://files.support.epson.com/docid/cpd4/cpd40145/source/label_printers/source/computer/label_editor/tasks/label_editor_importing_data.html) and [Windows software/download compatibility](https://labelworks.epson.com/pages/downloads).

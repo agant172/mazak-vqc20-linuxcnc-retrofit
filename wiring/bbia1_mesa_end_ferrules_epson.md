@@ -1,6 +1,11 @@
-# BBIA-1 Cut-Wire Mesa-End Ferrules — Epson 6 mm Shrink Tube
+# BBIA-1 Cut-Wire Mesa-End Ferrules — Epson Label Editor for Windows
 
 Companion CSV: [`bbia1_mesa_end_ferrules_epson.csv`](bbia1_mesa_end_ferrules_epson.csv).
+
+The generated file uses Windows CRLF records and plain ASCII label text for
+predictable import into Epson Label Editor on Windows. Epson documents CSV as a
+supported import format, and the LW-PX700 is supported by the current Windows
+Label Editor release.
 
 This batch is for the individual conductors exposed when the Honda MR connectors
 are removed from the ends of the machine cables that formerly plugged into the
@@ -51,14 +56,19 @@ land on the appropriate RLY-5 load contact after that contact numbering is
 verified. A separate new 24 V conductor runs from 7i84U-B TB3 physical pin 20
 (`OUT3`) to the RLY-5 coil circuit.
 
-## Epson import
+## Epson Label Editor for Windows import
 
-1. Load 6 mm heat-shrink tube and create a one-field centered template.
-2. Import `bbia1_mesa_end_ferrules_epson.csv`.
-3. Map the only printed field to `Label_Text`.
-4. Filter `Release_Status`. There are currently no `RELEASED` rows; an
-   unfiltered batch is for fit/layout proof only.
-5. Preview the full batch and verify the code remains legible after shrinking.
+1. Load 6 mm heat-shrink tube and start Epson Label Editor.
+2. On **New/Open**, choose **Import (Horizontal Text)**.
+3. Choose **Load Import Data** and open
+   `bbia1_mesa_end_ferrules_epson.csv`.
+4. Insert one import frame and select the `Label_Text` column. Center it and use
+   the largest font that keeps every five-character code visible.
+5. Use the row checkboxes in the Data window to select labels. There are
+   currently no `RELEASED` rows; selecting all rows produces fit/layout proofs,
+   not released termination labels.
+6. Preview the full selected batch and verify the code remains legible after
+   shrinking before printing the production run.
 
 ## Maintaining the batch
 
@@ -75,3 +85,8 @@ python3 scripts/validate_authority.py
 ```
 
 The authority validator rejects stale printer output.
+
+## Epson references
+
+- [Creating labels from imported data in Label Editor](https://files.support.epson.com/docid/cpd4/cpd40145/source/label_printers/source/computer/label_editor/tasks/label_editor_importing_data.html)
+- [Epson LabelWorks Windows software downloads and supported printers](https://labelworks.epson.com/pages/downloads)

@@ -6,6 +6,9 @@ conceptually here for wiring planning.
 
 ## Key references
 
+All Epson batch CSVs in this folder target Epson Label Editor on Windows and
+use Windows CRLF records on checkout.
+
 - Consolidated wiring master: [`Mazak_Wiring_Master_7i80HDT_7i44_7i49_7i84U_Current_Authority.xlsx`](Mazak_Wiring_Master_7i80HDT_7i44_7i49_7i84U_Current_Authority.xlsx)
   — wiring workbook for the 7i80HDT / 7i44 / 7i49 / 7i84U-A / 7i84U-B stack. P3 GPIO is unused/spare; the Renishaw MP-3 probe is on 7i84U-B input-15 (opto-isolated 24 V). Phase 2
   cabinet-sequence, BOM-gap, hydraulic/ATC, and conflict-review tabs are integrated

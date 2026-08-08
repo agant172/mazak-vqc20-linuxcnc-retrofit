@@ -197,13 +197,13 @@ def render(fields: tuple[str, ...], rows: list[dict[str, str]], line_ending: str
 
 def expected_texts() -> dict[Path, str]:
     return {
-        LEGEND_OUT: render(LEGEND_FIELDS, legend_rows(), "\n"),
+        LEGEND_OUT: render(LEGEND_FIELDS, legend_rows(), "\r\n"),
         BBIA_OUT: render(("Wire", "Location", "Signal"), bbia_rows(), "\r\n"),
         MESA_FERRULE_OUT: render((
             "Label_Text", "Wire", "Old_Location", "Signal", "Mesa_Card",
             "Connector", "Logical_Channel", "Physical_Pin", "Authority_ID",
             "Authority_Status", "Crosswalk_Status", "Release_Status"
-        ), mesa_ferrule_rows(), "\n"),
+        ), mesa_ferrule_rows(), "\r\n"),
     }
 
 
@@ -216,7 +216,7 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     mode = parser.add_mutually_exclusive_group(required=True)
     mode.add_argument("--check", action="store_true", help="fail if a generated CSV is stale")
-    mode.add_argument("--write", action="store_true", help="regenerate both printer CSV files")
+    mode.add_argument("--write", action="store_true", help="regenerate all printer CSV files")
     args = parser.parse_args()
     stale: list[str] = []
     for path, expected in expected_texts().items():

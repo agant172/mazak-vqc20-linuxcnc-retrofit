@@ -7,7 +7,9 @@ the planned new Mesa physical landing, use
 [`bbia1_mesa_end_ferrules_epson.csv`](bbia1_mesa_end_ferrules_epson.csv) and its
 [instructions](bbia1_mesa_end_ferrules_epson.md).
 
-Formatted for **Epson Label Editor (Mac)** — the current App Store app, not the deprecated "Label Editor Lite." Also works with Label Editor (Windows) and the mobile app; column semantics are the same.
+Formatted for **Epson Label Editor on Windows**. The generated CSV uses Windows
+CRLF records and plain ASCII label text. Epson documents CSV as a supported
+import format, and its current Windows Label Editor supports the LW-PX700.
 
 ## Workflow this CSV is built for
 
@@ -17,7 +19,7 @@ Formatted for **Epson Label Editor (Mac)** — the current App Store app, not th
 
 ## Printer / tape
 
-- **Printer:** Epson LabelWorks LW-PX700 (USB to Mac)
+- **Printer:** Epson LabelWorks LW-PX700 connected to the Windows computer
 - **Recommended tape for cabinet ferrules:** Epson PX heat-shrink tube (HSTC series), 6 mm or 9 mm depending on conductor gauge
 - Vinyl (non-shrink) is fine for the common rails (0G, +24V, P24) if you'd rather bundle those
 
@@ -29,14 +31,17 @@ Formatted for **Epson Label Editor (Mac)** — the current App Store app, not th
 | **Location** | Connector and pin on the BBIA-1 (e.g. `CN2-15`, `CN6-39`) | Field 2 — medium text | Which board pin this conductor was pulled off of — the key you use against `bbia1_cn_pinouts.md` to decide where it lands on Mesa. |
 | **Signal** | Mnemonic / functional name (e.g. `X-AXIS ZERO RETURN DEC`, `EMG STOP`, `HEAD LUBE PRESSURE`) | Field 3 — small text | Human-readable for troubleshooting. Drop this field on 6 mm tape if it wraps. |
 
-## Import steps (Epson Label Editor for Mac)
+## Import steps (Epson Label Editor for Windows)
 
-1. Open Epson Label Editor and start a new label at the tape width you're loading (6 mm HSTC or 9 mm HSTC).
-2. Insert **three text boxes** on the label, one per column. Size Field 1 largest, Fields 2–3 progressively smaller. Save this as a template (e.g. "Wire Ferrule 6mm HSTC").
-3. **File → Import** (or the database/batch-print button) and pick `bbia1_cn_labels_epson.csv`.
-4. Map each text box to a CSV column: Field 1 → `Wire`, Field 2 → `Location`, Field 3 → `Signal`.
-5. Preview the first 5–10 records. The longest signal name is `4-AXIS UNCLAMP INTERLOCK CANCEL` (CN5-14) — if it wraps or truncates on your chosen tape, either drop Field 3 for that row or abbreviate it in the CSV.
-6. Print. The PX700 will feed one label per CSV row.
+1. Open Epson Label Editor and select **Import (Horizontal Text)** on the
+   New/Open screen.
+2. Choose **Load Import Data** and open `bbia1_cn_labels_epson.csv`.
+3. Insert three import frames and select `Wire`, `Location`, and `Signal`. Make
+   `Wire` largest and save the layout as a reusable template.
+4. Use the row checkboxes in the Data window to select the desired labels.
+5. Preview the full selection. If `4-AXIS UNCLAMP INTERLOCK CANCEL` wraps or
+   truncates, omit `Signal` on narrow tube rather than changing the source CSV.
+6. Print the selected rows.
 
 ## Suggested print order
 
@@ -51,3 +56,5 @@ The rows are grouped by connector (CN1 → CN2 → CN3 → CN4 → CN5 → CN6 �
 ## Provenance
 
 Generated from [`bbia1_cn_pinouts.csv`](bbia1_cn_pinouts.csv) by filtering to rows with a wire number or signal name and reshaping columns for Epson Label Editor's batch-import format.
+
+Epson references: [Windows imported-data workflow](https://files.support.epson.com/docid/cpd4/cpd40145/source/label_printers/source/computer/label_editor/tasks/label_editor_importing_data.html) and [Windows software/download compatibility](https://labelworks.epson.com/pages/downloads).
