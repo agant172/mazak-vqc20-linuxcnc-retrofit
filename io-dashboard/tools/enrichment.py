@@ -11,12 +11,15 @@
 # ---------------------------------------------------------------------------
 STATUS = {
     "PROPOSED": {
-        "label": "Proposed \u2014 from element-list cross-walk",
+        "label": "Proposed \u2014 draft assignment",
         "tone": "reserved",
         "order": 3,
-        "blurb": "Drafted from the YM2V39L element-list cross-walk (2026-07-27). "
-                 "Assignment is a proposal only; verify the device, ladder behavior, "
-                 "and FR-SX/relay terminals before accepting into the wiring plan.",
+        "blurb": "Draft pin assignment not yet accepted into the wiring authority. "
+                 "The 2026-07-27 element-list cross-walk signals have since been located "
+                 "in the OEM diagrams and promoted (2026-08-08); the rows remaining here are "
+                 "HAL-planned field signals (axis over-travel limits, home switches, air-OK, "
+                 "probe SKIP1) plus the E-stop status monitor. Verify the device and terminals "
+                 "before accepting into the wiring plan.",
         "safe_to_energize": "Not accepted. Do not wire.",
     },
     "FIELD_VERIFIED": {
