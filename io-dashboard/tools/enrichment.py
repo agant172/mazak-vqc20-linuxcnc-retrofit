@@ -218,8 +218,8 @@ EXPECTED = {
         "Mesa 7i84U manual pp.7-8/47", "na",
     ),
     "SEVENI84U_VIN_24V": (
-        "24 V", "Logic supply on TB1 pin 5; verify W1 before wiring",
-        "Mesa 7i84U manual pp.2/7-8/47", "na",
+        "24.0 VDC", "Measured TB1 pin 5 to TB1 pin 6; W1 physically RIGHT",
+        "docs/commissioning_logs/mazak_commissioning_records_07-08-2026.json", "na",
     ),
     "SEVENI84U_GND": (
         "0 V", "VIN/VFIELD common on TB1 pins 6/7/8",
@@ -302,7 +302,7 @@ LOCATION = {
     "TAP_COOLANT_BLAST": ("Solenoid valve bank \u2014 SOL-61 via relay RLY-7", "Coolant", "SOL-61 = Air jet on the TB-51 diagram"),
     "SEVENI84U_FIELD_A_24V": ("Field I/O enclosure \u2014 7i84U-A TB1 pins 3/4", "Field power", "VFIELDA for TB3 bank"),
     "SEVENI84U_FIELD_B_24V": ("Field I/O enclosure \u2014 7i84U-A TB1 pins 1/2", "Field power", "VFIELDB for TB2 bank"),
-    "SEVENI84U_VIN_24V": ("Field I/O enclosure \u2014 7i84U-A TB1 pin 5", "Logic power", "Verify W1 position before landing VIN"),
+    "SEVENI84U_VIN_24V": ("Field I/O enclosure \u2014 7i84U-A TB1 pin 5", "Logic power", "W1 RIGHT verified; direct VIN feed from Mean Well +V2"),
     "SEVENI84U_GND": ("Field I/O enclosure \u2014 7i84U-A TB1 pins 6/7/8", "Power common", "VIN/VFIELD common return"),
     "SEVENI84UB_FIELD_A_24V": ("Field I/O enclosure \u2014 7i84U-B TB1 pins 3/4", "Field power", "VFIELDA for TB3 bank"),
     "SEVENI84UB_FIELD_B_24V": ("Field I/O enclosure \u2014 7i84U-B TB1 pins 1/2", "Field power", "VFIELDB for TB2 bank"),

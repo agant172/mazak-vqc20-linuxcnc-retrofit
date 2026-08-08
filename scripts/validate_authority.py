@@ -118,6 +118,14 @@ POWER_LEGEND = {
     "TB1-8": ("FIELD/VIN COMMON 0V", "7i84U-B GND"),
 }
 
+POWER_AUTHORITY_STATES = {
+    "PROPOSED", "COMMISSIONING_PENDING", "TRACED",
+    "ELECTRICALLY_VERIFIED", "HAL_VERIFIED", "COMMISSIONED",
+}
+POWER_EVIDENCE_STATES = {
+    "TRACED", "ELECTRICALLY_VERIFIED", "HAL_VERIFIED", "COMMISSIONED",
+}
+
 # ----------------------------------------------------------------------
 # Regexes for HAL parsing.
 # ----------------------------------------------------------------------
@@ -294,7 +302,6 @@ def check_7i84u_power_map(rows: list[dict]) -> list[Finding]:
                 "pin_channel": pin_channel,
                 "hal_net": "none",
                 "field_point_or_load": field_point,
-                "authority_status": "COMMISSIONING_PENDING",
             }
             for field, expected in expected_fields.items():
                 actual = (row.get(field) or "").strip()
@@ -303,6 +310,20 @@ def check_7i84u_power_map(rows: list[dict]) -> list[Finding]:
                         "ERROR", CSV_PATH.name,
                         f"{signal_id} {field} is '{actual}', expected '{expected}'."
                     ))
+            status = (row.get("authority_status") or "").strip()
+            if status not in POWER_AUTHORITY_STATES:
+                findings.append(Finding(
+                    "ERROR", CSV_PATH.name,
+                    f"{signal_id} authority_status is '{status}', expected one of "
+                    f"{sorted(POWER_AUTHORITY_STATES)}."
+                ))
+            notes = (row.get("cleanup_notes") or "").strip()
+            if status in POWER_EVIDENCE_STATES and "docs/commissioning_logs/" not in notes:
+                findings.append(Finding(
+                    "ERROR", CSV_PATH.name,
+                    f"{signal_id} is {status} but cleanup_notes has no "
+                    "docs/commissioning_logs evidence reference."
+                ))
             source = (row.get("primary_source") or "").strip()
             if "Mesa 7i84U manual" not in source:
                 findings.append(Finding(

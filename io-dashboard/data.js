@@ -6,7 +6,7 @@ window.MAZAK_DATA = {
   "machine": "Mazak VQC-20/40",
   "serial": "060231",
   "architecture": "LinuxCNC + Mesa 7i80HDT (Ethernet FPGA host) + 7i44 on P1 (HostMot2 sserial port 0 channels 0/1 to 7i84U-A/B) + 7i49 on P2 (resolver + analog outs); P3 unused/spare",
-  "generated": "2026-08-08 00:34 UTC",
+  "generated": "2026-08-08 02:38 UTC",
   "source_repo": "mazak-vqc20-linuxcnc-retrofit",
   "authority_file": "mesa/current_pin_authority.csv",
   "epson_ferrule_file": "wiring/bbia1_mesa_end_ferrules_epson.csv",
@@ -9652,17 +9652,17 @@ window.MAZAK_DATA = {
    "direction_label": "Power / common",
    "subsystem": "Power",
    "machine_subsystem": "Logic power",
-   "status": "COMMISSIONING_PENDING",
+   "status": "ELECTRICALLY_VERIFIED",
    "field_point": "Field I/O logic power",
    "designations": [],
    "primary_source": "Mesa 7i84U manual pp.2/7-8/47",
-   "cleanup_notes": "W1 left links VIN internally to VFIELDB; W1 right requires a separate 5-28 VDC VIN supply. Record W1 position and do not double-feed.",
+   "cleanup_notes": "AG verified 08-07-2026: W1 physically RIGHT; direct VIN feed Mean Well +V2 through 5 A branch fuse to TB1-5; return -V4 to TB1-6; 24.0 VDC measured TB1-5 to TB1-6; de-energized continuity 0 ohms. Evidence: docs/commissioning_logs/mazak_commissioning_records_07-08-2026.json",
    "location": "Field I/O enclosure — 7i84U-A TB1 pin 5",
-   "location_note": "Verify W1 position before landing VIN",
+   "location_note": "W1 RIGHT verified; direct VIN feed from Mean Well +V2",
    "expected": {
-    "value": "24 V",
-    "label": "Logic supply on TB1 pin 5; verify W1 before wiring",
-    "basis": "Mesa 7i84U manual pp.2/7-8/47",
+    "value": "24.0 VDC",
+    "label": "Measured TB1 pin 5 to TB1 pin 6; W1 physically RIGHT",
+    "basis": "docs/commissioning_logs/mazak_commissioning_records_07-08-2026.json",
     "kind": "na"
    },
    "hal_state": "absent",
@@ -9682,6 +9682,11 @@ window.MAZAK_DATA = {
      "file": "Mesa 7i84U manual pp.2/7-8/47",
      "lines": "",
      "note": "primary_source column in the authority table"
+    },
+    {
+     "file": "docs/commissioning_logs/mazak_commissioning_records_07-08-2026.json",
+     "lines": "",
+     "note": "Commissioning evidence referenced by the authority row"
     }
    ],
    "conflicts": [],

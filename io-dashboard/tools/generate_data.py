@@ -246,6 +246,13 @@ def build(root):
                 "file": r["primary_source"], "lines": "",
                 "note": "primary_source column in the authority table",
             })
+        for evidence_path in re.findall(
+                r"docs/commissioning_logs/[A-Za-z0-9_.-]+", r["cleanup_notes"]):
+            sources.append({
+                "file": evidence_path,
+                "lines": "",
+                "note": "Commissioning evidence referenced by the authority row",
+            })
         for ferrule in epson_ferrules:
             sources.append({
                 "file": EPSON_FERRULES,

@@ -32,7 +32,13 @@
   function dayMonthYear(value) {
     var text = String(value || '').trim();
     var iso = text.match(/^(\d{4})-(\d{2})-(\d{2})$/);
-    return iso ? iso[3] + '-' + iso[2] + '-' + iso[1] : text;
+    if (iso) return iso[3] + '-' + iso[2] + '-' + iso[1];
+    var dmy = text.match(/^(\d{1,2})-(\d{1,2})-(\d{4})$/);
+    if (!dmy) return text;
+    var day = Number(dmy[1]);
+    var month = Number(dmy[2]);
+    if (day < 1 || day > 31 || month < 1 || month > 12) return text;
+    return String(day).padStart(2, '0') + '-' + String(month).padStart(2, '0') + '-' + dmy[3];
   }
 
   function currentDayMonthYear() {
@@ -363,7 +369,10 @@
     if (sel) sel.value = r.continuity || '';
     box.querySelectorAll('[data-field]').forEach(function (input) {
       input.addEventListener('input', function () { updateField(s.id, input.dataset.field, input.value); });
-      input.addEventListener('change', function () { updateField(s.id, input.dataset.field, input.value); });
+      input.addEventListener('change', function () {
+        if (input.dataset.field === 'verified_date') input.value = dayMonthYear(input.value);
+        updateField(s.id, input.dataset.field, input.value);
+      });
     });
     $('open-authority-detail').addEventListener('click', function () { APP.openDrawer(s.id); });
     $('save-record').addEventListener('click', function () { saveRecords(); APP.toast('Local checkout record saved'); renderList(APP.sortedFiltered()); updateStats(APP.sortedFiltered()); });
