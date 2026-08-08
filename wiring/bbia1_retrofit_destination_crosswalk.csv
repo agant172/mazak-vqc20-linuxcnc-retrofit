@@ -1,0 +1,15 @@
+Old_Location,Authority_ID,Disposition,Crosswalk_Status,Notes
+CN1-14,Z_HOME,MESA_DIRECT_PLANNED,PLANNED_MATCH,*DECZ / Z-axis zero-return name match; prove continuity and normal state
+CN2-4,MAG_BCD_BIT0,MESA_DIRECT_PLANNED,PLANNED_MATCH,Magazine position 1 planned as BCD bit 0; confirm bit order at pot
+CN2-5,MAG_BCD_BIT1,MESA_DIRECT_PLANNED,PLANNED_MATCH,Magazine position 2 planned as BCD bit 1; confirm bit order at pot
+CN2-6,MAG_BCD_BIT2,MESA_DIRECT_PLANNED,PLANNED_MATCH,Magazine position 4 planned as BCD bit 2; confirm bit order at pot
+CN2-7,MAG_BCD_BIT3,MESA_DIRECT_PLANNED,PLANNED_MATCH,Magazine position 8 planned as BCD bit 3; confirm bit order at pot
+CN2-8,MAG_BCD_BIT4,MESA_DIRECT_PLANNED,PLANNED_MATCH,Magazine position 10 notation planned as fifth BCD bit; confirm identity and bit order
+CN2-9,MAG_IN_POS,MESA_DIRECT_PLANNED,PLANNED_MATCH,Magazine position-OK name match; prove continuity and polarity
+CN2-14,Z_LIMIT_PLUS,MESA_DIRECT_PLANNED,PLANNED_MATCH,+LTZ / Z positive overtravel name match; retain hardware overtravel path
+CN2-15,X_HOME,MESA_DIRECT_PLANNED,PLANNED_MATCH,*DECX / X-axis zero-return name match; prove continuity and normal state
+CN2-16,Y_HOME,MESA_DIRECT_PLANNED,PLANNED_MATCH,*DECY / Y-axis zero-return name match; prove continuity and normal state
+CN3-37,Y_LIMIT_PLUS,MESA_DIRECT_PLANNED,PLANNED_MATCH,+LY / Y positive overtravel name match; retain hardware overtravel path
+CN3-38,Z_LIMIT_MINUS,MESA_DIRECT_PLANNED,PLANNED_MATCH,-LZ / Z negative overtravel name match; retain hardware overtravel path
+CN4-1,SPINDLE_ZERO_SPEED,MESA_DIRECT_PLANNED,PLANNED_MATCH,Spindle zero-speed name match; verify FR-SX contact voltage and polarity
+CN6-7,SERVO_READY,MESA_DIRECT_PLANNED,PLANNED_MATCH,Servo-ready name match; confirm this is the retained combined ready contact

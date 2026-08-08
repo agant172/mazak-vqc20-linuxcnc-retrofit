@@ -32,13 +32,18 @@ conceptually here for wiring planning.
 - **BBIA-1 terminal unit ("Honda" MR-series connectors):** [`bbia1_terminal_unit.md`](bbia1_terminal_unit.md) — board role, connector family (HTK MR-50RMW / MR-20RMW), and connector map (CN1–CN6, CN7, CN11, CN12).
 - **BBIA-1 CN1–CN6 & CN11 detailed pinouts:** [`bbia1_cn_pinouts.md`](bbia1_cn_pinouts.md) and [`bbia1_cn_pinouts.csv`](bbia1_cn_pinouts.csv) — per-pin wire number, signal name, function, and inside/outside connector for the connectors being cut and re-labeled for the Mesa retrofit.
 - **Epson LW-PX700 BBIA-1 ferrule batch:** [`bbia1_cn_labels_epson.md`](bbia1_cn_labels_epson.md) and [`bbia1_cn_labels_epson.csv`](bbia1_cn_labels_epson.csv) — 164 label rows (`Wire` / `Location` / `Signal`) for identifying each cut OEM connector end. It intentionally has no new Mesa destination column.
-- **Epson LW-PX700 7i84U-B terminal batch:** [`7i84u_b_terminal_legend_epson.md`](7i84u_b_terminal_legend_epson.md) and [`7i84u_b_terminal_legend_epson.csv`](7i84u_b_terminal_legend_epson.csv) — physical terminal position plus logical channel, signal, HAL reference, authority status, and a print-release hold. Regenerate both printer CSVs with `python3 scripts/generate_label_csvs.py --write`.
+- **Epson 6 mm Mesa-end ferrule batch:** [`bbia1_mesa_end_ferrules_epson.md`](bbia1_mesa_end_ferrules_epson.md) and [`bbia1_mesa_end_ferrules_epson.csv`](bbia1_mesa_end_ferrules_epson.csv) — conservative direct-to-Mesa subset of the cut BBIA conductors. Only `Label_Text` (for example `B3-07`) is printed; all current rows remain `HOLD_SOURCE_TRACE` pending continuity proof.
+- **Epson LW-PX700 7i84U-B terminal batch:** [`7i84u_b_terminal_legend_epson.md`](7i84u_b_terminal_legend_epson.md) and [`7i84u_b_terminal_legend_epson.csv`](7i84u_b_terminal_legend_epson.csv) — physical terminal position plus logical channel, signal, HAL reference, authority status, and a print-release hold. Regenerate all printer CSVs with `python3 scripts/generate_label_csvs.py --write`.
 
 ## Status
 
-**I/O mapping documentation: COMPLETE.** The current wiring assignments and
-cross-references are documented in the authority workbook and
-`../mesa/current_pin_authority.csv`.
+**Logical I/O allocation: documented. Physical BBIA-to-retrofit destination
+crosswalk: incomplete hold.** The authority workbook and
+`../mesa/current_pin_authority.csv` record the planned Mesa functions. The
+initial destination crosswalk contains only 14 conservative direct-input
+matches; all remain `HOLD_SOURCE_TRACE`. Relay-contact, hardware-safety,
+power/common, series-net, ambiguous, retired, and remaining field destinations
+must be traced before their ferrules are generated.
 
 Terminal labels, wire numbers, normal states (NO/NC), and drive/encoder pinouts
 still require cabinet verification before any wiring or bring-up. See the

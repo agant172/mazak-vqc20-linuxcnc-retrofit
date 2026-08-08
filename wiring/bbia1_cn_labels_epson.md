@@ -2,6 +2,11 @@
 
 Companion CSV: [`bbia1_cn_labels_epson.csv`](bbia1_cn_labels_epson.csv) — 164 label rows, one per active pin across CN1, CN2, CN3, CN4, CN5, CN6, and CN11.
 
+This is the OEM trace/reference batch. For short 6 mm ferrules that print only
+the planned new Mesa physical landing, use
+[`bbia1_mesa_end_ferrules_epson.csv`](bbia1_mesa_end_ferrules_epson.csv) and its
+[instructions](bbia1_mesa_end_ferrules_epson.md).
+
 Formatted for **Epson Label Editor (Mac)** — the current App Store app, not the deprecated "Label Editor Lite." Also works with Label Editor (Windows) and the mobile app; column semantics are the same.
 
 ## Workflow this CSV is built for

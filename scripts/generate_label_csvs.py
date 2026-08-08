@@ -12,8 +12,10 @@ SCRIPT_DIR = Path(__file__).resolve().parent
 REPO_ROOT = SCRIPT_DIR.parent
 AUTHORITY = REPO_ROOT / "mesa" / "current_pin_authority.csv"
 BBIA_SOURCE = REPO_ROOT / "wiring" / "bbia1_cn_pinouts.csv"
+DESTINATION_CROSSWALK = REPO_ROOT / "wiring" / "bbia1_retrofit_destination_crosswalk.csv"
 LEGEND_OUT = REPO_ROOT / "wiring" / "7i84u_b_terminal_legend_epson.csv"
 BBIA_OUT = REPO_ROOT / "wiring" / "bbia1_cn_labels_epson.csv"
+MESA_FERRULE_OUT = REPO_ROOT / "wiring" / "bbia1_mesa_end_ferrules_epson.csv"
 
 VERIFIED_STATES = {"TRACED", "ELECTRICALLY_VERIFIED", "HAL_VERIFIED", "COMMISSIONED", "FIELD_VERIFIED"}
 
@@ -138,6 +140,53 @@ def bbia_rows() -> list[dict[str, str]]:
     ]
 
 
+def mesa_ferrule_rows() -> list[dict[str, str]]:
+    """Build the conservative direct-to-Mesa subset of cut BBIA conductors."""
+    authority = {row["signal_id"]: row for row in read_csv(AUTHORITY)}
+    sources = {row["Location"]: row for row in bbia_rows()}
+    rows: list[dict[str, str]] = []
+    seen: set[str] = set()
+    for crosswalk in read_csv(DESTINATION_CROSSWALK):
+        location = crosswalk["Old_Location"]
+        if location in seen:
+            raise ValueError(f"duplicate retrofit destination crosswalk row {location}")
+        seen.add(location)
+        if crosswalk["Disposition"] != "MESA_DIRECT_PLANNED":
+            continue
+        source = sources.get(location)
+        if source is None:
+            raise ValueError(f"retrofit crosswalk source {location} is absent from BBIA pinouts")
+        target = authority.get(crosswalk["Authority_ID"])
+        if target is None:
+            raise ValueError(f"retrofit crosswalk target {crosswalk['Authority_ID']} is absent from authority")
+        if target["mesa_card"] not in {"7i84U-A", "7i84U-B"} or target["direction"] not in {"IN", "OUT"}:
+            raise ValueError(f"retrofit crosswalk target {crosswalk['Authority_ID']} is not direct 7i84U I/O")
+        if target["authority_status"] == "SPARE":
+            raise ValueError(f"retrofit crosswalk target {crosswalk['Authority_ID']} is SPARE")
+        physical = physical_pin(target["connector"], target["pin_channel"])
+        card_short = "A" if target["mesa_card"] == "7i84U-A" else "B"
+        label = card_short + physical[2:]
+        crosswalk_status = crosswalk["Crosswalk_Status"]
+        if crosswalk_status not in {"PLANNED_MATCH", "TRACED"}:
+            raise ValueError(f"unsupported crosswalk status {crosswalk_status} at {location}")
+        final_release = "HOLD_SOURCE_TRACE" if crosswalk_status != "TRACED" else release_status(target["authority_status"])
+        rows.append({
+            "Label_Text": label,
+            "Wire": source["Wire"],
+            "Old_Location": location,
+            "Signal": source["Signal"],
+            "Mesa_Card": target["mesa_card"],
+            "Connector": target["connector"],
+            "Logical_Channel": target["pin_channel"],
+            "Physical_Pin": physical,
+            "Authority_ID": target["signal_id"],
+            "Authority_Status": target["authority_status"],
+            "Crosswalk_Status": crosswalk_status,
+            "Release_Status": final_release,
+        })
+    return rows
+
+
 def render(fields: tuple[str, ...], rows: list[dict[str, str]], line_ending: str) -> str:
     output = io.StringIO(newline="")
     writer = csv.DictWriter(output, fieldnames=fields, lineterminator=line_ending)
@@ -150,6 +199,11 @@ def expected_texts() -> dict[Path, str]:
     return {
         LEGEND_OUT: render(LEGEND_FIELDS, legend_rows(), "\n"),
         BBIA_OUT: render(("Wire", "Location", "Signal"), bbia_rows(), "\r\n"),
+        MESA_FERRULE_OUT: render((
+            "Label_Text", "Wire", "Old_Location", "Signal", "Mesa_Card",
+            "Connector", "Logical_Channel", "Physical_Pin", "Authority_ID",
+            "Authority_Status", "Crosswalk_Status", "Release_Status"
+        ), mesa_ferrule_rows(), "\n"),
     }
 
 
