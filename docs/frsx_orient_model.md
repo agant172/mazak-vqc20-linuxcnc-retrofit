@@ -49,7 +49,7 @@ terminal-block terminal. The corresponding Mazak PLC output on this
 machine is **Y093 ORCM1.M** as documented in the OEM wire-tag survey
 ([`docs/photo_survey_misc.md`](photo_survey_misc.md)) and the
 element/dashboard crosswalk
-([`docs/crosswalk/element_dashboard_crosswalk_summary.md`](crosswalk/element_dashboard_crosswalk_summary.md)).
+([`archive/crosswalk/element_dashboard_crosswalk_summary.md`](../archive/crosswalk/element_dashboard_crosswalk_summary.md)).
 
 ### Target position is set by drive hardware + parameters
 
@@ -134,7 +134,7 @@ References:
 - ATC/orient HAL nets:
   [`linuxcnc/atc_orient.hal`](../linuxcnc/atc_orient.hal)
 - Element / dashboard crosswalk:
-  [`docs/crosswalk/element_dashboard_crosswalk_summary.md`](crosswalk/element_dashboard_crosswalk_summary.md)
+  [`archive/crosswalk/element_dashboard_crosswalk_summary.md`](../archive/crosswalk/element_dashboard_crosswalk_summary.md)
 
 ### Required orient sequence in `mazak_orient.comp`
 
@@ -230,7 +230,7 @@ the component watchdog.
   orient sequence prerequisites and OSL/PLG selection:
   [https://manuals.plus/m/37e41d6934496a6467e1b636303c0cb5337c7a675d8f65aed2fd35711a6cd1db](https://manuals.plus/m/37e41d6934496a6467e1b636303c0cb5337c7a675d8f65aed2fd35711a6cd1db)
 - Repo cross-references (internal): `docs/photo_survey_misc.md`,
-  `docs/crosswalk/element_dashboard_crosswalk_summary.md`,
+  `archive/crosswalk/element_dashboard_crosswalk_summary.md`,
   `linuxcnc/atc_orient.hal`, `linuxcnc/field_7i84u.hal`,
   `linuxcnc/mazak_vqc_20_40.ini` (`[ATC] ORIENT_TIMEOUT`),
   `docs/estop_safety_chain.md`, `docs/dc_bus_stop_fault.md`.
