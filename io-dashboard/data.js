@@ -6,7 +6,7 @@ window.MAZAK_DATA = {
   "machine": "Mazak VQC-20/40",
   "serial": "060231",
   "architecture": "LinuxCNC + Mesa 7i80HDT (Ethernet FPGA host) + 7i44 on P1 (HostMot2 sserial port 0 channels 0/1 to 7i84U-A/B) + 7i49 on P2 (resolver + analog outs); P3 unused/spare",
-  "generated": "2026-08-08 23:31 UTC",
+  "generated": "2026-08-08 23:41 UTC",
   "source_repo": "mazak-vqc20-linuxcnc-retrofit",
   "authority_file": "mesa/current_pin_authority.csv",
   "epson_ferrule_file": "wiring/bbia1_mesa_end_ferrules_epson.csv",
@@ -68,10 +68,10 @@ window.MAZAK_DATA = {
  },
  "statuses": {
   "PROPOSED": {
-   "label": "Proposed — from element-list cross-walk",
+   "label": "Proposed — draft assignment",
    "tone": "reserved",
    "order": 3,
-   "blurb": "Drafted from the YM2V39L element-list cross-walk (2026-07-27). Assignment is a proposal only; verify the device, ladder behavior, and FR-SX/relay terminals before accepting into the wiring plan.",
+   "blurb": "Draft pin assignment not yet accepted into the wiring authority. The 2026-07-27 element-list cross-walk signals have since been located in the OEM diagrams and promoted (2026-08-08); the rows remaining here are HAL-planned field signals (axis over-travel limits, home switches, air-OK, probe SKIP1) plus the E-stop status monitor. Verify the device and terminals before accepting into the wiring plan.",
    "safe_to_energize": "Not accepted. Do not wire."
   },
   "FIELD_VERIFIED": {
