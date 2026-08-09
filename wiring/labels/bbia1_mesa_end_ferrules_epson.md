@@ -27,6 +27,16 @@ The short code is intended to remain readable on 6 mm heat-shrink tube. It does
 not use the logical channel number: for example `B-TB3-17` is physical pin 17,
 which is logical `OUT0` on TB3.
 
+## Bench worksheet
+
+A printable continuity-trace checkout sheet for this batch is generated
+alongside the laminated reference:
+[`bbia1_ferrule_trace_worksheet.html`](bbia1_ferrule_trace_worksheet.html)
+(`python3 scripts/generate_wire_reference_sheet.py`). One row per planned
+ferrule with write-in columns for meter reading, adjacent-pin check,
+initials/date, and ferrule application. Completing a row is the evidence that
+promotes `Crosswalk_Status` from `PLANNED_MATCH` to `TRACED`.
+
 ## Current release state
 
 The initial file contains only conservative, name-matched conductors for which

@@ -30,8 +30,8 @@ jobs:
           python3 scripts/generate_label_csvs.py --write
           git diff --exit-code -- wiring/labels/
 
-      - name: Wire reference sheet is current
+      - name: Printable sheets are current (reference + trace worksheet)
         run: |
           python3 scripts/generate_wire_reference_sheet.py
           # Ignore the volatile date/commit stamp line when comparing.
-          git diff -I 'Generated .* from repo commit' --exit-code -- wiring/labels/bbia1_wire_reference_sheet.html
+          git diff -I 'Generated .* from repo commit' --exit-code -- 'wiring/labels/*.html'
