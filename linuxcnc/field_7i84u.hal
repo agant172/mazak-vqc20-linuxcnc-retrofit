@@ -169,10 +169,10 @@ net flood-coolant      <= iocontrol.0.coolant-flood
 net flood-coolant      => hm2_7i80.0.7i84.0.0.output-11  # OUT11 flood pump relay
 # OUT12 free: mist coolant eliminated 2026-08-09 (no mist system on this machine).
 
-# HOLD_CONFLICT: OUT13/OUT14 magazine rotation direction unproven.
-# See wiring/authority_conflicts.md #3 and mesa/current_pin_authority.csv MAG_CW_SOL / MAG_CCW_SOL rows.
+# OUT13/OUT14 magazine rotation: coil identity RESOLVED 2026-08-09 (pg91 Dwg 4143075332):
+#   MAG_CW_SOL  -> SOL-8B (OUT13),  MAG_CCW_SOL -> SOL-8A (OUT14).
 # atc_orient.hal creates the mag-cw-sol / mag-ccw-sol nets from mazak-atc; keeping them
-# off the physical relays until SOL-8A/SOL-8B mapping is verified under controlled commissioning.
+# off the physical relays until the OBSERVED rotation direction is verified under controlled commissioning.
 # net mag-cw-sol         => hm2_7i80.0.7i84.0.0.output-13  # OUT13 ATC motor fwd relay
 # net mag-ccw-sol        => hm2_7i80.0.7i84.0.0.output-14  # OUT14 ATC motor rev relay
 # OUT15 alarm-out: optional stack light / horn
