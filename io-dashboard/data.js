@@ -6,7 +6,7 @@ window.MAZAK_DATA = {
   "machine": "Mazak VQC-20/40",
   "serial": "060231",
   "architecture": "LinuxCNC + Mesa 7i80HDT (Ethernet FPGA host) + 7i44 on P1 (HostMot2 sserial port 0 channels 0/1 to 7i84U-A/B) + 7i49 on P2 (resolver + analog outs); P3 unused/spare",
-  "generated": "2026-08-09 02:42 UTC",
+  "generated": "2026-08-09 02:54 UTC",
   "source_repo": "mazak-vqc20-linuxcnc-retrofit",
   "authority_file": "mesa/current_pin_authority.csv",
   "epson_ferrule_file": "wiring/bbia1_mesa_end_ferrules_epson.csv",
@@ -2299,7 +2299,7 @@ window.MAZAK_DATA = {
    "setp_refs": [],
    "epson_ferrules": [
     {
-     "label_text": "A3-06",
+     "label_text": "A-TB3-06",
      "wire": "231",
      "old_location": "CN4-1",
      "signal": "SPINDLE ZERO SPEED",
@@ -2341,7 +2341,7 @@ window.MAZAK_DATA = {
     {
      "file": "wiring/bbia1_mesa_end_ferrules_epson.csv",
      "lines": "14",
-     "note": "Epson Mesa-end ferrule A3-06; HOLD_SOURCE_TRACE"
+     "note": "Epson Mesa-end ferrule A-TB3-06; HOLD_SOURCE_TRACE"
     }
    ],
    "conflicts": [],
@@ -3614,7 +3614,7 @@ window.MAZAK_DATA = {
    "setp_refs": [],
    "epson_ferrules": [
     {
-     "label_text": "A2-04",
+     "label_text": "A-TB2-04",
      "wire": "150",
      "old_location": "CN2-4",
      "signal": "MAGAZINE ROT POS 1",
@@ -3651,7 +3651,7 @@ window.MAZAK_DATA = {
     {
      "file": "wiring/bbia1_mesa_end_ferrules_epson.csv",
      "lines": "3",
-     "note": "Epson Mesa-end ferrule A2-04; HOLD_SOURCE_TRACE"
+     "note": "Epson Mesa-end ferrule A-TB2-04; HOLD_SOURCE_TRACE"
     }
    ],
    "conflicts": [],
@@ -3724,7 +3724,7 @@ window.MAZAK_DATA = {
    "setp_refs": [],
    "epson_ferrules": [
     {
-     "label_text": "A2-05",
+     "label_text": "A-TB2-05",
      "wire": "221",
      "old_location": "CN2-5",
      "signal": "MAGAZINE ROT POS 2",
@@ -3761,7 +3761,7 @@ window.MAZAK_DATA = {
     {
      "file": "wiring/bbia1_mesa_end_ferrules_epson.csv",
      "lines": "4",
-     "note": "Epson Mesa-end ferrule A2-05; HOLD_SOURCE_TRACE"
+     "note": "Epson Mesa-end ferrule A-TB2-05; HOLD_SOURCE_TRACE"
     }
    ],
    "conflicts": [],
@@ -3834,7 +3834,7 @@ window.MAZAK_DATA = {
    "setp_refs": [],
    "epson_ferrules": [
     {
-     "label_text": "A2-06",
+     "label_text": "A-TB2-06",
      "wire": "222",
      "old_location": "CN2-6",
      "signal": "MAGAZINE ROT POS 4",
@@ -3871,7 +3871,7 @@ window.MAZAK_DATA = {
     {
      "file": "wiring/bbia1_mesa_end_ferrules_epson.csv",
      "lines": "5",
-     "note": "Epson Mesa-end ferrule A2-06; HOLD_SOURCE_TRACE"
+     "note": "Epson Mesa-end ferrule A-TB2-06; HOLD_SOURCE_TRACE"
     }
    ],
    "conflicts": [],
@@ -3944,7 +3944,7 @@ window.MAZAK_DATA = {
    "setp_refs": [],
    "epson_ferrules": [
     {
-     "label_text": "A2-07",
+     "label_text": "A-TB2-07",
      "wire": "223",
      "old_location": "CN2-7",
      "signal": "MAGAZINE ROT POS 8",
@@ -3981,7 +3981,7 @@ window.MAZAK_DATA = {
     {
      "file": "wiring/bbia1_mesa_end_ferrules_epson.csv",
      "lines": "6",
-     "note": "Epson Mesa-end ferrule A2-07; HOLD_SOURCE_TRACE"
+     "note": "Epson Mesa-end ferrule A-TB2-07; HOLD_SOURCE_TRACE"
     }
    ],
    "conflicts": [],
@@ -4054,7 +4054,7 @@ window.MAZAK_DATA = {
    "setp_refs": [],
    "epson_ferrules": [
     {
-     "label_text": "A2-08",
+     "label_text": "A-TB2-08",
      "wire": "224",
      "old_location": "CN2-8",
      "signal": "MAGAZINE ROT POS 10",
@@ -4091,7 +4091,7 @@ window.MAZAK_DATA = {
     {
      "file": "wiring/bbia1_mesa_end_ferrules_epson.csv",
      "lines": "7",
-     "note": "Epson Mesa-end ferrule A2-08; HOLD_SOURCE_TRACE"
+     "note": "Epson Mesa-end ferrule A-TB2-08; HOLD_SOURCE_TRACE"
     }
    ],
    "conflicts": [],
@@ -4518,7 +4518,7 @@ window.MAZAK_DATA = {
    "setp_refs": [],
    "epson_ferrules": [
     {
-     "label_text": "A2-13",
+     "label_text": "A-TB2-13",
      "wire": "225",
      "old_location": "CN2-9",
      "signal": "MAGAZINE POSITION OK",
@@ -4555,7 +4555,7 @@ window.MAZAK_DATA = {
     {
      "file": "wiring/bbia1_mesa_end_ferrules_epson.csv",
      "lines": "8",
-     "note": "Epson Mesa-end ferrule A2-13; HOLD_SOURCE_TRACE"
+     "note": "Epson Mesa-end ferrule A-TB2-13; HOLD_SOURCE_TRACE"
     }
    ],
    "conflicts": [],
@@ -4795,7 +4795,7 @@ window.MAZAK_DATA = {
    "setp_refs": [],
    "epson_ferrules": [
     {
-     "label_text": "A2-16",
+     "label_text": "A-TB2-16",
      "wire": "SA",
      "old_location": "CN6-7",
      "signal": "SERVO READY",
@@ -4837,7 +4837,7 @@ window.MAZAK_DATA = {
     {
      "file": "wiring/bbia1_mesa_end_ferrules_epson.csv",
      "lines": "15",
-     "note": "Epson Mesa-end ferrule A2-16; HOLD_SOURCE_TRACE"
+     "note": "Epson Mesa-end ferrule A-TB2-16; HOLD_SOURCE_TRACE"
     }
    ],
    "conflicts": [],
@@ -7026,7 +7026,7 @@ window.MAZAK_DATA = {
    "setp_refs": [],
    "epson_ferrules": [
     {
-     "label_text": "B3-03",
+     "label_text": "B-TB3-03",
      "wire": "+LY",
      "old_location": "CN3-37",
      "signal": "+Y OVER TRAVEL",
@@ -7063,7 +7063,7 @@ window.MAZAK_DATA = {
     {
      "file": "wiring/bbia1_mesa_end_ferrules_epson.csv",
      "lines": "12",
-     "note": "Epson Mesa-end ferrule B3-03; HOLD_SOURCE_TRACE"
+     "note": "Epson Mesa-end ferrule B-TB3-03; HOLD_SOURCE_TRACE"
     }
    ],
    "conflicts": [
@@ -7231,7 +7231,7 @@ window.MAZAK_DATA = {
    "setp_refs": [],
    "epson_ferrules": [
     {
-     "label_text": "B3-05",
+     "label_text": "B-TB3-05",
      "wire": "+LTZ",
      "old_location": "CN2-14",
      "signal": "Z-AXIS OVER TRAVEL",
@@ -7268,7 +7268,7 @@ window.MAZAK_DATA = {
     {
      "file": "wiring/bbia1_mesa_end_ferrules_epson.csv",
      "lines": "9",
-     "note": "Epson Mesa-end ferrule B3-05; HOLD_SOURCE_TRACE"
+     "note": "Epson Mesa-end ferrule B-TB3-05; HOLD_SOURCE_TRACE"
     }
    ],
    "conflicts": [
@@ -7343,7 +7343,7 @@ window.MAZAK_DATA = {
    "setp_refs": [],
    "epson_ferrules": [
     {
-     "label_text": "B3-06",
+     "label_text": "B-TB3-06",
      "wire": "-LZ",
      "old_location": "CN3-38",
      "signal": "-Z OVER TRAVEL",
@@ -7380,7 +7380,7 @@ window.MAZAK_DATA = {
     {
      "file": "wiring/bbia1_mesa_end_ferrules_epson.csv",
      "lines": "13",
-     "note": "Epson Mesa-end ferrule B3-06; HOLD_SOURCE_TRACE"
+     "note": "Epson Mesa-end ferrule B-TB3-06; HOLD_SOURCE_TRACE"
     }
    ],
    "conflicts": [
@@ -7455,7 +7455,7 @@ window.MAZAK_DATA = {
    "setp_refs": [],
    "epson_ferrules": [
     {
-     "label_text": "B3-07",
+     "label_text": "B-TB3-07",
      "wire": "*DECX",
      "old_location": "CN2-15",
      "signal": "X-AXIS ZERO RETURN DEC",
@@ -7492,7 +7492,7 @@ window.MAZAK_DATA = {
     {
      "file": "wiring/bbia1_mesa_end_ferrules_epson.csv",
      "lines": "10",
-     "note": "Epson Mesa-end ferrule B3-07; HOLD_SOURCE_TRACE"
+     "note": "Epson Mesa-end ferrule B-TB3-07; HOLD_SOURCE_TRACE"
     }
    ],
    "conflicts": [
@@ -7567,7 +7567,7 @@ window.MAZAK_DATA = {
    "setp_refs": [],
    "epson_ferrules": [
     {
-     "label_text": "B3-08",
+     "label_text": "B-TB3-08",
      "wire": "*DECY",
      "old_location": "CN2-16",
      "signal": "Y-AXIS ZERO RETURN DEC",
@@ -7604,7 +7604,7 @@ window.MAZAK_DATA = {
     {
      "file": "wiring/bbia1_mesa_end_ferrules_epson.csv",
      "lines": "11",
-     "note": "Epson Mesa-end ferrule B3-08; HOLD_SOURCE_TRACE"
+     "note": "Epson Mesa-end ferrule B-TB3-08; HOLD_SOURCE_TRACE"
     }
    ],
    "conflicts": [
@@ -7680,7 +7680,7 @@ window.MAZAK_DATA = {
    "setp_refs": [],
    "epson_ferrules": [
     {
-     "label_text": "B3-09",
+     "label_text": "B-TB3-09",
      "wire": "*DECZ",
      "old_location": "CN1-14",
      "signal": "Z-AXIS ZERO RETURN DEC",
@@ -7717,7 +7717,7 @@ window.MAZAK_DATA = {
     {
      "file": "wiring/bbia1_mesa_end_ferrules_epson.csv",
      "lines": "2",
-     "note": "Epson Mesa-end ferrule B3-09; HOLD_SOURCE_TRACE"
+     "note": "Epson Mesa-end ferrule B-TB3-09; HOLD_SOURCE_TRACE"
     }
    ],
    "conflicts": [
