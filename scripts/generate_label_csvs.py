@@ -165,7 +165,9 @@ def mesa_ferrule_rows() -> list[dict[str, str]]:
             raise ValueError(f"retrofit crosswalk target {crosswalk['Authority_ID']} is SPARE")
         physical = physical_pin(target["connector"], target["pin_channel"])
         card_short = "A" if target["mesa_card"] == "7i84U-A" else "B"
-        label = card_short + physical[2:]
+        # Full connector-id format per e328799: board letter + full connector
+        # + 1-based physical pin, e.g. "A-TB3-06", "B-TB3-09".
+        label = f"{card_short}-{physical}"
         crosswalk_status = crosswalk["Crosswalk_Status"]
         if crosswalk_status not in {"PLANNED_MATCH", "TRACED"}:
             raise ValueError(f"unsupported crosswalk status {crosswalk_status} at {location}")
