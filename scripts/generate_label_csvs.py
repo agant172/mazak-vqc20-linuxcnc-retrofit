@@ -13,9 +13,9 @@ REPO_ROOT = SCRIPT_DIR.parent
 AUTHORITY = REPO_ROOT / "mesa" / "current_pin_authority.csv"
 BBIA_SOURCE = REPO_ROOT / "wiring" / "bbia1_cn_pinouts.csv"
 DESTINATION_CROSSWALK = REPO_ROOT / "wiring" / "bbia1_retrofit_destination_crosswalk.csv"
-LEGEND_OUT = REPO_ROOT / "wiring" / "7i84u_b_terminal_legend_epson.csv"
-BBIA_OUT = REPO_ROOT / "wiring" / "bbia1_cn_labels_epson.csv"
-MESA_FERRULE_OUT = REPO_ROOT / "wiring" / "bbia1_mesa_end_ferrules_epson.csv"
+LEGEND_OUT = REPO_ROOT / "wiring" / "labels" / "7i84u_b_terminal_legend_epson.csv"
+BBIA_OUT = REPO_ROOT / "wiring" / "labels" / "bbia1_cn_labels_epson.csv"
+MESA_FERRULE_OUT = REPO_ROOT / "wiring" / "labels" / "bbia1_mesa_end_ferrules_epson.csv"
 
 VERIFIED_STATES = {"TRACED", "ELECTRICALLY_VERIFIED", "HAL_VERIFIED", "COMMISSIONED", "FIELD_VERIFIED"}
 

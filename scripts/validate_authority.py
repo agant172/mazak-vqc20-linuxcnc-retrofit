@@ -66,7 +66,7 @@ REPO_ROOT = SCRIPT_DIR.parent
 CSV_PATH = REPO_ROOT / "mesa" / "current_pin_authority.csv"
 HAL_DIR = REPO_ROOT / "linuxcnc"
 CAPACITY_DOC = REPO_ROOT / "docs" / "io_capacity_reconciliation.md"
-LEGEND_PATH = REPO_ROOT / "wiring" / "7i84u_b_terminal_legend_epson.csv"
+LEGEND_PATH = REPO_ROOT / "wiring" / "labels" / "7i84u_b_terminal_legend_epson.csv"
 
 POWER_MAP = {
     "7i84U-A": {

@@ -31,7 +31,7 @@ HAL_FILES = [
 ]
 INI_FILE = "linuxcnc/mazak_vqc_20_40.ini"
 AUTHORITY = "mesa/current_pin_authority.csv"
-EPSON_FERRULES = "wiring/bbia1_mesa_end_ferrules_epson.csv"
+EPSON_FERRULES = "wiring/labels/bbia1_mesa_end_ferrules_epson.csv"
 
 NET_RE = re.compile(r"^\s*(#\s*)?net\s+(\S+)\s*(.*)$")
 SETP_RE = re.compile(r"^\s*(#\s*)?setp\s+(\S+)\s+(\S+)")
