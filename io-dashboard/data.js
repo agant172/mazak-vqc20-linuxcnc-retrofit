@@ -6,7 +6,7 @@ window.MAZAK_DATA = {
   "machine": "Mazak VQC-20/40",
   "serial": "060231",
   "architecture": "LinuxCNC + Mesa 7i80HDT (Ethernet FPGA host) + 7i44 on P1 (HostMot2 sserial port 0 channels 0/1 to 7i84U-A/B) + 7i49 on P2 (resolver + analog outs); P3 unused/spare",
-  "generated": "2026-08-08 23:41 UTC",
+  "generated": "2026-08-09 00:35 UTC",
   "source_repo": "mazak-vqc20-linuxcnc-retrofit",
   "authority_file": "mesa/current_pin_authority.csv",
   "epson_ferrule_file": "wiring/bbia1_mesa_end_ferrules_epson.csv",
@@ -3272,9 +3272,7 @@ window.MAZAK_DATA = {
      "note": "primary_source column in the authority table"
     }
    ],
-   "conflicts": [
-    "C4"
-   ],
+   "conflicts": [],
    "authority_line": 41
   },
   {
@@ -3362,9 +3360,7 @@ window.MAZAK_DATA = {
      "note": "primary_source column in the authority table"
     }
    ],
-   "conflicts": [
-    "C4"
-   ],
+   "conflicts": [],
    "authority_line": 42
   },
   {
@@ -5381,9 +5377,7 @@ window.MAZAK_DATA = {
      "note": "primary_source column in the authority table"
     }
    ],
-   "conflicts": [
-    "C4"
-   ],
+   "conflicts": [],
    "authority_line": 64
   },
   {
@@ -5470,9 +5464,7 @@ window.MAZAK_DATA = {
      "note": "primary_source column in the authority table"
     }
    ],
-   "conflicts": [
-    "C4"
-   ],
+   "conflicts": [],
    "authority_line": 65
   },
   {
@@ -9836,9 +9828,9 @@ window.MAZAK_DATA = {
  "conflicts": [
   {
    "id": "C3",
-   "title": "FR-SX command architecture and polarity remain unverified",
-   "severity": "conflict",
-   "summary": "The field wiring has not established whether AOUT3 is an unsigned 0-10 V magnitude with discrete direction or a signed bipolar command. All motion-producing spindle paths are held by the fail-off spindle permit chain.",
+   "title": "FR-SX command architecture resolved; polarity/scaling pending bench",
+   "severity": "unverified",
+   "summary": "RESOLVED (diagram, pg 127 Dwg 4143075403): FR-SX takes an unsigned 0-10 V speed magnitude (SPEED REFERENCE '10V MAX SPEED', SE1/SE2/SE3) plus discrete direction (SPINDLE FORWARD SRN / SPINDLE REVERSE SRI) - it is NOT a signed bipolar command. AOUT3 should carry an absolute-value magnitude, not signed speed-out. PENDING BENCH: exact scaling (10 V = max RPM), 0 V = zero speed, and SRN/SRI polarity/sink-source before clearing the spindle permit.",
    "detail": [
     "AOUT3 currently receives signed spindle.0.speed-out.",
     "7i84U-A OUT0/OUT1/OUT2 carry gated FWD/REV/RUN outputs.",
@@ -9859,36 +9851,10 @@ window.MAZAK_DATA = {
    ]
   },
   {
-   "id": "C4",
-   "title": "Gear low: SOL-12 vs SOL-13 identity, and the gear-confirm prox",
-   "severity": "conflict",
-   "summary": "Three documents disagree about which solenoid is low gear, and three disagree about which prox confirms low gear. GEAR_LO_SOL is held.",
-   "detail": [
-    "Authority: OUT7 gear-hi-sol = SOL-13 (RLY-1), OUT8 gear-lo-sol = SOL-12 (RLY-2) (current_pin_authority.csv:82-83)",
-    "connector_crossref.md:47 reads cabinet wire tag 413 as \"SOL-13 — Gear Shift Low\" and never mentions SOL-12",
-    "io_map_research_notes.md:54-55 reads the TB-51 diagram (pg 100) as SOL-12 = high, SOL-13 = low",
-    "Gear confirm prox: authority says PRS-10 high / PRS-12 low; the alarm table OCR says PRS-10 high (HGPRS) / PRS-2 low (LGPRS); the TB-51 diagram says PRS-9 high / PRS-10 low and calls PRS-12 \"2nd Z over-travel\" (io_map_research_notes.md:78-86)",
-    "authority_conflicts.md:7-15 requires tracing both coil wire tags from RC3A and updating both rows together"
-   ],
-   "action": "Trace both gear coils from the RC3A board, identify the valve ports, measure coil voltage/current, and visually check the original diagram for the confirm prox. Update both solenoid rows and both prox rows in one change.",
-   "signals": [
-    "GEAR_LO_SOL",
-    "GEAR_HI_SOL",
-    "GEAR_LO_CONF",
-    "GEAR_HI_CONF"
-   ],
-   "sources": [
-    "mesa/current_pin_authority.csv:82-83,60-61",
-    "wiring/connector_crossref.md:47",
-    "wiring/io_map_research_notes.md:54-55,78-86",
-    "wiring/authority_conflicts.md:7-15"
-   ]
-  },
-  {
    "id": "C5",
-   "title": "Tool clamp/unclamp valve: SOL-10 claimed by two outputs",
-   "severity": "conflict",
-   "summary": "TB2 OUT9 and OUT10 both land on SOL-10. Valve topology (single-coil vs dual-coil) is unresolved.",
+   "title": "Tool unclamp valve SOL-10 is single-coil; TOOL_CLAMP_SOL is a phantom output",
+   "severity": "unverified",
+   "summary": "RESOLVED (diagram): SOL-10 is a single-coil spring-return TOOL-UNCLAMP valve (pg 100 TB-51 shows 410 -> SOL-10 -> TOOL UNCLAMP; connector_crossref.md:46; hydraulic circuit Dwg 141331AS041 = single, spring-return). There is no separate clamp solenoid - clamp is spring return (de-energize). So TOOL_CLAMP_SOL (OUT9) and TOOL_UNCLAMP_SOL (OUT10) both on SOL-10 is one phantom output too many. PENDING BENCH: confirm single-coil by tracing RLY-3/RLY-4 load sides, then consolidate to one output.",
    "detail": [
     "current_pin_authority.csv:84 TOOL_CLAMP_SOL → OUT9 → RLY-3 → SOL-10",
     "current_pin_authority.csv:85 TOOL_UNCLAMP_SOL → OUT10 → RLY-4 → SOL-10",
@@ -9949,9 +9915,9 @@ window.MAZAK_DATA = {
   },
   {
    "id": "C9",
-   "title": "Magazine rotation direction SOL-8A/8B is unassigned and contradicted",
-   "severity": "conflict",
-   "summary": "The authority has generic ATC_FWD/ATC_REV relay outputs but never binds them to SOL-8A/SOL-8B, and the two sources disagree on which coil is which direction.",
+   "title": "Magazine SOL-8A/8B assignment resolved; physical rotation pending bench",
+   "severity": "unverified",
+   "summary": "RESOLVED (diagram, pg 91 Dwg 4143075332 + connector_crossref.md:44-45): SOL-8A = wire 408A = MAGAZINE CCW (forward); SOL-8B = wire 408B = MAGAZINE CW (reverse). The alarm-table OCR that had them opposite was wrong. Bind ATC_FWD -> SOL-8A, ATC_REV -> SOL-8B. PENDING BENCH: verify actual magazine motion direction under controlled commissioning before promoting.",
    "detail": [
     "connector_crossref.md:44-45 — 408A = SOL-8A Magazine CCW (forward), 408B = SOL-8B Magazine CW (reverse)",
     "io_map_research_notes.md:249-250 (alarm-table OCR) — SOL-8A = Magazine CW, SOL-8B = Magazine CCW (reverse). Directly opposite.",
