@@ -167,11 +167,7 @@ net z-brake-release    => hm2_7i80.0.7i84.0.0.output-06  # OUT6  N1J-L2-201 Z br
 net tool-unclamp-sol   => hm2_7i80.0.7i84.0.0.output-10  # OUT10 RLY-4 to SOL-10
 net flood-coolant      <= iocontrol.0.coolant-flood
 net flood-coolant      => hm2_7i80.0.7i84.0.0.output-11  # OUT11 flood pump relay
-# HOLD_CONFLICT: OUT12 physical load identity unverified.
-# See wiring/authority_conflicts.md and mesa/current_pin_authority.csv MIST_COOLANT row.
-# Do NOT restore this binding until the physical load is traced at the cabinet.
-# net mist-coolant       <= iocontrol.0.coolant-mist
-# net mist-coolant       => hm2_7i80.0.7i84.0.0.output-12  # OUT12 (was lube-on; verify)
+# OUT12 free: mist coolant eliminated 2026-08-09 (no mist system on this machine).
 
 # HOLD_CONFLICT: OUT13/OUT14 magazine rotation direction unproven.
 # See wiring/authority_conflicts.md #3 and mesa/current_pin_authority.csv MAG_CW_SOL / MAG_CCW_SOL rows.
