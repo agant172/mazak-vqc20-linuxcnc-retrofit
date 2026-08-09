@@ -29,6 +29,15 @@ STATUS = {
         "blurb": "Measured in the cabinet and signed off. No rows currently qualify.",
         "safe_to_energize": "Verified per repo records.",
     },
+    "FACTORY_LINK": {
+        "label": "Ready — factory link",
+        "tone": "verified",
+        "order": 0,
+        "blurb": "Mesa 7i44<->7i84U smart-serial bus over a factory-terminated plug-in cable "
+                 "(50-pin IDC ribbon / CAT5). No field conductor to trace, ground, or identify. "
+                 "The link is verified when the sserial bus enumerates the 7i84U at LinuxCNC startup.",
+        "safe_to_energize": "Plug-in cable; comes up with the sserial bus. No field wiring.",
+    },
     "ACCEPTED": {
         "label": "Accepted \u2014 verify continuity",
         "tone": "accepted",
@@ -369,11 +378,13 @@ LOCATION = {
     "SECOND_SSERIAL_CARD": ("Replaced by 7i84U-B on 7i44 channel 1", "Expansion", "No third smart-serial field-I/O card is currently required. The prior single-7i84U plan used: drops (Y091 OTR, X078 MPWS, X02F INHRLS, Y023-Y025 M43-M45T) + series consolidations (HLP+HLP2, THR+ONT, ITMDSS+LS-140/141) + panel moves (FEED_HOLD/SINGLE_BLOCK to touchscreen, panel-power-on to software state, reset-out to TB5 SSR) fit 5 DI + 5 DO of gap load into 6 DI + 6 DO available before the dual-7i84U architecture revision."),
 }
 
-SSERIAL_LOC = ("Control cabinet \u2014 7i80HDT P1 (7i44 channel 0) to 7i84U-A RJ45 (RS-422 smart-serial)", "Field I/O link",
-               "Use the verified 7i44 channel-0 pinout. Shield drain at the 7i80HDT / 7i44 end only.")
-for _k in ("SSERIAL_GND_A", "SSERIAL_GND_B", "SSERIAL_RX_PLUS", "SSERIAL_RX_MINUS",
-           "SSERIAL_TX_PLUS", "SSERIAL_TX_MINUS", "SSERIAL_5V_A", "SSERIAL_5V_B"):
-    LOCATION[_k] = SSERIAL_LOC
+SSERIAL_LOC_A = ("Control cabinet — 7i44 channel 0 (7i80HDT P1) to 7i84U-A CN0/RJ45, plug-in RS-422 smart-serial cable", "Field I/O link",
+                 "Factory-terminated plug-in cable (50-pin IDC ribbon / CAT5) — point-to-point; nothing to trace, ground, or land. Shield drain at the 7i44 end only.")
+SSERIAL_LOC_B = ("Control cabinet — 7i44 channel 1 (7i80HDT P1) to 7i84U-B CN0/RJ45, plug-in RS-422 smart-serial cable", "Field I/O link",
+                 "Factory-terminated plug-in cable (50-pin IDC ribbon / CAT5) — point-to-point; nothing to trace, ground, or land. Shield drain at the 7i44 end only.")
+for _s in ("TXA", "TXB", "RXA", "RXB", "GND", "5V"):
+    LOCATION["SSERIAL_PORT0_%s" % _s] = SSERIAL_LOC_A
+    LOCATION["SSERIAL_PORT1_%s" % _s] = SSERIAL_LOC_B
 
 SPARE_LOC = {
     "TB5_SSR_OUT3_SPARE": ("Control cabinet \u2014 historical TB5 SSR3", "Reallocated",
