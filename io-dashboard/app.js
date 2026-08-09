@@ -430,6 +430,22 @@
       }
       tr.appendChild(cLabel);
 
+      // BBIA-1 CNDx source pin (top row); CNDx pin = CNx pin (straight pass-through)
+      var cBB = td('c-bbsrc', 'BBIA-1 src');
+      var bb = s.bb_source;
+      if (bb && bb.cnd_pin) {
+        var bbWrap = el('span', 'mono-cell strong');
+        bbWrap.textContent = bb.cnd_pin;
+        bbWrap.title = 'wire ' + (bb.wire || '?') + ' \u00b7 bottom ' + (bb.cn_pin || '?') +
+          ' \u00b7 CNDx pin = CNx pin (labeled)';
+        cBB.appendChild(bbWrap);
+      } else if (bb) {
+        cBB.appendChild(el('span', 'mono-cell none', 'label \u2014 fill'));
+      } else {
+        cBB.appendChild(el('span', 'mono-cell none', '\u2014'));
+      }
+      tr.appendChild(cBB);
+
       // hal net
       var c5 = td('c-net', 'HAL net');
       c5.appendChild(el('span', 'mono-cell' + (s.hal_net ? '' : ' none'), s.hal_net || 'no net'));

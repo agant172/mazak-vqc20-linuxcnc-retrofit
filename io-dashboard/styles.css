@@ -399,6 +399,7 @@ html[data-theme="light"] .safety-banner strong { color: var(--red); }
 .c-board  { width: 74px; }
 .c-chan   { width: 168px; }
 .c-label  { width: 112px; }
+.c-bbsrc  { width: 92px; }
 .c-net    { width: 148px; }
 .c-dir    { width: 62px; }
 .c-exp    { width: 132px; }
