@@ -7,9 +7,9 @@ MAG_BCD_BIT1,CND2-5,221,CN2-5,7i84U-A TB2 IN20,BBIA-1 board pinout (trusted over
 MAG_BCD_BIT2,CND2-6,222,CN2-6,7i84U-A TB2 IN21,BBIA-1 board pinout (trusted over pg135)
 MAG_BCD_BIT3,CND2-7,223,CN2-7,7i84U-A TB2 IN22,BBIA-1 board pinout (trusted over pg135)
 MAG_BCD_BIT4,CND2-8,224,CN2-8,7i84U-A TB2 IN23,BBIA-1 board pinout (trusted over pg135)
-MAG_COVER_CLOSE_CONF,CND2-12,219,CN2-12,7i84U-A TB3 IN7,verified wire# -> BBIA-1 pinout (CNDx pin = CNx pin)
-MAG_COVER_OPEN_CONF,CND2-10,218,CN2-10,7i84U-A TB3 IN6,verified wire# -> BBIA-1 pinout (CNDx pin = CNx pin)
-MAG_TOOL_AVAILABLE,CND2-13,381,CN2-13,7i84U-A TB3 IN2,verified wire# -> BBIA-1 pinout (CNDx pin = CNx pin)
+MAG_COVER_CLOSE_CONF,,,,7i84U-A TB3 IN7,UNCONFIRMED: BBIA-1 pinout wire 219/CN2-12 = MAGAZINE FWD/REV SW; cover-close conductor not found - trace
+MAG_COVER_OPEN_CONF,CND2-11,218,CN2-11,7i84U-A TB3 IN6,BBIA-1 pinout: COVER OPEN at CN2-11 (wire 218 also lands CN2-10=POWER OPEN)
+MAG_TOOL_AVAILABLE,,,,7i84U-A TB3 IN2,UNCONFIRMED: wire 381 ambiguous (CN2-13=LUBE TIMER vs CN6-37=MAGAZINE OIL TOOL DETECTOR) - confirm PHS-181 conductor
 MANUAL_TOOL_UNCLAMP_PB,CND2-3,149,CN2-3,7i84U-A TB3 IN9,verified wire# -> BBIA-1 pinout (CNDx pin = CNx pin)
 SPINDLE_ZERO_SPEED,CN4-1,231,CN4-1,7i84U-A TB3 IN5,BBIA-1 board pinout (trusted over pg135)
 TOOL_CLAMP_CONF,CN8-2,209,CN1-2,7i84U-A TB3 IN15,verified wire# -> BBIA-1 pinout (CNDx pin = CNx pin)
