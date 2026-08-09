@@ -19,12 +19,12 @@ new **physical** Mesa terminal:
 
 | Example | Meaning |
 |---|---|
-| `A3-06` | 7i84U-A, TB3, numbered terminal position 6 |
-| `A2-16` | 7i84U-A, TB2, numbered terminal position 16 |
-| `B3-07` | 7i84U-B, TB3, numbered terminal position 7 |
+| `A-TB3-06` | 7i84U-A, TB3, numbered terminal position 6 |
+| `A-TB2-16` | 7i84U-A, TB2, numbered terminal position 16 |
+| `B-TB3-07` | 7i84U-B, TB3, numbered terminal position 7 |
 
 The short code is intended to remain readable on 6 mm heat-shrink tube. It does
-not use the logical channel number: for example `B3-17` is physical pin 17,
+not use the logical channel number: for example `B-TB3-17` is physical pin 17,
 which is logical `OUT0` on TB3.
 
 ## Current release state
