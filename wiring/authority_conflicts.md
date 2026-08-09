@@ -6,7 +6,7 @@ This register reconciles the RC3A connector cross-reference with the current Mes
 
 ## 1. Gear-shift solenoids
 
-**Documentation status: CONSERVATIVELY RECORDED.** Physical coil identity and high/low function remain pending cabinet verification.
+**RESOLVED 2026-08-08 (see CSV GEAR_HI_SOL / GEAR_LO_SOL):** pg100 TB-51 (Dwg 4143075338) confirms wire 412 → SOL-12 → GEAR SHIFT HIGH and wire 413 → SOL-13 → GEAR SHIFT LOW; physical double-check complete. `gear-lo-sol` bound to 7i84U-A OUT8 in HAL 2026-08-09. Coil voltage/current measurement and RLY-1/RLY-2 fitting still required before energizing. Original conservative record kept below for provenance.
 
 - Current authority: `SOL-13` planned high gear on 7i84U TB3 OUT7.
 - Current authority: `SOL-12` planned low gear on 7i84U TB2 OUT8.
@@ -31,7 +31,7 @@ This register reconciles the RC3A connector cross-reference with the current Mes
 
 ## 3. Magazine rotation direction
 
-**Documentation status: CONSERVATIVELY RECORDED.** Physical direction and Mesa output assignment remain pending cabinet verification.
+**COIL IDENTITY RESOLVED 2026-08-09 (see CSV MAG_CW_SOL / MAG_CCW_SOL):** SOL-8B = CW on OUT13, SOL-8A = CCW on OUT14 per pg91 Dwg 4143075332 + connector_crossref (alarm-table OCR was wrong). Both nets bound in HAL 2026-08-09. **Observed rotation direction remains PENDING BENCH verification** — do not land or energize either field wire until verified under controlled commissioning. Original conservative record kept below for provenance.
 
 - New evidence identifies `SOL-8A` as CCW/forward and `SOL-8B` as CW/reverse.
 - The current authority assigns proposed `SOL-8A` / `SOL-8B` identities to

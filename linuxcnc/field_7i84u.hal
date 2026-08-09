@@ -312,12 +312,15 @@ net z-enable-request => z-drive-drop-delay.in
 net z-enable     <= z-drive-drop-delay.out
 net z-enable     => hm2_7i80.0.7i84.0.1.output-02   # Z servo S-ON to MELDAS DK-427
 
-# 100 VAC solenoid outputs via interposing relays. Uncomment as each relay is wired.
-# net air-blast          => hm2_7i80.0.7i84.0.1.output-03  # SOL-62 via RLY-5
-# net touch-sensor-blast => hm2_7i80.0.7i84.0.1.output-04  # SOL-35 via RLY-6
-# net tap-coolant-blast  => hm2_7i80.0.7i84.0.1.output-05  # SOL-61 via RLY-7
+# 100 VAC solenoid outputs via interposing relays. Bound 2026-08-09 as
+# READER-ONLY nets: no HAL writer drives them yet, so each output stays FALSE
+# by construction. Assign a driver (M-code digital-out or comp pin) per net
+# AND fit the interposing relay + suppression before any load can energise.
+net air-blast          => hm2_7i80.0.7i84.0.1.output-03  # SOL-62 via RLY-5
+net touch-sensor-blast => hm2_7i80.0.7i84.0.1.output-04  # SOL-35 via RLY-6
+net tap-coolant-blast  => hm2_7i80.0.7i84.0.1.output-05  # SOL-61 via RLY-7
 # OUT6 atc-barrier: netted in atc_orient.hal (PLC Y095 TCME.M)
-# net flood-valve        => hm2_7i80.0.7i84.0.1.output-07  # PLC Y011 FCL
+net flood-valve        => hm2_7i80.0.7i84.0.1.output-07  # PLC Y011 FCL (SOL-31); driver TBD - candidate: follow flood-coolant net with pump
 
 # OUT8 is the proposed single-coil magazine-cover close command, bound in
 # atc_orient.hal. OUT9-OUT15 remain spare.
