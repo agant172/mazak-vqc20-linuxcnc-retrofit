@@ -88,8 +88,9 @@ net coolant-low        <= hm2_7i80.0.7i84.0.0.input-26   # IN26 coolant level (p
 # docs/pre_power_deliverables.md D4.
 net mag-in-pos         <= hm2_7i80.0.7i84.0.0.input-28   # IN28 MIPRS mag-in-pos prox (PLC X00D)
 net estop-monitor      <= hm2_7i80.0.7i84.0.0.input-29   # IN29 OEM MAR aux via interposing relay
-# IN30 manual-clamp-pb reserved (PROPOSED, not netted until wired):
-# net manual-clamp-pb    <= hm2_7i80.0.7i84.0.0.input-30
+# IN30 RESERVED for the manual tool-clamp foot switch (CSV MANUAL_TOOL_CLAMP_PB,
+# 2026-08-09) - deferred per io_capacity_reconciliation.md; net name was
+# manual-clamp-pb, recorded in CSV cleanup_notes for restoration.
 # IN31 servo-ready netted in atc_orient.hal.
 
 #####################################################################
@@ -160,8 +161,8 @@ setp z-drive-drop-delay.off-delay 0.100  # retain torque while brake engages
 net z-enable-request   => z-brake-delay.in
 net z-brake-release    <= z-brake-delay.out
 net z-brake-release    => hm2_7i80.0.7i84.0.0.output-06  # OUT6  N1J-L2-201 Z brake release
-# OUT7  gear-hi-sol        (netted in atc_orient.hal - Y00B GSH.M / RLY-1 to SOL-13)
-# OUT8  gear-lo-sol        (HOLD_CONFLICT in authority CSV; unbound in atc_orient.hal)
+# OUT7  gear-hi-sol        (netted in atc_orient.hal - Y00B GSH.M / RLY-1 to SOL-12, swap confirmed 2026-08-08)
+# OUT8  gear-lo-sol        (netted in atc_orient.hal 2026-08-09 - Y00C GSL.M / RLY-2 to SOL-13, conflict resolved)
 # OUT9  FREE - C5 2026-08-09: no separate clamp solenoid (SOL-10 single-coil spring-return); TOOL_CLAMP_SOL dropped
 # OUT10 tool-unclamp-sol   (netted below - single writer)
 net tool-unclamp-sol   => hm2_7i80.0.7i84.0.0.output-10  # OUT10 RLY-4 to SOL-10
@@ -171,12 +172,12 @@ net flood-coolant      => hm2_7i80.0.7i84.0.0.output-11  # OUT11 flood pump rela
 
 # OUT13/OUT14 magazine rotation: coil identity RESOLVED 2026-08-09 (pg91 Dwg 4143075332):
 #   MAG_CW_SOL  -> SOL-8B (OUT13),  MAG_CCW_SOL -> SOL-8A (OUT14).
-# atc_orient.hal creates the mag-cw-sol / mag-ccw-sol nets from mazak-atc; keeping them
-# off the physical relays until the OBSERVED rotation direction is verified under controlled commissioning.
-# net mag-cw-sol         => hm2_7i80.0.7i84.0.0.output-13  # OUT13 ATC motor fwd relay
-# net mag-ccw-sol        => hm2_7i80.0.7i84.0.0.output-14  # OUT14 ATC motor rev relay
-# OUT15 alarm-out: optional stack light / horn
-# net alarm-out          => hm2_7i80.0.7i84.0.0.output-15
+# Physical bindings live in atc_orient.hal (bound 2026-08-09) next to the
+# mazak-atc writers. Field wires stay UNLANDED until the observed rotation
+# direction is verified under controlled commissioning - see CSV rows
+# MAG_CW_SOL / MAG_CCW_SOL (PENDING BENCH).
+# OUT15 RESERVED for optional stack light / horn (CSV ALARM_OUT, 2026-08-09) -
+# load unconfirmed; net name was alarm-out, recorded in CSV cleanup_notes.
 
 #####################################################################
 # IOCONTROL loopbacks (active immediately; replace when ATC logic is ready)
