@@ -6,7 +6,7 @@ window.MAZAK_DATA = {
   "machine": "Mazak VQC-20/40",
   "serial": "060231",
   "architecture": "LinuxCNC + Mesa 7i80HDT (Ethernet FPGA host) + 7i44 on P1 (HostMot2 sserial port 0 channels 0/1 to 7i84U-A/B) + 7i49 on P2 (resolver + analog outs); P3 unused/spare",
-  "generated": "2026-08-09 02:37 UTC",
+  "generated": "2026-08-09 02:42 UTC",
   "source_repo": "mazak-vqc20-linuxcnc-retrofit",
   "authority_file": "mesa/current_pin_authority.csv",
   "epson_ferrule_file": "wiring/bbia1_mesa_end_ferrules_epson.csv",
@@ -2243,7 +2243,7 @@ window.MAZAK_DATA = {
    "field_point": "FR-SX zero-speed output (PLC X001 SZS.M)",
    "designations": [],
    "primary_source": "element_list_crosswalk_2026-07-27",
-   "cleanup_notes": "Distinct from IN13 speed-reach; gear shift interlock needs zero-speed | [RECON 2026-08-08 §A: element list confirms X001 SZS.M 'SPINDLE ZERO SPEED' on 060231] | [RECON 2026-08-08 §D: FR-SX ESL1(t3)/ES2(t4) -> CN4-1/CN4-2 (digits verify)] | [LOCATED 2026-08-08: X01 SZS.M wire 143 T.U CN3-4, Dwg 4143075407 pg133]",
+   "cleanup_notes": "Distinct from IN13 speed-reach; gear shift interlock needs zero-speed | [RECON 2026-08-08 §A: element list confirms X001 SZS.M 'SPINDLE ZERO SPEED' on 060231] | [RECON 2026-08-08 §D: FR-SX ESL1(t3)/ES2(t4) -> CN4-1/CN4-2 (digits verify)] | [LOCATED 2026-08-08: X01 SZS.M wire 143 T.U CN3-4, Dwg 4143075407 pg133] | [PINOUT-RECONCILED 2026-08-09: BBIA-1 board = wire 231, CN4-1 (matches the FR-SX CON1->CN4 reading in the D-section; supersedes the pg133 'wire 143 / CN3-4' LOCATED note).]",
    "location": "Unknown — trace in cabinet",
    "location_note": "",
    "expected": {
@@ -3570,7 +3570,7 @@ window.MAZAK_DATA = {
     "PRS-21"
    ],
    "primary_source": "archived_wiring_map",
-   "cleanup_notes": "Decode with bcd2s or custom mux | [RECON 2026-08-08 §F: PRS-21 line 221 confirmed by Dwg 4143075409 (Motion Switch Input 3)]",
+   "cleanup_notes": "Decode with bcd2s or custom mux | [RECON 2026-08-08 §F: PRS-21 line 221 confirmed by Dwg 4143075409 (Motion Switch Input 3)] | [PINOUT-RECONCILED 2026-08-09: BBIA-1 board = MAGAZINE ROT POS 1, wire 150, CN2-4/CND2-4 (trusted over pg135 'wire 221' - that wire is BIT1 on the board).]",
    "location": "Tool magazine — binary tool-code prox",
    "location_note": "PRS-21",
    "expected": {
@@ -3680,7 +3680,7 @@ window.MAZAK_DATA = {
     "PRS-22"
    ],
    "primary_source": "archived_wiring_map",
-   "cleanup_notes": "Decode with bcd2s or custom mux | [RECON 2026-08-08 §F: PRS-22 line 222 confirmed by Dwg 4143075409 (Motion Switch Input 3)]",
+   "cleanup_notes": "Decode with bcd2s or custom mux | [RECON 2026-08-08 §F: PRS-22 line 222 confirmed by Dwg 4143075409 (Motion Switch Input 3)] | [PINOUT-RECONCILED 2026-08-09: BBIA-1 board = MAGAZINE ROT POS 2, wire 221, CN2-5/CND2-5 (trusted over pg135 'wire 222').]",
    "location": "Tool magazine — binary tool-code prox",
    "location_note": "PRS-22",
    "expected": {
@@ -3790,7 +3790,7 @@ window.MAZAK_DATA = {
     "PRS-23"
    ],
    "primary_source": "archived_wiring_map",
-   "cleanup_notes": "Decode with bcd2s or custom mux | [RECON 2026-08-08 §F: PRS-23 line 223 confirmed by Dwg 4143075409 (Motion Switch Input 3)]",
+   "cleanup_notes": "Decode with bcd2s or custom mux | [RECON 2026-08-08 §F: PRS-23 line 223 confirmed by Dwg 4143075409 (Motion Switch Input 3)] | [PINOUT-RECONCILED 2026-08-09: BBIA-1 board = MAGAZINE ROT POS 4, wire 222, CN2-6/CND2-6 (trusted over pg135 'wire 223').]",
    "location": "Tool magazine — binary tool-code prox",
    "location_note": "PRS-23",
    "expected": {
@@ -3900,7 +3900,7 @@ window.MAZAK_DATA = {
     "PRS-24"
    ],
    "primary_source": "archived_wiring_map",
-   "cleanup_notes": "Decode with bcd2s or custom mux | [RECON 2026-08-08 §F: PRS-24 line 224 confirmed by Dwg 4143075409 (Motion Switch Input 3)]",
+   "cleanup_notes": "Decode with bcd2s or custom mux | [RECON 2026-08-08 §F: PRS-24 line 224 confirmed by Dwg 4143075409 (Motion Switch Input 3)] | [PINOUT-RECONCILED 2026-08-09: BBIA-1 board = MAGAZINE ROT POS 8, wire 223, CN2-7/CND2-7 (trusted over pg135 'wire 224').]",
    "location": "Tool magazine — binary tool-code prox",
    "location_note": "PRS-24 (also labelled \"magazine position 8\")",
    "expected": {
@@ -4010,7 +4010,7 @@ window.MAZAK_DATA = {
     "PRS-25"
    ],
    "primary_source": "archived_wiring_map",
-   "cleanup_notes": "Decode with bcd2s or custom mux | [RECON 2026-08-08 §F: PRS-25 line 225 confirmed by Dwg 4143075409 (Motion Switch Input 3)]",
+   "cleanup_notes": "Decode with bcd2s or custom mux | [RECON 2026-08-08 §F: PRS-25 line 225 confirmed by Dwg 4143075409 (Motion Switch Input 3)] | [PINOUT-RECONCILED 2026-08-09: BBIA-1 board = MAGAZINE ROT POS 10, wire 224, CN2-8/CND2-8 (trusted over pg135 'wire 225'). NB: the field PRS-nn labels are pg135 PLC-side identities and may not match the board bit order - physical wire label is final.]",
    "location": "Tool magazine — binary tool-code prox",
    "location_note": "PRS-25 (labelled \"magazine position 10\" — does not fit a clean binary weight; possible OCR misread)",
    "expected": {
@@ -4474,7 +4474,7 @@ window.MAZAK_DATA = {
    "field_point": "Magazine index in-position prox (PLC X00D MIPRS); BCD pot number valid only while TRUE",
    "designations": [],
    "primary_source": "atc_ladder_transcription_2026-07-27",
-   "cleanup_notes": "Mandatory for magazine indexing (rungs 3401/33xx). Writer added in field_7i84u.hal:79 (net mag-in-pos <= input-28) on 2026-08-06. Verify prox type/polarity before commissioning. | [RECON 2026-08-08 CONFIRMED: MAG_IN_POS = PRS-13 MIPRS 'MAGAZINE INPOSITION' wire 213 X0D, Dwg 4143075409 pg135. In-position strobe; tool-# bits are PRS-21..25 (711P/712P/714P/718P/721P). Supersedes prior 'PRS-13=tool bit'.]",
+   "cleanup_notes": "Mandatory for magazine indexing (rungs 3401/33xx). Writer added in field_7i84u.hal:79 (net mag-in-pos <= input-28) on 2026-08-06. Verify prox type/polarity before commissioning. | [RECON 2026-08-08 CONFIRMED: MAG_IN_POS = PRS-13 MIPRS 'MAGAZINE INPOSITION' wire 213 X0D, Dwg 4143075409 pg135. In-position strobe; tool-# bits are PRS-21..25 (711P/712P/714P/718P/721P). Supersedes prior 'PRS-13=tool bit'.] | [PINOUT-RECONCILED 2026-08-09: BBIA-1 board = MAGAZINE POSITION OK, wire 225, CN2-9/CND2-9 (trusted). pg135 read the in-position prox as PRS-13/wire 213, but wire 213 is absent from the BBIA-1 pinout; POSITION OK is 225/CN2-9. PLC-side prox remains PRS-13/X00D.]",
    "location": "Unknown — trace in cabinet",
    "location_note": "",
    "expected": {
