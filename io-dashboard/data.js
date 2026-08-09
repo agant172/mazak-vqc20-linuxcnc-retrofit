@@ -6,7 +6,7 @@ window.MAZAK_DATA = {
   "machine": "Mazak VQC-20/40",
   "serial": "060231",
   "architecture": "LinuxCNC + Mesa 7i80HDT (Ethernet FPGA host) + 7i44 on P1 (HostMot2 sserial port 0 channels 0/1 to 7i84U-A/B) + 7i49 on P2 (resolver + analog outs); P3 unused/spare",
-  "generated": "2026-08-09 02:31 UTC",
+  "generated": "2026-08-09 02:37 UTC",
   "source_repo": "mazak-vqc20-linuxcnc-retrofit",
   "authority_file": "mesa/current_pin_authority.csv",
   "epson_ferrule_file": "wiring/bbia1_mesa_end_ferrules_epson.csv",
@@ -2346,10 +2346,10 @@ window.MAZAK_DATA = {
    ],
    "conflicts": [],
    "bb_source": {
-    "cnd_pin": "CND5-4",
-    "wire": "143",
-    "cn_pin": "CN3-4",
-    "provenance": "verified wire# -> BBIA-1 pinout (CNDx pin = CNx pin)"
+    "cnd_pin": "CN4-1",
+    "wire": "231",
+    "cn_pin": "CN4-1",
+    "provenance": "BBIA-1 board pinout (trusted over pg135)"
    },
    "authority_line": 29
   },
@@ -3656,10 +3656,10 @@ window.MAZAK_DATA = {
    ],
    "conflicts": [],
    "bb_source": {
-    "cnd_pin": "CND2-5",
-    "wire": "221",
-    "cn_pin": "CN2-5",
-    "provenance": "verified wire# -> BBIA-1 pinout (CNDx pin = CNx pin)"
+    "cnd_pin": "CND2-4",
+    "wire": "150",
+    "cn_pin": "CN2-4",
+    "provenance": "BBIA-1 board pinout (trusted over pg135)"
    },
    "authority_line": 43
   },
@@ -3766,10 +3766,10 @@ window.MAZAK_DATA = {
    ],
    "conflicts": [],
    "bb_source": {
-    "cnd_pin": "CND2-6",
-    "wire": "222",
-    "cn_pin": "CN2-6",
-    "provenance": "verified wire# -> BBIA-1 pinout (CNDx pin = CNx pin)"
+    "cnd_pin": "CND2-5",
+    "wire": "221",
+    "cn_pin": "CN2-5",
+    "provenance": "BBIA-1 board pinout (trusted over pg135)"
    },
    "authority_line": 44
   },
@@ -3876,10 +3876,10 @@ window.MAZAK_DATA = {
    ],
    "conflicts": [],
    "bb_source": {
-    "cnd_pin": "CND2-7",
-    "wire": "223",
-    "cn_pin": "CN2-7",
-    "provenance": "verified wire# -> BBIA-1 pinout (CNDx pin = CNx pin)"
+    "cnd_pin": "CND2-6",
+    "wire": "222",
+    "cn_pin": "CN2-6",
+    "provenance": "BBIA-1 board pinout (trusted over pg135)"
    },
    "authority_line": 45
   },
@@ -3986,10 +3986,10 @@ window.MAZAK_DATA = {
    ],
    "conflicts": [],
    "bb_source": {
-    "cnd_pin": "CND2-8",
-    "wire": "224",
-    "cn_pin": "CN2-8",
-    "provenance": "verified wire# -> BBIA-1 pinout (CNDx pin = CNx pin)"
+    "cnd_pin": "CND2-7",
+    "wire": "223",
+    "cn_pin": "CN2-7",
+    "provenance": "BBIA-1 board pinout (trusted over pg135)"
    },
    "authority_line": 46
   },
@@ -4096,10 +4096,10 @@ window.MAZAK_DATA = {
    ],
    "conflicts": [],
    "bb_source": {
-    "cnd_pin": "CND2-9",
-    "wire": "225",
-    "cn_pin": "CN2-9",
-    "provenance": "verified wire# -> BBIA-1 pinout (CNDx pin = CNx pin)"
+    "cnd_pin": "CND2-8",
+    "wire": "224",
+    "cn_pin": "CN2-8",
+    "provenance": "BBIA-1 board pinout (trusted over pg135)"
    },
    "authority_line": 47
   },
@@ -4560,10 +4560,10 @@ window.MAZAK_DATA = {
    ],
    "conflicts": [],
    "bb_source": {
-    "cnd_pin": "",
-    "wire": "",
-    "cn_pin": "",
-    "provenance": "label — to fill"
+    "cnd_pin": "CND2-9",
+    "wire": "225",
+    "cn_pin": "CN2-9",
+    "provenance": "BBIA-1 board pinout (trusted over pg135)"
    },
    "authority_line": 53
   },
