@@ -6,7 +6,7 @@ window.MAZAK_DATA = {
   "machine": "Mazak VQC-20/40",
   "serial": "060231",
   "architecture": "LinuxCNC + Mesa 7i80HDT (Ethernet FPGA host) + 7i44 on P1 (HostMot2 sserial port 0 channels 0/1 to 7i84U-A/B) + 7i49 on P2 (resolver + analog outs); P3 unused/spare",
-  "generated": "2026-08-09 00:35 UTC",
+  "generated": "2026-08-09 00:47 UTC",
   "source_repo": "mazak-vqc20-linuxcnc-retrofit",
   "authority_file": "mesa/current_pin_authority.csv",
   "epson_ferrule_file": "wiring/bbia1_mesa_end_ferrules_epson.csv",
@@ -6416,13 +6416,13 @@ window.MAZAK_DATA = {
    "direction_label": "Input (digital)",
    "subsystem": "Axis safety",
    "machine_subsystem": "Axis overtravel",
-   "status": "PROPOSED",
+   "status": "COMMISSIONING_PENDING",
    "field_point": "X positive overtravel limit (NC)",
    "designations": [
     "OT+X"
    ],
    "primary_source": "field_7i84u.hal",
-   "cleanup_notes": "NC contact consumed through input-00-not; promote to FIELD_VERIFIED after continuity and fail-open test",
+   "cleanup_notes": "NC contact consumed through input-00-not; promote to FIELD_VERIFIED after continuity and fail-open test | [LOCATED 2026-08-09: +X OVER TRAVEL X20 *+LX wire 1-45, Dwg 4143075410 (Motion Switch Input 4) pg136]",
    "location": "X axis way — positive overtravel switch",
    "location_note": "OT+X",
    "expected": {
@@ -6519,13 +6519,13 @@ window.MAZAK_DATA = {
    "direction_label": "Input (digital)",
    "subsystem": "Axis safety",
    "machine_subsystem": "Axis overtravel",
-   "status": "PROPOSED",
+   "status": "COMMISSIONING_PENDING",
    "field_point": "X negative overtravel limit (NC)",
    "designations": [
     "OT-X"
    ],
    "primary_source": "field_7i84u.hal",
-   "cleanup_notes": "NC contact consumed through input-01-not; promote to FIELD_VERIFIED after continuity and fail-open test",
+   "cleanup_notes": "NC contact consumed through input-01-not; promote to FIELD_VERIFIED after continuity and fail-open test | [LOCATED 2026-08-09: -X OVER TRAVEL X21 *-LX wire 1-46, Dwg 4143075410 (Motion Switch Input 4) pg136]",
    "location": "X axis way — negative overtravel switch",
    "location_note": "OT-X",
    "expected": {
@@ -6606,13 +6606,13 @@ window.MAZAK_DATA = {
    "direction_label": "Input (digital)",
    "subsystem": "Axis safety",
    "machine_subsystem": "Axis overtravel",
-   "status": "PROPOSED",
+   "status": "COMMISSIONING_PENDING",
    "field_point": "Y positive overtravel limit (NC)",
    "designations": [
     "OT+Y"
    ],
    "primary_source": "field_7i84u.hal",
-   "cleanup_notes": "NC contact consumed through input-02-not; promote to FIELD_VERIFIED after continuity and fail-open test",
+   "cleanup_notes": "NC contact consumed through input-02-not; promote to FIELD_VERIFIED after continuity and fail-open test | [LOCATED 2026-08-09: +Y OVER TRAVEL X22 *+LY wire 1-47, Dwg 4143075410 (Motion Switch Input 4) pg136]",
    "location": "Y axis way — positive overtravel switch",
    "location_note": "OT+Y",
    "expected": {
@@ -6712,13 +6712,13 @@ window.MAZAK_DATA = {
    "direction_label": "Input (digital)",
    "subsystem": "Axis safety",
    "machine_subsystem": "Axis overtravel",
-   "status": "PROPOSED",
+   "status": "COMMISSIONING_PENDING",
    "field_point": "Y negative overtravel limit (NC)",
    "designations": [
     "OT-Y"
    ],
    "primary_source": "field_7i84u.hal",
-   "cleanup_notes": "NC contact consumed through input-03-not; promote to FIELD_VERIFIED after continuity and fail-open test",
+   "cleanup_notes": "NC contact consumed through input-03-not; promote to FIELD_VERIFIED after continuity and fail-open test | [LOCATED 2026-08-09: -Y OVER TRAVEL X23 *-LY wire 1-48, Dwg 4143075410 (Motion Switch Input 4) pg136]",
    "location": "Y axis way — negative overtravel switch",
    "location_note": "OT-Y",
    "expected": {
@@ -6799,13 +6799,13 @@ window.MAZAK_DATA = {
    "direction_label": "Input (digital)",
    "subsystem": "Axis safety",
    "machine_subsystem": "Axis overtravel",
-   "status": "PROPOSED",
+   "status": "COMMISSIONING_PENDING",
    "field_point": "Z positive overtravel limit (NC)",
    "designations": [
     "OT+Z"
    ],
    "primary_source": "field_7i84u.hal",
-   "cleanup_notes": "NC contact consumed through input-04-not; promote to FIELD_VERIFIED after continuity and fail-open test",
+   "cleanup_notes": "NC contact consumed through input-04-not; promote to FIELD_VERIFIED after continuity and fail-open test | [LOCATED 2026-08-09: +Z OVER TRAVEL X24 *+LZ wire 1-49, Dwg 4143075410 (Motion Switch Input 4) pg136]",
    "location": "Z axis way — positive overtravel switch",
    "location_note": "OT+Z",
    "expected": {
@@ -6905,13 +6905,13 @@ window.MAZAK_DATA = {
    "direction_label": "Input (digital)",
    "subsystem": "Axis safety",
    "machine_subsystem": "Axis overtravel",
-   "status": "PROPOSED",
+   "status": "COMMISSIONING_PENDING",
    "field_point": "Z negative overtravel limit (NC)",
    "designations": [
     "OT-Z"
    ],
    "primary_source": "field_7i84u.hal",
-   "cleanup_notes": "NC contact consumed through input-05-not; promote to FIELD_VERIFIED after continuity and fail-open test",
+   "cleanup_notes": "NC contact consumed through input-05-not; promote to FIELD_VERIFIED after continuity and fail-open test | [LOCATED 2026-08-09: -Z OVER TRAVEL X25 *-LZ wire 1-50, Dwg 4143075410 (Motion Switch Input 4) pg136. Physical LS switch designator not on this sheet - bench-verify]",
    "location": "Z axis way — negative overtravel switch",
    "location_note": "OT-Z",
    "expected": {
@@ -7011,13 +7011,13 @@ window.MAZAK_DATA = {
    "direction_label": "Input (digital)",
    "subsystem": "Axis safety",
    "machine_subsystem": "Axis homing",
-   "status": "PROPOSED",
-   "field_point": "X home switch (LS-42 assumed)",
+   "status": "COMMISSIONING_PENDING",
+   "field_point": "X home switch (LS-42 confirmed)",
    "designations": [
     "LS-42"
    ],
    "primary_source": "field_7i84u.hal",
-   "cleanup_notes": "NO contact; was ACCEPTED_VERIFY - promote to TRACED after physical continuity + fail-open test",
+   "cleanup_notes": "NO contact; was ACCEPTED_VERIFY - promote to TRACED after physical continuity + fail-open test | [LOCATED 2026-08-09: LS-42 X zero-return decel, X28 *DECX wire 1-16 (home reference), Dwg 4143075410 (Motion Switch Input 4) pg136 + pg91]",
    "location": "X axis — zero-return switch",
    "location_note": "LS-42 (axis 1 zero return; which axis still to be cross-referenced)",
    "expected": {
@@ -7117,13 +7117,13 @@ window.MAZAK_DATA = {
    "direction_label": "Input (digital)",
    "subsystem": "Axis safety",
    "machine_subsystem": "Axis homing",
-   "status": "PROPOSED",
-   "field_point": "Y home switch (LS-52 assumed)",
+   "status": "COMMISSIONING_PENDING",
+   "field_point": "Y home switch (LS-52)",
    "designations": [
     "LS-52"
    ],
    "primary_source": "field_7i84u.hal",
-   "cleanup_notes": "NO contact; was ACCEPTED_VERIFY - promote to TRACED after physical continuity + fail-open test",
+   "cleanup_notes": "NO contact; was ACCEPTED_VERIFY - promote to TRACED after physical continuity + fail-open test | [LOCATED 2026-08-09: LS-52 Y zero-return decel, X29 *DECY wire 1-17 (home reference), Dwg 4143075410 (Motion Switch Input 4) pg136; LS digit faded - verify]",
    "location": "Y axis — zero-return switch",
    "location_note": "LS-52 (axis 2 zero return; which axis still to be cross-referenced)",
    "expected": {
@@ -7223,14 +7223,14 @@ window.MAZAK_DATA = {
    "direction_label": "Input (digital)",
    "subsystem": "Axis safety",
    "machine_subsystem": "Axis homing",
-   "status": "PROPOSED",
+   "status": "COMMISSIONING_PENDING",
    "field_point": "Z home switch (LS-62 confirmed TB-51)",
    "designations": [
     "LS-62",
     "TB-51"
    ],
    "primary_source": "field_7i84u.hal",
-   "cleanup_notes": "NO contact; was ACCEPTED_VERIFY - promote to TRACED after physical continuity + fail-open test",
+   "cleanup_notes": "NO contact; was ACCEPTED_VERIFY - promote to TRACED after physical continuity + fail-open test | [LOCATED 2026-08-09: LS-62 Z zero-return decel, X2A *DECZ wire 1-18 (home reference), Dwg 4143075410 (Motion Switch Input 4) pg136 (also pg100 TB-51)]",
    "location": "Z axis — zero-return switch",
    "location_note": "LS-62 — confirmed as Z zero return on the TB-51 diagram (pg 100)",
    "expected": {
