@@ -6,7 +6,7 @@ window.MAZAK_DATA = {
   "machine": "Mazak VQC-20/40",
   "serial": "060231",
   "architecture": "LinuxCNC + Mesa 7i80HDT (Ethernet FPGA host) + 7i44 on P1 (HostMot2 sserial port 0 channels 0/1 to 7i84U-A/B) + 7i49 on P2 (resolver + analog outs); P3 unused/spare",
-  "generated": "2026-08-09 03:20 UTC",
+  "generated": "2026-08-09 03:27 UTC",
   "source_repo": "mazak-vqc20-linuxcnc-retrofit",
   "authority_file": "mesa/current_pin_authority.csv",
   "epson_ferrule_file": "wiring/bbia1_mesa_end_ferrules_epson.csv",
@@ -1176,24 +1176,24 @@ window.MAZAK_DATA = {
     "hm2_7i80.0.pwmgen.03.value"
    ],
    "producers": [
-    "spindle.0.speed-out"
+    "spindle.0.speed-out-abs"
    ],
    "consumers": [],
    "hal_refs": [
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "line": 379,
-     "text": "net spindle-speed-cmd <= spindle.0.speed-out",
+     "line": 391,
+     "text": "net spindle-speed-cmd <= spindle.0.speed-out-abs",
      "commented": false,
      "producers": [
-      "spindle.0.speed-out"
+      "spindle.0.speed-out-abs"
      ],
      "consumers": [],
      "bidir": []
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "line": 380,
+     "line": 392,
      "text": "net spindle-speed-cmd => hm2_7i80.0.pwmgen.03.value",
      "commented": false,
      "producers": [],
@@ -1206,7 +1206,7 @@ window.MAZAK_DATA = {
    "setp_refs": [
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "line": 372,
+     "line": 377,
      "text": "setp hm2_7i80.0.pwmgen.03.output-type 2",
      "commented": false,
      "target": "hm2_7i80.0.pwmgen.03.output-type",
@@ -1214,7 +1214,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "line": 373,
+     "line": 378,
      "text": "setp hm2_7i80.0.pwmgen.03.offset-mode 0",
      "commented": false,
      "target": "hm2_7i80.0.pwmgen.03.offset-mode",
@@ -1222,7 +1222,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "line": 374,
+     "line": 379,
      "text": "setp hm2_7i80.0.pwmgen.03.scale       [SPINDLE_0]OUTPUT_SCALE",
      "commented": false,
      "target": "hm2_7i80.0.pwmgen.03.scale",
@@ -1238,27 +1238,27 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "lines": "379",
-     "note": "net spindle-speed-cmd <= spindle.0.speed-out"
+     "lines": "391",
+     "note": "net spindle-speed-cmd <= spindle.0.speed-out-abs"
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "lines": "380",
+     "lines": "392",
      "note": "net spindle-speed-cmd => hm2_7i80.0.pwmgen.03.value"
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "lines": "372",
+     "lines": "377",
      "note": "setp hm2_7i80.0.pwmgen.03.output-type 2"
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "lines": "373",
+     "lines": "378",
      "note": "setp hm2_7i80.0.pwmgen.03.offset-mode 0"
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "lines": "374",
+     "lines": "379",
      "note": "setp hm2_7i80.0.pwmgen.03.scale       [SPINDLE_0]OUTPUT_SCALE"
     },
     {
@@ -2004,7 +2004,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/atc_orient.hal",
-     "line": 231,
+     "line": 232,
      "text": "net mag-tool-avail      => mazak-atc.mag-tool-avail",
      "commented": false,
      "producers": [],
@@ -2029,7 +2029,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/atc_orient.hal",
-     "lines": "231",
+     "lines": "232",
      "note": "net mag-tool-avail      => mazak-atc.mag-tool-avail"
     },
     {
@@ -2096,7 +2096,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/atc_orient.hal",
-     "line": 232,
+     "line": 233,
      "text": "net spindle-tool-avail  => mazak-atc.spindle-tool-avail",
      "commented": false,
      "producers": [],
@@ -2121,7 +2121,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/atc_orient.hal",
-     "lines": "232",
+     "lines": "233",
      "note": "net spindle-tool-avail  => mazak-atc.spindle-tool-avail"
     },
     {
@@ -2399,7 +2399,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/atc_orient.hal",
-     "line": 227,
+     "line": 228,
      "text": "net mag-cover-open-conf   => mazak-atc.mag-cover-open-conf",
      "commented": false,
      "producers": [],
@@ -2438,7 +2438,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/atc_orient.hal",
-     "lines": "227",
+     "lines": "228",
      "note": "net mag-cover-open-conf   => mazak-atc.mag-cover-open-conf"
     },
     {
@@ -2507,7 +2507,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/atc_orient.hal",
-     "line": 228,
+     "line": 229,
      "text": "net mag-cover-closed-conf => mazak-atc.mag-cover-closed-conf",
      "commented": false,
      "producers": [],
@@ -2532,7 +2532,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/atc_orient.hal",
-     "lines": "228",
+     "lines": "229",
      "note": "net mag-cover-closed-conf => mazak-atc.mag-cover-closed-conf"
     },
     {
@@ -3162,7 +3162,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/atc_orient.hal",
-     "line": 261,
+     "line": 262,
      "text": "net spindle-fault       => atc-safety-abort-or.in1",
      "commented": false,
      "producers": [],
@@ -3202,7 +3202,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/atc_orient.hal",
-     "lines": "261",
+     "lines": "262",
      "note": "net spindle-fault       => atc-safety-abort-or.in1"
     },
     {
@@ -3321,9 +3321,7 @@ window.MAZAK_DATA = {
      "note": "Epson Mesa-end ferrule A-TB3-16; HOLD_SOURCE_TRACE"
     }
    ],
-   "conflicts": [
-    "C5"
-   ],
+   "conflicts": [],
    "bb_source": {
     "cnd_pin": "CN8-2",
     "wire": "209",
@@ -3433,9 +3431,7 @@ window.MAZAK_DATA = {
      "note": "Epson Mesa-end ferrule A-TB2-01; HOLD_SOURCE_TRACE"
     }
    ],
-   "conflicts": [
-    "C5"
-   ],
+   "conflicts": [],
    "bb_source": {
     "cnd_pin": "CN8-1",
     "wire": "208",
@@ -5200,7 +5196,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "line": 383,
+     "line": 395,
      "text": "net spindle-run-output => hm2_7i80.0.pwmgen.03.enable",
      "commented": false,
      "producers": [],
@@ -5235,7 +5231,7 @@ window.MAZAK_DATA = {
    "setp_refs": [
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "line": 372,
+     "line": 377,
      "text": "setp hm2_7i80.0.pwmgen.03.output-type 2",
      "commented": false,
      "target": "hm2_7i80.0.pwmgen.03.output-type",
@@ -5243,7 +5239,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "line": 373,
+     "line": 378,
      "text": "setp hm2_7i80.0.pwmgen.03.offset-mode 0",
      "commented": false,
      "target": "hm2_7i80.0.pwmgen.03.offset-mode",
@@ -5251,7 +5247,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "line": 374,
+     "line": 379,
      "text": "setp hm2_7i80.0.pwmgen.03.scale       [SPINDLE_0]OUTPUT_SCALE",
      "commented": false,
      "target": "hm2_7i80.0.pwmgen.03.scale",
@@ -5267,7 +5263,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "lines": "383",
+     "lines": "395",
      "note": "net spindle-run-output => hm2_7i80.0.pwmgen.03.enable"
     },
     {
@@ -5282,17 +5278,17 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "lines": "372",
+     "lines": "377",
      "note": "setp hm2_7i80.0.pwmgen.03.output-type 2"
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "lines": "373",
+     "lines": "378",
      "note": "setp hm2_7i80.0.pwmgen.03.offset-mode 0"
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "lines": "374",
+     "lines": "379",
      "note": "setp hm2_7i80.0.pwmgen.03.scale       [SPINDLE_0]OUTPUT_SCALE"
     },
     {
@@ -5924,19 +5920,18 @@ window.MAZAK_DATA = {
    "board": "7i84U-A",
    "connector": "TB2",
    "channel": "OUT9",
-   "hal_net": "tool-clamp-sol",
+   "hal_net": "",
    "direction": "OUT",
    "direction_label": "Output (digital)",
    "subsystem": "ATC tool",
    "machine_subsystem": "ATC",
-   "status": "FACTORY_INTERFACE",
-   "field_point": "RLY-3 to SOL-10 Fujikoshi hydraulic valve",
+   "status": "NOT_USED",
+   "field_point": "PHANTOM - no separate clamp solenoid; SOL-10 is single-coil spring-return (clamp = de-energize). OUT9 free.",
    "designations": [
-    "RLY-3",
     "SOL-10"
    ],
    "primary_source": "phase2_plan",
-   "cleanup_notes": "Confirm single valve versus dual coil behavior",
+   "cleanup_notes": "[C5 RESOLVED 2026-08-09: dropped. SOL-10 single-coil spring-return tool-unclamp (pg100 + connector_crossref + Dwg141331AS041); clamp is spring return. OUT9 now free. Confirm single-coil by tracing RLY-3/RLY-4 at cabinet.]",
    "location": "Spindle head — Fujikoshi hydraulic valve SOL-10, via RLY-3",
    "location_note": "connector_crossref.md:46 identifies SOL-10 as tool UNCLAMP. Single- vs dual-coil unresolved.",
    "expected": {
@@ -5945,25 +5940,11 @@ window.MAZAK_DATA = {
     "basis": "No commanding logic in the active HAL for this net; outputs default off.",
     "kind": "default-off"
    },
-   "hal_state": "active",
+   "hal_state": "absent",
    "mesa_pins": [],
-   "producers": [
-    "mazak-atc.tool-clamp-sol"
-   ],
+   "producers": [],
    "consumers": [],
-   "hal_refs": [
-    {
-     "file": "linuxcnc/atc_orient.hal",
-     "line": 222,
-     "text": "net tool-clamp-sol      <= mazak-atc.tool-clamp-sol",
-     "commented": false,
-     "producers": [
-      "mazak-atc.tool-clamp-sol"
-     ],
-     "consumers": [],
-     "bidir": []
-    }
-   ],
+   "hal_refs": [],
    "setp_refs": [],
    "epson_ferrules": [],
    "sources": [
@@ -5973,19 +5954,12 @@ window.MAZAK_DATA = {
      "note": "Current wiring authority row"
     },
     {
-     "file": "linuxcnc/atc_orient.hal",
-     "lines": "222",
-     "note": "net tool-clamp-sol      <= mazak-atc.tool-clamp-sol"
-    },
-    {
      "file": "phase2_plan",
      "lines": "",
      "note": "primary_source column in the authority table"
     }
    ],
-   "conflicts": [
-    "C5"
-   ],
+   "conflicts": [],
    "bb_source": {
     "cnd_pin": "",
     "wire": "",
@@ -6013,7 +5987,7 @@ window.MAZAK_DATA = {
     "TB-505"
    ],
    "primary_source": "phase2_plan",
-   "cleanup_notes": "Evidence supports SOL-10 tool unclamp; verify relay path and whether the valve is single-coil or dual-coil before energizing",
+   "cleanup_notes": "Evidence supports SOL-10 tool unclamp; verify relay path and whether the valve is single-coil or dual-coil before energizing | [C5 2026-08-09: sole tool-clamp/unclamp output. SOL-10 single-coil spring-return - energize=unclamp, de-energize=clamp. TOOL_CLAMP_SOL/OUT9 dropped. Confirm RLY-4 load at cabinet.]",
    "location": "Spindle head — Fujikoshi hydraulic valve SOL-10, via RLY-4",
    "location_note": "Wire tag 410D/410, pg 75 TB505 table + pg 90",
    "expected": {
@@ -6078,9 +6052,7 @@ window.MAZAK_DATA = {
      "note": "primary_source column in the authority table"
     }
    ],
-   "conflicts": [
-    "C5"
-   ],
+   "conflicts": [],
    "bb_source": {
     "cnd_pin": "",
     "wire": "",
@@ -9649,7 +9621,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/atc_orient.hal",
-     "line": 235,
+     "line": 236,
      "text": "net atc-barrier         <= mazak-atc.atc-barrier",
      "commented": false,
      "producers": [
@@ -9674,7 +9646,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/atc_orient.hal",
-     "lines": "235",
+     "lines": "236",
      "note": "net atc-barrier         <= mazak-atc.atc-barrier"
     },
     {
@@ -9809,7 +9781,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/atc_orient.hal",
-     "line": 226,
+     "line": 227,
      "text": "net mag-cover-close     <= mazak-atc.mag-cover-sol",
      "commented": false,
      "producers": [
@@ -9834,7 +9806,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/atc_orient.hal",
-     "lines": "226",
+     "lines": "227",
      "note": "net mag-cover-close     <= mazak-atc.mag-cover-sol"
     },
     {
@@ -10458,30 +10430,6 @@ window.MAZAK_DATA = {
    ]
   },
   {
-   "id": "C5",
-   "title": "Tool unclamp valve SOL-10 is single-coil; TOOL_CLAMP_SOL is a phantom output",
-   "severity": "unverified",
-   "summary": "RESOLVED (diagram): SOL-10 is a single-coil spring-return TOOL-UNCLAMP valve (pg 100 TB-51 shows 410 -> SOL-10 -> TOOL UNCLAMP; connector_crossref.md:46; hydraulic circuit Dwg 141331AS041 = single, spring-return). There is no separate clamp solenoid - clamp is spring return (de-energize). So TOOL_CLAMP_SOL (OUT9) and TOOL_UNCLAMP_SOL (OUT10) both on SOL-10 is one phantom output too many. PENDING BENCH: confirm single-coil by tracing RLY-3/RLY-4 load sides, then consolidate to one output.",
-   "detail": [
-    "current_pin_authority.csv:84 TOOL_CLAMP_SOL → OUT9 → RLY-3 → SOL-10",
-    "current_pin_authority.csv:85 TOOL_UNCLAMP_SOL → OUT10 → RLY-4 → SOL-10",
-    "connector_crossref.md:46 identifies SOL-10 (wire 410D/410) as tool UNCLAMP only",
-    "authority_conflicts.md:19-24 holds the clamp output and leaves unclamp at COMMISSIONING_PENDING"
-   ],
-   "action": "Trace the RLY-3 and RLY-4 load sides to the valve, determine coil count, and verify clamp/unclamp prox behaviour with hydraulic pressure removed.",
-   "signals": [
-    "TOOL_CLAMP_SOL",
-    "TOOL_UNCLAMP_SOL",
-    "TOOL_CLAMP_CONF",
-    "TOOL_UNCLAMP_CONF"
-   ],
-   "sources": [
-    "mesa/current_pin_authority.csv:84-85",
-    "wiring/connector_crossref.md:46",
-    "wiring/authority_conflicts.md:19-24"
-   ]
-  },
-  {
    "id": "C6",
    "title": "All HostMot2 pin names are unverified placeholders",
    "severity": "unverified",
@@ -10545,14 +10493,13 @@ window.MAZAK_DATA = {
    "id": "C10",
    "title": "Coverage gaps: signals documented in research but absent from the authority",
    "severity": "unverified",
-   "summary": "io_map_research_notes.md lists functional areas with no Mesa channel allocated. If any are retained they need channels that the current 32-in/16-out budget may not have.",
+   "summary": "Mostly a retain-or-drop scope decision, not a wiring conflict. Several original gaps are now closed (SOL-31 flood coolant = FLOOD_VALVE; magazine cover-open located; spindle orient arrival exists; head-lube = LUBE_OK; 7i84U-B added). The genuine open items are the 2PC pallet changer and the door interlocks - decide scope before allocating channels.",
    "detail": [
-    "Entire 2PC pallet-changer set: SOL-22A/22B, SOL-24, SOL-25A/25B, SOL-82A/82B, SOL-87A/87B, PRS-98/99, PRS-92/93, RS-96/97, LS-83/84/87/88 (io_map_research_notes.md:106-146)",
-    "Door interlock switches LS-140/LS-141 (io_map_research_notes.md:94-104)",
-    "SOL-31 flood coolant and the CB-4 + CMS overload relay (io_map_research_notes.md:148-170)",
-    "Magazine cover reed switches RS-79 / RS-18, spindle orientation arrival signal, ATC arm position sensors, tool-measure stand switches (io_map_research_notes.md:287-295)",
-    "Two lube systems (head AL-56, way AL-54) share one generic LUBE_ON output (io_map_research_notes.md:293-295)",
-    "7i84U-B on physical channel 1 superseded the prior single-7i84U plan"
+    "OPEN - 2PC pallet-changer set: SOL-22A/22B, SOL-24, SOL-25A/25B, SOL-82A/82B, SOL-87A/87B, PRS-98/99, PRS-92/93, RS-96/97, LS-83/84/87/88 - retain-or-drop decision (io_map_research_notes.md:106-146)",
+    "OPEN - Door interlock switches LS-140/LS-141: decision + 1-2 inputs (io_map_research_notes.md:94-104)",
+    "OPEN - ATC arm position sensors + tool-measure stand switches: unallocated if ATC retained (io_map_research_notes.md:287-295)",
+    "OPEN - way lube (AL-54) is separate from head lube; LUBE_OK covers head only - way lube may need its own channel",
+    "CLOSED since: SOL-31 flood coolant = FLOOD_VALVE; magazine cover-open located (cover-close is a trace target); spindle orientation arrival = SPINDLE_ORIENT_ARRIVAL; 7i84U-B added on channel 1"
    ],
    "action": "The current two-card allocation has 21 DI and 7 DO spare after AIR_OK and cover output. Inventory every pallet-changer device before restoring that scope; do not order a third remote from an estimate.",
    "signals": [

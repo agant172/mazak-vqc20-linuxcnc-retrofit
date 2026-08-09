@@ -442,23 +442,6 @@ CONFLICTS = [
                     "docs/frsx_orient_model.md"],
     },
     {
-        "id": "C5",
-        "title": "Tool unclamp valve SOL-10 is single-coil; TOOL_CLAMP_SOL is a phantom output",
-        "severity": "unverified",
-        "summary": "RESOLVED (diagram): SOL-10 is a single-coil spring-return TOOL-UNCLAMP valve (pg 100 TB-51 shows 410 -> SOL-10 -> TOOL UNCLAMP; connector_crossref.md:46; hydraulic circuit Dwg 141331AS041 = single, spring-return). There is no separate clamp solenoid - clamp is spring return (de-energize). So TOOL_CLAMP_SOL (OUT9) and TOOL_UNCLAMP_SOL (OUT10) both on SOL-10 is one phantom output too many. PENDING BENCH: confirm single-coil by tracing RLY-3/RLY-4 load sides, then consolidate to one output.",
-        "detail": [
-            "current_pin_authority.csv:84 TOOL_CLAMP_SOL \u2192 OUT9 \u2192 RLY-3 \u2192 SOL-10",
-            "current_pin_authority.csv:85 TOOL_UNCLAMP_SOL \u2192 OUT10 \u2192 RLY-4 \u2192 SOL-10",
-            "connector_crossref.md:46 identifies SOL-10 (wire 410D/410) as tool UNCLAMP only",
-            "authority_conflicts.md:19-24 holds the clamp output and leaves unclamp at COMMISSIONING_PENDING",
-        ],
-        "action": "Trace the RLY-3 and RLY-4 load sides to the valve, determine coil count, and verify "
-                  "clamp/unclamp prox behaviour with hydraulic pressure removed.",
-        "signals": ["TOOL_CLAMP_SOL", "TOOL_UNCLAMP_SOL", "TOOL_CLAMP_CONF", "TOOL_UNCLAMP_CONF"],
-        "sources": ["mesa/current_pin_authority.csv:84-85", "wiring/connector_crossref.md:46",
-                    "wiring/authority_conflicts.md:19-24"],
-    },
-    {
         "id": "C6",
         "title": "All HostMot2 pin names are unverified placeholders",
         "severity": "unverified",
@@ -509,18 +492,19 @@ CONFLICTS = [
         "id": "C10",
         "title": "Coverage gaps: signals documented in research but absent from the authority",
         "severity": "unverified",
-        "summary": "io_map_research_notes.md lists functional areas with no Mesa channel allocated. If any "
-                   "are retained they need channels that the current 32-in/16-out budget may not have.",
+        "summary": "Mostly a retain-or-drop scope decision, not a wiring conflict. Several original gaps "
+                   "are now closed (SOL-31 flood coolant = FLOOD_VALVE; magazine cover-open located; spindle "
+                   "orient arrival exists; head-lube = LUBE_OK; 7i84U-B added). The genuine open items are the "
+                   "2PC pallet changer and the door interlocks - decide scope before allocating channels.",
         "detail": [
-            "Entire 2PC pallet-changer set: SOL-22A/22B, SOL-24, SOL-25A/25B, SOL-82A/82B, SOL-87A/87B, "
-            "PRS-98/99, PRS-92/93, RS-96/97, LS-83/84/87/88 (io_map_research_notes.md:106-146)",
-            "Door interlock switches LS-140/LS-141 (io_map_research_notes.md:94-104)",
-            "SOL-31 flood coolant and the CB-4 + CMS overload relay (io_map_research_notes.md:148-170)",
-            "Magazine cover reed switches RS-79 / RS-18, spindle orientation arrival signal, ATC arm "
-            "position sensors, tool-measure stand switches (io_map_research_notes.md:287-295)",
-            "Two lube systems (head AL-56, way AL-54) share one generic LUBE_ON output "
-            "(io_map_research_notes.md:293-295)",
-            "7i84U-B on physical channel 1 superseded the prior single-7i84U plan",
+            "OPEN - 2PC pallet-changer set: SOL-22A/22B, SOL-24, SOL-25A/25B, SOL-82A/82B, SOL-87A/87B, "
+            "PRS-98/99, PRS-92/93, RS-96/97, LS-83/84/87/88 - retain-or-drop decision (io_map_research_notes.md:106-146)",
+            "OPEN - Door interlock switches LS-140/LS-141: decision + 1-2 inputs (io_map_research_notes.md:94-104)",
+            "OPEN - ATC arm position sensors + tool-measure stand switches: unallocated if ATC retained "
+            "(io_map_research_notes.md:287-295)",
+            "OPEN - way lube (AL-54) is separate from head lube; LUBE_OK covers head only - way lube may need its own channel",
+            "CLOSED since: SOL-31 flood coolant = FLOOD_VALVE; magazine cover-open located (cover-close is a "
+            "trace target); spindle orientation arrival = SPINDLE_ORIENT_ARRIVAL; 7i84U-B added on channel 1",
         ],
         "action": "The current two-card allocation has 21 DI and 7 DO spare after AIR_OK and cover output. "
                   "Inventory every pallet-changer device before restoring that scope; do not order a third remote from an estimate.",
