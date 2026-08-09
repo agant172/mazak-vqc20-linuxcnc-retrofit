@@ -217,8 +217,9 @@ net tool-clamped        => mazak-atc.tool-clamped
 net tool-unclamped      => mazak-atc.tool-unclamped
 net manual-unclamp-pb   => mazak-atc.manual-unclamp-pb
 net tool-unclamp-sol    <= mazak-atc.tool-unclamp-sol
-# tool-clamp-sol only exists as a net; the output stays FALSE while
-# mazak-atc.clamp-dual-coil is 0.
+# tool-clamp-sol is PHANTOM (C5 resolved 2026-08-09): SOL-10 is a single-coil
+# spring-return valve (clamp = de-energize), so there is no clamp solenoid.
+# Kept only as a held-FALSE dead-end from mazak-atc; OUT9 is free.
 net tool-clamp-sol      <= mazak-atc.tool-clamp-sol
 
 # Cover. ONE solenoid, energised = closed (ladder sheet 31). The existing

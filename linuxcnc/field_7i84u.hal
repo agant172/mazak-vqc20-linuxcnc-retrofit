@@ -162,7 +162,7 @@ net z-brake-release    <= z-brake-delay.out
 net z-brake-release    => hm2_7i80.0.7i84.0.0.output-06  # OUT6  N1J-L2-201 Z brake release
 # OUT7  gear-hi-sol        (netted in atc_orient.hal - Y00B GSH.M / RLY-1 to SOL-13)
 # OUT8  gear-lo-sol        (HOLD_CONFLICT in authority CSV; unbound in atc_orient.hal)
-# OUT9  tool-clamp-sol     (netted in atc_orient.hal - dual-coil clamp reserved)
+# OUT9  FREE - C5 2026-08-09: no separate clamp solenoid (SOL-10 single-coil spring-return); TOOL_CLAMP_SOL dropped
 # OUT10 tool-unclamp-sol   (netted below - single writer)
 net tool-unclamp-sol   => hm2_7i80.0.7i84.0.0.output-10  # OUT10 RLY-4 to SOL-10
 net flood-coolant      <= iocontrol.0.coolant-flood
