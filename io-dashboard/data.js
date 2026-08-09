@@ -6,7 +6,7 @@ window.MAZAK_DATA = {
   "machine": "Mazak VQC-20/40",
   "serial": "060231",
   "architecture": "LinuxCNC + Mesa 7i80HDT (Ethernet FPGA host) + 7i44 on P1 (HostMot2 sserial port 0 channels 0/1 to 7i84U-A/B) + 7i49 on P2 (resolver + analog outs); P3 unused/spare",
-  "generated": "2026-08-09 01:34 UTC",
+  "generated": "2026-08-09 01:50 UTC",
   "source_repo": "mazak-vqc20-linuxcnc-retrofit",
   "authority_file": "mesa/current_pin_authority.csv",
   "epson_ferrule_file": "wiring/bbia1_mesa_end_ferrules_epson.csv",
@@ -88,6 +88,13 @@ window.MAZAK_DATA = {
    "blurb": "Mesa 7i44<->7i84U smart-serial bus over a factory-terminated plug-in cable (50-pin IDC ribbon / CAT5). No field conductor to trace, ground, or identify. The link is verified when the sserial bus enumerates the 7i84U at LinuxCNC startup.",
    "safe_to_energize": "Plug-in cable; comes up with the sserial bus. No field wiring."
   },
+  "FACTORY_INTERFACE": {
+   "label": "Factory interface — verify at first power",
+   "tone": "pending",
+   "order": 4,
+   "blurb": "Machine side is OEM Mazak harness landing on the BBIA1 terminal unit — no cabinet wire to trace or land; the only wiring is Mesa <-> BBIA1 at the interface. (Board-power rows are the 24 V supply to TB1.) Commissioning is a first-power functional check at the interface — input senses / output actuates / 24 V present — not field tracing.",
+   "safe_to_energize": "Not yet commissioned. Confirm function at first power before relying on it."
+  },
   "ACCEPTED": {
    "label": "Accepted — verify continuity",
    "tone": "accepted",
@@ -127,7 +134,7 @@ window.MAZAK_DATA = {
    "label": "Commissioning pending",
    "tone": "pending",
    "order": 4,
-   "blurb": "Planned assignment awaiting cabinet tracing, polarity confirmation, or load measurement.",
+   "blurb": "Landing is at the interface, not the field. Awaiting a first-power functional check — command polarity vs feedback direction, or load measurement — before the loop is closed or the circuit is energized.",
    "safe_to_energize": "NOT commissioned. Do not energize this circuit."
   },
   "HOLD_CONFLICT": {
@@ -175,7 +182,7 @@ window.MAZAK_DATA = {
    "field_point": "Tamagawa TS2014N X resolver",
    "designations": [],
    "primary_source": "motion_7i80hdt.hal",
-   "cleanup_notes": "Ohmmeter winding pairs and scope return before power",
+   "cleanup_notes": "Ohmmeter winding pairs and scope return before power | [FIRST-POWER 2026-08-09: factory resolver wiring lands at BBIA1/7i49 - no cabinet trace. VERIFY feedback direction/counts before closing the loop - wrong sign runs the axis away.]",
    "location": "X ball screw, non-drive end — Tamagawa TS2014N shaft resolver on flex coupling",
    "location_note": "BKO-NC6062A; via BBIA-1 CNA1 \"TO RESOLVER MACHINE SIDE\"",
    "expected": {
@@ -317,7 +324,7 @@ window.MAZAK_DATA = {
    "field_point": "Tamagawa TS2014N Y resolver",
    "designations": [],
    "primary_source": "motion_7i80hdt.hal",
-   "cleanup_notes": "Ohmmeter winding pairs and scope return before power",
+   "cleanup_notes": "Ohmmeter winding pairs and scope return before power | [FIRST-POWER 2026-08-09: factory resolver wiring lands at BBIA1/7i49 - no cabinet trace. VERIFY feedback direction/counts before closing the loop - wrong sign runs the axis away.]",
    "location": "Y ball screw, non-drive end — Tamagawa TS2014N shaft resolver on flex coupling",
    "location_note": "BKO-NC6062A; via BBIA-1 CNA1",
    "expected": {
@@ -459,7 +466,7 @@ window.MAZAK_DATA = {
    "field_point": "Tamagawa TS2014N Z resolver",
    "designations": [],
    "primary_source": "motion_7i80hdt.hal",
-   "cleanup_notes": "Ohmmeter winding pairs and scope return before power",
+   "cleanup_notes": "Ohmmeter winding pairs and scope return before power | [FIRST-POWER 2026-08-09: factory resolver wiring lands at BBIA1/7i49 - no cabinet trace. VERIFY feedback direction/counts before closing the loop - wrong sign runs the axis away.]",
    "location": "Z ball screw, non-drive end — Tamagawa TS2014N shaft resolver on flex coupling",
    "location_note": "BKO-NC6062A; Z amp cable CA1 / BBIA-1 CN3",
    "expected": {
@@ -785,7 +792,7 @@ window.MAZAK_DATA = {
    "field_point": "X servo analog velocity command to MELDAS TRA",
    "designations": [],
    "primary_source": "motion_7i80hdt.hal",
-   "cleanup_notes": "7i49 pwmgen.00 driven by pid.x.output",
+   "cleanup_notes": "7i49 pwmgen.00 driven by pid.x.output | [FIRST-POWER 2026-08-09: factory command wiring lands at BBIA1/7i49 - no cabinet trace. VERIFY command polarity against resolver feedback direction BEFORE enabling the drive - wrong sign runs the axis away. Confirm analog scaling.]",
    "location": "Servo bay — X servo amp analog command input",
    "location_note": "Verify velocity vs torque input and polarity before enabling",
    "expected": {
@@ -895,7 +902,7 @@ window.MAZAK_DATA = {
    "field_point": "Z servo analog velocity command to MELDAS TRA",
    "designations": [],
    "primary_source": "motion_7i80hdt.hal",
-   "cleanup_notes": "7i49 pwmgen.01 driven by pid.z.output",
+   "cleanup_notes": "7i49 pwmgen.01 driven by pid.z.output | [FIRST-POWER 2026-08-09: factory command wiring lands at BBIA1/7i49 - no cabinet trace. VERIFY command polarity against resolver feedback direction BEFORE enabling the drive - wrong sign runs the axis away. Confirm analog scaling.]",
    "location": "Servo bay — Z servo amp analog command input",
    "location_note": "Verify velocity vs torque input and polarity before enabling",
    "expected": {
@@ -1005,7 +1012,7 @@ window.MAZAK_DATA = {
    "field_point": "Y servo analog velocity command to MELDAS TRA",
    "designations": [],
    "primary_source": "motion_7i80hdt.hal",
-   "cleanup_notes": "7i49 pwmgen.02 driven by pid.y.output",
+   "cleanup_notes": "7i49 pwmgen.02 driven by pid.y.output | [FIRST-POWER 2026-08-09: factory command wiring lands at BBIA1/7i49 - no cabinet trace. VERIFY command polarity against resolver feedback direction BEFORE enabling the drive - wrong sign runs the axis away. Confirm analog scaling.]",
    "location": "Servo bay — Y servo amp analog command input",
    "location_note": "Verify velocity vs torque input and polarity before enabling",
    "expected": {
@@ -1115,7 +1122,7 @@ window.MAZAK_DATA = {
    "field_point": "FR-SX V-IN speed reference",
    "designations": [],
    "primary_source": "motion_7i80hdt.hal",
-   "cleanup_notes": "Confirm 0-10V unipolar vs bipolar; pwmgen.03 offset-mode | [RECON 2026-08-08 §D: FR-SX SE1/SE2/SE3 0-10V speed ref (+10V max speed)]",
+   "cleanup_notes": "Confirm 0-10V unipolar vs bipolar; pwmgen.03 offset-mode | [RECON 2026-08-08 §D: FR-SX SE1/SE2/SE3 0-10V speed ref (+10V max speed)] | [FIRST-POWER 2026-08-09: factory wiring at BBIA1/7i49 - no cabinet trace. Confirm 0-10V unipolar scaling / offset-mode (see C3); direction is separate SRN/SRI, not command sign.]",
    "location": "Spindle/servo bay — FR-SX V-IN speed reference terminal",
    "location_note": "FR-SX drawing 4143075403, PDF pg 127 of 41434WB.pdf",
    "expected": {
@@ -1650,7 +1657,7 @@ window.MAZAK_DATA = {
    "direction_label": "Power / common",
    "subsystem": "Power",
    "machine_subsystem": "Field power",
-   "status": "COMMISSIONING_PENDING",
+   "status": "FACTORY_INTERFACE",
    "field_point": "Field power bank A (TB3 I/O)",
    "designations": [
     "TB-3"
@@ -1698,7 +1705,7 @@ window.MAZAK_DATA = {
    "direction_label": "Power / common",
    "subsystem": "Power",
    "machine_subsystem": "Field power",
-   "status": "COMMISSIONING_PENDING",
+   "status": "FACTORY_INTERFACE",
    "field_point": "Field power bank B (TB2 I/O)",
    "designations": [
     "TB-2"
@@ -1746,7 +1753,7 @@ window.MAZAK_DATA = {
    "direction_label": "Input (digital)",
    "subsystem": "ATC interlock",
    "machine_subsystem": "ATC",
-   "status": "COMMISSIONING_PENDING",
+   "status": "FACTORY_INTERFACE",
    "field_point": "PRS-55 Y ATC zone",
    "designations": [
     "PRS-55"
@@ -1813,7 +1820,7 @@ window.MAZAK_DATA = {
    "direction_label": "Input (digital)",
    "subsystem": "ATC interlock",
    "machine_subsystem": "ATC",
-   "status": "COMMISSIONING_PENDING",
+   "status": "FACTORY_INTERFACE",
    "field_point": "PRS-66 Z ATC zone",
    "designations": [
     "PRS-66"
@@ -1880,7 +1887,7 @@ window.MAZAK_DATA = {
    "direction_label": "Input (digital)",
    "subsystem": "ATC interlock",
    "machine_subsystem": "ATC magazine",
-   "status": "COMMISSIONING_PENDING",
+   "status": "FACTORY_INTERFACE",
    "field_point": "PHS-181 magazine tool available",
    "designations": [
     "PHS-181",
@@ -1966,7 +1973,7 @@ window.MAZAK_DATA = {
    "direction_label": "Input (digital)",
    "subsystem": "ATC interlock",
    "machine_subsystem": "ATC",
-   "status": "COMMISSIONING_PENDING",
+   "status": "FACTORY_INTERFACE",
    "field_point": "PHS-182 spindle tool available",
    "designations": [
     "PHS-182",
@@ -2052,7 +2059,7 @@ window.MAZAK_DATA = {
    "direction_label": "Input (digital)",
    "subsystem": "Spindle",
    "machine_subsystem": "Spindle",
-   "status": "COMMISSIONING_PENDING",
+   "status": "FACTORY_INTERFACE",
    "field_point": "FR-SX orient arrival (PLC X003 ORA1)",
    "designations": [],
    "primary_source": "element_list_crosswalk_2026-07-27",
@@ -2135,7 +2142,7 @@ window.MAZAK_DATA = {
    "direction_label": "Input (digital)",
    "subsystem": "Spindle safety",
    "machine_subsystem": "Spindle safety",
-   "status": "COMMISSIONING_PENDING",
+   "status": "FACTORY_INTERFACE",
    "field_point": "FR-SX zero-speed output (PLC X001 SZS.M)",
    "designations": [],
    "primary_source": "element_list_crosswalk_2026-07-27",
@@ -2254,7 +2261,7 @@ window.MAZAK_DATA = {
    "direction_label": "Input (digital)",
    "subsystem": "Magazine",
    "machine_subsystem": "Magazine",
-   "status": "COMMISSIONING_PENDING",
+   "status": "FACTORY_INTERFACE",
    "field_point": "Magazine cover open reed switch (PLC X052 MGCORS)",
    "designations": [],
    "primary_source": "element_list_crosswalk_2026-07-27",
@@ -2337,7 +2344,7 @@ window.MAZAK_DATA = {
    "direction_label": "Input (digital)",
    "subsystem": "Magazine",
    "machine_subsystem": "Magazine",
-   "status": "COMMISSIONING_PENDING",
+   "status": "FACTORY_INTERFACE",
    "field_point": "Magazine cover close reed switch (PLC X053 MGCCRS)",
    "designations": [],
    "primary_source": "element_list_crosswalk_2026-07-27",
@@ -2420,7 +2427,7 @@ window.MAZAK_DATA = {
    "direction_label": "Input (digital)",
    "subsystem": "Machine safety",
    "machine_subsystem": "Machine safety",
-   "status": "COMMISSIONING_PENDING",
+   "status": "FACTORY_INTERFACE",
    "field_point": "Motor thermal trip + main transformer overheat in series (PLC X073 THR.M + X07B ONT.M)",
    "designations": [],
    "primary_source": "element_list_crosswalk_2026-07-27 + open_issues.md §3 (2026-08-03)",
@@ -2485,7 +2492,7 @@ window.MAZAK_DATA = {
    "direction_label": "Input (digital)",
    "subsystem": "ATC tool",
    "machine_subsystem": "ATC tool",
-   "status": "COMMISSIONING_PENDING",
+   "status": "FACTORY_INTERFACE",
    "field_point": "Manual tool unclamp FOOT switch (PLC X01A TUCFS.M)",
    "designations": [],
    "primary_source": "element_list_crosswalk_2026-07-27",
@@ -2568,7 +2575,7 @@ window.MAZAK_DATA = {
    "direction_label": "Input (digital)",
    "subsystem": "Drive safety",
    "machine_subsystem": "Servo drives",
-   "status": "COMMISSIONING_PENDING",
+   "status": "FACTORY_INTERFACE",
    "field_point": "X drive fault relay",
    "designations": [],
    "primary_source": "archived_wiring_map",
@@ -2651,7 +2658,7 @@ window.MAZAK_DATA = {
    "direction_label": "Input (digital)",
    "subsystem": "Drive safety",
    "machine_subsystem": "Servo drives",
-   "status": "COMMISSIONING_PENDING",
+   "status": "FACTORY_INTERFACE",
    "field_point": "Y drive fault relay",
    "designations": [],
    "primary_source": "archived_wiring_map",
@@ -2734,7 +2741,7 @@ window.MAZAK_DATA = {
    "direction_label": "Input (digital)",
    "subsystem": "Drive safety",
    "machine_subsystem": "Servo drives",
-   "status": "COMMISSIONING_PENDING",
+   "status": "FACTORY_INTERFACE",
    "field_point": "Z drive fault relay",
    "designations": [],
    "primary_source": "archived_wiring_map",
@@ -2900,7 +2907,7 @@ window.MAZAK_DATA = {
    "direction_label": "Input (digital)",
    "subsystem": "Spindle safety",
    "machine_subsystem": "Spindle drive",
-   "status": "COMMISSIONING_PENDING",
+   "status": "FACTORY_INTERFACE",
    "field_point": "FR-SX fault output",
    "designations": [],
    "primary_source": "archived_wiring_map",
@@ -3034,7 +3041,7 @@ window.MAZAK_DATA = {
    "direction_label": "Input (digital)",
    "subsystem": "ATC tool",
    "machine_subsystem": "ATC",
-   "status": "COMMISSIONING_PENDING",
+   "status": "FACTORY_INTERFACE",
    "field_point": "PRS-9 tool clamp confirm",
    "designations": [
     "PRS-9"
@@ -3121,7 +3128,7 @@ window.MAZAK_DATA = {
    "direction_label": "Input (digital)",
    "subsystem": "ATC tool",
    "machine_subsystem": "ATC",
-   "status": "COMMISSIONING_PENDING",
+   "status": "FACTORY_INTERFACE",
    "field_point": "PRS-8 tool unclamp confirm",
    "designations": [
     "PRS-8"
@@ -3208,7 +3215,7 @@ window.MAZAK_DATA = {
    "direction_label": "Input (digital)",
    "subsystem": "Spindle gear",
    "machine_subsystem": "Spindle gearbox",
-   "status": "COMMISSIONING_PENDING",
+   "status": "FACTORY_INTERFACE",
    "field_point": "PRS-10 gear high confirm",
    "designations": [
     "PRS-10"
@@ -3293,7 +3300,7 @@ window.MAZAK_DATA = {
    "direction_label": "Input (digital)",
    "subsystem": "Spindle gear",
    "machine_subsystem": "Spindle gearbox",
-   "status": "COMMISSIONING_PENDING",
+   "status": "FACTORY_INTERFACE",
    "field_point": "PRS-12 gear low confirm",
    "designations": [
     "PRS-12",
@@ -3381,7 +3388,7 @@ window.MAZAK_DATA = {
    "direction_label": "Input (digital)",
    "subsystem": "Magazine",
    "machine_subsystem": "ATC magazine",
-   "status": "COMMISSIONING_PENDING",
+   "status": "FACTORY_INTERFACE",
    "field_point": "PRS-21 magazine BCD bit 0",
    "designations": [
     "PRS-21"
@@ -3485,7 +3492,7 @@ window.MAZAK_DATA = {
    "direction_label": "Input (digital)",
    "subsystem": "Magazine",
    "machine_subsystem": "ATC magazine",
-   "status": "COMMISSIONING_PENDING",
+   "status": "FACTORY_INTERFACE",
    "field_point": "PRS-22 magazine BCD bit 1",
    "designations": [
     "PRS-22"
@@ -3589,7 +3596,7 @@ window.MAZAK_DATA = {
    "direction_label": "Input (digital)",
    "subsystem": "Magazine",
    "machine_subsystem": "ATC magazine",
-   "status": "COMMISSIONING_PENDING",
+   "status": "FACTORY_INTERFACE",
    "field_point": "PRS-23 magazine BCD bit 2",
    "designations": [
     "PRS-23"
@@ -3693,7 +3700,7 @@ window.MAZAK_DATA = {
    "direction_label": "Input (digital)",
    "subsystem": "Magazine",
    "machine_subsystem": "ATC magazine",
-   "status": "COMMISSIONING_PENDING",
+   "status": "FACTORY_INTERFACE",
    "field_point": "PRS-24 magazine BCD bit 3",
    "designations": [
     "PRS-24"
@@ -3797,7 +3804,7 @@ window.MAZAK_DATA = {
    "direction_label": "Input (digital)",
    "subsystem": "Magazine",
    "machine_subsystem": "ATC magazine",
-   "status": "COMMISSIONING_PENDING",
+   "status": "FACTORY_INTERFACE",
    "field_point": "PRS-25 magazine BCD bit 4",
    "designations": [
     "PRS-25"
@@ -3901,7 +3908,7 @@ window.MAZAK_DATA = {
    "direction_label": "Input (digital)",
    "subsystem": "Safety",
    "machine_subsystem": "Safety chain",
-   "status": "COMMISSIONING_PENDING",
+   "status": "FACTORY_INTERFACE",
    "field_point": "Door interlock switches series (LS-141 + LS-140 + PLC X01D ITMDSS.M all in one chain)",
    "designations": [
     "LS-141",
@@ -3973,7 +3980,7 @@ window.MAZAK_DATA = {
    "direction_label": "Input (digital)",
    "subsystem": "Utility",
    "machine_subsystem": "Utility",
-   "status": "COMMISSIONING_PENDING",
+   "status": "FACTORY_INTERFACE",
    "field_point": "Two head-lube pressure switches (PLC X042 HLP2.M + X079 HLP.M) series-wired NC",
    "designations": [],
    "primary_source": "element_list_crosswalk_2026-07-27 + open_issues.md §3 (2026-08-03)",
@@ -4038,7 +4045,7 @@ window.MAZAK_DATA = {
    "direction_label": "Input (digital)",
    "subsystem": "Coolant",
    "machine_subsystem": "Coolant",
-   "status": "COMMISSIONING_PENDING",
+   "status": "FACTORY_INTERFACE",
    "field_point": "Coolant level switch",
    "designations": [],
    "primary_source": "archived_wiring_map",
@@ -4103,7 +4110,7 @@ window.MAZAK_DATA = {
    "direction_label": "Input (digital)",
    "subsystem": "Hydraulic safety",
    "machine_subsystem": "Hydraulics",
-   "status": "COMMISSIONING_PENDING",
+   "status": "FACTORY_INTERFACE",
    "field_point": "Sanwa SPS-8T-PC-20 pressure switch",
    "designations": [],
    "primary_source": "phase2_plan",
@@ -4232,7 +4239,7 @@ window.MAZAK_DATA = {
    "direction_label": "Input (digital)",
    "subsystem": "ATC",
    "machine_subsystem": "ATC",
-   "status": "COMMISSIONING_PENDING",
+   "status": "FACTORY_INTERFACE",
    "field_point": "Magazine index in-position prox (PLC X00D MIPRS); BCD pot number valid only while TRUE",
    "designations": [],
    "primary_source": "atc_ladder_transcription_2026-07-27",
@@ -4419,7 +4426,7 @@ window.MAZAK_DATA = {
    "direction_label": "Input (digital)",
    "subsystem": "ATC tool",
    "machine_subsystem": "ATC tool",
-   "status": "COMMISSIONING_PENDING",
+   "status": "FACTORY_INTERFACE",
    "field_point": "Manual tool clamp FOOT switch (PLC X01B TCFS.M)",
    "designations": [],
    "primary_source": "element_list_crosswalk_2026-07-27 + open_issues.md §3 (2026-08-03)",
@@ -4484,7 +4491,7 @@ window.MAZAK_DATA = {
    "direction_label": "Input (digital)",
    "subsystem": "Drive safety",
    "machine_subsystem": "Servo drives",
-   "status": "COMMISSIONING_PENDING",
+   "status": "FACTORY_INTERFACE",
    "field_point": "Servo drives ready relay contact",
    "designations": [],
    "primary_source": "archived_wiring_map",
@@ -4603,7 +4610,7 @@ window.MAZAK_DATA = {
    "direction_label": "Output (digital)",
    "subsystem": "Spindle",
    "machine_subsystem": "Spindle drive",
-   "status": "COMMISSIONING_PENDING",
+   "status": "FACTORY_INTERFACE",
    "field_point": "FR-SX forward input",
    "designations": [],
    "primary_source": "archived_wiring_map",
@@ -4688,7 +4695,7 @@ window.MAZAK_DATA = {
    "direction_label": "Output (digital)",
    "subsystem": "Spindle",
    "machine_subsystem": "Spindle drive",
-   "status": "COMMISSIONING_PENDING",
+   "status": "FACTORY_INTERFACE",
    "field_point": "FR-SX reverse input",
    "designations": [],
    "primary_source": "archived_wiring_map",
@@ -4773,7 +4780,7 @@ window.MAZAK_DATA = {
    "direction_label": "Output (digital)",
    "subsystem": "Spindle",
    "machine_subsystem": "Spindle",
-   "status": "COMMISSIONING_PENDING",
+   "status": "FACTORY_INTERFACE",
    "field_point": "FR-SX enable input",
    "designations": [],
    "primary_source": "field_7i84u.hal",
@@ -4915,7 +4922,7 @@ window.MAZAK_DATA = {
    "direction_label": "Output (digital)",
    "subsystem": "Hydraulic",
    "machine_subsystem": "Hydraulic",
-   "status": "COMMISSIONING_PENDING",
+   "status": "FACTORY_INTERFACE",
    "field_point": "Hydraulic + head-lube pump contactor (PLC Y096 HYD.M)",
    "designations": [],
    "primary_source": "element_list_crosswalk_2026-07-27",
@@ -4998,7 +5005,7 @@ window.MAZAK_DATA = {
    "direction_label": "Output (digital)",
    "subsystem": "Spindle",
    "machine_subsystem": "Spindle",
-   "status": "COMMISSIONING_PENDING",
+   "status": "FACTORY_INTERFACE",
    "field_point": "FR-SX orient command (PLC Y093 ORCM1.M)",
    "designations": [],
    "primary_source": "element_list_crosswalk_2026-07-27",
@@ -5083,7 +5090,7 @@ window.MAZAK_DATA = {
    "direction_label": "Output (digital)",
    "subsystem": "Spindle",
    "machine_subsystem": "Spindle",
-   "status": "COMMISSIONING_PENDING",
+   "status": "FACTORY_INTERFACE",
    "field_point": "Low-gear orient assist (PLC Y094 CTL.M)",
    "designations": [],
    "primary_source": "element_list_crosswalk_2026-07-27",
@@ -5166,7 +5173,7 @@ window.MAZAK_DATA = {
    "direction_label": "Output (digital)",
    "subsystem": "Motion",
    "machine_subsystem": "Motion",
-   "status": "COMMISSIONING_PENDING",
+   "status": "FACTORY_INTERFACE",
    "field_point": "N1J-L2-201 Z brake release",
    "designations": [],
    "primary_source": "field_7i84u.hal",
@@ -5311,7 +5318,7 @@ window.MAZAK_DATA = {
    "direction_label": "Output (digital)",
    "subsystem": "Spindle gear",
    "machine_subsystem": "Spindle gearbox",
-   "status": "COMMISSIONING_PENDING",
+   "status": "FACTORY_INTERFACE",
    "field_point": "RLY-1 to SOL-12 Fujikoshi hydraulic valve",
    "designations": [
     "RLY-1",
@@ -5398,7 +5405,7 @@ window.MAZAK_DATA = {
    "direction_label": "Output (digital)",
    "subsystem": "Spindle gear",
    "machine_subsystem": "Spindle gearbox",
-   "status": "COMMISSIONING_PENDING",
+   "status": "FACTORY_INTERFACE",
    "field_point": "RLY-2 to SOL-13 Fujikoshi hydraulic valve",
    "designations": [
     "RLY-2",
@@ -5485,7 +5492,7 @@ window.MAZAK_DATA = {
    "direction_label": "Output (digital)",
    "subsystem": "ATC tool",
    "machine_subsystem": "ATC",
-   "status": "COMMISSIONING_PENDING",
+   "status": "FACTORY_INTERFACE",
    "field_point": "RLY-3 to SOL-10 Fujikoshi hydraulic valve",
    "designations": [
     "RLY-3",
@@ -5555,7 +5562,7 @@ window.MAZAK_DATA = {
    "direction_label": "Output (digital)",
    "subsystem": "ATC tool",
    "machine_subsystem": "ATC",
-   "status": "COMMISSIONING_PENDING",
+   "status": "FACTORY_INTERFACE",
    "field_point": "RLY-4 to SOL-10 Fujikoshi hydraulic valve",
    "designations": [
     "RLY-4",
@@ -5644,7 +5651,7 @@ window.MAZAK_DATA = {
    "direction_label": "Output (digital)",
    "subsystem": "Coolant",
    "machine_subsystem": "Coolant",
-   "status": "COMMISSIONING_PENDING",
+   "status": "FACTORY_INTERFACE",
    "field_point": "Coolant pump relay",
    "designations": [
     "SOL-31",
@@ -6327,7 +6334,7 @@ window.MAZAK_DATA = {
    "direction_label": "Power / common",
    "subsystem": "Power",
    "machine_subsystem": "Field power",
-   "status": "COMMISSIONING_PENDING",
+   "status": "FACTORY_INTERFACE",
    "field_point": "Field power bank A (TB3 I/O)",
    "designations": [
     "TB-3"
@@ -6375,7 +6382,7 @@ window.MAZAK_DATA = {
    "direction_label": "Power / common",
    "subsystem": "Power",
    "machine_subsystem": "Field power",
-   "status": "COMMISSIONING_PENDING",
+   "status": "FACTORY_INTERFACE",
    "field_point": "Field power bank B (TB2 I/O)",
    "designations": [
     "TB-2"
@@ -6423,7 +6430,7 @@ window.MAZAK_DATA = {
    "direction_label": "Input (digital)",
    "subsystem": "Axis safety",
    "machine_subsystem": "Axis overtravel",
-   "status": "COMMISSIONING_PENDING",
+   "status": "FACTORY_INTERFACE",
    "field_point": "X positive overtravel limit (NC)",
    "designations": [
     "OT+X"
@@ -6526,7 +6533,7 @@ window.MAZAK_DATA = {
    "direction_label": "Input (digital)",
    "subsystem": "Axis safety",
    "machine_subsystem": "Axis overtravel",
-   "status": "COMMISSIONING_PENDING",
+   "status": "FACTORY_INTERFACE",
    "field_point": "X negative overtravel limit (NC)",
    "designations": [
     "OT-X"
@@ -6613,7 +6620,7 @@ window.MAZAK_DATA = {
    "direction_label": "Input (digital)",
    "subsystem": "Axis safety",
    "machine_subsystem": "Axis overtravel",
-   "status": "COMMISSIONING_PENDING",
+   "status": "FACTORY_INTERFACE",
    "field_point": "Y positive overtravel limit (NC)",
    "designations": [
     "OT+Y"
@@ -6719,7 +6726,7 @@ window.MAZAK_DATA = {
    "direction_label": "Input (digital)",
    "subsystem": "Axis safety",
    "machine_subsystem": "Axis overtravel",
-   "status": "COMMISSIONING_PENDING",
+   "status": "FACTORY_INTERFACE",
    "field_point": "Y negative overtravel limit (NC)",
    "designations": [
     "OT-Y"
@@ -6806,7 +6813,7 @@ window.MAZAK_DATA = {
    "direction_label": "Input (digital)",
    "subsystem": "Axis safety",
    "machine_subsystem": "Axis overtravel",
-   "status": "COMMISSIONING_PENDING",
+   "status": "FACTORY_INTERFACE",
    "field_point": "Z positive overtravel limit (NC)",
    "designations": [
     "OT+Z"
@@ -6912,7 +6919,7 @@ window.MAZAK_DATA = {
    "direction_label": "Input (digital)",
    "subsystem": "Axis safety",
    "machine_subsystem": "Axis overtravel",
-   "status": "COMMISSIONING_PENDING",
+   "status": "FACTORY_INTERFACE",
    "field_point": "Z negative overtravel limit (NC)",
    "designations": [
     "OT-Z"
@@ -7018,7 +7025,7 @@ window.MAZAK_DATA = {
    "direction_label": "Input (digital)",
    "subsystem": "Axis safety",
    "machine_subsystem": "Axis homing",
-   "status": "COMMISSIONING_PENDING",
+   "status": "FACTORY_INTERFACE",
    "field_point": "X home switch (LS-42 confirmed)",
    "designations": [
     "LS-42"
@@ -7124,7 +7131,7 @@ window.MAZAK_DATA = {
    "direction_label": "Input (digital)",
    "subsystem": "Axis safety",
    "machine_subsystem": "Axis homing",
-   "status": "COMMISSIONING_PENDING",
+   "status": "FACTORY_INTERFACE",
    "field_point": "Y home switch (LS-52)",
    "designations": [
     "LS-52"
@@ -7230,7 +7237,7 @@ window.MAZAK_DATA = {
    "direction_label": "Input (digital)",
    "subsystem": "Axis safety",
    "machine_subsystem": "Axis homing",
-   "status": "COMMISSIONING_PENDING",
+   "status": "FACTORY_INTERFACE",
    "field_point": "Z home switch (LS-62 confirmed TB-51)",
    "designations": [
     "LS-62",
@@ -8469,7 +8476,7 @@ window.MAZAK_DATA = {
    "direction_label": "Output (digital)",
    "subsystem": "Motion",
    "machine_subsystem": "Servo drives",
-   "status": "COMMISSIONING_PENDING",
+   "status": "FACTORY_INTERFACE",
    "field_point": "X servo S-ON to MELDAS DK-427 (X-drive ENA input)",
    "designations": [],
    "primary_source": "field_7i84u.hal",
@@ -8614,7 +8621,7 @@ window.MAZAK_DATA = {
    "direction_label": "Output (digital)",
    "subsystem": "Motion",
    "machine_subsystem": "Servo drives",
-   "status": "COMMISSIONING_PENDING",
+   "status": "FACTORY_INTERFACE",
    "field_point": "Y servo S-ON to MELDAS DK-427 (Y-drive ENA input)",
    "designations": [],
    "primary_source": "field_7i84u.hal",
@@ -8759,7 +8766,7 @@ window.MAZAK_DATA = {
    "direction_label": "Output (digital)",
    "subsystem": "Motion",
    "machine_subsystem": "Servo drives",
-   "status": "COMMISSIONING_PENDING",
+   "status": "FACTORY_INTERFACE",
    "field_point": "Z servo S-ON to MELDAS DK-427 (Z-drive ENA input)",
    "designations": [],
    "primary_source": "field_7i84u.hal",
@@ -8842,7 +8849,7 @@ window.MAZAK_DATA = {
    "direction_label": "Output (digital)",
    "subsystem": "Air",
    "machine_subsystem": "Pneumatics",
-   "status": "COMMISSIONING_PENDING",
+   "status": "FACTORY_INTERFACE",
    "field_point": "SOL-62 via RLY-5 (interposing relay for 100VAC coil)",
    "designations": [
     "SOL-62",
@@ -8912,7 +8919,7 @@ window.MAZAK_DATA = {
    "direction_label": "Output (digital)",
    "subsystem": "Air",
    "machine_subsystem": "Pneumatics",
-   "status": "COMMISSIONING_PENDING",
+   "status": "FACTORY_INTERFACE",
    "field_point": "SOL-35 via RLY-6 (interposing relay for 100VAC coil)",
    "designations": [
     "SOL-35",
@@ -8983,7 +8990,7 @@ window.MAZAK_DATA = {
    "direction_label": "Output (digital)",
    "subsystem": "Coolant",
    "machine_subsystem": "Coolant",
-   "status": "COMMISSIONING_PENDING",
+   "status": "FACTORY_INTERFACE",
    "field_point": "SOL-61 via RLY-7 (interposing relay for 100VAC coil)",
    "designations": [
     "SOL-61",
@@ -9054,7 +9061,7 @@ window.MAZAK_DATA = {
    "direction_label": "Output (digital)",
    "subsystem": "ATC interlock",
    "machine_subsystem": "ATC interlock",
-   "status": "COMMISSIONING_PENDING",
+   "status": "FACTORY_INTERFACE",
    "field_point": "ATC barrier expand solenoid (PLC Y095 TCME.M)",
    "designations": [],
    "primary_source": "element_list_crosswalk_2026-07-27",
@@ -9137,7 +9144,7 @@ window.MAZAK_DATA = {
    "direction_label": "Output (digital)",
    "subsystem": "Coolant",
    "machine_subsystem": "Coolant",
-   "status": "COMMISSIONING_PENDING",
+   "status": "FACTORY_INTERFACE",
    "field_point": "Flood coolant valve, separate from pump motor (PLC Y011 FCL)",
    "designations": [],
    "primary_source": "element_list_crosswalk_2026-07-27",
@@ -9704,7 +9711,7 @@ window.MAZAK_DATA = {
    "direction_label": "Power / common",
    "subsystem": "Power",
    "machine_subsystem": "Power common",
-   "status": "COMMISSIONING_PENDING",
+   "status": "FACTORY_INTERFACE",
    "field_point": "VIN/VFIELD common return",
    "designations": [],
    "primary_source": "Mesa 7i84U manual pp.7-8",
@@ -9750,7 +9757,7 @@ window.MAZAK_DATA = {
    "direction_label": "Power / common",
    "subsystem": "Power",
    "machine_subsystem": "Logic power",
-   "status": "COMMISSIONING_PENDING",
+   "status": "FACTORY_INTERFACE",
    "field_point": "Field I/O logic power",
    "designations": [],
    "primary_source": "Mesa 7i84U manual pp.2/7-8/47",
@@ -9796,7 +9803,7 @@ window.MAZAK_DATA = {
    "direction_label": "Power / common",
    "subsystem": "Power",
    "machine_subsystem": "Power common",
-   "status": "COMMISSIONING_PENDING",
+   "status": "FACTORY_INTERFACE",
    "field_point": "VIN/VFIELD common return",
    "designations": [],
    "primary_source": "Mesa 7i84U manual pp.7-8",

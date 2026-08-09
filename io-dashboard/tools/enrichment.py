@@ -38,6 +38,16 @@ STATUS = {
                  "The link is verified when the sserial bus enumerates the 7i84U at LinuxCNC startup.",
         "safe_to_energize": "Plug-in cable; comes up with the sserial bus. No field wiring.",
     },
+    "FACTORY_INTERFACE": {
+        "label": "Factory interface — verify at first power",
+        "tone": "pending",
+        "order": 4,
+        "blurb": "Machine side is OEM Mazak harness landing on the BBIA1 terminal unit — no cabinet "
+                 "wire to trace or land; the only wiring is Mesa <-> BBIA1 at the interface. (Board-power "
+                 "rows are the 24 V supply to TB1.) Commissioning is a first-power functional check at the "
+                 "interface — input senses / output actuates / 24 V present — not field tracing.",
+        "safe_to_energize": "Not yet commissioned. Confirm function at first power before relying on it.",
+    },
     "ACCEPTED": {
         "label": "Accepted \u2014 verify continuity",
         "tone": "accepted",
@@ -80,8 +90,9 @@ STATUS = {
         "label": "Commissioning pending",
         "tone": "pending",
         "order": 4,
-        "blurb": "Planned assignment awaiting cabinet tracing, polarity confirmation, or "
-                 "load measurement.",
+        "blurb": "Landing is at the interface, not the field. Awaiting a first-power functional "
+                 "check — command polarity vs feedback direction, or load measurement — before the "
+                 "loop is closed or the circuit is energized.",
         "safe_to_energize": "NOT commissioned. Do not energize this circuit.",
     },
     "HOLD_CONFLICT": {
