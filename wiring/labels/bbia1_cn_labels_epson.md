@@ -13,9 +13,20 @@ import format, and its current Windows Label Editor supports the LW-PX700.
 
 ## Workflow this CSV is built for
 
-**Cut the connector off just outside the shell and label the exposed conductor end only.** The original cable sheath stays intact on the harness side, so the far ends of the wires (into CA3, CA4, TB5, etc.) are not accessible for a second label — and don't need one, because the intact factory jacket print stays legible a few inches back from the cut.
+**Primary method (chosen 2026-08-09): laminated reference sheet, not per-wire
+ferrules.** Because the factory jacket print stays legible a few inches back
+from the cut, each conductor already carries its OEM wire number; a laminated
+cross-reference card in the cabinet door does the lookup job without on-wire
+clutter. Generate it with `python3 scripts/generate_wire_reference_sheet.py`
+(writes [`bbia1_wire_reference_sheet.html`](bbia1_wire_reference_sheet.html) —
+print from a browser and laminate; regenerate after any label CSV change).
 
-**One ferrule per wire, at the cut end.**
+**Per-wire ferrules from this CSV are the fallback**, used only for conductors
+whose jacket print turns out faded or unreadable at the cut. For those: cut the
+connector off just outside the shell and label the exposed conductor end only —
+one ferrule per wire, at the cut end. (The Mesa-end destination ferrules in
+`bbia1_mesa_end_ferrules_epson.csv` are unaffected: those stay per-wire, since
+the destination is new information not printed on any jacket.)
 
 ## Printer / tape
 
