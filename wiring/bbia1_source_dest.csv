@@ -2,16 +2,16 @@ signal_id,cnd_source_pin,factory_wire,bottom_cn_pin,mesa_destination,source_prov
 GEAR_HI_CONF,CN8-3,210,CN1-3,7i84U-A TB2 IN17,verified wire# -> BBIA-1 pinout (CNDx pin = CNx pin)
 GEAR_LO_CONF,CN8-4,212,CN1-4,7i84U-A TB2 IN18,verified wire# -> BBIA-1 pinout (CNDx pin = CNx pin)
 LUBE_OK,CND3-39,355,CN6-39,7i84U-A TB2 IN25,verified wire# -> BBIA-1 pinout (CNDx pin = CNx pin)
-MAG_BCD_BIT0,CND2-5,221,CN2-5,7i84U-A TB2 IN19,verified wire# -> BBIA-1 pinout (CNDx pin = CNx pin)
-MAG_BCD_BIT1,CND2-6,222,CN2-6,7i84U-A TB2 IN20,verified wire# -> BBIA-1 pinout (CNDx pin = CNx pin)
-MAG_BCD_BIT2,CND2-7,223,CN2-7,7i84U-A TB2 IN21,verified wire# -> BBIA-1 pinout (CNDx pin = CNx pin)
-MAG_BCD_BIT3,CND2-8,224,CN2-8,7i84U-A TB2 IN22,verified wire# -> BBIA-1 pinout (CNDx pin = CNx pin)
-MAG_BCD_BIT4,CND2-9,225,CN2-9,7i84U-A TB2 IN23,verified wire# -> BBIA-1 pinout (CNDx pin = CNx pin)
+MAG_BCD_BIT0,CND2-4,150,CN2-4,7i84U-A TB2 IN19,BBIA-1 board pinout (trusted over pg135)
+MAG_BCD_BIT1,CND2-5,221,CN2-5,7i84U-A TB2 IN20,BBIA-1 board pinout (trusted over pg135)
+MAG_BCD_BIT2,CND2-6,222,CN2-6,7i84U-A TB2 IN21,BBIA-1 board pinout (trusted over pg135)
+MAG_BCD_BIT3,CND2-7,223,CN2-7,7i84U-A TB2 IN22,BBIA-1 board pinout (trusted over pg135)
+MAG_BCD_BIT4,CND2-8,224,CN2-8,7i84U-A TB2 IN23,BBIA-1 board pinout (trusted over pg135)
 MAG_COVER_CLOSE_CONF,CND2-12,219,CN2-12,7i84U-A TB3 IN7,verified wire# -> BBIA-1 pinout (CNDx pin = CNx pin)
 MAG_COVER_OPEN_CONF,CND2-10,218,CN2-10,7i84U-A TB3 IN6,verified wire# -> BBIA-1 pinout (CNDx pin = CNx pin)
 MAG_TOOL_AVAILABLE,CND2-13,381,CN2-13,7i84U-A TB3 IN2,verified wire# -> BBIA-1 pinout (CNDx pin = CNx pin)
 MANUAL_TOOL_UNCLAMP_PB,CND2-3,149,CN2-3,7i84U-A TB3 IN9,verified wire# -> BBIA-1 pinout (CNDx pin = CNx pin)
-SPINDLE_ZERO_SPEED,CND5-4,143,CN3-4,7i84U-A TB3 IN5,verified wire# -> BBIA-1 pinout (CNDx pin = CNx pin)
+SPINDLE_ZERO_SPEED,CN4-1,231,CN4-1,7i84U-A TB3 IN5,BBIA-1 board pinout (trusted over pg135)
 TOOL_CLAMP_CONF,CN8-2,209,CN1-2,7i84U-A TB3 IN15,verified wire# -> BBIA-1 pinout (CNDx pin = CNx pin)
 TOOL_UNCLAMP_CONF,CN8-1,208,CN1-1,7i84U-A TB2 IN16,verified wire# -> BBIA-1 pinout (CNDx pin = CNx pin)
 AIR_BLAST,,,,7i84U-B TB3 OUT3,label — to fill
@@ -26,7 +26,7 @@ GEAR_HI_SOL,,,,7i84U-A TB3 OUT7,label — to fill
 GEAR_LO_SOL,,,,7i84U-A TB2 OUT8,label — to fill
 HYD_PRESS_OK,,,,7i84U-A TB2 IN27,label — to fill
 HYD_PUMP_ON,,,,7i84U-A TB3 OUT3,label — to fill
-MAG_IN_POS,,,,7i84U-A TB2 IN28,label — to fill
+MAG_IN_POS,CND2-9,225,CN2-9,7i84U-A TB2 IN28,BBIA-1 board pinout (trusted over pg135)
 MANUAL_TOOL_CLAMP_PB,,,,7i84U-A TB2 IN30,label — to fill
 SERVO_READY,,,,7i84U-A TB2 IN31,label — to fill
 SEVENI84UB_FIELD_A_24V,,,,"7i84U-B TB1 TB1 pins 3/4 VFIELDA (+24 V field power, 5-28 VDC)",label — to fill
