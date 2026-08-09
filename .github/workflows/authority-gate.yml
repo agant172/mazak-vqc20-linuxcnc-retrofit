@@ -1,0 +1,37 @@
+name: Authority gate
+
+# Runs the two repo validators on every push and pull request.
+# Both must exit 0 (docs/authority_hierarchy.md): the pin authority CSV,
+# the HAL files, and the generated label CSVs must all agree.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: validate_authority.py (CSV <-> HAL <-> label CSVs)
+        run: python3 scripts/validate_authority.py
+
+      - name: validate_control_logic.py (static HAL invariants)
+        run: python3 scripts/validate_control_logic.py
+
+      - name: Label CSVs match generator (no hand edits / stale format)
+        run: |
+          python3 scripts/generate_label_csvs.py --write
+          git diff --exit-code -- wiring/labels/
+
+      - name: Wire reference sheet is current
+        run: |
+          python3 scripts/generate_wire_reference_sheet.py
+          # Ignore the volatile date/commit stamp line when comparing.
+          git diff -I 'Generated .* from repo commit' --exit-code -- wiring/labels/bbia1_wire_reference_sheet.html
