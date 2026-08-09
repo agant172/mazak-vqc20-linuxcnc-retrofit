@@ -6,7 +6,7 @@ window.MAZAK_DATA = {
   "machine": "Mazak VQC-20/40",
   "serial": "060231",
   "architecture": "LinuxCNC + Mesa 7i80HDT (Ethernet FPGA host) + 7i44 on P1 (HostMot2 sserial port 0 channels 0/1 to 7i84U-A/B) + 7i49 on P2 (resolver + analog outs); P3 unused/spare",
-  "generated": "2026-08-09 03:27 UTC",
+  "generated": "2026-08-09 19:57 UTC",
   "source_repo": "mazak-vqc20-linuxcnc-retrofit",
   "authority_file": "mesa/current_pin_authority.csv",
   "epson_ferrule_file": "wiring/bbia1_mesa_end_ferrules_epson.csv",
@@ -1712,7 +1712,7 @@ window.MAZAK_DATA = {
    "direction_label": "Power / common",
    "subsystem": "Power",
    "machine_subsystem": "Field power",
-   "status": "FACTORY_INTERFACE",
+   "status": "PROPOSED",
    "field_point": "Field power bank A (TB3 I/O)",
    "designations": [
     "TB-3"
@@ -1766,7 +1766,7 @@ window.MAZAK_DATA = {
    "direction_label": "Power / common",
    "subsystem": "Power",
    "machine_subsystem": "Field power",
-   "status": "FACTORY_INTERFACE",
+   "status": "PROPOSED",
    "field_point": "Field power bank B (TB2 I/O)",
    "designations": [
     "TB-2"
@@ -2004,7 +2004,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/atc_orient.hal",
-     "line": 232,
+     "line": 240,
      "text": "net mag-tool-avail      => mazak-atc.mag-tool-avail",
      "commented": false,
      "producers": [],
@@ -2029,7 +2029,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/atc_orient.hal",
-     "lines": "232",
+     "lines": "240",
      "note": "net mag-tool-avail      => mazak-atc.mag-tool-avail"
     },
     {
@@ -2096,7 +2096,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/atc_orient.hal",
-     "line": 233,
+     "line": 241,
      "text": "net spindle-tool-avail  => mazak-atc.spindle-tool-avail",
      "commented": false,
      "producers": [],
@@ -2121,7 +2121,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/atc_orient.hal",
-     "lines": "233",
+     "lines": "241",
      "note": "net spindle-tool-avail  => mazak-atc.spindle-tool-avail"
     },
     {
@@ -2185,7 +2185,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/atc_orient.hal",
-     "line": 158,
+     "line": 160,
      "text": "net spindle-oriented    => mazak-orient.spindle-oriented",
      "commented": false,
      "producers": [],
@@ -2210,7 +2210,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/atc_orient.hal",
-     "lines": "158",
+     "lines": "160",
      "note": "net spindle-oriented    => mazak-orient.spindle-oriented"
     },
     {
@@ -2275,7 +2275,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/atc_orient.hal",
-     "line": 159,
+     "line": 161,
      "text": "net spindle-zero-speed  => mazak-orient.spindle-zero-speed",
      "commented": false,
      "producers": [],
@@ -2286,7 +2286,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/atc_orient.hal",
-     "line": 196,
+     "line": 198,
      "text": "net spindle-zero-speed  => mazak-atc.spindle-stopped",
      "commented": false,
      "producers": [],
@@ -2299,7 +2299,7 @@ window.MAZAK_DATA = {
    "setp_refs": [],
    "epson_ferrules": [
     {
-     "label_text": "A-TB3-06",
+     "label_text": "A3-06",
      "wire": "231",
      "old_location": "CN4-1",
      "signal": "SPINDLE ZERO SPEED",
@@ -2309,7 +2309,7 @@ window.MAZAK_DATA = {
      "physical_pin": "TB3-06",
      "crosswalk_status": "PLANNED_MATCH",
      "release_status": "HOLD_SOURCE_TRACE",
-     "source_line": 13
+     "source_line": 14
     }
    ],
    "sources": [
@@ -2325,12 +2325,12 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/atc_orient.hal",
-     "lines": "159",
+     "lines": "161",
      "note": "net spindle-zero-speed  => mazak-orient.spindle-zero-speed"
     },
     {
      "file": "linuxcnc/atc_orient.hal",
-     "lines": "196",
+     "lines": "198",
      "note": "net spindle-zero-speed  => mazak-atc.spindle-stopped"
     },
     {
@@ -2340,8 +2340,8 @@ window.MAZAK_DATA = {
     },
     {
      "file": "wiring/bbia1_mesa_end_ferrules_epson.csv",
-     "lines": "13",
-     "note": "Epson Mesa-end ferrule A-TB3-06; HOLD_SOURCE_TRACE"
+     "lines": "14",
+     "note": "Epson Mesa-end ferrule A3-06; HOLD_SOURCE_TRACE"
     }
    ],
    "conflicts": [],
@@ -2399,7 +2399,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/atc_orient.hal",
-     "line": 228,
+     "line": 236,
      "text": "net mag-cover-open-conf   => mazak-atc.mag-cover-open-conf",
      "commented": false,
      "producers": [],
@@ -2410,21 +2410,7 @@ window.MAZAK_DATA = {
     }
    ],
    "setp_refs": [],
-   "epson_ferrules": [
-    {
-     "label_text": "A-TB3-07",
-     "wire": "218",
-     "old_location": "CN2-11",
-     "signal": "MAGAZINE COVER OPEN",
-     "mesa_card": "7i84U-A",
-     "connector": "TB3",
-     "logical_channel": "IN6",
-     "physical_pin": "TB3-07",
-     "crosswalk_status": "PINOUT_VERIFIED",
-     "release_status": "HOLD_SOURCE_TRACE",
-     "source_line": 14
-    }
-   ],
+   "epson_ferrules": [],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -2438,18 +2424,13 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/atc_orient.hal",
-     "lines": "228",
+     "lines": "236",
      "note": "net mag-cover-open-conf   => mazak-atc.mag-cover-open-conf"
     },
     {
      "file": "element_list_crosswalk_2026-07-27",
      "lines": "",
      "note": "primary_source column in the authority table"
-    },
-    {
-     "file": "wiring/bbia1_mesa_end_ferrules_epson.csv",
-     "lines": "14",
-     "note": "Epson Mesa-end ferrule A-TB3-07; HOLD_SOURCE_TRACE"
     }
    ],
    "conflicts": [],
@@ -2507,7 +2488,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/atc_orient.hal",
-     "line": 229,
+     "line": 237,
      "text": "net mag-cover-closed-conf => mazak-atc.mag-cover-closed-conf",
      "commented": false,
      "producers": [],
@@ -2532,7 +2513,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/atc_orient.hal",
-     "lines": "229",
+     "lines": "237",
      "note": "net mag-cover-closed-conf => mazak-atc.mag-cover-closed-conf"
     },
     {
@@ -2667,7 +2648,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/atc_orient.hal",
-     "line": 218,
+     "line": 226,
      "text": "net manual-unclamp-pb   => mazak-atc.manual-unclamp-pb",
      "commented": false,
      "producers": [],
@@ -2678,21 +2659,7 @@ window.MAZAK_DATA = {
     }
    ],
    "setp_refs": [],
-   "epson_ferrules": [
-    {
-     "label_text": "A-TB3-10",
-     "wire": "149",
-     "old_location": "CN2-3",
-     "signal": "TOOL UNCLAMP (FOOT SW)",
-     "mesa_card": "7i84U-A",
-     "connector": "TB3",
-     "logical_channel": "IN9",
-     "physical_pin": "TB3-10",
-     "crosswalk_status": "PINOUT_VERIFIED",
-     "release_status": "HOLD_SOURCE_TRACE",
-     "source_line": 15
-    }
-   ],
+   "epson_ferrules": [],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -2706,18 +2673,13 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/atc_orient.hal",
-     "lines": "218",
+     "lines": "226",
      "note": "net manual-unclamp-pb   => mazak-atc.manual-unclamp-pb"
     },
     {
      "file": "element_list_crosswalk_2026-07-27",
      "lines": "",
      "note": "primary_source column in the authority table"
-    },
-    {
-     "file": "wiring/bbia1_mesa_end_ferrules_epson.csv",
-     "lines": "15",
-     "note": "Epson Mesa-end ferrule A-TB3-10; HOLD_SOURCE_TRACE"
     }
    ],
    "conflicts": [],
@@ -3151,7 +3113,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/atc_orient.hal",
-     "line": 161,
+     "line": 163,
      "text": "net spindle-fault       => mazak-orient.drive-fault",
      "commented": false,
      "producers": [],
@@ -3162,7 +3124,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/atc_orient.hal",
-     "line": 262,
+     "line": 270,
      "text": "net spindle-fault       => atc-safety-abort-or.in1",
      "commented": false,
      "producers": [],
@@ -3197,12 +3159,12 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/atc_orient.hal",
-     "lines": "161",
+     "lines": "163",
      "note": "net spindle-fault       => mazak-orient.drive-fault"
     },
     {
      "file": "linuxcnc/atc_orient.hal",
-     "lines": "262",
+     "lines": "270",
      "note": "net spindle-fault       => atc-safety-abort-or.in1"
     },
     {
@@ -3268,7 +3230,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/atc_orient.hal",
-     "line": 216,
+     "line": 224,
      "text": "net tool-clamped        => mazak-atc.tool-clamped",
      "commented": false,
      "producers": [],
@@ -3279,21 +3241,7 @@ window.MAZAK_DATA = {
     }
    ],
    "setp_refs": [],
-   "epson_ferrules": [
-    {
-     "label_text": "A-TB3-16",
-     "wire": "209",
-     "old_location": "CN1-2",
-     "signal": "TOOL CLAMP",
-     "mesa_card": "7i84U-A",
-     "connector": "TB3",
-     "logical_channel": "IN15",
-     "physical_pin": "TB3-16",
-     "crosswalk_status": "PINOUT_VERIFIED",
-     "release_status": "HOLD_SOURCE_TRACE",
-     "source_line": 16
-    }
-   ],
+   "epson_ferrules": [],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -3307,18 +3255,13 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/atc_orient.hal",
-     "lines": "216",
+     "lines": "224",
      "note": "net tool-clamped        => mazak-atc.tool-clamped"
     },
     {
      "file": "archived_wiring_map",
      "lines": "",
      "note": "primary_source column in the authority table"
-    },
-    {
-     "file": "wiring/bbia1_mesa_end_ferrules_epson.csv",
-     "lines": "16",
-     "note": "Epson Mesa-end ferrule A-TB3-16; HOLD_SOURCE_TRACE"
     }
    ],
    "conflicts": [],
@@ -3378,7 +3321,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/atc_orient.hal",
-     "line": 217,
+     "line": 225,
      "text": "net tool-unclamped      => mazak-atc.tool-unclamped",
      "commented": false,
      "producers": [],
@@ -3389,21 +3332,7 @@ window.MAZAK_DATA = {
     }
    ],
    "setp_refs": [],
-   "epson_ferrules": [
-    {
-     "label_text": "A-TB2-01",
-     "wire": "208",
-     "old_location": "CN1-1",
-     "signal": "TOOL UNCLAMP",
-     "mesa_card": "7i84U-A",
-     "connector": "TB2",
-     "logical_channel": "IN16",
-     "physical_pin": "TB2-01",
-     "crosswalk_status": "PINOUT_VERIFIED",
-     "release_status": "HOLD_SOURCE_TRACE",
-     "source_line": 2
-    }
-   ],
+   "epson_ferrules": [],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -3417,18 +3346,13 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/atc_orient.hal",
-     "lines": "217",
+     "lines": "225",
      "note": "net tool-unclamped      => mazak-atc.tool-unclamped"
     },
     {
      "file": "archived_wiring_map",
      "lines": "",
      "note": "primary_source column in the authority table"
-    },
-    {
-     "file": "wiring/bbia1_mesa_end_ferrules_epson.csv",
-     "lines": "2",
-     "note": "Epson Mesa-end ferrule A-TB2-01; HOLD_SOURCE_TRACE"
     }
    ],
    "conflicts": [],
@@ -3488,7 +3412,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/atc_orient.hal",
-     "line": 168,
+     "line": 170,
      "text": "net gear-hi-conf        => mazak-orient.gear-hi-conf",
      "commented": false,
      "producers": [],
@@ -3499,21 +3423,7 @@ window.MAZAK_DATA = {
     }
    ],
    "setp_refs": [],
-   "epson_ferrules": [
-    {
-     "label_text": "A-TB2-02",
-     "wire": "210",
-     "old_location": "CN1-3",
-     "signal": "HIGH GEAR",
-     "mesa_card": "7i84U-A",
-     "connector": "TB2",
-     "logical_channel": "IN17",
-     "physical_pin": "TB2-02",
-     "crosswalk_status": "PINOUT_VERIFIED",
-     "release_status": "HOLD_SOURCE_TRACE",
-     "source_line": 3
-    }
-   ],
+   "epson_ferrules": [],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -3527,18 +3437,13 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/atc_orient.hal",
-     "lines": "168",
+     "lines": "170",
      "note": "net gear-hi-conf        => mazak-orient.gear-hi-conf"
     },
     {
      "file": "archived_wiring_map",
      "lines": "",
      "note": "primary_source column in the authority table"
-    },
-    {
-     "file": "wiring/bbia1_mesa_end_ferrules_epson.csv",
-     "lines": "3",
-     "note": "Epson Mesa-end ferrule A-TB2-02; HOLD_SOURCE_TRACE"
     }
    ],
    "conflicts": [],
@@ -3601,7 +3506,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/atc_orient.hal",
-     "line": 169,
+     "line": 171,
      "text": "net gear-lo-conf        => mazak-orient.gear-lo-conf",
      "commented": false,
      "producers": [],
@@ -3612,21 +3517,7 @@ window.MAZAK_DATA = {
     }
    ],
    "setp_refs": [],
-   "epson_ferrules": [
-    {
-     "label_text": "A-TB2-03",
-     "wire": "212",
-     "old_location": "CN1-4",
-     "signal": "LOW GEAR",
-     "mesa_card": "7i84U-A",
-     "connector": "TB2",
-     "logical_channel": "IN18",
-     "physical_pin": "TB2-03",
-     "crosswalk_status": "PINOUT_VERIFIED",
-     "release_status": "HOLD_SOURCE_TRACE",
-     "source_line": 4
-    }
-   ],
+   "epson_ferrules": [],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -3640,18 +3531,13 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/atc_orient.hal",
-     "lines": "169",
+     "lines": "171",
      "note": "net gear-lo-conf        => mazak-orient.gear-lo-conf"
     },
     {
      "file": "archived_wiring_map",
      "lines": "",
      "note": "primary_source column in the authority table"
-    },
-    {
-     "file": "wiring/bbia1_mesa_end_ferrules_epson.csv",
-     "lines": "4",
-     "note": "Epson Mesa-end ferrule A-TB2-03; HOLD_SOURCE_TRACE"
     }
    ],
    "conflicts": [],
@@ -3711,7 +3597,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/atc_orient.hal",
-     "line": 205,
+     "line": 207,
      "text": "net mag-bcd-bit0   => mazak-atc.mag-bcd-bit0",
      "commented": false,
      "producers": [],
@@ -3724,7 +3610,7 @@ window.MAZAK_DATA = {
    "setp_refs": [],
    "epson_ferrules": [
     {
-     "label_text": "A-TB2-04",
+     "label_text": "A2-04",
      "wire": "150",
      "old_location": "CN2-4",
      "signal": "MAGAZINE ROT POS 1",
@@ -3734,7 +3620,7 @@ window.MAZAK_DATA = {
      "physical_pin": "TB2-04",
      "crosswalk_status": "PLANNED_MATCH",
      "release_status": "HOLD_SOURCE_TRACE",
-     "source_line": 5
+     "source_line": 3
     }
    ],
    "sources": [
@@ -3750,7 +3636,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/atc_orient.hal",
-     "lines": "205",
+     "lines": "207",
      "note": "net mag-bcd-bit0   => mazak-atc.mag-bcd-bit0"
     },
     {
@@ -3760,8 +3646,8 @@ window.MAZAK_DATA = {
     },
     {
      "file": "wiring/bbia1_mesa_end_ferrules_epson.csv",
-     "lines": "5",
-     "note": "Epson Mesa-end ferrule A-TB2-04; HOLD_SOURCE_TRACE"
+     "lines": "3",
+     "note": "Epson Mesa-end ferrule A2-04; HOLD_SOURCE_TRACE"
     }
    ],
    "conflicts": [],
@@ -3821,7 +3707,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/atc_orient.hal",
-     "line": 206,
+     "line": 208,
      "text": "net mag-bcd-bit1   => mazak-atc.mag-bcd-bit1",
      "commented": false,
      "producers": [],
@@ -3834,7 +3720,7 @@ window.MAZAK_DATA = {
    "setp_refs": [],
    "epson_ferrules": [
     {
-     "label_text": "A-TB2-05",
+     "label_text": "A2-05",
      "wire": "221",
      "old_location": "CN2-5",
      "signal": "MAGAZINE ROT POS 2",
@@ -3844,7 +3730,7 @@ window.MAZAK_DATA = {
      "physical_pin": "TB2-05",
      "crosswalk_status": "PLANNED_MATCH",
      "release_status": "HOLD_SOURCE_TRACE",
-     "source_line": 6
+     "source_line": 4
     }
    ],
    "sources": [
@@ -3860,7 +3746,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/atc_orient.hal",
-     "lines": "206",
+     "lines": "208",
      "note": "net mag-bcd-bit1   => mazak-atc.mag-bcd-bit1"
     },
     {
@@ -3870,8 +3756,8 @@ window.MAZAK_DATA = {
     },
     {
      "file": "wiring/bbia1_mesa_end_ferrules_epson.csv",
-     "lines": "6",
-     "note": "Epson Mesa-end ferrule A-TB2-05; HOLD_SOURCE_TRACE"
+     "lines": "4",
+     "note": "Epson Mesa-end ferrule A2-05; HOLD_SOURCE_TRACE"
     }
    ],
    "conflicts": [],
@@ -3931,7 +3817,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/atc_orient.hal",
-     "line": 207,
+     "line": 209,
      "text": "net mag-bcd-bit2   => mazak-atc.mag-bcd-bit2",
      "commented": false,
      "producers": [],
@@ -3944,7 +3830,7 @@ window.MAZAK_DATA = {
    "setp_refs": [],
    "epson_ferrules": [
     {
-     "label_text": "A-TB2-06",
+     "label_text": "A2-06",
      "wire": "222",
      "old_location": "CN2-6",
      "signal": "MAGAZINE ROT POS 4",
@@ -3954,7 +3840,7 @@ window.MAZAK_DATA = {
      "physical_pin": "TB2-06",
      "crosswalk_status": "PLANNED_MATCH",
      "release_status": "HOLD_SOURCE_TRACE",
-     "source_line": 7
+     "source_line": 5
     }
    ],
    "sources": [
@@ -3970,7 +3856,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/atc_orient.hal",
-     "lines": "207",
+     "lines": "209",
      "note": "net mag-bcd-bit2   => mazak-atc.mag-bcd-bit2"
     },
     {
@@ -3980,8 +3866,8 @@ window.MAZAK_DATA = {
     },
     {
      "file": "wiring/bbia1_mesa_end_ferrules_epson.csv",
-     "lines": "7",
-     "note": "Epson Mesa-end ferrule A-TB2-06; HOLD_SOURCE_TRACE"
+     "lines": "5",
+     "note": "Epson Mesa-end ferrule A2-06; HOLD_SOURCE_TRACE"
     }
    ],
    "conflicts": [],
@@ -4041,7 +3927,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/atc_orient.hal",
-     "line": 208,
+     "line": 210,
      "text": "net mag-bcd-bit3   => mazak-atc.mag-bcd-bit3",
      "commented": false,
      "producers": [],
@@ -4054,7 +3940,7 @@ window.MAZAK_DATA = {
    "setp_refs": [],
    "epson_ferrules": [
     {
-     "label_text": "A-TB2-07",
+     "label_text": "A2-07",
      "wire": "223",
      "old_location": "CN2-7",
      "signal": "MAGAZINE ROT POS 8",
@@ -4064,7 +3950,7 @@ window.MAZAK_DATA = {
      "physical_pin": "TB2-07",
      "crosswalk_status": "PLANNED_MATCH",
      "release_status": "HOLD_SOURCE_TRACE",
-     "source_line": 8
+     "source_line": 6
     }
    ],
    "sources": [
@@ -4080,7 +3966,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/atc_orient.hal",
-     "lines": "208",
+     "lines": "210",
      "note": "net mag-bcd-bit3   => mazak-atc.mag-bcd-bit3"
     },
     {
@@ -4090,8 +3976,8 @@ window.MAZAK_DATA = {
     },
     {
      "file": "wiring/bbia1_mesa_end_ferrules_epson.csv",
-     "lines": "8",
-     "note": "Epson Mesa-end ferrule A-TB2-07; HOLD_SOURCE_TRACE"
+     "lines": "6",
+     "note": "Epson Mesa-end ferrule A2-07; HOLD_SOURCE_TRACE"
     }
    ],
    "conflicts": [],
@@ -4151,7 +4037,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/atc_orient.hal",
-     "line": 209,
+     "line": 211,
      "text": "net mag-bcd-bit4   => mazak-atc.mag-bcd-bit4",
      "commented": false,
      "producers": [],
@@ -4164,7 +4050,7 @@ window.MAZAK_DATA = {
    "setp_refs": [],
    "epson_ferrules": [
     {
-     "label_text": "A-TB2-08",
+     "label_text": "A2-08",
      "wire": "224",
      "old_location": "CN2-8",
      "signal": "MAGAZINE ROT POS 10",
@@ -4174,7 +4060,7 @@ window.MAZAK_DATA = {
      "physical_pin": "TB2-08",
      "crosswalk_status": "PLANNED_MATCH",
      "release_status": "HOLD_SOURCE_TRACE",
-     "source_line": 9
+     "source_line": 7
     }
    ],
    "sources": [
@@ -4190,7 +4076,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/atc_orient.hal",
-     "lines": "209",
+     "lines": "211",
      "note": "net mag-bcd-bit4   => mazak-atc.mag-bcd-bit4"
     },
     {
@@ -4200,8 +4086,8 @@ window.MAZAK_DATA = {
     },
     {
      "file": "wiring/bbia1_mesa_end_ferrules_epson.csv",
-     "lines": "9",
-     "note": "Epson Mesa-end ferrule A-TB2-08; HOLD_SOURCE_TRACE"
+     "lines": "7",
+     "note": "Epson Mesa-end ferrule A2-08; HOLD_SOURCE_TRACE"
     }
    ],
    "conflicts": [],
@@ -4335,21 +4221,7 @@ window.MAZAK_DATA = {
     }
    ],
    "setp_refs": [],
-   "epson_ferrules": [
-    {
-     "label_text": "A-TB2-10",
-     "wire": "355",
-     "old_location": "CN6-39",
-     "signal": "SPINDLE HEAD LUBE PRESSURE",
-     "mesa_card": "7i84U-A",
-     "connector": "TB2",
-     "logical_channel": "IN25",
-     "physical_pin": "TB2-10",
-     "crosswalk_status": "PINOUT_VERIFIED",
-     "release_status": "HOLD_SOURCE_TRACE",
-     "source_line": 10
-    }
-   ],
+   "epson_ferrules": [],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -4365,11 +4237,6 @@ window.MAZAK_DATA = {
      "file": "element_list_crosswalk_2026-07-27 + open_issues.md §3 (2026-08-03)",
      "lines": "",
      "note": "primary_source column in the authority table"
-    },
-    {
-     "file": "wiring/bbia1_mesa_end_ferrules_epson.csv",
-     "lines": "10",
-     "note": "Epson Mesa-end ferrule A-TB2-10; HOLD_SOURCE_TRACE"
     }
    ],
    "conflicts": [],
@@ -4498,7 +4365,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/atc_orient.hal",
-     "line": 198,
+     "line": 200,
      "text": "net hydraulic-ok        => mazak-atc.hydraulic-ok",
      "commented": false,
      "producers": [],
@@ -4523,7 +4390,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/atc_orient.hal",
-     "lines": "198",
+     "lines": "200",
      "note": "net hydraulic-ok        => mazak-atc.hydraulic-ok"
     },
     {
@@ -4634,7 +4501,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/atc_orient.hal",
-     "line": 204,
+     "line": 206,
      "text": "net mag-in-pos     => mazak-atc.mag-in-pos",
      "commented": false,
      "producers": [],
@@ -4647,7 +4514,7 @@ window.MAZAK_DATA = {
    "setp_refs": [],
    "epson_ferrules": [
     {
-     "label_text": "A-TB2-13",
+     "label_text": "A2-13",
      "wire": "225",
      "old_location": "CN2-9",
      "signal": "MAGAZINE POSITION OK",
@@ -4657,7 +4524,7 @@ window.MAZAK_DATA = {
      "physical_pin": "TB2-13",
      "crosswalk_status": "PLANNED_MATCH",
      "release_status": "HOLD_SOURCE_TRACE",
-     "source_line": 11
+     "source_line": 8
     }
    ],
    "sources": [
@@ -4673,7 +4540,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/atc_orient.hal",
-     "lines": "204",
+     "lines": "206",
      "note": "net mag-in-pos     => mazak-atc.mag-in-pos"
     },
     {
@@ -4683,8 +4550,8 @@ window.MAZAK_DATA = {
     },
     {
      "file": "wiring/bbia1_mesa_end_ferrules_epson.csv",
-     "lines": "11",
-     "note": "Epson Mesa-end ferrule A-TB2-13; HOLD_SOURCE_TRACE"
+     "lines": "8",
+     "note": "Epson Mesa-end ferrule A2-13; HOLD_SOURCE_TRACE"
     }
    ],
    "conflicts": [],
@@ -4788,16 +4655,16 @@ window.MAZAK_DATA = {
    "board": "7i84U-A",
    "connector": "TB2",
    "channel": "IN30",
-   "hal_net": "manual-clamp-pb",
+   "hal_net": "",
    "direction": "IN",
    "direction_label": "Input (digital)",
    "subsystem": "ATC tool",
    "machine_subsystem": "ATC tool",
-   "status": "FACTORY_INTERFACE",
+   "status": "RESERVED",
    "field_point": "Manual tool clamp FOOT switch (PLC X01B TCFS.M)",
    "designations": [],
    "primary_source": "element_list_crosswalk_2026-07-27 + open_issues.md §3 (2026-08-03)",
-   "cleanup_notes": "Reserved terminal; intentionally HAL-unbound until the switch and safe manual-clamp behavior are field verified. Pairs with MANUAL_TOOL_UNCLAMP_PB on IN9. | [LOCATED 2026-08-08: X1B TCCF.M foot switch, wire 149B, T.U CN2-44, Dwg 4143075407 pg133]",
+   "cleanup_notes": "Reserved terminal; intentionally HAL-unbound until the switch and safe manual-clamp behavior are field verified. Pairs with MANUAL_TOOL_UNCLAMP_PB on IN9. | [LOCATED 2026-08-08: X1B TCCF.M foot switch, wire 149B, T.U CN2-44, Dwg 4143075407 pg133] | [2026-08-09: RESERVED, hal_net none (was manual-clamp-pb) - manual clamp deferred per io_capacity_reconciliation.md; restore net when switch behavior is field-verified]",
    "location": "Unknown — trace in cabinet",
    "location_note": "",
    "expected": {
@@ -4806,25 +4673,11 @@ window.MAZAK_DATA = {
     "basis": "No explicit normal-state evidence in the repo for this signal.",
     "kind": "unknown"
    },
-   "hal_state": "commented",
-   "mesa_pins": [
-    "hm2_7i80.0.7i84.0.0.input-30"
-   ],
+   "hal_state": "absent",
+   "mesa_pins": [],
    "producers": [],
    "consumers": [],
-   "hal_refs": [
-    {
-     "file": "linuxcnc/field_7i84u.hal",
-     "line": 92,
-     "text": "# net manual-clamp-pb    <= hm2_7i80.0.7i84.0.0.input-30",
-     "commented": true,
-     "producers": [
-      "hm2_7i80.0.7i84.0.0.input-30"
-     ],
-     "consumers": [],
-     "bidir": []
-    }
-   ],
+   "hal_refs": [],
    "setp_refs": [],
    "epson_ferrules": [],
    "sources": [
@@ -4832,11 +4685,6 @@ window.MAZAK_DATA = {
      "file": "mesa/current_pin_authority.csv",
      "lines": "55",
      "note": "Current wiring authority row"
-    },
-    {
-     "file": "linuxcnc/field_7i84u.hal",
-     "lines": "92",
-     "note": "commented out — # net manual-clamp-pb    <= hm2_7i80.0.7i84.0.0.input-30"
     },
     {
      "file": "element_list_crosswalk_2026-07-27 + open_issues.md §3 (2026-08-03)",
@@ -4911,7 +4759,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/atc_orient.hal",
-     "line": 148,
+     "line": 150,
      "text": "net servo-ready                           => mazak-orient.servo-ready",
      "commented": false,
      "producers": [],
@@ -4924,7 +4772,7 @@ window.MAZAK_DATA = {
    "setp_refs": [],
    "epson_ferrules": [
     {
-     "label_text": "A-TB2-16",
+     "label_text": "A2-16",
      "wire": "SA",
      "old_location": "CN6-7",
      "signal": "SERVO READY",
@@ -4934,7 +4782,7 @@ window.MAZAK_DATA = {
      "physical_pin": "TB2-16",
      "crosswalk_status": "PLANNED_MATCH",
      "release_status": "HOLD_SOURCE_TRACE",
-     "source_line": 12
+     "source_line": 15
     }
    ],
    "sources": [
@@ -4955,7 +4803,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/atc_orient.hal",
-     "lines": "148",
+     "lines": "150",
      "note": "net servo-ready                           => mazak-orient.servo-ready"
     },
     {
@@ -4965,8 +4813,8 @@ window.MAZAK_DATA = {
     },
     {
      "file": "wiring/bbia1_mesa_end_ferrules_epson.csv",
-     "lines": "12",
-     "note": "Epson Mesa-end ferrule A-TB2-16; HOLD_SOURCE_TRACE"
+     "lines": "15",
+     "note": "Epson Mesa-end ferrule A2-16; HOLD_SOURCE_TRACE"
     }
    ],
    "conflicts": [],
@@ -5354,7 +5202,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/atc_orient.hal",
-     "line": 150,
+     "line": 152,
      "text": "net hyd-pump-on     <= mazak-orient.hyd-pump-on",
      "commented": false,
      "producers": [
@@ -5379,7 +5227,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/atc_orient.hal",
-     "lines": "150",
+     "lines": "152",
      "note": "net hyd-pump-on     <= mazak-orient.hyd-pump-on"
     },
     {
@@ -5443,7 +5291,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/atc_orient.hal",
-     "line": 177,
+     "line": 179,
      "text": "net spindle-orient-cmd     <= and2.7.out",
      "commented": false,
      "producers": [
@@ -5468,7 +5316,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/atc_orient.hal",
-     "lines": "177",
+     "lines": "179",
      "note": "net spindle-orient-cmd     <= and2.7.out"
     },
     {
@@ -5534,7 +5382,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/atc_orient.hal",
-     "line": 178,
+     "line": 180,
      "text": "net orient-lo-gear      <= mazak-orient.orient-lo-gear",
      "commented": false,
      "producers": [
@@ -5559,7 +5407,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/atc_orient.hal",
-     "lines": "178",
+     "lines": "180",
      "note": "net orient-lo-gear      <= mazak-orient.orient-lo-gear"
     },
     {
@@ -5778,7 +5626,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/atc_orient.hal",
-     "line": 170,
+     "line": 172,
      "text": "net gear-hi-sol         <= mazak-orient.gear-hi-sol",
      "commented": false,
      "producers": [
@@ -5803,7 +5651,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/atc_orient.hal",
-     "lines": "170",
+     "lines": "172",
      "note": "net gear-hi-sol         <= mazak-orient.gear-hi-sol"
     },
     {
@@ -5860,9 +5708,9 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/atc_orient.hal",
-     "line": 133,
-     "text": "# net gear-lo-sol         => hm2_7i80.0.7i84.0.0.output-08  # OUT8  Y00C GSL.M",
-     "commented": true,
+     "line": 135,
+     "text": "net gear-lo-sol         => hm2_7i80.0.7i84.0.0.output-08  # OUT8  Y00C GSL.M",
+     "commented": false,
      "producers": [],
      "consumers": [
       "hm2_7i80.0.7i84.0.0.output-08"
@@ -5871,7 +5719,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/atc_orient.hal",
-     "line": 171,
+     "line": 173,
      "text": "net gear-lo-sol         <= mazak-orient.gear-lo-sol",
      "commented": false,
      "producers": [
@@ -5891,12 +5739,12 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/atc_orient.hal",
-     "lines": "133",
-     "note": "commented out — # net gear-lo-sol         => hm2_7i80.0.7i84.0.0.output-08  # OUT8  Y00C GSL.M"
+     "lines": "135",
+     "note": "net gear-lo-sol         => hm2_7i80.0.7i84.0.0.output-08  # OUT8  Y00C GSL.M"
     },
     {
      "file": "linuxcnc/atc_orient.hal",
-     "lines": "171",
+     "lines": "173",
      "note": "net gear-lo-sol         <= mazak-orient.gear-lo-sol"
     },
     {
@@ -6018,7 +5866,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/atc_orient.hal",
-     "line": 219,
+     "line": 227,
      "text": "net tool-unclamp-sol    <= mazak-atc.tool-unclamp-sol",
      "commented": false,
      "producers": [
@@ -6043,7 +5891,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/atc_orient.hal",
-     "lines": "219",
+     "lines": "227",
      "note": "net tool-unclamp-sol    <= mazak-atc.tool-unclamp-sol"
     },
     {
@@ -6251,13 +6099,24 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/atc_orient.hal",
-     "line": 212,
+     "line": 214,
      "text": "net mag-cw-sol     <= mazak-atc.mag-fwd-sol",
      "commented": false,
      "producers": [
       "mazak-atc.mag-fwd-sol"
      ],
      "consumers": [],
+     "bidir": []
+    },
+    {
+     "file": "linuxcnc/atc_orient.hal",
+     "line": 220,
+     "text": "net mag-cw-sol     => hm2_7i80.0.7i84.0.0.output-13  # OUT13 SOL-8B (CW) via relay",
+     "commented": false,
+     "producers": [],
+     "consumers": [
+      "hm2_7i80.0.7i84.0.0.output-13"
+     ],
      "bidir": []
     }
    ],
@@ -6276,8 +6135,13 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/atc_orient.hal",
-     "lines": "212",
+     "lines": "214",
      "note": "net mag-cw-sol     <= mazak-atc.mag-fwd-sol"
+    },
+    {
+     "file": "linuxcnc/atc_orient.hal",
+     "lines": "220",
+     "note": "net mag-cw-sol     => hm2_7i80.0.7i84.0.0.output-13  # OUT13 SOL-8B (CW) via relay"
     },
     {
      "file": "archived_wiring_map",
@@ -6337,13 +6201,24 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/atc_orient.hal",
-     "line": 213,
+     "line": 215,
      "text": "net mag-ccw-sol    <= mazak-atc.mag-rev-sol",
      "commented": false,
      "producers": [
       "mazak-atc.mag-rev-sol"
      ],
      "consumers": [],
+     "bidir": []
+    },
+    {
+     "file": "linuxcnc/atc_orient.hal",
+     "line": 221,
+     "text": "net mag-ccw-sol    => hm2_7i80.0.7i84.0.0.output-14  # OUT14 SOL-8A (CCW) via relay",
+     "commented": false,
+     "producers": [],
+     "consumers": [
+      "hm2_7i80.0.7i84.0.0.output-14"
+     ],
      "bidir": []
     }
    ],
@@ -6362,8 +6237,13 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/atc_orient.hal",
-     "lines": "213",
+     "lines": "215",
      "note": "net mag-ccw-sol    <= mazak-atc.mag-rev-sol"
+    },
+    {
+     "file": "linuxcnc/atc_orient.hal",
+     "lines": "221",
+     "note": "net mag-ccw-sol    => hm2_7i80.0.7i84.0.0.output-14  # OUT14 SOL-8A (CCW) via relay"
     },
     {
      "file": "archived_wiring_map",
@@ -6381,16 +6261,16 @@ window.MAZAK_DATA = {
    "board": "7i84U-A",
    "connector": "TB2",
    "channel": "OUT15",
-   "hal_net": "alarm-out",
+   "hal_net": "",
    "direction": "OUT",
    "direction_label": "Output (digital)",
    "subsystem": "Panel",
    "machine_subsystem": "Operator panel",
-   "status": "OPTIONAL_VERIFY",
+   "status": "RESERVED",
    "field_point": "Alarm light or horn",
    "designations": [],
    "primary_source": "archived_wiring_map",
-   "cleanup_notes": "Confirm load and behavior",
+   "cleanup_notes": "Confirm load and behavior | [2026-08-09: RESERVED, hal_net none (was alarm-out) - optional load unconfirmed; restore net when alarm device is chosen]",
    "location": "Operating panel — alarm light or horn",
    "location_note": "",
    "expected": {
@@ -6399,25 +6279,11 @@ window.MAZAK_DATA = {
     "basis": "No commanding logic in the active HAL for this net; outputs default off.",
     "kind": "default-off"
    },
-   "hal_state": "commented",
-   "mesa_pins": [
-    "hm2_7i80.0.7i84.0.0.output-15"
-   ],
+   "hal_state": "absent",
+   "mesa_pins": [],
    "producers": [],
    "consumers": [],
-   "hal_refs": [
-    {
-     "file": "linuxcnc/field_7i84u.hal",
-     "line": 179,
-     "text": "# net alarm-out          => hm2_7i80.0.7i84.0.0.output-15",
-     "commented": true,
-     "producers": [],
-     "consumers": [
-      "hm2_7i80.0.7i84.0.0.output-15"
-     ],
-     "bidir": []
-    }
-   ],
+   "hal_refs": [],
    "setp_refs": [],
    "epson_ferrules": [],
    "sources": [
@@ -6425,11 +6291,6 @@ window.MAZAK_DATA = {
      "file": "mesa/current_pin_authority.csv",
      "lines": "72",
      "note": "Current wiring authority row"
-    },
-    {
-     "file": "linuxcnc/field_7i84u.hal",
-     "lines": "179",
-     "note": "commented out — # net alarm-out          => hm2_7i80.0.7i84.0.0.output-15"
     },
     {
      "file": "archived_wiring_map",
@@ -6734,7 +6595,7 @@ window.MAZAK_DATA = {
    "direction_label": "Power / common",
    "subsystem": "Power",
    "machine_subsystem": "Field power",
-   "status": "FACTORY_INTERFACE",
+   "status": "PROPOSED",
    "field_point": "Field power bank A (TB3 I/O)",
    "designations": [
     "TB-3"
@@ -6788,7 +6649,7 @@ window.MAZAK_DATA = {
    "direction_label": "Power / common",
    "subsystem": "Power",
    "machine_subsystem": "Field power",
-   "status": "FACTORY_INTERFACE",
+   "status": "PROPOSED",
    "field_point": "Field power bank B (TB2 I/O)",
    "designations": [
     "TB-2"
@@ -7094,7 +6955,7 @@ window.MAZAK_DATA = {
    "setp_refs": [],
    "epson_ferrules": [
     {
-     "label_text": "B-TB3-03",
+     "label_text": "B3-03",
      "wire": "+LY",
      "old_location": "CN3-37",
      "signal": "+Y OVER TRAVEL",
@@ -7104,7 +6965,7 @@ window.MAZAK_DATA = {
      "physical_pin": "TB3-03",
      "crosswalk_status": "PLANNED_MATCH",
      "release_status": "HOLD_SOURCE_TRACE",
-     "source_line": 17
+     "source_line": 12
     }
    ],
    "sources": [
@@ -7130,8 +6991,8 @@ window.MAZAK_DATA = {
     },
     {
      "file": "wiring/bbia1_mesa_end_ferrules_epson.csv",
-     "lines": "17",
-     "note": "Epson Mesa-end ferrule B-TB3-03; HOLD_SOURCE_TRACE"
+     "lines": "12",
+     "note": "Epson Mesa-end ferrule B3-03; HOLD_SOURCE_TRACE"
     }
    ],
    "conflicts": [
@@ -7299,7 +7160,7 @@ window.MAZAK_DATA = {
    "setp_refs": [],
    "epson_ferrules": [
     {
-     "label_text": "B-TB3-05",
+     "label_text": "B3-05",
      "wire": "+LTZ",
      "old_location": "CN2-14",
      "signal": "Z-AXIS OVER TRAVEL",
@@ -7309,7 +7170,7 @@ window.MAZAK_DATA = {
      "physical_pin": "TB3-05",
      "crosswalk_status": "PLANNED_MATCH",
      "release_status": "HOLD_SOURCE_TRACE",
-     "source_line": 18
+     "source_line": 9
     }
    ],
    "sources": [
@@ -7335,8 +7196,8 @@ window.MAZAK_DATA = {
     },
     {
      "file": "wiring/bbia1_mesa_end_ferrules_epson.csv",
-     "lines": "18",
-     "note": "Epson Mesa-end ferrule B-TB3-05; HOLD_SOURCE_TRACE"
+     "lines": "9",
+     "note": "Epson Mesa-end ferrule B3-05; HOLD_SOURCE_TRACE"
     }
    ],
    "conflicts": [
@@ -7411,7 +7272,7 @@ window.MAZAK_DATA = {
    "setp_refs": [],
    "epson_ferrules": [
     {
-     "label_text": "B-TB3-06",
+     "label_text": "B3-06",
      "wire": "-LZ",
      "old_location": "CN3-38",
      "signal": "-Z OVER TRAVEL",
@@ -7421,7 +7282,7 @@ window.MAZAK_DATA = {
      "physical_pin": "TB3-06",
      "crosswalk_status": "PLANNED_MATCH",
      "release_status": "HOLD_SOURCE_TRACE",
-     "source_line": 19
+     "source_line": 13
     }
    ],
    "sources": [
@@ -7447,8 +7308,8 @@ window.MAZAK_DATA = {
     },
     {
      "file": "wiring/bbia1_mesa_end_ferrules_epson.csv",
-     "lines": "19",
-     "note": "Epson Mesa-end ferrule B-TB3-06; HOLD_SOURCE_TRACE"
+     "lines": "13",
+     "note": "Epson Mesa-end ferrule B3-06; HOLD_SOURCE_TRACE"
     }
    ],
    "conflicts": [
@@ -7523,7 +7384,7 @@ window.MAZAK_DATA = {
    "setp_refs": [],
    "epson_ferrules": [
     {
-     "label_text": "B-TB3-07",
+     "label_text": "B3-07",
      "wire": "*DECX",
      "old_location": "CN2-15",
      "signal": "X-AXIS ZERO RETURN DEC",
@@ -7533,7 +7394,7 @@ window.MAZAK_DATA = {
      "physical_pin": "TB3-07",
      "crosswalk_status": "PLANNED_MATCH",
      "release_status": "HOLD_SOURCE_TRACE",
-     "source_line": 20
+     "source_line": 10
     }
    ],
    "sources": [
@@ -7559,8 +7420,8 @@ window.MAZAK_DATA = {
     },
     {
      "file": "wiring/bbia1_mesa_end_ferrules_epson.csv",
-     "lines": "20",
-     "note": "Epson Mesa-end ferrule B-TB3-07; HOLD_SOURCE_TRACE"
+     "lines": "10",
+     "note": "Epson Mesa-end ferrule B3-07; HOLD_SOURCE_TRACE"
     }
    ],
    "conflicts": [
@@ -7635,7 +7496,7 @@ window.MAZAK_DATA = {
    "setp_refs": [],
    "epson_ferrules": [
     {
-     "label_text": "B-TB3-08",
+     "label_text": "B3-08",
      "wire": "*DECY",
      "old_location": "CN2-16",
      "signal": "Y-AXIS ZERO RETURN DEC",
@@ -7645,7 +7506,7 @@ window.MAZAK_DATA = {
      "physical_pin": "TB3-08",
      "crosswalk_status": "PLANNED_MATCH",
      "release_status": "HOLD_SOURCE_TRACE",
-     "source_line": 21
+     "source_line": 11
     }
    ],
    "sources": [
@@ -7671,8 +7532,8 @@ window.MAZAK_DATA = {
     },
     {
      "file": "wiring/bbia1_mesa_end_ferrules_epson.csv",
-     "lines": "21",
-     "note": "Epson Mesa-end ferrule B-TB3-08; HOLD_SOURCE_TRACE"
+     "lines": "11",
+     "note": "Epson Mesa-end ferrule B3-08; HOLD_SOURCE_TRACE"
     }
    ],
    "conflicts": [
@@ -7748,7 +7609,7 @@ window.MAZAK_DATA = {
    "setp_refs": [],
    "epson_ferrules": [
     {
-     "label_text": "B-TB3-09",
+     "label_text": "B3-09",
      "wire": "*DECZ",
      "old_location": "CN1-14",
      "signal": "Z-AXIS ZERO RETURN DEC",
@@ -7758,7 +7619,7 @@ window.MAZAK_DATA = {
      "physical_pin": "TB3-09",
      "crosswalk_status": "PLANNED_MATCH",
      "release_status": "HOLD_SOURCE_TRACE",
-     "source_line": 22
+     "source_line": 2
     }
    ],
    "sources": [
@@ -7784,8 +7645,8 @@ window.MAZAK_DATA = {
     },
     {
      "file": "wiring/bbia1_mesa_end_ferrules_epson.csv",
-     "lines": "22",
-     "note": "Epson Mesa-end ferrule B-TB3-09; HOLD_SOURCE_TRACE"
+     "lines": "2",
+     "note": "Epson Mesa-end ferrule B3-09; HOLD_SOURCE_TRACE"
     }
    ],
    "conflicts": [
@@ -7845,7 +7706,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/atc_orient.hal",
-     "line": 199,
+     "line": 201,
      "text": "net air-ok              => mazak-atc.air-ok",
      "commented": false,
      "producers": [],
@@ -7870,7 +7731,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/atc_orient.hal",
-     "lines": "199",
+     "lines": "201",
      "note": "net air-ok              => mazak-atc.air-ok"
     },
     {
@@ -9372,7 +9233,7 @@ window.MAZAK_DATA = {
     "basis": "No commanding logic in the active HAL for this net; outputs default off.",
     "kind": "default-off"
    },
-   "hal_state": "commented",
+   "hal_state": "active",
    "mesa_pins": [
     "hm2_7i80.0.7i84.0.1.output-03"
    ],
@@ -9381,9 +9242,9 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 316,
-     "text": "# net air-blast          => hm2_7i80.0.7i84.0.1.output-03  # SOL-62 via RLY-5",
-     "commented": true,
+     "line": 319,
+     "text": "net air-blast          => hm2_7i80.0.7i84.0.1.output-03  # SOL-62 via RLY-5",
+     "commented": false,
      "producers": [],
      "consumers": [
       "hm2_7i80.0.7i84.0.1.output-03"
@@ -9401,8 +9262,8 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "316",
-     "note": "commented out — # net air-blast          => hm2_7i80.0.7i84.0.1.output-03  # SOL-62 via RLY-5"
+     "lines": "319",
+     "note": "net air-blast          => hm2_7i80.0.7i84.0.1.output-03  # SOL-62 via RLY-5"
     },
     {
      "file": "field_7i84u.hal",
@@ -9449,7 +9310,7 @@ window.MAZAK_DATA = {
     "basis": "No commanding logic in the active HAL for this net; outputs default off.",
     "kind": "default-off"
    },
-   "hal_state": "commented",
+   "hal_state": "active",
    "mesa_pins": [
     "hm2_7i80.0.7i84.0.1.output-04"
    ],
@@ -9458,9 +9319,9 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 317,
-     "text": "# net touch-sensor-blast => hm2_7i80.0.7i84.0.1.output-04  # SOL-35 via RLY-6",
-     "commented": true,
+     "line": 320,
+     "text": "net touch-sensor-blast => hm2_7i80.0.7i84.0.1.output-04  # SOL-35 via RLY-6",
+     "commented": false,
      "producers": [],
      "consumers": [
       "hm2_7i80.0.7i84.0.1.output-04"
@@ -9478,8 +9339,8 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "317",
-     "note": "commented out — # net touch-sensor-blast => hm2_7i80.0.7i84.0.1.output-04  # SOL-35 via RLY-6"
+     "lines": "320",
+     "note": "net touch-sensor-blast => hm2_7i80.0.7i84.0.1.output-04  # SOL-35 via RLY-6"
     },
     {
      "file": "field_7i84u.hal",
@@ -9526,7 +9387,7 @@ window.MAZAK_DATA = {
     "basis": "No commanding logic in the active HAL for this net; outputs default off.",
     "kind": "default-off"
    },
-   "hal_state": "commented",
+   "hal_state": "active",
    "mesa_pins": [
     "hm2_7i80.0.7i84.0.1.output-05"
    ],
@@ -9535,9 +9396,9 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 318,
-     "text": "# net tap-coolant-blast  => hm2_7i80.0.7i84.0.1.output-05  # SOL-61 via RLY-7",
-     "commented": true,
+     "line": 321,
+     "text": "net tap-coolant-blast  => hm2_7i80.0.7i84.0.1.output-05  # SOL-61 via RLY-7",
+     "commented": false,
      "producers": [],
      "consumers": [
       "hm2_7i80.0.7i84.0.1.output-05"
@@ -9555,8 +9416,8 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "318",
-     "note": "commented out — # net tap-coolant-blast  => hm2_7i80.0.7i84.0.1.output-05  # SOL-61 via RLY-7"
+     "lines": "321",
+     "note": "net tap-coolant-blast  => hm2_7i80.0.7i84.0.1.output-05  # SOL-61 via RLY-7"
     },
     {
      "file": "field_7i84u.hal",
@@ -9610,7 +9471,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/atc_orient.hal",
-     "line": 136,
+     "line": 138,
      "text": "net atc-barrier           => hm2_7i80.0.7i84.0.1.output-06  # 7i84U-B OUT6 (PLC Y095 TCME.M)",
      "commented": false,
      "producers": [],
@@ -9621,7 +9482,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/atc_orient.hal",
-     "line": 236,
+     "line": 244,
      "text": "net atc-barrier         <= mazak-atc.atc-barrier",
      "commented": false,
      "producers": [
@@ -9641,12 +9502,12 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/atc_orient.hal",
-     "lines": "136",
+     "lines": "138",
      "note": "net atc-barrier           => hm2_7i80.0.7i84.0.1.output-06  # 7i84U-B OUT6 (PLC Y095 TCME.M)"
     },
     {
      "file": "linuxcnc/atc_orient.hal",
-     "lines": "236",
+     "lines": "244",
      "note": "net atc-barrier         <= mazak-atc.atc-barrier"
     },
     {
@@ -9688,7 +9549,7 @@ window.MAZAK_DATA = {
     "basis": "No commanding logic in the active HAL for this net; outputs default off.",
     "kind": "default-off"
    },
-   "hal_state": "commented",
+   "hal_state": "active",
    "mesa_pins": [
     "hm2_7i80.0.7i84.0.1.output-07"
    ],
@@ -9697,9 +9558,9 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 320,
-     "text": "# net flood-valve        => hm2_7i80.0.7i84.0.1.output-07  # PLC Y011 FCL",
-     "commented": true,
+     "line": 323,
+     "text": "net flood-valve        => hm2_7i80.0.7i84.0.1.output-07  # PLC Y011 FCL (SOL-31); driver TBD - candidate: follow flood-coolant net with pump",
+     "commented": false,
      "producers": [],
      "consumers": [
       "hm2_7i80.0.7i84.0.1.output-07"
@@ -9717,8 +9578,8 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "320",
-     "note": "commented out — # net flood-valve        => hm2_7i80.0.7i84.0.1.output-07  # PLC Y011 FCL"
+     "lines": "323",
+     "note": "net flood-valve        => hm2_7i80.0.7i84.0.1.output-07  # PLC Y011 FCL (SOL-31); driver TBD - candidate: follow flood-coolant net with pump"
     },
     {
      "file": "element_list_crosswalk_2026-07-27",
@@ -9770,7 +9631,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/atc_orient.hal",
-     "line": 140,
+     "line": 142,
      "text": "net mag-cover-close       => hm2_7i80.0.7i84.0.1.output-08",
      "commented": false,
      "producers": [],
@@ -9781,7 +9642,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/atc_orient.hal",
-     "line": 227,
+     "line": 235,
      "text": "net mag-cover-close     <= mazak-atc.mag-cover-sol",
      "commented": false,
      "producers": [
@@ -9801,12 +9662,12 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/atc_orient.hal",
-     "lines": "140",
+     "lines": "142",
      "note": "net mag-cover-close       => hm2_7i80.0.7i84.0.1.output-08"
     },
     {
      "file": "linuxcnc/atc_orient.hal",
-     "lines": "227",
+     "lines": "235",
      "note": "net mag-cover-close     <= mazak-atc.mag-cover-sol"
     },
     {
@@ -10258,7 +10119,7 @@ window.MAZAK_DATA = {
    "direction_label": "Power / common",
    "subsystem": "Power",
    "machine_subsystem": "Power common",
-   "status": "FACTORY_INTERFACE",
+   "status": "PROPOSED",
    "field_point": "VIN/VFIELD common return",
    "designations": [],
    "primary_source": "Mesa 7i84U manual pp.7-8",
@@ -10310,7 +10171,7 @@ window.MAZAK_DATA = {
    "direction_label": "Power / common",
    "subsystem": "Power",
    "machine_subsystem": "Logic power",
-   "status": "FACTORY_INTERFACE",
+   "status": "PROPOSED",
    "field_point": "Field I/O logic power",
    "designations": [],
    "primary_source": "Mesa 7i84U manual pp.2/7-8/47",
@@ -10362,7 +10223,7 @@ window.MAZAK_DATA = {
    "direction_label": "Power / common",
    "subsystem": "Power",
    "machine_subsystem": "Power common",
-   "status": "FACTORY_INTERFACE",
+   "status": "PROPOSED",
    "field_point": "VIN/VFIELD common return",
    "designations": [],
    "primary_source": "Mesa 7i84U manual pp.7-8",
@@ -10402,6 +10263,120 @@ window.MAZAK_DATA = {
     "provenance": "label — to fill"
    },
    "authority_line": 133
+  },
+  {
+   "id": "NET_ALARM_OUT",
+   "name": "alarm-out",
+   "board": "7i84U-A",
+   "connector": "TB3",
+   "channel": "OUT15",
+   "hal_net": "alarm-out",
+   "direction": "OUT",
+   "direction_label": "Output (digital)",
+   "subsystem": "Unmapped",
+   "machine_subsystem": "Unmapped",
+   "status": "CONFIG_ONLY",
+   "field_point": "Not in the wiring authority",
+   "designations": [],
+   "primary_source": "HAL config only",
+   "cleanup_notes": "No row in current_pin_authority.csv. Commented out in HAL.",
+   "location": "Unknown — no authority row, trace in cabinet",
+   "location_note": "",
+   "expected": {
+    "value": "Unknown",
+    "label": "Unknown — measure/verify",
+    "basis": "No authority row and no normal-state evidence.",
+    "kind": "unknown"
+   },
+   "hal_state": "commented",
+   "mesa_pins": [
+    "hm2_7i80.0.7i84.0.0.output-15"
+   ],
+   "producers": [],
+   "consumers": [],
+   "hal_refs": [
+    {
+     "file": "linuxcnc/field_7i84u.hal",
+     "line": 179,
+     "text": "# net alarm-out          => hm2_7i80.0.7i84.0.0.output-15",
+     "commented": true,
+     "producers": [],
+     "consumers": [
+      "hm2_7i80.0.7i84.0.0.output-15"
+     ],
+     "bidir": []
+    }
+   ],
+   "setp_refs": [],
+   "epson_ferrules": [],
+   "sources": [
+    {
+     "file": "linuxcnc/field_7i84u.hal",
+     "lines": "179",
+     "note": "commented out — # net alarm-out          => hm2_7i80.0.7i84.0.0.output-15"
+    }
+   ],
+   "conflicts": [
+    "C2"
+   ],
+   "authority_line": null
+  },
+  {
+   "id": "NET_MANUAL_CLAMP_PB",
+   "name": "manual-clamp-pb",
+   "board": "7i84U-A",
+   "connector": "TB2",
+   "channel": "IN30",
+   "hal_net": "manual-clamp-pb",
+   "direction": "IN",
+   "direction_label": "Input (digital)",
+   "subsystem": "Unmapped",
+   "machine_subsystem": "Unmapped",
+   "status": "CONFIG_ONLY",
+   "field_point": "Not in the wiring authority",
+   "designations": [],
+   "primary_source": "HAL config only",
+   "cleanup_notes": "No row in current_pin_authority.csv. Commented out in HAL.",
+   "location": "Unknown — no authority row, trace in cabinet",
+   "location_note": "",
+   "expected": {
+    "value": "Unknown",
+    "label": "Unknown — measure/verify",
+    "basis": "No authority row and no normal-state evidence.",
+    "kind": "unknown"
+   },
+   "hal_state": "commented",
+   "mesa_pins": [
+    "hm2_7i80.0.7i84.0.0.input-30"
+   ],
+   "producers": [],
+   "consumers": [],
+   "hal_refs": [
+    {
+     "file": "linuxcnc/field_7i84u.hal",
+     "line": 92,
+     "text": "# net manual-clamp-pb    <= hm2_7i80.0.7i84.0.0.input-30",
+     "commented": true,
+     "producers": [
+      "hm2_7i80.0.7i84.0.0.input-30"
+     ],
+     "consumers": [],
+     "bidir": []
+    }
+   ],
+   "setp_refs": [],
+   "epson_ferrules": [],
+   "sources": [
+    {
+     "file": "linuxcnc/field_7i84u.hal",
+     "lines": "92",
+     "note": "commented out — # net manual-clamp-pb    <= hm2_7i80.0.7i84.0.0.input-30"
+    }
+   ],
+   "conflicts": [
+    "C1"
+   ],
+   "authority_line": null
   }
  ],
  "conflicts": [
@@ -10537,6 +10512,7 @@ window.MAZAK_DATA = {
   "Spindle",
   "Spindle gear",
   "Spindle safety",
+  "Unmapped",
   "Utility"
  ],
  "connectors": [
@@ -10552,6 +10528,37 @@ window.MAZAK_DATA = {
   "UNASSIGNED",
   "none"
  ],
- "orphan_nets": [],
+ "orphan_nets": [
+  {
+   "net": "alarm-out",
+   "mesa_pins": [
+    "hm2_7i80.0.7i84.0.0.output-15"
+   ],
+   "refs": [
+    {
+     "file": "linuxcnc/field_7i84u.hal",
+     "line": 179,
+     "commented": true,
+     "text": "# net alarm-out          => hm2_7i80.0.7i84.0.0.output-15"
+    }
+   ],
+   "active": false
+  },
+  {
+   "net": "manual-clamp-pb",
+   "mesa_pins": [
+    "hm2_7i80.0.7i84.0.0.input-30"
+   ],
+   "refs": [
+    {
+     "file": "linuxcnc/field_7i84u.hal",
+     "line": 92,
+     "commented": true,
+     "text": "# net manual-clamp-pb    <= hm2_7i80.0.7i84.0.0.input-30"
+    }
+   ],
+   "active": false
+  }
+ ],
  "missing_from_hal": []
 };
