@@ -641,6 +641,18 @@
       'Per ' + D.meta.authority_file + (s.authority_line ? ':' + s.authority_line : '') + '.',
       s.status === 'CONFIG_ONLY'));
 
+    if (s.bb_source) {
+      var bb = s.bb_source;
+      var bbNote = [];
+      if (bb.wire) bbNote.push('wire ' + bb.wire);
+      if (bb.cn_pin) bbNote.push('bottom ' + bb.cn_pin);
+      bbNote.push(bb.cnd_pin ? 'CNDx pin = CNx pin, labeled' : 'CNDx top-row pin \u2014 add from your labels');
+      ul.appendChild(pathStep('4b \u00b7 BBIA-1 source (top row CNDx)',
+        bb.cnd_pin || 'label \u2014 to fill',
+        bbNote.join(' \u00b7 '),
+        !bb.cnd_pin));
+    }
+
     ul.appendChild(pathStep('5 \u00b7 Field device',
       ((s.designations || []).length ? s.designations.join(' / ') + ' \u2014 ' : '') + (s.field_point || 'unassigned'),
       s.location_note || null,
