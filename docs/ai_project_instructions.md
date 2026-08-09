@@ -28,8 +28,11 @@ Mesa hardware stack:
 - Mesa 7i84U-A on 7i44 port 0 — general field I/O.
 - Mesa 7i84U-B on 7i44 port 1 — X/Y/Z limits, homes, drive-enable I/O,
   relay-driven loads.
-- 7i80HDT P3 — unused/spare except `hm2_7i80.0.gpio.042` for MP-3 probe
-  skip signal (direct FPGA GPIO, low-latency requirement).
+- 7i80HDT P3 — unused/spare, no exceptions. No daughter card is fitted and
+  bare 3.3 V FPGA GPIO must never carry 24 V field wiring. The Renishaw MP-3
+  probe SKIP1 lands on 7i84U-B TB3 IN15 (opto-isolated 24 V; HAL consumes
+  `input-15-not`). The former P3 `gpio.042` probe binding is RETRACTED — see
+  `docs/superseded_claims_2026-08-06.md` row 15.
 
 Preserve `7i84U-A` and `7i84U-B` identities in all wire labels, I/O maps,
 pin-authority tables, HAL names, test sheets, and documentation. Do not
@@ -77,15 +80,14 @@ Three sources are authoritative, in priority order:
      orient/zero-speed signal identification.
    Cite: pub name, PDF page, drawing number, sheet number.
 
-3. **Mesa manuals committed to `mesa_manuals/`**
-   - `7i84Uman.pdf` (7I84U V1.0) — 7i84U-A/B I/O registers, SSerial
+3. **Mesa manuals committed to `docs/Mesa Manuals/`**
+   - `7i84uman.pdf` (7I84U) — 7i84U-A/B I/O registers, SSerial
      addressing, connector pinouts, power requirements.
-   - `7i84man.pdf` (7I84/7I84D V1.18) — sourcing/sinking output differences,
-     SSerial register details.
-   - `7i97Tman.pdf` (7I97T V1.2) — Ethernet host, analog I/O, SSerial port.
-   - `7i97man.pdf` (7I97 V1.5) — cross-reference for pinouts and firmware.
-   - `7i49man.pdf` (7I49 V1.2) — resolver channels, carrier frequency,
-     analog output scaling, HAL pin naming.
+   Manuals for the other cards in the stack (7i80HDT, 7i44, 7i49) are not
+   yet committed — download from Mesa and commit before citing. Do NOT cite
+   7i97T/7i97 manuals: the 7i97T architecture is RETRACTED
+   (`docs/superseded_claims_2026-08-06.md`) and the local 7i97T manual was
+   deliberately removed in Rev B.
    Cite: filename, card model, version, page. Committed PDF wins over
    datasheets or forum posts unless a newer version is committed to the repo.
 
