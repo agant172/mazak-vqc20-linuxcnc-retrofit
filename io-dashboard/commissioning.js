@@ -298,7 +298,7 @@
     if (s.board === '7i84U-A' || s.board === '7i84U-B') {
       add('https://www.mesanet.com/pdf/parallel/7i84uman.pdf', '', 'Mesa 7i84U primary manual · connector and terminal tables');
     }
-    if (s.board === '7i84U-B') add('wiring/7i84u_b_terminal_legend_epson.md', '', 'Project terminal legend generated from the authority table');
+    if (s.board === '7i84U-B') add('wiring/labels/7i84u_b_terminal_legend_epson.md', '', 'Project terminal legend generated from the authority table');
     if (s.board === '7i49') add('https://www.mesanet.com/pdf/motion/7i49man.pdf', '', 'Mesa 7i49 primary manual · resolver and analog connector pinouts');
     if (s.board === '7i44') add('https://store.mesanet.com/index.php?product_id=44', '', 'Mesa 7i44 primary product information and port pinout');
     if (APP.state.layer === 'shield') add('docs/grounding_shielding_plan.md', '', 'Project grounding and shield treatment');
