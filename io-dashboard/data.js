@@ -6,7 +6,7 @@ window.MAZAK_DATA = {
   "machine": "Mazak VQC-20/40",
   "serial": "060231",
   "architecture": "LinuxCNC + Mesa 7i80HDT (Ethernet FPGA host) + 7i44 on P1 (HostMot2 sserial port 0 channels 0/1 to 7i84U-A/B) + 7i49 on P2 (resolver + analog outs); P3 unused/spare",
-  "generated": "2026-08-09 01:50 UTC",
+  "generated": "2026-08-09 02:17 UTC",
   "source_repo": "mazak-vqc20-linuxcnc-retrofit",
   "authority_file": "mesa/current_pin_authority.csv",
   "epson_ferrule_file": "wiring/bbia1_mesa_end_ferrules_epson.csv",
@@ -307,6 +307,12 @@ window.MAZAK_DATA = {
    "conflicts": [
     "C6"
    ],
+   "bb_source": {
+    "cnd_pin": "",
+    "wire": "",
+    "cn_pin": "",
+    "provenance": "label — to fill"
+   },
    "authority_line": 2
   },
   {
@@ -449,6 +455,12 @@ window.MAZAK_DATA = {
    "conflicts": [
     "C6"
    ],
+   "bb_source": {
+    "cnd_pin": "",
+    "wire": "",
+    "cn_pin": "",
+    "provenance": "label — to fill"
+   },
    "authority_line": 3
   },
   {
@@ -591,6 +603,12 @@ window.MAZAK_DATA = {
    "conflicts": [
     "C6"
    ],
+   "bb_source": {
+    "cnd_pin": "",
+    "wire": "",
+    "cn_pin": "",
+    "provenance": "label — to fill"
+   },
    "authority_line": 4
   },
   {
@@ -637,6 +655,7 @@ window.MAZAK_DATA = {
     }
    ],
    "conflicts": [],
+   "bb_source": null,
    "authority_line": 5
   },
   {
@@ -683,6 +702,7 @@ window.MAZAK_DATA = {
     }
    ],
    "conflicts": [],
+   "bb_source": null,
    "authority_line": 6
   },
   {
@@ -729,6 +749,7 @@ window.MAZAK_DATA = {
     }
    ],
    "conflicts": [],
+   "bb_source": null,
    "authority_line": 7
   },
   {
@@ -775,6 +796,7 @@ window.MAZAK_DATA = {
     }
    ],
    "conflicts": [],
+   "bb_source": null,
    "authority_line": 8
   },
   {
@@ -885,6 +907,12 @@ window.MAZAK_DATA = {
     }
    ],
    "conflicts": [],
+   "bb_source": {
+    "cnd_pin": "",
+    "wire": "",
+    "cn_pin": "",
+    "provenance": "label — to fill"
+   },
    "authority_line": 9
   },
   {
@@ -995,6 +1023,12 @@ window.MAZAK_DATA = {
     }
    ],
    "conflicts": [],
+   "bb_source": {
+    "cnd_pin": "",
+    "wire": "",
+    "cn_pin": "",
+    "provenance": "label — to fill"
+   },
    "authority_line": 10
   },
   {
@@ -1105,6 +1139,12 @@ window.MAZAK_DATA = {
     }
    ],
    "conflicts": [],
+   "bb_source": {
+    "cnd_pin": "",
+    "wire": "",
+    "cn_pin": "",
+    "provenance": "label — to fill"
+   },
    "authority_line": 11
   },
   {
@@ -1230,6 +1270,12 @@ window.MAZAK_DATA = {
    "conflicts": [
     "C3"
    ],
+   "bb_source": {
+    "cnd_pin": "",
+    "wire": "",
+    "cn_pin": "",
+    "provenance": "label — to fill"
+   },
    "authority_line": 12
   },
   {
@@ -1276,6 +1322,7 @@ window.MAZAK_DATA = {
     }
    ],
    "conflicts": [],
+   "bb_source": null,
    "authority_line": 13
   },
   {
@@ -1322,6 +1369,7 @@ window.MAZAK_DATA = {
     }
    ],
    "conflicts": [],
+   "bb_source": null,
    "authority_line": 14
   },
   {
@@ -1368,6 +1416,7 @@ window.MAZAK_DATA = {
     }
    ],
    "conflicts": [],
+   "bb_source": null,
    "authority_line": 15
   },
   {
@@ -1414,6 +1463,7 @@ window.MAZAK_DATA = {
     }
    ],
    "conflicts": [],
+   "bb_source": null,
    "authority_line": 16
   },
   {
@@ -1460,6 +1510,7 @@ window.MAZAK_DATA = {
     }
    ],
    "conflicts": [],
+   "bb_source": null,
    "authority_line": 17
   },
   {
@@ -1506,6 +1557,7 @@ window.MAZAK_DATA = {
     }
    ],
    "conflicts": [],
+   "bb_source": null,
    "authority_line": 18
   },
   {
@@ -1552,6 +1604,7 @@ window.MAZAK_DATA = {
     }
    ],
    "conflicts": [],
+   "bb_source": null,
    "authority_line": 19
   },
   {
@@ -1598,6 +1651,7 @@ window.MAZAK_DATA = {
     }
    ],
    "conflicts": [],
+   "bb_source": null,
    "authority_line": 20
   },
   {
@@ -1644,6 +1698,7 @@ window.MAZAK_DATA = {
     }
    ],
    "conflicts": [],
+   "bb_source": null,
    "authority_line": 21
   },
   {
@@ -1692,6 +1747,12 @@ window.MAZAK_DATA = {
     }
    ],
    "conflicts": [],
+   "bb_source": {
+    "cnd_pin": "",
+    "wire": "",
+    "cn_pin": "",
+    "provenance": "label — to fill"
+   },
    "authority_line": 22
   },
   {
@@ -1740,6 +1801,12 @@ window.MAZAK_DATA = {
     }
    ],
    "conflicts": [],
+   "bb_source": {
+    "cnd_pin": "",
+    "wire": "",
+    "cn_pin": "",
+    "provenance": "label — to fill"
+   },
    "authority_line": 23
   },
   {
@@ -1807,6 +1874,12 @@ window.MAZAK_DATA = {
     }
    ],
    "conflicts": [],
+   "bb_source": {
+    "cnd_pin": "",
+    "wire": "",
+    "cn_pin": "",
+    "provenance": "label — to fill"
+   },
    "authority_line": 24
   },
   {
@@ -1874,6 +1947,12 @@ window.MAZAK_DATA = {
     }
    ],
    "conflicts": [],
+   "bb_source": {
+    "cnd_pin": "",
+    "wire": "",
+    "cn_pin": "",
+    "provenance": "label — to fill"
+   },
    "authority_line": 25
   },
   {
@@ -1960,6 +2039,12 @@ window.MAZAK_DATA = {
     }
    ],
    "conflicts": [],
+   "bb_source": {
+    "cnd_pin": "CND2-13",
+    "wire": "381",
+    "cn_pin": "CN2-13",
+    "provenance": "verified wire# -> BBIA-1 pinout (CNDx pin = CNx pin)"
+   },
    "authority_line": 26
   },
   {
@@ -2046,6 +2131,12 @@ window.MAZAK_DATA = {
     }
    ],
    "conflicts": [],
+   "bb_source": {
+    "cnd_pin": "",
+    "wire": "",
+    "cn_pin": "",
+    "provenance": "label — to fill"
+   },
    "authority_line": 27
   },
   {
@@ -2129,6 +2220,12 @@ window.MAZAK_DATA = {
     }
    ],
    "conflicts": [],
+   "bb_source": {
+    "cnd_pin": "",
+    "wire": "",
+    "cn_pin": "",
+    "provenance": "label — to fill"
+   },
    "authority_line": 28
   },
   {
@@ -2248,6 +2345,12 @@ window.MAZAK_DATA = {
     }
    ],
    "conflicts": [],
+   "bb_source": {
+    "cnd_pin": "CND5-4",
+    "wire": "143",
+    "cn_pin": "CN3-4",
+    "provenance": "verified wire# -> BBIA-1 pinout (CNDx pin = CNx pin)"
+   },
    "authority_line": 29
   },
   {
@@ -2331,6 +2434,12 @@ window.MAZAK_DATA = {
     }
    ],
    "conflicts": [],
+   "bb_source": {
+    "cnd_pin": "CND2-10",
+    "wire": "218",
+    "cn_pin": "CN2-10",
+    "provenance": "verified wire# -> BBIA-1 pinout (CNDx pin = CNx pin)"
+   },
    "authority_line": 30
   },
   {
@@ -2414,6 +2523,12 @@ window.MAZAK_DATA = {
     }
    ],
    "conflicts": [],
+   "bb_source": {
+    "cnd_pin": "CND2-12",
+    "wire": "219",
+    "cn_pin": "CN2-12",
+    "provenance": "verified wire# -> BBIA-1 pinout (CNDx pin = CNx pin)"
+   },
    "authority_line": 31
   },
   {
@@ -2479,6 +2594,12 @@ window.MAZAK_DATA = {
     }
    ],
    "conflicts": [],
+   "bb_source": {
+    "cnd_pin": "",
+    "wire": "",
+    "cn_pin": "",
+    "provenance": "label — to fill"
+   },
    "authority_line": 32
   },
   {
@@ -2562,6 +2683,12 @@ window.MAZAK_DATA = {
     }
    ],
    "conflicts": [],
+   "bb_source": {
+    "cnd_pin": "CND2-3",
+    "wire": "149",
+    "cn_pin": "CN2-3",
+    "provenance": "verified wire# -> BBIA-1 pinout (CNDx pin = CNx pin)"
+   },
    "authority_line": 33
   },
   {
@@ -2645,6 +2772,12 @@ window.MAZAK_DATA = {
     }
    ],
    "conflicts": [],
+   "bb_source": {
+    "cnd_pin": "",
+    "wire": "",
+    "cn_pin": "",
+    "provenance": "label — to fill"
+   },
    "authority_line": 34
   },
   {
@@ -2728,6 +2861,12 @@ window.MAZAK_DATA = {
     }
    ],
    "conflicts": [],
+   "bb_source": {
+    "cnd_pin": "",
+    "wire": "",
+    "cn_pin": "",
+    "provenance": "label — to fill"
+   },
    "authority_line": 35
   },
   {
@@ -2811,6 +2950,12 @@ window.MAZAK_DATA = {
     }
    ],
    "conflicts": [],
+   "bb_source": {
+    "cnd_pin": "",
+    "wire": "",
+    "cn_pin": "",
+    "provenance": "label — to fill"
+   },
    "authority_line": 36
   },
   {
@@ -2894,6 +3039,7 @@ window.MAZAK_DATA = {
     }
    ],
    "conflicts": [],
+   "bb_source": null,
    "authority_line": 37
   },
   {
@@ -3028,6 +3174,12 @@ window.MAZAK_DATA = {
     }
    ],
    "conflicts": [],
+   "bb_source": {
+    "cnd_pin": "",
+    "wire": "",
+    "cn_pin": "",
+    "provenance": "label — to fill"
+   },
    "authority_line": 38
   },
   {
@@ -3115,6 +3267,12 @@ window.MAZAK_DATA = {
    "conflicts": [
     "C5"
    ],
+   "bb_source": {
+    "cnd_pin": "CN8-2",
+    "wire": "209",
+    "cn_pin": "CN1-2",
+    "provenance": "verified wire# -> BBIA-1 pinout (CNDx pin = CNx pin)"
+   },
    "authority_line": 39
   },
   {
@@ -3202,6 +3360,12 @@ window.MAZAK_DATA = {
    "conflicts": [
     "C5"
    ],
+   "bb_source": {
+    "cnd_pin": "CN8-1",
+    "wire": "208",
+    "cn_pin": "CN1-1",
+    "provenance": "verified wire# -> BBIA-1 pinout (CNDx pin = CNx pin)"
+   },
    "authority_line": 40
   },
   {
@@ -3287,6 +3451,12 @@ window.MAZAK_DATA = {
     }
    ],
    "conflicts": [],
+   "bb_source": {
+    "cnd_pin": "CN8-3",
+    "wire": "210",
+    "cn_pin": "CN1-3",
+    "provenance": "verified wire# -> BBIA-1 pinout (CNDx pin = CNx pin)"
+   },
    "authority_line": 41
   },
   {
@@ -3375,6 +3545,12 @@ window.MAZAK_DATA = {
     }
    ],
    "conflicts": [],
+   "bb_source": {
+    "cnd_pin": "CN8-4",
+    "wire": "212",
+    "cn_pin": "CN1-4",
+    "provenance": "verified wire# -> BBIA-1 pinout (CNDx pin = CNx pin)"
+   },
    "authority_line": 42
   },
   {
@@ -3479,6 +3655,12 @@ window.MAZAK_DATA = {
     }
    ],
    "conflicts": [],
+   "bb_source": {
+    "cnd_pin": "CND2-5",
+    "wire": "221",
+    "cn_pin": "CN2-5",
+    "provenance": "verified wire# -> BBIA-1 pinout (CNDx pin = CNx pin)"
+   },
    "authority_line": 43
   },
   {
@@ -3583,6 +3765,12 @@ window.MAZAK_DATA = {
     }
    ],
    "conflicts": [],
+   "bb_source": {
+    "cnd_pin": "CND2-6",
+    "wire": "222",
+    "cn_pin": "CN2-6",
+    "provenance": "verified wire# -> BBIA-1 pinout (CNDx pin = CNx pin)"
+   },
    "authority_line": 44
   },
   {
@@ -3687,6 +3875,12 @@ window.MAZAK_DATA = {
     }
    ],
    "conflicts": [],
+   "bb_source": {
+    "cnd_pin": "CND2-7",
+    "wire": "223",
+    "cn_pin": "CN2-7",
+    "provenance": "verified wire# -> BBIA-1 pinout (CNDx pin = CNx pin)"
+   },
    "authority_line": 45
   },
   {
@@ -3791,6 +3985,12 @@ window.MAZAK_DATA = {
     }
    ],
    "conflicts": [],
+   "bb_source": {
+    "cnd_pin": "CND2-8",
+    "wire": "224",
+    "cn_pin": "CN2-8",
+    "provenance": "verified wire# -> BBIA-1 pinout (CNDx pin = CNx pin)"
+   },
    "authority_line": 46
   },
   {
@@ -3895,6 +4095,12 @@ window.MAZAK_DATA = {
     }
    ],
    "conflicts": [],
+   "bb_source": {
+    "cnd_pin": "CND2-9",
+    "wire": "225",
+    "cn_pin": "CN2-9",
+    "provenance": "verified wire# -> BBIA-1 pinout (CNDx pin = CNx pin)"
+   },
    "authority_line": 47
   },
   {
@@ -3967,6 +4173,12 @@ window.MAZAK_DATA = {
    "conflicts": [
     "C10"
    ],
+   "bb_source": {
+    "cnd_pin": "",
+    "wire": "",
+    "cn_pin": "",
+    "provenance": "label — to fill"
+   },
    "authority_line": 48
   },
   {
@@ -4032,6 +4244,12 @@ window.MAZAK_DATA = {
     }
    ],
    "conflicts": [],
+   "bb_source": {
+    "cnd_pin": "CND3-39",
+    "wire": "355",
+    "cn_pin": "CN6-39",
+    "provenance": "verified wire# -> BBIA-1 pinout (CNDx pin = CNx pin)"
+   },
    "authority_line": 49
   },
   {
@@ -4097,6 +4315,12 @@ window.MAZAK_DATA = {
     }
    ],
    "conflicts": [],
+   "bb_source": {
+    "cnd_pin": "",
+    "wire": "",
+    "cn_pin": "",
+    "provenance": "label — to fill"
+   },
    "authority_line": 50
   },
   {
@@ -4180,6 +4404,12 @@ window.MAZAK_DATA = {
     }
    ],
    "conflicts": [],
+   "bb_source": {
+    "cnd_pin": "",
+    "wire": "",
+    "cn_pin": "",
+    "provenance": "label — to fill"
+   },
    "authority_line": 51
   },
   {
@@ -4226,6 +4456,7 @@ window.MAZAK_DATA = {
     }
    ],
    "conflicts": [],
+   "bb_source": null,
    "authority_line": 52
   },
   {
@@ -4328,6 +4559,12 @@ window.MAZAK_DATA = {
     }
    ],
    "conflicts": [],
+   "bb_source": {
+    "cnd_pin": "",
+    "wire": "",
+    "cn_pin": "",
+    "provenance": "label — to fill"
+   },
    "authority_line": 53
   },
   {
@@ -4413,6 +4650,7 @@ window.MAZAK_DATA = {
     }
    ],
    "conflicts": [],
+   "bb_source": null,
    "authority_line": 54
   },
   {
@@ -4478,6 +4716,12 @@ window.MAZAK_DATA = {
     }
    ],
    "conflicts": [],
+   "bb_source": {
+    "cnd_pin": "",
+    "wire": "",
+    "cn_pin": "",
+    "provenance": "label — to fill"
+   },
    "authority_line": 55
   },
   {
@@ -4597,6 +4841,12 @@ window.MAZAK_DATA = {
     }
    ],
    "conflicts": [],
+   "bb_source": {
+    "cnd_pin": "",
+    "wire": "",
+    "cn_pin": "",
+    "provenance": "label — to fill"
+   },
    "authority_line": 56
   },
   {
@@ -4682,6 +4932,12 @@ window.MAZAK_DATA = {
    "conflicts": [
     "C3"
    ],
+   "bb_source": {
+    "cnd_pin": "",
+    "wire": "",
+    "cn_pin": "",
+    "provenance": "label — to fill"
+   },
    "authority_line": 57
   },
   {
@@ -4767,6 +5023,12 @@ window.MAZAK_DATA = {
    "conflicts": [
     "C3"
    ],
+   "bb_source": {
+    "cnd_pin": "",
+    "wire": "",
+    "cn_pin": "",
+    "provenance": "label — to fill"
+   },
    "authority_line": 58
   },
   {
@@ -4909,6 +5171,12 @@ window.MAZAK_DATA = {
    "conflicts": [
     "C3"
    ],
+   "bb_source": {
+    "cnd_pin": "",
+    "wire": "",
+    "cn_pin": "",
+    "provenance": "label — to fill"
+   },
    "authority_line": 59
   },
   {
@@ -4992,6 +5260,12 @@ window.MAZAK_DATA = {
     }
    ],
    "conflicts": [],
+   "bb_source": {
+    "cnd_pin": "",
+    "wire": "",
+    "cn_pin": "",
+    "provenance": "label — to fill"
+   },
    "authority_line": 60
   },
   {
@@ -5077,6 +5351,12 @@ window.MAZAK_DATA = {
    "conflicts": [
     "C3"
    ],
+   "bb_source": {
+    "cnd_pin": "",
+    "wire": "",
+    "cn_pin": "",
+    "provenance": "label — to fill"
+   },
    "authority_line": 61
   },
   {
@@ -5160,6 +5440,12 @@ window.MAZAK_DATA = {
     }
    ],
    "conflicts": [],
+   "bb_source": {
+    "cnd_pin": "",
+    "wire": "",
+    "cn_pin": "",
+    "provenance": "label — to fill"
+   },
    "authority_line": 62
   },
   {
@@ -5305,6 +5591,12 @@ window.MAZAK_DATA = {
     }
    ],
    "conflicts": [],
+   "bb_source": {
+    "cnd_pin": "",
+    "wire": "",
+    "cn_pin": "",
+    "provenance": "label — to fill"
+   },
    "authority_line": 63
   },
   {
@@ -5392,6 +5684,12 @@ window.MAZAK_DATA = {
     }
    ],
    "conflicts": [],
+   "bb_source": {
+    "cnd_pin": "",
+    "wire": "",
+    "cn_pin": "",
+    "provenance": "label — to fill"
+   },
    "authority_line": 64
   },
   {
@@ -5479,6 +5777,12 @@ window.MAZAK_DATA = {
     }
    ],
    "conflicts": [],
+   "bb_source": {
+    "cnd_pin": "",
+    "wire": "",
+    "cn_pin": "",
+    "provenance": "label — to fill"
+   },
    "authority_line": 65
   },
   {
@@ -5549,6 +5853,12 @@ window.MAZAK_DATA = {
    "conflicts": [
     "C5"
    ],
+   "bb_source": {
+    "cnd_pin": "",
+    "wire": "",
+    "cn_pin": "",
+    "provenance": "label — to fill"
+   },
    "authority_line": 66
   },
   {
@@ -5638,6 +5948,12 @@ window.MAZAK_DATA = {
    "conflicts": [
     "C5"
    ],
+   "bb_source": {
+    "cnd_pin": "",
+    "wire": "",
+    "cn_pin": "",
+    "provenance": "label — to fill"
+   },
    "authority_line": 67
   },
   {
@@ -5727,6 +6043,12 @@ window.MAZAK_DATA = {
    "conflicts": [
     "C10"
    ],
+   "bb_source": {
+    "cnd_pin": "",
+    "wire": "",
+    "cn_pin": "",
+    "provenance": "label — to fill"
+   },
    "authority_line": 68
   },
   {
@@ -5810,6 +6132,7 @@ window.MAZAK_DATA = {
     }
    ],
    "conflicts": [],
+   "bb_source": null,
    "authority_line": 69
   },
   {
@@ -5895,6 +6218,7 @@ window.MAZAK_DATA = {
     }
    ],
    "conflicts": [],
+   "bb_source": null,
    "authority_line": 70
   },
   {
@@ -5980,6 +6304,7 @@ window.MAZAK_DATA = {
     }
    ],
    "conflicts": [],
+   "bb_source": null,
    "authority_line": 71
   },
   {
@@ -6045,6 +6370,7 @@ window.MAZAK_DATA = {
     }
    ],
    "conflicts": [],
+   "bb_source": null,
    "authority_line": 72
   },
   {
@@ -6091,6 +6417,7 @@ window.MAZAK_DATA = {
     }
    ],
    "conflicts": [],
+   "bb_source": null,
    "authority_line": 73
   },
   {
@@ -6137,6 +6464,7 @@ window.MAZAK_DATA = {
     }
    ],
    "conflicts": [],
+   "bb_source": null,
    "authority_line": 74
   },
   {
@@ -6183,6 +6511,7 @@ window.MAZAK_DATA = {
     }
    ],
    "conflicts": [],
+   "bb_source": null,
    "authority_line": 75
   },
   {
@@ -6229,6 +6558,7 @@ window.MAZAK_DATA = {
     }
    ],
    "conflicts": [],
+   "bb_source": null,
    "authority_line": 76
   },
   {
@@ -6275,6 +6605,7 @@ window.MAZAK_DATA = {
     }
    ],
    "conflicts": [],
+   "bb_source": null,
    "authority_line": 77
   },
   {
@@ -6321,6 +6652,7 @@ window.MAZAK_DATA = {
     }
    ],
    "conflicts": [],
+   "bb_source": null,
    "authority_line": 78
   },
   {
@@ -6369,6 +6701,12 @@ window.MAZAK_DATA = {
     }
    ],
    "conflicts": [],
+   "bb_source": {
+    "cnd_pin": "",
+    "wire": "",
+    "cn_pin": "",
+    "provenance": "label — to fill"
+   },
    "authority_line": 79
   },
   {
@@ -6417,6 +6755,12 @@ window.MAZAK_DATA = {
     }
    ],
    "conflicts": [],
+   "bb_source": {
+    "cnd_pin": "",
+    "wire": "",
+    "cn_pin": "",
+    "provenance": "label — to fill"
+   },
    "authority_line": 80
   },
   {
@@ -6520,6 +6864,12 @@ window.MAZAK_DATA = {
    "conflicts": [
     "C6"
    ],
+   "bb_source": {
+    "cnd_pin": "",
+    "wire": "",
+    "cn_pin": "",
+    "provenance": "label — to fill"
+   },
    "authority_line": 81
   },
   {
@@ -6607,6 +6957,12 @@ window.MAZAK_DATA = {
    "conflicts": [
     "C6"
    ],
+   "bb_source": {
+    "cnd_pin": "",
+    "wire": "",
+    "cn_pin": "",
+    "provenance": "label — to fill"
+   },
    "authority_line": 82
   },
   {
@@ -6713,6 +7069,12 @@ window.MAZAK_DATA = {
    "conflicts": [
     "C6"
    ],
+   "bb_source": {
+    "cnd_pin": "",
+    "wire": "",
+    "cn_pin": "",
+    "provenance": "label — to fill"
+   },
    "authority_line": 83
   },
   {
@@ -6800,6 +7162,12 @@ window.MAZAK_DATA = {
    "conflicts": [
     "C6"
    ],
+   "bb_source": {
+    "cnd_pin": "",
+    "wire": "",
+    "cn_pin": "",
+    "provenance": "label — to fill"
+   },
    "authority_line": 84
   },
   {
@@ -6906,6 +7274,12 @@ window.MAZAK_DATA = {
    "conflicts": [
     "C6"
    ],
+   "bb_source": {
+    "cnd_pin": "",
+    "wire": "",
+    "cn_pin": "",
+    "provenance": "label — to fill"
+   },
    "authority_line": 85
   },
   {
@@ -7012,6 +7386,12 @@ window.MAZAK_DATA = {
    "conflicts": [
     "C6"
    ],
+   "bb_source": {
+    "cnd_pin": "",
+    "wire": "",
+    "cn_pin": "",
+    "provenance": "label — to fill"
+   },
    "authority_line": 86
   },
   {
@@ -7118,6 +7498,12 @@ window.MAZAK_DATA = {
    "conflicts": [
     "C6"
    ],
+   "bb_source": {
+    "cnd_pin": "",
+    "wire": "",
+    "cn_pin": "",
+    "provenance": "label — to fill"
+   },
    "authority_line": 87
   },
   {
@@ -7224,6 +7610,12 @@ window.MAZAK_DATA = {
    "conflicts": [
     "C6"
    ],
+   "bb_source": {
+    "cnd_pin": "",
+    "wire": "",
+    "cn_pin": "",
+    "provenance": "label — to fill"
+   },
    "authority_line": 88
   },
   {
@@ -7331,6 +7723,12 @@ window.MAZAK_DATA = {
    "conflicts": [
     "C6"
    ],
+   "bb_source": {
+    "cnd_pin": "",
+    "wire": "",
+    "cn_pin": "",
+    "provenance": "label — to fill"
+   },
    "authority_line": 89
   },
   {
@@ -7414,6 +7812,7 @@ window.MAZAK_DATA = {
     }
    ],
    "conflicts": [],
+   "bb_source": null,
    "authority_line": 90
   },
   {
@@ -7460,6 +7859,7 @@ window.MAZAK_DATA = {
     }
    ],
    "conflicts": [],
+   "bb_source": null,
    "authority_line": 91
   },
   {
@@ -7506,6 +7906,7 @@ window.MAZAK_DATA = {
     }
    ],
    "conflicts": [],
+   "bb_source": null,
    "authority_line": 92
   },
   {
@@ -7552,6 +7953,7 @@ window.MAZAK_DATA = {
     }
    ],
    "conflicts": [],
+   "bb_source": null,
    "authority_line": 93
   },
   {
@@ -7598,6 +8000,7 @@ window.MAZAK_DATA = {
     }
    ],
    "conflicts": [],
+   "bb_source": null,
    "authority_line": 94
   },
   {
@@ -7644,6 +8047,7 @@ window.MAZAK_DATA = {
     }
    ],
    "conflicts": [],
+   "bb_source": null,
    "authority_line": 95
   },
   {
@@ -7727,6 +8131,7 @@ window.MAZAK_DATA = {
     }
    ],
    "conflicts": [],
+   "bb_source": null,
    "authority_line": 96
   },
   {
@@ -7773,6 +8178,7 @@ window.MAZAK_DATA = {
     }
    ],
    "conflicts": [],
+   "bb_source": null,
    "authority_line": 97
   },
   {
@@ -7819,6 +8225,7 @@ window.MAZAK_DATA = {
     }
    ],
    "conflicts": [],
+   "bb_source": null,
    "authority_line": 98
   },
   {
@@ -7865,6 +8272,7 @@ window.MAZAK_DATA = {
     }
    ],
    "conflicts": [],
+   "bb_source": null,
    "authority_line": 99
   },
   {
@@ -7911,6 +8319,7 @@ window.MAZAK_DATA = {
     }
    ],
    "conflicts": [],
+   "bb_source": null,
    "authority_line": 100
   },
   {
@@ -7957,6 +8366,7 @@ window.MAZAK_DATA = {
     }
    ],
    "conflicts": [],
+   "bb_source": null,
    "authority_line": 101
   },
   {
@@ -8003,6 +8413,7 @@ window.MAZAK_DATA = {
     }
    ],
    "conflicts": [],
+   "bb_source": null,
    "authority_line": 102
   },
   {
@@ -8049,6 +8460,7 @@ window.MAZAK_DATA = {
     }
    ],
    "conflicts": [],
+   "bb_source": null,
    "authority_line": 103
   },
   {
@@ -8095,6 +8507,7 @@ window.MAZAK_DATA = {
     }
    ],
    "conflicts": [],
+   "bb_source": null,
    "authority_line": 104
   },
   {
@@ -8141,6 +8554,7 @@ window.MAZAK_DATA = {
     }
    ],
    "conflicts": [],
+   "bb_source": null,
    "authority_line": 105
   },
   {
@@ -8187,6 +8601,7 @@ window.MAZAK_DATA = {
     }
    ],
    "conflicts": [],
+   "bb_source": null,
    "authority_line": 106
   },
   {
@@ -8233,6 +8648,7 @@ window.MAZAK_DATA = {
     }
    ],
    "conflicts": [],
+   "bb_source": null,
    "authority_line": 107
   },
   {
@@ -8279,6 +8695,7 @@ window.MAZAK_DATA = {
     }
    ],
    "conflicts": [],
+   "bb_source": null,
    "authority_line": 108
   },
   {
@@ -8325,6 +8742,7 @@ window.MAZAK_DATA = {
     }
    ],
    "conflicts": [],
+   "bb_source": null,
    "authority_line": 109
   },
   {
@@ -8371,6 +8789,7 @@ window.MAZAK_DATA = {
     }
    ],
    "conflicts": [],
+   "bb_source": null,
    "authority_line": 110
   },
   {
@@ -8417,6 +8836,7 @@ window.MAZAK_DATA = {
     }
    ],
    "conflicts": [],
+   "bb_source": null,
    "authority_line": 111
   },
   {
@@ -8463,6 +8883,7 @@ window.MAZAK_DATA = {
     }
    ],
    "conflicts": [],
+   "bb_source": null,
    "authority_line": 112
   },
   {
@@ -8608,6 +9029,12 @@ window.MAZAK_DATA = {
     }
    ],
    "conflicts": [],
+   "bb_source": {
+    "cnd_pin": "",
+    "wire": "",
+    "cn_pin": "",
+    "provenance": "label — to fill"
+   },
    "authority_line": 113
   },
   {
@@ -8753,6 +9180,12 @@ window.MAZAK_DATA = {
     }
    ],
    "conflicts": [],
+   "bb_source": {
+    "cnd_pin": "",
+    "wire": "",
+    "cn_pin": "",
+    "provenance": "label — to fill"
+   },
    "authority_line": 114
   },
   {
@@ -8836,6 +9269,12 @@ window.MAZAK_DATA = {
     }
    ],
    "conflicts": [],
+   "bb_source": {
+    "cnd_pin": "",
+    "wire": "",
+    "cn_pin": "",
+    "provenance": "label — to fill"
+   },
    "authority_line": 115
   },
   {
@@ -8906,6 +9345,12 @@ window.MAZAK_DATA = {
    "conflicts": [
     "C6"
    ],
+   "bb_source": {
+    "cnd_pin": "",
+    "wire": "",
+    "cn_pin": "",
+    "provenance": "label — to fill"
+   },
    "authority_line": 116
   },
   {
@@ -8977,6 +9422,12 @@ window.MAZAK_DATA = {
    "conflicts": [
     "C6"
    ],
+   "bb_source": {
+    "cnd_pin": "",
+    "wire": "",
+    "cn_pin": "",
+    "provenance": "label — to fill"
+   },
    "authority_line": 117
   },
   {
@@ -9048,6 +9499,12 @@ window.MAZAK_DATA = {
    "conflicts": [
     "C6"
    ],
+   "bb_source": {
+    "cnd_pin": "",
+    "wire": "",
+    "cn_pin": "",
+    "provenance": "label — to fill"
+   },
    "authority_line": 118
   },
   {
@@ -9131,6 +9588,12 @@ window.MAZAK_DATA = {
     }
    ],
    "conflicts": [],
+   "bb_source": {
+    "cnd_pin": "",
+    "wire": "",
+    "cn_pin": "",
+    "provenance": "label — to fill"
+   },
    "authority_line": 119
   },
   {
@@ -9196,6 +9659,12 @@ window.MAZAK_DATA = {
     }
    ],
    "conflicts": [],
+   "bb_source": {
+    "cnd_pin": "",
+    "wire": "",
+    "cn_pin": "",
+    "provenance": "label — to fill"
+   },
    "authority_line": 120
   },
   {
@@ -9279,6 +9748,7 @@ window.MAZAK_DATA = {
     }
    ],
    "conflicts": [],
+   "bb_source": null,
    "authority_line": 121
   },
   {
@@ -9325,6 +9795,7 @@ window.MAZAK_DATA = {
     }
    ],
    "conflicts": [],
+   "bb_source": null,
    "authority_line": 122
   },
   {
@@ -9371,6 +9842,7 @@ window.MAZAK_DATA = {
     }
    ],
    "conflicts": [],
+   "bb_source": null,
    "authority_line": 123
   },
   {
@@ -9417,6 +9889,7 @@ window.MAZAK_DATA = {
     }
    ],
    "conflicts": [],
+   "bb_source": null,
    "authority_line": 124
   },
   {
@@ -9463,6 +9936,7 @@ window.MAZAK_DATA = {
     }
    ],
    "conflicts": [],
+   "bb_source": null,
    "authority_line": 125
   },
   {
@@ -9509,6 +9983,7 @@ window.MAZAK_DATA = {
     }
    ],
    "conflicts": [],
+   "bb_source": null,
    "authority_line": 126
   },
   {
@@ -9555,6 +10030,7 @@ window.MAZAK_DATA = {
     }
    ],
    "conflicts": [],
+   "bb_source": null,
    "authority_line": 127
   },
   {
@@ -9601,6 +10077,7 @@ window.MAZAK_DATA = {
     }
    ],
    "conflicts": [],
+   "bb_source": null,
    "authority_line": 128
   },
   {
@@ -9647,6 +10124,7 @@ window.MAZAK_DATA = {
     }
    ],
    "conflicts": [],
+   "bb_source": null,
    "authority_line": 129
   },
   {
@@ -9698,6 +10176,7 @@ window.MAZAK_DATA = {
     }
    ],
    "conflicts": [],
+   "bb_source": null,
    "authority_line": 130
   },
   {
@@ -9744,6 +10223,12 @@ window.MAZAK_DATA = {
     }
    ],
    "conflicts": [],
+   "bb_source": {
+    "cnd_pin": "",
+    "wire": "",
+    "cn_pin": "",
+    "provenance": "label — to fill"
+   },
    "authority_line": 131
   },
   {
@@ -9790,6 +10275,12 @@ window.MAZAK_DATA = {
     }
    ],
    "conflicts": [],
+   "bb_source": {
+    "cnd_pin": "",
+    "wire": "",
+    "cn_pin": "",
+    "provenance": "label — to fill"
+   },
    "authority_line": 132
   },
   {
@@ -9836,6 +10327,12 @@ window.MAZAK_DATA = {
     }
    ],
    "conflicts": [],
+   "bb_source": {
+    "cnd_pin": "",
+    "wire": "",
+    "cn_pin": "",
+    "provenance": "label — to fill"
+   },
    "authority_line": 133
   }
  ],

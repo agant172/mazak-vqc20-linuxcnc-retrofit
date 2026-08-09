@@ -189,6 +189,19 @@ def build(root):
             "release_status": r["Release_Status"],
             "source_line": r["_line"],
         })
+    # BBIA-1 terminal-unit source pins (CNDx top row) -> Mesa destination.
+    # CNDx pin == CNx pin (straight pass-through). Editable fill-in worksheet.
+    bb_source = {}
+    bb_path = os.path.join(root, "wiring/bbia1_source_dest.csv")
+    if os.path.exists(bb_path):
+        for r in csv_rows_with_lines(bb_path):
+            bb_source[r["signal_id"]] = {
+                "cnd_pin": (r.get("cnd_source_pin") or "").strip(),
+                "wire": (r.get("factory_wire") or "").strip(),
+                "cn_pin": (r.get("bottom_cn_pin") or "").strip(),
+                "provenance": (r.get("source_provenance") or "").strip(),
+            }
+
     conflict_by_signal = {}
     for c in E.CONFLICTS:
         for s in c["signals"]:
@@ -309,6 +322,7 @@ def build(root):
             "epson_ferrules": epson_ferrules,
             "sources": sources,
             "conflicts": conflict_by_signal.get(sid, []),
+            "bb_source": bb_source.get(sid),
             "authority_line": r["_line"],
         })
 
