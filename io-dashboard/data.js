@@ -6,7 +6,7 @@ window.MAZAK_DATA = {
   "machine": "Mazak VQC-20/40",
   "serial": "060231",
   "architecture": "LinuxCNC + Mesa 7i80HDT (Ethernet FPGA host) + 7i44 on P1 (HostMot2 sserial port 0 channels 0/1 to 7i84U-A/B) + 7i49 on P2 (resolver + analog outs); P3 unused/spare",
-  "generated": "2026-08-09 03:17 UTC",
+  "generated": "2026-08-09 03:20 UTC",
   "source_repo": "mazak-vqc20-linuxcnc-retrofit",
   "authority_file": "mesa/current_pin_authority.csv",
   "epson_ferrule_file": "wiring/bbia1_mesa_end_ferrules_epson.csv",
@@ -6242,13 +6242,13 @@ window.MAZAK_DATA = {
    "direction_label": "Output (digital)",
    "subsystem": "ATC motor",
    "machine_subsystem": "ATC motor",
-   "status": "HOLD_CONFLICT",
-   "field_point": "ATC magazine CW rotation relay (SOL-8A per connector_crossref.md, unverified)",
+   "status": "COMMISSIONING_PENDING",
+   "field_point": "ATC magazine CW rotation relay -> SOL-8B (pg91 Dwg 4143075332: SOL-8B=408B=MAGAZINE CW/reverse)",
    "designations": [
-    "SOL-8A"
+    "SOL-8B"
    ],
    "primary_source": "archived_wiring_map",
-   "cleanup_notes": "CONFLICT #3 in wiring/authority_conflicts.md: SOL-8A/8B direction mapping unproven. Renamed from atc-fwd to match atc_orient.hal net. Verify direction under controlled commissioning.",
+   "cleanup_notes": "CONFLICT #3 in wiring/authority_conflicts.md: SOL-8A/8B direction mapping unproven. Renamed from atc-fwd to match atc_orient.hal net. Verify direction under controlled commissioning. | [RESOLVED 2026-08-09: coil identity = SOL-8B (CW) per pg91 + connector_crossref (both agree; alarm-table OCR was wrong). Prior 'SOL-8A' was backwards. HOLD_CONFLICT cleared. PENDING BENCH: verify observed magazine rotation under controlled commissioning before landing/energizing.]",
    "location": "Unknown — trace in cabinet",
    "location_note": "",
    "expected": {
@@ -6328,13 +6328,13 @@ window.MAZAK_DATA = {
    "direction_label": "Output (digital)",
    "subsystem": "ATC motor",
    "machine_subsystem": "ATC motor",
-   "status": "HOLD_CONFLICT",
-   "field_point": "ATC magazine CCW rotation relay (SOL-8B per connector_crossref.md, unverified)",
+   "status": "COMMISSIONING_PENDING",
+   "field_point": "ATC magazine CCW rotation relay -> SOL-8A (pg91 Dwg 4143075332: SOL-8A=408A=MAGAZINE CCW/forward)",
    "designations": [
-    "SOL-8B"
+    "SOL-8A"
    ],
    "primary_source": "archived_wiring_map",
-   "cleanup_notes": "CONFLICT #3 in wiring/authority_conflicts.md: SOL-8A/8B direction mapping unproven. Renamed from atc-rev to match atc_orient.hal net. Verify direction under controlled commissioning.",
+   "cleanup_notes": "CONFLICT #3 in wiring/authority_conflicts.md: SOL-8A/8B direction mapping unproven. Renamed from atc-rev to match atc_orient.hal net. Verify direction under controlled commissioning. | [RESOLVED 2026-08-09: coil identity = SOL-8A (CCW) per pg91 + connector_crossref. Prior 'SOL-8B' was backwards. HOLD_CONFLICT cleared. PENDING BENCH: verify observed magazine rotation under controlled commissioning before landing/energizing.]",
    "location": "Unknown — trace in cabinet",
    "location_note": "",
    "expected": {
