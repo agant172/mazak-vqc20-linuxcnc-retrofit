@@ -38,7 +38,8 @@ that mechanically enforces it.
        │  ELECTRICAL CHANNEL AUTHORITY                           │
        │  One row per physical Mesa pin.                         │
        │  Owns: mesa_card, connector, pin_channel, hal_net,      │
-       │        field_point_or_load, authority_status.           │
+       │        field_point_or_load, dest_connector, dest_pin,   │
+       │        authority_status.                                │
        └─────────────────────────────────────────────────────────┘
                               │  validated by
                               ▼
@@ -83,6 +84,12 @@ that mechanically enforces it.
   binding is planned yet
 - `field_point_or_load` — machine-side identifier (LS-42, PRS-9, SOL-10,
   RLY-1, coil identity, wire number)
+- `dest_connector` and `dest_pin` — the field/far end landing when it is an
+  actual terminal with a pin (e.g. a 7i84U RJ45 conductor, an OEM connector
+  like `OEM CN6` pin `8`, or a field-power terminal block `TB2`/`TB3`).
+  Leave both blank when the destination is a loose device/load rather than a
+  numbered terminal; `dest_pin` may be blank while `dest_connector` names a
+  terminal block that has no discrete pin number
 - `authority_status` — see the evidence-state taxonomy in
   [`pre_power_deliverables.md`](pre_power_deliverables.md)
 - `primary_source` — where this row's claim came from

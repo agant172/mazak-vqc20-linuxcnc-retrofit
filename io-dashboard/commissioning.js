@@ -145,6 +145,26 @@
       (s.connector || 'connector unknown') + (s.channel ? ' · ' + s.channel : '');
   }
 
+  // Structured far-end terminal from the authority CSV (dest_connector/dest_pin),
+  // e.g. "7i84U-A RJ45 pin 2" or "TB3". Empty string when the destination is a
+  // loose device/load with no numbered terminal recorded.
+  function destTerminal(s) {
+    var conn = (s.dest_connector || '').trim();
+    if (!conn) return '';
+    var pin = (s.dest_pin || '').trim();
+    return pin ? conn + ' pin ' + pin : conn;
+  }
+
+  // Sub-line for the field-destination node: lead with the structured terminal
+  // when the authority CSV records one, then the machine location; otherwise
+  // fall back to the location alone.
+  function destSub(s) {
+    var term = destTerminal(s);
+    var loc = s.location || '';
+    if (term) return loc ? term + ' · ' + loc : term;
+    return loc || 'Machine location not recorded';
+  }
+
   function epsonFerruleText(s) {
     return (s.epson_ferrules || []).map(function (f) { return f.label_text; }).join(' / ');
   }
@@ -191,7 +211,7 @@
       { stage: isInput(s) ? 'LinuxCNC consumer' : 'LinuxCNC source', main: control || 'No active HAL endpoint', sub: s.hal_net ? 'HAL net · ' + s.hal_net : 'HAL net not defined', unknown: !control },
       { stage: 'Mesa terminal', main: mesaTerminal(s), sub: mesaSub || 'HostMot2 binding unverified', kind: 'mesa', unknown: s.board === 'none' },
       { stage: 'Interface / conductor', main: iface.main, sub: iface.sub, kind: 'interface', unknown: iface.unknown },
-      { stage: 'Field destination', main: s.field_point || 'Field device not assigned', sub: s.location || 'Machine location not recorded', unknown: !s.field_point || /unknown|unassigned/i.test((s.field_point || '') + ' ' + (s.location || '')) }
+      { stage: 'Field destination', main: s.field_point || 'Field device not assigned', sub: destSub(s), verified: !!destTerminal(s), unknown: !destTerminal(s) && (!s.field_point || /unknown|unassigned/i.test((s.field_point || '') + ' ' + (s.location || ''))) }
     ];
   }
 
@@ -244,7 +264,7 @@
 
   function nodeHTML(n) {
     var kind = n.unknown ? 'unknown' : (n.kind || 'known');
-    return '<span class="circuit-node" data-kind="' + kind + '">' +
+    return '<span class="circuit-node" data-kind="' + kind + '"' + (n.verified ? ' data-verified="true"' : '') + '>' +
       '<span class="node-stage">' + esc(n.stage) + '</span>' +
       '<span class="node-main">' + esc(n.main) + '</span>' +
       (n.sub ? '<span class="node-sub">' + esc(n.sub) + '</span>' : '') + '</span>';
