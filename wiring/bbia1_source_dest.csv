@@ -7,68 +7,68 @@ MAG_BCD_BIT1,CND2-5,221,CN2-5,7i84U-A TB2 IN20,BBIA-1 board pinout (trusted over
 MAG_BCD_BIT2,CND2-6,222,CN2-6,7i84U-A TB2 IN21,BBIA-1 board pinout (trusted over pg135)
 MAG_BCD_BIT3,CND2-7,223,CN2-7,7i84U-A TB2 IN22,BBIA-1 board pinout (trusted over pg135)
 MAG_BCD_BIT4,CND2-8,224,CN2-8,7i84U-A TB2 IN23,BBIA-1 board pinout (trusted over pg135)
-MAG_COVER_CLOSE_CONF,,,,7i84U-A TB3 IN7,UNCONFIRMED: BBIA-1 pinout wire 219/CN2-12 = MAGAZINE FWD/REV SW; cover-close conductor not found - trace
+MAG_COVER_CLOSE_CONF,CN2-12,219,CN2-12,7i84U-A TB3 IN7,"RESOLVED 2026-08-10: wire 219 confirmed by two independent sources - Dwg 4143075409 pg135 (RS-19 MGCCRS at T.U CN2-12) and BBIA-1 board pinout CSV (CN2-12 = wire219; board labels the pin MAGAZINE FWD/REV SW - label mismatch, wire# match trusted)"
 MAG_COVER_OPEN_CONF,CND2-11,218,CN2-11,7i84U-A TB3 IN6,BBIA-1 pinout: COVER OPEN at CN2-11 (wire 218 also lands CN2-10=POWER OPEN)
-MAG_TOOL_AVAILABLE,,,,7i84U-A TB3 IN2,UNCONFIRMED: wire 381 ambiguous (CN2-13=LUBE TIMER vs CN6-37=MAGAZINE OIL TOOL DETECTOR) - confirm PHS-181 conductor
+MAG_TOOL_AVAILABLE,CN2-13,381,CN2-13,7i84U-A TB3 IN2,"RESOLVED 2026-08-10: Dwg 4143075409 pg135 confirms wire 381 = TOOL DETECTOR (PHS-181) at T.U CN2-13, matching the BBIA-1 board pinout's wire# at CN2-13 even though the board labels that pin LUBE TIMER (label mismatch, wire# + independent schematic corroboration trusted); supersedes the prior CN6-37 ambiguity"
 MANUAL_TOOL_UNCLAMP_PB,CND2-3,149,CN2-3,7i84U-A TB3 IN9,verified wire# -> BBIA-1 pinout (CNDx pin = CNx pin)
 SPINDLE_ZERO_SPEED,CN4-1,231,CN4-1,7i84U-A TB3 IN5,BBIA-1 board pinout (trusted over pg135)
 TOOL_CLAMP_CONF,CN8-2,209,CN1-2,7i84U-A TB3 IN15,verified wire# -> BBIA-1 pinout (CNDx pin = CNx pin)
 TOOL_UNCLAMP_CONF,CN8-1,208,CN1-1,7i84U-A TB2 IN16,verified wire# -> BBIA-1 pinout (CNDx pin = CNx pin)
-AIR_BLAST,,,,7i84U-B TB3 OUT3,label — to fill
-ATC_BARRIER_SOL,,,,7i84U-B TB3 OUT6,label — to fill
-ATC_ZONE_Y,,,,7i84U-A TB3 IN0,label — to fill
-ATC_ZONE_Z,,,,7i84U-A TB3 IN1,label — to fill
-COOLANT_LOW,,,,7i84U-A TB2 IN26,label — to fill
-COOLANT_ON,,,,7i84U-A TB2 OUT11,label — to fill
-DOOR_INTERLOCK,,,,7i84U-A TB2 IN24,label — to fill
-FLOOD_VALVE,,,,7i84U-B TB3 OUT7,label — to fill
-GEAR_HI_SOL,,,,7i84U-A TB3 OUT7,label — to fill
-GEAR_LO_SOL,,,,7i84U-A TB2 OUT8,label — to fill
-HYD_PRESS_OK,,,,7i84U-A TB2 IN27,label — to fill
-HYD_PUMP_ON,CN11-16,235,SSR bd CN11-16,7i84U-A TB3 OUT3,BBIA-1 terminal-unit CN11 pin16 (dwg 4113075022 sheet 85 / 41434WB p85) read 2026-08-10 — see wiring/bbia1_cn_pinouts.csv; NOT the SSR-board's own CN11 (see CN11-SSR)
+AIR_BLAST,,,,7i84U-B TB3 OUT3,AMBIGUOUS 2026-08-10: CN11-6 (wire215 SPINDLE AIR BLAST) vs CN11-7 (wire216 WORK AIR BLAST) both plausible for SOL-62 (RLY-5) - no wire# for SOL-62 found to disambiguate; verify against parts list pp.85-91 before landing
+ATC_BARRIER_SOL,,,,7i84U-B TB3 OUT6,"NOT LOCATED 2026-08-10: not among CN11/CN11-SSR's 20 pins (all 20 accounted for); Y095 TCME.M barrier-expand likely routes via CN12 (2PC/pallet-changer bank, not yet transcribed) - needs further extraction"
+ATC_ZONE_Y,CN3-44,+LY2,CN3-44,7i84U-A TB3 IN0,RESOLVED 2026-08-10: Dwg 4143075409 pg135 '2nd +Y OVER TRAVEL' = PRS-55 wire +LY2 at T.U CN3-44 - matches authority CSV's PRS-55 citation exactly
+ATC_ZONE_Z,CN3-39,-LZ2,CN3-39,7i84U-A TB3 IN1,RESOLVED 2026-08-10: Dwg 4143075409 pg135 '2nd -Z OVER TRAVEL' = PRS-66 wire -LZ2 at T.U CN3-39 - matches authority CSV's PRS-66 citation exactly
+COOLANT_LOW,CN1-5,232,CN1-5,7i84U-A TB2 IN26,"CANDIDATE 2026-08-10: BBIA-1 board pinout CN1-5 = wire232 '2nd-S LEVEL' (function: coolant lvl) - plausible match for coolant level switch; not cross-checked against a ladder-side wire# this session, verify polarity/normal-state before commissioning"
+COOLANT_ON,CN11-15,236,SSR bd CN11-15,7i84U-A TB2 OUT11,"RESOLVED 2026-08-10: BBIA-1 terminal-unit CN11 pin15 = wire236 FLOOD COOLANT MOTOR STARTER, matching 'coolant pump relay' (motor starter = pump, distinct from FLOOD_VALVE at CN11-13). NB pin15 shares wire236 with pin12 OIL HOLE - a data-quality flag in the source CSV, not resolved here"
+DOOR_INTERLOCK,CN2-38,238,CN2-38,7i84U-A TB2 IN24,"RESOLVED 2026-08-10 (primary): BBIA-1 board pinout CN2-38 = wire238 MACHINE DOOR INTERLOCK (mirrored at CN6-23, same wire# - internally consistent). ALT candidate: Dwg 4143075407 pg133 T.U CN3-3 wire142 MDINT.M (ladder-side finding, different wire#, not reconciled with the board pinout). Door-interlock chain is series-wired with LS-140/141 per open_issues.md so more than one physical contact may legitimately exist"
+FLOOD_VALVE,CN11-13,231,SSR bd CN11-13,7i84U-B TB3 OUT7,"RESOLVED 2026-08-10: BBIA-1 terminal-unit CN11 pin13 = wire231 FLOOD COOLANT, matching 'flood coolant valve, separate from pump motor' (Y011 FCL) - distinct from COOLANT_ON/pump-motor at CN11-15"
+GEAR_HI_SOL,CN11-4,712,SSR bd CN11-4,7i84U-A TB3 OUT7,"RESOLVED 2026-08-10: BBIA-1 terminal-unit CN11 pin4 = wire712 GEAR SHIFT HIGH (PLC-output/BBIA-1 side); downstream at the solenoid this becomes wire412 per pg100 TB-51 (SOL-12) - different wire# across the SSR-board relay contact is normal, CN11-4 is the correct Mesa landing point"
+GEAR_LO_SOL,CN11-5,213,SSR bd CN11-5,7i84U-A TB2 OUT8,RESOLVED 2026-08-10: BBIA-1 terminal-unit CN11 pin5 = wire213 GEAR SHIFT LOW (PLC-output/BBIA-1 side); downstream becomes wire413 per pg100 TB-51 (SOL-13) - CN11-5 is the correct Mesa landing point
+HYD_PRESS_OK,,,,7i84U-A TB2 IN27,NOT LOCATED 2026-08-10: Sanwa SPS-8T-PC-20 pressure switch not identified among transcribed BBIA-1 CN1-CN6/CN11 pins by label or plausible wire# - needs field trace or a further schematic page
+HYD_PUMP_ON,CN11-16,235,SSR bd CN11-16,7i84U-A TB3 OUT3,BBIA-1 terminal-unit CN11 pin16 (dwg 4113075022 sheet 85 / 41434WB p85) read 2026-08-10 - see wiring/bbia1_cn_pinouts.csv; NOT the SSR-board's own CN11 (see CN11-SSR)
 MAG_IN_POS,CND2-9,225,CN2-9,7i84U-A TB2 IN28,BBIA-1 board pinout (trusted over pg135)
-MANUAL_TOOL_CLAMP_PB,,,,7i84U-A TB2 IN30,label — to fill
-SERVO_READY,,,,7i84U-A TB2 IN31,label — to fill
-SEVENI84UB_FIELD_A_24V,,,,"7i84U-B TB1 TB1 pins 3/4 VFIELDA (+24 V field power, 5-28 VDC)",label — to fill
-SEVENI84UB_FIELD_B_24V,,,,"7i84U-B TB1 TB1 pins 1/2 VFIELDB (+24 V field power, 5-28 VDC)",label — to fill
-SEVENI84UB_GND,,,,7i84U-B TB1 TB1 pins 6/7/8 GND (VIN/VFIELD common),label — to fill
-SEVENI84UB_VIN_24V,,,,7i84U-B TB1 TB1 pin 5 VIN (+24 V logic power),label — to fill
-SEVENI84U_FIELD_A_24V,,,,"7i84U-A TB1 TB1 pins 3/4 VFIELDA (+24 V field power, 5-28 VDC)",label — to fill
-SEVENI84U_FIELD_B_24V,,,,"7i84U-A TB1 TB1 pins 1/2 VFIELDB (+24 V field power, 5-28 VDC)",label — to fill
-SEVENI84U_GND,,,,7i84U-A TB1 TB1 pins 6/7/8 GND (VIN/VFIELD common),label — to fill
-SPINDLE_ENABLE,,,,7i84U-A TB3 OUT2,label — to fill
-SPINDLE_FAULT,,,,7i84U-A TB3 IN14,label — to fill
-SPINDLE_FWD,,,,7i84U-A TB3 OUT0,label — to fill
-SPINDLE_ORIENT_ARRIVAL,,,,7i84U-A TB3 IN4,label — to fill
-SPINDLE_ORIENT_CMD,,,,7i84U-A TB3 OUT4,label — to fill
-SPINDLE_ORIENT_LOGEAR,,,,7i84U-A TB3 OUT5,label — to fill
-SPINDLE_REV,,,,7i84U-A TB3 OUT1,label — to fill
-SPINDLE_SPEED_CMD,,,,7i49 P2 Analog TB AOUT3,label — to fill
-SPINDLE_TOOL_AVAILABLE,,,,7i84U-A TB3 IN3,label — to fill
-TAP_COOLANT_BLAST,,,,7i84U-B TB3 OUT5,label — to fill
-THERMAL_ALARM_CHAIN,,,,7i84U-A TB3 IN8,label — to fill
-TOOL_CLAMP_SOL,,,,7i84U-A TB2 OUT9,label — to fill
-TOOL_UNCLAMP_SOL,,,,7i84U-A TB2 OUT10,label — to fill
-TOUCH_SENSOR_BLAST,,,,7i84U-B TB3 OUT4,label — to fill
-X_AXIS_CMD,,,,7i49 P2 Analog TB AOUT0,label — to fill
-X_DRIVE_ENABLE,,,,7i84U-B TB3 OUT0,label — to fill
-X_DRIVE_FAULT,,,,7i84U-A TB3 IN10,label — to fill
-X_HOME,,,,7i84U-B TB3 IN6,label — to fill
-X_LIMIT_MINUS,,,,7i84U-B TB3 IN1,label — to fill
-X_LIMIT_PLUS,,,,7i84U-B TB3 IN0,label — to fill
-X_RESOLVER,,,,7i49 P2 Resolver channel RES0,label — to fill
-Y_AXIS_CMD,,,,7i49 P2 Analog TB AOUT2,label — to fill
-Y_DRIVE_ENABLE,,,,7i84U-B TB3 OUT1,label — to fill
-Y_DRIVE_FAULT,,,,7i84U-A TB3 IN11,label — to fill
-Y_HOME,,,,7i84U-B TB3 IN7,label — to fill
-Y_LIMIT_MINUS,,,,7i84U-B TB3 IN3,label — to fill
-Y_LIMIT_PLUS,,,,7i84U-B TB3 IN2,label — to fill
-Y_RESOLVER,,,,7i49 P2 Resolver channel RES1,label — to fill
-Z_AXIS_CMD,,,,7i49 P2 Analog TB AOUT1,label — to fill
-Z_BRAKE_REL_ENABLE,,,,7i84U-A TB3 OUT6,label — to fill
-Z_DRIVE_ENABLE,,,,7i84U-B TB3 OUT2,label — to fill
-Z_DRIVE_FAULT,,,,7i84U-A TB3 IN12,label — to fill
-Z_HOME,,,,7i84U-B TB3 IN8,label — to fill
-Z_LIMIT_MINUS,,,,7i84U-B TB3 IN5,label — to fill
-Z_LIMIT_PLUS,,,,7i84U-B TB3 IN4,label — to fill
-Z_RESOLVER,,,,7i49 P2 Resolver channel RES2,label — to fill
+MANUAL_TOOL_CLAMP_PB,CN2-44,149B,CN2-44,7i84U-A TB2 IN30,"RESOLVED 2026-08-10: confirmed by Dwg 4143075407 pg133 (T.U CN2-44, TCCFS.M, wire149B), matching the pre-existing authority CSV LOCATED note; cross-verified directly against BBIA-1 board pinout (CN2-44 = wire149B FOOT SWITCH)"
+SERVO_READY,CN6-7,SA,CN6-7,7i84U-A TB2 IN31,"RESOLVED 2026-08-10: BBIA-1 board pinout CN6-7 = wire mnemonic SA, function SERVO READY - exact label match"
+SEVENI84UB_FIELD_A_24V,,,,"7i84U-B TB1 TB1 pins 3/4 VFIELDA (+24 V field power, 5-28 VDC)","N/A 2026-08-10: not a BBIA-1 pass-through signal - new dedicated Mesa field-power wiring from PSU (Mean Well), per authority CSV"
+SEVENI84UB_FIELD_B_24V,,,,"7i84U-B TB1 TB1 pins 1/2 VFIELDB (+24 V field power, 5-28 VDC)","N/A 2026-08-10: not a BBIA-1 pass-through signal - new dedicated Mesa field-power wiring from PSU, per authority CSV"
+SEVENI84UB_GND,,,,7i84U-B TB1 TB1 pins 6/7/8 GND (VIN/VFIELD common),N/A 2026-08-10: not a BBIA-1 pass-through signal - common return for new dedicated Mesa field-power wiring
+SEVENI84UB_VIN_24V,,,,7i84U-B TB1 TB1 pin 5 VIN (+24 V logic power),N/A 2026-08-10: not a BBIA-1 pass-through signal - new dedicated Mesa logic-power wiring from PSU
+SEVENI84U_FIELD_A_24V,,,,"7i84U-A TB1 TB1 pins 3/4 VFIELDA (+24 V field power, 5-28 VDC)","N/A 2026-08-10: not a BBIA-1 pass-through signal - new dedicated Mesa field-power wiring, same PSU family as VIN (Mean Well +V2 per commissioning log)"
+SEVENI84U_FIELD_B_24V,,,,"7i84U-A TB1 TB1 pins 1/2 VFIELDB (+24 V field power, 5-28 VDC)",N/A 2026-08-10: not a BBIA-1 pass-through signal - new dedicated Mesa field-power wiring from PSU
+SEVENI84U_GND,,,,7i84U-A TB1 TB1 pins 6/7/8 GND (VIN/VFIELD common),N/A 2026-08-10: not a BBIA-1 pass-through signal - common return; ELECTRICALLY_VERIFIED 2026-08-07 per authority CSV (Mean Well -V4 to TB1-6)
+SPINDLE_ENABLE,,,,7i84U-A TB3 OUT2,"N/A 2026-08-10: no discrete OEM wire - spindle-motion-permit is a new HAL-internal logical gate combining FWD/REV/RUN/ORCM1/watchdog/E-stop/servo-ready/spindle-fault, not a 1:1 terminal-unit signal"
+SPINDLE_FAULT,CN4-3,FA,CN4-3,7i84U-A TB3 IN14,"RESOLVED 2026-08-10: Dwg 4143075408 pg134 T.U CN4-3/CN4-4 = wire mnemonics FA/FC 'SPINDLE CONTROLLER NORMAL', matching the authority note's FR-SX FA(t11)/FC(t12); BBIA-1 board pinout CN4-3='FA' labels it SPINDLE REV ROLLER THERMAL (label differs, mnemonic matches - trusted). Land IN14 from CN4-3; CN4-4 is the common return"
+SPINDLE_FWD,CN4-9,SRN,CN4-9,7i84U-A TB3 OUT0,CANDIDATE 2026-08-10: Dwg 4143075408 pg134 shows SPINDLE FORWARD landing at both T.U CN3-11 and CN4-9 (both wire mnemonic SRN - CN3/CN4 are parallel connectors into the same spindle-controller circuit per bbia1_terminal_unit.md). Chose CN4 (dedicated 20-pin spindle connector) for consistency with the SPINDLE_ZERO_SPEED precedent (CN4-1); CN3-11 is an equally valid alternate landing point
+SPINDLE_ORIENT_ARRIVAL,CN4-16,SETA,CN4-16,7i84U-A TB3 IN4,"LOW CONFIDENCE 2026-08-10: pre-existing authority note flags this as unverified (FR-SX OBA1(t22)/OBA2(t23) -> CN4-16/CN4-17, 'digits verify'); BBIA-1 board pinout shows CN4-16/17 labeled SETA/SETB not OBA1/OBA2 - functionally plausible (orient-arrival confirmation bits) but not independently corroborated by wire# or a dedicated schematic row this session. Field-verify before commissioning"
+SPINDLE_ORIENT_CMD,CN3-14,ORI C1,CN3-14,7i84U-A TB3 OUT4,"RESOLVED (pre-existing, reconfirmed 2026-08-10): authority CSV LOCATED note + Dwg 4143075408 pg134 T.U CN3-14 wire4-12 agree; BBIA-1 board pinout CN3-14 = 'ORI C1' matches"
+SPINDLE_ORIENT_LOGEAR,CN3-15,CTL,CN3-15,7i84U-A TB3 OUT5,"RESOLVED (pre-existing, reconfirmed 2026-08-10): authority CSV LOCATED note + Dwg 4143075408 pg134 T.U CN3-15 wire4-13 agree; BBIA-1 board pinout CN3-15 = 'CTL' matches"
+SPINDLE_REV,CN4-10,SRI,CN4-10,7i84U-A TB3 OUT1,"CANDIDATE 2026-08-10: Dwg 4143075408 pg134 shows SPINDLE REVERSE landing at both T.U CN3-12 and CN4-10 (both wire mnemonic SRI, parallel connectors). Chose CN4 for consistency with SPINDLE_ZERO_SPEED/SPINDLE_FWD; CN3-12 is an equally valid alternate"
+SPINDLE_SPEED_CMD,,,,7i49 P2 Analog TB AOUT3,"N/A 2026-08-10: not a BBIA-1 19-connector pass-through signal - the old NC-side analog path was CND5-4/5 'S ANALOG OUTPUT' (Dwg 4143075408 pg134) direct to the spindle controller CON1, separate from the digital I/O terminal unit; new Mesa analog wiring reuses the factory cable to the FR-SX SE1/SE2/SE3 terminals per servo_amp_analysis.md, not through CN1-CN12"
+SPINDLE_TOOL_AVAILABLE,CN6-50,382,CN6-50,7i84U-A TB3 IN3,"CANDIDATE 2026-08-10: BBIA-1 board pinout CN6-50 = wire382 MAGAZINE SPINDLE TOOL DETECTOR (best label match for PHS-182 spindle-tool-available); same wire382 also appears at CN2-42 SPINDLE TOOL CLAMP OK. Dwg 4143075408 pg134 shows a third candidate T.U CN3-44 'SPTDPRS' with no confirmed wire# - three plausible pins for one signal, verify in field before landing"
+TAP_COOLANT_BLAST,,,,7i84U-B TB3 OUT5,"NOT LOCATED 2026-08-10: SOL-61 (RLY-7) not among CN11/CN11-SSR's 20 pins (all 20 accounted for) - likely CN12 (2PC bank, not yet transcribed) or a direct CB-panel landing outside BBIA-1's pass-through set; needs further extraction"
+THERMAL_ALARM_CHAIN,CN5-1,144,CN5-1,7i84U-A TB3 IN8,"RESOLVED 2026-08-10: Dwg 4143075407 pg133 confirms series chain T.U CN5-1 (wire144 THR.M/TRP.M external trip protector) + T.U CN5-3 (wire146/OHT.A main transformer overheat) - matches the pre-existing authority LOCATED note on both pins. BBIA-1 board pinout CN5-1='EXTERNAL TRIP PROTECTOR' wire144 confirms; CN5-3='OVER RUN EMG STOP' wire146 (board label differs from OHT mnemonic, wire# match trusted). Land IN8 from CN5-1 in series with CN5-3"
+TOOL_CLAMP_SOL,,,,7i84U-A TB2 OUT9,"N/A 2026-08-10: eliminated per authority CSV (PHANTOM/NOT_USED) - SOL-10 is single-coil spring-return, clamp=de-energize, no separate clamp solenoid exists to land"
+TOOL_UNCLAMP_SOL,CN11-3,710,SSR bd CN11-3,7i84U-A TB2 OUT10,"RESOLVED 2026-08-10: BBIA-1 terminal-unit CN11 pin3 = wire710 TOOL UNCLAMP - exact label match, consistent with SOL-10 single-coil spring-return (energize=unclamp)"
+TOUCH_SENSOR_BLAST,CN11-10,261,SSR bd CN11-10,7i84U-B TB3 OUT4,"RESOLVED 2026-08-10: BBIA-1 terminal-unit CN11 pin10 = wire261 AIR JET - matches 'MMS touch-sensor air jet' (SOL-35) exactly, the only air-jet entry on CN11"
+X_AXIS_CMD,,,,7i49 P2 Analog TB AOUT0,"N/A 2026-08-10: not a BBIA-1 19-connector pass-through signal - factory servo-command cabling connects the X servo amp directly to the NC's servo-interface hardware, not through CN1-CN12; new Mesa analog wiring reuses that factory cable to 7i49, per resolver_commissioning.md / servo_amp_analysis.md"
+X_DRIVE_ENABLE,,,,7i84U-B TB3 OUT0,"N/A 2026-08-10: new signal - interposing relay lands directly at MELDAS DK-427 ENA input, not via a BBIA-1 pass-through pin (no OEM equivalent existed; ENA is a new Mesa-driven control point)"
+X_DRIVE_FAULT,,,,7i84U-A TB3 IN10,NOT LOCATED 2026-08-10: X drive fault relay contact not identified among transcribed BBIA-1 CN1-CN6/CN11 pins - needs field trace at the MELDAS DK-427 drive fault relay
+X_HOME,CN2-15,*DECX,CN2-15,7i84U-B TB3 IN6,RESOLVED 2026-08-10: Dwg 4143075410 pg136 T.U row shows pin -15 under 'X AXIS ZERO RETURN DECELERATION' (*DECX); BBIA-1 board pinout confirms CN2-15 = wire mnemonic *DECX - matches LS-42 per authority LOCATED note
+X_LIMIT_MINUS,,,,7i84U-B TB3 IN1,"NOT INDIVIDUALLY LOCATED 2026-08-10: Dwg 4143075410 pg136 (Motion Switch Input 4) shows -X OVER TRAVEL (*-LX) with NO connector-box label on the T.U. row - unlike +Y(CN3-37)/-Z(CN3-38) which ARE individually called out, X-axis over-travel appears to bypass BBIA-1 as a discrete pin (may be relay-combined upstream, or land on a terminal block outside the 19-connector family). Needs field trace - do not assume a pin"
+X_LIMIT_PLUS,,,,7i84U-B TB3 IN0,NOT INDIVIDUALLY LOCATED 2026-08-10: same finding as X_LIMIT_MINUS - +X OVER TRAVEL (*+LX) has no BBIA-1 connector-box label on Dwg 4143075410 pg136. Needs field trace
+X_RESOLVER,,,,7i49 P2 Resolver channel RES0,"N/A 2026-08-10: not a BBIA-1 19-connector pass-through signal - factory resolver cabling (RT-5XA-11 windings) connects the X servo amp's resolver directly via CNA3 (per resolver_commissioning.md), not through CN1-CN12; reused as-is to 7i49"
+Y_AXIS_CMD,,,,7i49 P2 Analog TB AOUT2,"N/A 2026-08-10: not a BBIA-1 19-connector pass-through signal - same reasoning as X_AXIS_CMD, factory cable direct to servo amp"
+Y_DRIVE_ENABLE,,,,7i84U-B TB3 OUT1,"N/A 2026-08-10: new signal - interposing relay lands directly at MELDAS DK-427 ENA input, not via BBIA-1 (same reasoning as X_DRIVE_ENABLE)"
+Y_DRIVE_FAULT,,,,7i84U-A TB3 IN11,NOT LOCATED 2026-08-10: same finding as X_DRIVE_FAULT - needs field trace
+Y_HOME,CN2-16,*DECY,CN2-16,7i84U-B TB3 IN7,RESOLVED 2026-08-10: Dwg 4143075410 pg136 T.U row shows pin -16 under 'Y AXIS ZERO RETURN DECELERATION' (*DECY); BBIA-1 board pinout confirms CN2-16 = wire mnemonic *DECY - matches LS-52 per authority LOCATED note
+Y_LIMIT_MINUS,,,,7i84U-B TB3 IN3,NOT INDIVIDUALLY LOCATED 2026-08-10: Dwg 4143075410 pg136 shows -Y OVER TRAVEL (*-LY) with NO connector-box label on the T.U. row (only +Y/CN3-37 and -Z/CN3-38 are individually called out). Needs field trace
+Y_LIMIT_PLUS,CN3-37,+LY,CN3-37,7i84U-B TB3 IN2,RESOLVED 2026-08-10: Dwg 4143075410 pg136 explicitly labels T.U CN3-37 = wire mnemonic +LY under '+Y OVER TRAVEL' - matches BBIA-1 board pinout CN3-37='+LY' exactly. Only individually-routed BBIA-1 pin among the six primary axis over-travels found this session (paired with Z_LIMIT_MINUS/CN3-38)
+Y_RESOLVER,,,,7i49 P2 Resolver channel RES1,"N/A 2026-08-10: not a BBIA-1 19-connector pass-through signal - factory resolver cabling connects the Y servo amp's resolver directly via CNA4, not through CN1-CN12; reused as-is to 7i49"
+Z_AXIS_CMD,,,,7i49 P2 Analog TB AOUT1,N/A 2026-08-10: not a BBIA-1 19-connector pass-through signal - same reasoning as X_AXIS_CMD
+Z_BRAKE_REL_ENABLE,,,,7i84U-A TB3 OUT6,NOT LOCATED 2026-08-10: N1J-L2-201 Z brake release (SOL-201) not identified among transcribed BBIA-1 CN1-CN6/CN11 pins - likely a dedicated brake circuit outside the 19-connector pass-through set (brakes may not have existed as an NC-controlled function on the original Mazatrol build). Needs field trace
+Z_DRIVE_ENABLE,,,,7i84U-B TB3 OUT2,"N/A 2026-08-10: new signal - interposing relay lands directly at MELDAS DK-427 ENA input, not via BBIA-1 (same reasoning as X/Y_DRIVE_ENABLE)"
+Z_DRIVE_FAULT,,,,7i84U-A TB3 IN12,NOT LOCATED 2026-08-10: same finding as X/Y_DRIVE_FAULT - needs field trace
+Z_HOME,CN1-14,*DECZ,CN1-14,7i84U-B TB3 IN8,RESOLVED 2026-08-10: Dwg 4143075410 pg136 T.U row explicitly labels CN1-14 = wire mnemonic *DECZ under 'Z AXIS ZERO RETURN DECELERATION' - matches BBIA-1 board pinout CN1-14='*DECZ' exactly and LS-62 per authority LOCATED note
+Z_LIMIT_MINUS,CN3-38,-LZ,CN3-38,7i84U-B TB3 IN5,RESOLVED 2026-08-10: Dwg 4143075410 pg136 explicitly labels T.U CN3-38 = wire mnemonic -LZ under '-Z OVER TRAVEL' - matches BBIA-1 board pinout CN3-38='-LZ' exactly. Paired with Y_LIMIT_PLUS/CN3-37 as the only two individually-routed axis over-travel pins found this session
+Z_LIMIT_PLUS,,,,7i84U-B TB3 IN4,NOT INDIVIDUALLY LOCATED 2026-08-10: Dwg 4143075410 pg136 shows +Z OVER TRAVEL (*+LZ) with NO connector-box label on the T.U. row. Needs field trace
+Z_RESOLVER,,,,7i49 P2 Resolver channel RES2,"N/A 2026-08-10: not a BBIA-1 19-connector pass-through signal - factory resolver cabling connects the Z servo amp's resolver directly via CNA5, not through CN1-CN12; reused as-is to 7i49"

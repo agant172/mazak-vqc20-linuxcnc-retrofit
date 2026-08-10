@@ -6,7 +6,7 @@ window.MAZAK_DATA = {
   "machine": "Mazak VQC-20/40",
   "serial": "060231",
   "architecture": "LinuxCNC + Mesa 7i80HDT (Ethernet FPGA host) + 7i44 on P1 (HostMot2 sserial port 0 channels 0/1 to 7i84U-A/B) + 7i49 on P2 (resolver + analog outs); P3 unused/spare",
-  "generated": "2026-08-10 19:03 UTC",
+  "generated": "2026-08-10 19:13 UTC",
   "source_repo": "mazak-vqc20-linuxcnc-retrofit",
   "authority_file": "mesa/current_pin_authority.csv",
   "epson_ferrule_file": "wiring/labels/bbia1_mesa_end_ferrules_epson.csv",
@@ -313,7 +313,7 @@ window.MAZAK_DATA = {
     "cnd_pin": "",
     "wire": "",
     "cn_pin": "",
-    "provenance": "label — to fill"
+    "provenance": "N/A 2026-08-10: not a BBIA-1 19-connector pass-through signal - factory resolver cabling (RT-5XA-11 windings) connects the X servo amp's resolver directly via CNA3 (per resolver_commissioning.md), not through CN1-CN12; reused as-is to 7i49"
    },
    "authority_line": 2
   },
@@ -463,7 +463,7 @@ window.MAZAK_DATA = {
     "cnd_pin": "",
     "wire": "",
     "cn_pin": "",
-    "provenance": "label — to fill"
+    "provenance": "N/A 2026-08-10: not a BBIA-1 19-connector pass-through signal - factory resolver cabling connects the Y servo amp's resolver directly via CNA4, not through CN1-CN12; reused as-is to 7i49"
    },
    "authority_line": 3
   },
@@ -613,7 +613,7 @@ window.MAZAK_DATA = {
     "cnd_pin": "",
     "wire": "",
     "cn_pin": "",
-    "provenance": "label — to fill"
+    "provenance": "N/A 2026-08-10: not a BBIA-1 19-connector pass-through signal - factory resolver cabling connects the Z servo amp's resolver directly via CNA5, not through CN1-CN12; reused as-is to 7i49"
    },
    "authority_line": 4
   },
@@ -927,7 +927,7 @@ window.MAZAK_DATA = {
     "cnd_pin": "",
     "wire": "",
     "cn_pin": "",
-    "provenance": "label — to fill"
+    "provenance": "N/A 2026-08-10: not a BBIA-1 19-connector pass-through signal - factory servo-command cabling connects the X servo amp directly to the NC's servo-interface hardware, not through CN1-CN12; new Mesa analog wiring reuses that factory cable to 7i49, per resolver_commissioning.md / servo_amp_analysis.md"
    },
    "authority_line": 9
   },
@@ -1045,7 +1045,7 @@ window.MAZAK_DATA = {
     "cnd_pin": "",
     "wire": "",
     "cn_pin": "",
-    "provenance": "label — to fill"
+    "provenance": "N/A 2026-08-10: not a BBIA-1 19-connector pass-through signal - same reasoning as X_AXIS_CMD"
    },
    "authority_line": 10
   },
@@ -1163,7 +1163,7 @@ window.MAZAK_DATA = {
     "cnd_pin": "",
     "wire": "",
     "cn_pin": "",
-    "provenance": "label — to fill"
+    "provenance": "N/A 2026-08-10: not a BBIA-1 19-connector pass-through signal - same reasoning as X_AXIS_CMD, factory cable direct to servo amp"
    },
    "authority_line": 11
   },
@@ -1296,7 +1296,7 @@ window.MAZAK_DATA = {
     "cnd_pin": "",
     "wire": "",
     "cn_pin": "",
-    "provenance": "label — to fill"
+    "provenance": "N/A 2026-08-10: not a BBIA-1 19-connector pass-through signal - the old NC-side analog path was CND5-4/5 'S ANALOG OUTPUT' (Dwg 4143075408 pg134) direct to the spindle controller CON1, separate from the digital I/O terminal unit; new Mesa analog wiring reuses the factory cable to the FR-SX SE1/SE2/SE3 terminals per servo_amp_analysis.md, not through CN1-CN12"
    },
    "authority_line": 12
   },
@@ -1793,7 +1793,7 @@ window.MAZAK_DATA = {
     "cnd_pin": "",
     "wire": "",
     "cn_pin": "",
-    "provenance": "label — to fill"
+    "provenance": "N/A 2026-08-10: not a BBIA-1 pass-through signal - new dedicated Mesa field-power wiring, same PSU family as VIN (Mean Well +V2 per commissioning log)"
    },
    "authority_line": 22
   },
@@ -1849,7 +1849,7 @@ window.MAZAK_DATA = {
     "cnd_pin": "",
     "wire": "",
     "cn_pin": "",
-    "provenance": "label — to fill"
+    "provenance": "N/A 2026-08-10: not a BBIA-1 pass-through signal - new dedicated Mesa field-power wiring from PSU"
    },
    "authority_line": 23
   },
@@ -1921,10 +1921,10 @@ window.MAZAK_DATA = {
    ],
    "conflicts": [],
    "bb_source": {
-    "cnd_pin": "",
-    "wire": "",
-    "cn_pin": "",
-    "provenance": "label — to fill"
+    "cnd_pin": "CN3-44",
+    "wire": "+LY2",
+    "cn_pin": "CN3-44",
+    "provenance": "RESOLVED 2026-08-10: Dwg 4143075409 pg135 '2nd +Y OVER TRAVEL' = PRS-55 wire +LY2 at T.U CN3-44 - matches authority CSV's PRS-55 citation exactly"
    },
    "authority_line": 24
   },
@@ -1996,10 +1996,10 @@ window.MAZAK_DATA = {
    ],
    "conflicts": [],
    "bb_source": {
-    "cnd_pin": "",
-    "wire": "",
-    "cn_pin": "",
-    "provenance": "label — to fill"
+    "cnd_pin": "CN3-39",
+    "wire": "-LZ2",
+    "cn_pin": "CN3-39",
+    "provenance": "RESOLVED 2026-08-10: Dwg 4143075409 pg135 '2nd -Z OVER TRAVEL' = PRS-66 wire -LZ2 at T.U CN3-39 - matches authority CSV's PRS-66 citation exactly"
    },
    "authority_line": 25
   },
@@ -2090,10 +2090,10 @@ window.MAZAK_DATA = {
    ],
    "conflicts": [],
    "bb_source": {
-    "cnd_pin": "",
-    "wire": "",
-    "cn_pin": "",
-    "provenance": "UNCONFIRMED: wire 381 ambiguous (CN2-13=LUBE TIMER vs CN6-37=MAGAZINE OIL TOOL DETECTOR) - confirm PHS-181 conductor"
+    "cnd_pin": "CN2-13",
+    "wire": "381",
+    "cn_pin": "CN2-13",
+    "provenance": "RESOLVED 2026-08-10: Dwg 4143075409 pg135 confirms wire 381 = TOOL DETECTOR (PHS-181) at T.U CN2-13, matching the BBIA-1 board pinout's wire# at CN2-13 even though the board labels that pin LUBE TIMER (label mismatch, wire# + independent schematic corroboration trusted); supersedes the prior CN6-37 ambiguity"
    },
    "authority_line": 26
   },
@@ -2184,10 +2184,10 @@ window.MAZAK_DATA = {
    ],
    "conflicts": [],
    "bb_source": {
-    "cnd_pin": "",
-    "wire": "",
-    "cn_pin": "",
-    "provenance": "label — to fill"
+    "cnd_pin": "CN6-50",
+    "wire": "382",
+    "cn_pin": "CN6-50",
+    "provenance": "CANDIDATE 2026-08-10: BBIA-1 board pinout CN6-50 = wire382 MAGAZINE SPINDLE TOOL DETECTOR (best label match for PHS-182 spindle-tool-available); same wire382 also appears at CN2-42 SPINDLE TOOL CLAMP OK. Dwg 4143075408 pg134 shows a third candidate T.U CN3-44 'SPTDPRS' with no confirmed wire# - three plausible pins for one signal, verify in field before landing"
    },
    "authority_line": 27
   },
@@ -2275,10 +2275,10 @@ window.MAZAK_DATA = {
    ],
    "conflicts": [],
    "bb_source": {
-    "cnd_pin": "",
-    "wire": "",
-    "cn_pin": "",
-    "provenance": "label — to fill"
+    "cnd_pin": "CN4-16",
+    "wire": "SETA",
+    "cn_pin": "CN4-16",
+    "provenance": "LOW CONFIDENCE 2026-08-10: pre-existing authority note flags this as unverified (FR-SX OBA1(t22)/OBA2(t23) -> CN4-16/CN4-17, 'digits verify'); BBIA-1 board pinout shows CN4-16/17 labeled SETA/SETB not OBA1/OBA2 - functionally plausible (orient-arrival confirmation bits) but not independently corroborated by wire# or a dedicated schematic row this session. Field-verify before commissioning"
    },
    "authority_line": 28
   },
@@ -2584,10 +2584,10 @@ window.MAZAK_DATA = {
    ],
    "conflicts": [],
    "bb_source": {
-    "cnd_pin": "",
-    "wire": "",
-    "cn_pin": "",
-    "provenance": "UNCONFIRMED: BBIA-1 pinout wire 219/CN2-12 = MAGAZINE FWD/REV SW; cover-close conductor not found - trace"
+    "cnd_pin": "CN2-12",
+    "wire": "219",
+    "cn_pin": "CN2-12",
+    "provenance": "RESOLVED 2026-08-10: wire 219 confirmed by two independent sources - Dwg 4143075409 pg135 (RS-19 MGCCRS at T.U CN2-12) and BBIA-1 board pinout CSV (CN2-12 = wire219; board labels the pin MAGAZINE FWD/REV SW - label mismatch, wire# match trusted)"
    },
    "authority_line": 31
   },
@@ -2657,10 +2657,10 @@ window.MAZAK_DATA = {
    ],
    "conflicts": [],
    "bb_source": {
-    "cnd_pin": "",
-    "wire": "",
-    "cn_pin": "",
-    "provenance": "label — to fill"
+    "cnd_pin": "CN5-1",
+    "wire": "144",
+    "cn_pin": "CN5-1",
+    "provenance": "RESOLVED 2026-08-10: Dwg 4143075407 pg133 confirms series chain T.U CN5-1 (wire144 THR.M/TRP.M external trip protector) + T.U CN5-3 (wire146/OHT.A main transformer overheat) - matches the pre-existing authority LOCATED note on both pins. BBIA-1 board pinout CN5-1='EXTERNAL TRIP PROTECTOR' wire144 confirms; CN5-3='OVER RUN EMG STOP' wire146 (board label differs from OHT mnemonic, wire# match trusted). Land IN8 from CN5-1 in series with CN5-3"
    },
    "authority_line": 32
   },
@@ -2842,7 +2842,7 @@ window.MAZAK_DATA = {
     "cnd_pin": "",
     "wire": "",
     "cn_pin": "",
-    "provenance": "label — to fill"
+    "provenance": "NOT LOCATED 2026-08-10: X drive fault relay contact not identified among transcribed BBIA-1 CN1-CN6/CN11 pins - needs field trace at the MELDAS DK-427 drive fault relay"
    },
    "authority_line": 34
   },
@@ -2933,7 +2933,7 @@ window.MAZAK_DATA = {
     "cnd_pin": "",
     "wire": "",
     "cn_pin": "",
-    "provenance": "label — to fill"
+    "provenance": "NOT LOCATED 2026-08-10: same finding as X_DRIVE_FAULT - needs field trace"
    },
    "authority_line": 35
   },
@@ -3024,7 +3024,7 @@ window.MAZAK_DATA = {
     "cnd_pin": "",
     "wire": "",
     "cn_pin": "",
-    "provenance": "label — to fill"
+    "provenance": "NOT LOCATED 2026-08-10: same finding as X/Y_DRIVE_FAULT - needs field trace"
    },
    "authority_line": 36
   },
@@ -3249,10 +3249,10 @@ window.MAZAK_DATA = {
    ],
    "conflicts": [],
    "bb_source": {
-    "cnd_pin": "",
-    "wire": "",
-    "cn_pin": "",
-    "provenance": "label — to fill"
+    "cnd_pin": "CN4-3",
+    "wire": "FA",
+    "cn_pin": "CN4-3",
+    "provenance": "RESOLVED 2026-08-10: Dwg 4143075408 pg134 T.U CN4-3/CN4-4 = wire mnemonics FA/FC 'SPINDLE CONTROLLER NORMAL', matching the authority note's FR-SX FA(t11)/FC(t12); BBIA-1 board pinout CN4-3='FA' labels it SPINDLE REV ROLLER THERMAL (label differs, mnemonic matches - trusted). Land IN14 from CN4-3; CN4-4 is the common return"
    },
    "authority_line": 38
   },
@@ -4264,10 +4264,10 @@ window.MAZAK_DATA = {
     "C10"
    ],
    "bb_source": {
-    "cnd_pin": "",
-    "wire": "",
-    "cn_pin": "",
-    "provenance": "label — to fill"
+    "cnd_pin": "CN2-38",
+    "wire": "238",
+    "cn_pin": "CN2-38",
+    "provenance": "RESOLVED 2026-08-10 (primary): BBIA-1 board pinout CN2-38 = wire238 MACHINE DOOR INTERLOCK (mirrored at CN6-23, same wire# - internally consistent). ALT candidate: Dwg 4143075407 pg133 T.U CN3-3 wire142 MDINT.M (ladder-side finding, different wire#, not reconciled with the board pinout). Door-interlock chain is series-wired with LS-140/141 per open_issues.md so more than one physical contact may legitimately exist"
    },
    "authority_line": 48
   },
@@ -4412,10 +4412,10 @@ window.MAZAK_DATA = {
    ],
    "conflicts": [],
    "bb_source": {
-    "cnd_pin": "",
-    "wire": "",
-    "cn_pin": "",
-    "provenance": "label — to fill"
+    "cnd_pin": "CN1-5",
+    "wire": "232",
+    "cn_pin": "CN1-5",
+    "provenance": "CANDIDATE 2026-08-10: BBIA-1 board pinout CN1-5 = wire232 '2nd-S LEVEL' (function: coolant lvl) - plausible match for coolant level switch; not cross-checked against a ladder-side wire# this session, verify polarity/normal-state before commissioning"
    },
    "authority_line": 50
   },
@@ -4506,7 +4506,7 @@ window.MAZAK_DATA = {
     "cnd_pin": "",
     "wire": "",
     "cn_pin": "",
-    "provenance": "label — to fill"
+    "provenance": "NOT LOCATED 2026-08-10: Sanwa SPS-8T-PC-20 pressure switch not identified among transcribed BBIA-1 CN1-CN6/CN11 pins by label or plausible wire# - needs field trace or a further schematic page"
    },
    "authority_line": 51
   },
@@ -4804,10 +4804,10 @@ window.MAZAK_DATA = {
    ],
    "conflicts": [],
    "bb_source": {
-    "cnd_pin": "",
-    "wire": "",
-    "cn_pin": "",
-    "provenance": "label — to fill"
+    "cnd_pin": "CN2-44",
+    "wire": "149B",
+    "cn_pin": "CN2-44",
+    "provenance": "RESOLVED 2026-08-10: confirmed by Dwg 4143075407 pg133 (T.U CN2-44, TCCFS.M, wire149B), matching the pre-existing authority CSV LOCATED note; cross-verified directly against BBIA-1 board pinout (CN2-44 = wire149B FOOT SWITCH)"
    },
    "authority_line": 55
   },
@@ -4931,10 +4931,10 @@ window.MAZAK_DATA = {
    ],
    "conflicts": [],
    "bb_source": {
-    "cnd_pin": "",
-    "wire": "",
-    "cn_pin": "",
-    "provenance": "label — to fill"
+    "cnd_pin": "CN6-7",
+    "wire": "SA",
+    "cn_pin": "CN6-7",
+    "provenance": "RESOLVED 2026-08-10: BBIA-1 board pinout CN6-7 = wire mnemonic SA, function SERVO READY - exact label match"
    },
    "authority_line": 56
   },
@@ -5024,10 +5024,10 @@ window.MAZAK_DATA = {
     "C3"
    ],
    "bb_source": {
-    "cnd_pin": "",
-    "wire": "",
-    "cn_pin": "",
-    "provenance": "label — to fill"
+    "cnd_pin": "CN4-9",
+    "wire": "SRN",
+    "cn_pin": "CN4-9",
+    "provenance": "CANDIDATE 2026-08-10: Dwg 4143075408 pg134 shows SPINDLE FORWARD landing at both T.U CN3-11 and CN4-9 (both wire mnemonic SRN - CN3/CN4 are parallel connectors into the same spindle-controller circuit per bbia1_terminal_unit.md). Chose CN4 (dedicated 20-pin spindle connector) for consistency with the SPINDLE_ZERO_SPEED precedent (CN4-1); CN3-11 is an equally valid alternate landing point"
    },
    "authority_line": 57
   },
@@ -5117,10 +5117,10 @@ window.MAZAK_DATA = {
     "C3"
    ],
    "bb_source": {
-    "cnd_pin": "",
-    "wire": "",
-    "cn_pin": "",
-    "provenance": "label — to fill"
+    "cnd_pin": "CN4-10",
+    "wire": "SRI",
+    "cn_pin": "CN4-10",
+    "provenance": "CANDIDATE 2026-08-10: Dwg 4143075408 pg134 shows SPINDLE REVERSE landing at both T.U CN3-12 and CN4-10 (both wire mnemonic SRI, parallel connectors). Chose CN4 for consistency with SPINDLE_ZERO_SPEED/SPINDLE_FWD; CN3-12 is an equally valid alternate"
    },
    "authority_line": 58
   },
@@ -5270,7 +5270,7 @@ window.MAZAK_DATA = {
     "cnd_pin": "",
     "wire": "",
     "cn_pin": "",
-    "provenance": "label — to fill"
+    "provenance": "N/A 2026-08-10: no discrete OEM wire - spindle-motion-permit is a new HAL-internal logical gate combining FWD/REV/RUN/ORCM1/watchdog/E-stop/servo-ready/spindle-fault, not a 1:1 terminal-unit signal"
    },
    "authority_line": 59
   },
@@ -5361,7 +5361,7 @@ window.MAZAK_DATA = {
     "cnd_pin": "CN11-16",
     "wire": "235",
     "cn_pin": "SSR bd CN11-16",
-    "provenance": "BBIA-1 terminal-unit CN11 pin16 (dwg 4113075022 sheet 85 / 41434WB p85) read 2026-08-10 — see wiring/bbia1_cn_pinouts.csv; NOT the SSR-board's own CN11 (see CN11-SSR)"
+    "provenance": "BBIA-1 terminal-unit CN11 pin16 (dwg 4113075022 sheet 85 / 41434WB p85) read 2026-08-10 - see wiring/bbia1_cn_pinouts.csv; NOT the SSR-board's own CN11 (see CN11-SSR)"
    },
    "authority_line": 60
   },
@@ -5451,10 +5451,10 @@ window.MAZAK_DATA = {
     "C3"
    ],
    "bb_source": {
-    "cnd_pin": "",
-    "wire": "",
-    "cn_pin": "",
-    "provenance": "label — to fill"
+    "cnd_pin": "CN3-14",
+    "wire": "ORI C1",
+    "cn_pin": "CN3-14",
+    "provenance": "RESOLVED (pre-existing, reconfirmed 2026-08-10): authority CSV LOCATED note + Dwg 4143075408 pg134 T.U CN3-14 wire4-12 agree; BBIA-1 board pinout CN3-14 = 'ORI C1' matches"
    },
    "authority_line": 61
   },
@@ -5542,10 +5542,10 @@ window.MAZAK_DATA = {
    ],
    "conflicts": [],
    "bb_source": {
-    "cnd_pin": "",
-    "wire": "",
-    "cn_pin": "",
-    "provenance": "label — to fill"
+    "cnd_pin": "CN3-15",
+    "wire": "CTL",
+    "cn_pin": "CN3-15",
+    "provenance": "RESOLVED (pre-existing, reconfirmed 2026-08-10): authority CSV LOCATED note + Dwg 4143075408 pg134 T.U CN3-15 wire4-13 agree; BBIA-1 board pinout CN3-15 = 'CTL' matches"
    },
    "authority_line": 62
   },
@@ -5698,7 +5698,7 @@ window.MAZAK_DATA = {
     "cnd_pin": "",
     "wire": "",
     "cn_pin": "",
-    "provenance": "label — to fill"
+    "provenance": "NOT LOCATED 2026-08-10: N1J-L2-201 Z brake release (SOL-201) not identified among transcribed BBIA-1 CN1-CN6/CN11 pins - likely a dedicated brake circuit outside the 19-connector pass-through set (brakes may not have existed as an NC-controlled function on the original Mazatrol build). Needs field trace"
    },
    "authority_line": 63
   },
@@ -5790,10 +5790,10 @@ window.MAZAK_DATA = {
    ],
    "conflicts": [],
    "bb_source": {
-    "cnd_pin": "",
-    "wire": "",
-    "cn_pin": "",
-    "provenance": "label — to fill"
+    "cnd_pin": "CN11-4",
+    "wire": "712",
+    "cn_pin": "SSR bd CN11-4",
+    "provenance": "RESOLVED 2026-08-10: BBIA-1 terminal-unit CN11 pin4 = wire712 GEAR SHIFT HIGH (PLC-output/BBIA-1 side); downstream at the solenoid this becomes wire412 per pg100 TB-51 (SOL-12) - different wire# across the SSR-board relay contact is normal, CN11-4 is the correct Mesa landing point"
    },
    "authority_line": 64
   },
@@ -5885,10 +5885,10 @@ window.MAZAK_DATA = {
    ],
    "conflicts": [],
    "bb_source": {
-    "cnd_pin": "",
-    "wire": "",
-    "cn_pin": "",
-    "provenance": "label — to fill"
+    "cnd_pin": "CN11-5",
+    "wire": "213",
+    "cn_pin": "SSR bd CN11-5",
+    "provenance": "RESOLVED 2026-08-10: BBIA-1 terminal-unit CN11 pin5 = wire213 GEAR SHIFT LOW (PLC-output/BBIA-1 side); downstream becomes wire413 per pg100 TB-51 (SOL-13) - CN11-5 is the correct Mesa landing point"
    },
    "authority_line": 65
   },
@@ -5944,7 +5944,7 @@ window.MAZAK_DATA = {
     "cnd_pin": "",
     "wire": "",
     "cn_pin": "",
-    "provenance": "label — to fill"
+    "provenance": "N/A 2026-08-10: eliminated per authority CSV (PHANTOM/NOT_USED) - SOL-10 is single-coil spring-return, clamp=de-energize, no separate clamp solenoid exists to land"
    },
    "authority_line": 66
   },
@@ -6036,10 +6036,10 @@ window.MAZAK_DATA = {
    ],
    "conflicts": [],
    "bb_source": {
-    "cnd_pin": "",
-    "wire": "",
-    "cn_pin": "",
-    "provenance": "label — to fill"
+    "cnd_pin": "CN11-3",
+    "wire": "710",
+    "cn_pin": "SSR bd CN11-3",
+    "provenance": "RESOLVED 2026-08-10: BBIA-1 terminal-unit CN11 pin3 = wire710 TOOL UNCLAMP - exact label match, consistent with SOL-10 single-coil spring-return (energize=unclamp)"
    },
    "authority_line": 67
   },
@@ -6133,10 +6133,10 @@ window.MAZAK_DATA = {
     "C10"
    ],
    "bb_source": {
-    "cnd_pin": "",
-    "wire": "",
-    "cn_pin": "",
-    "provenance": "label — to fill"
+    "cnd_pin": "CN11-15",
+    "wire": "236",
+    "cn_pin": "SSR bd CN11-15",
+    "provenance": "RESOLVED 2026-08-10: BBIA-1 terminal-unit CN11 pin15 = wire236 FLOOD COOLANT MOTOR STARTER, matching 'coolant pump relay' (motor starter = pump, distinct from FLOOD_VALVE at CN11-13). NB pin15 shares wire236 with pin12 OIL HOLE - a data-quality flag in the source CSV, not resolved here"
    },
    "authority_line": 68
   },
@@ -6760,7 +6760,7 @@ window.MAZAK_DATA = {
     "cnd_pin": "",
     "wire": "",
     "cn_pin": "",
-    "provenance": "label — to fill"
+    "provenance": "N/A 2026-08-10: not a BBIA-1 pass-through signal - new dedicated Mesa field-power wiring from PSU (Mean Well), per authority CSV"
    },
    "authority_line": 79
   },
@@ -6816,7 +6816,7 @@ window.MAZAK_DATA = {
     "cnd_pin": "",
     "wire": "",
     "cn_pin": "",
-    "provenance": "label — to fill"
+    "provenance": "N/A 2026-08-10: not a BBIA-1 pass-through signal - new dedicated Mesa field-power wiring from PSU, per authority CSV"
    },
    "authority_line": 80
   },
@@ -6927,7 +6927,7 @@ window.MAZAK_DATA = {
     "cnd_pin": "",
     "wire": "",
     "cn_pin": "",
-    "provenance": "label — to fill"
+    "provenance": "NOT INDIVIDUALLY LOCATED 2026-08-10: same finding as X_LIMIT_MINUS - +X OVER TRAVEL (*+LX) has no BBIA-1 connector-box label on Dwg 4143075410 pg136. Needs field trace"
    },
    "authority_line": 81
   },
@@ -7022,7 +7022,7 @@ window.MAZAK_DATA = {
     "cnd_pin": "",
     "wire": "",
     "cn_pin": "",
-    "provenance": "label — to fill"
+    "provenance": "NOT INDIVIDUALLY LOCATED 2026-08-10: Dwg 4143075410 pg136 (Motion Switch Input 4) shows -X OVER TRAVEL (*-LX) with NO connector-box label on the T.U. row - unlike +Y(CN3-37)/-Z(CN3-38) which ARE individually called out, X-axis over-travel appears to bypass BBIA-1 as a discrete pin (may be relay-combined upstream, or land on a terminal block outside the 19-connector family). Needs field trace - do not assume a pin"
    },
    "authority_line": 82
   },
@@ -7133,10 +7133,10 @@ window.MAZAK_DATA = {
     "C6"
    ],
    "bb_source": {
-    "cnd_pin": "",
-    "wire": "",
-    "cn_pin": "",
-    "provenance": "label — to fill"
+    "cnd_pin": "CN3-37",
+    "wire": "+LY",
+    "cn_pin": "CN3-37",
+    "provenance": "RESOLVED 2026-08-10: Dwg 4143075410 pg136 explicitly labels T.U CN3-37 = wire mnemonic +LY under '+Y OVER TRAVEL' - matches BBIA-1 board pinout CN3-37='+LY' exactly. Only individually-routed BBIA-1 pin among the six primary axis over-travels found this session (paired with Z_LIMIT_MINUS/CN3-38)"
    },
    "authority_line": 83
   },
@@ -7231,7 +7231,7 @@ window.MAZAK_DATA = {
     "cnd_pin": "",
     "wire": "",
     "cn_pin": "",
-    "provenance": "label — to fill"
+    "provenance": "NOT INDIVIDUALLY LOCATED 2026-08-10: Dwg 4143075410 pg136 shows -Y OVER TRAVEL (*-LY) with NO connector-box label on the T.U. row (only +Y/CN3-37 and -Z/CN3-38 are individually called out). Needs field trace"
    },
    "authority_line": 84
   },
@@ -7345,7 +7345,7 @@ window.MAZAK_DATA = {
     "cnd_pin": "",
     "wire": "",
     "cn_pin": "",
-    "provenance": "label — to fill"
+    "provenance": "NOT INDIVIDUALLY LOCATED 2026-08-10: Dwg 4143075410 pg136 shows +Z OVER TRAVEL (*+LZ) with NO connector-box label on the T.U. row. Needs field trace"
    },
    "authority_line": 85
   },
@@ -7456,10 +7456,10 @@ window.MAZAK_DATA = {
     "C6"
    ],
    "bb_source": {
-    "cnd_pin": "",
-    "wire": "",
-    "cn_pin": "",
-    "provenance": "label — to fill"
+    "cnd_pin": "CN3-38",
+    "wire": "-LZ",
+    "cn_pin": "CN3-38",
+    "provenance": "RESOLVED 2026-08-10: Dwg 4143075410 pg136 explicitly labels T.U CN3-38 = wire mnemonic -LZ under '-Z OVER TRAVEL' - matches BBIA-1 board pinout CN3-38='-LZ' exactly. Paired with Y_LIMIT_PLUS/CN3-37 as the only two individually-routed axis over-travel pins found this session"
    },
    "authority_line": 86
   },
@@ -7570,10 +7570,10 @@ window.MAZAK_DATA = {
     "C6"
    ],
    "bb_source": {
-    "cnd_pin": "",
-    "wire": "",
-    "cn_pin": "",
-    "provenance": "label — to fill"
+    "cnd_pin": "CN2-15",
+    "wire": "*DECX",
+    "cn_pin": "CN2-15",
+    "provenance": "RESOLVED 2026-08-10: Dwg 4143075410 pg136 T.U row shows pin -15 under 'X AXIS ZERO RETURN DECELERATION' (*DECX); BBIA-1 board pinout confirms CN2-15 = wire mnemonic *DECX - matches LS-42 per authority LOCATED note"
    },
    "authority_line": 87
   },
@@ -7684,10 +7684,10 @@ window.MAZAK_DATA = {
     "C6"
    ],
    "bb_source": {
-    "cnd_pin": "",
-    "wire": "",
-    "cn_pin": "",
-    "provenance": "label — to fill"
+    "cnd_pin": "CN2-16",
+    "wire": "*DECY",
+    "cn_pin": "CN2-16",
+    "provenance": "RESOLVED 2026-08-10: Dwg 4143075410 pg136 T.U row shows pin -16 under 'Y AXIS ZERO RETURN DECELERATION' (*DECY); BBIA-1 board pinout confirms CN2-16 = wire mnemonic *DECY - matches LS-52 per authority LOCATED note"
    },
    "authority_line": 88
   },
@@ -7799,10 +7799,10 @@ window.MAZAK_DATA = {
     "C6"
    ],
    "bb_source": {
-    "cnd_pin": "",
-    "wire": "",
-    "cn_pin": "",
-    "provenance": "label — to fill"
+    "cnd_pin": "CN1-14",
+    "wire": "*DECZ",
+    "cn_pin": "CN1-14",
+    "provenance": "RESOLVED 2026-08-10: Dwg 4143075410 pg136 T.U row explicitly labels CN1-14 = wire mnemonic *DECZ under 'Z AXIS ZERO RETURN DECELERATION' - matches BBIA-1 board pinout CN1-14='*DECZ' exactly and LS-62 per authority LOCATED note"
    },
    "authority_line": 89
   },
@@ -9156,7 +9156,7 @@ window.MAZAK_DATA = {
     "cnd_pin": "",
     "wire": "",
     "cn_pin": "",
-    "provenance": "label — to fill"
+    "provenance": "N/A 2026-08-10: new signal - interposing relay lands directly at MELDAS DK-427 ENA input, not via a BBIA-1 pass-through pin (no OEM equivalent existed; ENA is a new Mesa-driven control point)"
    },
    "authority_line": 113
   },
@@ -9309,7 +9309,7 @@ window.MAZAK_DATA = {
     "cnd_pin": "",
     "wire": "",
     "cn_pin": "",
-    "provenance": "label — to fill"
+    "provenance": "N/A 2026-08-10: new signal - interposing relay lands directly at MELDAS DK-427 ENA input, not via BBIA-1 (same reasoning as X_DRIVE_ENABLE)"
    },
    "authority_line": 114
   },
@@ -9400,7 +9400,7 @@ window.MAZAK_DATA = {
     "cnd_pin": "",
     "wire": "",
     "cn_pin": "",
-    "provenance": "label — to fill"
+    "provenance": "N/A 2026-08-10: new signal - interposing relay lands directly at MELDAS DK-427 ENA input, not via BBIA-1 (same reasoning as X/Y_DRIVE_ENABLE)"
    },
    "authority_line": 115
   },
@@ -9478,7 +9478,7 @@ window.MAZAK_DATA = {
     "cnd_pin": "",
     "wire": "",
     "cn_pin": "",
-    "provenance": "label — to fill"
+    "provenance": "AMBIGUOUS 2026-08-10: CN11-6 (wire215 SPINDLE AIR BLAST) vs CN11-7 (wire216 WORK AIR BLAST) both plausible for SOL-62 (RLY-5) - no wire# for SOL-62 found to disambiguate; verify against parts list pp.85-91 before landing"
    },
    "authority_line": 116
   },
@@ -9554,10 +9554,10 @@ window.MAZAK_DATA = {
     "C6"
    ],
    "bb_source": {
-    "cnd_pin": "",
-    "wire": "",
-    "cn_pin": "",
-    "provenance": "label — to fill"
+    "cnd_pin": "CN11-10",
+    "wire": "261",
+    "cn_pin": "SSR bd CN11-10",
+    "provenance": "RESOLVED 2026-08-10: BBIA-1 terminal-unit CN11 pin10 = wire261 AIR JET - matches 'MMS touch-sensor air jet' (SOL-35) exactly, the only air-jet entry on CN11"
    },
    "authority_line": 117
   },
@@ -9636,7 +9636,7 @@ window.MAZAK_DATA = {
     "cnd_pin": "",
     "wire": "",
     "cn_pin": "",
-    "provenance": "label — to fill"
+    "provenance": "NOT LOCATED 2026-08-10: SOL-61 (RLY-7) not among CN11/CN11-SSR's 20 pins (all 20 accounted for) - likely CN12 (2PC bank, not yet transcribed) or a direct CB-panel landing outside BBIA-1's pass-through set; needs further extraction"
    },
    "authority_line": 118
   },
@@ -9727,7 +9727,7 @@ window.MAZAK_DATA = {
     "cnd_pin": "",
     "wire": "",
     "cn_pin": "",
-    "provenance": "label — to fill"
+    "provenance": "NOT LOCATED 2026-08-10: not among CN11/CN11-SSR's 20 pins (all 20 accounted for); Y095 TCME.M barrier-expand likely routes via CN12 (2PC/pallet-changer bank, not yet transcribed) - needs further extraction"
    },
    "authority_line": 119
   },
@@ -9797,10 +9797,10 @@ window.MAZAK_DATA = {
    ],
    "conflicts": [],
    "bb_source": {
-    "cnd_pin": "",
-    "wire": "",
-    "cn_pin": "",
-    "provenance": "label — to fill"
+    "cnd_pin": "CN11-13",
+    "wire": "231",
+    "cn_pin": "SSR bd CN11-13",
+    "provenance": "RESOLVED 2026-08-10: BBIA-1 terminal-unit CN11 pin13 = wire231 FLOOD COOLANT, matching 'flood coolant valve, separate from pump motor' (Y011 FCL) - distinct from COOLANT_ON/pump-motor at CN11-15"
    },
    "authority_line": 120
   },
@@ -10388,7 +10388,7 @@ window.MAZAK_DATA = {
     "cnd_pin": "",
     "wire": "",
     "cn_pin": "",
-    "provenance": "label — to fill"
+    "provenance": "N/A 2026-08-10: not a BBIA-1 pass-through signal - common return; ELECTRICALLY_VERIFIED 2026-08-07 per authority CSV (Mean Well -V4 to TB1-6)"
    },
    "authority_line": 131
   },
@@ -10442,7 +10442,7 @@ window.MAZAK_DATA = {
     "cnd_pin": "",
     "wire": "",
     "cn_pin": "",
-    "provenance": "label — to fill"
+    "provenance": "N/A 2026-08-10: not a BBIA-1 pass-through signal - new dedicated Mesa logic-power wiring from PSU"
    },
    "authority_line": 132
   },
@@ -10496,7 +10496,7 @@ window.MAZAK_DATA = {
     "cnd_pin": "",
     "wire": "",
     "cn_pin": "",
-    "provenance": "label — to fill"
+    "provenance": "N/A 2026-08-10: not a BBIA-1 pass-through signal - common return for new dedicated Mesa field-power wiring"
    },
    "authority_line": 133
   }
