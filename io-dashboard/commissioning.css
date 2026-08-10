@@ -195,6 +195,12 @@
 .circuit-node[data-kind="unknown"] { border-style: dashed; border-color: var(--red); }
 .circuit-node[data-kind="interface"] { border-color: var(--amber); }
 
+/* Field destination whose far-end terminal is recorded in the authority CSV
+   (dest_connector/dest_pin) — a confirmed landing, not inferred from prose. */
+.circuit-node[data-verified="true"] { border-color: var(--green); background: var(--green-dim); }
+.circuit-node[data-verified="true"] .node-stage { color: var(--green); }
+.circuit-node[data-verified="true"] .node-stage::after { content: " ✓"; }
+
 .node-stage {
   color: var(--text-3);
   font-family: var(--font-mono);

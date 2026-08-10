@@ -211,7 +211,7 @@
       { stage: isInput(s) ? 'LinuxCNC consumer' : 'LinuxCNC source', main: control || 'No active HAL endpoint', sub: s.hal_net ? 'HAL net · ' + s.hal_net : 'HAL net not defined', unknown: !control },
       { stage: 'Mesa terminal', main: mesaTerminal(s), sub: mesaSub || 'HostMot2 binding unverified', kind: 'mesa', unknown: s.board === 'none' },
       { stage: 'Interface / conductor', main: iface.main, sub: iface.sub, kind: 'interface', unknown: iface.unknown },
-      { stage: 'Field destination', main: s.field_point || 'Field device not assigned', sub: destSub(s), unknown: !destTerminal(s) && (!s.field_point || /unknown|unassigned/i.test((s.field_point || '') + ' ' + (s.location || ''))) }
+      { stage: 'Field destination', main: s.field_point || 'Field device not assigned', sub: destSub(s), verified: !!destTerminal(s), unknown: !destTerminal(s) && (!s.field_point || /unknown|unassigned/i.test((s.field_point || '') + ' ' + (s.location || ''))) }
     ];
   }
 
@@ -264,7 +264,7 @@
 
   function nodeHTML(n) {
     var kind = n.unknown ? 'unknown' : (n.kind || 'known');
-    return '<span class="circuit-node" data-kind="' + kind + '">' +
+    return '<span class="circuit-node" data-kind="' + kind + '"' + (n.verified ? ' data-verified="true"' : '') + '>' +
       '<span class="node-stage">' + esc(n.stage) + '</span>' +
       '<span class="node-main">' + esc(n.main) + '</span>' +
       (n.sub ? '<span class="node-sub">' + esc(n.sub) + '</span>' : '') + '</span>';
