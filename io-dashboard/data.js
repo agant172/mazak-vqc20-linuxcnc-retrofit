@@ -6,7 +6,7 @@ window.MAZAK_DATA = {
   "machine": "Mazak VQC-20/40",
   "serial": "060231",
   "architecture": "LinuxCNC + Mesa 7i80HDT (Ethernet FPGA host) + 7i44 on P1 (HostMot2 sserial port 0 channels 0/1 to 7i84U-A/B) + 7i49 on P2 (resolver + analog outs); P3 unused/spare",
-  "generated": "2026-08-10 04:36 UTC",
+  "generated": "2026-08-10 17:40 UTC",
   "source_repo": "mazak-vqc20-linuxcnc-retrofit",
   "authority_file": "mesa/current_pin_authority.csv",
   "epson_ferrule_file": "wiring/labels/bbia1_mesa_end_ferrules_epson.csv",
@@ -182,7 +182,7 @@ window.MAZAK_DATA = {
    "field_point": "Tamagawa TS2014N X resolver",
    "designations": [],
    "primary_source": "motion_7i80hdt.hal",
-   "cleanup_notes": "Ohmmeter winding pairs and scope return before power | [FIRST-POWER 2026-08-09: factory resolver wiring lands at BBIA1/7i49 - no cabinet trace. VERIFY feedback direction/counts before closing the loop - wrong sign runs the axis away.]",
+   "cleanup_notes": "Ohmmeter winding pairs and scope return before power | [FIRST-POWER 2026-08-09: factory resolver wiring lands at BBIA1/7i49 - no cabinet trace. VERIFY feedback direction/counts before closing the loop - wrong sign runs the axis away.] | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/homing_ladder_transcription.md]",
    "location": "X ball screw, non-drive end — Tamagawa TS2014N shaft resolver on flex coupling",
    "location_note": "BKO-NC6062A; via BBIA-1 CNA1 \"TO RESOLVER MACHINE SIDE\"",
    "expected": {
@@ -330,7 +330,7 @@ window.MAZAK_DATA = {
    "field_point": "Tamagawa TS2014N Y resolver",
    "designations": [],
    "primary_source": "motion_7i80hdt.hal",
-   "cleanup_notes": "Ohmmeter winding pairs and scope return before power | [FIRST-POWER 2026-08-09: factory resolver wiring lands at BBIA1/7i49 - no cabinet trace. VERIFY feedback direction/counts before closing the loop - wrong sign runs the axis away.]",
+   "cleanup_notes": "Ohmmeter winding pairs and scope return before power | [FIRST-POWER 2026-08-09: factory resolver wiring lands at BBIA1/7i49 - no cabinet trace. VERIFY feedback direction/counts before closing the loop - wrong sign runs the axis away.] | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/homing_ladder_transcription.md]",
    "location": "Y ball screw, non-drive end — Tamagawa TS2014N shaft resolver on flex coupling",
    "location_note": "BKO-NC6062A; via BBIA-1 CNA1",
    "expected": {
@@ -478,7 +478,7 @@ window.MAZAK_DATA = {
    "field_point": "Tamagawa TS2014N Z resolver",
    "designations": [],
    "primary_source": "motion_7i80hdt.hal",
-   "cleanup_notes": "Ohmmeter winding pairs and scope return before power | [FIRST-POWER 2026-08-09: factory resolver wiring lands at BBIA1/7i49 - no cabinet trace. VERIFY feedback direction/counts before closing the loop - wrong sign runs the axis away.]",
+   "cleanup_notes": "Ohmmeter winding pairs and scope return before power | [FIRST-POWER 2026-08-09: factory resolver wiring lands at BBIA1/7i49 - no cabinet trace. VERIFY feedback direction/counts before closing the loop - wrong sign runs the axis away.] | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/homing_ladder_transcription.md]",
    "location": "Z ball screw, non-drive end — Tamagawa TS2014N shaft resolver on flex coupling",
    "location_note": "BKO-NC6062A; Z amp cable CA1 / BBIA-1 CN3",
    "expected": {
@@ -626,7 +626,7 @@ window.MAZAK_DATA = {
    "field_point": "Machine-side A/B/Z spindle encoder if fitted",
    "designations": [],
    "primary_source": "motion_7i80hdt.hal",
-   "cleanup_notes": "Current target leaves P3 empty and requests num_encoders=0. Identify encoder model/electrical format and select a compatible receiver/daughter interface plus IDROM-proven pins before allocation.",
+   "cleanup_notes": "Current target leaves P3 empty and requests num_encoders=0. Identify encoder model/electrical format and select a compatible receiver/daughter interface plus IDROM-proven pins before allocation. | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/spindle_run_ladder_transcription.md]",
    "location": "Spindle head — machine-side A/B/Z encoder if fitted",
    "location_note": "Unassigned: part, electrical format, receiver/interface and FPGA pins are not confirmed. P3 remains empty.",
    "expected": {
@@ -1162,7 +1162,7 @@ window.MAZAK_DATA = {
    "field_point": "FR-SX V-IN speed reference",
    "designations": [],
    "primary_source": "motion_7i80hdt.hal",
-   "cleanup_notes": "Confirm 0-10V unipolar vs bipolar; pwmgen.03 offset-mode | [RECON 2026-08-08 §D: FR-SX SE1/SE2/SE3 0-10V speed ref (+10V max speed)] | [FIRST-POWER 2026-08-09: factory wiring at BBIA1/7i49 - no cabinet trace. Confirm 0-10V unipolar scaling / offset-mode (see C3); direction is separate SRN/SRI, not command sign.]",
+   "cleanup_notes": "Confirm 0-10V unipolar vs bipolar; pwmgen.03 offset-mode | [RECON 2026-08-08 §D: FR-SX SE1/SE2/SE3 0-10V speed ref (+10V max speed)] | [FIRST-POWER 2026-08-09: factory wiring at BBIA1/7i49 - no cabinet trace. Confirm 0-10V unipolar scaling / offset-mode (see C3); direction is separate SRN/SRI, not command sign.] | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/spindle_run_ladder_transcription.md]",
    "location": "Spindle/servo bay — FR-SX V-IN speed reference terminal",
    "location_note": "FR-SX drawing 4143075403, PDF pg 127 of 41434WB.pdf",
    "expected": {
@@ -1826,7 +1826,7 @@ window.MAZAK_DATA = {
     "PRS-55"
    ],
    "primary_source": "archived_wiring_map",
-   "cleanup_notes": "Update field_7i84u.hal because it currently uses input-02 | [RECON 2026-08-08 §F: PRS-55 (+Y 2nd, +LY2) confirmed by Dwg 4143075409 (Motion Switch Input 3)]",
+   "cleanup_notes": "Update field_7i84u.hal because it currently uses input-02 | [RECON 2026-08-08 §F: PRS-55 (+Y 2nd, +LY2) confirmed by Dwg 4143075409 (Motion Switch Input 3)] | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/atc_ladder_transcription.md]",
    "location": "Y axis — tool-change zone prox",
    "location_note": "PRS-55. Switch may not physically exist — confirm.",
    "expected": {
@@ -1899,7 +1899,7 @@ window.MAZAK_DATA = {
     "PRS-66"
    ],
    "primary_source": "archived_wiring_map",
-   "cleanup_notes": "Update field_7i84u.hal because it currently uses input-03 | [RECON 2026-08-08 §F: PRS-66 (-Z 2nd, -LZ2) confirmed by Dwg 4143075409 (Motion Switch Input 3)]",
+   "cleanup_notes": "Update field_7i84u.hal because it currently uses input-03 | [RECON 2026-08-08 §F: PRS-66 (-Z 2nd, -LZ2) confirmed by Dwg 4143075409 (Motion Switch Input 3)] | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/atc_ladder_transcription.md]",
    "location": "Z axis — tool-change zone prox",
    "location_note": "PRS-66. Switch may not physically exist — confirm.",
    "expected": {
@@ -1973,7 +1973,7 @@ window.MAZAK_DATA = {
     "PHS-127"
    ],
    "primary_source": "phase2_plan",
-   "cleanup_notes": "Add HAL net when confirmed | [RECON 2026-08-08 §F: PHS-181 line 381 (settles PHS-127 vs 181) confirmed by Dwg 4143075409 (Motion Switch Input 3)]",
+   "cleanup_notes": "Add HAL net when confirmed | [RECON 2026-08-08 §F: PHS-181 line 381 (settles PHS-127 vs 181) confirmed by Dwg 4143075409 (Motion Switch Input 3)] | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/atc_ladder_transcription.md]",
    "location": "Tool magazine — tool-available photo sensor",
    "location_note": "PHS-181. Alarm table shows PHS-127 \"magazine detector OFF\" — may be the same sensor described two ways.",
    "expected": {
@@ -2065,7 +2065,7 @@ window.MAZAK_DATA = {
     "PHS-132"
    ],
    "primary_source": "phase2_plan",
-   "cleanup_notes": "Add HAL net when confirmed",
+   "cleanup_notes": "Add HAL net when confirmed | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/atc_ladder_transcription.md]",
    "location": "Spindle — tool-present photo sensor",
    "location_note": "PHS-182. Alarm table shows PHS-132 \"spindle tool detector off\" — same ambiguity.",
    "expected": {
@@ -2154,7 +2154,7 @@ window.MAZAK_DATA = {
    "field_point": "FR-SX orient arrival (PLC X003 ORA1)",
    "designations": [],
    "primary_source": "element_list_crosswalk_2026-07-27",
-   "cleanup_notes": "ATC cannot cycle without orient; confirm FR-SX terminal and polarity | [RECON 2026-08-08 §A: element list confirms X003 ORA1 'ORIENT ARRIVAL' (ladder 3006/4810/5509) on 060231] | [RECON 2026-08-08 §D: FR-SX OBA1(t22)/OBA2(t23) -> CN4-16/CN4-17 (digits verify)]",
+   "cleanup_notes": "ATC cannot cycle without orient; confirm FR-SX terminal and polarity | [RECON 2026-08-08 §A: element list confirms X003 ORA1 'ORIENT ARRIVAL' (ladder 3006/4810/5509) on 060231] | [RECON 2026-08-08 §D: FR-SX OBA1(t22)/OBA2(t23) -> CN4-16/CN4-17 (digits verify)] | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/spindle_run_ladder_transcription.md]",
    "location": "Unknown — trace in cabinet",
    "location_note": "",
    "expected": {
@@ -2243,7 +2243,7 @@ window.MAZAK_DATA = {
    "field_point": "FR-SX zero-speed output (PLC X001 SZS.M)",
    "designations": [],
    "primary_source": "element_list_crosswalk_2026-07-27",
-   "cleanup_notes": "Distinct from IN13 speed-reach; gear shift interlock needs zero-speed | [RECON 2026-08-08 §A: element list confirms X001 SZS.M 'SPINDLE ZERO SPEED' on 060231] | [RECON 2026-08-08 §D: FR-SX ESL1(t3)/ES2(t4) -> CN4-1/CN4-2 (digits verify)] | [LOCATED 2026-08-08: X01 SZS.M wire 143 T.U CN3-4, Dwg 4143075407 pg133] | [PINOUT-RECONCILED 2026-08-09: BBIA-1 board = wire 231, CN4-1 (matches the FR-SX CON1->CN4 reading in the D-section; supersedes the pg133 'wire 143 / CN3-4' LOCATED note).]",
+   "cleanup_notes": "Distinct from IN13 speed-reach; gear shift interlock needs zero-speed | [RECON 2026-08-08 §A: element list confirms X001 SZS.M 'SPINDLE ZERO SPEED' on 060231] | [RECON 2026-08-08 §D: FR-SX ESL1(t3)/ES2(t4) -> CN4-1/CN4-2 (digits verify)] | [LOCATED 2026-08-08: X01 SZS.M wire 143 T.U CN3-4, Dwg 4143075407 pg133] | [PINOUT-RECONCILED 2026-08-09: BBIA-1 board = wire 231, CN4-1 (matches the FR-SX CON1->CN4 reading in the D-section; supersedes the pg133 'wire 143 / CN3-4' LOCATED note).] | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/spindle_run_ladder_transcription.md]",
    "location": "Unknown — trace in cabinet",
    "location_note": "",
    "expected": {
@@ -2368,7 +2368,7 @@ window.MAZAK_DATA = {
    "field_point": "Magazine cover open reed switch (PLC X052 MGCORS)",
    "designations": [],
    "primary_source": "element_list_crosswalk_2026-07-27",
-   "cleanup_notes": "Pairs with NET_MAG_COVER_OPEN/CLOSE solenoids; locate RS on cover | [RECON 2026-08-08 §A/§F: X052 MGCORS + RS-18 line 218 (Dwg 4143075409) confirm on 060231] | [LOCATED 2026-08-08: RS-18 wire 218 MGCORS X52, Dwg 4143075409 pg135]",
+   "cleanup_notes": "Pairs with NET_MAG_COVER_OPEN/CLOSE solenoids; locate RS on cover | [RECON 2026-08-08 §A/§F: X052 MGCORS + RS-18 line 218 (Dwg 4143075409) confirm on 060231] | [LOCATED 2026-08-08: RS-18 wire 218 MGCORS X52, Dwg 4143075409 pg135] | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/atc_ladder_transcription.md]",
    "location": "Unknown — trace in cabinet",
    "location_note": "",
    "expected": {
@@ -2457,7 +2457,7 @@ window.MAZAK_DATA = {
    "field_point": "Magazine cover close reed switch (PLC X053 MGCCRS)",
    "designations": [],
    "primary_source": "element_list_crosswalk_2026-07-27",
-   "cleanup_notes": "Interlock magazine rotation on cover closed | [RECON 2026-08-08 §A/§F: X053 MGCCRS + RS-19 line 219 (Dwg 4143075409) confirm on 060231] | [LOCATED 2026-08-08: RS-19 wire 219 MGCCRS X53, Dwg 4143075409 pg135]",
+   "cleanup_notes": "Interlock magazine rotation on cover closed | [RECON 2026-08-08 §A/§F: X053 MGCCRS + RS-19 line 219 (Dwg 4143075409) confirm on 060231] | [LOCATED 2026-08-08: RS-19 wire 219 MGCCRS X53, Dwg 4143075409 pg135] | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/atc_ladder_transcription.md]",
    "location": "Unknown — trace in cabinet",
    "location_note": "",
    "expected": {
@@ -2546,7 +2546,7 @@ window.MAZAK_DATA = {
    "field_point": "Motor thermal trip + main transformer overheat in series (PLC X073 THR.M + X07B ONT.M)",
    "designations": [],
    "primary_source": "element_list_crosswalk_2026-07-27 + open_issues.md §3 (2026-08-03)",
-   "cleanup_notes": "Series-wired NC X073 THR.M + X07B ONT.M; alarm-only, not in E-stop chain; field continuity and polarity remain unverified. | [RECON 2026-08-08 §A: element list confirms X073 THR.M + X07B ONT.M — two NC signals, series on 060231] | [LOCATED 2026-08-08: X73 THR.M (T.U CN5-1, TB1; motor thermal + circuit protector trip) series-NC X7B ONT.M (T.U CN5-3, OHT; main transformer overheat), Dwg 4143075407 pg133]",
+   "cleanup_notes": "Series-wired NC X073 THR.M + X07B ONT.M; alarm-only, not in E-stop chain; field continuity and polarity remain unverified. | [RECON 2026-08-08 §A: element list confirms X073 THR.M + X07B ONT.M — two NC signals, series on 060231] | [LOCATED 2026-08-08: X73 THR.M (T.U CN5-1, TB1; motor thermal + circuit protector trip) series-NC X7B ONT.M (T.U CN5-3, OHT; main transformer overheat), Dwg 4143075407 pg133] | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/estop_ladder_transcription.md]",
    "location": "Unknown — trace in cabinet",
    "location_note": "",
    "expected": {
@@ -2617,7 +2617,7 @@ window.MAZAK_DATA = {
    "field_point": "Manual tool unclamp FOOT switch (PLC X01A TUCFS.M)",
    "designations": [],
    "primary_source": "element_list_crosswalk_2026-07-27",
-   "cleanup_notes": "Commissioning aid; pairs with MANUAL_TOOL_CLAMP_PB on IN30 (TCFS X01B reinstated 2026-08-03 after single-7i84U plan freed pins). | [RECON 2026-08-08 §A: element list confirms X01A TUCFS.M 'MNL TOOL UNCLAMP FS (VQC20)' on 060231] | [RECON 2026-08-08: FOOT switch confirmed (owner + mnemonic TUCFS=Tool UnClamp Foot Switch); BBIA1 wire 149 'TOOL UNCLAMP (FOOT SW)' 7-23] | [LOCATED 2026-08-08: X1A TUCF.M foot switch, wire 149A, T.U CN2-3, Dwg 4143075407 pg133]",
+   "cleanup_notes": "Commissioning aid; pairs with MANUAL_TOOL_CLAMP_PB on IN30 (TCFS X01B reinstated 2026-08-03 after single-7i84U plan freed pins). | [RECON 2026-08-08 §A: element list confirms X01A TUCFS.M 'MNL TOOL UNCLAMP FS (VQC20)' on 060231] | [RECON 2026-08-08: FOOT switch confirmed (owner + mnemonic TUCFS=Tool UnClamp Foot Switch); BBIA1 wire 149 'TOOL UNCLAMP (FOOT SW)' 7-23] | [LOCATED 2026-08-08: X1A TUCF.M foot switch, wire 149A, T.U CN2-3, Dwg 4143075407 pg133] | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/atc_ladder_transcription.md]",
    "location": "Unknown — trace in cabinet",
    "location_note": "",
    "expected": {
@@ -2706,7 +2706,7 @@ window.MAZAK_DATA = {
    "field_point": "X drive fault relay",
    "designations": [],
    "primary_source": "archived_wiring_map",
-   "cleanup_notes": "Update field_7i84u.hal because it currently uses input-12",
+   "cleanup_notes": "Update field_7i84u.hal because it currently uses input-12 | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/estop_ladder_transcription.md]",
    "location": "Servo bay — X drive ALM relay contact",
    "location_note": "Mitsubishi HD81/HD101 ALM is open-collector active-low",
    "expected": {
@@ -2795,7 +2795,7 @@ window.MAZAK_DATA = {
    "field_point": "Y drive fault relay",
    "designations": [],
    "primary_source": "archived_wiring_map",
-   "cleanup_notes": "Update field_7i84u.hal because it currently uses input-13",
+   "cleanup_notes": "Update field_7i84u.hal because it currently uses input-13 | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/estop_ladder_transcription.md]",
    "location": "Servo bay — Y drive ALM relay contact",
    "location_note": "See field_7i84u.hal:28-33 polarity caution",
    "expected": {
@@ -2884,7 +2884,7 @@ window.MAZAK_DATA = {
    "field_point": "Z drive fault relay",
    "designations": [],
    "primary_source": "archived_wiring_map",
-   "cleanup_notes": "Update field_7i84u.hal because it currently uses input-14",
+   "cleanup_notes": "Update field_7i84u.hal because it currently uses input-14 | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/estop_ladder_transcription.md]",
    "location": "Servo bay — Z drive ALM relay contact",
    "location_note": "See field_7i84u.hal:28-33 polarity caution",
    "expected": {
@@ -2973,7 +2973,7 @@ window.MAZAK_DATA = {
    "field_point": "No factory FR-SX at-speed terminal — derive in LinuxCNC HAL",
    "designations": [],
    "primary_source": "archived_wiring_map",
-   "cleanup_notes": "Confirm VFD terminal and polarity | [RECON 2026-08-08: spindle-drive sheet Dwg 4143075403 shows only zero-speed/controller-normal/orient-arrival; NO discrete at-speed output. Derive at-speed in HAL (commanded-vs-actual threshold). Do NOT wire.] | [RECON 2026-08-08 follow-up: status COMMISSIONING_PENDING -> DEFERRED; no field wire, derived in HAL]",
+   "cleanup_notes": "Confirm VFD terminal and polarity | [RECON 2026-08-08: spindle-drive sheet Dwg 4143075403 shows only zero-speed/controller-normal/orient-arrival; NO discrete at-speed output. Derive at-speed in HAL (commanded-vs-actual threshold). Do NOT wire.] | [RECON 2026-08-08 follow-up: status COMMISSIONING_PENDING -> DEFERRED; no field wire, derived in HAL] | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/spindle_run_ladder_transcription.md]",
    "location": "Spindle/servo bay — FR-SX speed-reach output terminal",
    "location_note": "",
    "expected": {
@@ -3057,7 +3057,7 @@ window.MAZAK_DATA = {
    "field_point": "FR-SX fault output",
    "designations": [],
    "primary_source": "archived_wiring_map",
-   "cleanup_notes": "Confirm VFD terminal and polarity | [RECON 2026-08-08 §D: FR-SX FA(t11)/FC(t12) 'controller normal' -> CN4-3/CN4-4 (digits verify)]",
+   "cleanup_notes": "Confirm VFD terminal and polarity | [RECON 2026-08-08 §D: FR-SX FA(t11)/FC(t12) 'controller normal' -> CN4-3/CN4-4 (digits verify)] | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/spindle_run_ladder_transcription.md]",
    "location": "Spindle/servo bay — FR-SX fault output terminal",
    "location_note": "",
    "expected": {
@@ -3199,7 +3199,7 @@ window.MAZAK_DATA = {
     "PRS-9"
    ],
    "primary_source": "archived_wiring_map",
-   "cleanup_notes": "Update field_7i84u.hal because it currently uses input-00 | [RECON 2026-08-08 §F: PRS-9 line 209 TCPRS confirmed by Dwg 4143075409 (Motion Switch Input 3)]",
+   "cleanup_notes": "Update field_7i84u.hal because it currently uses input-00 | [RECON 2026-08-08 §F: PRS-9 line 209 TCPRS confirmed by Dwg 4143075409 (Motion Switch Input 3)] | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/atc_ladder_transcription.md]",
    "location": "Spindle head — tool clamp confirm prox",
    "location_note": "PRS-9",
    "expected": {
@@ -3290,7 +3290,7 @@ window.MAZAK_DATA = {
     "PRS-8"
    ],
    "primary_source": "archived_wiring_map",
-   "cleanup_notes": "Update field_7i84u.hal because it currently uses input-01 | [RECON 2026-08-08 §F: PRS-8 line 208 TUCPRS confirmed by Dwg 4143075409 (Motion Switch Input 3)]",
+   "cleanup_notes": "Update field_7i84u.hal because it currently uses input-01 | [RECON 2026-08-08 §F: PRS-8 line 208 TUCPRS confirmed by Dwg 4143075409 (Motion Switch Input 3)] | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/atc_ladder_transcription.md]",
    "location": "Spindle head — tool unclamp confirm prox",
    "location_note": "PRS-8 (mnemonic TUCPRS, bit X77 / LH03-1)",
    "expected": {
@@ -3381,7 +3381,7 @@ window.MAZAK_DATA = {
     "PRS-10"
    ],
    "primary_source": "archived_wiring_map",
-   "cleanup_notes": "Add HAL net when confirmed | [RECON 2026-08-08 §F: PRS-10 line 210 HGPRS = HIGH gear confirmed by Dwg 4143075409 (Motion Switch Input 3)]",
+   "cleanup_notes": "Add HAL net when confirmed | [RECON 2026-08-08 §F: PRS-10 line 210 HGPRS = HIGH gear confirmed by Dwg 4143075409 (Motion Switch Input 3)] | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/orient_ladder_transcription.md]",
    "location": "Spindle gearbox — high gear confirm prox",
    "location_note": "PRS-10 (mnemonic HGPRS, bit X58 / LH0B-0)",
    "expected": {
@@ -3475,7 +3475,7 @@ window.MAZAK_DATA = {
     "PRS-10"
    ],
    "primary_source": "archived_wiring_map",
-   "cleanup_notes": "Add HAL net when confirmed | [RECON 2026-08-08 §F: PRS-12 line 212 LGPRS = LOW gear confirmed by Dwg 4143075409 (Motion Switch Input 3)]",
+   "cleanup_notes": "Add HAL net when confirmed | [RECON 2026-08-08 §F: PRS-12 line 212 LGPRS = LOW gear confirmed by Dwg 4143075409 (Motion Switch Input 3)] | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/orient_ladder_transcription.md]",
    "location": "Spindle gearbox — low gear confirm prox",
    "location_note": "PRS-12 per authority; alarm table says PRS-2 (LGPRS, X5F/LH0B-1); TB-51 diagram says PRS-10. Three sources disagree.",
    "expected": {
@@ -3566,7 +3566,7 @@ window.MAZAK_DATA = {
     "PRS-21"
    ],
    "primary_source": "archived_wiring_map",
-   "cleanup_notes": "Decode with bcd2s or custom mux | [RECON 2026-08-08 §F: PRS-21 line 221 confirmed by Dwg 4143075409 (Motion Switch Input 3)] | [PINOUT-RECONCILED 2026-08-09: BBIA-1 board = MAGAZINE ROT POS 1, wire 150, CN2-4/CND2-4 (trusted over pg135 'wire 221' - that wire is BIT1 on the board).]",
+   "cleanup_notes": "Decode with bcd2s or custom mux | [RECON 2026-08-08 §F: PRS-21 line 221 confirmed by Dwg 4143075409 (Motion Switch Input 3)] | [PINOUT-RECONCILED 2026-08-09: BBIA-1 board = MAGAZINE ROT POS 1, wire 150, CN2-4/CND2-4 (trusted over pg135 'wire 221' - that wire is BIT1 on the board).] | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/atc_ladder_transcription.md]",
    "location": "Tool magazine — binary tool-code prox",
    "location_note": "PRS-21",
    "expected": {
@@ -3676,7 +3676,7 @@ window.MAZAK_DATA = {
     "PRS-22"
    ],
    "primary_source": "archived_wiring_map",
-   "cleanup_notes": "Decode with bcd2s or custom mux | [RECON 2026-08-08 §F: PRS-22 line 222 confirmed by Dwg 4143075409 (Motion Switch Input 3)] | [PINOUT-RECONCILED 2026-08-09: BBIA-1 board = MAGAZINE ROT POS 2, wire 221, CN2-5/CND2-5 (trusted over pg135 'wire 222').]",
+   "cleanup_notes": "Decode with bcd2s or custom mux | [RECON 2026-08-08 §F: PRS-22 line 222 confirmed by Dwg 4143075409 (Motion Switch Input 3)] | [PINOUT-RECONCILED 2026-08-09: BBIA-1 board = MAGAZINE ROT POS 2, wire 221, CN2-5/CND2-5 (trusted over pg135 'wire 222').] | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/atc_ladder_transcription.md]",
    "location": "Tool magazine — binary tool-code prox",
    "location_note": "PRS-22",
    "expected": {
@@ -3786,7 +3786,7 @@ window.MAZAK_DATA = {
     "PRS-23"
    ],
    "primary_source": "archived_wiring_map",
-   "cleanup_notes": "Decode with bcd2s or custom mux | [RECON 2026-08-08 §F: PRS-23 line 223 confirmed by Dwg 4143075409 (Motion Switch Input 3)] | [PINOUT-RECONCILED 2026-08-09: BBIA-1 board = MAGAZINE ROT POS 4, wire 222, CN2-6/CND2-6 (trusted over pg135 'wire 223').]",
+   "cleanup_notes": "Decode with bcd2s or custom mux | [RECON 2026-08-08 §F: PRS-23 line 223 confirmed by Dwg 4143075409 (Motion Switch Input 3)] | [PINOUT-RECONCILED 2026-08-09: BBIA-1 board = MAGAZINE ROT POS 4, wire 222, CN2-6/CND2-6 (trusted over pg135 'wire 223').] | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/atc_ladder_transcription.md]",
    "location": "Tool magazine — binary tool-code prox",
    "location_note": "PRS-23",
    "expected": {
@@ -3896,7 +3896,7 @@ window.MAZAK_DATA = {
     "PRS-24"
    ],
    "primary_source": "archived_wiring_map",
-   "cleanup_notes": "Decode with bcd2s or custom mux | [RECON 2026-08-08 §F: PRS-24 line 224 confirmed by Dwg 4143075409 (Motion Switch Input 3)] | [PINOUT-RECONCILED 2026-08-09: BBIA-1 board = MAGAZINE ROT POS 8, wire 223, CN2-7/CND2-7 (trusted over pg135 'wire 224').]",
+   "cleanup_notes": "Decode with bcd2s or custom mux | [RECON 2026-08-08 §F: PRS-24 line 224 confirmed by Dwg 4143075409 (Motion Switch Input 3)] | [PINOUT-RECONCILED 2026-08-09: BBIA-1 board = MAGAZINE ROT POS 8, wire 223, CN2-7/CND2-7 (trusted over pg135 'wire 224').] | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/atc_ladder_transcription.md]",
    "location": "Tool magazine — binary tool-code prox",
    "location_note": "PRS-24 (also labelled \"magazine position 8\")",
    "expected": {
@@ -4006,7 +4006,7 @@ window.MAZAK_DATA = {
     "PRS-25"
    ],
    "primary_source": "archived_wiring_map",
-   "cleanup_notes": "Decode with bcd2s or custom mux | [RECON 2026-08-08 §F: PRS-25 line 225 confirmed by Dwg 4143075409 (Motion Switch Input 3)] | [PINOUT-RECONCILED 2026-08-09: BBIA-1 board = MAGAZINE ROT POS 10, wire 224, CN2-8/CND2-8 (trusted over pg135 'wire 225'). NB: the field PRS-nn labels are pg135 PLC-side identities and may not match the board bit order - physical wire label is final.]",
+   "cleanup_notes": "Decode with bcd2s or custom mux | [RECON 2026-08-08 §F: PRS-25 line 225 confirmed by Dwg 4143075409 (Motion Switch Input 3)] | [PINOUT-RECONCILED 2026-08-09: BBIA-1 board = MAGAZINE ROT POS 10, wire 224, CN2-8/CND2-8 (trusted over pg135 'wire 225'). NB: the field PRS-nn labels are pg135 PLC-side identities and may not match the board bit order - physical wire label is final.] | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/atc_ladder_transcription.md]",
    "location": "Tool magazine — binary tool-code prox",
    "location_note": "PRS-25 (labelled \"magazine position 10\" — does not fit a clean binary weight; possible OCR misread)",
    "expected": {
@@ -4119,7 +4119,7 @@ window.MAZAK_DATA = {
     "DS-2"
    ],
    "primary_source": "archived_wiring_map + open_issues.md §3 (2026-08-03)",
-   "cleanup_notes": "Series-wired 2026-08-03: X01D ITMDSS consolidated with LS-140/141 pair. Choose door-open versus door-closed net after normal state is measured.",
+   "cleanup_notes": "Series-wired 2026-08-03: X01D ITMDSS consolidated with LS-140/141 pair. Choose door-open versus door-closed net after normal state is measured. | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/estop_ladder_transcription.md]",
    "location": "Machine door — interlock switch",
    "location_note": "LS-141 (P24-341); LS-140 (P24-340, 2PC option). DS-1/DS-2 feed a relay ahead of the main contactor.",
    "expected": {
@@ -4265,7 +4265,7 @@ window.MAZAK_DATA = {
    "field_point": "Coolant level switch",
    "designations": [],
    "primary_source": "archived_wiring_map",
-   "cleanup_notes": "Net name follows HAL (polarity assumption: low = warning). Verify normal-state polarity in cabinet before promoting.",
+   "cleanup_notes": "Net name follows HAL (polarity assumption: low = warning). Verify normal-state polarity in cabinet before promoting. | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/coolant_ladder_transcription.md]",
    "location": "Unknown — trace in cabinet",
    "location_note": "",
    "expected": {
@@ -4336,7 +4336,7 @@ window.MAZAK_DATA = {
    "field_point": "Sanwa SPS-8T-PC-20 pressure switch",
    "designations": [],
    "primary_source": "phase2_plan",
-   "cleanup_notes": "This supersedes stale signal_map.csv TB5 IN16 row",
+   "cleanup_notes": "This supersedes stale signal_map.csv TB5 IN16 row | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/estop_ladder_transcription.md]",
    "location": "Hydraulic power unit — Sanwa SPS-8T-PC-20 pressure switch",
    "location_note": "",
    "expected": {
@@ -4472,7 +4472,7 @@ window.MAZAK_DATA = {
    "field_point": "Magazine index in-position prox (PLC X00D MIPRS); BCD pot number valid only while TRUE",
    "designations": [],
    "primary_source": "atc_ladder_transcription_2026-07-27",
-   "cleanup_notes": "Mandatory for magazine indexing (rungs 3401/33xx). Writer added in field_7i84u.hal:79 (net mag-in-pos <= input-28) on 2026-08-06. Verify prox type/polarity before commissioning. | [RECON 2026-08-08 CONFIRMED: MAG_IN_POS = PRS-13 MIPRS 'MAGAZINE INPOSITION' wire 213 X0D, Dwg 4143075409 pg135. In-position strobe; tool-# bits are PRS-21..25 (711P/712P/714P/718P/721P). Supersedes prior 'PRS-13=tool bit'.] | [PINOUT-RECONCILED 2026-08-09: BBIA-1 board = MAGAZINE POSITION OK, wire 225, CN2-9/CND2-9 (trusted). pg135 read the in-position prox as PRS-13/wire 213, but wire 213 is absent from the BBIA-1 pinout; POSITION OK is 225/CN2-9. PLC-side prox remains PRS-13/X00D.]",
+   "cleanup_notes": "Mandatory for magazine indexing (rungs 3401/33xx). Writer added in field_7i84u.hal:79 (net mag-in-pos <= input-28) on 2026-08-06. Verify prox type/polarity before commissioning. | [RECON 2026-08-08 CONFIRMED: MAG_IN_POS = PRS-13 MIPRS 'MAGAZINE INPOSITION' wire 213 X0D, Dwg 4143075409 pg135. In-position strobe; tool-# bits are PRS-21..25 (711P/712P/714P/718P/721P). Supersedes prior 'PRS-13=tool bit'.] | [PINOUT-RECONCILED 2026-08-09: BBIA-1 board = MAGAZINE POSITION OK, wire 225, CN2-9/CND2-9 (trusted). pg135 read the in-position prox as PRS-13/wire 213, but wire 213 is absent from the BBIA-1 pinout; POSITION OK is 225/CN2-9. PLC-side prox remains PRS-13/X00D.] | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/atc_ladder_transcription.md]",
    "location": "Unknown — trace in cabinet",
    "location_note": "",
    "expected": {
@@ -4582,7 +4582,7 @@ window.MAZAK_DATA = {
     "RS-C"
    ],
    "primary_source": "front_control_panel_wiring.md §6.5 + open_issues.md §3 (2026-08-03)",
-   "cleanup_notes": "OEM MAR relay aux contact via interposing relay (Omron G2R-1-SND-DC24 or Phoenix PLC-RSC-24DC/21) driven from EHB bus. OEM/new-side boundary: dry contact only, no OEM P24 into 7i84U common. This is the sole software E-stop monitor; OEM hardware chain remains authoritative. | [LOCATED 2026-08-08: EMERGENCY STOP X00 *ESP via EMS/MAR relay, Dwg 4143075407 pg133. Mesa IN29 = status monitor only; keep hardwired, do NOT wire as normal input]",
+   "cleanup_notes": "OEM MAR relay aux contact via interposing relay (Omron G2R-1-SND-DC24 or Phoenix PLC-RSC-24DC/21) driven from EHB bus. OEM/new-side boundary: dry contact only, no OEM P24 into 7i84U common. This is the sole software E-stop monitor; OEM hardware chain remains authoritative. | [LOCATED 2026-08-08: EMERGENCY STOP X00 *ESP via EMS/MAR relay, Dwg 4143075407 pg133. Mesa IN29 = status monitor only; keep hardwired, do NOT wire as normal input] | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/estop_ladder_transcription.md]",
    "location": "Unknown — trace in cabinet",
    "location_note": "",
    "expected": {
@@ -4666,7 +4666,7 @@ window.MAZAK_DATA = {
    "field_point": "Manual tool clamp FOOT switch (PLC X01B TCFS.M)",
    "designations": [],
    "primary_source": "element_list_crosswalk_2026-07-27 + open_issues.md §3 (2026-08-03)",
-   "cleanup_notes": "Reserved terminal; intentionally HAL-unbound until the switch and safe manual-clamp behavior are field verified. Pairs with MANUAL_TOOL_UNCLAMP_PB on IN9. | [LOCATED 2026-08-08: X1B TCCF.M foot switch, wire 149B, T.U CN2-44, Dwg 4143075407 pg133] | [2026-08-09: RESERVED, hal_net none (was manual-clamp-pb) - manual clamp deferred per io_capacity_reconciliation.md; restore net when switch behavior is field-verified]",
+   "cleanup_notes": "Reserved terminal; intentionally HAL-unbound until the switch and safe manual-clamp behavior are field verified. Pairs with MANUAL_TOOL_UNCLAMP_PB on IN9. | [LOCATED 2026-08-08: X1B TCCF.M foot switch, wire 149B, T.U CN2-44, Dwg 4143075407 pg133] | [2026-08-09: RESERVED, hal_net none (was manual-clamp-pb) - manual clamp deferred per io_capacity_reconciliation.md; restore net when switch behavior is field-verified] | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/atc_ladder_transcription.md]",
    "location": "Unknown — trace in cabinet",
    "location_note": "",
    "expected": {
@@ -4718,7 +4718,7 @@ window.MAZAK_DATA = {
    "field_point": "Servo drives ready relay contact",
    "designations": [],
    "primary_source": "archived_wiring_map",
-   "cleanup_notes": "Wire before first motion if available",
+   "cleanup_notes": "Wire before first motion if available | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/estop_ladder_transcription.md]",
    "location": "Servo bay — drives-ready relay contact",
    "location_note": "",
    "expected": {
@@ -4843,7 +4843,7 @@ window.MAZAK_DATA = {
    "field_point": "FR-SX forward input",
    "designations": [],
    "primary_source": "archived_wiring_map",
-   "cleanup_notes": "Digital FWD signal to FR-SX | [RECON 2026-08-08 §D: FR-SX SRN]",
+   "cleanup_notes": "Digital FWD signal to FR-SX | [RECON 2026-08-08 §D: FR-SX SRN] | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/spindle_run_ladder_transcription.md]",
    "location": "Spindle/servo bay — FR-SX forward input",
    "location_note": "SX-IO1 board CON1/CONA",
    "expected": {
@@ -4934,7 +4934,7 @@ window.MAZAK_DATA = {
    "field_point": "FR-SX reverse input",
    "designations": [],
    "primary_source": "archived_wiring_map",
-   "cleanup_notes": "Digital REV signal to FR-SX | [RECON 2026-08-08 §D: FR-SX SRI]",
+   "cleanup_notes": "Digital REV signal to FR-SX | [RECON 2026-08-08 §D: FR-SX SRI] | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/spindle_run_ladder_transcription.md]",
    "location": "Spindle/servo bay — FR-SX reverse input",
    "location_note": "SX-IO1 board CON1/CONA",
    "expected": {
@@ -5025,7 +5025,7 @@ window.MAZAK_DATA = {
    "field_point": "FR-SX enable input",
    "designations": [],
    "primary_source": "field_7i84u.hal",
-   "cleanup_notes": "FWD, REV, RUN, ORCM1, and pwmgen.03.enable use spindle-motion-permit; the static hold initializes FALSE and watchdog, E-stop, machine-on, servo-ready, and spindle-fault states must also permit motion",
+   "cleanup_notes": "FWD, REV, RUN, ORCM1, and pwmgen.03.enable use spindle-motion-permit; the static hold initializes FALSE and watchdog, E-stop, machine-on, servo-ready, and spindle-fault states must also permit motion | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/spindle_run_ladder_transcription.md]",
    "location": "Unknown — trace in cabinet",
    "location_note": "",
    "expected": {
@@ -5173,7 +5173,7 @@ window.MAZAK_DATA = {
    "field_point": "Hydraulic + head-lube pump contactor (PLC Y096 HYD.M)",
    "designations": [],
    "primary_source": "element_list_crosswalk_2026-07-27",
-   "cleanup_notes": "Required before clamp/gear/ATC; interposing relay for contactor coil; prove HYD_PRESS_OK after start | [RECON 2026-08-08 §A: element list confirms Y096 HYD.M combined hydraulic + head-lube pump on 060231]",
+   "cleanup_notes": "Required before clamp/gear/ATC; interposing relay for contactor coil; prove HYD_PRESS_OK after start | [RECON 2026-08-08 §A: element list confirms Y096 HYD.M combined hydraulic + head-lube pump on 060231] | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/estop_ladder_transcription.md]",
    "location": "Unknown — trace in cabinet",
    "location_note": "",
    "expected": {
@@ -5262,7 +5262,7 @@ window.MAZAK_DATA = {
    "field_point": "FR-SX orient command (PLC Y093 ORCM1.M)",
    "designations": [],
    "primary_source": "element_list_crosswalk_2026-07-27",
-   "cleanup_notes": "Gated by spindle-motion-permit; validate ladder sequence exact drive terminal relay topology and polarity before landing the field wire | [RECON 2026-08-08 §A: element list confirms Y093 ORCM1.M 'SPINDLE ORIENT COMMAND' (.M not .MV) on 060231] | [RECON 2026-08-08 §D: FR-SX CTM] | [LOCATED 2026-08-08: ORC1 CON1-25 wire 4-12 T.U CN3-14, Dwg 4143075408 pg134]",
+   "cleanup_notes": "Gated by spindle-motion-permit; validate ladder sequence exact drive terminal relay topology and polarity before landing the field wire | [RECON 2026-08-08 §A: element list confirms Y093 ORCM1.M 'SPINDLE ORIENT COMMAND' (.M not .MV) on 060231] | [RECON 2026-08-08 §D: FR-SX CTM] | [LOCATED 2026-08-08: ORC1 CON1-25 wire 4-12 T.U CN3-14, Dwg 4143075408 pg134] | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/spindle_run_ladder_transcription.md]",
    "location": "Unknown — trace in cabinet",
    "location_note": "",
    "expected": {
@@ -5353,7 +5353,7 @@ window.MAZAK_DATA = {
    "field_point": "Low-gear orient assist (PLC Y094 CTL.M)",
    "designations": [],
    "primary_source": "element_list_crosswalk_2026-07-27",
-   "cleanup_notes": "Verify in ladder whether required in high gear too | [RECON 2026-08-08 §A: element list confirms Y094 CTL.M 'LOW GEAR ORIENT' — low-gear-specific on 060231] | [RECON 2026-08-08 §D: FR-SX GTL] | [LOCATED 2026-08-08: CTL 'LOW GEAR ORIENT' CON1-27 wire 4-13 T.U CN3-15, Dwg 4143075408 pg134 - confirms low-gear orient assist]",
+   "cleanup_notes": "Verify in ladder whether required in high gear too | [RECON 2026-08-08 §A: element list confirms Y094 CTL.M 'LOW GEAR ORIENT' — low-gear-specific on 060231] | [RECON 2026-08-08 §D: FR-SX GTL] | [LOCATED 2026-08-08: CTL 'LOW GEAR ORIENT' CON1-27 wire 4-13 T.U CN3-15, Dwg 4143075408 pg134 - confirms low-gear orient assist] | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/spindle_run_ladder_transcription.md]",
    "location": "Unknown — trace in cabinet",
    "location_note": "",
    "expected": {
@@ -5597,7 +5597,7 @@ window.MAZAK_DATA = {
     "SOL-13"
    ],
    "primary_source": "phase2_plan",
-   "cleanup_notes": "Measure coil voltage before selecting relay contacts | [RECON 2026-08-08 §G: SWAPPED SOL-13->SOL-12 per Dwg 41431075414 p140 (Solenoid Driver 1) + element list Y00B GSH.M=SOL-12=HIGH] | [CONFIRMED 2026-08-08: pg100 TB-51 (Dwg 4143075338) wire 412->SOL-12->GEAR SHIFT HIGH; physical double-check of §G swap complete]",
+   "cleanup_notes": "Measure coil voltage before selecting relay contacts | [RECON 2026-08-08 §G: SWAPPED SOL-13->SOL-12 per Dwg 41431075414 p140 (Solenoid Driver 1) + element list Y00B GSH.M=SOL-12=HIGH] | [CONFIRMED 2026-08-08: pg100 TB-51 (Dwg 4143075338) wire 412->SOL-12->GEAR SHIFT HIGH; physical double-check of §G swap complete] | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/orient_ladder_transcription.md]",
    "location": "Spindle gearbox — Fujikoshi hydraulic valve, via RLY-1",
    "location_note": "Authority: SOL-13 = high. connector_crossref.md:47 reads wire 413 as \"SOL-13 — Gear Shift Low\".",
    "expected": {
@@ -5690,7 +5690,7 @@ window.MAZAK_DATA = {
     "SOL-12"
    ],
    "primary_source": "phase2_plan",
-   "cleanup_notes": "Conflict: connector_crossref.md omits SOL-12 and identifies SOL-13 as low; verify both gear-shift coils before wiring | [RECON 2026-08-08 §G: SWAPPED SOL-12->SOL-13 per Dwg 41431075414 p140 + element list Y00C GSL.M=SOL-13=LOW; HOLD_CONFLICT cleared] | [CONFIRMED 2026-08-08: pg100 TB-51 (Dwg 4143075338) wire 413->SOL-13->GEAR SHIFT LOW; physical double-check of §G swap complete]",
+   "cleanup_notes": "Conflict: connector_crossref.md omits SOL-12 and identifies SOL-13 as low; verify both gear-shift coils before wiring | [RECON 2026-08-08 §G: SWAPPED SOL-12->SOL-13 per Dwg 41431075414 p140 + element list Y00C GSL.M=SOL-13=LOW; HOLD_CONFLICT cleared] | [CONFIRMED 2026-08-08: pg100 TB-51 (Dwg 4143075338) wire 413->SOL-13->GEAR SHIFT LOW; physical double-check of §G swap complete] | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/orient_ladder_transcription.md]",
    "location": "Spindle gearbox — Fujikoshi hydraulic valve, via RLY-2",
    "location_note": "Authority: SOL-12 = low. connector_crossref.md omits SOL-12 entirely; io_map_research_notes.md:54 calls SOL-12 high.",
    "expected": {
@@ -5781,7 +5781,7 @@ window.MAZAK_DATA = {
     "SOL-10"
    ],
    "primary_source": "phase2_plan",
-   "cleanup_notes": "[C5 RESOLVED 2026-08-09: dropped. SOL-10 single-coil spring-return tool-unclamp (pg100 + connector_crossref + Dwg141331AS041); clamp is spring return. OUT9 now free. Confirm single-coil by tracing RLY-3/RLY-4 at cabinet.]",
+   "cleanup_notes": "[C5 RESOLVED 2026-08-09: dropped. SOL-10 single-coil spring-return tool-unclamp (pg100 + connector_crossref + Dwg141331AS041); clamp is spring return. OUT9 now free. Confirm single-coil by tracing RLY-3/RLY-4 at cabinet.] | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/atc_ladder_transcription.md]",
    "location": "Spindle head — Fujikoshi hydraulic valve SOL-10, via RLY-3",
    "location_note": "connector_crossref.md:46 identifies SOL-10 as tool UNCLAMP. Single- vs dual-coil unresolved.",
    "expected": {
@@ -5837,7 +5837,7 @@ window.MAZAK_DATA = {
     "TB-505"
    ],
    "primary_source": "phase2_plan",
-   "cleanup_notes": "Evidence supports SOL-10 tool unclamp; verify relay path and whether the valve is single-coil or dual-coil before energizing | [C5 2026-08-09: sole tool-clamp/unclamp output. SOL-10 single-coil spring-return - energize=unclamp, de-energize=clamp. TOOL_CLAMP_SOL/OUT9 dropped. Confirm RLY-4 load at cabinet.]",
+   "cleanup_notes": "Evidence supports SOL-10 tool unclamp; verify relay path and whether the valve is single-coil or dual-coil before energizing | [C5 2026-08-09: sole tool-clamp/unclamp output. SOL-10 single-coil spring-return - energize=unclamp, de-energize=clamp. TOOL_CLAMP_SOL/OUT9 dropped. Confirm RLY-4 load at cabinet.] | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/atc_ladder_transcription.md]",
    "location": "Spindle head — Fujikoshi hydraulic valve SOL-10, via RLY-4",
    "location_note": "Wire tag 410D/410, pg 75 TB505 table + pg 90",
    "expected": {
@@ -5930,7 +5930,7 @@ window.MAZAK_DATA = {
     "CB-4"
    ],
    "primary_source": "archived_wiring_map",
-   "cleanup_notes": "May need interposing relay",
+   "cleanup_notes": "May need interposing relay | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/coolant_ladder_transcription.md]",
    "location": "Coolant pump — contactor / SOL-31 flood valve",
    "location_note": "SOL-31 confirmed on the TB-51 diagram (pg 100). Motor circuit is CB-4 + CMS overload (OL-CM4A), 350 W 4-pole.",
    "expected": {
@@ -6070,7 +6070,7 @@ window.MAZAK_DATA = {
     "SOL-8B"
    ],
    "primary_source": "archived_wiring_map",
-   "cleanup_notes": "CONFLICT #3 in wiring/authority_conflicts.md: SOL-8A/8B direction mapping unproven. Renamed from atc-fwd to match atc_orient.hal net. Verify direction under controlled commissioning. | [RESOLVED 2026-08-09: coil identity = SOL-8B (CW) per pg91 + connector_crossref (both agree; alarm-table OCR was wrong). Prior 'SOL-8A' was backwards. HOLD_CONFLICT cleared. PENDING BENCH: verify observed magazine rotation under controlled commissioning before landing/energizing.]",
+   "cleanup_notes": "CONFLICT #3 in wiring/authority_conflicts.md: SOL-8A/8B direction mapping unproven. Renamed from atc-fwd to match atc_orient.hal net. Verify direction under controlled commissioning. | [RESOLVED 2026-08-09: coil identity = SOL-8B (CW) per pg91 + connector_crossref (both agree; alarm-table OCR was wrong). Prior 'SOL-8A' was backwards. HOLD_CONFLICT cleared. PENDING BENCH: verify observed magazine rotation under controlled commissioning before landing/energizing.] | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/atc_ladder_transcription.md]",
    "location": "Unknown — trace in cabinet",
    "location_note": "",
    "expected": {
@@ -6156,7 +6156,7 @@ window.MAZAK_DATA = {
     "SOL-8A"
    ],
    "primary_source": "archived_wiring_map",
-   "cleanup_notes": "CONFLICT #3 in wiring/authority_conflicts.md: SOL-8A/8B direction mapping unproven. Renamed from atc-rev to match atc_orient.hal net. Verify direction under controlled commissioning. | [RESOLVED 2026-08-09: coil identity = SOL-8A (CCW) per pg91 + connector_crossref. Prior 'SOL-8B' was backwards. HOLD_CONFLICT cleared. PENDING BENCH: verify observed magazine rotation under controlled commissioning before landing/energizing.]",
+   "cleanup_notes": "CONFLICT #3 in wiring/authority_conflicts.md: SOL-8A/8B direction mapping unproven. Renamed from atc-rev to match atc_orient.hal net. Verify direction under controlled commissioning. | [RESOLVED 2026-08-09: coil identity = SOL-8A (CCW) per pg91 + connector_crossref. Prior 'SOL-8B' was backwards. HOLD_CONFLICT cleared. PENDING BENCH: verify observed magazine rotation under controlled commissioning before landing/energizing.] | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/atc_ladder_transcription.md]",
    "location": "Unknown — trace in cabinet",
    "location_note": "",
    "expected": {
@@ -6679,7 +6679,7 @@ window.MAZAK_DATA = {
     "OT+X"
    ],
    "primary_source": "field_7i84u.hal",
-   "cleanup_notes": "NC contact consumed through input-00-not; promote to FIELD_VERIFIED after continuity and fail-open test | [LOCATED 2026-08-09: +X OVER TRAVEL X20 *+LX wire 1-45, Dwg 4143075410 (Motion Switch Input 4) pg136]",
+   "cleanup_notes": "NC contact consumed through input-00-not; promote to FIELD_VERIFIED after continuity and fail-open test | [LOCATED 2026-08-09: +X OVER TRAVEL X20 *+LX wire 1-45, Dwg 4143075410 (Motion Switch Input 4) pg136] | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/interlocks_ladder_transcription.md]",
    "location": "X axis way — positive overtravel switch",
    "location_note": "OT+X",
    "expected": {
@@ -6788,7 +6788,7 @@ window.MAZAK_DATA = {
     "OT-X"
    ],
    "primary_source": "field_7i84u.hal",
-   "cleanup_notes": "NC contact consumed through input-01-not; promote to FIELD_VERIFIED after continuity and fail-open test | [LOCATED 2026-08-09: -X OVER TRAVEL X21 *-LX wire 1-46, Dwg 4143075410 (Motion Switch Input 4) pg136]",
+   "cleanup_notes": "NC contact consumed through input-01-not; promote to FIELD_VERIFIED after continuity and fail-open test | [LOCATED 2026-08-09: -X OVER TRAVEL X21 *-LX wire 1-46, Dwg 4143075410 (Motion Switch Input 4) pg136] | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/interlocks_ladder_transcription.md]",
    "location": "X axis way — negative overtravel switch",
    "location_note": "OT-X",
    "expected": {
@@ -6881,7 +6881,7 @@ window.MAZAK_DATA = {
     "OT+Y"
    ],
    "primary_source": "field_7i84u.hal",
-   "cleanup_notes": "NC contact consumed through input-02-not; promote to FIELD_VERIFIED after continuity and fail-open test | [LOCATED 2026-08-09: +Y OVER TRAVEL X22 *+LY wire 1-47, Dwg 4143075410 (Motion Switch Input 4) pg136]",
+   "cleanup_notes": "NC contact consumed through input-02-not; promote to FIELD_VERIFIED after continuity and fail-open test | [LOCATED 2026-08-09: +Y OVER TRAVEL X22 *+LY wire 1-47, Dwg 4143075410 (Motion Switch Input 4) pg136] | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/interlocks_ladder_transcription.md]",
    "location": "Y axis way — positive overtravel switch",
    "location_note": "OT+Y",
    "expected": {
@@ -6993,7 +6993,7 @@ window.MAZAK_DATA = {
     "OT-Y"
    ],
    "primary_source": "field_7i84u.hal",
-   "cleanup_notes": "NC contact consumed through input-03-not; promote to FIELD_VERIFIED after continuity and fail-open test | [LOCATED 2026-08-09: -Y OVER TRAVEL X23 *-LY wire 1-48, Dwg 4143075410 (Motion Switch Input 4) pg136]",
+   "cleanup_notes": "NC contact consumed through input-03-not; promote to FIELD_VERIFIED after continuity and fail-open test | [LOCATED 2026-08-09: -Y OVER TRAVEL X23 *-LY wire 1-48, Dwg 4143075410 (Motion Switch Input 4) pg136] | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/interlocks_ladder_transcription.md]",
    "location": "Y axis way — negative overtravel switch",
    "location_note": "OT-Y",
    "expected": {
@@ -7086,7 +7086,7 @@ window.MAZAK_DATA = {
     "OT+Z"
    ],
    "primary_source": "field_7i84u.hal",
-   "cleanup_notes": "NC contact consumed through input-04-not; promote to FIELD_VERIFIED after continuity and fail-open test | [LOCATED 2026-08-09: +Z OVER TRAVEL X24 *+LZ wire 1-49, Dwg 4143075410 (Motion Switch Input 4) pg136]",
+   "cleanup_notes": "NC contact consumed through input-04-not; promote to FIELD_VERIFIED after continuity and fail-open test | [LOCATED 2026-08-09: +Z OVER TRAVEL X24 *+LZ wire 1-49, Dwg 4143075410 (Motion Switch Input 4) pg136] | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/interlocks_ladder_transcription.md]",
    "location": "Z axis way — positive overtravel switch",
    "location_note": "OT+Z",
    "expected": {
@@ -7198,7 +7198,7 @@ window.MAZAK_DATA = {
     "OT-Z"
    ],
    "primary_source": "field_7i84u.hal",
-   "cleanup_notes": "NC contact consumed through input-05-not; promote to FIELD_VERIFIED after continuity and fail-open test | [LOCATED 2026-08-09: -Z OVER TRAVEL X25 *-LZ wire 1-50, Dwg 4143075410 (Motion Switch Input 4) pg136. Physical LS switch designator not on this sheet - bench-verify]",
+   "cleanup_notes": "NC contact consumed through input-05-not; promote to FIELD_VERIFIED after continuity and fail-open test | [LOCATED 2026-08-09: -Z OVER TRAVEL X25 *-LZ wire 1-50, Dwg 4143075410 (Motion Switch Input 4) pg136. Physical LS switch designator not on this sheet - bench-verify] | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/interlocks_ladder_transcription.md]",
    "location": "Z axis way — negative overtravel switch",
    "location_note": "OT-Z",
    "expected": {
@@ -7310,7 +7310,7 @@ window.MAZAK_DATA = {
     "LS-42"
    ],
    "primary_source": "field_7i84u.hal",
-   "cleanup_notes": "NO contact; was ACCEPTED_VERIFY - promote to TRACED after physical continuity + fail-open test | [LOCATED 2026-08-09: LS-42 X zero-return decel, X28 *DECX wire 1-16 (home reference), Dwg 4143075410 (Motion Switch Input 4) pg136 + pg91]",
+   "cleanup_notes": "NO contact; was ACCEPTED_VERIFY - promote to TRACED after physical continuity + fail-open test | [LOCATED 2026-08-09: LS-42 X zero-return decel, X28 *DECX wire 1-16 (home reference), Dwg 4143075410 (Motion Switch Input 4) pg136 + pg91] | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/homing_ladder_transcription.md]",
    "location": "X axis — zero-return switch",
    "location_note": "LS-42 (axis 1 zero return; which axis still to be cross-referenced)",
    "expected": {
@@ -7422,7 +7422,7 @@ window.MAZAK_DATA = {
     "LS-52"
    ],
    "primary_source": "field_7i84u.hal",
-   "cleanup_notes": "NO contact; was ACCEPTED_VERIFY - promote to TRACED after physical continuity + fail-open test | [LOCATED 2026-08-09: LS-52 Y zero-return decel, X29 *DECY wire 1-17 (home reference), Dwg 4143075410 (Motion Switch Input 4) pg136; LS digit faded - verify]",
+   "cleanup_notes": "NO contact; was ACCEPTED_VERIFY - promote to TRACED after physical continuity + fail-open test | [LOCATED 2026-08-09: LS-52 Y zero-return decel, X29 *DECY wire 1-17 (home reference), Dwg 4143075410 (Motion Switch Input 4) pg136; LS digit faded - verify] | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/homing_ladder_transcription.md]",
    "location": "Y axis — zero-return switch",
    "location_note": "LS-52 (axis 2 zero return; which axis still to be cross-referenced)",
    "expected": {
@@ -7535,7 +7535,7 @@ window.MAZAK_DATA = {
     "TB-51"
    ],
    "primary_source": "field_7i84u.hal",
-   "cleanup_notes": "NO contact; was ACCEPTED_VERIFY - promote to TRACED after physical continuity + fail-open test | [LOCATED 2026-08-09: LS-62 Z zero-return decel, X2A *DECZ wire 1-18 (home reference), Dwg 4143075410 (Motion Switch Input 4) pg136 (also pg100 TB-51)]",
+   "cleanup_notes": "NO contact; was ACCEPTED_VERIFY - promote to TRACED after physical continuity + fail-open test | [LOCATED 2026-08-09: LS-62 Z zero-return decel, X2A *DECZ wire 1-18 (home reference), Dwg 4143075410 (Motion Switch Input 4) pg136 (also pg100 TB-51)] | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/homing_ladder_transcription.md]",
    "location": "Z axis — zero-return switch",
    "location_note": "LS-62 — confirmed as Z zero return on the TB-51 diagram (pg 100)",
    "expected": {
@@ -7645,7 +7645,7 @@ window.MAZAK_DATA = {
    "field_point": "Machine air-pressure OK switch",
    "designations": [],
    "primary_source": "field_7i84u.hal",
-   "cleanup_notes": "Raw input and fail-inhibited default; verify switch exists and closes on healthy pressure before live M6",
+   "cleanup_notes": "Raw input and fail-inhibited default; verify switch exists and closes on healthy pressure before live M6 | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/atc_ladder_transcription.md]",
    "location": "Unknown — trace in cabinet",
    "location_note": "",
    "expected": {
@@ -7964,7 +7964,7 @@ window.MAZAK_DATA = {
    "field_point": "Renishaw MP-3 probe SKIP1 (PLC X03F SKIP1.M)",
    "designations": [],
    "primary_source": "field_7i84u.hal",
-   "cleanup_notes": "Moved from bare P3 gpio.042 to opto-isolated 7i84U-B input-15. MP-3 is believed NC so HAL consumes input-15-not; verify physical polarity fail-open response and measured probing latency before use.",
+   "cleanup_notes": "Moved from bare P3 gpio.042 to opto-isolated 7i84U-B input-15. MP-3 is believed NC so HAL consumes input-15-not; verify physical polarity fail-open response and measured probing latency before use. | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/probe_mms_ladder_transcription.md]",
    "location": "Unknown — trace in cabinet",
    "location_note": "",
    "expected": {
@@ -9194,7 +9194,7 @@ window.MAZAK_DATA = {
     "RLY-5"
    ],
    "primary_source": "field_7i84u.hal",
-   "cleanup_notes": "Verify SOL-62 identification against parts list pp.85-91",
+   "cleanup_notes": "Verify SOL-62 identification against parts list pp.85-91 | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/coolant_ladder_transcription.md]",
    "location": "Solenoid valve bank — SOL-62 via relay RLY-5",
    "location_note": "100 VAC coil — relay required",
    "expected": {
@@ -9271,7 +9271,7 @@ window.MAZAK_DATA = {
     "TB-51"
    ],
    "primary_source": "field_7i84u.hal",
-   "cleanup_notes": "MMS touch-sensor air jet",
+   "cleanup_notes": "MMS touch-sensor air jet | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/coolant_ladder_transcription.md]",
    "location": "Solenoid valve bank — SOL-35 via relay RLY-6",
    "location_note": "SOL-35 = \"Dust Inhale Eliminate\" per connector_crossref.md:52 / TB-51 diagram",
    "expected": {
@@ -9348,7 +9348,7 @@ window.MAZAK_DATA = {
     "TB-51"
    ],
    "primary_source": "field_7i84u.hal",
-   "cleanup_notes": "",
+   "cleanup_notes": "[LADDER-REF 2026-08-10 (approved AG): docs/ladder/coolant_ladder_transcription.md]",
    "location": "Solenoid valve bank — SOL-61 via relay RLY-7",
    "location_note": "SOL-61 = Air jet on the TB-51 diagram",
    "expected": {
@@ -9421,7 +9421,7 @@ window.MAZAK_DATA = {
    "field_point": "ATC barrier expand solenoid (PLC Y095 TCME.M)",
    "designations": [],
    "primary_source": "element_list_crosswalk_2026-07-27",
-   "cleanup_notes": "Verify device exists on SN 060231 | [RECON 2026-08-08 §A: element list confirms Y095 TCME.M 'BARRIER EXPAND at ATC AREA' on 060231]",
+   "cleanup_notes": "Verify device exists on SN 060231 | [RECON 2026-08-08 §A: element list confirms Y095 TCME.M 'BARRIER EXPAND at ATC AREA' on 060231] | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/atc_ladder_transcription.md]",
    "location": "Unknown — trace in cabinet",
    "location_note": "",
    "expected": {
@@ -9510,7 +9510,7 @@ window.MAZAK_DATA = {
    "field_point": "Flood coolant valve, separate from pump motor (PLC Y011 FCL)",
    "designations": [],
    "primary_source": "element_list_crosswalk_2026-07-27",
-   "cleanup_notes": "SOL-31 confirmed via TB-51 diagram. Separate from OUT11 pump on 7i84U-A. | [RECON 2026-08-08 §C: Y011 FCL valve genuinely distinct from Y010 FCM motor; Y012 THC through-hole separate] | [RECON 2026-08-08 follow-up: status PROPOSED -> COMMISSIONING_PENDING per §C element-list confirm]",
+   "cleanup_notes": "SOL-31 confirmed via TB-51 diagram. Separate from OUT11 pump on 7i84U-A. | [RECON 2026-08-08 §C: Y011 FCL valve genuinely distinct from Y010 FCM motor; Y012 THC through-hole separate] | [RECON 2026-08-08 follow-up: status PROPOSED -> COMMISSIONING_PENDING per §C element-list confirm] | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/coolant_ladder_transcription.md]",
    "location": "Unknown — trace in cabinet",
    "location_note": "",
    "expected": {
@@ -9581,7 +9581,7 @@ window.MAZAK_DATA = {
    "field_point": "Single energise-to-close magazine cover valve via interposing relay",
    "designations": [],
    "primary_source": "atc_orient.hal",
-   "cleanup_notes": "Logical channel allocated only; trace valve identity coil voltage relay topology and safe direction before landing field wire",
+   "cleanup_notes": "Logical channel allocated only; trace valve identity coil voltage relay topology and safe direction before landing field wire | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/atc_ladder_transcription.md]",
    "location": "Unknown — trace in cabinet",
    "location_note": "",
    "expected": {
