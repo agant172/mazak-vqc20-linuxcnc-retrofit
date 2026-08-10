@@ -72,6 +72,39 @@ function.
 
 Python 3 standard library only. No pip installs, no internet access.
 
+### 3. Auto-start on boot, reachable over Tailscale
+
+To keep a bookmark that always works, run the bridge as a systemd service on the
+LinuxCNC host and reach it by the host's Tailscale name from any device on your
+tailnet. A ready-to-edit unit is at [`deploy/mazak-io-navigator.service`](deploy/mazak-io-navigator.service).
+
+On the LinuxCNC host:
+
+```bash
+# 1. Find this host's Tailscale name/IP (used in the bookmark below)
+tailscale status          # the first column is the device name, e.g. "mazak"
+tailscale ip -4           # or the 100.x.y.z address
+
+# 2. Edit the two EDIT-ME lines in the unit (User + WorkingDirectory), then install
+sudo cp io-dashboard/deploy/mazak-io-navigator.service /etc/systemd/system/
+sudo systemctl daemon-reload
+sudo systemctl enable --now mazak-io-navigator
+
+# 3. Verify
+systemctl status mazak-io-navigator
+curl -s http://127.0.0.1:8765/api/health     # {"ok": true, "halcmd": true/false, ...}
+```
+
+**Bookmark:** `http://<host-tailscale-name>:8765/` (e.g. `http://mazak:8765/` with
+MagicDNS, or `http://100.x.y.z:8765/`). Open it and press **Live poll** in the
+header. The unit binds `0.0.0.0` so the Tailscale interface can reach it; to keep
+it off the local LAN entirely, bind this host's Tailscale IP instead (see the
+comment in the unit) and let your tailnet ACLs govern who connects.
+
+The service is safe to start before LinuxCNC: until HAL is up, `/api/io` reports
+offline and the app stays in planning mode, then live poll begins working the
+moment LinuxCNC starts — no restart needed.
+
 ---
 
 ## Using it
