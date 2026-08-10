@@ -27,15 +27,16 @@ The 19 rectangular connectors on the BBIA-1 are **Honda Tsushin Kogyo (HTK) MR-s
 | CN5 | MR-20RMW | 20 | Relay card / external | External trip, RST, over-run EMG, EMG stop, common rails, EFHD, RCTLS, ISP1/2, 4-axis interlock cancel, OSP1/2, +24V |
 | CN6 | MR-50RMW | 50 | Relay card / CB panel | CYFIN, servo ready, work light, SSET, CTL/OTR, ±LYZ, +24V, TAPC, MMAL, PW1, P24, mag oil-tool det., spindle-head lube, 0G returns, spindle spd/err/servo/ready/orient |
 | CN7 | MR-50RMW | 50 | (2PC pallet changer, ext.) | MF, M-codes M11..M38, ZPX/Y/Z/4, MFA, FHDL, ZPZ2, AUTH, TUCC, FHDP, CSTL/CSTB, PCLCD, ISP3, MRDY, RST, OSP3/4, P1ON/P2ON, EXFIN, EXRST, INTX/Y/Z/4, EXAL, ONLN, ENCOL, EXCST, EXFHD, ERSBK, EMOP1 |
-| CN11 | MR-20 (SSR-bd, MR20-AMD/LFH) | 20 | CB panel loads (SSR outputs) | Gear-shift hi/lo, spindle/work blast, air-blast cabinet, arm extend, air jet, dust inhale, oil-hole flood/mag, mag front/rear/spindle-head oil pumps, 0G |
+| CN11 | MR-20RMW (terminal unit) | 20 | SSR board CN11 (pin-for-pin) | **BBIA-1's own connector.** Magazine CW/CCW, tool unclamp, gear-shift hi/lo, spindle/work air blast, mist coolant, tool-measuring-arm extend, air jet, dust inhale, oil hole, flood coolant, magazine cover close, flood-coolant motor starter, **hydraulic pump/head-lube pump** (pin 16), 0G |
+| CN11-SSR | MR-20 (SSR-bd, MR20-AMD/LFH) | 20 | CB panel loads (SSR outputs) | The **SSR board's own** connector (dwg 4143175307) — gear-shift hi/lo, spindle/work blast, air-blast cabinet, arm extend, air jet, dust inhale, oil-hole flood/mag, mag front/rear/spindle-head oil pumps, 0G |
 | CN12 | MR-20 (SSR-bd, MR20-AMD/LFH) | 20 | CB panel loads (SSR outputs, 2nd bank) | 2PC-related outputs; second SSR bank |
 
-**Note on CN11.** There are two things called "CN11" in the drawings:
+**Note on CN11 — RESOLVED 2026-08-10.** There really are two things called "CN11" in the drawings, now both captured and disambiguated:
 
-1. **BBIA-1 terminal-unit CN11 (MR-20)** — 20 pins, per drawing 4113075022 (sheet 85).
-2. **SSR-board CN11 (drawing 03-81581-02 / 4143175307)** — a 25-way pallet-changer / coolant loom on the SSR board itself.
+1. **BBIA-1 terminal-unit CN11 (MR-20RMW)** — 20 pins, drawing 4113075022 (sheet 85). This is the row labeled `CN11` above and in the CSV — it was **missing from this file until now**; only #2 below had been captured under the same "CN11" label, which was a real transcription gap (found while tracing `HYD_PUMP_ON`). Full pinout: [`bbia1_cn_pinouts.md`](bbia1_cn_pinouts.md).
+2. **SSR-board's own connector (dwg 4143175307)** — a *different physical connector* that #1 routes onward to pin-for-pin. Relabeled **`CN11-SSR`** here and in the CSV so it can't be confused with #1 again.
 
-Confirm which one you're actually looking at by counting shell positions before cutting. Both pin lists are captured in the detailed pinouts file.
+The two do **not** share a pin-for-pin wire mapping (checked: e.g. terminal-unit pin 3 = wire 710/TOOL UNCLAMP vs CN11-SSR pin 3 = wire 710/GEAR SHIFT HIGH) — that reconciliation is still open. There is also a third, separate "CN11" mentioned in `bbia1_cn_pinouts.md` (a 25-way pallet-changer/coolant loom, dwg 03-81581-02) that hasn't been reconciled against either of the above — confirm which physical connector you're looking at by counting shell positions before cutting.
 
 ## Per-pin details for CN1–CN6 & CN11
 
