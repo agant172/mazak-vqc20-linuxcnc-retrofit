@@ -21,7 +21,7 @@ td.hold{color:#000;font-size:7.5pt;font-style:italic}
 @page{size:letter;margin:0.4in}
 </style></head><body>
 <h1>BBIA-1 Wire Reference — Mazak VQC-20/40 SN 060231</h1>
-<p class='sub'>Generated 2026-08-10 from repo commit 5821adb (wiring/labels/*.csv). Regenerate with scripts/generate_wire_reference_sheet.py after any label CSV change — do not hand-edit this sheet.</p>
+<p class='sub'>Generated 2026-08-10 from repo commit f7ad512 (wiring/labels/*.csv). Regenerate with scripts/generate_wire_reference_sheet.py after any label CSV change — do not hand-edit this sheet.</p>
 <div class='warn'>REFERENCE ONLY — NOT PERMISSION TO TERMINATE. Mesa landings marked HOLD are planned assignments pending continuity trace and terminal verification (see wiring/labels/*.md release rules). The hardwired E-stop chain is not represented here.</div>
 <div class='cols'>
 <h2>CN1 — 13 conductors</h2>
@@ -208,25 +208,48 @@ td.hold{color:#000;font-size:7.5pt;font-style:italic}
 <tr><td class='wire'></td><td class='pin'>18</td><td>(not used)</td><td class='hold'>&mdash;</td></tr>
 <tr><td class='wire'>0G</td><td class='pin'>19</td><td>DC24V -COM (NC)</td><td class='hold'>&mdash;</td></tr>
 <tr><td class='wire'>0G</td><td class='pin'>20</td><td>DC24V -COM (NC)</td><td class='hold'>&mdash;</td></tr>
-<tr><td class='wire'>708B</td><td class='pin'>SSR-1</td><td>SSR line pair A</td><td class='hold'>&mdash;</td></tr>
-<tr><td class='wire'>708A</td><td class='pin'>SSR-2</td><td>SSR line pair A return</td><td class='hold'>&mdash;</td></tr>
-<tr><td class='wire'>710</td><td class='pin'>SSR-3</td><td>GEAR SHIFT HIGH</td><td class='hold'>&mdash;</td></tr>
-<tr><td class='wire'>712</td><td class='pin'>SSR-4</td><td>GEAR SHIFT LOW</td><td class='hold'>&mdash;</td></tr>
-<tr><td class='wire'>713</td><td class='pin'>SSR-5</td><td>GEAR SHIFT WORK</td><td class='hold'>&mdash;</td></tr>
-<tr><td class='wire'>715</td><td class='pin'>SSR-6</td><td>SPINDLE BLAST</td><td class='hold'>&mdash;</td></tr>
-<tr><td class='wire'>716</td><td class='pin'>SSR-7</td><td>WORK BLAST</td><td class='hold'>&mdash;</td></tr>
-<tr><td class='wire'>717</td><td class='pin'>SSR-8</td><td>AIR BLAST (CABINET)</td><td class='hold'>&mdash;</td></tr>
-<tr><td class='wire'>742</td><td class='pin'>SSR-9</td><td>ARM EXTEND</td><td class='hold'>&mdash;</td></tr>
-<tr><td class='wire'>261</td><td class='pin'>SSR-10</td><td>AIR JET</td><td class='hold'>&mdash;</td></tr>
-<tr><td class='wire'>205</td><td class='pin'>SSR-11</td><td>DUST INHALE ELIMINATE</td><td class='hold'>&mdash;</td></tr>
-<tr><td class='wire'>236</td><td class='pin'>SSR-12</td><td>OIL HOLE FLOOD</td><td class='hold'>&mdash;</td></tr>
-<tr><td class='wire'>237</td><td class='pin'>SSR-13</td><td>OIL HOLE MAGAZINE</td><td class='hold'>&mdash;</td></tr>
-<tr><td class='wire'>221</td><td class='pin'>SSR-14</td><td>MAGAZINE FRONT OIL PUMP</td><td class='hold'>&mdash;</td></tr>
-<tr><td class='wire'>236</td><td class='pin'>SSR-15</td><td>MAGAZINE REAR OIL PUMP</td><td class='hold'>&mdash;</td></tr>
-<tr><td class='wire'>235</td><td class='pin'>SSR-16</td><td>SPINDLE HEAD OIL PUMP</td><td class='hold'>&mdash;</td></tr>
-<tr><td class='wire'>836</td><td class='pin'>SSR-17</td><td>SSR aux</td><td class='hold'>&mdash;</td></tr>
-<tr><td class='wire'>835</td><td class='pin'>SSR-18</td><td>SSR aux</td><td class='hold'>&mdash;</td></tr>
+<tr><td class='wire'>708B</td><td class='pin'>SSR-1</td><td>MAGAZINE CW (REV)</td><td class='hold'>&mdash;</td></tr>
+<tr><td class='wire'>708A</td><td class='pin'>SSR-2</td><td>MAGAZINE CCW (FOR)</td><td class='hold'>&mdash;</td></tr>
+<tr><td class='wire'>710</td><td class='pin'>SSR-3</td><td>TOOL UNCLAMP</td><td class='hold'>&mdash;</td></tr>
+<tr><td class='wire'>712</td><td class='pin'>SSR-4</td><td>GEAR SHIFT HIGH</td><td class='hold'>&mdash;</td></tr>
+<tr><td class='wire'>713</td><td class='pin'>SSR-5</td><td>GEAR SHIFT LOW</td><td class='hold'>&mdash;</td></tr>
+<tr><td class='wire'>715</td><td class='pin'>SSR-6</td><td>SPINDLE AIR BLAST</td><td class='hold'>&mdash;</td></tr>
+<tr><td class='wire'>716</td><td class='pin'>SSR-7</td><td>WORK AIR BLAST</td><td class='hold'>&mdash;</td></tr>
+<tr><td class='wire'>717</td><td class='pin'>SSR-8</td><td>MIST COOLANT (ELIMINATED - no mist system on this machine)</td><td class='hold'>&mdash;</td></tr>
+<tr><td class='wire'>762</td><td class='pin'>SSR-9</td><td>TOOL MEASURING ARM EXTEND</td><td class='hold'>&mdash;</td></tr>
+<tr><td class='wire'>761</td><td class='pin'>SSR-10</td><td>AIR JET</td><td class='hold'>&mdash;</td></tr>
+<tr><td class='wire'>735</td><td class='pin'>SSR-11</td><td>DUST INHALE ELIMINATE</td><td class='hold'>&mdash;</td></tr>
+<tr><td class='wire'>736</td><td class='pin'>SSR-12</td><td>OIL HOLE</td><td class='hold'>&mdash;</td></tr>
+<tr><td class='wire'>731</td><td class='pin'>SSR-13</td><td>FLOOD COOLANT</td><td class='hold'>&mdash;</td></tr>
+<tr><td class='wire'>727</td><td class='pin'>SSR-14</td><td>MAGAZINE COVER CLOSE</td><td class='hold'>&mdash;</td></tr>
+<tr><td class='wire'>836</td><td class='pin'>SSR-15</td><td>FLOOD COOLANT MOTOR STARTER</td><td class='hold'>&mdash;</td></tr>
+<tr><td class='wire'>835</td><td class='pin'>SSR-16</td><td>HYDR. PUMP HEAD LUBE PUMP</td><td class='hold'>&mdash;</td></tr>
+<tr><td class='wire'></td><td class='pin'>SSR-17</td><td>(not used)</td><td class='hold'>&mdash;</td></tr>
+<tr><td class='wire'></td><td class='pin'>SSR-18</td><td>(not used)</td><td class='hold'>&mdash;</td></tr>
 <tr><td class='wire'>0G</td><td class='pin'>SSR-19</td><td>-COM (NC)</td><td class='hold'>&mdash;</td></tr>
 <tr><td class='wire'>0G</td><td class='pin'>SSR-20</td><td>-COM (NC)</td><td class='hold'>&mdash;</td></tr>
+</table>
+<h2>CN12 — 20 conductors</h2>
+<table><tr><th>Wire</th><th>Pin</th><th>Signal</th><th>Mesa landing</th></tr>
+<tr><td class='wire'>722A</td><td class='pin'>1</td><td>(function unconfirmed - 2PC/pallet output)</td><td class='hold'>&mdash;</td></tr>
+<tr><td class='wire'>722B</td><td class='pin'>2</td><td>(function unconfirmed - 2PC/pallet output)</td><td class='hold'>&mdash;</td></tr>
+<tr><td class='wire'>724</td><td class='pin'>3</td><td>(function unconfirmed - 2PC/pallet output)</td><td class='hold'>&mdash;</td></tr>
+<tr><td class='wire'>725A</td><td class='pin'>4</td><td>(function unconfirmed - 2PC/pallet output)</td><td class='hold'>&mdash;</td></tr>
+<tr><td class='wire'>725B</td><td class='pin'>5</td><td>(function unconfirmed - 2PC/pallet output)</td><td class='hold'>&mdash;</td></tr>
+<tr><td class='wire'>782A</td><td class='pin'>6</td><td>(function unconfirmed - 2PC/pallet output)</td><td class='hold'>&mdash;</td></tr>
+<tr><td class='wire'>782B</td><td class='pin'>7</td><td>(function unconfirmed - 2PC/pallet output)</td><td class='hold'>&mdash;</td></tr>
+<tr><td class='wire'>787A</td><td class='pin'>8</td><td>(function unconfirmed - 2PC/pallet output)</td><td class='hold'>&mdash;</td></tr>
+<tr><td class='wire'>787B</td><td class='pin'>9</td><td>(function unconfirmed - 2PC/pallet output)</td><td class='hold'>&mdash;</td></tr>
+<tr><td class='wire'></td><td class='pin'>10</td><td>(not used - blank on source table)</td><td class='hold'>&mdash;</td></tr>
+<tr><td class='wire'></td><td class='pin'>11</td><td>(not used - blank on source table)</td><td class='hold'>&mdash;</td></tr>
+<tr><td class='wire'></td><td class='pin'>12</td><td>(not used - blank on source table)</td><td class='hold'>&mdash;</td></tr>
+<tr><td class='wire'></td><td class='pin'>13</td><td>(not used - blank on source table)</td><td class='hold'>&mdash;</td></tr>
+<tr><td class='wire'></td><td class='pin'>14</td><td>(not used - blank on source table)</td><td class='hold'>&mdash;</td></tr>
+<tr><td class='wire'></td><td class='pin'>15</td><td>(not used - blank on source table)</td><td class='hold'>&mdash;</td></tr>
+<tr><td class='wire'></td><td class='pin'>16</td><td>(not used)</td><td class='hold'>&mdash;</td></tr>
+<tr><td class='wire'></td><td class='pin'>17</td><td>(not used)</td><td class='hold'>&mdash;</td></tr>
+<tr><td class='wire'></td><td class='pin'>18</td><td>(not used)</td><td class='hold'>&mdash;</td></tr>
+<tr><td class='wire'></td><td class='pin'>19</td><td>(blank on source table)</td><td class='hold'>&mdash;</td></tr>
+<tr><td class='wire'></td><td class='pin'>20</td><td>(blank on source table)</td><td class='hold'>&mdash;</td></tr>
 </table>
 </div></body></html>
