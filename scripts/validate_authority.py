@@ -126,6 +126,25 @@ POWER_EVIDENCE_STATES = {
     "TRACED", "ELECTRICALLY_VERIFIED", "HAL_VERIFIED", "COMMISSIONED",
 }
 
+AUTHORITY_STATES = {
+    "PROPOSED",
+    "TRACED",
+    "ELECTRICALLY_VERIFIED",
+    "HAL_VERIFIED",
+    "COMMISSIONED",
+    "FACTORY_LINK",
+    "FACTORY_INTERFACE",
+    "COMMISSIONING_PENDING",
+    "SPARE",
+    "RESERVED",
+    "RESERVED_VERIFY",
+    "DEFERRED",
+    "UNBOUND",  # Legacy alias for DEFERRED.
+    "HOLD_CONFLICT",
+    "OPTIONAL_VERIFY",
+    "NOT_USED",
+}
+
 # ----------------------------------------------------------------------
 # Regexes for HAL parsing.
 # ----------------------------------------------------------------------
@@ -229,6 +248,13 @@ def check_csv_integrity(rows: list[dict], by_pin: dict[str, dict]) -> list[Findi
             findings.append(Finding("ERROR", f"{CSV_PATH.name}:{lineno}",
                                     f"duplicate signal_id '{sid}' (first at line {ids[sid]})."))
         ids[sid] = lineno
+
+        status = (row.get("authority_status") or "").strip()
+        if status not in AUTHORITY_STATES:
+            findings.append(Finding(
+                "ERROR", f"{CSV_PATH.name}:{lineno}",
+                f"unknown authority_status '{status}' for signal_id '{sid}'."
+            ))
 
         if (row.get("mesa_card") or "").startswith("7i84U"):
             channel = (row.get("pin_channel") or "").strip()

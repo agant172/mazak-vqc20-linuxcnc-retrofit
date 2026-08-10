@@ -33,10 +33,12 @@ STATUS = {
         "label": "Ready — factory link",
         "tone": "verified",
         "order": 0,
-        "blurb": "Mesa 7i44<->7i84U smart-serial bus over a factory-terminated plug-in cable "
-                 "(50-pin IDC ribbon / CAT5). No field conductor to trace, ground, or identify. "
-                 "The link is verified when the sserial bus enumerates the 7i84U at LinuxCNC startup.",
-        "safe_to_energize": "Plug-in cable; comes up with the sserial bus. No field wiring.",
+        "blurb": "Final factory-built Mesa link with two distinct plug-in segments: a Mesa "
+                 "50-pin IDC cable from 7i80HDT P1 to 7i44, then CAT5 smart-serial from "
+                 "7i44 to 7i84U. Inspect identity, keying, seating, strain relief, and visible "
+                 "condition; do not continuity-audit individual conductors. Verify by clean "
+                 "smart-serial enumeration at LinuxCNC startup.",
+        "safe_to_energize": "Factory plug-in link; functional acceptance is clean smart-serial enumeration.",
     },
     "FACTORY_INTERFACE": {
         "label": "Factory interface — verify at first power",
@@ -389,10 +391,10 @@ LOCATION = {
     "SECOND_SSERIAL_CARD": ("Replaced by 7i84U-B on 7i44 channel 1", "Expansion", "No third smart-serial field-I/O card is currently required. The prior single-7i84U plan used: drops (Y091 OTR, X078 MPWS, X02F INHRLS, Y023-Y025 M43-M45T) + series consolidations (HLP+HLP2, THR+ONT, ITMDSS+LS-140/141) + panel moves (FEED_HOLD/SINGLE_BLOCK to touchscreen, panel-power-on to software state, reset-out to TB5 SSR) fit 5 DI + 5 DO of gap load into 6 DI + 6 DO available before the dual-7i84U architecture revision."),
 }
 
-SSERIAL_LOC_A = ("Control cabinet — 7i44 channel 0 (7i80HDT P1) to 7i84U-A CN0/RJ45, plug-in RS-422 smart-serial cable", "Field I/O link",
-                 "Factory-terminated plug-in cable (50-pin IDC ribbon / CAT5) — point-to-point; nothing to trace, ground, or land. Shield drain at the 7i44 end only.")
-SSERIAL_LOC_B = ("Control cabinet — 7i44 channel 1 (7i80HDT P1) to 7i84U-B CN0/RJ45, plug-in RS-422 smart-serial cable", "Field I/O link",
-                 "Factory-terminated plug-in cable (50-pin IDC ribbon / CAT5) — point-to-point; nothing to trace, ground, or land. Shield drain at the 7i44 end only.")
+SSERIAL_LOC_A = ("Control cabinet — 7i80HDT P1 to 7i44 by Mesa 50-pin IDC; 7i44 channel 0 to 7i84U-A CN0/RJ45 by CAT5 smart-serial", "Field I/O link",
+                 "Factory plug-in link: inspect identity, keying/orientation, seating, strain relief, and visible condition; verify clean smart-serial enumeration. Do not continuity-audit or re-terminate individual conductors.")
+SSERIAL_LOC_B = ("Control cabinet — 7i80HDT P1 to 7i44 by Mesa 50-pin IDC; 7i44 channel 1 to 7i84U-B CN0/RJ45 by CAT5 smart-serial", "Field I/O link",
+                 "Factory plug-in link: inspect identity, keying/orientation, seating, strain relief, and visible condition; verify clean smart-serial enumeration. Do not continuity-audit or re-terminate individual conductors.")
 for _s in ("TXA", "TXB", "RXA", "RXB", "GND", "5V"):
     LOCATION["SSERIAL_PORT0_%s" % _s] = SSERIAL_LOC_A
     LOCATION["SSERIAL_PORT1_%s" % _s] = SSERIAL_LOC_B

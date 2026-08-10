@@ -6,7 +6,7 @@ window.MAZAK_DATA = {
   "machine": "Mazak VQC-20/40",
   "serial": "060231",
   "architecture": "LinuxCNC + Mesa 7i80HDT (Ethernet FPGA host) + 7i44 on P1 (HostMot2 sserial port 0 channels 0/1 to 7i84U-A/B) + 7i49 on P2 (resolver + analog outs); P3 unused/spare",
-  "generated": "2026-08-09 20:35 UTC",
+  "generated": "2026-08-10 00:25 UTC",
   "source_repo": "mazak-vqc20-linuxcnc-retrofit",
   "authority_file": "mesa/current_pin_authority.csv",
   "epson_ferrule_file": "wiring/labels/bbia1_mesa_end_ferrules_epson.csv",
@@ -85,8 +85,8 @@ window.MAZAK_DATA = {
    "label": "Ready — factory link",
    "tone": "verified",
    "order": 0,
-   "blurb": "Mesa 7i44<->7i84U smart-serial bus over a factory-terminated plug-in cable (50-pin IDC ribbon / CAT5). No field conductor to trace, ground, or identify. The link is verified when the sserial bus enumerates the 7i84U at LinuxCNC startup.",
-   "safe_to_energize": "Plug-in cable; comes up with the sserial bus. No field wiring."
+   "blurb": "Final factory-built Mesa link with two distinct plug-in segments: a Mesa 50-pin IDC cable from 7i80HDT P1 to 7i44, then CAT5 smart-serial from 7i44 to 7i84U. Inspect identity, keying, seating, strain relief, and visible condition; do not continuity-audit individual conductors. Verify by clean smart-serial enumeration at LinuxCNC startup.",
+   "safe_to_energize": "Factory plug-in link; functional acceptance is clean smart-serial enumeration."
   },
   "FACTORY_INTERFACE": {
    "label": "Factory interface — verify at first power",
@@ -1387,9 +1387,9 @@ window.MAZAK_DATA = {
    "field_point": "7i84U-A RJ45 pin 2 RX+",
    "designations": [],
    "primary_source": "mesa_firmware_checklist.md",
-   "cleanup_notes": "7i44 channel 0 to 7i84U-A CN0 under HostMot2 port 0; RS-422 differential pair | [MESA-CONFIRMED 2026-08-08: matches 7i84U J1 RJ-45 pinout (7i84uman.pdf: p1 RXA/p2 RXB/p3 TXA/p6 TXB/p4-5 GND/p7-8 +5V, 568B colors); straight CAT5 to 7i44; plug-in cable, no continuity trace needed] | [READY 2026-08-09: factory-terminated plug-in cable (50-pin IDC ribbon / CAT5), point-to-point 7i44<->7i84U; nothing to trace, ground, or land. Verified by sserial enumeration at LinuxCNC startup]",
-   "location": "Control cabinet — 7i44 channel 0 (7i80HDT P1) to 7i84U-A CN0/RJ45, plug-in RS-422 smart-serial cable",
-   "location_note": "Factory-terminated plug-in cable (50-pin IDC ribbon / CAT5) — point-to-point; nothing to trace, ground, or land. Shield drain at the 7i44 end only.",
+   "cleanup_notes": "7i44 channel 0 to 7i84U-A CN0 under HostMot2 port 0; RS-422 differential pair | [MESA-CONFIRMED 2026-08-08: matches 7i84U J1 RJ-45 pinout (7i84uman.pdf: p1 RXA/p2 RXB/p3 TXA/p6 TXB/p4-5 GND/p7-8 +5V, 568B colors); straight CAT5 to 7i44; plug-in cable, no continuity trace needed] | [READY 2026-08-09: factory-link acceptance applies to two distinct plug-in segments: Mesa 50-pin IDC from 7i80HDT P1 to 7i44, then CAT5 smart-serial from 7i44 to the identified 7i84U channel. Inspect assembly identity, keying/orientation, seating, strain relief, and visible condition; verify expected smart-serial enumeration without communication or watchdog faults. Do not continuity-audit or re-terminate individual conductors.]",
+   "location": "Control cabinet — 7i80HDT P1 to 7i44 by Mesa 50-pin IDC; 7i44 channel 0 to 7i84U-A CN0/RJ45 by CAT5 smart-serial",
+   "location_note": "Factory plug-in link: inspect identity, keying/orientation, seating, strain relief, and visible condition; verify clean smart-serial enumeration. Do not continuity-audit or re-terminate individual conductors.",
    "expected": {
     "value": "n/a",
     "label": "RS-422 smart-serial link — not a logic state",
@@ -1434,9 +1434,9 @@ window.MAZAK_DATA = {
    "field_point": "7i84U-A RJ45 pin 1 RX-",
    "designations": [],
    "primary_source": "mesa_firmware_checklist.md",
-   "cleanup_notes": "RS-422 differential pair | [MESA-CONFIRMED 2026-08-08: matches 7i84U J1 RJ-45 pinout (7i84uman.pdf: p1 RXA/p2 RXB/p3 TXA/p6 TXB/p4-5 GND/p7-8 +5V, 568B colors); straight CAT5 to 7i44; plug-in cable, no continuity trace needed] | [READY 2026-08-09: factory-terminated plug-in cable (50-pin IDC ribbon / CAT5), point-to-point 7i44<->7i84U; nothing to trace, ground, or land. Verified by sserial enumeration at LinuxCNC startup]",
-   "location": "Control cabinet — 7i44 channel 0 (7i80HDT P1) to 7i84U-A CN0/RJ45, plug-in RS-422 smart-serial cable",
-   "location_note": "Factory-terminated plug-in cable (50-pin IDC ribbon / CAT5) — point-to-point; nothing to trace, ground, or land. Shield drain at the 7i44 end only.",
+   "cleanup_notes": "RS-422 differential pair | [MESA-CONFIRMED 2026-08-08: matches 7i84U J1 RJ-45 pinout (7i84uman.pdf: p1 RXA/p2 RXB/p3 TXA/p6 TXB/p4-5 GND/p7-8 +5V, 568B colors); straight CAT5 to 7i44; plug-in cable, no continuity trace needed] | [READY 2026-08-09: factory-link acceptance applies to two distinct plug-in segments: Mesa 50-pin IDC from 7i80HDT P1 to 7i44, then CAT5 smart-serial from 7i44 to the identified 7i84U channel. Inspect assembly identity, keying/orientation, seating, strain relief, and visible condition; verify expected smart-serial enumeration without communication or watchdog faults. Do not continuity-audit or re-terminate individual conductors.]",
+   "location": "Control cabinet — 7i80HDT P1 to 7i44 by Mesa 50-pin IDC; 7i44 channel 0 to 7i84U-A CN0/RJ45 by CAT5 smart-serial",
+   "location_note": "Factory plug-in link: inspect identity, keying/orientation, seating, strain relief, and visible condition; verify clean smart-serial enumeration. Do not continuity-audit or re-terminate individual conductors.",
    "expected": {
     "value": "n/a",
     "label": "RS-422 smart-serial link — not a logic state",
@@ -1481,9 +1481,9 @@ window.MAZAK_DATA = {
    "field_point": "7i84U-A RJ45 pin 6 TX+",
    "designations": [],
    "primary_source": "mesa_firmware_checklist.md",
-   "cleanup_notes": "RS-422 differential pair | [MESA-CONFIRMED 2026-08-08: matches 7i84U J1 RJ-45 pinout (7i84uman.pdf: p1 RXA/p2 RXB/p3 TXA/p6 TXB/p4-5 GND/p7-8 +5V, 568B colors); straight CAT5 to 7i44; plug-in cable, no continuity trace needed] | [READY 2026-08-09: factory-terminated plug-in cable (50-pin IDC ribbon / CAT5), point-to-point 7i44<->7i84U; nothing to trace, ground, or land. Verified by sserial enumeration at LinuxCNC startup]",
-   "location": "Control cabinet — 7i44 channel 0 (7i80HDT P1) to 7i84U-A CN0/RJ45, plug-in RS-422 smart-serial cable",
-   "location_note": "Factory-terminated plug-in cable (50-pin IDC ribbon / CAT5) — point-to-point; nothing to trace, ground, or land. Shield drain at the 7i44 end only.",
+   "cleanup_notes": "RS-422 differential pair | [MESA-CONFIRMED 2026-08-08: matches 7i84U J1 RJ-45 pinout (7i84uman.pdf: p1 RXA/p2 RXB/p3 TXA/p6 TXB/p4-5 GND/p7-8 +5V, 568B colors); straight CAT5 to 7i44; plug-in cable, no continuity trace needed] | [READY 2026-08-09: factory-link acceptance applies to two distinct plug-in segments: Mesa 50-pin IDC from 7i80HDT P1 to 7i44, then CAT5 smart-serial from 7i44 to the identified 7i84U channel. Inspect assembly identity, keying/orientation, seating, strain relief, and visible condition; verify expected smart-serial enumeration without communication or watchdog faults. Do not continuity-audit or re-terminate individual conductors.]",
+   "location": "Control cabinet — 7i80HDT P1 to 7i44 by Mesa 50-pin IDC; 7i44 channel 0 to 7i84U-A CN0/RJ45 by CAT5 smart-serial",
+   "location_note": "Factory plug-in link: inspect identity, keying/orientation, seating, strain relief, and visible condition; verify clean smart-serial enumeration. Do not continuity-audit or re-terminate individual conductors.",
    "expected": {
     "value": "n/a",
     "label": "RS-422 smart-serial link — not a logic state",
@@ -1528,9 +1528,9 @@ window.MAZAK_DATA = {
    "field_point": "7i84U-A RJ45 pin 3 TX-",
    "designations": [],
    "primary_source": "mesa_firmware_checklist.md",
-   "cleanup_notes": "RS-422 differential pair | [MESA-CONFIRMED 2026-08-08: matches 7i84U J1 RJ-45 pinout (7i84uman.pdf: p1 RXA/p2 RXB/p3 TXA/p6 TXB/p4-5 GND/p7-8 +5V, 568B colors); straight CAT5 to 7i44; plug-in cable, no continuity trace needed] | [READY 2026-08-09: factory-terminated plug-in cable (50-pin IDC ribbon / CAT5), point-to-point 7i44<->7i84U; nothing to trace, ground, or land. Verified by sserial enumeration at LinuxCNC startup]",
-   "location": "Control cabinet — 7i44 channel 0 (7i80HDT P1) to 7i84U-A CN0/RJ45, plug-in RS-422 smart-serial cable",
-   "location_note": "Factory-terminated plug-in cable (50-pin IDC ribbon / CAT5) — point-to-point; nothing to trace, ground, or land. Shield drain at the 7i44 end only.",
+   "cleanup_notes": "RS-422 differential pair | [MESA-CONFIRMED 2026-08-08: matches 7i84U J1 RJ-45 pinout (7i84uman.pdf: p1 RXA/p2 RXB/p3 TXA/p6 TXB/p4-5 GND/p7-8 +5V, 568B colors); straight CAT5 to 7i44; plug-in cable, no continuity trace needed] | [READY 2026-08-09: factory-link acceptance applies to two distinct plug-in segments: Mesa 50-pin IDC from 7i80HDT P1 to 7i44, then CAT5 smart-serial from 7i44 to the identified 7i84U channel. Inspect assembly identity, keying/orientation, seating, strain relief, and visible condition; verify expected smart-serial enumeration without communication or watchdog faults. Do not continuity-audit or re-terminate individual conductors.]",
+   "location": "Control cabinet — 7i80HDT P1 to 7i44 by Mesa 50-pin IDC; 7i44 channel 0 to 7i84U-A CN0/RJ45 by CAT5 smart-serial",
+   "location_note": "Factory plug-in link: inspect identity, keying/orientation, seating, strain relief, and visible condition; verify clean smart-serial enumeration. Do not continuity-audit or re-terminate individual conductors.",
    "expected": {
     "value": "n/a",
     "label": "RS-422 smart-serial link — not a logic state",
@@ -1575,9 +1575,9 @@ window.MAZAK_DATA = {
    "field_point": "7i84U-A RJ45 pin 4/5 ground",
    "designations": [],
    "primary_source": "mesa_firmware_checklist.md",
-   "cleanup_notes": "Shield drain to 7i44 end only | [MESA-CONFIRMED 2026-08-08: matches 7i84U J1 RJ-45 pinout (7i84uman.pdf: p1 RXA/p2 RXB/p3 TXA/p6 TXB/p4-5 GND/p7-8 +5V, 568B colors); straight CAT5 to 7i44; plug-in cable, no continuity trace needed] | [READY 2026-08-09: factory-terminated plug-in cable (50-pin IDC ribbon / CAT5), point-to-point 7i44<->7i84U; nothing to trace, ground, or land. Verified by sserial enumeration at LinuxCNC startup]",
-   "location": "Control cabinet — 7i44 channel 0 (7i80HDT P1) to 7i84U-A CN0/RJ45, plug-in RS-422 smart-serial cable",
-   "location_note": "Factory-terminated plug-in cable (50-pin IDC ribbon / CAT5) — point-to-point; nothing to trace, ground, or land. Shield drain at the 7i44 end only.",
+   "cleanup_notes": "Factory-link signal ground; cable construction is not field-modified | [MESA-CONFIRMED 2026-08-08: matches 7i84U J1 RJ-45 pinout (7i84uman.pdf: p1 RXA/p2 RXB/p3 TXA/p6 TXB/p4-5 GND/p7-8 +5V, 568B colors); straight CAT5 to 7i44] | [READY 2026-08-09: two distinct plug-in segments: Mesa 50-pin IDC from 7i80HDT P1 to 7i44, then CAT5 smart-serial from 7i44 channel 0 to 7i84U-A. Inspect assembly identity, keying/orientation, seating, strain relief, and visible condition; verify expected smart-serial enumeration without communication or watchdog faults. Do not continuity-audit or re-terminate individual conductors.]",
+   "location": "Control cabinet — 7i80HDT P1 to 7i44 by Mesa 50-pin IDC; 7i44 channel 0 to 7i84U-A CN0/RJ45 by CAT5 smart-serial",
+   "location_note": "Factory plug-in link: inspect identity, keying/orientation, seating, strain relief, and visible condition; verify clean smart-serial enumeration. Do not continuity-audit or re-terminate individual conductors.",
    "expected": {
     "value": "n/a",
     "label": "RS-422 smart-serial link — not a logic state",
@@ -1622,9 +1622,9 @@ window.MAZAK_DATA = {
    "field_point": "7i84U-A RJ45 pin 7/8 +5V",
    "designations": [],
    "primary_source": "mesa_firmware_checklist.md",
-   "cleanup_notes": "Serial power for 7i84U-A logic | [MESA-CONFIRMED 2026-08-08: matches 7i84U J1 RJ-45 pinout (7i84uman.pdf: p1 RXA/p2 RXB/p3 TXA/p6 TXB/p4-5 GND/p7-8 +5V, 568B colors); straight CAT5 to 7i44; plug-in cable, no continuity trace needed] | [READY 2026-08-09: factory-terminated plug-in cable (50-pin IDC ribbon / CAT5), point-to-point 7i44<->7i84U; nothing to trace, ground, or land. Verified by sserial enumeration at LinuxCNC startup]",
-   "location": "Control cabinet — 7i44 channel 0 (7i80HDT P1) to 7i84U-A CN0/RJ45, plug-in RS-422 smart-serial cable",
-   "location_note": "Factory-terminated plug-in cable (50-pin IDC ribbon / CAT5) — point-to-point; nothing to trace, ground, or land. Shield drain at the 7i44 end only.",
+   "cleanup_notes": "Serial power for 7i84U-A logic | [MESA-CONFIRMED 2026-08-08: matches 7i84U J1 RJ-45 pinout (7i84uman.pdf: p1 RXA/p2 RXB/p3 TXA/p6 TXB/p4-5 GND/p7-8 +5V, 568B colors); straight CAT5 to 7i44; plug-in cable, no continuity trace needed] | [READY 2026-08-09: factory-link acceptance applies to two distinct plug-in segments: Mesa 50-pin IDC from 7i80HDT P1 to 7i44, then CAT5 smart-serial from 7i44 to the identified 7i84U channel. Inspect assembly identity, keying/orientation, seating, strain relief, and visible condition; verify expected smart-serial enumeration without communication or watchdog faults. Do not continuity-audit or re-terminate individual conductors.]",
+   "location": "Control cabinet — 7i80HDT P1 to 7i44 by Mesa 50-pin IDC; 7i44 channel 0 to 7i84U-A CN0/RJ45 by CAT5 smart-serial",
+   "location_note": "Factory plug-in link: inspect identity, keying/orientation, seating, strain relief, and visible condition; verify clean smart-serial enumeration. Do not continuity-audit or re-terminate individual conductors.",
    "expected": {
     "value": "n/a",
     "label": "RS-422 smart-serial link — not a logic state",
@@ -4189,10 +4189,12 @@ window.MAZAK_DATA = {
    "subsystem": "Utility",
    "machine_subsystem": "Utility",
    "status": "FACTORY_INTERFACE",
-   "field_point": "Two head-lube pressure switches (PLC X042 HLP2.M + X079 HLP.M) series-wired NC",
-   "designations": [],
-   "primary_source": "element_list_crosswalk_2026-07-27 + open_issues.md §3 (2026-08-03)",
-   "cleanup_notes": "Series-wired 2026-08-03: both pressure switches on same reservoir per parts list. Fail-open NC. Choose lube-ok versus lube-fault net after normal state is measured. | [LOCATED 2026-08-08: X79 HLP.H head-lube pressure alarm T.U CN3-2 (Dwg 4143075407 pg133) + PS-5 wire 355 (Dwg 4143075338 pg100), series-NC with X042 HLP2] | [RESOLVED 2026-08-08: swept ALL Motion Switch Input sheets 1-5 (Dwg 4143075407-411, pg133-137) + Power Control (4143075406 pg132) + TB-51 (pg100/101). Only ONE physical head-lube pressure switch appears: PS-5 wire 355 = X079 HLP. X042 HLP2 'HEAD LUBE PRESSURE 2' (element list) has NO physical switch in the diagrams. DISCREPANCY: element/parts list = 2 switches, wiring diagrams = 1. VERIFY switch count at machine; if only PS-5, wire LUBE_OK from it alone (drop the series-pair assumption).]",
+   "field_point": "PS-5 head-lube pressure switch wire 355 (PLC X079 HLP.M)",
+   "designations": [
+    "PS-5"
+   ],
+   "primary_source": "Dwg 4143075338 pg100 + Dwg 4143075407 pg133 + owner machine confirmation 2026-08-09",
+   "cleanup_notes": "One physical head-lube pressure switch only: PS-5 wire 355 = X079 HLP.M. Owner confirmed on the machine 2026-08-09. X042 HLP2.M exists in the generic element list but has no second physical switch on SN 060231 and is not part of LUBE_OK. Land IN25 from PS-5 alone. Verify normal-state polarity and fail-open behavior before commissioning.",
    "location": "Unknown — trace in cabinet",
    "location_note": "",
    "expected": {
@@ -4211,7 +4213,7 @@ window.MAZAK_DATA = {
     {
      "file": "linuxcnc/field_7i84u.hal",
      "line": 76,
-     "text": "net lube-ok            <= hm2_7i80.0.7i84.0.0.input-25   # IN25 X042 HLP2 + X079 HLP series NC",
+     "text": "net lube-ok            <= hm2_7i80.0.7i84.0.0.input-25   # IN25 PS-5 wire 355 / X079 HLP.M; sole head-lube pressure switch",
      "commented": false,
      "producers": [
       "hm2_7i80.0.7i84.0.0.input-25"
@@ -4231,10 +4233,10 @@ window.MAZAK_DATA = {
     {
      "file": "linuxcnc/field_7i84u.hal",
      "lines": "76",
-     "note": "net lube-ok            <= hm2_7i80.0.7i84.0.0.input-25   # IN25 X042 HLP2 + X079 HLP series NC"
+     "note": "net lube-ok            <= hm2_7i80.0.7i84.0.0.input-25   # IN25 PS-5 wire 355 / X079 HLP.M; sole head-lube pressure switch"
     },
     {
-     "file": "element_list_crosswalk_2026-07-27 + open_issues.md §3 (2026-08-03)",
+     "file": "Dwg 4143075338 pg100 + Dwg 4143075407 pg133 + owner machine confirmation 2026-08-09",
      "lines": "",
      "note": "primary_source column in the authority table"
     }
@@ -6285,9 +6287,9 @@ window.MAZAK_DATA = {
    "field_point": "7i84U-B RJ45 pin 2 RX+",
    "designations": [],
    "primary_source": "mesa_firmware_checklist.md",
-   "cleanup_notes": "7i44 channel 1 to 7i84U-B CN0 under HostMot2 port 0; RS-422 differential pair | [MESA-CONFIRMED 2026-08-08: matches 7i84U J1 RJ-45 pinout (7i84uman.pdf: p1 RXA/p2 RXB/p3 TXA/p6 TXB/p4-5 GND/p7-8 +5V, 568B colors); straight CAT5 to 7i44; plug-in cable, no continuity trace needed] | [READY 2026-08-09: factory-terminated plug-in cable (50-pin IDC ribbon / CAT5), point-to-point 7i44<->7i84U; nothing to trace, ground, or land. Verified by sserial enumeration at LinuxCNC startup]",
-   "location": "Control cabinet — 7i44 channel 1 (7i80HDT P1) to 7i84U-B CN0/RJ45, plug-in RS-422 smart-serial cable",
-   "location_note": "Factory-terminated plug-in cable (50-pin IDC ribbon / CAT5) — point-to-point; nothing to trace, ground, or land. Shield drain at the 7i44 end only.",
+   "cleanup_notes": "7i44 channel 1 to 7i84U-B CN0 under HostMot2 port 0; RS-422 differential pair | [MESA-CONFIRMED 2026-08-08: matches 7i84U J1 RJ-45 pinout (7i84uman.pdf: p1 RXA/p2 RXB/p3 TXA/p6 TXB/p4-5 GND/p7-8 +5V, 568B colors); straight CAT5 to 7i44; plug-in cable, no continuity trace needed] | [READY 2026-08-09: factory-link acceptance applies to two distinct plug-in segments: Mesa 50-pin IDC from 7i80HDT P1 to 7i44, then CAT5 smart-serial from 7i44 to the identified 7i84U channel. Inspect assembly identity, keying/orientation, seating, strain relief, and visible condition; verify expected smart-serial enumeration without communication or watchdog faults. Do not continuity-audit or re-terminate individual conductors.]",
+   "location": "Control cabinet — 7i80HDT P1 to 7i44 by Mesa 50-pin IDC; 7i44 channel 1 to 7i84U-B CN0/RJ45 by CAT5 smart-serial",
+   "location_note": "Factory plug-in link: inspect identity, keying/orientation, seating, strain relief, and visible condition; verify clean smart-serial enumeration. Do not continuity-audit or re-terminate individual conductors.",
    "expected": {
     "value": "n/a",
     "label": "RS-422 smart-serial link — not a logic state",
@@ -6332,9 +6334,9 @@ window.MAZAK_DATA = {
    "field_point": "7i84U-B RJ45 pin 1 RX-",
    "designations": [],
    "primary_source": "mesa_firmware_checklist.md",
-   "cleanup_notes": "RS-422 differential pair | [MESA-CONFIRMED 2026-08-08: matches 7i84U J1 RJ-45 pinout (7i84uman.pdf: p1 RXA/p2 RXB/p3 TXA/p6 TXB/p4-5 GND/p7-8 +5V, 568B colors); straight CAT5 to 7i44; plug-in cable, no continuity trace needed] | [READY 2026-08-09: factory-terminated plug-in cable (50-pin IDC ribbon / CAT5), point-to-point 7i44<->7i84U; nothing to trace, ground, or land. Verified by sserial enumeration at LinuxCNC startup]",
-   "location": "Control cabinet — 7i44 channel 1 (7i80HDT P1) to 7i84U-B CN0/RJ45, plug-in RS-422 smart-serial cable",
-   "location_note": "Factory-terminated plug-in cable (50-pin IDC ribbon / CAT5) — point-to-point; nothing to trace, ground, or land. Shield drain at the 7i44 end only.",
+   "cleanup_notes": "RS-422 differential pair | [MESA-CONFIRMED 2026-08-08: matches 7i84U J1 RJ-45 pinout (7i84uman.pdf: p1 RXA/p2 RXB/p3 TXA/p6 TXB/p4-5 GND/p7-8 +5V, 568B colors); straight CAT5 to 7i44; plug-in cable, no continuity trace needed] | [READY 2026-08-09: factory-link acceptance applies to two distinct plug-in segments: Mesa 50-pin IDC from 7i80HDT P1 to 7i44, then CAT5 smart-serial from 7i44 to the identified 7i84U channel. Inspect assembly identity, keying/orientation, seating, strain relief, and visible condition; verify expected smart-serial enumeration without communication or watchdog faults. Do not continuity-audit or re-terminate individual conductors.]",
+   "location": "Control cabinet — 7i80HDT P1 to 7i44 by Mesa 50-pin IDC; 7i44 channel 1 to 7i84U-B CN0/RJ45 by CAT5 smart-serial",
+   "location_note": "Factory plug-in link: inspect identity, keying/orientation, seating, strain relief, and visible condition; verify clean smart-serial enumeration. Do not continuity-audit or re-terminate individual conductors.",
    "expected": {
     "value": "n/a",
     "label": "RS-422 smart-serial link — not a logic state",
@@ -6379,9 +6381,9 @@ window.MAZAK_DATA = {
    "field_point": "7i84U-B RJ45 pin 6 TX+",
    "designations": [],
    "primary_source": "mesa_firmware_checklist.md",
-   "cleanup_notes": "RS-422 differential pair | [MESA-CONFIRMED 2026-08-08: matches 7i84U J1 RJ-45 pinout (7i84uman.pdf: p1 RXA/p2 RXB/p3 TXA/p6 TXB/p4-5 GND/p7-8 +5V, 568B colors); straight CAT5 to 7i44; plug-in cable, no continuity trace needed] | [READY 2026-08-09: factory-terminated plug-in cable (50-pin IDC ribbon / CAT5), point-to-point 7i44<->7i84U; nothing to trace, ground, or land. Verified by sserial enumeration at LinuxCNC startup]",
-   "location": "Control cabinet — 7i44 channel 1 (7i80HDT P1) to 7i84U-B CN0/RJ45, plug-in RS-422 smart-serial cable",
-   "location_note": "Factory-terminated plug-in cable (50-pin IDC ribbon / CAT5) — point-to-point; nothing to trace, ground, or land. Shield drain at the 7i44 end only.",
+   "cleanup_notes": "RS-422 differential pair | [MESA-CONFIRMED 2026-08-08: matches 7i84U J1 RJ-45 pinout (7i84uman.pdf: p1 RXA/p2 RXB/p3 TXA/p6 TXB/p4-5 GND/p7-8 +5V, 568B colors); straight CAT5 to 7i44; plug-in cable, no continuity trace needed] | [READY 2026-08-09: factory-link acceptance applies to two distinct plug-in segments: Mesa 50-pin IDC from 7i80HDT P1 to 7i44, then CAT5 smart-serial from 7i44 to the identified 7i84U channel. Inspect assembly identity, keying/orientation, seating, strain relief, and visible condition; verify expected smart-serial enumeration without communication or watchdog faults. Do not continuity-audit or re-terminate individual conductors.]",
+   "location": "Control cabinet — 7i80HDT P1 to 7i44 by Mesa 50-pin IDC; 7i44 channel 1 to 7i84U-B CN0/RJ45 by CAT5 smart-serial",
+   "location_note": "Factory plug-in link: inspect identity, keying/orientation, seating, strain relief, and visible condition; verify clean smart-serial enumeration. Do not continuity-audit or re-terminate individual conductors.",
    "expected": {
     "value": "n/a",
     "label": "RS-422 smart-serial link — not a logic state",
@@ -6426,9 +6428,9 @@ window.MAZAK_DATA = {
    "field_point": "7i84U-B RJ45 pin 3 TX-",
    "designations": [],
    "primary_source": "mesa_firmware_checklist.md",
-   "cleanup_notes": "RS-422 differential pair | [MESA-CONFIRMED 2026-08-08: matches 7i84U J1 RJ-45 pinout (7i84uman.pdf: p1 RXA/p2 RXB/p3 TXA/p6 TXB/p4-5 GND/p7-8 +5V, 568B colors); straight CAT5 to 7i44; plug-in cable, no continuity trace needed] | [READY 2026-08-09: factory-terminated plug-in cable (50-pin IDC ribbon / CAT5), point-to-point 7i44<->7i84U; nothing to trace, ground, or land. Verified by sserial enumeration at LinuxCNC startup]",
-   "location": "Control cabinet — 7i44 channel 1 (7i80HDT P1) to 7i84U-B CN0/RJ45, plug-in RS-422 smart-serial cable",
-   "location_note": "Factory-terminated plug-in cable (50-pin IDC ribbon / CAT5) — point-to-point; nothing to trace, ground, or land. Shield drain at the 7i44 end only.",
+   "cleanup_notes": "RS-422 differential pair | [MESA-CONFIRMED 2026-08-08: matches 7i84U J1 RJ-45 pinout (7i84uman.pdf: p1 RXA/p2 RXB/p3 TXA/p6 TXB/p4-5 GND/p7-8 +5V, 568B colors); straight CAT5 to 7i44; plug-in cable, no continuity trace needed] | [READY 2026-08-09: factory-link acceptance applies to two distinct plug-in segments: Mesa 50-pin IDC from 7i80HDT P1 to 7i44, then CAT5 smart-serial from 7i44 to the identified 7i84U channel. Inspect assembly identity, keying/orientation, seating, strain relief, and visible condition; verify expected smart-serial enumeration without communication or watchdog faults. Do not continuity-audit or re-terminate individual conductors.]",
+   "location": "Control cabinet — 7i80HDT P1 to 7i44 by Mesa 50-pin IDC; 7i44 channel 1 to 7i84U-B CN0/RJ45 by CAT5 smart-serial",
+   "location_note": "Factory plug-in link: inspect identity, keying/orientation, seating, strain relief, and visible condition; verify clean smart-serial enumeration. Do not continuity-audit or re-terminate individual conductors.",
    "expected": {
     "value": "n/a",
     "label": "RS-422 smart-serial link — not a logic state",
@@ -6473,9 +6475,9 @@ window.MAZAK_DATA = {
    "field_point": "7i84U-B RJ45 pin 4/5 ground",
    "designations": [],
    "primary_source": "mesa_firmware_checklist.md",
-   "cleanup_notes": "Shield drain to 7i44 end only | [MESA-CONFIRMED 2026-08-08: matches 7i84U J1 RJ-45 pinout (7i84uman.pdf: p1 RXA/p2 RXB/p3 TXA/p6 TXB/p4-5 GND/p7-8 +5V, 568B colors); straight CAT5 to 7i44; plug-in cable, no continuity trace needed] | [READY 2026-08-09: factory-terminated plug-in cable (50-pin IDC ribbon / CAT5), point-to-point 7i44<->7i84U; nothing to trace, ground, or land. Verified by sserial enumeration at LinuxCNC startup]",
-   "location": "Control cabinet — 7i44 channel 1 (7i80HDT P1) to 7i84U-B CN0/RJ45, plug-in RS-422 smart-serial cable",
-   "location_note": "Factory-terminated plug-in cable (50-pin IDC ribbon / CAT5) — point-to-point; nothing to trace, ground, or land. Shield drain at the 7i44 end only.",
+   "cleanup_notes": "Factory-link signal ground; cable construction is not field-modified | [MESA-CONFIRMED 2026-08-08: matches 7i84U J1 RJ-45 pinout (7i84uman.pdf: p1 RXA/p2 RXB/p3 TXA/p6 TXB/p4-5 GND/p7-8 +5V, 568B colors); straight CAT5 to 7i44] | [READY 2026-08-09: two distinct plug-in segments: Mesa 50-pin IDC from 7i80HDT P1 to 7i44, then CAT5 smart-serial from 7i44 channel 1 to 7i84U-B. Inspect assembly identity, keying/orientation, seating, strain relief, and visible condition; verify expected smart-serial enumeration without communication or watchdog faults. Do not continuity-audit or re-terminate individual conductors.]",
+   "location": "Control cabinet — 7i80HDT P1 to 7i44 by Mesa 50-pin IDC; 7i44 channel 1 to 7i84U-B CN0/RJ45 by CAT5 smart-serial",
+   "location_note": "Factory plug-in link: inspect identity, keying/orientation, seating, strain relief, and visible condition; verify clean smart-serial enumeration. Do not continuity-audit or re-terminate individual conductors.",
    "expected": {
     "value": "n/a",
     "label": "RS-422 smart-serial link — not a logic state",
@@ -6520,9 +6522,9 @@ window.MAZAK_DATA = {
    "field_point": "7i84U-B RJ45 pin 7/8 +5V",
    "designations": [],
    "primary_source": "mesa_firmware_checklist.md",
-   "cleanup_notes": "Serial power for 7i84U-B logic | [MESA-CONFIRMED 2026-08-08: matches 7i84U J1 RJ-45 pinout (7i84uman.pdf: p1 RXA/p2 RXB/p3 TXA/p6 TXB/p4-5 GND/p7-8 +5V, 568B colors); straight CAT5 to 7i44; plug-in cable, no continuity trace needed] | [READY 2026-08-09: factory-terminated plug-in cable (50-pin IDC ribbon / CAT5), point-to-point 7i44<->7i84U; nothing to trace, ground, or land. Verified by sserial enumeration at LinuxCNC startup]",
-   "location": "Control cabinet — 7i44 channel 1 (7i80HDT P1) to 7i84U-B CN0/RJ45, plug-in RS-422 smart-serial cable",
-   "location_note": "Factory-terminated plug-in cable (50-pin IDC ribbon / CAT5) — point-to-point; nothing to trace, ground, or land. Shield drain at the 7i44 end only.",
+   "cleanup_notes": "Serial power for 7i84U-B logic | [MESA-CONFIRMED 2026-08-08: matches 7i84U J1 RJ-45 pinout (7i84uman.pdf: p1 RXA/p2 RXB/p3 TXA/p6 TXB/p4-5 GND/p7-8 +5V, 568B colors); straight CAT5 to 7i44; plug-in cable, no continuity trace needed] | [READY 2026-08-09: factory-link acceptance applies to two distinct plug-in segments: Mesa 50-pin IDC from 7i80HDT P1 to 7i44, then CAT5 smart-serial from 7i44 to the identified 7i84U channel. Inspect assembly identity, keying/orientation, seating, strain relief, and visible condition; verify expected smart-serial enumeration without communication or watchdog faults. Do not continuity-audit or re-terminate individual conductors.]",
+   "location": "Control cabinet — 7i80HDT P1 to 7i44 by Mesa 50-pin IDC; 7i44 channel 1 to 7i84U-B CN0/RJ45 by CAT5 smart-serial",
+   "location_note": "Factory plug-in link: inspect identity, keying/orientation, seating, strain relief, and visible condition; verify clean smart-serial enumeration. Do not continuity-audit or re-terminate individual conductors.",
    "expected": {
     "value": "n/a",
     "label": "RS-422 smart-serial link — not a logic state",

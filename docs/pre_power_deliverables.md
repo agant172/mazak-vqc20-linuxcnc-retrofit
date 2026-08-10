@@ -30,6 +30,19 @@ the paper design** from **evidence about the physical machine**.
 | `HAL_VERIFIED` | The HAL pin toggles correctly in response to the physical stimulus, and no unexpected HAL pin toggles at the same time. Captured via `halscope` or `halsampler`. | Retrofit commissioner with halscope trace | Trace saved under `docs/commissioning_logs/`; the trace filename referenced from the row. |
 | `COMMISSIONED` | The signal has passed its safety/functional acceptance under normal machine operation, including any fault-injection test in its safety role. | Retrofit commissioner after acceptance run | Fault-injection test log entry from the appropriate acceptance procedure (E-stop chain, hm2_eth, servo commissioning, etc.). |
 
+The following are also terminal authority states. They describe factory
+construction or factory-defined interfaces and therefore do not progress
+through the field-wire evidence ladder above:
+
+| State | Meaning | Acceptance evidence |
+|---|---|---|
+| `FACTORY_LINK` | Final assignment for a factory-built Mesa interconnect. Individual conductors are not field-audited or re-terminated. | Confirm the correct assembly, connector orientation/keying, full seating, strain relief, and absence of visible damage; then verify that the expected Mesa cards enumerate without smart-serial, watchdog, or communication faults. For this retrofit, distinguish the Mesa 50-pin IDC segment from the CAT5 smart-serial segment. |
+| `FACTORY_INTERFACE` | Final identity and assignment for an OEM machine interface established by the applicable Mazak/Mitsubishi drawing or factory connector documentation. | Record the authoritative drawing/connector reference. This state finalizes interface identity; it does not by itself claim powered functional commissioning or safety validation. |
+
+`UNBOUND` is a legacy spelling of `DEFERRED`: the function is intentionally
+not assigned to an active HAL or physical channel. New rows should use
+`DEFERRED`; existing `UNBOUND` rows may remain until the next routine cleanup.
+
 **Retired states.** The following states are removed from the
 authority CSV as of this commit; existing rows carrying them
 migrate as documented in the migration table below.
@@ -51,6 +64,7 @@ The following existing states are unchanged and remain in use:
 - `RESERVED` / `RESERVED_VERIFY` — pin held for a specific
   future function.
 - `DEFERRED` — signal is out of first-power scope by decision.
+- `UNBOUND` — legacy alias for `DEFERRED`; no active HAL or physical binding.
 - `HOLD_CONFLICT` — conflicting authority claims between docs;
   requires reconciliation before promotion.
 - `OPTIONAL_VERIFY` — signal is not on the critical path.

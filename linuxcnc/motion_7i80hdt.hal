@@ -1,5 +1,5 @@
 # 7i80HDT + 7i44 (sserial) + 7i49 motion, spindle, safety, and core panel I/O
-# Logical allocation from the Mazak VQC 20/40 retrofit workbook.
+# Logical allocation from mesa/current_pin_authority.csv; Excel workbooks are generated views.
 #
 # PLACEHOLDER PIN NAMES: every hm2_7i80.* name below is an UNVERIFIED PLACEHOLDER.
 # The Mesa 7i80HDT is a bare-FPGA Ethernet host (hm2_eth) with three 50-pin daughter

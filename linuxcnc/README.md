@@ -1,6 +1,8 @@
 # Mazak VQC 20/40 LinuxCNC + Mesa Skeleton
 
-This is a starter wiring and HAL skeleton generated from the Mazak VQC 20/40 retrofit I/O workbook.
+This starter wiring and HAL skeleton is reconciled against
+[`../mesa/current_pin_authority.csv`](../mesa/current_pin_authority.csv). The Excel
+workbooks are generated views of that authority, not independent assignment sources.
 
 It is meant for planning and bring-up, not direct live-machine use. Before enabling any drive, verify the actual Mesa firmware pin names, drive command polarity, resolver winding pairs/scale, resolver return signal level, field I/O voltage, output current/sourcing behavior, safety-chain wiring, and normal states in the cabinet.
 

@@ -10,11 +10,11 @@ All Epson batch CSVs in this folder target Epson Label Editor on Windows and
 use Windows CRLF records on checkout.
 
 - Consolidated wiring master: [`Mazak_Wiring_Master_7i80HDT_7i44_7i49_7i84U_Current_Authority.xlsx`](Mazak_Wiring_Master_7i80HDT_7i44_7i49_7i84U_Current_Authority.xlsx)
-  — wiring workbook for the 7i80HDT / 7i44 / 7i49 / 7i84U-A / 7i84U-B stack. P3 GPIO is unused/spare; the Renishaw MP-3 probe is on 7i84U-B input-15 (opto-isolated 24 V). Phase 2
-  cabinet-sequence, BOM-gap, hydraulic/ATC, and conflict-review tabs are integrated
-  as planning aids; check the conflict-review tab before changing final pin
-  assignments. The `... - Overview.csv` sibling file is the plain-text index for
-  that workbook. Prefer `../mesa/current_pin_authority.csv` for authoritative pin data.
+  — generated 132-row Excel snapshot of the current authority for the 7i80HDT /
+  7i44 / 7i49 / 7i84U-A / 7i84U-B stack. It includes formula-driven summaries;
+  P3 is unused/spare and the Renishaw MP-3 probe is on 7i84U-B input-15. The
+  `... - Overview.csv` sibling file is a plain-text workbook index. The authoritative
+  source remains `../mesa/current_pin_authority.csv`.
 - Current pin authority: [`../mesa/current_pin_authority.csv`](../mesa/current_pin_authority.csv)
   — current table for connector, pin/channel, HAL net, status, source basis, and
   cleanup notes.
@@ -25,7 +25,8 @@ use Windows CRLF records on checkout.
   `../mesa/current_pin_authority.csv` before wiring (see its "Reconciliation" and
   "Still to locate" sections).
 - I/O workbook: [`../bom/Mazak_VQC_20-40_Retrofit_IO_Workbook.xlsx`](../bom/Mazak_VQC_20-40_Retrofit_IO_Workbook.xlsx)
-  — full I/O planning spreadsheet the skeleton was generated from.
+  — second generated 132-row Excel view of the current authority for I/O planning
+  and parts coordination; it is not an independent authority source.
 - Cabinet photo checklist: [`../docs/cabinet_photo_checklist.md`](../docs/cabinet_photo_checklist.md)
   — what to photograph before finalizing wiring.
 - Sister-machine wiring reference: [SRDCO MazakVQC1540 complete 2017 reference package](https://github.com/srdco/MazakVQC1540/tree/master/MAZAK-VQC1540-20170501)
