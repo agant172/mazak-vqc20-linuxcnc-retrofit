@@ -17,10 +17,12 @@ line 7), and **PDF page = sheet + 1** (sheet 21 = PDF p22). The E-stop input
 | 2115 | 21·15 | p22 | ✅ | RESET (`*RST`) — E-stop is one of its interlocks |
 | 2302 | 23·02 | p24 | ✅ | HYDRAULIC PUMP & HEAD LUBE (`HYD.M`/Y096) |
 | 2307 | 23·07 | p24 | ✅ | **SERVO READY** (`SA.M`/Y098) |
-| 3204 | 32·04 | p33 | ⬜ | (E-stop interlock — read on demand) |
-| 4102 | 41·02 | p42 | ⬜ | (hydraulic-related per 2302 cross-ref list) |
-| 6002 | 60·02 | p61 | ⬜ | (E-stop interlock — read on demand) |
+| 3204 | 32·04 | p33 | ✅ | MANUAL TOOL SELECT (`MNTS`/M43) |
+| 4102 | 41·02 | p42 | ✅ | MEASURING ARM EXTEND (`AEXT.M`/Y034) |
+| 6002 | 60·02 | p61 | ✅ | ALL AXIS REFERENCE MEMORY (`REFME`/M150) |
 | 7601-7603 | 76·01-03 | p77 | ✅ | Axis jog direction memories (-X/-Y/-Z) |
+
+**All 9 `#ESP.M` cross-refs read.** The E-stop set is complete.
 
 ## The E-stop input
 
@@ -58,7 +60,21 @@ emergency-stop delay timer `ESPT` (H0B0.0). Used at sheet 23 line 5 to hold
 H07D.0/1/2): each is `-X.B/-Y.B/-Z.B` (jog button) · `SMZx.N` (axis zero) ·
 `HYD.M` (hydraulics OK) · `*ESP.M` (E-stop healthy) → set direction memory.
 **E-stop inhibits jog motion.** (Lines 4-6 are the matching `+XENV/+YENV/+ZENV`
-direction enables.)
+direction enables, also referencing `*ESP.M` via the jog memories.)
+
+**Sheet 32 line 4 — MANUAL TOOL SELECT** (`MNTS`, H065.3 → M43): `MNTS` (latch) ·
+`MIPRS` (magazine in-position, X00D) · `AUT.M` NC (not auto-mode) · `*ESP.M` ·
+`TSINTL` NC → MANUAL TOOL SELECT. **E-stop inhibits manual magazine tool select.**
+
+**Sheet 41 line 2 — MEASURING ARM EXTEND** (`AEXT.M`, H046.4 → Y034): the extend
+output latches through `AEXT.M · *ESP.M`, so **E-stop drops the tool-measure /
+probe-arm extend** (the arm can't stay extended through an E-stop).
+
+**Sheet 60 line 2 — ALL AXIS REFERENCE MEMORY** (`REFME`, H072.6 → M150):
+`ZPX1.N · ZPY1.N · ZPZ1.N · ZP41.N` (all axes at ref point 1) · `*ESP.M` → set
+"all axis referenced" memory. **E-stop clears the referenced/homed state** — after
+E-stop the machine treats itself as un-referenced (re-home required). Directly
+relevant to the retrofit's homing/`is-homed` handling.
 
 ## Retrofit implications (LinuxCNC / Mesa)
 
@@ -76,5 +92,18 @@ timer** in the spindle-set path. For the retrofit:
   contactor-drop E-stop chain (still to be traced per **D5**) remains the primary
   safety element. See `estop_safety_chain.md` and `estop_wiring_path_asbuilt.md`.
 
-Sheets 32 (3204), 41 (4102), 60 (6002) carry additional `#ESP.M` uses — read
-p33/p42/p61 on demand and extend the table above.
+## Summary — everything E-stop drops/gates (complete set)
+
+When E-stop (`#ESP.M`/X000) is asserted, the OEM ladder:
+1. **Drops SERVO READY** (`SA.M`/Y098) — removes drive-enable to the axis amps.
+2. **Drops the HYDRAULIC / head-lube pump** (`HYD.M`/Y096).
+3. **Blocks RESET** (`*RST`) and gates **NC READY** (sheet 21).
+4. **Inhibits jog** (all axes, sheet 76) and **manual magazine tool select** (sheet 32).
+5. **Retracts/drops the measuring (probe) arm extend** (sheet 41).
+6. **Clears the all-axis reference/homed memory** (sheet 60) — re-home after E-stop.
+7. Runs a **2.0 s EMG delay timer** (`ESPT`/T0, K20) in the spindle-set path.
+
+For the retrofit, the HAL/hardwired E-stop must reproduce items 1-2 (drop
+drive-enable + hydraulics) as the safety-critical minimum, treat item 6 as the
+homing-invalidation behavior, and use item 7 to inform stop sequencing
+(`stop_timing_budget.md`). Items 3-5 are convenience/sequencing.
