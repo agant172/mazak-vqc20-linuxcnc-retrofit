@@ -36,7 +36,7 @@ Full rationale: [docs/architecture_decision.md](docs/architecture_decision.md).
 | **7i80HDT + 7i44 + 7i49 + 7i84U-A + 7i84U-B architecture** | Selected; hardware/bitfile proof pending |
 | 7i49 resolver feedback interface (plain, 5 kHz baseline) | Selected; suffix compatibility and scope proof pending |
 | Tamagawa TS2014N resolver identification | Family identified; exact per-axis suffixes unresolved |
-| I/O workbook created | ✅ Completed |
+| 132-row I/O authority workbooks regenerated from the current CSV | ✅ Completed |
 | HAL/INI bring-up skeleton drafted | ✅ Completed |
 | Pin authority CSV structurally reconciled; field evidence pending | 🔄 In progress |
 | Mesa firmware / photo checklists drafted | ✅ Completed |
@@ -111,7 +111,7 @@ they are static checks and do not replace a LinuxCNC load test or fault injectio
 
 ```
 ├── README.md          # This file — project overview, status, and top TODOs
-├── bom/               # I/O workbook and parts-planning material
+├── bom/               # Generated I/O authority workbook and parts-planning material
 ├── docs/              # Architecture decision, checklists, photo-sorting, project status
 ├── io-dashboard/      # Offline I/O navigator + commissioning wiring workspace
 ├── linuxcnc/          # LinuxCNC INI/HAL bring-up skeletons, ATC/orient components, remapped M6
@@ -134,7 +134,7 @@ they are static checks and do not replace a LinuxCNC load test or fault injectio
 - [docs/parameters_sn060231.md](docs/parameters_sn060231.md) — LIVE parameter values photographed 2026-07-28: ATC 2nd zero point RP=(0, +9.5000, -5.9055) in, both soft-limit boxes, gear crossover 434 rpm, backlash.
 - [docs/parameter_recovery.md](docs/parameter_recovery.md) — M-2 parameter recovery: SN 060231 values are NOT in the manuals; capture checklist + fallback measurement procedure.
 - [io-dashboard/README.md](io-dashboard/README.md) — I/O/commissioning workspace: use, records, live polling, and data regeneration.
-- [bom/Mazak_VQC_20-40_Retrofit_IO_Workbook.xlsx](bom/Mazak_VQC_20-40_Retrofit_IO_Workbook.xlsx) — full I/O workbook.
+- [bom/Mazak_VQC_20-40_Retrofit_IO_Workbook.xlsx](bom/Mazak_VQC_20-40_Retrofit_IO_Workbook.xlsx) — generated 132-row Excel snapshot of the current pin authority; `mesa/current_pin_authority.csv` remains authoritative.
 
 ## References
 

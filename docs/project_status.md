@@ -61,7 +61,8 @@ See [`architecture_decision.md`](architecture_decision.md) for the full rational
 - 7i49 resolver feedback interface selected (plain 7i49, 5 kHz baseline).
 - Tamagawa TS2014N resolvers identified on-machine (July 2026 photo survey).
 - Meanwell DR-240-24 retrofit 24V supply installed; kept isolated from OEM HR-11F-24 bus.
-- Initial I/O workbook created (`bom/Mazak_VQC_20-40_Retrofit_IO_Workbook.xlsx`).
+- The 132-row I/O workbook is generated from the current authority CSV
+  (`bom/Mazak_VQC_20-40_Retrofit_IO_Workbook.xlsx`).
 - HAL/INI bring-up skeleton drafted (`linuxcnc/`) — updated to new stack 2026-08-06.
 - Mesa firmware/HAL-pin checklist drafted (`mesa/mesa_firmware_checklist.md`).
 - Cabinet photo checklist drafted (`docs/cabinet_photo_checklist.md`).
