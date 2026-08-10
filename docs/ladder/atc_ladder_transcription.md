@@ -173,7 +173,7 @@ Sequencing rules to reproduce:
 ## Open questions
 
 1. **Step-latch first contacts on sheets 71–73 are scan-ambiguous** (CND-n vs CND-(n−1) labels overlap at this resolution). The MEM/CND alternation and the cross-reference lists support the reading above, but verify D-5/F-4 wiring on the paper prints before trusting the last step's completion condition.
-2. **Reference points:** ZP1 (ref-1) vs ZP2 (ref-2) actual Z/Y coordinates must be recovered from the M-2 parameters or measured — they define the toolchange positions for the remap NGC.
+2. **Reference points — RESOLVED 2026-08-10** (see `docs/parameters_sn060231.md`, live 2026-07-28 dump): **ref-1 (ZP1) = machine zero = ZP = (0, 0, 0)** (the home position); **ref-2 (ZP2) = ATC 2nd zero = RP = (X 0, Y +9.5000, Z −5.9055)** — the magazine exchange position — with the Z exchange floor at **LZ4 = −5.9449** (0.0394 in below RP3). These are the `[ATC]` positions the remap NGC needs; both RP2/RP3 are ✓✓ double-verified. (`RP1/RP4 = 0` → no X/4th offset.)
 3. **INTF.N / INTF2.N (X189/X18A) "interference spindle tool length 1/2"** — NC-computed tool-length interference signals selecting the A vs B prep path and gating cycle completion. The retrofit must replace this with tool-length-aware Z clearance in the remap.
 4. **MAT timer T90** (footswitch arming) and **T30** (cover alarm delay) values need the M-2 timer table, same as the orient doc's timer-base question.
 5. **30TS*2 (M406)** branches suggest the 30-tool magazine uses doubled logic on A/B chains — irrelevant for this machine if it's a 20/24-pot, but confirm magazine size before hardcoding D16.
