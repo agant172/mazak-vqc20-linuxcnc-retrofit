@@ -25,7 +25,7 @@ FLOOD_VALVE,,,,7i84U-B TB3 OUT7,label — to fill
 GEAR_HI_SOL,,,,7i84U-A TB3 OUT7,label — to fill
 GEAR_LO_SOL,,,,7i84U-A TB2 OUT8,label — to fill
 HYD_PRESS_OK,,,,7i84U-A TB2 IN27,label — to fill
-HYD_PUMP_ON,,,,7i84U-A TB3 OUT3,label — to fill
+HYD_PUMP_ON,CN11-16,235,SSR bd CN11-16,7i84U-A TB3 OUT3,BBIA-1 terminal-unit CN11 pin16 (dwg 4113075022 sheet 85 / 41434WB p85) read 2026-08-10 — see wiring/bbia1_cn_pinouts.csv; NOT the SSR-board's own CN11 (see CN11-SSR)
 MAG_IN_POS,CND2-9,225,CN2-9,7i84U-A TB2 IN28,BBIA-1 board pinout (trusted over pg135)
 MANUAL_TOOL_CLAMP_PB,,,,7i84U-A TB2 IN30,label — to fill
 SERVO_READY,,,,7i84U-A TB2 IN31,label — to fill

@@ -6,7 +6,7 @@ window.MAZAK_DATA = {
   "machine": "Mazak VQC-20/40",
   "serial": "060231",
   "architecture": "LinuxCNC + Mesa 7i80HDT (Ethernet FPGA host) + 7i44 on P1 (HostMot2 sserial port 0 channels 0/1 to 7i84U-A/B) + 7i49 on P2 (resolver + analog outs); P3 unused/spare",
-  "generated": "2026-08-10 17:40 UTC",
+  "generated": "2026-08-10 18:24 UTC",
   "source_repo": "mazak-vqc20-linuxcnc-retrofit",
   "authority_file": "mesa/current_pin_authority.csv",
   "epson_ferrule_file": "wiring/labels/bbia1_mesa_end_ferrules_epson.csv",
@@ -5240,10 +5240,10 @@ window.MAZAK_DATA = {
    ],
    "conflicts": [],
    "bb_source": {
-    "cnd_pin": "",
-    "wire": "",
-    "cn_pin": "",
-    "provenance": "label — to fill"
+    "cnd_pin": "CN11-16",
+    "wire": "235",
+    "cn_pin": "SSR bd CN11-16",
+    "provenance": "BBIA-1 terminal-unit CN11 pin16 (dwg 4113075022 sheet 85 / 41434WB p85) read 2026-08-10 — see wiring/bbia1_cn_pinouts.csv; NOT the SSR-board's own CN11 (see CN11-SSR)"
    },
    "authority_line": 60
   },
