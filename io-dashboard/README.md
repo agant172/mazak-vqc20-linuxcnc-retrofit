@@ -105,6 +105,39 @@ The service is safe to start before LinuxCNC: until HAL is up, `/api/io` reports
 offline and the app stays in planning mode, then live poll begins working the
 moment LinuxCNC starts — no restart needed.
 
+### Reach it from your phone (different subnet / cellular)
+
+Whether a phone can open the dashboard depends on the network path to the
+LinuxCNC host, not on the app — it is just a web page on port `8765`.
+
+**Same router, different subnet** (e.g. the wired shop LAN vs. your normal
+Wi-Fi, where the router routes between them): no extra setup. Make sure the
+bridge is bound to `0.0.0.0` (the systemd unit already is; or run
+`python3 serve_live.py --host 0.0.0.0`), find the host's shop-LAN address with
+`ip -4 addr` on the host (its *LAN* IP, not the `192.168.1.121` Mesa-NIC
+address), and browse to `http://<host-LAN-IP>:8765/`.
+
+**Isolated subnet or off-site** (guest Wi-Fi, a separate VLAN with no
+inter-routing, or the phone on **cellular**): plain LAN can't reach it — use
+**Tailscale**, which the boot service above is already built for. It gives the
+phone a bookmark that works from any network without opening a single firewall
+port:
+
+1. Set up the host once, as in section 3 (install Tailscale, `sudo tailscale up`,
+   enable the `mazak-io-navigator` service).
+2. On the phone: install the **Tailscale** app and sign in to the **same
+   tailnet** (same account) as the host.
+3. Open `http://<host-tailscale-name>:8765/` — e.g. `http://mazak:8765/` with
+   MagicDNS, or `http://100.x.y.z:8765/`. Add it to your home screen for a
+   one-tap bookmark, then press **Live poll** in the header.
+
+**Do not port-forward `8765` to the internet.** The bridge is read-only (it only
+runs `halcmd -s show sig` and refuses writes), but a machine tool has no business
+exposed on a public port. Tailscale needs no open ports and gates access with
+your tailnet ACLs; to keep the dashboard off the shop LAN entirely, bind the
+host's `100.x.y.z` Tailscale IP instead of `0.0.0.0` (see the comment in the
+unit file).
+
 ---
 
 ## Using it
