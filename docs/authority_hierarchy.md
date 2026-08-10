@@ -88,6 +88,15 @@ that mechanically enforces it.
 - `primary_source` — where this row's claim came from
 - `cleanup_notes` — TODOs, polarity assumptions, promotion criteria
 
+`FACTORY_LINK` and `FACTORY_INTERFACE` are final authority states, not
+incomplete field-verification states. A `FACTORY_LINK` is accepted by checking
+the supplied assembly, connector keying/orientation, seating, strain relief,
+and successful Mesa enumeration; do not continuity-probe or re-terminate its
+individual conductors. A `FACTORY_INTERFACE` finalizes an OEM interface
+identity from authoritative factory documentation without claiming that the
+whole machine function has been commissioned. `UNBOUND` is treated as the
+legacy equivalent of `DEFERRED`.
+
 **Does not own.** HAL logic. Joint routing. Input polarity choice (raw vs `-not` complement pin, per [sserial(9)](https://linuxcnc.org/docs/html/man/man9/sserial.9.html)).
 Prose. The CSV is the pin-to-signal map, not the control program.
 

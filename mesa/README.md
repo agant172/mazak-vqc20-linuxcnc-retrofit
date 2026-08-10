@@ -17,6 +17,17 @@ energized until the conflict register and cabinet trace are complete. The
 validator enforces this: any active HAL `net` binding on a `HOLD_CONFLICT`
 pin is a hard error.
 
+`FACTORY_LINK` and `FACTORY_INTERFACE` are final authority states.
+`FACTORY_LINK` applies to supplied Mesa interconnects: inspect the correct
+assembly, connector orientation/keying, seating, strain relief, and visible
+condition, then verify the expected cards enumerate without communication or
+watchdog faults. Do not continuity-audit or re-terminate individual conductors.
+The physical path must still distinguish the **7i80HDT P1 to 7i44 Mesa 50-pin
+IDC cable** from the **7i44 to 7i84U CAT5 smart-serial cable**. A
+`FACTORY_INTERFACE` row records a final OEM interface identity from factory
+documentation; it does not replace powered commissioning or safety acceptance.
+`UNBOUND` is the legacy equivalent of `DEFERRED`.
+
 Use `current_pin_authority.csv` as the current pin-planning source for the Mazak
 VQC 20/40 retrofit. Evidence-state taxonomy defined in
 [`../docs/pre_power_deliverables.md`](../docs/pre_power_deliverables.md).
