@@ -48,13 +48,22 @@ Built from printed title blocks actually read; these are reliable anchors.
 | p087 | 4143075324 | Detail Diagram — MS Connector Connection | CA1–CA7 pinouts; EMB/EMC on CA4 a/b |
 | p088 | 4143075329 | Details of MS Connector Mount Board | connector mechanical layout |
 | p090 | 4143075301 | Front Side View Components Layout (2) | device/wire map; E-stop PB-3B; spindle enc MS3108B 20-29P |
+| p128 | 4143075404 | Servo Drive (sheet 1/3) | **axis resolver wiring**: RT-5XA-11 windings RS1/RS2/RC1/RC2/R01/R02 + tacho TG1/TG2 on CNA3(X)/CNA4(Y)/CNA5(Z) → TRA-31/41 amps. Key for `resolver_commissioning.md`. ⚠ labels X-axis motor **HD-81** vs photo-confirmed HD-101 in `servo_amp_analysis.md` — reconcile |
+| p130 | 4143075404A | Servo & Magnescale Connection (OP, sheet 3/3) | Z-axis servo + **Magnescale option (SR-721RH) — NOT fitted** (confirms servo_amp_analysis) |
+| p131 | 4143075405 | Motor Control | aux-motor starters: hydraulic pump (HPMS), head-oil/flood-coolant/chip-conveyor, cabinet fans, way-lube, tap-coolant, main-transformer OHT; 100 VAC + SSR loads |
 
 ## Spindle (FR-SX) subsystem — where it lives in the set
 
 The Mitsubishi **FREQROL FR-SX** spindle drive is documented across several
 sheets — there is **no single "FR-SX terminal detail" sheet** in 41434WB (the
 drive's own SX-AJ / SX-IO1 / SPOR pin numbers come from the Mitsubishi FR-SX
-manual, not this set). What this OEM set gives:
+manual, not this set). **Confirmed 2026-08-10:** the `orient_ladder_transcription.md`
+open-question pointer to "electrical schematics pp.127-130" for the FR-SX
+ORCM1/CTL/SSET/ORA1/SZS terminals is wrong — PDF pp.128/130/131 are the **axis
+servo drive** (4143075404), **Magnescale option** (not fitted), and **aux motor
+control** (4143075405), not the spindle. So the FR-SX terminal identification is a
+**commissioning / Mitsubishi-manual** item, not something this OEM set provides.
+What this set gives for the spindle:
 
 | PDF page | Drawing # | FR-SX / spindle content |
 |---|---|---|
