@@ -37,24 +37,28 @@ net atc-z-zone         <= hm2_7i80.0.7i84.0.0.input-01   # IN1  PRS-66 Z ATC zon
 # manual-unclamp-pb). Do NOT re-net them here.
 net thermal-alarm      <= hm2_7i80.0.7i84.0.0.input-08   # IN8  X073 THR.M + X07B ONT.M series NC
 
-# --- IN10..IN15  (drive faults + spindle + tool clamp, TB3 pins 11-16) ---
+# --- IN10, IN11/IN12 spare, IN13..IN15  (servo/spindle/tool clamp, TB3 pins 11-16) ---
 # amp-fault-in: if TRUE, motion module immediately aborts and enters E-stop.
 # CAUTION: confirm input polarity before enabling. The Mitsubishi HD81/HD101 ALM
 # output is BELIEVED to be open-collector-active-low (fault = low/open), so
-# consuming '-not' on these inputs would present logic 1 to joint.N.amp-fault-in
-# on a fault. Do NOT use a nonexistent invert_input parameter - see the input-
-# polarity note above the limit block.
+# consuming '-not' on the combined servo-alarm input would present logic 1 to
+# joint.N.amp-fault-in on a fault. Do NOT use a nonexistent invert_input
+# parameter - see the input-polarity note above the limit block.
 # **UNVERIFIED** - no primary Mitsubishi manual for HD81/HD101 is in this repo;
 # the polarity assumption comes from a PCW forum discussion, not manufacturer
 # documentation. Bench-verify the actual ALM contact behavior against the amp
 # BEFORE these inputs are wired into the safety chain. See
 # docs/superseded_claims_2026-08-06.md #16.
-net x-drive-fault      <= hm2_7i80.0.7i84.0.0.input-10   # IN10 X drive ALM
-net x-drive-fault      => resolver-fault-x.in0
-net y-drive-fault      <= hm2_7i80.0.7i84.0.0.input-11   # IN11 Y drive ALM
-net y-drive-fault      => resolver-fault-y.in0
-net z-drive-fault      <= hm2_7i80.0.7i84.0.0.input-12   # IN12 Z drive ALM
-net z-drive-fault      => resolver-fault-z.in0
+# Owner decision 2026-08-11: the OEM servo-error output (SER, CN6-27) is a
+# SINGLE combined contact for all three axes, not one alarm per axis (only one
+# SER line exists on the 50-pin CN6). It is read on IN10 and fans out to every
+# axis's OR gate below, so any servo amp fault trips all three joints. IN11 and
+# IN12 are freed to spare. Each axis still ORs this shared alarm with its own
+# resolver fault before reaching that joint's amp-fault-in.
+net servo-fault        <= hm2_7i80.0.7i84.0.0.input-10   # IN10 CN6-27 SER combined servo ALM (all axes)
+net servo-fault        => resolver-fault-x.in0
+net servo-fault        => resolver-fault-y.in0
+net servo-fault        => resolver-fault-z.in0
 net x-axis-fault       <= resolver-fault-x.out
 net x-axis-fault       => joint.0.amp-fault-in
 net y-axis-fault       <= resolver-fault-y.out
