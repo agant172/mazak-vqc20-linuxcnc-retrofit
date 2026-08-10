@@ -48,7 +48,7 @@ Built from printed title blocks actually read; these are reliable anchors.
 | p087 | 4143075324 | Detail Diagram — MS Connector Connection | CA1–CA7 pinouts; EMB/EMC on CA4 a/b |
 | p088 | 4143075329 | Details of MS Connector Mount Board | connector mechanical layout |
 | p090 | 4143075301 | Front Side View Components Layout (2) | device/wire map; E-stop PB-3B; spindle enc MS3108B 20-29P |
-| p128 | 4143075404 | Servo Drive (sheet 1/3) | **axis resolver wiring**: RT-5XA-11 windings RS1/RS2/RC1/RC2/R01/R02 + tacho TG1/TG2 on CNA3(X)/CNA4(Y)/CNA5(Z) → TRA-31/41 amps. Key for `resolver_commissioning.md`. ⚠ labels X-axis motor **HD-81** vs photo-confirmed HD-101 in `servo_amp_analysis.md` — reconcile |
+| p128 | 4143075404 | Servo Drive (sheet 1/3) | **axis resolver wiring**: RT-5XA-11 windings RS1/RS2/RC1/RC2/R01/R02 + tacho TG1/TG2 (2V/1000rpm) on CNA3(X)/CNA4(Y)/CNA5(Z) → TRA-31/41 amps. Key for `resolver_commissioning.md`. **X-axis lists BOTH build options — A-type `HD-81-123-TTA`, B-type `HD-101-12-TTA`; this machine is the B-type (HD-101) per photos, so the schematic CONFIRMS `servo_amp_analysis` (X=HD-101, Y=HD-81-12S, Z=HD-101). No conflict.** |
 | p130 | 4143075404A | Servo & Magnescale Connection (OP, sheet 3/3) | Z-axis servo + **Magnescale option (SR-721RH) — NOT fitted** (confirms servo_amp_analysis) |
 | p131 | 4143075405 | Motor Control | aux-motor starters: hydraulic pump (HPMS), head-oil/flood-coolant/chip-conveyor, cabinet fans, way-lube, tap-coolant, main-transformer OHT; 100 VAC + SSR loads |
 
