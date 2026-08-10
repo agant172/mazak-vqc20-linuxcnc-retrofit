@@ -307,6 +307,8 @@ def build(root):
             "machine_subsystem": machine_sub,
             "status": status,
             "field_point": r["field_point_or_load"],
+            "dest_connector": (r.get("dest_connector") or "").strip(),
+            "dest_pin": (r.get("dest_pin") or "").strip(),
             "designations": designations(r["field_point_or_load"] + " " + loc_note),
             "primary_source": r["primary_source"],
             "cleanup_notes": r["cleanup_notes"],
