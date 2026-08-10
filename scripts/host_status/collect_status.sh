@@ -82,7 +82,7 @@ fi
 # mesaflash readhmid (short) — only if not colliding with a running LinuxCNC
 MESA_HMID=""
 if [[ "$LCNC_RUNNING" == "no" ]] && have mesaflash; then
-    MESA_HMID=$(timeout 5 mesaflash --device 7i97 --addr "$MESA_IP" --readhmid 2>&1 | head -20 || true)
+    MESA_HMID=$(timeout 5 mesaflash --device 7i80hdt --addr "$MESA_IP" --readhmid 2>&1 | head -20 || true)
 fi
 
 # Real-time latency probe — read latest journal line from latency-test if any,

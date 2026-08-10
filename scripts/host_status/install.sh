@@ -10,7 +10,7 @@
 # Environment overrides (optional):
 #   MAZAK_USER       user that will run the reporter    (default: andy)
 #   MAZAK_REPO_DIR   path to this repo on the host      (default: repo where script lives)
-#   MAZAK_MESA_IP    Mesa 7i97T IP                      (default: 192.168.1.121)
+#   MAZAK_MESA_IP    Mesa 7i80HDT IP                    (default: 192.168.1.121)
 
 set -euo pipefail
 
