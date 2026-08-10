@@ -67,6 +67,7 @@ CSV_PATH = REPO_ROOT / "mesa" / "current_pin_authority.csv"
 HAL_DIR = REPO_ROOT / "linuxcnc"
 CAPACITY_DOC = REPO_ROOT / "docs" / "io_capacity_reconciliation.md"
 LEGEND_PATH = REPO_ROOT / "wiring" / "labels" / "7i84u_b_terminal_legend_epson.csv"
+SOURCE_DEST_PATH = REPO_ROOT / "wiring" / "bbia1_source_dest.csv"
 
 POWER_MAP = {
     "7i84U-A": {
@@ -722,6 +723,82 @@ def cross_check(
 # Main.
 # ----------------------------------------------------------------------
 
+def check_bbia_plane(rows: list[dict]) -> list[Finding]:
+    """Report BBIA-1 plane completeness (INTERFACE_ARCHITECTURE.md).
+
+    Every control<->machine signal crosses at the BBIA-1 plane except the
+    enumerated exceptions. This check is advisory (WARN only, never ERROR, so
+    it cannot break CI): it surfaces the work still to do, not a defect.
+
+      - Consistency: a row that carries a factory_wire should also carry a
+        BBIA connector+pin (dest_connector/dest_pin), and vice versa.
+      - Coverage: a factory discrete signal (7i84U IN/OUT with a FACTORY_*
+        authority_status) that has no BBIA end AND is not accounted for in
+        wiring/bbia1_source_dest.csv (neither a plane pin nor a recorded
+        exception) still needs a BBIA trace or an exception classification.
+
+    The BBIA pin data itself comes from bbia1_source_dest.csv via
+    scripts/consolidate_bbia_authority.py; this check never invents it.
+    """
+    findings: list[Finding] = []
+
+    # signal_ids that bbia1_source_dest.csv has already reasoned about -- either
+    # mapped to a plane pin or explicitly recorded as an exception ("N/A ...",
+    # "NOT LOCATED", "NOT INDIVIDUALLY LOCATED", "AMBIGUOUS", "CANDIDATE" ...).
+    accounted: set[str] = set()
+    if SOURCE_DEST_PATH.exists():
+        with SOURCE_DEST_PATH.open(newline="") as fh:
+            accounted = {r["signal_id"] for r in csv.DictReader(fh)}
+
+    mapped = 0
+    untraced: list[str] = []
+    for lineno, row in enumerate(rows, start=2):
+        sid = (row.get("signal_id") or "").strip()
+        conn = (row.get("dest_connector") or "").strip()
+        pin = (row.get("dest_pin") or "").strip()
+        wire = (row.get("factory_wire") or "").strip()
+        # A BBIA-1 plane row is one whose dest_connector is a CN* connector.
+        # dest_connector is also used pre-existingly for non-plane far ends
+        # (TB* field power, RJ45 sserial, "OEM ..."); those are not policed here.
+        has_bbia = bool(conn) and conn.upper().startswith("CN")
+
+        # Consistency: wire present but no BBIA pin, or a BBIA connector with no pin.
+        if wire and not conn:
+            findings.append(Finding(
+                "WARN", f"{CSV_PATH.name}:{lineno}",
+                f"{sid} has factory_wire '{wire}' but no dest_connector; "
+                f"re-run scripts/consolidate_bbia_authority.py."))
+        if has_bbia and not pin:
+            findings.append(Finding(
+                "WARN", f"{CSV_PATH.name}:{lineno}",
+                f"{sid} has BBIA connector '{conn}' but no dest_pin."))
+
+        if has_bbia:
+            mapped += 1
+            continue
+
+        # Coverage: factory discrete signals with no plane pin that source_dest
+        # has never reasoned about.
+        is_factory_discrete = (
+            (row.get("mesa_card") or "").startswith("7i84U")
+            and (row.get("direction") or "").strip() in {"IN", "OUT"}
+            and (row.get("authority_status") or "").strip() in {"FACTORY_LINK", "FACTORY_INTERFACE"}
+        )
+        if is_factory_discrete and sid not in accounted:
+            untraced.append(sid)
+
+    for sid in untraced:
+        findings.append(Finding(
+            "WARN", CSV_PATH.name,
+            f"{sid}: factory discrete signal not yet mapped to a BBIA-1 pin and "
+            f"not recorded in bbia1_source_dest.csv — trace its plane pin or "
+            f"record it as an exception (INTERFACE_ARCHITECTURE.md)."))
+
+    print(f"BBIA-1 plane:          {mapped} rows mapped to a connector/pin; "
+          f"{len(untraced)} factory signal(s) still to trace")
+    return findings
+
+
 def main() -> int:
     csv_by_pin, all_rows = load_csv()
     hal_pins, parse_findings = parse_hal_files()
@@ -734,6 +811,7 @@ def main() -> int:
         + check_7i49_motion_bindings(all_rows)
         + check_capacity_and_legend(all_rows)
         + check_generated_label_csvs()
+        + check_bbia_plane(all_rows)
     )
 
     errors = [f for f in findings if f.level == "ERROR"]
