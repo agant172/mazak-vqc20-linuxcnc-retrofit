@@ -73,12 +73,24 @@ manual, not this set). What this OEM set gives:
 
 ## Control Circuit (ladder) diagram block
 
-The Control Circuit (ladder) diagrams form a **91-sheet block** — PDF p194 is
-its "Sheet 22 of 91" (M43/44/45 code + table clamp/unclamp rungs). So the block
-starts **≈ PDF p173**. The hardwired/ladder **E-stop power-on sequence** is
-normally in the first few sheets → look **≈ p173-p177** (consistent with OCR
-`EMG` hits at p170/p177). This is the best lead for the still-un-located E-stop
-control circuit.
+The Control Circuit (ladder) diagrams form a **91-sheet block** starting **≈ PDF
+p173** (p194 = "Sheet 22 of 91", M43/44/45 + table clamp/unclamp rungs).
+
+**Internal structure (checked p173-177):** the block **opens with ladder
+element-list / cross-reference sheets** (`*** [X] ELEMENT LIST ***`), not rungs —
+p173 lists X121-X160 (S/T/B strobes, M-code BCD, spindle stop), p177 lists
+X0CE-X0E3 (mode-select / cycle-start / spindle PBs). The rungs follow these
+lists. **Address-space trap:** on p177 `X000 = CAUT.B` (Auto Mode Select PB) — a
+*different* element list from the machine-I/O one where `X000 = ESP.M` (E-stop),
+so an OCR `EMG` hit in this region is **not** a reliable E-stop marker (the
+p173-177 scan found no E-stop rung).
+
+**Better path to the E-stop LADDER logic than sampling this block:** use the
+repo's `YM2V39L` element list (`archive/crosswalk/element_dashboard_crosswalk.csv`
+— `ESP.M`/X000 with its `cross_ref` rung numbers) to jump straight to the E-stop
+rungs in `YM2V39L.pdf` (the dedicated 95-page Ladder Diagrams). The **hardwired
+contactor-drop** E-stop circuit (separate from PLC logic) stays a power-section /
+D5 field-trace item.
 
 ## Still un-located
 
