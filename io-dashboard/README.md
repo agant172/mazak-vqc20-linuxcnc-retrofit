@@ -176,8 +176,9 @@ Expected states come from explicit repo evidence, and every value carries its ba
 | `wiring/labels/bbia1_mesa_end_ferrules_epson.csv` | Draft short Epson codes for conservative BBIA cut-wire matches; release status is preserved. |
 | `mesa/signal_map.csv` | **Stale.** Surfaced only as "do not use" context in the detail panel. |
 
-Current snapshot: **132 rows**, all from the authority, with 6 registered conflicts,
-0 HAL-only orphan nets, and 0 authority nets missing from HAL.
+Current snapshot: **132 rows**, all from the authority, with 4 registered conflicts,
+0 HAL-only orphan nets, and 1 authority net missing from HAL (`work-light`, planned but not yet
+wired — see `tools/generate_data.py` output for the live count).
 
 ---
 

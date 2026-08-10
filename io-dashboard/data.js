@@ -6,7 +6,7 @@ window.MAZAK_DATA = {
   "machine": "Mazak VQC-20/40",
   "serial": "060231",
   "architecture": "LinuxCNC + Mesa 7i80HDT (Ethernet FPGA host) + 7i44 on P1 (HostMot2 sserial port 0 channels 0/1 to 7i84U-A/B) + 7i49 on P2 (resolver + analog outs); P3 unused/spare",
-  "generated": "2026-08-10 00:25 UTC",
+  "generated": "2026-08-10 04:36 UTC",
   "source_repo": "mazak-vqc20-linuxcnc-retrofit",
   "authority_file": "mesa/current_pin_authority.csv",
   "epson_ferrule_file": "wiring/labels/bbia1_mesa_end_ferrules_epson.csv",
@@ -9651,27 +9651,29 @@ window.MAZAK_DATA = {
    "authority_line": 121
   },
   {
-   "id": "SEVENI84UB_OUT9_SPARE",
-   "name": "Seveni84Ub Out9 Spare",
+   "id": "WORK_LIGHT",
+   "name": "Work Light",
    "board": "7i84U-B",
    "connector": "TB2",
    "channel": "OUT9",
-   "hal_net": "",
+   "hal_net": "work-light",
    "direction": "OUT",
    "direction_label": "Output (digital)",
-   "subsystem": "Spare",
-   "machine_subsystem": "Spare",
-   "status": "SPARE",
-   "field_point": "Spare output on 7i84U-B",
-   "designations": [],
-   "primary_source": "mesa_firmware_checklist.md",
-   "cleanup_notes": "Leave unlanded",
-   "location": "Field I/O enclosure - 7i84U-B TB2, unlanded",
+   "subsystem": "Utility",
+   "machine_subsystem": "Utility",
+   "status": "PROPOSED",
+   "field_point": "Work light via RLY-8 (interposing relay for 100VAC coil); OEM CN6 pin 8 wire WL (wire no. 3-34)",
+   "designations": [
+    "RLY-8"
+   ],
+   "primary_source": "wiring/bbia1_cn_pinouts.md",
+   "cleanup_notes": "Reassigned from SEVENI84UB_OUT9_SPARE 2026-08-09 | [CONFIRM 2026-08-09: 100VAC lamp confirmed by Andy - requires interposing relay RLY-8; same topology as RLY-5/6/7 (AIR_BLAST/TOUCH_SENSOR_BLAST/TAP_COOLANT_BLAST)] | Relay coil rating and CB-panel landing point not yet verified",
+   "location": "Unknown — trace in cabinet",
    "location_note": "",
    "expected": {
     "value": "0",
-    "label": "0 — spare channel, no field wiring",
-    "basis": "Marked SPARE in current_pin_authority.csv",
+    "label": "0 / de-energized — output idle unless commanded",
+    "basis": "No commanding logic in the active HAL for this net; outputs default off.",
     "kind": "default-off"
    },
    "hal_state": "absent",
@@ -9688,7 +9690,7 @@ window.MAZAK_DATA = {
      "note": "Current wiring authority row"
     },
     {
-     "file": "mesa_firmware_checklist.md",
+     "file": "wiring/bbia1_cn_pinouts.md",
      "lines": "",
      "note": "primary_source column in the authority table"
     }
@@ -10384,5 +10386,7 @@ window.MAZAK_DATA = {
   "none"
  ],
  "orphan_nets": [],
- "missing_from_hal": []
+ "missing_from_hal": [
+  "WORK_LIGHT"
+ ]
 };

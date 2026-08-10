@@ -1,0 +1,99 @@
+/* ==========================================================================
+   Project status & hardware workspace
+   ========================================================================== */
+
+/* In project mode the signal toolbar, chips, view intro and board nav are
+   irrelevant; the Authority rules block in the sidebar stays. */
+body[data-workspace="project"] .toolbar,
+body[data-workspace="project"] .chips-row,
+body[data-workspace="project"] #view-intro,
+body[data-workspace="project"] .side-block:not(.side-block-foot) { display: none; }
+
+.project-view { display: grid; gap: 28px; padding: 4px 2px 40px; }
+
+.project-view .pv-head h2 {
+  margin: 0 0 6px;
+  font-size: 17px;
+  letter-spacing: .02em;
+}
+.project-view h3 {
+  margin: 0 0 10px;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  color: var(--text-2);
+}
+.pv-meta { margin: 0; color: var(--text-3); font-size: 12.5px; max-width: 90ch; }
+
+/* tiles */
+.pv-tiles { display: flex; flex-wrap: wrap; gap: 12px; }
+.pv-tile {
+  display: flex; flex-direction: column; gap: 2px;
+  background: var(--panel); border: 1px solid var(--line);
+  border-radius: var(--r); padding: 12px 18px; min-width: 130px;
+}
+.pv-tile-value { font-size: 24px; font-family: var(--font-mono); color: var(--text); }
+.pv-tile-label { font-size: 11.5px; color: var(--text-3); text-transform: uppercase; letter-spacing: .06em; }
+.pv-tile-bad .pv-tile-value { color: var(--amber); }
+.pv-tile-good .pv-tile-value { color: var(--green); }
+
+/* status breakdown */
+.pv-breakdown {
+  display: grid; gap: 6px; max-width: 640px;
+  background: var(--panel); border: 1px solid var(--line);
+  border-radius: var(--r); padding: 14px 16px;
+}
+.pv-bd-row { display: grid; grid-template-columns: 190px 44px 1fr; gap: 10px; align-items: center; }
+.pv-bd-count { font-family: var(--font-mono); font-size: 12.5px; color: var(--text-2); text-align: right; }
+.pv-bd-bar { height: 6px; background: var(--panel-3); border-radius: 3px; overflow: hidden; }
+.pv-bd-fill { display: block; height: 100%; background: var(--steel); }
+
+/* chips */
+.pv-chip {
+  display: inline-block; padding: 1px 8px; border-radius: 999px;
+  font-family: var(--font-mono); font-size: 11px; letter-spacing: .03em;
+  border: 1px solid var(--line-2); color: var(--text-2); background: var(--panel-2);
+  white-space: nowrap;
+}
+.pv-good   { color: var(--green);  border-color: var(--green);  background: var(--green-dim); }
+.pv-bad    { color: var(--red);    border-color: var(--red);    background: var(--red-dim); }
+.pv-amber  { color: var(--amber);  border-color: var(--amber);  background: var(--amber-dim); }
+.pv-accent { color: var(--accent); border-color: var(--accent); background: var(--accent-dim); }
+.pv-steel  { color: var(--steel);  border-color: var(--steel);  background: var(--steel-dim); }
+
+/* milestones / pending columns */
+.pv-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; align-items: start; }
+.pv-col {
+  background: var(--panel); border: 1px solid var(--line);
+  border-radius: var(--r); padding: 16px 18px;
+}
+.pv-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+.pv-item { display: grid; gap: 3px; border-left: 3px solid var(--line-2); padding-left: 12px; }
+.pv-item-open { border-left-color: var(--amber); }
+.pv-date { font-family: var(--font-mono); font-size: 11.5px; color: var(--accent); }
+.pv-text { font-size: 13px; color: var(--text); }
+.pv-ref  { font-family: var(--font-mono); font-size: 11px; color: var(--text-3); }
+
+/* hardware table */
+.pv-table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: var(--r); }
+.pv-table { width: 100%; border-collapse: collapse; background: var(--panel); font-size: 13px; }
+.pv-table th {
+  text-align: left; padding: 9px 12px; font-size: 11px; text-transform: uppercase;
+  letter-spacing: .07em; color: var(--text-3); background: var(--panel-2);
+  border-bottom: 1px solid var(--line-2); white-space: nowrap;
+}
+.pv-table td { padding: 8px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+.pv-table tbody tr:hover { background: var(--row-hover); }
+.pv-group { font-size: 11.5px; text-transform: uppercase; letter-spacing: .06em; color: var(--text-3); white-space: nowrap; }
+.pv-item-name { font-weight: 600; color: var(--text); white-space: nowrap; }
+.pv-detail { color: var(--text-2); max-width: 52ch; }
+
+@media (max-width: 900px) {
+  .pv-cols { grid-template-columns: 1fr; }
+  .pv-bd-row { grid-template-columns: 140px 40px 1fr; }
+}
+
+@media print {
+  body[data-workspace="project"] .app-header .header-actions,
+  body[data-workspace="project"] .sidebar { display: none; }
+}

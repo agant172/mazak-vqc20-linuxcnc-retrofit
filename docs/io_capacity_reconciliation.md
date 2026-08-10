@@ -19,14 +19,15 @@ card. Source: [Mesa 7i84U manual](https://www.mesanet.com/pdf/parallel/7i84uman.
 | Card | Required DI | Required DO | Capacity | Reserve |
 |---|---:|---:|---:|---:|
 | 7i84U-A | 32 | 16 | 32 DI / 16 DO | 0 DI / 0 DO |
-| 7i84U-B | 11 | 9 | 32 DI / 16 DO | 21 DI / 7 DO |
-| **Total** | **43** | **25** | **64 DI / 32 DO** | **21 DI / 7 DO** |
+| 7i84U-B | 11 | 10 | 32 DI / 16 DO | 21 DI / 6 DO |
+| **Total** | **43** | **26** | **64 DI / 32 DO** | **21 DI / 6 DO** |
 
-The B-card count includes the two channels absent from the earlier
+The B-card count includes the three channels absent from the earlier
 calculation:
 
 - `IN9` — `AIR_OK`, fail-inhibited ATC pressure permissive.
 - `OUT8` — `MAG_COVER_CLOSE_SOL`, proposed single-coil cover command.
+- `OUT9` — `WORK_LIGHT`, proposed 100VAC work light via interposing relay RLY-8.
 
 The former `43 DI + 25 DO` text reached the same numbers incorrectly by
 counting aggregate spare-range rows as occupied channels. Those aggregate

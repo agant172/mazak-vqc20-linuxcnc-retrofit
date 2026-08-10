@@ -172,7 +172,13 @@
     if (/interposing relay/i.test(all)) return { main: 'Interposing relay', sub: 'Designation and terminals not yet recorded', unknown: true };
     if (s.direction === 'RESOLVER_IN') return { main: '3 shielded twisted pairs', sub: 'RESDRV / RESSIN / RESCOS; cable ID not yet recorded', unknown: true };
     if (s.direction === 'ANALOG_OUT') return { main: 'Shielded analog command pair', sub: 'Conductor and drive-terminal IDs not yet recorded', unknown: true };
-    if (s.direction === 'LINK') return { main: 'RS-422 smart-serial link', sub: 'Cable identity to be recorded during checkout', unknown: true };
+    if (s.direction === 'LINK') {
+      if (s.status === 'FACTORY_LINK') {
+        return { main: 'RS-422 smart-serial link — factory cable', sub: s.location_note ||
+          'Factory-terminated point-to-point plug-in cable; no field wire number to record — verified by sserial enumeration at LinuxCNC startup.', unknown: false };
+      }
+      return { main: 'RS-422 smart-serial link', sub: 'Cable identity to be recorded during checkout', unknown: true };
+    }
     if (s.direction === 'POWER') return { main: 'Protected power conductor', sub: 'Fuse and wire number not yet recorded', unknown: true };
     return { main: 'Field conductor / interface', sub: 'Wire number and intermediate terminals not yet recorded', unknown: true };
   }
@@ -415,27 +421,41 @@
     document.body.dataset.workspace = mode;
     $('btn-workspace-io').setAttribute('aria-pressed', mode === 'io' ? 'true' : 'false');
     $('btn-workspace-wiring').setAttribute('aria-pressed', mode === 'wiring' ? 'true' : 'false');
+    var projBtn = $('btn-workspace-project');
+    if (projBtn) projBtn.setAttribute('aria-pressed', mode === 'project' ? 'true' : 'false');
     $('commissioning-view').hidden = mode !== 'wiring';
     $('commissioning-actions').hidden = mode !== 'wiring';
     $('fl-layer').hidden = mode !== 'wiring';
-    $('table-wrap').hidden = mode === 'wiring';
-    $('btn-export').hidden = mode === 'wiring';
-    $('workspace-title').textContent = 'Mazak VQC-20/40 · ' + (mode === 'wiring' ? 'Commissioning Wiring' : 'I/O Navigator');
+    $('table-wrap').hidden = mode !== 'io';
+    $('btn-export').hidden = mode !== 'io';
+    var projView = $('project-view');
+    if (projView) projView.hidden = mode !== 'project';
+    $('workspace-title').textContent = 'Mazak VQC-20/40 · ' +
+      (mode === 'wiring' ? 'Commissioning Wiring' : mode === 'project' ? 'Project Status & Hardware' : 'I/O Navigator');
     APP.closeDrawer();
     APP.render();
-    if (mode === 'io' && /^#wiring=/.test(location.hash)) {
+    if (mode !== 'wiring' && /^#wiring=/.test(location.hash)) {
+      try { history.replaceState(null, '', location.pathname + location.search); } catch (e) {}
+    }
+    if (mode === 'project') {
+      try { history.replaceState(null, '', '#project'); } catch (e) {}
+    } else if (location.hash === '#project') {
       try { history.replaceState(null, '', location.pathname + location.search); } catch (e) {}
     }
   }
 
   function render(rows) {
-    var wiring = APP.state.mode === 'wiring';
+    var mode = APP.state.mode;
+    var wiring = mode === 'wiring';
     $('commissioning-view').hidden = !wiring;
     $('commissioning-actions').hidden = !wiring;
     $('fl-layer').hidden = !wiring;
-    $('table-wrap').hidden = wiring;
-    $('btn-export').hidden = wiring;
-    if (wiring) $('conflict-view').hidden = true;
+    $('table-wrap').hidden = mode !== 'io';
+    $('btn-export').hidden = mode !== 'io';
+    var projView = $('project-view');
+    if (projView) projView.hidden = mode !== 'project';
+    if (mode !== 'io') $('conflict-view').hidden = true;
+    if (mode === 'project' && window.MAZAK_PROJECT_VIEW) window.MAZAK_PROJECT_VIEW.render();
     if (!wiring) return;
     $('f-layer').value = APP.state.layer;
     renderList(rows);
@@ -498,6 +518,7 @@
 
   $('btn-workspace-io').addEventListener('click', function () { setMode('io'); });
   $('btn-workspace-wiring').addEventListener('click', function () { setMode('wiring'); });
+  if ($('btn-workspace-project')) $('btn-workspace-project').addEventListener('click', function () { setMode('project'); });
   $('f-layer').addEventListener('change', function () {
     APP.state.layer = this.value;
     var explanations = {
@@ -523,5 +544,6 @@
 
   var deep = location.hash.match(/wiring=([A-Za-z0-9_]+)/);
   if (deep && APP.signalsById[deep[1]]) { selected = deep[1]; setMode('wiring'); }
+  else if (location.hash === '#project') setMode('project');
   else render(APP.sortedFiltered());
 })();
