@@ -33,6 +33,7 @@ This file is the authoritative brief. In addition, consult:
 
 | Read | Why |
 |---|---|
+| **`INTERFACE_ARCHITECTURE.md`** | The single machine-interface plane (BBIA-1) — the root decision governing how the wiring CSV and I/O Navigator are structured. Read before touching the pin authority or wiring crosswalks. |
 | **`docs/project_status.md`** | Current state, TODO priorities, and the D1–D16 pre-power deliverables gating live power. |
 | **`docs/authority_hierarchy.md`** | Which file wins when two disagree, and the script that enforces it. |
 | **`mesa/current_pin_authority.csv`** | Electrical channel authority — one row per physical Mesa pin. The source of truth for pin/HAL bindings. |
@@ -105,6 +106,27 @@ Intended 7i49 allocation:
 Do not assume any Mesa connector, firmware, assignment, resolver ratio,
 carrier frequency, or HAL pin name is correct until verified against the
 applicable manual, installed firmware, and current pin-authority document.
+
+---
+
+## The single machine-interface plane (BBIA-1)
+
+The original NC talked to the machine through **one board, BBIA-1** — a straight
+pass-through terminal unit that was the NC back panel's breakout. The retrofit
+reproduces this exactly: LinuxCNC → 7i80HDT (Ethernet) → 7i44/7i49 (50-pin IDC) →
+7i84U-A/B (smart-serial) → **Mesa screw terminals** → cut & ferruled **MR cables** →
+**BBIA-1** → unchanged OEM harness → machine.
+
+**Single-plane rule:** every control↔machine signal crosses at the BBIA-1 connector
+plane. One physical conductor across that plane = one row in the I/O model, keyed on
+the **factory wire number** printed on the jacket. The machine-internal side is fixed
+OEM reference (`wiring/bbia1_cn_pinouts.csv`) — do not re-derive it; the retrofit owns
+and verifies only the **BBIA↔Mesa hop**. The few things that do *not* cross at BBIA-1
+— the standalone OEM E-stop/contactor chain, the power/return feeds, and the
+still-to-trace analog/resolver and unlocated-limit signals — are enumerated in
+**`INTERFACE_ARCHITECTURE.md`**, which is authoritative for this model and for how the
+wiring CSV and I/O Navigator are structured. Read it before editing the pin authority
+or wiring crosswalks.
 
 ---
 
