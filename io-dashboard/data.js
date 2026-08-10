@@ -6,7 +6,7 @@ window.MAZAK_DATA = {
   "machine": "Mazak VQC-20/40",
   "serial": "060231",
   "architecture": "LinuxCNC + Mesa 7i80HDT (Ethernet FPGA host) + 7i44 on P1 (HostMot2 sserial port 0 channels 0/1 to 7i84U-A/B) + 7i49 on P2 (resolver + analog outs); P3 unused/spare",
-  "generated": "2026-08-10 19:13 UTC",
+  "generated": "2026-08-10 19:18 UTC",
   "source_repo": "mazak-vqc20-linuxcnc-retrofit",
   "authority_file": "mesa/current_pin_authority.csv",
   "epson_ferrule_file": "wiring/labels/bbia1_mesa_end_ferrules_epson.csv",
@@ -2839,10 +2839,10 @@ window.MAZAK_DATA = {
    ],
    "conflicts": [],
    "bb_source": {
-    "cnd_pin": "",
-    "wire": "",
-    "cn_pin": "",
-    "provenance": "NOT LOCATED 2026-08-10: X drive fault relay contact not identified among transcribed BBIA-1 CN1-CN6/CN11 pins - needs field trace at the MELDAS DK-427 drive fault relay"
+    "cnd_pin": "CN6-27",
+    "wire": "SER",
+    "cn_pin": "CN6-27",
+    "provenance": "RESOLVED 2026-08-10: BBIA-1 board pinout CN6-27 = wire mnemonic SER, function SERVO ERROR - exact label match. docs/servo_amp_analysis.md 3.3 confirms SERVO ALARM (SALM) lands at the terminal unit's CN6. IMPORTANT: CN6-27 appears to be a SINGLE combined alarm line, not one input per axis - only one SER entry exists on the 50-pin CN6, no X/Y/Z-specific alarm pins found. If that holds up, X/Y/Z_DRIVE_FAULT are the same physical signal and the 3-separate-input design (IN10/11/12) needs owner review before wiring"
    },
    "authority_line": 34
   },
@@ -2930,10 +2930,10 @@ window.MAZAK_DATA = {
    ],
    "conflicts": [],
    "bb_source": {
-    "cnd_pin": "",
-    "wire": "",
-    "cn_pin": "",
-    "provenance": "NOT LOCATED 2026-08-10: same finding as X_DRIVE_FAULT - needs field trace"
+    "cnd_pin": "CN6-27",
+    "wire": "SER",
+    "cn_pin": "CN6-27",
+    "provenance": "RESOLVED 2026-08-10: same finding as X_DRIVE_FAULT - CN6-27 (wire SER, SERVO ERROR) appears to be ONE combined alarm line for all three axes, not per-axis. See X_DRIVE_FAULT's note; owner review needed before wiring three separate 7i84U inputs to what may be a single physical signal"
    },
    "authority_line": 35
   },
@@ -3021,10 +3021,10 @@ window.MAZAK_DATA = {
    ],
    "conflicts": [],
    "bb_source": {
-    "cnd_pin": "",
-    "wire": "",
-    "cn_pin": "",
-    "provenance": "NOT LOCATED 2026-08-10: same finding as X/Y_DRIVE_FAULT - needs field trace"
+    "cnd_pin": "CN6-27",
+    "wire": "SER",
+    "cn_pin": "CN6-27",
+    "provenance": "RESOLVED 2026-08-10: same finding as X/Y_DRIVE_FAULT - CN6-27 (wire SER, SERVO ERROR) appears to be ONE combined alarm line for all three axes, not per-axis. See X_DRIVE_FAULT's note; owner review needed before wiring three separate 7i84U inputs to what may be a single physical signal"
    },
    "authority_line": 36
   },
@@ -4506,7 +4506,7 @@ window.MAZAK_DATA = {
     "cnd_pin": "",
     "wire": "",
     "cn_pin": "",
-    "provenance": "NOT LOCATED 2026-08-10: Sanwa SPS-8T-PC-20 pressure switch not identified among transcribed BBIA-1 CN1-CN6/CN11 pins by label or plausible wire# - needs field trace or a further schematic page"
+    "provenance": "NOT LOCATED 2026-08-10 (checked further): searched every mined ladder doc (docs/ladder/*.md) and the element crosswalk for a hydraulic pressure switch / PS- designator - the only pressure switch found anywhere is PS-5 (head-lube, already used for LUBE_OK). No hydraulic-pressure PLC input (X-address) surfaced. Possible this is a NEW sensor the retrofit is adding rather than a factory-existing signal - needs field trace or owner confirmation of whether Sanwa SPS-8T-PC-20 is already installed"
    },
    "authority_line": 51
   },
@@ -5698,7 +5698,7 @@ window.MAZAK_DATA = {
     "cnd_pin": "",
     "wire": "",
     "cn_pin": "",
-    "provenance": "NOT LOCATED 2026-08-10: N1J-L2-201 Z brake release (SOL-201) not identified among transcribed BBIA-1 CN1-CN6/CN11 pins - likely a dedicated brake circuit outside the 19-connector pass-through set (brakes may not have existed as an NC-controlled function on the original Mazatrol build). Needs field trace"
+    "provenance": "NOT LOCATED 2026-08-10 (checked further): N1J-L2-201 Z brake release (SOL-201) not identified among transcribed BBIA-1 CN1-CN6/CN11 pins. docs/estop_safety_chain.md describes the Z-brake drop-out as a CABINET-LEVEL hardwired interlock requirement (brake-drop-before-amp-drop, triggered by the same relay contact that requests the amp contactor to drop) rather than a documented existing OEM signal - this looks like a NEW retrofit-designed circuit, not something to trace on the original BBIA-1 pass-through. Needs cabinet-level design/field verification, not a paper trace"
    },
    "authority_line": 63
   },
@@ -9636,7 +9636,7 @@ window.MAZAK_DATA = {
     "cnd_pin": "",
     "wire": "",
     "cn_pin": "",
-    "provenance": "NOT LOCATED 2026-08-10: SOL-61 (RLY-7) not among CN11/CN11-SSR's 20 pins (all 20 accounted for) - likely CN12 (2PC bank, not yet transcribed) or a direct CB-panel landing outside BBIA-1's pass-through set; needs further extraction"
+    "provenance": "STILL OPEN 2026-08-10 (updated): CN12 (dwg 4143175309 p78) now transcribed - 9 wire numbers read (722A/722B/724/725A/725B/782A/782B/787A/787B on pins 1-9) - but which pin (if any) is SOL-61/RLY-7 tap-coolant is unconfirmed; CN12 reads as a 2PC/pallet-changer bank functionally, so tap-coolant may not be on it at all. See wiring/bbia1_cn_pinouts.md CN12 section. Needs further trace, possibly a direct CB-panel landing outside BBIA-1's pass-through set"
    },
    "authority_line": 118
   },
@@ -9727,7 +9727,7 @@ window.MAZAK_DATA = {
     "cnd_pin": "",
     "wire": "",
     "cn_pin": "",
-    "provenance": "NOT LOCATED 2026-08-10: not among CN11/CN11-SSR's 20 pins (all 20 accounted for); Y095 TCME.M barrier-expand likely routes via CN12 (2PC/pallet-changer bank, not yet transcribed) - needs further extraction"
+    "provenance": "STILL OPEN 2026-08-10 (updated): CN12 (dwg 4143175309 p78) now transcribed - 9 wire numbers read (722A/722B/724/725A/725B/782A/782B/787A/787B on pins 1-9) - but which pin is Y095 TCME.M barrier-expand is unconfirmed; the page's PALLET-function key uses a different 21-33 terminal-strip numbering not yet reconciled to CN12's pin numbers. See wiring/bbia1_cn_pinouts.md CN12 section. Do not guess a pin - needs a dedicated reconciliation pass"
    },
    "authority_line": 119
   },
