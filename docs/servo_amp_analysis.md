@@ -21,6 +21,15 @@ Incoming power: **460 VAC 3-phase → onboard variable-voltage transformer (VVT)
 
 All three are **brushed DC permanent-magnet servos**, not AC brushless. This is important — it means the axis drives are **DC servo amps with H-bridge power stage and tach-based velocity loop**, not modern AC vector drives.
 
+> **Schematic corroboration (2026-08-10):** the OEM servo-drive sheet
+> (`41434WB` PDF p128, dwg 4143075404) confirms the above. Its X-axis title
+> lists **two build options — A-type `HD-81-123-TTA` and B-type `HD-101-12-TTA`**;
+> the photo-confirmed HD-101 is the **B-type**, so there is no conflict (the
+> HD-81 on the schematic is the unfitted A-type). The sheet also gives Y-axis
+> **HD-81-12S-TTA**, resolver **RT-5XA-11** on all axes (= the Tamagawa
+> TS2014N / BKO-NC6062A pickup), and tacho **2 V ±10 %/1000 rpm**. B-type
+> (HD-101) ratings: constant ~10.9 A, max ~65 A, max speed ~1500 rpm.
+
 Reference: Mitsubishi Manuals 1967 confirms the DC motor / tachogenerator pattern for VQC-era Mazaks:
 - DC motor 200 W or 400 W — 1.1 / 1.8 / 2.6 kW variants (white/black/red phase A on the tach)
 - Tachogenerator 7 V / 1000 rpm (Green/Yellow phase B/Z)
