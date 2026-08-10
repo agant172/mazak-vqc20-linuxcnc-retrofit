@@ -8,6 +8,7 @@
 <meta name="color-scheme" content="dark light">
 <link rel="stylesheet" href="styles.css">
 <link rel="stylesheet" href="commissioning.css">
+<link rel="stylesheet" href="project.css">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230e1113'/%3E%3Cg fill='none' stroke='%234cc2e0' stroke-width='2.5'%3E%3Cpath d='M6 22V10l5 6 5-6v12'/%3E%3Cpath d='M21 10v12M21 16h5'/%3E%3C/g%3E%3C/svg%3E">
 </head>
 <body>
@@ -40,6 +41,7 @@
     <div class="workspace-switch" role="group" aria-label="Dashboard workspace">
       <button type="button" class="workspace-btn" id="btn-workspace-io" aria-pressed="true">I/O navigator</button>
       <button type="button" class="workspace-btn" id="btn-workspace-wiring" aria-pressed="false">Commissioning wiring</button>
+      <button type="button" class="workspace-btn" id="btn-workspace-project" aria-pressed="false">Project</button>
     </div>
     <div class="link-state" id="link-state" role="status" aria-live="polite">
       <span class="link-dot" data-state="offline" aria-hidden="true"></span>
@@ -163,6 +165,11 @@
         </div>
       </section>
 
+      <section class="project-view" id="project-view" hidden aria-label="Project status and hardware">
+        <div id="project-status"></div>
+        <div id="project-hardware"></div>
+      </section>
+
       <div class="table-wrap" id="table-wrap">
         <table class="sig-table" id="signal-table">
           <caption class="sr-only">Mazak VQC-20/40 I/O signals with board, connector, Epson ferrule designation, HAL net, direction, expected idle state, authority status and machine landing point</caption>
@@ -221,5 +228,7 @@
 <script src="data.js"></script>
 <script src="app.js"></script>
 <script src="commissioning.js"></script>
+<script src="project_data.js"></script>
+<script src="project.js"></script>
 </body>
 </html>
