@@ -56,6 +56,16 @@ The two do **not** share a pin-for-pin wire mapping (checked: e.g. terminal-unit
 4. **Keep** all limit / ZRN dec. inputs (CN1-14, CN2-14..16, CN3-37, CN3-38, CN6-12, CN6-13), door/lube alarms, spindle zero-speed and orient.
 5. **Retire** the 4-axis wiring on CN2, the pallet-changer / 2PC signals on CN7, CN3-40..44 spares, and the SSR-board CN11 output loom — those go to the new drive/solenoid stack instead of being preserved.
 
+## Axis over-travel limits — only 2 of 6 individually routed to BBIA-1 (found 2026-08-10)
+
+While filling `wiring/bbia1_source_dest.csv`'s remaining blank `bb_source` rows, re-read Dwg 4143075410 (41434WB p136, "Motion Switch Input (4)") — the sheet that carries all six primary-axis over-travel limits plus the three zero-return-deceleration (home) switches. Result:
+
+- **+Y OVER TRAVEL → T.U. CN3-37** (wire `+LY`) and **-Z OVER TRAVEL → T.U. CN3-38** (wire `-LZ`) are each shown landing on an individually-labeled BBIA-1 connector box on the T.U. row — both match `bbia1_cn_pinouts.csv` exactly.
+- **+X, -X, -Y, +Z over-travel have NO connector-box label on this sheet at all** — the P.C. (relay-card) trace goes straight down through the T.U. row without ever showing a `CNx-y` box, unlike the +Y/-Z pair. There is a `RELAY CARD` block on this sheet (PYOT/NZOT combining logic) that may fold some of these into the CN6-12/CN6-13 combined `+LYZ`/`-LYZ` chains already in the pinout CSV, but that only accounts for Y/Z, not X.
+- **Zero-return deceleration (home) switches are all individually routed**: X → CN2-15 (`*DECX`, LS-42), Y → CN2-16 (`*DECY`, LS-52), Z → CN1-14 (`*DECZ`, LS-62) — all three confirmed against the board pinout CSV.
+
+**Practical implication:** `X_LIMIT_PLUS`, `X_LIMIT_MINUS`, `Y_LIMIT_MINUS`, and `Z_LIMIT_PLUS` do not have a confirmed BBIA-1 landing pin. Either they route through a terminal block outside the 19-connector Honda family, or they're bussed together upstream of BBIA-1 in a way this sheet doesn't show. **Do not assume a pin for these four — field trace required before wiring the corresponding 7i84U-B inputs.** `Y_LIMIT_PLUS`/`Z_LIMIT_MINUS` and all three home switches are confirmed and safe to wire from the pins above.
+
 ## Provenance
 
 Wire numbers and signal names are read directly from the Mazak schematic set (`41434WB.pdf`, drawings 4143075321 / 4113075022 / 4143015323 — Terminal-Unit Details sheets 1–3), OCR-assisted and visually verified page-by-page against the same set used elsewhere in this repo. Cross-referenced against the Mazak Corporation project files delivered 2025-10-13.
