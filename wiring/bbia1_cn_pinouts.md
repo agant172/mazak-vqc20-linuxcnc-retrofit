@@ -320,12 +320,36 @@ pin-for-pin, at a wire number offset (mostly +500, pins 15-16 at +600, pins
 
 Same source page as CN11-SSR (drawing 4143175309, `41434WB.pdf` p78).
 Transcribed for the first time this session. Wire numbers read cleanly at 400
-DPI; **which pallet/2PC function each pin drives is not yet determined** — the
-page's function key for these pallet signals (PALLET AIR BLAST, PALLET
-UNCLAMP, PALLET CLAMP, PALLET LOAD, PALLET DOOR CLOSE/OPEN, PALLET SELECT
-NO.1/2, etc.) is printed against a 21-33 physical terminal-strip numbering
-that does not obviously correspond to CN12's 1-20 connector-pin numbering.
-Forcing a guess here would repeat the CN11-SSR mistake, so it's left open.
+DPI.
+
+**CN12 confirmed 2PC/pallet-changer-only, 2026-08-10.** Re-read the board's
+21-33 terminal-strip (the physical screw-terminal row that carries these same
+wire families) at 400-600 DPI to try to pin down which pin drives which
+function. Every function label found there is pallet-specific: PALLET SELECT
+NO.1/NO.2 (32/33), PALLET UNLOAD (31 — read as "PALLET LOAD" on this pass,
+recheck), PALLET DOOR CLOSE (30), PALLET DOOR OPEN (29), plus PALLET AIR
+BLAST/UNCLAMP/CLAMP at the lower positions (21/20/19 per the board's earlier
+overview read). The wire numbers at those positions are close relatives of
+CN12's own (e.g. terminal 22 = `425A`, terminal 23 = `425B` — the same `725`
+family as CN12 pins 4-5, allowing for the same handwriting 4-vs-7 ambiguity
+already seen elsewhere on this sheet) but carry extra `C`/`D` suffix variants
+that don't appear on CN12 at all, so the exact pin-for-pin correspondence
+still doesn't resolve cleanly — forcing it risks repeating the CN11-SSR
+mistake, so individual pin functions are left unconfirmed below.
+
+**This matters less than it looks like it should:** every function on this
+connector is 2-Pallet-Changer (2PC) specific, and `bbia1_terminal_unit.md`
+already lists the pallet-changer/2PC signals on CN7 for **retirement** in
+this retrofit (not reused). No evidence has surfaced anywhere in this project
+that SN 060231 actually has the 2PC option installed. CN12 is very likely
+out of scope for the Mesa retrofit regardless of its exact pinout.
+
+**Also settles an open question elsewhere:** `ATC_BARRIER_SOL` and
+`TAP_COOLANT_BLAST` in `wiring/bbia1_source_dest.csv` had previously been
+flagged as "likely CN12" — that hypothesis is now dropped. Neither signal is
+a pallet function (barrier-expand is ATC-area, tap-coolant is a coolant
+subsystem), so CN12 was never going to answer them. Both signals reopen as
+NOT LOCATED with no live lead.
 
 | Pin | Line/Wire No. | Signal name (load) |
 |----:|--------------|--------------------|

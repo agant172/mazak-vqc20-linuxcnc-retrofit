@@ -6,7 +6,7 @@ window.MAZAK_DATA = {
   "machine": "Mazak VQC-20/40",
   "serial": "060231",
   "architecture": "LinuxCNC + Mesa 7i80HDT (Ethernet FPGA host) + 7i44 on P1 (HostMot2 sserial port 0 channels 0/1 to 7i84U-A/B) + 7i49 on P2 (resolver + analog outs); P3 unused/spare",
-  "generated": "2026-08-10 19:18 UTC",
+  "generated": "2026-08-10 19:26 UTC",
   "source_repo": "mazak-vqc20-linuxcnc-retrofit",
   "authority_file": "mesa/current_pin_authority.csv",
   "epson_ferrule_file": "wiring/labels/bbia1_mesa_end_ferrules_epson.csv",
@@ -9636,7 +9636,7 @@ window.MAZAK_DATA = {
     "cnd_pin": "",
     "wire": "",
     "cn_pin": "",
-    "provenance": "STILL OPEN 2026-08-10 (updated): CN12 (dwg 4143175309 p78) now transcribed - 9 wire numbers read (722A/722B/724/725A/725B/782A/782B/787A/787B on pins 1-9) - but which pin (if any) is SOL-61/RLY-7 tap-coolant is unconfirmed; CN12 reads as a 2PC/pallet-changer bank functionally, so tap-coolant may not be on it at all. See wiring/bbia1_cn_pinouts.md CN12 section. Needs further trace, possibly a direct CB-panel landing outside BBIA-1's pass-through set"
+    "provenance": "NOT LOCATED 2026-08-10 (CN12 lead dropped): CN12 is now fully transcribed (dwg 4143175309 p78) and confirmed 2PC/pallet-changer-only - every function label reconciled against its terminal-strip (PALLET SELECT/LOAD/UNLOAD/DOOR CLOSE/OPEN etc) is pallet-specific. SOL-61 tap-coolant is a coolant-subsystem signal, not a pallet function, so CN12 is not the right connector. Still not located anywhere - possibly a direct CB-panel landing outside BBIA-1's pass-through set, needs a different lead"
    },
    "authority_line": 118
   },
@@ -9727,7 +9727,7 @@ window.MAZAK_DATA = {
     "cnd_pin": "",
     "wire": "",
     "cn_pin": "",
-    "provenance": "STILL OPEN 2026-08-10 (updated): CN12 (dwg 4143175309 p78) now transcribed - 9 wire numbers read (722A/722B/724/725A/725B/782A/782B/787A/787B on pins 1-9) - but which pin is Y095 TCME.M barrier-expand is unconfirmed; the page's PALLET-function key uses a different 21-33 terminal-strip numbering not yet reconciled to CN12's pin numbers. See wiring/bbia1_cn_pinouts.md CN12 section. Do not guess a pin - needs a dedicated reconciliation pass"
+    "provenance": "NOT LOCATED 2026-08-10 (CN12 lead dropped): CN12 is now fully transcribed (dwg 4143175309 p78) and confirmed 2PC/pallet-changer-only - every function label reconciled against its terminal-strip (PALLET SELECT/LOAD/UNLOAD/DOOR CLOSE/OPEN etc) is pallet-specific. Y095 TCME.M barrier-expand is an ATC-area signal, not a pallet function, so CN12 is not the right connector after all. Still not located anywhere - needs a different lead (not this page/board)"
    },
    "authority_line": 119
   },
