@@ -12,7 +12,7 @@ Summary of planning state as of this commit:
 | --- | --- | --- |
 | D1 | As-built one-line + terminal plan | NOT DRAFTED |
 | D2 | Installed nameplate register | PARTIAL (checklists drafted; photos pending) |
-| D3 | Immutable Mesa firmware package | NOT ASSEMBLED — blocked on Efinix 7i49 bitfile confirmation from Mesa/PCW (pre-order gate; see [`mesa_pcw_bitfile_inquiry.md`](mesa_pcw_bitfile_inquiry.md)) |
+| D3 | Immutable Mesa firmware package | PARTIAL — bitfile `7i80hdt_rmsvss6_8.bin` received from Mesa/PCW and committed under `mesa/firmware/` with SHA-256; static VHD check done. Live `readhmid`/HAL pin-dump cross-check still open (board unpowered as of 2026-08-11). See [`mesa_pcw_bitfile_inquiry.md`](mesa_pcw_bitfile_inquiry.md) |
 | D4 | I/O checkout sheet | NOT DRAFTED |
 | D5 | Hardware E-stop risk assessment + schematic | PARTIAL (software chain drafted) |
 | D6 | Shared-bus precharge / discharge procedure | DRAFTED (measurements pending) |
@@ -49,7 +49,7 @@ control to LinuxCNC using Mesa Electronics FPGA hardware.
 - **P3: unused/spare** — no daughter card is fitted; all pins are bare-FPGA GPIO. Not safe for 24 V field wiring. The Renishaw MP-3 probe SKIP1 was moved off P3 and now lands on 7i84U-B TB3 IN15.
 - **7i84U-B I/O allocation**: TB3 IN0-5 = X/Y/Z limits, IN6-8 = homes, IN9 = air permissive, IN15 = Renishaw MP-3 probe; TB3 OUT0-2 = drive enables, OUT3-7 = air/touch/tap blasts, ATC barrier, and flood valve; TB2 OUT8 = proposed magazine-cover close. (7i84 layout: TB1 = power connector; TB3 = IN0-15 + OUT0-7; TB2 = IN16-31 + OUT8-15.)
 - **Optional WHB04B-style USB pendant** after base machine safety/motion is proven.
-- **Firmware bitfile**: working placeholder `7i80hdt_7i44_ss_7i49d.bit`; exact name, binary, and provenance remain **UNVERIFIED**. Obtain the Efinix resolver build from Mesa/PCW and record its hash/IDROM before flashing.
+- **Firmware bitfile**: `7i80hdt_rmsvss6_8.bin`, received from Mesa/PCW 2026-08-11, committed under `mesa/firmware/` with SHA-256. Static VHD pin-map check confirms 6 PWM/analog instances (matches AOUT0-5) and a resolver module present; **IDROM/readhmid readback and HAL pin dump are still open** (board unpowered as of this update) — do not treat as field-verified until those run.
 
 See [`architecture_decision.md`](architecture_decision.md) for the full rationale.
 
@@ -89,9 +89,9 @@ See [`architecture_decision.md`](architecture_decision.md) for the full rational
 ## TODO list
 
 ### Immediate
-- [ ] **GATE — confirm before ordering:** email Mesa/PCW to confirm an **Efinix bitfile exists (or can be built)** for the 7i80HDT that exposes **7i49 resolver + analog on P2** and **7i44 smart-serial on P1**. The 7i80HDT is an Efinix-FPGA board and resolver builds are less commonly pre-made than on the older Xilinx boards, so availability — not compatibility — is the open risk. Draft + acceptance criteria: [`mesa_pcw_bitfile_inquiry.md`](mesa_pcw_bitfile_inquiry.md). Do not order the remaining boards until this is confirmed. If PCW cannot supply it, the fallback is a Xilinx-based Mesa host with the 7i49 + both 7i84U cards unchanged (host swap, not an interface redesign).
-- [ ] Order the 7i80HDT + 7i44 + 7i84U-B **once the gate above is cleared**. (7i49 and 7i84U-A are already in the buy list / on hand.)
-- [ ] Obtain the confirmed Efinix resolver bitfile from Mesa/PCW; do not assume the placeholder name `7i80hdt_7i44_ss_7i49d.bit`. Record the exact binary, SHA-256, source/build provenance, IDROM readback, and pin dump under `mesa/firmware/`.
+- [x] **GATE — confirm before ordering:** email Mesa/PCW to confirm an **Efinix bitfile exists (or can be built)** for the 7i80HDT that exposes **7i49 resolver + analog on P2** and **7i44 smart-serial on P1**. CLEARED 2026-08-11 — bitfile received (`7i80hdt_rmsvss6_8.bin`), see [`mesa_pcw_bitfile_inquiry.md`](mesa_pcw_bitfile_inquiry.md) Outcome section.
+- [x] Order the 7i80HDT + 7i44 + 7i84U-B. Board is now on hand and network-connected (192.168.1.121) as of 2026-08-11, though currently unpowered.
+- [ ] Obtain the confirmed Efinix resolver bitfile from Mesa/PCW — **binary + SHA-256 + static VHD check done** (`mesa/firmware/`, 2026-08-11). **IDROM readback and HAL pin dump still open**, need the board powered — do not assume field-verified until those run.
 - [ ] Confirm 7i80HDT Ethernet setup: static IP 192.168.1.121, `hm2_eth` `board_ip="192.168.1.121"`, and host NIC `enp0s31f6` at 192.168.1.1/24.
 - [ ] Confirm 24 V field power feed and 7i84U-A / 7i84U-B I/O sourcing/sinking behavior before wiring.
 - [ ] Capture cabinet photo set using the cabinet photo checklist.
