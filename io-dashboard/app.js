@@ -27,6 +27,7 @@
     view: 'ALL',                 // ALL | 7i80HDT | 7i44 | 7i49 | 7i84U-A | 7i84U-B | CONFLICTS
     q: '',
     board: '', conn: '', dir: '', sub: '', status: '',
+    hideNoise: true,             // hide SPARE/PROPOSED/DEFERRED/etc rows unless explicitly selected via Status
     selected: null,              // signal id
     sim: Object.create(null),    // id -> { value: '0'|'1'|null, note: string }
     live: { on: false, ok: false, error: '', values: Object.create(null), timer: null, ts: '' }
@@ -87,6 +88,17 @@
 
   /* --------------------------------------------------------------- filters */
 
+  // Statuses that represent "not commissioning-relevant right now" — spare/
+  // unassigned channels, draft proposals, deferred/reserved-for-later items,
+  // and architecturally excluded rows. Hidden by default via the "Hide
+  // spare/draft/deferred" toggle; explicitly picking one of these from the
+  // Status dropdown still shows it (see matches() below).
+  var NOISE_STATUSES = {
+    SPARE: true, PROPOSED: true, DEFERRED: true, UNBOUND: true,
+    RESERVED: true, RESERVED_VERIFY: true, NOT_USED: true,
+    HOLD_NOT_ORDERED: true, OPTIONAL_VERIFY: true
+  };
+
   function inView(s) {
     if (state.view === 'ALL') return true;
     if (state.view === 'CONFLICTS') {
@@ -103,6 +115,7 @@
     if (state.dir && s.direction !== state.dir) return false;
     if (state.sub && s.subsystem !== state.sub) return false;
     if (state.status && s.status !== state.status) return false;
+    if (!state.status && state.hideNoise && NOISE_STATUSES[s.status]) return false;
     if (state.q) {
       var terms = state.q.toLowerCase().split(/\s+/).filter(Boolean);
       for (var i = 0; i < terms.length; i++) {
@@ -234,14 +247,20 @@
     fs.addEventListener('change', function () { state.sub = fs.value; render(); });
     ft.addEventListener('change', function () { state.status = ft.value; render(); });
 
+    var fn = $('f-hide-noise');
+    fn.checked = state.hideNoise;
+    fn.addEventListener('change', function () { state.hideNoise = fn.checked; render(); });
+
     $('q').addEventListener('input', function () { state.q = this.value.trim(); render(); });
     $('btn-reset').addEventListener('click', resetFilters);
   }
 
   function resetFilters() {
     state.q = ''; state.board = ''; state.conn = ''; state.dir = ''; state.sub = ''; state.status = '';
+    state.hideNoise = true;
     $('q').value = '';
     ['f-board', 'f-conn', 'f-dir', 'f-sub', 'f-status'].forEach(function (i) { $(i).value = ''; });
+    $('f-hide-noise').checked = true;
     render();
   }
 
@@ -256,6 +275,7 @@
     if (state.dir) active.push({ k: 'dir', v: state.dir, clear: function () { state.dir = ''; $('f-dir').value = ''; } });
     if (state.sub) active.push({ k: 'subsystem', v: state.sub, clear: function () { state.sub = ''; $('f-sub').value = ''; } });
     if (state.status) active.push({ k: 'status', v: (STATUS[state.status] || {}).label || state.status, clear: function () { state.status = ''; $('f-status').value = ''; } });
+    if (state.hideNoise) active.push({ k: 'hiding', v: 'spare/draft/deferred', clear: function () { state.hideNoise = false; $('f-hide-noise').checked = false; } });
 
     active.forEach(function (a) {
       var c = el('button', 'chip');
