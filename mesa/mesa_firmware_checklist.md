@@ -31,12 +31,18 @@ the isolated 7i84U-B probe path, and LinuxCNC HAL pin names.
   24 V field wiring** (3.3 V logic without opto-isolation). The Renishaw MP-3
   probe was previously bound to P3 `gpio.042` in an earlier revision; it has
   been moved to 7i84U-B input-15 (opto-isolated 24 V input).
-- Chosen firmware/bitfile is `7i80hdt_7i44_ss_7i49d.bit`. **The name is
-  UNVERIFIED**: this is the working assumption, not a value that has been
-  read back from the board with `readhmid` or cited from a PCW/Mesa email
-  or forum thread. See "Bitfile provenance" below for how to close that gap.
-  Assumed configuration: sserial port on P1 (from 7i44), 7i49 resolver +
-  analog on P2, bare GPIO on P3.
+- Firmware/bitfile received from Mesa/PCW (2026-08-11): `7i80hdt_rmsvss6_8.bin`,
+  678,650 bytes, SHA-256 `68e07e25f7227609209f3c6d120319ff2cdec0eada07e92986cc517734d2be58`
+  (see `mesa/firmware/SHA256SUMS`). Ships with the pin-mapping source
+  `PIN_RMSVSS6_8_72.vhd` (Mesa Electronics, package `PIN_RMSVSS6_8_72`), whose
+  `ModuleID` table lists `ResModTag` (resolver), `PWMTag` (analog out), and
+  `SSerialTag` (smart-serial) alongside `WatchDogTag`/`IOPortTag`/`LEDTag` —
+  consistent with this stack's P1 sserial + P2 resolver/analog layout. **This
+  is a static/offline check only, not full provenance**: the live
+  `readhmid` dump and HAL pin cross-check in "Bitfile provenance" below still
+  need to happen with the board powered — not done yet (board was left
+  unpowered 2026-08-11). Supersedes the old placeholder name
+  `7i80hdt_7i44_ss_7i49d.bit`, which was never anything but a guess.
 
 ## Information to record
 
@@ -58,7 +64,7 @@ the isolated 7i84U-B probe path, and LinuxCNC HAL pin names.
 | 7i84U-A | Exact variant/revision and field power/load limits | 32 DI + 16 DO field I/O | Output behavior and wiring strategy may differ; confirm field power and output ratings. |
 | 7i84U-B | Smart-serial connection path | Via 7i44 P1, sserial channel 1 (`hm2_7i80.0.7i84.0.1.*`) | Determines smart-serial config and HAL names. |
 | 7i84U-B | Exact variant/revision and field power/load limits | 32 DI + 16 DO for limits/homes, drive enables, and relay-driven loads | Confirm field power, output ratings, relays, and suppression before wiring. |
-| Firmware | Exact bitfile / firmware name | `7i80hdt_7i44_ss_7i49d.bit` | HAL pin names come from the loaded firmware. |
+| Firmware | Exact bitfile / firmware name | `7i80hdt_rmsvss6_8.bin` (received from Mesa/PCW 2026-08-11, static VHD check done, live readhmid check pending) | HAL pin names come from the loaded firmware. |
 | Firmware | `readhmid` output | Save as `mesa_readhmid.txt` | Authoritative list of firmware functions and I/O pins. |
 | LinuxCNC | HAL pin dump | Save as `mesa_hal_pins.txt` | Authoritative list of actual HAL pin names. |
 | LinuxCNC | Smart-serial configuration | Confirm HostMot2 port 0 channels 0 and 1 (`sserial_port_0=00xxxxxx`) | Required to make 7i84U-A / 7i84U-B appear; verify actual values from the loaded firmware. |
@@ -83,27 +89,35 @@ List available firmware options if needed:
 mesaflash --device 7i80hdt --addr 192.168.1.121 --list
 ```
 
-Do not flash the placeholder filename used by this repo. After D3 provenance is
-complete, substitute the verified filename and cross-check its SHA-256 before
-running the write command:
+Cross-check the SHA-256 before running the write command — do this even though
+the filename is no longer a placeholder, since D3 provenance (live readhmid +
+HAL pin cross-check) is still open (see below):
 
 ```bash
 sha256sum --check mesa/firmware/SHA256SUMS
-sudo mesaflash --device 7i80hdt --addr 192.168.1.121 --write mesa/firmware/<verified-7i80hdt-bitfile>.bit
+sudo mesaflash --device 7i80hdt --addr 192.168.1.121 --write mesa/firmware/7i80hdt_rmsvss6_8.bin
 sudo mesaflash --device 7i80hdt --addr 192.168.1.121 --reload
 ```
 
 ## Bitfile provenance (verification procedure)
 
-The project's HAL currently assumes the bitfile `7i80hdt_7i44_ss_7i49d.bit`.
-Until that assumption is backed by a source that can be cited, the bitfile
-should be treated as **UNVERIFIED** in every doc that names it.
+**Status 2026-08-11: partial.** The bitfile is no longer a placeholder guess —
+`7i80hdt_rmsvss6_8.bin` was received from Mesa/PCW and is committed under
+`mesa/firmware/` with its SHA-256 (`SHA256SUMS`) and the accompanying
+`PIN_RMSVSS6_8_72.vhd` pin-mapping source. That source's `ModuleID` table
+confirms `ResModTag`/`PWMTag`/`SSerialTag` are present — consistent with this
+stack, checked offline without the board. **Still open:** step 1 below (live
+`readhmid` + HAL pin dump) hasn't run yet — the board was left unpowered. Treat
+the bitfile as **received and static-checked, not yet field-verified** until
+step 1 closes. (If you have the PCW/Mesa correspondence — email, order
+reference, forum thread — add it under step 2 so the citation is complete too;
+not recorded here yet.)
 
 No single readback or pin dump proves provenance. D3 requires the exact binary,
 its SHA-256, a Mesa release/source or Efinity build reference, the IDROM dump,
 and a recovery procedure. The checks below establish layout and identity in
-combination; commit the complete package under `mesa/firmware/` before removing
-the "provenance unverified" note.
+combination; the complete package is committed under `mesa/firmware/` — step 1
+(live readback) is what's left before removing the "provenance pending" note.
 
 1. **Read the running board.** With the 7i80HDT powered and on the network,
    run:

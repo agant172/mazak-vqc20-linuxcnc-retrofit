@@ -85,3 +85,31 @@ here and update the architecture decision if the host changes.
 When PCW replies, record: date, the confirmed `.bit` name, channel counts, how
 it's supplied, and lead time — here and in `mesa/mesa_firmware_checklist.md`
 (Bitfile provenance). Then the D3 firmware-package deliverable can proceed.
+
+## Outcome (2026-08-11)
+
+**A bitfile exists for this stack.** Received `7i80hdt_rmsvss6_8.bin` (678,650
+bytes) plus its pin-mapping source `PIN_RMSVSS6_8_72.vhd` — committed under
+`mesa/firmware/` with SHA-256 in `mesa/firmware/SHA256SUMS`. This clears the
+"no Efinix resolver build" risk this doc existed to gate — no host-board swap
+needed.
+
+What the VHD source confirms directly (static check, no board involved):
+- **6 PWM/analog instances** (`x"00"`-`x"05"`, `PWMAOutPin`/`PWMBDirPin` pairs)
+  — exactly matches the expected AOUT0-5 (X/Y/Z velocity + spindle speed +
+  2 spare).
+- **Resolver module present** — SPI-based channel-select scheme
+  (`ResModChan0/1/2Pin` + shared `ResModSPIDI0/1`/`SPIClk`/`SPICS` bus), not a
+  simple repeated-pin block like PWM, so the exact resolver channel *count*
+  isn't directly countable from this file the way PWM's is. The `rmsvss6_8`
+  filename and the checklist's "6 resolver channels" expectation are
+  consistent with this, but only the live `readhmid` dump proves it.
+- **Smart-serial present**, multiple RX/TX channel pins visible (RX0-4+,
+  TX0-3+) — consistent with the 7i44's 8-channel breakout.
+
+**Not yet done:** the exact correspondence with PCW/Mesa (date, who replied,
+order reference) isn't recorded — fill that in above if you have the email.
+The live-board acceptance checks (`readhmid`, HAL pin dump per
+`mesa_firmware_checklist.md` step 1) are still open; the board was left
+unpowered as of this update. Until that runs, treat this as "bitfile in hand
+and statically plausible," not "field-verified."
