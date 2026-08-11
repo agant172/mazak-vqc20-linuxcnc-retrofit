@@ -57,6 +57,13 @@ VQC 20/40 retrofit. Evidence-state taxonomy defined in
   (sserial ports on P1 via the 7i44, 7i49 resolver+analog on P2, bare GPIO
   on P3) as an assumption. See `mesa_firmware_checklist.md` (Bitfile
   provenance) for the verification procedure.
+  **Pre-order gate:** the 7i80HDT is an Efinix-FPGA board, so a 7i49 *resolver*
+  build is less commonly pre-made than on the older Xilinx hosts. Confirm the
+  Efinix resolver bitfile is available (or buildable) from Mesa/PCW **before
+  ordering the remaining boards** — draft inquiry and acceptance criteria in
+  [`../docs/mesa_pcw_bitfile_inquiry.md`](../docs/mesa_pcw_bitfile_inquiry.md).
+  This is an availability question, not a compatibility one: the 7i49 is Mesa's
+  resolver interface and HostMot2 has a Resolver module.
 
 ## Files
 

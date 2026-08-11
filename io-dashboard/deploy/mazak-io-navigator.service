@@ -1,0 +1,42 @@
+# Mazak I/O Navigator — read-only live HAL bridge (serve_live.py), auto-start on boot.
+#
+# Install (run on the LinuxCNC host):
+#   1. Edit the two EDIT-ME lines below (User and WorkingDirectory) for your machine.
+#   2. sudo cp io-dashboard/deploy/mazak-io-navigator.service /etc/systemd/system/
+#   3. sudo systemctl daemon-reload
+#   4. sudo systemctl enable --now mazak-io-navigator
+#   5. Check it:  systemctl status mazak-io-navigator   and   curl -s http://127.0.0.1:8765/api/health
+#
+# Reach it over Tailscale from any device on your tailnet:
+#   http://<linuxcnc-host-tailscale-name>:8765/     (find the name with `tailscale status`)
+
+[Unit]
+Description=Mazak I/O Navigator - read-only live HAL bridge
+Documentation=https://github.com/agant172/mazak-vqc20-linuxcnc-retrofit
+# The bridge is useful in planning mode even when LinuxCNC is not running (it
+# reports "offline" until HAL is up), so we only wait for the network — not for
+# LinuxCNC. Waiting on tailscaled means the interface exists before we bind.
+After=network-online.target tailscaled.service
+Wants=network-online.target
+
+[Service]
+Type=simple
+# EDIT-ME: the account that runs LinuxCNC. It must be able to attach to HAL
+# shared memory (same user as LinuxCNC, in the realtime group) or /api/io will
+# report offline while everything else still works.
+User=mazak
+# EDIT-ME: absolute path to the io-dashboard folder in your clone.
+WorkingDirectory=/home/mazak/mazak-vqc20-linuxcnc-retrofit/io-dashboard
+# --host 0.0.0.0 binds every interface so the Tailscale IP / MagicDNS name can
+# reach it. To restrict to Tailscale only, replace 0.0.0.0 with this host's
+# Tailscale IP (100.x.y.z) instead, and rely on your tailnet ACLs for access.
+ExecStart=/usr/bin/python3 serve_live.py --host 0.0.0.0 --port 8765
+Restart=on-failure
+RestartSec=3
+# halcmd is /usr/bin/halcmd on a packaged LinuxCNC install. For a run-in-place
+# (RIP) build, prepend its bin directory here, e.g.
+#   Environment=PATH=/home/mazak/linuxcnc-dev/bin:/usr/bin:/bin
+Environment=PATH=/usr/bin:/bin
+
+[Install]
+WantedBy=multi-user.target

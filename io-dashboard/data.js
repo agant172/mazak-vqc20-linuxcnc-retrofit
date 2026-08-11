@@ -6,7 +6,7 @@ window.MAZAK_DATA = {
   "machine": "Mazak VQC-20/40",
   "serial": "060231",
   "architecture": "LinuxCNC + Mesa 7i80HDT (Ethernet FPGA host) + 7i44 on P1 (HostMot2 sserial port 0 channels 0/1 to 7i84U-A/B) + 7i49 on P2 (resolver + analog outs); P3 unused/spare",
-  "generated": "2026-08-10 19:26 UTC",
+  "generated": "2026-08-10 23:23 UTC",
   "source_repo": "mazak-vqc20-linuxcnc-retrofit",
   "authority_file": "mesa/current_pin_authority.csv",
   "epson_ferrule_file": "wiring/labels/bbia1_mesa_end_ferrules_epson.csv",
@@ -182,6 +182,8 @@ window.MAZAK_DATA = {
    "field_point": "Tamagawa TS2014N X resolver",
    "dest_connector": "",
    "dest_pin": "",
+   "factory_wire": "",
+   "bbia_class": "analog-resolver",
    "designations": [],
    "primary_source": "motion_7i80hdt.hal",
    "cleanup_notes": "Ohmmeter winding pairs and scope return before power | [FIRST-POWER 2026-08-09: factory resolver wiring lands at BBIA1/7i49 - no cabinet trace. VERIFY feedback direction/counts before closing the loop - wrong sign runs the axis away.] | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/homing_ladder_transcription.md]",
@@ -332,6 +334,8 @@ window.MAZAK_DATA = {
    "field_point": "Tamagawa TS2014N Y resolver",
    "dest_connector": "",
    "dest_pin": "",
+   "factory_wire": "",
+   "bbia_class": "analog-resolver",
    "designations": [],
    "primary_source": "motion_7i80hdt.hal",
    "cleanup_notes": "Ohmmeter winding pairs and scope return before power | [FIRST-POWER 2026-08-09: factory resolver wiring lands at BBIA1/7i49 - no cabinet trace. VERIFY feedback direction/counts before closing the loop - wrong sign runs the axis away.] | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/homing_ladder_transcription.md]",
@@ -482,6 +486,8 @@ window.MAZAK_DATA = {
    "field_point": "Tamagawa TS2014N Z resolver",
    "dest_connector": "",
    "dest_pin": "",
+   "factory_wire": "",
+   "bbia_class": "analog-resolver",
    "designations": [],
    "primary_source": "motion_7i80hdt.hal",
    "cleanup_notes": "Ohmmeter winding pairs and scope return before power | [FIRST-POWER 2026-08-09: factory resolver wiring lands at BBIA1/7i49 - no cabinet trace. VERIFY feedback direction/counts before closing the loop - wrong sign runs the axis away.] | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/homing_ladder_transcription.md]",
@@ -632,6 +638,8 @@ window.MAZAK_DATA = {
    "field_point": "Machine-side A/B/Z spindle encoder if fitted",
    "dest_connector": "",
    "dest_pin": "",
+   "factory_wire": "",
+   "bbia_class": "exception",
    "designations": [],
    "primary_source": "motion_7i80hdt.hal",
    "cleanup_notes": "Current target leaves P3 empty and requests num_encoders=0. Identify encoder model/electrical format and select a compatible receiver/daughter interface plus IDROM-proven pins before allocation. | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/spindle_run_ladder_transcription.md]",
@@ -681,6 +689,8 @@ window.MAZAK_DATA = {
    "field_point": "7i49 spare resolver channel",
    "dest_connector": "",
    "dest_pin": "",
+   "factory_wire": "",
+   "bbia_class": "analog-resolver",
    "designations": [],
    "primary_source": "mesa_firmware_checklist.md",
    "cleanup_notes": "Available for future resolver feedback if firmware provisions it",
@@ -730,6 +740,8 @@ window.MAZAK_DATA = {
    "field_point": "7i49 spare resolver channel",
    "dest_connector": "",
    "dest_pin": "",
+   "factory_wire": "",
+   "bbia_class": "analog-resolver",
    "designations": [],
    "primary_source": "mesa_firmware_checklist.md",
    "cleanup_notes": "Available for future resolver feedback if firmware provisions it",
@@ -779,6 +791,8 @@ window.MAZAK_DATA = {
    "field_point": "7i49 spare resolver channel",
    "dest_connector": "",
    "dest_pin": "",
+   "factory_wire": "",
+   "bbia_class": "analog-resolver",
    "designations": [],
    "primary_source": "mesa_firmware_checklist.md",
    "cleanup_notes": "Available for future resolver feedback if firmware provisions it",
@@ -828,6 +842,8 @@ window.MAZAK_DATA = {
    "field_point": "X servo analog velocity command to MELDAS TRA",
    "dest_connector": "",
    "dest_pin": "",
+   "factory_wire": "",
+   "bbia_class": "analog-resolver",
    "designations": [],
    "primary_source": "motion_7i80hdt.hal",
    "cleanup_notes": "7i49 pwmgen.00 driven by pid.x.output | [FIRST-POWER 2026-08-09: factory command wiring lands at BBIA1/7i49 - no cabinet trace. VERIFY command polarity against resolver feedback direction BEFORE enabling the drive - wrong sign runs the axis away. Confirm analog scaling.]",
@@ -946,6 +962,8 @@ window.MAZAK_DATA = {
    "field_point": "Z servo analog velocity command to MELDAS TRA",
    "dest_connector": "",
    "dest_pin": "",
+   "factory_wire": "",
+   "bbia_class": "analog-resolver",
    "designations": [],
    "primary_source": "motion_7i80hdt.hal",
    "cleanup_notes": "7i49 pwmgen.01 driven by pid.z.output | [FIRST-POWER 2026-08-09: factory command wiring lands at BBIA1/7i49 - no cabinet trace. VERIFY command polarity against resolver feedback direction BEFORE enabling the drive - wrong sign runs the axis away. Confirm analog scaling.]",
@@ -1064,6 +1082,8 @@ window.MAZAK_DATA = {
    "field_point": "Y servo analog velocity command to MELDAS TRA",
    "dest_connector": "",
    "dest_pin": "",
+   "factory_wire": "",
+   "bbia_class": "analog-resolver",
    "designations": [],
    "primary_source": "motion_7i80hdt.hal",
    "cleanup_notes": "7i49 pwmgen.02 driven by pid.y.output | [FIRST-POWER 2026-08-09: factory command wiring lands at BBIA1/7i49 - no cabinet trace. VERIFY command polarity against resolver feedback direction BEFORE enabling the drive - wrong sign runs the axis away. Confirm analog scaling.]",
@@ -1182,6 +1202,8 @@ window.MAZAK_DATA = {
    "field_point": "FR-SX V-IN speed reference",
    "dest_connector": "",
    "dest_pin": "",
+   "factory_wire": "",
+   "bbia_class": "analog-resolver",
    "designations": [],
    "primary_source": "motion_7i80hdt.hal",
    "cleanup_notes": "Confirm 0-10V unipolar vs bipolar; pwmgen.03 offset-mode | [RECON 2026-08-08 §D: FR-SX SE1/SE2/SE3 0-10V speed ref (+10V max speed)] | [FIRST-POWER 2026-08-09: factory wiring at BBIA1/7i49 - no cabinet trace. Confirm 0-10V unipolar scaling / offset-mode (see C3); direction is separate SRN/SRI, not command sign.] | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/spindle_run_ladder_transcription.md]",
@@ -1315,6 +1337,8 @@ window.MAZAK_DATA = {
    "field_point": "Spare 7i49 analog output",
    "dest_connector": "",
    "dest_pin": "",
+   "factory_wire": "",
+   "bbia_class": "analog-resolver",
    "designations": [],
    "primary_source": "frsx_orient_model.md",
    "cleanup_notes": "FR-SX orient is a discrete ORCM1 command; num_pwmgens=4 creates only pwmgen.00-.03 so AOUT4 is not provisioned in active firmware config",
@@ -1364,6 +1388,8 @@ window.MAZAK_DATA = {
    "field_point": "Spare 7i49 analog output",
    "dest_connector": "",
    "dest_pin": "",
+   "factory_wire": "",
+   "bbia_class": "analog-resolver",
    "designations": [],
    "primary_source": "mesa_firmware_checklist.md",
    "cleanup_notes": "Available for future analog use",
@@ -1413,6 +1439,8 @@ window.MAZAK_DATA = {
    "field_point": "7i84U-A RJ45 pin 2 RX+",
    "dest_connector": "7i84U-A RJ45",
    "dest_pin": "2",
+   "factory_wire": "",
+   "bbia_class": "power-internal",
    "designations": [],
    "primary_source": "mesa_firmware_checklist.md",
    "cleanup_notes": "7i44 channel 0 to 7i84U-A CN0 under HostMot2 port 0; RS-422 differential pair | [MESA-CONFIRMED 2026-08-08: matches 7i84U J1 RJ-45 pinout (7i84uman.pdf: p1 RXA/p2 RXB/p3 TXA/p6 TXB/p4-5 GND/p7-8 +5V, 568B colors); straight CAT5 to 7i44; plug-in cable, no continuity trace needed] | [READY 2026-08-09: factory-link acceptance applies to two distinct plug-in segments: Mesa 50-pin IDC from 7i80HDT P1 to 7i44, then CAT5 smart-serial from 7i44 to the identified 7i84U channel. Inspect assembly identity, keying/orientation, seating, strain relief, and visible condition; verify expected smart-serial enumeration without communication or watchdog faults. Do not continuity-audit or re-terminate individual conductors.]",
@@ -1462,6 +1490,8 @@ window.MAZAK_DATA = {
    "field_point": "7i84U-A RJ45 pin 1 RX-",
    "dest_connector": "7i84U-A RJ45",
    "dest_pin": "1",
+   "factory_wire": "",
+   "bbia_class": "power-internal",
    "designations": [],
    "primary_source": "mesa_firmware_checklist.md",
    "cleanup_notes": "RS-422 differential pair | [MESA-CONFIRMED 2026-08-08: matches 7i84U J1 RJ-45 pinout (7i84uman.pdf: p1 RXA/p2 RXB/p3 TXA/p6 TXB/p4-5 GND/p7-8 +5V, 568B colors); straight CAT5 to 7i44; plug-in cable, no continuity trace needed] | [READY 2026-08-09: factory-link acceptance applies to two distinct plug-in segments: Mesa 50-pin IDC from 7i80HDT P1 to 7i44, then CAT5 smart-serial from 7i44 to the identified 7i84U channel. Inspect assembly identity, keying/orientation, seating, strain relief, and visible condition; verify expected smart-serial enumeration without communication or watchdog faults. Do not continuity-audit or re-terminate individual conductors.]",
@@ -1511,6 +1541,8 @@ window.MAZAK_DATA = {
    "field_point": "7i84U-A RJ45 pin 6 TX+",
    "dest_connector": "7i84U-A RJ45",
    "dest_pin": "6",
+   "factory_wire": "",
+   "bbia_class": "power-internal",
    "designations": [],
    "primary_source": "mesa_firmware_checklist.md",
    "cleanup_notes": "RS-422 differential pair | [MESA-CONFIRMED 2026-08-08: matches 7i84U J1 RJ-45 pinout (7i84uman.pdf: p1 RXA/p2 RXB/p3 TXA/p6 TXB/p4-5 GND/p7-8 +5V, 568B colors); straight CAT5 to 7i44; plug-in cable, no continuity trace needed] | [READY 2026-08-09: factory-link acceptance applies to two distinct plug-in segments: Mesa 50-pin IDC from 7i80HDT P1 to 7i44, then CAT5 smart-serial from 7i44 to the identified 7i84U channel. Inspect assembly identity, keying/orientation, seating, strain relief, and visible condition; verify expected smart-serial enumeration without communication or watchdog faults. Do not continuity-audit or re-terminate individual conductors.]",
@@ -1560,6 +1592,8 @@ window.MAZAK_DATA = {
    "field_point": "7i84U-A RJ45 pin 3 TX-",
    "dest_connector": "7i84U-A RJ45",
    "dest_pin": "3",
+   "factory_wire": "",
+   "bbia_class": "power-internal",
    "designations": [],
    "primary_source": "mesa_firmware_checklist.md",
    "cleanup_notes": "RS-422 differential pair | [MESA-CONFIRMED 2026-08-08: matches 7i84U J1 RJ-45 pinout (7i84uman.pdf: p1 RXA/p2 RXB/p3 TXA/p6 TXB/p4-5 GND/p7-8 +5V, 568B colors); straight CAT5 to 7i44; plug-in cable, no continuity trace needed] | [READY 2026-08-09: factory-link acceptance applies to two distinct plug-in segments: Mesa 50-pin IDC from 7i80HDT P1 to 7i44, then CAT5 smart-serial from 7i44 to the identified 7i84U channel. Inspect assembly identity, keying/orientation, seating, strain relief, and visible condition; verify expected smart-serial enumeration without communication or watchdog faults. Do not continuity-audit or re-terminate individual conductors.]",
@@ -1609,6 +1643,8 @@ window.MAZAK_DATA = {
    "field_point": "7i84U-A RJ45 pin 4/5 ground",
    "dest_connector": "7i84U-A RJ45",
    "dest_pin": "4/5",
+   "factory_wire": "",
+   "bbia_class": "power-internal",
    "designations": [],
    "primary_source": "mesa_firmware_checklist.md",
    "cleanup_notes": "Factory-link signal ground; cable construction is not field-modified | [MESA-CONFIRMED 2026-08-08: matches 7i84U J1 RJ-45 pinout (7i84uman.pdf: p1 RXA/p2 RXB/p3 TXA/p6 TXB/p4-5 GND/p7-8 +5V, 568B colors); straight CAT5 to 7i44] | [READY 2026-08-09: two distinct plug-in segments: Mesa 50-pin IDC from 7i80HDT P1 to 7i44, then CAT5 smart-serial from 7i44 channel 0 to 7i84U-A. Inspect assembly identity, keying/orientation, seating, strain relief, and visible condition; verify expected smart-serial enumeration without communication or watchdog faults. Do not continuity-audit or re-terminate individual conductors.]",
@@ -1658,6 +1694,8 @@ window.MAZAK_DATA = {
    "field_point": "7i84U-A RJ45 pin 7/8 +5V",
    "dest_connector": "7i84U-A RJ45",
    "dest_pin": "7/8",
+   "factory_wire": "",
+   "bbia_class": "power-internal",
    "designations": [],
    "primary_source": "mesa_firmware_checklist.md",
    "cleanup_notes": "Serial power for 7i84U-A logic | [MESA-CONFIRMED 2026-08-08: matches 7i84U J1 RJ-45 pinout (7i84uman.pdf: p1 RXA/p2 RXB/p3 TXA/p6 TXB/p4-5 GND/p7-8 +5V, 568B colors); straight CAT5 to 7i44; plug-in cable, no continuity trace needed] | [READY 2026-08-09: factory-link acceptance applies to two distinct plug-in segments: Mesa 50-pin IDC from 7i80HDT P1 to 7i44, then CAT5 smart-serial from 7i44 to the identified 7i84U channel. Inspect assembly identity, keying/orientation, seating, strain relief, and visible condition; verify expected smart-serial enumeration without communication or watchdog faults. Do not continuity-audit or re-terminate individual conductors.]",
@@ -1707,6 +1745,8 @@ window.MAZAK_DATA = {
    "field_point": "Spare smart-serial channels",
    "dest_connector": "",
    "dest_pin": "",
+   "factory_wire": "",
+   "bbia_class": "power-internal",
    "designations": [],
    "primary_source": "mesa_firmware_checklist.md",
    "cleanup_notes": "7i44 has 8 RS-422 physical channels; channels 0/1 = 7i84U-A/B within HostMot2 port 0; channels 2-7 remain spare for MPG pendant, 4th-axis card, or additional 7i84 expansion.",
@@ -1756,6 +1796,8 @@ window.MAZAK_DATA = {
    "field_point": "Field power bank A (TB3 I/O)",
    "dest_connector": "TB3",
    "dest_pin": "",
+   "factory_wire": "",
+   "bbia_class": "power-internal",
    "designations": [
     "TB-3"
    ],
@@ -1812,6 +1854,8 @@ window.MAZAK_DATA = {
    "field_point": "Field power bank B (TB2 I/O)",
    "dest_connector": "TB2",
    "dest_pin": "",
+   "factory_wire": "",
+   "bbia_class": "power-internal",
    "designations": [
     "TB-2"
    ],
@@ -1866,8 +1910,10 @@ window.MAZAK_DATA = {
    "machine_subsystem": "ATC",
    "status": "FACTORY_INTERFACE",
    "field_point": "PRS-55 Y ATC zone",
-   "dest_connector": "",
-   "dest_pin": "",
+   "dest_connector": "CN3",
+   "dest_pin": "44",
+   "factory_wire": "+LY2",
+   "bbia_class": "plane",
    "designations": [
     "PRS-55"
    ],
@@ -1941,8 +1987,10 @@ window.MAZAK_DATA = {
    "machine_subsystem": "ATC",
    "status": "FACTORY_INTERFACE",
    "field_point": "PRS-66 Z ATC zone",
-   "dest_connector": "",
-   "dest_pin": "",
+   "dest_connector": "CN3",
+   "dest_pin": "39",
+   "factory_wire": "-LZ2",
+   "bbia_class": "plane",
    "designations": [
     "PRS-66"
    ],
@@ -2016,8 +2064,10 @@ window.MAZAK_DATA = {
    "machine_subsystem": "ATC magazine",
    "status": "FACTORY_INTERFACE",
    "field_point": "PHS-181 magazine tool available",
-   "dest_connector": "",
-   "dest_pin": "",
+   "dest_connector": "CN2",
+   "dest_pin": "13",
+   "factory_wire": "381",
+   "bbia_class": "plane",
    "designations": [
     "PHS-181",
     "PHS-127"
@@ -2110,8 +2160,10 @@ window.MAZAK_DATA = {
    "machine_subsystem": "ATC",
    "status": "FACTORY_INTERFACE",
    "field_point": "PHS-182 spindle tool available",
-   "dest_connector": "",
-   "dest_pin": "",
+   "dest_connector": "CN6",
+   "dest_pin": "50",
+   "factory_wire": "382",
+   "bbia_class": "plane",
    "designations": [
     "PHS-182",
     "PHS-132"
@@ -2204,8 +2256,10 @@ window.MAZAK_DATA = {
    "machine_subsystem": "Spindle",
    "status": "FACTORY_INTERFACE",
    "field_point": "FR-SX orient arrival (PLC X003 ORA1)",
-   "dest_connector": "",
-   "dest_pin": "",
+   "dest_connector": "CN4",
+   "dest_pin": "16",
+   "factory_wire": "SETA",
+   "bbia_class": "plane",
    "designations": [],
    "primary_source": "element_list_crosswalk_2026-07-27",
    "cleanup_notes": "ATC cannot cycle without orient; confirm FR-SX terminal and polarity | [RECON 2026-08-08 §A: element list confirms X003 ORA1 'ORIENT ARRIVAL' (ladder 3006/4810/5509) on 060231] | [RECON 2026-08-08 §D: FR-SX OBA1(t22)/OBA2(t23) -> CN4-16/CN4-17 (digits verify)] | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/spindle_run_ladder_transcription.md]",
@@ -2295,8 +2349,10 @@ window.MAZAK_DATA = {
    "machine_subsystem": "Spindle safety",
    "status": "FACTORY_INTERFACE",
    "field_point": "FR-SX zero-speed output (PLC X001 SZS.M)",
-   "dest_connector": "",
-   "dest_pin": "",
+   "dest_connector": "CN4",
+   "dest_pin": "1",
+   "factory_wire": "231",
+   "bbia_class": "plane",
    "designations": [],
    "primary_source": "element_list_crosswalk_2026-07-27",
    "cleanup_notes": "Distinct from IN13 speed-reach; gear shift interlock needs zero-speed | [RECON 2026-08-08 §A: element list confirms X001 SZS.M 'SPINDLE ZERO SPEED' on 060231] | [RECON 2026-08-08 §D: FR-SX ESL1(t3)/ES2(t4) -> CN4-1/CN4-2 (digits verify)] | [LOCATED 2026-08-08: X01 SZS.M wire 143 T.U CN3-4, Dwg 4143075407 pg133] | [PINOUT-RECONCILED 2026-08-09: BBIA-1 board = wire 231, CN4-1 (matches the FR-SX CON1->CN4 reading in the D-section; supersedes the pg133 'wire 143 / CN3-4' LOCATED note).] | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/spindle_run_ladder_transcription.md]",
@@ -2422,8 +2478,10 @@ window.MAZAK_DATA = {
    "machine_subsystem": "Magazine",
    "status": "FACTORY_INTERFACE",
    "field_point": "Magazine cover open reed switch (PLC X052 MGCORS)",
-   "dest_connector": "",
-   "dest_pin": "",
+   "dest_connector": "CN2",
+   "dest_pin": "11",
+   "factory_wire": "218",
+   "bbia_class": "plane",
    "designations": [],
    "primary_source": "element_list_crosswalk_2026-07-27",
    "cleanup_notes": "Pairs with NET_MAG_COVER_OPEN/CLOSE solenoids; locate RS on cover | [RECON 2026-08-08 §A/§F: X052 MGCORS + RS-18 line 218 (Dwg 4143075409) confirm on 060231] | [LOCATED 2026-08-08: RS-18 wire 218 MGCORS X52, Dwg 4143075409 pg135] | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/atc_ladder_transcription.md]",
@@ -2513,8 +2571,10 @@ window.MAZAK_DATA = {
    "machine_subsystem": "Magazine",
    "status": "FACTORY_INTERFACE",
    "field_point": "Magazine cover close reed switch (PLC X053 MGCCRS)",
-   "dest_connector": "",
-   "dest_pin": "",
+   "dest_connector": "CN2",
+   "dest_pin": "12",
+   "factory_wire": "219",
+   "bbia_class": "plane",
    "designations": [],
    "primary_source": "element_list_crosswalk_2026-07-27",
    "cleanup_notes": "Interlock magazine rotation on cover closed | [RECON 2026-08-08 §A/§F: X053 MGCCRS + RS-19 line 219 (Dwg 4143075409) confirm on 060231] | [LOCATED 2026-08-08: RS-19 wire 219 MGCCRS X53, Dwg 4143075409 pg135] | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/atc_ladder_transcription.md]",
@@ -2604,8 +2664,10 @@ window.MAZAK_DATA = {
    "machine_subsystem": "Machine safety",
    "status": "FACTORY_INTERFACE",
    "field_point": "Motor thermal trip + main transformer overheat in series (PLC X073 THR.M + X07B ONT.M)",
-   "dest_connector": "",
-   "dest_pin": "",
+   "dest_connector": "CN5",
+   "dest_pin": "1",
+   "factory_wire": "144",
+   "bbia_class": "plane",
    "designations": [],
    "primary_source": "element_list_crosswalk_2026-07-27 + open_issues.md §3 (2026-08-03)",
    "cleanup_notes": "Series-wired NC X073 THR.M + X07B ONT.M; alarm-only, not in E-stop chain; field continuity and polarity remain unverified. | [RECON 2026-08-08 §A: element list confirms X073 THR.M + X07B ONT.M — two NC signals, series on 060231] | [LOCATED 2026-08-08: X73 THR.M (T.U CN5-1, TB1; motor thermal + circuit protector trip) series-NC X7B ONT.M (T.U CN5-3, OHT; main transformer overheat), Dwg 4143075407 pg133] | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/estop_ladder_transcription.md]",
@@ -2677,8 +2739,10 @@ window.MAZAK_DATA = {
    "machine_subsystem": "ATC tool",
    "status": "FACTORY_INTERFACE",
    "field_point": "Manual tool unclamp FOOT switch (PLC X01A TUCFS.M)",
-   "dest_connector": "",
-   "dest_pin": "",
+   "dest_connector": "CN2",
+   "dest_pin": "3",
+   "factory_wire": "149",
+   "bbia_class": "plane",
    "designations": [],
    "primary_source": "element_list_crosswalk_2026-07-27",
    "cleanup_notes": "Commissioning aid; pairs with MANUAL_TOOL_CLAMP_PB on IN30 (TCFS X01B reinstated 2026-08-03 after single-7i84U plan freed pins). | [RECON 2026-08-08 §A: element list confirms X01A TUCFS.M 'MNL TOOL UNCLAMP FS (VQC20)' on 060231] | [RECON 2026-08-08: FOOT switch confirmed (owner + mnemonic TUCFS=Tool UnClamp Foot Switch); BBIA1 wire 149 'TOOL UNCLAMP (FOOT SW)' 7-23] | [LOCATED 2026-08-08: X1A TUCF.M foot switch, wire 149A, T.U CN2-3, Dwg 4143075407 pg133] | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/atc_ladder_transcription.md]",
@@ -2756,30 +2820,32 @@ window.MAZAK_DATA = {
    "authority_line": 33
   },
   {
-   "id": "X_DRIVE_FAULT",
-   "name": "X Drive Fault",
+   "id": "SERVO_FAULT",
+   "name": "Servo Fault",
    "board": "7i84U-A",
    "connector": "TB3",
    "channel": "IN10",
-   "hal_net": "x-drive-fault",
+   "hal_net": "servo-fault",
    "direction": "IN",
    "direction_label": "Input (digital)",
    "subsystem": "Drive safety",
-   "machine_subsystem": "Servo drives",
+   "machine_subsystem": "Drive safety",
    "status": "FACTORY_INTERFACE",
-   "field_point": "X drive fault relay",
-   "dest_connector": "",
-   "dest_pin": "",
+   "field_point": "Combined servo alarm (SER) shared by X/Y/Z at CN6-27",
+   "dest_connector": "CN6",
+   "dest_pin": "27",
+   "factory_wire": "SER",
+   "bbia_class": "plane",
    "designations": [],
    "primary_source": "archived_wiring_map",
-   "cleanup_notes": "Update field_7i84u.hal because it currently uses input-12 | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/estop_ladder_transcription.md]",
-   "location": "Servo bay — X drive ALM relay contact",
-   "location_note": "Mitsubishi HD81/HD101 ALM is open-collector active-low",
+   "cleanup_notes": "Owner decision 2026-08-11 (AG): OEM SER is ONE combined servo-error contact for all axes (only one SER line on the 50-pin CN6) not per-axis; IN10 fans out to all three joint amp-faults; IN11/IN12 freed to spare. Bench-verify HD81/HD101 ALM polarity before enabling | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/estop_ladder_transcription.md]",
+   "location": "Unknown — trace in cabinet",
+   "location_note": "",
    "expected": {
     "value": "Unknown",
-    "label": "Unknown — polarity not confirmed; inversion not commissioned",
-    "basis": "field_7i84u.hal drive-fault block — select raw input or input-NN-not only after bench verification",
-    "kind": "unknown-polarity"
+    "label": "Unknown — measure/verify",
+    "basis": "No explicit normal-state evidence in the repo for this signal.",
+    "kind": "unknown"
    },
    "hal_state": "active",
    "mesa_pins": [
@@ -2787,13 +2853,15 @@ window.MAZAK_DATA = {
    ],
    "producers": [],
    "consumers": [
-    "resolver-fault-x.in0"
+    "resolver-fault-x.in0",
+    "resolver-fault-y.in0",
+    "resolver-fault-z.in0"
    ],
    "hal_refs": [
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 52,
-     "text": "net x-drive-fault      <= hm2_7i80.0.7i84.0.0.input-10   # IN10 X drive ALM",
+     "line": 58,
+     "text": "net servo-fault        <= hm2_7i80.0.7i84.0.0.input-10   # IN10 CN6-27 SER combined servo ALM (all axes)",
      "commented": false,
      "producers": [
       "hm2_7i80.0.7i84.0.0.input-10"
@@ -2803,12 +2871,34 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 53,
-     "text": "net x-drive-fault      => resolver-fault-x.in0",
+     "line": 59,
+     "text": "net servo-fault        => resolver-fault-x.in0",
      "commented": false,
      "producers": [],
      "consumers": [
       "resolver-fault-x.in0"
+     ],
+     "bidir": []
+    },
+    {
+     "file": "linuxcnc/field_7i84u.hal",
+     "line": 60,
+     "text": "net servo-fault        => resolver-fault-y.in0",
+     "commented": false,
+     "producers": [],
+     "consumers": [
+      "resolver-fault-y.in0"
+     ],
+     "bidir": []
+    },
+    {
+     "file": "linuxcnc/field_7i84u.hal",
+     "line": 61,
+     "text": "net servo-fault        => resolver-fault-z.in0",
+     "commented": false,
+     "producers": [],
+     "consumers": [
+      "resolver-fault-z.in0"
      ],
      "bidir": []
     }
@@ -2823,13 +2913,23 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "52",
-     "note": "net x-drive-fault      <= hm2_7i80.0.7i84.0.0.input-10   # IN10 X drive ALM"
+     "lines": "58",
+     "note": "net servo-fault        <= hm2_7i80.0.7i84.0.0.input-10   # IN10 CN6-27 SER combined servo ALM (all axes)"
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "53",
-     "note": "net x-drive-fault      => resolver-fault-x.in0"
+     "lines": "59",
+     "note": "net servo-fault        => resolver-fault-x.in0"
+    },
+    {
+     "file": "linuxcnc/field_7i84u.hal",
+     "lines": "60",
+     "note": "net servo-fault        => resolver-fault-y.in0"
+    },
+    {
+     "file": "linuxcnc/field_7i84u.hal",
+     "lines": "61",
+     "note": "net servo-fault        => resolver-fault-z.in0"
     },
     {
      "file": "archived_wiring_map",
@@ -2842,68 +2942,43 @@ window.MAZAK_DATA = {
     "cnd_pin": "CN6-27",
     "wire": "SER",
     "cn_pin": "CN6-27",
-    "provenance": "RESOLVED 2026-08-10: BBIA-1 board pinout CN6-27 = wire mnemonic SER, function SERVO ERROR - exact label match. docs/servo_amp_analysis.md 3.3 confirms SERVO ALARM (SALM) lands at the terminal unit's CN6. IMPORTANT: CN6-27 appears to be a SINGLE combined alarm line, not one input per axis - only one SER entry exists on the 50-pin CN6, no X/Y/Z-specific alarm pins found. If that holds up, X/Y/Z_DRIVE_FAULT are the same physical signal and the 3-separate-input design (IN10/11/12) needs owner review before wiring"
+    "provenance": "RESOLVED 2026-08-11 (owner decision AG): CN6-27 = wire mnemonic SER, function SERVO ERROR - the SINGLE combined servo-alarm contact for all three axes (only one SER entry on the 50-pin CN6; docs/servo_amp_analysis.md 3.3 confirms SERVO ALARM lands at the terminal unit's CN6). Consolidated to one 7i84U-A input (IN10) that fans out to all three joint amp-faults; the former per-axis X/Y/Z_DRIVE_FAULT (IN10/11/12) design is retired and IN11/IN12 are freed to spare"
    },
    "authority_line": 34
   },
   {
-   "id": "Y_DRIVE_FAULT",
-   "name": "Y Drive Fault",
+   "id": "SEVENI84UA_IN11_SPARE",
+   "name": "Seveni84Ua In11 Spare",
    "board": "7i84U-A",
    "connector": "TB3",
    "channel": "IN11",
-   "hal_net": "y-drive-fault",
+   "hal_net": "",
    "direction": "IN",
    "direction_label": "Input (digital)",
-   "subsystem": "Drive safety",
-   "machine_subsystem": "Servo drives",
-   "status": "FACTORY_INTERFACE",
-   "field_point": "Y drive fault relay",
+   "subsystem": "Spare",
+   "machine_subsystem": "Spare",
+   "status": "SPARE",
+   "field_point": "Spare — freed 2026-08-11 when servo ALM consolidated to the single combined SER line on IN10 (owner decision AG)",
    "dest_connector": "",
    "dest_pin": "",
+   "factory_wire": "",
+   "bbia_class": "spare",
    "designations": [],
    "primary_source": "archived_wiring_map",
-   "cleanup_notes": "Update field_7i84u.hal because it currently uses input-13 | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/estop_ladder_transcription.md]",
-   "location": "Servo bay — Y drive ALM relay contact",
-   "location_note": "See field_7i84u.hal:28-33 polarity caution",
+   "cleanup_notes": "Was Y_DRIVE_FAULT; no separate per-axis servo alarm exists (single CN6-27 SER). Available for reuse",
+   "location": "Unknown — trace in cabinet",
+   "location_note": "",
    "expected": {
-    "value": "Unknown",
-    "label": "Unknown — polarity not confirmed; inversion not commissioned",
-    "basis": "field_7i84u.hal:28-33",
-    "kind": "unknown-polarity"
+    "value": "0",
+    "label": "0 — spare channel, no field wiring",
+    "basis": "Marked SPARE in current_pin_authority.csv",
+    "kind": "default-off"
    },
-   "hal_state": "active",
-   "mesa_pins": [
-    "hm2_7i80.0.7i84.0.0.input-11"
-   ],
+   "hal_state": "absent",
+   "mesa_pins": [],
    "producers": [],
-   "consumers": [
-    "resolver-fault-y.in0"
-   ],
-   "hal_refs": [
-    {
-     "file": "linuxcnc/field_7i84u.hal",
-     "line": 54,
-     "text": "net y-drive-fault      <= hm2_7i80.0.7i84.0.0.input-11   # IN11 Y drive ALM",
-     "commented": false,
-     "producers": [
-      "hm2_7i80.0.7i84.0.0.input-11"
-     ],
-     "consumers": [],
-     "bidir": []
-    },
-    {
-     "file": "linuxcnc/field_7i84u.hal",
-     "line": 55,
-     "text": "net y-drive-fault      => resolver-fault-y.in0",
-     "commented": false,
-     "producers": [],
-     "consumers": [
-      "resolver-fault-y.in0"
-     ],
-     "bidir": []
-    }
-   ],
+   "consumers": [],
+   "hal_refs": [],
    "setp_refs": [],
    "epson_ferrules": [],
    "sources": [
@@ -2913,88 +2988,48 @@ window.MAZAK_DATA = {
      "note": "Current wiring authority row"
     },
     {
-     "file": "linuxcnc/field_7i84u.hal",
-     "lines": "54",
-     "note": "net y-drive-fault      <= hm2_7i80.0.7i84.0.0.input-11   # IN11 Y drive ALM"
-    },
-    {
-     "file": "linuxcnc/field_7i84u.hal",
-     "lines": "55",
-     "note": "net y-drive-fault      => resolver-fault-y.in0"
-    },
-    {
      "file": "archived_wiring_map",
      "lines": "",
      "note": "primary_source column in the authority table"
     }
    ],
    "conflicts": [],
-   "bb_source": {
-    "cnd_pin": "CN6-27",
-    "wire": "SER",
-    "cn_pin": "CN6-27",
-    "provenance": "RESOLVED 2026-08-10: same finding as X_DRIVE_FAULT - CN6-27 (wire SER, SERVO ERROR) appears to be ONE combined alarm line for all three axes, not per-axis. See X_DRIVE_FAULT's note; owner review needed before wiring three separate 7i84U inputs to what may be a single physical signal"
-   },
+   "bb_source": null,
    "authority_line": 35
   },
   {
-   "id": "Z_DRIVE_FAULT",
-   "name": "Z Drive Fault",
+   "id": "SEVENI84UA_IN12_SPARE",
+   "name": "Seveni84Ua In12 Spare",
    "board": "7i84U-A",
    "connector": "TB3",
    "channel": "IN12",
-   "hal_net": "z-drive-fault",
+   "hal_net": "",
    "direction": "IN",
    "direction_label": "Input (digital)",
-   "subsystem": "Drive safety",
-   "machine_subsystem": "Servo drives",
-   "status": "FACTORY_INTERFACE",
-   "field_point": "Z drive fault relay",
+   "subsystem": "Spare",
+   "machine_subsystem": "Spare",
+   "status": "SPARE",
+   "field_point": "Spare — freed 2026-08-11 when servo ALM consolidated to the single combined SER line on IN10 (owner decision AG)",
    "dest_connector": "",
    "dest_pin": "",
+   "factory_wire": "",
+   "bbia_class": "spare",
    "designations": [],
    "primary_source": "archived_wiring_map",
-   "cleanup_notes": "Update field_7i84u.hal because it currently uses input-14 | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/estop_ladder_transcription.md]",
-   "location": "Servo bay — Z drive ALM relay contact",
-   "location_note": "See field_7i84u.hal:28-33 polarity caution",
+   "cleanup_notes": "Was Z_DRIVE_FAULT; no separate per-axis servo alarm exists (single CN6-27 SER). Available for reuse",
+   "location": "Unknown — trace in cabinet",
+   "location_note": "",
    "expected": {
-    "value": "Unknown",
-    "label": "Unknown — polarity not confirmed; inversion not commissioned",
-    "basis": "field_7i84u.hal:28-33",
-    "kind": "unknown-polarity"
+    "value": "0",
+    "label": "0 — spare channel, no field wiring",
+    "basis": "Marked SPARE in current_pin_authority.csv",
+    "kind": "default-off"
    },
-   "hal_state": "active",
-   "mesa_pins": [
-    "hm2_7i80.0.7i84.0.0.input-12"
-   ],
+   "hal_state": "absent",
+   "mesa_pins": [],
    "producers": [],
-   "consumers": [
-    "resolver-fault-z.in0"
-   ],
-   "hal_refs": [
-    {
-     "file": "linuxcnc/field_7i84u.hal",
-     "line": 56,
-     "text": "net z-drive-fault      <= hm2_7i80.0.7i84.0.0.input-12   # IN12 Z drive ALM",
-     "commented": false,
-     "producers": [
-      "hm2_7i80.0.7i84.0.0.input-12"
-     ],
-     "consumers": [],
-     "bidir": []
-    },
-    {
-     "file": "linuxcnc/field_7i84u.hal",
-     "line": 57,
-     "text": "net z-drive-fault      => resolver-fault-z.in0",
-     "commented": false,
-     "producers": [],
-     "consumers": [
-      "resolver-fault-z.in0"
-     ],
-     "bidir": []
-    }
-   ],
+   "consumers": [],
+   "hal_refs": [],
    "setp_refs": [],
    "epson_ferrules": [],
    "sources": [
@@ -3004,28 +3039,13 @@ window.MAZAK_DATA = {
      "note": "Current wiring authority row"
     },
     {
-     "file": "linuxcnc/field_7i84u.hal",
-     "lines": "56",
-     "note": "net z-drive-fault      <= hm2_7i80.0.7i84.0.0.input-12   # IN12 Z drive ALM"
-    },
-    {
-     "file": "linuxcnc/field_7i84u.hal",
-     "lines": "57",
-     "note": "net z-drive-fault      => resolver-fault-z.in0"
-    },
-    {
      "file": "archived_wiring_map",
      "lines": "",
      "note": "primary_source column in the authority table"
     }
    ],
    "conflicts": [],
-   "bb_source": {
-    "cnd_pin": "CN6-27",
-    "wire": "SER",
-    "cn_pin": "CN6-27",
-    "provenance": "RESOLVED 2026-08-10: same finding as X/Y_DRIVE_FAULT - CN6-27 (wire SER, SERVO ERROR) appears to be ONE combined alarm line for all three axes, not per-axis. See X_DRIVE_FAULT's note; owner review needed before wiring three separate 7i84U inputs to what may be a single physical signal"
-   },
+   "bb_source": null,
    "authority_line": 36
   },
   {
@@ -3043,6 +3063,8 @@ window.MAZAK_DATA = {
    "field_point": "No factory FR-SX at-speed terminal — derive in LinuxCNC HAL",
    "dest_connector": "",
    "dest_pin": "",
+   "factory_wire": "",
+   "bbia_class": "exception",
    "designations": [],
    "primary_source": "archived_wiring_map",
    "cleanup_notes": "Confirm VFD terminal and polarity | [RECON 2026-08-08: spindle-drive sheet Dwg 4143075403 shows only zero-speed/controller-normal/orient-arrival; NO discrete at-speed output. Derive at-speed in HAL (commanded-vs-actual threshold). Do NOT wire.] | [RECON 2026-08-08 follow-up: status COMMISSIONING_PENDING -> DEFERRED; no field wire, derived in HAL] | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/spindle_run_ladder_transcription.md]",
@@ -3065,7 +3087,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 64,
+     "line": 68,
      "text": "net spindle-at-speed   <= hm2_7i80.0.7i84.0.0.input-13   # IN13 FR-SX SPD-REACH",
      "commented": false,
      "producers": [
@@ -3076,7 +3098,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 65,
+     "line": 69,
      "text": "net spindle-at-speed   => spindle.0.at-speed",
      "commented": false,
      "producers": [],
@@ -3096,12 +3118,12 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "64",
+     "lines": "68",
      "note": "net spindle-at-speed   <= hm2_7i80.0.7i84.0.0.input-13   # IN13 FR-SX SPD-REACH"
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "65",
+     "lines": "69",
      "note": "net spindle-at-speed   => spindle.0.at-speed"
     },
     {
@@ -3127,8 +3149,10 @@ window.MAZAK_DATA = {
    "machine_subsystem": "Spindle drive",
    "status": "FACTORY_INTERFACE",
    "field_point": "FR-SX fault output",
-   "dest_connector": "",
-   "dest_pin": "",
+   "dest_connector": "CN4",
+   "dest_pin": "3",
+   "factory_wire": "FA",
+   "bbia_class": "plane",
    "designations": [],
    "primary_source": "archived_wiring_map",
    "cleanup_notes": "Confirm VFD terminal and polarity | [RECON 2026-08-08 §D: FR-SX FA(t11)/FC(t12) 'controller normal' -> CN4-3/CN4-4 (digits verify)] | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/spindle_run_ladder_transcription.md]",
@@ -3165,7 +3189,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 66,
+     "line": 70,
      "text": "net spindle-fault      <= hm2_7i80.0.7i84.0.0.input-14   # IN14 FR-SX ALM",
      "commented": false,
      "producers": [
@@ -3176,7 +3200,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 67,
+     "line": 71,
      "text": "net spindle-fault      => spindle.0.amp-fault-in",
      "commented": false,
      "producers": [],
@@ -3223,12 +3247,12 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "66",
+     "lines": "70",
      "note": "net spindle-fault      <= hm2_7i80.0.7i84.0.0.input-14   # IN14 FR-SX ALM"
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "67",
+     "lines": "71",
      "note": "net spindle-fault      => spindle.0.amp-fault-in"
     },
     {
@@ -3269,8 +3293,10 @@ window.MAZAK_DATA = {
    "machine_subsystem": "ATC",
    "status": "FACTORY_INTERFACE",
    "field_point": "PRS-9 tool clamp confirm",
-   "dest_connector": "",
-   "dest_pin": "",
+   "dest_connector": "CN1",
+   "dest_pin": "2",
+   "factory_wire": "209",
+   "bbia_class": "plane",
    "designations": [
     "PRS-9"
    ],
@@ -3295,7 +3321,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 68,
+     "line": 72,
      "text": "net tool-clamped       <= hm2_7i80.0.7i84.0.0.input-15   # IN15 PRS-9 tool-clamp confirm",
      "commented": false,
      "producers": [
@@ -3326,7 +3352,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "68",
+     "lines": "72",
      "note": "net tool-clamped       <= hm2_7i80.0.7i84.0.0.input-15   # IN15 PRS-9 tool-clamp confirm"
     },
     {
@@ -3362,8 +3388,10 @@ window.MAZAK_DATA = {
    "machine_subsystem": "ATC",
    "status": "FACTORY_INTERFACE",
    "field_point": "PRS-8 tool unclamp confirm",
-   "dest_connector": "",
-   "dest_pin": "",
+   "dest_connector": "CN1",
+   "dest_pin": "1",
+   "factory_wire": "208",
+   "bbia_class": "plane",
    "designations": [
     "PRS-8"
    ],
@@ -3388,7 +3416,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 71,
+     "line": 75,
      "text": "net tool-unclamped     <= hm2_7i80.0.7i84.0.0.input-16   # IN16 PRS-8 tool-unclamp confirm",
      "commented": false,
      "producers": [
@@ -3419,7 +3447,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "71",
+     "lines": "75",
      "note": "net tool-unclamped     <= hm2_7i80.0.7i84.0.0.input-16   # IN16 PRS-8 tool-unclamp confirm"
     },
     {
@@ -3455,8 +3483,10 @@ window.MAZAK_DATA = {
    "machine_subsystem": "Spindle gearbox",
    "status": "FACTORY_INTERFACE",
    "field_point": "PRS-10 gear high confirm",
-   "dest_connector": "",
-   "dest_pin": "",
+   "dest_connector": "CN1",
+   "dest_pin": "3",
+   "factory_wire": "210",
+   "bbia_class": "plane",
    "designations": [
     "PRS-10"
    ],
@@ -3548,8 +3578,10 @@ window.MAZAK_DATA = {
    "machine_subsystem": "Spindle gearbox",
    "status": "FACTORY_INTERFACE",
    "field_point": "PRS-12 gear low confirm",
-   "dest_connector": "",
-   "dest_pin": "",
+   "dest_connector": "CN1",
+   "dest_pin": "4",
+   "factory_wire": "212",
+   "bbia_class": "plane",
    "designations": [
     "PRS-12",
     "PRS-2",
@@ -3644,8 +3676,10 @@ window.MAZAK_DATA = {
    "machine_subsystem": "ATC magazine",
    "status": "FACTORY_INTERFACE",
    "field_point": "PRS-21 magazine BCD bit 0",
-   "dest_connector": "",
-   "dest_pin": "",
+   "dest_connector": "CN2",
+   "dest_pin": "4",
+   "factory_wire": "150",
+   "bbia_class": "plane",
    "designations": [
     "PRS-21"
    ],
@@ -3756,8 +3790,10 @@ window.MAZAK_DATA = {
    "machine_subsystem": "ATC magazine",
    "status": "FACTORY_INTERFACE",
    "field_point": "PRS-22 magazine BCD bit 1",
-   "dest_connector": "",
-   "dest_pin": "",
+   "dest_connector": "CN2",
+   "dest_pin": "5",
+   "factory_wire": "221",
+   "bbia_class": "plane",
    "designations": [
     "PRS-22"
    ],
@@ -3868,8 +3904,10 @@ window.MAZAK_DATA = {
    "machine_subsystem": "ATC magazine",
    "status": "FACTORY_INTERFACE",
    "field_point": "PRS-23 magazine BCD bit 2",
-   "dest_connector": "",
-   "dest_pin": "",
+   "dest_connector": "CN2",
+   "dest_pin": "6",
+   "factory_wire": "222",
+   "bbia_class": "plane",
    "designations": [
     "PRS-23"
    ],
@@ -3980,8 +4018,10 @@ window.MAZAK_DATA = {
    "machine_subsystem": "ATC magazine",
    "status": "FACTORY_INTERFACE",
    "field_point": "PRS-24 magazine BCD bit 3",
-   "dest_connector": "",
-   "dest_pin": "",
+   "dest_connector": "CN2",
+   "dest_pin": "7",
+   "factory_wire": "223",
+   "bbia_class": "plane",
    "designations": [
     "PRS-24"
    ],
@@ -4092,8 +4132,10 @@ window.MAZAK_DATA = {
    "machine_subsystem": "ATC magazine",
    "status": "FACTORY_INTERFACE",
    "field_point": "PRS-25 magazine BCD bit 4",
-   "dest_connector": "",
-   "dest_pin": "",
+   "dest_connector": "CN2",
+   "dest_pin": "8",
+   "factory_wire": "224",
+   "bbia_class": "plane",
    "designations": [
     "PRS-25"
    ],
@@ -4204,8 +4246,10 @@ window.MAZAK_DATA = {
    "machine_subsystem": "Safety chain",
    "status": "FACTORY_INTERFACE",
    "field_point": "Door interlock switches series (LS-141 + LS-140 + PLC X01D ITMDSS.M all in one chain)",
-   "dest_connector": "",
-   "dest_pin": "",
+   "dest_connector": "CN2",
+   "dest_pin": "38",
+   "factory_wire": "238",
+   "bbia_class": "plane",
    "designations": [
     "LS-141",
     "LS-140",
@@ -4231,7 +4275,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 75,
+     "line": 79,
      "text": "net door-interlock     <= hm2_7i80.0.7i84.0.0.input-24   # IN24 LS-140+LS-141+X01D ITMDSS series NC",
      "commented": false,
      "producers": [
@@ -4251,7 +4295,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "75",
+     "lines": "79",
      "note": "net door-interlock     <= hm2_7i80.0.7i84.0.0.input-24   # IN24 LS-140+LS-141+X01D ITMDSS series NC"
     },
     {
@@ -4284,8 +4328,10 @@ window.MAZAK_DATA = {
    "machine_subsystem": "Utility",
    "status": "FACTORY_INTERFACE",
    "field_point": "PS-5 head-lube pressure switch wire 355 (PLC X079 HLP.M)",
-   "dest_connector": "",
-   "dest_pin": "",
+   "dest_connector": "CN6",
+   "dest_pin": "39",
+   "factory_wire": "355",
+   "bbia_class": "plane",
    "designations": [
     "PS-5"
    ],
@@ -4308,7 +4354,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 76,
+     "line": 80,
      "text": "net lube-ok            <= hm2_7i80.0.7i84.0.0.input-25   # IN25 PS-5 wire 355 / X079 HLP.M; sole head-lube pressure switch",
      "commented": false,
      "producers": [
@@ -4328,7 +4374,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "76",
+     "lines": "80",
      "note": "net lube-ok            <= hm2_7i80.0.7i84.0.0.input-25   # IN25 PS-5 wire 355 / X079 HLP.M; sole head-lube pressure switch"
     },
     {
@@ -4359,8 +4405,10 @@ window.MAZAK_DATA = {
    "machine_subsystem": "Coolant",
    "status": "FACTORY_INTERFACE",
    "field_point": "Coolant level switch",
-   "dest_connector": "",
-   "dest_pin": "",
+   "dest_connector": "CN1",
+   "dest_pin": "5",
+   "factory_wire": "232",
+   "bbia_class": "plane",
    "designations": [],
    "primary_source": "archived_wiring_map",
    "cleanup_notes": "Net name follows HAL (polarity assumption: low = warning). Verify normal-state polarity in cabinet before promoting. | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/coolant_ladder_transcription.md]",
@@ -4381,7 +4429,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 77,
+     "line": 81,
      "text": "net coolant-low        <= hm2_7i80.0.7i84.0.0.input-26   # IN26 coolant level (polarity TBD)",
      "commented": false,
      "producers": [
@@ -4401,7 +4449,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "77",
+     "lines": "81",
      "note": "net coolant-low        <= hm2_7i80.0.7i84.0.0.input-26   # IN26 coolant level (polarity TBD)"
     },
     {
@@ -4434,6 +4482,8 @@ window.MAZAK_DATA = {
    "field_point": "Sanwa SPS-8T-PC-20 pressure switch",
    "dest_connector": "",
    "dest_pin": "",
+   "factory_wire": "",
+   "bbia_class": "exception",
    "designations": [],
    "primary_source": "phase2_plan",
    "cleanup_notes": "This supersedes stale signal_map.csv TB5 IN16 row | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/estop_ladder_transcription.md]",
@@ -4525,6 +4575,8 @@ window.MAZAK_DATA = {
    "field_point": "Operator cycle start pushbutton",
    "dest_connector": "",
    "dest_pin": "",
+   "factory_wire": "",
+   "bbia_class": "exception",
    "designations": [],
    "primary_source": "archived_wiring_map",
    "cleanup_notes": "Displaced 2026-07-27: IN28 reclaimed for MAG_IN_POS (mandatory ATC input). Pendant WHB04B is the current cycle-start path; no 7i84U-B terminal is assigned unless the physical panel button is deliberately restored to scope.",
@@ -4572,8 +4624,10 @@ window.MAZAK_DATA = {
    "machine_subsystem": "ATC",
    "status": "FACTORY_INTERFACE",
    "field_point": "Magazine index in-position prox (PLC X00D MIPRS); BCD pot number valid only while TRUE",
-   "dest_connector": "",
-   "dest_pin": "",
+   "dest_connector": "CN2",
+   "dest_pin": "9",
+   "factory_wire": "225",
+   "bbia_class": "plane",
    "designations": [],
    "primary_source": "atc_ladder_transcription_2026-07-27",
    "cleanup_notes": "Mandatory for magazine indexing (rungs 3401/33xx). Writer added in field_7i84u.hal:79 (net mag-in-pos <= input-28) on 2026-08-06. Verify prox type/polarity before commissioning. | [RECON 2026-08-08 CONFIRMED: MAG_IN_POS = PRS-13 MIPRS 'MAGAZINE INPOSITION' wire 213 X0D, Dwg 4143075409 pg135. In-position strobe; tool-# bits are PRS-21..25 (711P/712P/714P/718P/721P). Supersedes prior 'PRS-13=tool bit'.] | [PINOUT-RECONCILED 2026-08-09: BBIA-1 board = MAGAZINE POSITION OK, wire 225, CN2-9/CND2-9 (trusted). pg135 read the in-position prox as PRS-13/wire 213, but wire 213 is absent from the BBIA-1 pinout; POSITION OK is 225/CN2-9. PLC-side prox remains PRS-13/X00D.] | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/atc_ladder_transcription.md]",
@@ -4596,7 +4650,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 89,
+     "line": 93,
      "text": "net mag-in-pos         <= hm2_7i80.0.7i84.0.0.input-28   # IN28 MIPRS mag-in-pos prox (PLC X00D)",
      "commented": false,
      "producers": [
@@ -4641,7 +4695,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "89",
+     "lines": "93",
      "note": "net mag-in-pos         <= hm2_7i80.0.7i84.0.0.input-28   # IN28 MIPRS mag-in-pos prox (PLC X00D)"
     },
     {
@@ -4684,6 +4738,8 @@ window.MAZAK_DATA = {
    "field_point": "OEM MAR relay aux contact via interposing relay (Omron G2R-1-SND-DC24 or Phoenix PLC-RSC-24DC/21) driven from EHB bus",
    "dest_connector": "",
    "dest_pin": "",
+   "factory_wire": "",
+   "bbia_class": "exception",
    "designations": [
     "RS-C"
    ],
@@ -4719,7 +4775,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 90,
+     "line": 94,
      "text": "net estop-monitor      <= hm2_7i80.0.7i84.0.0.input-29   # IN29 OEM MAR aux via interposing relay",
      "commented": false,
      "producers": [
@@ -4744,7 +4800,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "90",
+     "lines": "94",
      "note": "net estop-monitor      <= hm2_7i80.0.7i84.0.0.input-29   # IN29 OEM MAR aux via interposing relay"
     },
     {
@@ -4770,8 +4826,10 @@ window.MAZAK_DATA = {
    "machine_subsystem": "ATC tool",
    "status": "RESERVED",
    "field_point": "Manual tool clamp FOOT switch (PLC X01B TCFS.M)",
-   "dest_connector": "",
-   "dest_pin": "",
+   "dest_connector": "CN2",
+   "dest_pin": "44",
+   "factory_wire": "149B",
+   "bbia_class": "plane",
    "designations": [],
    "primary_source": "element_list_crosswalk_2026-07-27 + open_issues.md §3 (2026-08-03)",
    "cleanup_notes": "Reserved terminal; intentionally HAL-unbound until the switch and safe manual-clamp behavior are field verified. Pairs with MANUAL_TOOL_UNCLAMP_PB on IN9. | [LOCATED 2026-08-08: X1B TCCF.M foot switch, wire 149B, T.U CN2-44, Dwg 4143075407 pg133] | [2026-08-09: RESERVED, hal_net none (was manual-clamp-pb) - manual clamp deferred per io_capacity_reconciliation.md; restore net when switch behavior is field-verified] | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/atc_ladder_transcription.md]",
@@ -4824,8 +4882,10 @@ window.MAZAK_DATA = {
    "machine_subsystem": "Servo drives",
    "status": "FACTORY_INTERFACE",
    "field_point": "Servo drives ready relay contact",
-   "dest_connector": "",
-   "dest_pin": "",
+   "dest_connector": "CN6",
+   "dest_pin": "7",
+   "factory_wire": "SA",
+   "bbia_class": "plane",
    "designations": [],
    "primary_source": "archived_wiring_map",
    "cleanup_notes": "Wire before first motion if available | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/estop_ladder_transcription.md]",
@@ -4951,8 +5011,10 @@ window.MAZAK_DATA = {
    "machine_subsystem": "Spindle drive",
    "status": "FACTORY_INTERFACE",
    "field_point": "FR-SX forward input",
-   "dest_connector": "",
-   "dest_pin": "",
+   "dest_connector": "CN4",
+   "dest_pin": "9",
+   "factory_wire": "SRN",
+   "bbia_class": "plane",
    "designations": [],
    "primary_source": "archived_wiring_map",
    "cleanup_notes": "Digital FWD signal to FR-SX | [RECON 2026-08-08 §D: FR-SX SRN] | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/spindle_run_ladder_transcription.md]",
@@ -4975,7 +5037,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 115,
+     "line": 119,
      "text": "net spindle-fwd        <= and2.3.out",
      "commented": false,
      "producers": [
@@ -4986,7 +5048,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 116,
+     "line": 120,
      "text": "net spindle-fwd        => hm2_7i80.0.7i84.0.0.output-00  # OUT0  FR-SX FWD",
      "commented": false,
      "producers": [],
@@ -5006,12 +5068,12 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "115",
+     "lines": "119",
      "note": "net spindle-fwd        <= and2.3.out"
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "116",
+     "lines": "120",
      "note": "net spindle-fwd        => hm2_7i80.0.7i84.0.0.output-00  # OUT0  FR-SX FWD"
     },
     {
@@ -5044,8 +5106,10 @@ window.MAZAK_DATA = {
    "machine_subsystem": "Spindle drive",
    "status": "FACTORY_INTERFACE",
    "field_point": "FR-SX reverse input",
-   "dest_connector": "",
-   "dest_pin": "",
+   "dest_connector": "CN4",
+   "dest_pin": "10",
+   "factory_wire": "SRI",
+   "bbia_class": "plane",
    "designations": [],
    "primary_source": "archived_wiring_map",
    "cleanup_notes": "Digital REV signal to FR-SX | [RECON 2026-08-08 §D: FR-SX SRI] | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/spindle_run_ladder_transcription.md]",
@@ -5068,7 +5132,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 120,
+     "line": 124,
      "text": "net spindle-rev        <= and2.4.out",
      "commented": false,
      "producers": [
@@ -5079,7 +5143,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 121,
+     "line": 125,
      "text": "net spindle-rev        => hm2_7i80.0.7i84.0.0.output-01  # OUT1  FR-SX REV",
      "commented": false,
      "producers": [],
@@ -5099,12 +5163,12 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "120",
+     "lines": "124",
      "note": "net spindle-rev        <= and2.4.out"
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "121",
+     "lines": "125",
      "note": "net spindle-rev        => hm2_7i80.0.7i84.0.0.output-01  # OUT1  FR-SX REV"
     },
     {
@@ -5139,6 +5203,8 @@ window.MAZAK_DATA = {
    "field_point": "FR-SX enable input",
    "dest_connector": "",
    "dest_pin": "",
+   "factory_wire": "",
+   "bbia_class": "exception",
    "designations": [],
    "primary_source": "field_7i84u.hal",
    "cleanup_notes": "FWD, REV, RUN, ORCM1, and pwmgen.03.enable use spindle-motion-permit; the static hold initializes FALSE and watchdog, E-stop, machine-on, servo-ready, and spindle-fault states must also permit motion | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/spindle_run_ladder_transcription.md]",
@@ -5173,7 +5239,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 124,
+     "line": 128,
      "text": "net spindle-run-output <= and2.5.out",
      "commented": false,
      "producers": [
@@ -5184,7 +5250,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 125,
+     "line": 129,
      "text": "net spindle-run-output => hm2_7i80.0.7i84.0.0.output-02  # OUT2  FR-SX RUN/STOP",
      "commented": false,
      "producers": [],
@@ -5234,12 +5300,12 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "124",
+     "lines": "128",
      "note": "net spindle-run-output <= and2.5.out"
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "125",
+     "lines": "129",
      "note": "net spindle-run-output => hm2_7i80.0.7i84.0.0.output-02  # OUT2  FR-SX RUN/STOP"
     },
     {
@@ -5287,8 +5353,10 @@ window.MAZAK_DATA = {
    "machine_subsystem": "Hydraulic",
    "status": "FACTORY_INTERFACE",
    "field_point": "Hydraulic + head-lube pump contactor (PLC Y096 HYD.M)",
-   "dest_connector": "",
-   "dest_pin": "",
+   "dest_connector": "CN11",
+   "dest_pin": "16",
+   "factory_wire": "235",
+   "bbia_class": "plane",
    "designations": [],
    "primary_source": "element_list_crosswalk_2026-07-27",
    "cleanup_notes": "Required before clamp/gear/ATC; interposing relay for contactor coil; prove HYD_PRESS_OK after start | [RECON 2026-08-08 §A: element list confirms Y096 HYD.M combined hydraulic + head-lube pump on 060231] | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/estop_ladder_transcription.md]",
@@ -5378,8 +5446,10 @@ window.MAZAK_DATA = {
    "machine_subsystem": "Spindle",
    "status": "FACTORY_INTERFACE",
    "field_point": "FR-SX orient command (PLC Y093 ORCM1.M)",
-   "dest_connector": "",
-   "dest_pin": "",
+   "dest_connector": "CN3",
+   "dest_pin": "14",
+   "factory_wire": "ORI C1",
+   "bbia_class": "plane",
    "designations": [],
    "primary_source": "element_list_crosswalk_2026-07-27",
    "cleanup_notes": "Gated by spindle-motion-permit; validate ladder sequence exact drive terminal relay topology and polarity before landing the field wire | [RECON 2026-08-08 §A: element list confirms Y093 ORCM1.M 'SPINDLE ORIENT COMMAND' (.M not .MV) on 060231] | [RECON 2026-08-08 §D: FR-SX CTM] | [LOCATED 2026-08-08: ORC1 CON1-25 wire 4-12 T.U CN3-14, Dwg 4143075408 pg134] | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/spindle_run_ladder_transcription.md]",
@@ -5471,8 +5541,10 @@ window.MAZAK_DATA = {
    "machine_subsystem": "Spindle",
    "status": "FACTORY_INTERFACE",
    "field_point": "Low-gear orient assist (PLC Y094 CTL.M)",
-   "dest_connector": "",
-   "dest_pin": "",
+   "dest_connector": "CN3",
+   "dest_pin": "15",
+   "factory_wire": "CTL",
+   "bbia_class": "plane",
    "designations": [],
    "primary_source": "element_list_crosswalk_2026-07-27",
    "cleanup_notes": "Verify in ladder whether required in high gear too | [RECON 2026-08-08 §A: element list confirms Y094 CTL.M 'LOW GEAR ORIENT' — low-gear-specific on 060231] | [RECON 2026-08-08 §D: FR-SX GTL] | [LOCATED 2026-08-08: CTL 'LOW GEAR ORIENT' CON1-27 wire 4-13 T.U CN3-15, Dwg 4143075408 pg134 - confirms low-gear orient assist] | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/spindle_run_ladder_transcription.md]",
@@ -5564,6 +5636,8 @@ window.MAZAK_DATA = {
    "field_point": "N1J-L2-201 Z brake release",
    "dest_connector": "",
    "dest_pin": "",
+   "factory_wire": "",
+   "bbia_class": "exception",
    "designations": [],
    "primary_source": "field_7i84u.hal",
    "cleanup_notes": "Asymmetric sequence: z-brake-delay releases brake 100ms after request rises and engages it immediately when request falls; z-drive-drop-delay asserts S-ON immediately and retains it 100ms after request falls. Values are placeholders pending D7 measurement and drive-ready/brake-confirm feedback. Add suppression across SOL-201 coil.",
@@ -5611,7 +5685,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 162,
+     "line": 166,
      "text": "net z-brake-release    <= z-brake-delay.out",
      "commented": false,
      "producers": [
@@ -5622,7 +5696,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 163,
+     "line": 167,
      "text": "net z-brake-release    => hm2_7i80.0.7i84.0.0.output-06  # OUT6  N1J-L2-201 Z brake release",
      "commented": false,
      "producers": [],
@@ -5669,12 +5743,12 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "162",
+     "lines": "166",
      "note": "net z-brake-release    <= z-brake-delay.out"
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "163",
+     "lines": "167",
      "note": "net z-brake-release    => hm2_7i80.0.7i84.0.0.output-06  # OUT6  N1J-L2-201 Z brake release"
     },
     {
@@ -5715,8 +5789,10 @@ window.MAZAK_DATA = {
    "machine_subsystem": "Spindle gearbox",
    "status": "FACTORY_INTERFACE",
    "field_point": "RLY-1 to SOL-12 Fujikoshi hydraulic valve",
-   "dest_connector": "",
-   "dest_pin": "",
+   "dest_connector": "CN11",
+   "dest_pin": "4",
+   "factory_wire": "712",
+   "bbia_class": "plane",
    "designations": [
     "RLY-1",
     "SOL-12",
@@ -5810,8 +5886,10 @@ window.MAZAK_DATA = {
    "machine_subsystem": "Spindle gearbox",
    "status": "FACTORY_INTERFACE",
    "field_point": "RLY-2 to SOL-13 Fujikoshi hydraulic valve",
-   "dest_connector": "",
-   "dest_pin": "",
+   "dest_connector": "CN11",
+   "dest_pin": "5",
+   "factory_wire": "213",
+   "bbia_class": "plane",
    "designations": [
     "RLY-2",
     "SOL-13",
@@ -5907,6 +5985,8 @@ window.MAZAK_DATA = {
    "field_point": "PHANTOM - no separate clamp solenoid; SOL-10 is single-coil spring-return (clamp = de-energize). OUT9 free.",
    "dest_connector": "",
    "dest_pin": "",
+   "factory_wire": "",
+   "bbia_class": "spare",
    "designations": [
     "SOL-10"
    ],
@@ -5961,8 +6041,10 @@ window.MAZAK_DATA = {
    "machine_subsystem": "ATC",
    "status": "FACTORY_INTERFACE",
    "field_point": "RLY-4 to SOL-10 Fujikoshi hydraulic valve",
-   "dest_connector": "",
-   "dest_pin": "",
+   "dest_connector": "CN11",
+   "dest_pin": "3",
+   "factory_wire": "710",
+   "bbia_class": "plane",
    "designations": [
     "RLY-4",
     "SOL-10",
@@ -5989,7 +6071,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 168,
+     "line": 172,
      "text": "net tool-unclamp-sol   => hm2_7i80.0.7i84.0.0.output-10  # OUT10 RLY-4 to SOL-10",
      "commented": false,
      "producers": [],
@@ -6020,7 +6102,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "168",
+     "lines": "172",
      "note": "net tool-unclamp-sol   => hm2_7i80.0.7i84.0.0.output-10  # OUT10 RLY-4 to SOL-10"
     },
     {
@@ -6056,8 +6138,10 @@ window.MAZAK_DATA = {
    "machine_subsystem": "Coolant",
    "status": "FACTORY_INTERFACE",
    "field_point": "Coolant pump relay",
-   "dest_connector": "",
-   "dest_pin": "",
+   "dest_connector": "CN11",
+   "dest_pin": "15",
+   "factory_wire": "236",
+   "bbia_class": "plane",
    "designations": [
     "SOL-31",
     "TB-51",
@@ -6084,7 +6168,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 169,
+     "line": 173,
      "text": "net flood-coolant      <= iocontrol.0.coolant-flood",
      "commented": false,
      "producers": [
@@ -6095,7 +6179,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 170,
+     "line": 174,
      "text": "net flood-coolant      => hm2_7i80.0.7i84.0.0.output-11  # OUT11 flood pump relay",
      "commented": false,
      "producers": [],
@@ -6115,12 +6199,12 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "169",
+     "lines": "173",
      "note": "net flood-coolant      <= iocontrol.0.coolant-flood"
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "170",
+     "lines": "174",
      "note": "net flood-coolant      => hm2_7i80.0.7i84.0.0.output-11  # OUT11 flood pump relay"
     },
     {
@@ -6155,6 +6239,8 @@ window.MAZAK_DATA = {
    "field_point": "NOT USED - mist coolant eliminated 2026-08-09 (no mist system on this machine); OUT12 free",
    "dest_connector": "",
    "dest_pin": "",
+   "factory_wire": "",
+   "bbia_class": "spare",
    "designations": [],
    "primary_source": "archived_wiring_map",
    "cleanup_notes": "[ELIMINATED 2026-08-09: owner confirms no mist coolant system. HOLD_CONFLICT void; 7i84U-A TB2 OUT12 now available. The commented iocontrol.0.coolant-mist net can be removed from the HAL.]",
@@ -6204,6 +6290,8 @@ window.MAZAK_DATA = {
    "field_point": "ATC magazine CW rotation relay -> SOL-8B (pg91 Dwg 4143075332: SOL-8B=408B=MAGAZINE CW/reverse)",
    "dest_connector": "",
    "dest_pin": "",
+   "factory_wire": "",
+   "bbia_class": "exception",
    "designations": [
     "SOL-8B"
    ],
@@ -6292,6 +6380,8 @@ window.MAZAK_DATA = {
    "field_point": "ATC magazine CCW rotation relay -> SOL-8A (pg91 Dwg 4143075332: SOL-8A=408A=MAGAZINE CCW/forward)",
    "dest_connector": "",
    "dest_pin": "",
+   "factory_wire": "",
+   "bbia_class": "exception",
    "designations": [
     "SOL-8A"
    ],
@@ -6380,6 +6470,8 @@ window.MAZAK_DATA = {
    "field_point": "Alarm light or horn",
    "dest_connector": "",
    "dest_pin": "",
+   "factory_wire": "",
+   "bbia_class": "spare",
    "designations": [],
    "primary_source": "archived_wiring_map",
    "cleanup_notes": "Confirm load and behavior | [2026-08-09: RESERVED, hal_net none (was alarm-out) - optional load unconfirmed; restore net when alarm device is chosen]",
@@ -6429,6 +6521,8 @@ window.MAZAK_DATA = {
    "field_point": "7i84U-B RJ45 pin 2 RX+",
    "dest_connector": "7i84U-B RJ45",
    "dest_pin": "2",
+   "factory_wire": "",
+   "bbia_class": "power-internal",
    "designations": [],
    "primary_source": "mesa_firmware_checklist.md",
    "cleanup_notes": "7i44 channel 1 to 7i84U-B CN0 under HostMot2 port 0; RS-422 differential pair | [MESA-CONFIRMED 2026-08-08: matches 7i84U J1 RJ-45 pinout (7i84uman.pdf: p1 RXA/p2 RXB/p3 TXA/p6 TXB/p4-5 GND/p7-8 +5V, 568B colors); straight CAT5 to 7i44; plug-in cable, no continuity trace needed] | [READY 2026-08-09: factory-link acceptance applies to two distinct plug-in segments: Mesa 50-pin IDC from 7i80HDT P1 to 7i44, then CAT5 smart-serial from 7i44 to the identified 7i84U channel. Inspect assembly identity, keying/orientation, seating, strain relief, and visible condition; verify expected smart-serial enumeration without communication or watchdog faults. Do not continuity-audit or re-terminate individual conductors.]",
@@ -6478,6 +6572,8 @@ window.MAZAK_DATA = {
    "field_point": "7i84U-B RJ45 pin 1 RX-",
    "dest_connector": "7i84U-B RJ45",
    "dest_pin": "1",
+   "factory_wire": "",
+   "bbia_class": "power-internal",
    "designations": [],
    "primary_source": "mesa_firmware_checklist.md",
    "cleanup_notes": "RS-422 differential pair | [MESA-CONFIRMED 2026-08-08: matches 7i84U J1 RJ-45 pinout (7i84uman.pdf: p1 RXA/p2 RXB/p3 TXA/p6 TXB/p4-5 GND/p7-8 +5V, 568B colors); straight CAT5 to 7i44; plug-in cable, no continuity trace needed] | [READY 2026-08-09: factory-link acceptance applies to two distinct plug-in segments: Mesa 50-pin IDC from 7i80HDT P1 to 7i44, then CAT5 smart-serial from 7i44 to the identified 7i84U channel. Inspect assembly identity, keying/orientation, seating, strain relief, and visible condition; verify expected smart-serial enumeration without communication or watchdog faults. Do not continuity-audit or re-terminate individual conductors.]",
@@ -6527,6 +6623,8 @@ window.MAZAK_DATA = {
    "field_point": "7i84U-B RJ45 pin 6 TX+",
    "dest_connector": "7i84U-B RJ45",
    "dest_pin": "6",
+   "factory_wire": "",
+   "bbia_class": "power-internal",
    "designations": [],
    "primary_source": "mesa_firmware_checklist.md",
    "cleanup_notes": "RS-422 differential pair | [MESA-CONFIRMED 2026-08-08: matches 7i84U J1 RJ-45 pinout (7i84uman.pdf: p1 RXA/p2 RXB/p3 TXA/p6 TXB/p4-5 GND/p7-8 +5V, 568B colors); straight CAT5 to 7i44; plug-in cable, no continuity trace needed] | [READY 2026-08-09: factory-link acceptance applies to two distinct plug-in segments: Mesa 50-pin IDC from 7i80HDT P1 to 7i44, then CAT5 smart-serial from 7i44 to the identified 7i84U channel. Inspect assembly identity, keying/orientation, seating, strain relief, and visible condition; verify expected smart-serial enumeration without communication or watchdog faults. Do not continuity-audit or re-terminate individual conductors.]",
@@ -6576,6 +6674,8 @@ window.MAZAK_DATA = {
    "field_point": "7i84U-B RJ45 pin 3 TX-",
    "dest_connector": "7i84U-B RJ45",
    "dest_pin": "3",
+   "factory_wire": "",
+   "bbia_class": "power-internal",
    "designations": [],
    "primary_source": "mesa_firmware_checklist.md",
    "cleanup_notes": "RS-422 differential pair | [MESA-CONFIRMED 2026-08-08: matches 7i84U J1 RJ-45 pinout (7i84uman.pdf: p1 RXA/p2 RXB/p3 TXA/p6 TXB/p4-5 GND/p7-8 +5V, 568B colors); straight CAT5 to 7i44; plug-in cable, no continuity trace needed] | [READY 2026-08-09: factory-link acceptance applies to two distinct plug-in segments: Mesa 50-pin IDC from 7i80HDT P1 to 7i44, then CAT5 smart-serial from 7i44 to the identified 7i84U channel. Inspect assembly identity, keying/orientation, seating, strain relief, and visible condition; verify expected smart-serial enumeration without communication or watchdog faults. Do not continuity-audit or re-terminate individual conductors.]",
@@ -6625,6 +6725,8 @@ window.MAZAK_DATA = {
    "field_point": "7i84U-B RJ45 pin 4/5 ground",
    "dest_connector": "7i84U-B RJ45",
    "dest_pin": "4/5",
+   "factory_wire": "",
+   "bbia_class": "power-internal",
    "designations": [],
    "primary_source": "mesa_firmware_checklist.md",
    "cleanup_notes": "Factory-link signal ground; cable construction is not field-modified | [MESA-CONFIRMED 2026-08-08: matches 7i84U J1 RJ-45 pinout (7i84uman.pdf: p1 RXA/p2 RXB/p3 TXA/p6 TXB/p4-5 GND/p7-8 +5V, 568B colors); straight CAT5 to 7i44] | [READY 2026-08-09: two distinct plug-in segments: Mesa 50-pin IDC from 7i80HDT P1 to 7i44, then CAT5 smart-serial from 7i44 channel 1 to 7i84U-B. Inspect assembly identity, keying/orientation, seating, strain relief, and visible condition; verify expected smart-serial enumeration without communication or watchdog faults. Do not continuity-audit or re-terminate individual conductors.]",
@@ -6674,6 +6776,8 @@ window.MAZAK_DATA = {
    "field_point": "7i84U-B RJ45 pin 7/8 +5V",
    "dest_connector": "7i84U-B RJ45",
    "dest_pin": "7/8",
+   "factory_wire": "",
+   "bbia_class": "power-internal",
    "designations": [],
    "primary_source": "mesa_firmware_checklist.md",
    "cleanup_notes": "Serial power for 7i84U-B logic | [MESA-CONFIRMED 2026-08-08: matches 7i84U J1 RJ-45 pinout (7i84uman.pdf: p1 RXA/p2 RXB/p3 TXA/p6 TXB/p4-5 GND/p7-8 +5V, 568B colors); straight CAT5 to 7i44; plug-in cable, no continuity trace needed] | [READY 2026-08-09: factory-link acceptance applies to two distinct plug-in segments: Mesa 50-pin IDC from 7i80HDT P1 to 7i44, then CAT5 smart-serial from 7i44 to the identified 7i84U channel. Inspect assembly identity, keying/orientation, seating, strain relief, and visible condition; verify expected smart-serial enumeration without communication or watchdog faults. Do not continuity-audit or re-terminate individual conductors.]",
@@ -6723,6 +6827,8 @@ window.MAZAK_DATA = {
    "field_point": "Field power bank A (TB3 I/O)",
    "dest_connector": "TB3",
    "dest_pin": "",
+   "factory_wire": "",
+   "bbia_class": "power-internal",
    "designations": [
     "TB-3"
    ],
@@ -6779,6 +6885,8 @@ window.MAZAK_DATA = {
    "field_point": "Field power bank B (TB2 I/O)",
    "dest_connector": "TB2",
    "dest_pin": "",
+   "factory_wire": "",
+   "bbia_class": "power-internal",
    "designations": [
     "TB-2"
    ],
@@ -6835,6 +6943,8 @@ window.MAZAK_DATA = {
    "field_point": "X positive overtravel limit (NC)",
    "dest_connector": "",
    "dest_pin": "",
+   "factory_wire": "",
+   "bbia_class": "exception",
    "designations": [
     "OT+X"
    ],
@@ -6859,7 +6969,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 213,
+     "line": 217,
      "text": "#     net limit-x-plus <= hm2_7i80.0.7i84.0.1.input-00-not",
      "commented": true,
      "producers": [
@@ -6870,7 +6980,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 221,
+     "line": 225,
      "text": "net limit-x-plus  <= hm2_7i80.0.7i84.0.1.input-00-not   # X_LIMIT_PLUS  (NC contact)",
      "commented": false,
      "producers": [
@@ -6881,7 +6991,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 222,
+     "line": 226,
      "text": "net limit-x-plus  => joint.0.pos-lim-sw-in",
      "commented": false,
      "producers": [],
@@ -6901,17 +7011,17 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "213",
+     "lines": "217",
      "note": "commented out — #     net limit-x-plus <= hm2_7i80.0.7i84.0.1.input-00-not"
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "221",
+     "lines": "225",
      "note": "net limit-x-plus  <= hm2_7i80.0.7i84.0.1.input-00-not   # X_LIMIT_PLUS  (NC contact)"
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "222",
+     "lines": "226",
      "note": "net limit-x-plus  => joint.0.pos-lim-sw-in"
     },
     {
@@ -6946,6 +7056,8 @@ window.MAZAK_DATA = {
    "field_point": "X negative overtravel limit (NC)",
    "dest_connector": "",
    "dest_pin": "",
+   "factory_wire": "",
+   "bbia_class": "exception",
    "designations": [
     "OT-X"
    ],
@@ -6970,7 +7082,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 223,
+     "line": 227,
      "text": "net limit-x-minus <= hm2_7i80.0.7i84.0.1.input-01-not   # X_LIMIT_MINUS (NC contact)",
      "commented": false,
      "producers": [
@@ -6981,7 +7093,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 224,
+     "line": 228,
      "text": "net limit-x-minus => joint.0.neg-lim-sw-in",
      "commented": false,
      "producers": [],
@@ -7001,12 +7113,12 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "223",
+     "lines": "227",
      "note": "net limit-x-minus <= hm2_7i80.0.7i84.0.1.input-01-not   # X_LIMIT_MINUS (NC contact)"
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "224",
+     "lines": "228",
      "note": "net limit-x-minus => joint.0.neg-lim-sw-in"
     },
     {
@@ -7039,8 +7151,10 @@ window.MAZAK_DATA = {
    "machine_subsystem": "Axis overtravel",
    "status": "FACTORY_INTERFACE",
    "field_point": "Y positive overtravel limit (NC)",
-   "dest_connector": "",
-   "dest_pin": "",
+   "dest_connector": "CN3",
+   "dest_pin": "37",
+   "factory_wire": "+LY",
+   "bbia_class": "plane",
    "designations": [
     "OT+Y"
    ],
@@ -7065,7 +7179,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 225,
+     "line": 229,
      "text": "net limit-y-plus  <= hm2_7i80.0.7i84.0.1.input-02-not   # Y_LIMIT_PLUS  (NC contact)",
      "commented": false,
      "producers": [
@@ -7076,7 +7190,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 226,
+     "line": 230,
      "text": "net limit-y-plus  => joint.1.pos-lim-sw-in",
      "commented": false,
      "producers": [],
@@ -7110,12 +7224,12 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "225",
+     "lines": "229",
      "note": "net limit-y-plus  <= hm2_7i80.0.7i84.0.1.input-02-not   # Y_LIMIT_PLUS  (NC contact)"
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "226",
+     "lines": "230",
      "note": "net limit-y-plus  => joint.1.pos-lim-sw-in"
     },
     {
@@ -7155,6 +7269,8 @@ window.MAZAK_DATA = {
    "field_point": "Y negative overtravel limit (NC)",
    "dest_connector": "",
    "dest_pin": "",
+   "factory_wire": "",
+   "bbia_class": "exception",
    "designations": [
     "OT-Y"
    ],
@@ -7179,7 +7295,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 227,
+     "line": 231,
      "text": "net limit-y-minus <= hm2_7i80.0.7i84.0.1.input-03-not   # Y_LIMIT_MINUS (NC contact)",
      "commented": false,
      "producers": [
@@ -7190,7 +7306,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 228,
+     "line": 232,
      "text": "net limit-y-minus => joint.1.neg-lim-sw-in",
      "commented": false,
      "producers": [],
@@ -7210,12 +7326,12 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "227",
+     "lines": "231",
      "note": "net limit-y-minus <= hm2_7i80.0.7i84.0.1.input-03-not   # Y_LIMIT_MINUS (NC contact)"
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "228",
+     "lines": "232",
      "note": "net limit-y-minus => joint.1.neg-lim-sw-in"
     },
     {
@@ -7250,6 +7366,8 @@ window.MAZAK_DATA = {
    "field_point": "Z positive overtravel limit (NC)",
    "dest_connector": "",
    "dest_pin": "",
+   "factory_wire": "",
+   "bbia_class": "exception",
    "designations": [
     "OT+Z"
    ],
@@ -7274,7 +7392,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 229,
+     "line": 233,
      "text": "net limit-z-plus  <= hm2_7i80.0.7i84.0.1.input-04-not   # Z_LIMIT_PLUS  (NC contact)",
      "commented": false,
      "producers": [
@@ -7285,7 +7403,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 230,
+     "line": 234,
      "text": "net limit-z-plus  => joint.2.pos-lim-sw-in",
      "commented": false,
      "producers": [],
@@ -7319,12 +7437,12 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "229",
+     "lines": "233",
      "note": "net limit-z-plus  <= hm2_7i80.0.7i84.0.1.input-04-not   # Z_LIMIT_PLUS  (NC contact)"
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "230",
+     "lines": "234",
      "note": "net limit-z-plus  => joint.2.pos-lim-sw-in"
     },
     {
@@ -7362,8 +7480,10 @@ window.MAZAK_DATA = {
    "machine_subsystem": "Axis overtravel",
    "status": "FACTORY_INTERFACE",
    "field_point": "Z negative overtravel limit (NC)",
-   "dest_connector": "",
-   "dest_pin": "",
+   "dest_connector": "CN3",
+   "dest_pin": "38",
+   "factory_wire": "-LZ",
+   "bbia_class": "plane",
    "designations": [
     "OT-Z"
    ],
@@ -7388,7 +7508,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 231,
+     "line": 235,
      "text": "net limit-z-minus <= hm2_7i80.0.7i84.0.1.input-05-not   # Z_LIMIT_MINUS (NC contact)",
      "commented": false,
      "producers": [
@@ -7399,7 +7519,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 232,
+     "line": 236,
      "text": "net limit-z-minus => joint.2.neg-lim-sw-in",
      "commented": false,
      "producers": [],
@@ -7433,12 +7553,12 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "231",
+     "lines": "235",
      "note": "net limit-z-minus <= hm2_7i80.0.7i84.0.1.input-05-not   # Z_LIMIT_MINUS (NC contact)"
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "232",
+     "lines": "236",
      "note": "net limit-z-minus => joint.2.neg-lim-sw-in"
     },
     {
@@ -7476,8 +7596,10 @@ window.MAZAK_DATA = {
    "machine_subsystem": "Axis homing",
    "status": "FACTORY_INTERFACE",
    "field_point": "X home switch (LS-42 confirmed)",
-   "dest_connector": "",
-   "dest_pin": "",
+   "dest_connector": "CN2",
+   "dest_pin": "15",
+   "factory_wire": "*DECX",
+   "bbia_class": "plane",
    "designations": [
     "LS-42"
    ],
@@ -7502,7 +7624,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 234,
+     "line": 238,
      "text": "net home-x <= hm2_7i80.0.7i84.0.1.input-06        # LS-42 assumed",
      "commented": false,
      "producers": [
@@ -7513,7 +7635,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 235,
+     "line": 239,
      "text": "net home-x => joint.0.home-sw-in",
      "commented": false,
      "producers": [],
@@ -7547,12 +7669,12 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "234",
+     "lines": "238",
      "note": "net home-x <= hm2_7i80.0.7i84.0.1.input-06        # LS-42 assumed"
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "235",
+     "lines": "239",
      "note": "net home-x => joint.0.home-sw-in"
     },
     {
@@ -7590,8 +7712,10 @@ window.MAZAK_DATA = {
    "machine_subsystem": "Axis homing",
    "status": "FACTORY_INTERFACE",
    "field_point": "Y home switch (LS-52)",
-   "dest_connector": "",
-   "dest_pin": "",
+   "dest_connector": "CN2",
+   "dest_pin": "16",
+   "factory_wire": "*DECY",
+   "bbia_class": "plane",
    "designations": [
     "LS-52"
    ],
@@ -7616,7 +7740,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 236,
+     "line": 240,
      "text": "net home-y <= hm2_7i80.0.7i84.0.1.input-07        # LS-52 assumed",
      "commented": false,
      "producers": [
@@ -7627,7 +7751,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 237,
+     "line": 241,
      "text": "net home-y => joint.1.home-sw-in",
      "commented": false,
      "producers": [],
@@ -7661,12 +7785,12 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "236",
+     "lines": "240",
      "note": "net home-y <= hm2_7i80.0.7i84.0.1.input-07        # LS-52 assumed"
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "237",
+     "lines": "241",
      "note": "net home-y => joint.1.home-sw-in"
     },
     {
@@ -7704,8 +7828,10 @@ window.MAZAK_DATA = {
    "machine_subsystem": "Axis homing",
    "status": "FACTORY_INTERFACE",
    "field_point": "Z home switch (LS-62 confirmed TB-51)",
-   "dest_connector": "",
-   "dest_pin": "",
+   "dest_connector": "CN1",
+   "dest_pin": "14",
+   "factory_wire": "*DECZ",
+   "bbia_class": "plane",
    "designations": [
     "LS-62",
     "TB-51"
@@ -7731,7 +7857,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 238,
+     "line": 242,
      "text": "net home-z <= hm2_7i80.0.7i84.0.1.input-08        # LS-62 confirmed TB-51",
      "commented": false,
      "producers": [
@@ -7742,7 +7868,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 239,
+     "line": 243,
      "text": "net home-z => joint.2.home-sw-in",
      "commented": false,
      "producers": [],
@@ -7776,12 +7902,12 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "238",
+     "lines": "242",
      "note": "net home-z <= hm2_7i80.0.7i84.0.1.input-08        # LS-62 confirmed TB-51"
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "239",
+     "lines": "243",
      "note": "net home-z => joint.2.home-sw-in"
     },
     {
@@ -7821,6 +7947,8 @@ window.MAZAK_DATA = {
    "field_point": "Machine air-pressure OK switch",
    "dest_connector": "",
    "dest_pin": "",
+   "factory_wire": "",
+   "bbia_class": "exception",
    "designations": [],
    "primary_source": "field_7i84u.hal",
    "cleanup_notes": "Raw input and fail-inhibited default; verify switch exists and closes on healthy pressure before live M6 | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/atc_ladder_transcription.md]",
@@ -7843,7 +7971,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 244,
+     "line": 248,
      "text": "net air-ok <= hm2_7i80.0.7i84.0.1.input-09",
      "commented": false,
      "producers": [
@@ -7874,7 +8002,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "244",
+     "lines": "248",
      "note": "net air-ok <= hm2_7i80.0.7i84.0.1.input-09"
     },
     {
@@ -7907,6 +8035,8 @@ window.MAZAK_DATA = {
    "field_point": "Spare input on 7i84U-B",
    "dest_connector": "",
    "dest_pin": "",
+   "factory_wire": "",
+   "bbia_class": "spare",
    "designations": [],
    "primary_source": "mesa_firmware_checklist.md",
    "cleanup_notes": "Leave unlanded",
@@ -7956,6 +8086,8 @@ window.MAZAK_DATA = {
    "field_point": "Spare input on 7i84U-B",
    "dest_connector": "",
    "dest_pin": "",
+   "factory_wire": "",
+   "bbia_class": "spare",
    "designations": [],
    "primary_source": "mesa_firmware_checklist.md",
    "cleanup_notes": "Leave unlanded",
@@ -8005,6 +8137,8 @@ window.MAZAK_DATA = {
    "field_point": "Spare input on 7i84U-B",
    "dest_connector": "",
    "dest_pin": "",
+   "factory_wire": "",
+   "bbia_class": "spare",
    "designations": [],
    "primary_source": "mesa_firmware_checklist.md",
    "cleanup_notes": "Leave unlanded",
@@ -8054,6 +8188,8 @@ window.MAZAK_DATA = {
    "field_point": "Spare input on 7i84U-B",
    "dest_connector": "",
    "dest_pin": "",
+   "factory_wire": "",
+   "bbia_class": "spare",
    "designations": [],
    "primary_source": "mesa_firmware_checklist.md",
    "cleanup_notes": "Leave unlanded",
@@ -8103,6 +8239,8 @@ window.MAZAK_DATA = {
    "field_point": "Spare input on 7i84U-B",
    "dest_connector": "",
    "dest_pin": "",
+   "factory_wire": "",
+   "bbia_class": "spare",
    "designations": [],
    "primary_source": "mesa_firmware_checklist.md",
    "cleanup_notes": "Leave unlanded",
@@ -8152,6 +8290,8 @@ window.MAZAK_DATA = {
    "field_point": "Renishaw MP-3 probe SKIP1 (PLC X03F SKIP1.M)",
    "dest_connector": "",
    "dest_pin": "",
+   "factory_wire": "",
+   "bbia_class": "exception",
    "designations": [],
    "primary_source": "field_7i84u.hal",
    "cleanup_notes": "Moved from bare P3 gpio.042 to opto-isolated 7i84U-B input-15. MP-3 is believed NC so HAL consumes input-15-not; verify physical polarity fail-open response and measured probing latency before use. | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/probe_mms_ladder_transcription.md]",
@@ -8174,7 +8314,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 262,
+     "line": 266,
      "text": "net probe-in <= hm2_7i80.0.7i84.0.1.input-15-not",
      "commented": false,
      "producers": [
@@ -8185,7 +8325,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 263,
+     "line": 267,
      "text": "net probe-in => motion.probe-input",
      "commented": false,
      "producers": [],
@@ -8205,12 +8345,12 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "262",
+     "lines": "266",
      "note": "net probe-in <= hm2_7i80.0.7i84.0.1.input-15-not"
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "263",
+     "lines": "267",
      "note": "net probe-in => motion.probe-input"
     },
     {
@@ -8238,6 +8378,8 @@ window.MAZAK_DATA = {
    "field_point": "Spare input on 7i84U-B",
    "dest_connector": "",
    "dest_pin": "",
+   "factory_wire": "",
+   "bbia_class": "spare",
    "designations": [],
    "primary_source": "mesa_firmware_checklist.md",
    "cleanup_notes": "Leave unlanded",
@@ -8287,6 +8429,8 @@ window.MAZAK_DATA = {
    "field_point": "Spare input on 7i84U-B",
    "dest_connector": "",
    "dest_pin": "",
+   "factory_wire": "",
+   "bbia_class": "spare",
    "designations": [],
    "primary_source": "mesa_firmware_checklist.md",
    "cleanup_notes": "Leave unlanded",
@@ -8336,6 +8480,8 @@ window.MAZAK_DATA = {
    "field_point": "Spare input on 7i84U-B",
    "dest_connector": "",
    "dest_pin": "",
+   "factory_wire": "",
+   "bbia_class": "spare",
    "designations": [],
    "primary_source": "mesa_firmware_checklist.md",
    "cleanup_notes": "Leave unlanded",
@@ -8385,6 +8531,8 @@ window.MAZAK_DATA = {
    "field_point": "Spare input on 7i84U-B",
    "dest_connector": "",
    "dest_pin": "",
+   "factory_wire": "",
+   "bbia_class": "spare",
    "designations": [],
    "primary_source": "mesa_firmware_checklist.md",
    "cleanup_notes": "Leave unlanded",
@@ -8434,6 +8582,8 @@ window.MAZAK_DATA = {
    "field_point": "Spare input on 7i84U-B",
    "dest_connector": "",
    "dest_pin": "",
+   "factory_wire": "",
+   "bbia_class": "spare",
    "designations": [],
    "primary_source": "mesa_firmware_checklist.md",
    "cleanup_notes": "Leave unlanded",
@@ -8483,6 +8633,8 @@ window.MAZAK_DATA = {
    "field_point": "Spare input on 7i84U-B",
    "dest_connector": "",
    "dest_pin": "",
+   "factory_wire": "",
+   "bbia_class": "spare",
    "designations": [],
    "primary_source": "mesa_firmware_checklist.md",
    "cleanup_notes": "Leave unlanded",
@@ -8532,6 +8684,8 @@ window.MAZAK_DATA = {
    "field_point": "Spare input on 7i84U-B",
    "dest_connector": "",
    "dest_pin": "",
+   "factory_wire": "",
+   "bbia_class": "spare",
    "designations": [],
    "primary_source": "mesa_firmware_checklist.md",
    "cleanup_notes": "Leave unlanded",
@@ -8581,6 +8735,8 @@ window.MAZAK_DATA = {
    "field_point": "Spare input on 7i84U-B",
    "dest_connector": "",
    "dest_pin": "",
+   "factory_wire": "",
+   "bbia_class": "spare",
    "designations": [],
    "primary_source": "mesa_firmware_checklist.md",
    "cleanup_notes": "Leave unlanded",
@@ -8630,6 +8786,8 @@ window.MAZAK_DATA = {
    "field_point": "Spare input on 7i84U-B",
    "dest_connector": "",
    "dest_pin": "",
+   "factory_wire": "",
+   "bbia_class": "spare",
    "designations": [],
    "primary_source": "mesa_firmware_checklist.md",
    "cleanup_notes": "Leave unlanded",
@@ -8679,6 +8837,8 @@ window.MAZAK_DATA = {
    "field_point": "Spare input on 7i84U-B",
    "dest_connector": "",
    "dest_pin": "",
+   "factory_wire": "",
+   "bbia_class": "spare",
    "designations": [],
    "primary_source": "mesa_firmware_checklist.md",
    "cleanup_notes": "Leave unlanded",
@@ -8728,6 +8888,8 @@ window.MAZAK_DATA = {
    "field_point": "Spare input on 7i84U-B",
    "dest_connector": "",
    "dest_pin": "",
+   "factory_wire": "",
+   "bbia_class": "spare",
    "designations": [],
    "primary_source": "mesa_firmware_checklist.md",
    "cleanup_notes": "Leave unlanded",
@@ -8777,6 +8939,8 @@ window.MAZAK_DATA = {
    "field_point": "Spare input on 7i84U-B",
    "dest_connector": "",
    "dest_pin": "",
+   "factory_wire": "",
+   "bbia_class": "spare",
    "designations": [],
    "primary_source": "mesa_firmware_checklist.md",
    "cleanup_notes": "Leave unlanded",
@@ -8826,6 +8990,8 @@ window.MAZAK_DATA = {
    "field_point": "Spare input on 7i84U-B",
    "dest_connector": "",
    "dest_pin": "",
+   "factory_wire": "",
+   "bbia_class": "spare",
    "designations": [],
    "primary_source": "mesa_firmware_checklist.md",
    "cleanup_notes": "Leave unlanded",
@@ -8875,6 +9041,8 @@ window.MAZAK_DATA = {
    "field_point": "Spare input on 7i84U-B",
    "dest_connector": "",
    "dest_pin": "",
+   "factory_wire": "",
+   "bbia_class": "spare",
    "designations": [],
    "primary_source": "mesa_firmware_checklist.md",
    "cleanup_notes": "Leave unlanded",
@@ -8924,6 +9092,8 @@ window.MAZAK_DATA = {
    "field_point": "Spare input on 7i84U-B",
    "dest_connector": "",
    "dest_pin": "",
+   "factory_wire": "",
+   "bbia_class": "spare",
    "designations": [],
    "primary_source": "mesa_firmware_checklist.md",
    "cleanup_notes": "Leave unlanded",
@@ -8973,6 +9143,8 @@ window.MAZAK_DATA = {
    "field_point": "Spare input on 7i84U-B",
    "dest_connector": "",
    "dest_pin": "",
+   "factory_wire": "",
+   "bbia_class": "spare",
    "designations": [],
    "primary_source": "mesa_firmware_checklist.md",
    "cleanup_notes": "Leave unlanded",
@@ -9022,6 +9194,8 @@ window.MAZAK_DATA = {
    "field_point": "X servo S-ON to MELDAS DK-427 (X-drive ENA input)",
    "dest_connector": "",
    "dest_pin": "",
+   "factory_wire": "",
+   "bbia_class": "exception",
    "designations": [],
    "primary_source": "field_7i84u.hal",
    "cleanup_notes": "Interposing relay for drive enable input; measure command-to-contact and fault-to-drop timing with the actual smart-serial configuration",
@@ -9069,7 +9243,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 299,
+     "line": 303,
      "text": "net x-enable     <= and2.0.out",
      "commented": false,
      "producers": [
@@ -9080,7 +9254,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 300,
+     "line": 304,
      "text": "net x-enable     => hm2_7i80.0.7i84.0.1.output-00   # X servo S-ON to MELDAS DK-427",
      "commented": false,
      "producers": [],
@@ -9127,12 +9301,12 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "299",
+     "lines": "303",
      "note": "net x-enable     <= and2.0.out"
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "300",
+     "lines": "304",
      "note": "net x-enable     => hm2_7i80.0.7i84.0.1.output-00   # X servo S-ON to MELDAS DK-427"
     },
     {
@@ -9175,6 +9349,8 @@ window.MAZAK_DATA = {
    "field_point": "Y servo S-ON to MELDAS DK-427 (Y-drive ENA input)",
    "dest_connector": "",
    "dest_pin": "",
+   "factory_wire": "",
+   "bbia_class": "exception",
    "designations": [],
    "primary_source": "field_7i84u.hal",
    "cleanup_notes": "Interposing relay for drive enable input.",
@@ -9222,7 +9398,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 305,
+     "line": 309,
      "text": "net y-enable     <= and2.1.out",
      "commented": false,
      "producers": [
@@ -9233,7 +9409,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 306,
+     "line": 310,
      "text": "net y-enable     => hm2_7i80.0.7i84.0.1.output-01   # Y servo S-ON to MELDAS DK-427",
      "commented": false,
      "producers": [],
@@ -9280,12 +9456,12 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "305",
+     "lines": "309",
      "note": "net y-enable     <= and2.1.out"
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "306",
+     "lines": "310",
      "note": "net y-enable     => hm2_7i80.0.7i84.0.1.output-01   # Y servo S-ON to MELDAS DK-427"
     },
     {
@@ -9328,6 +9504,8 @@ window.MAZAK_DATA = {
    "field_point": "Z servo S-ON to MELDAS DK-427 (Z-drive ENA input)",
    "dest_connector": "",
    "dest_pin": "",
+   "factory_wire": "",
+   "bbia_class": "exception",
    "designations": [],
    "primary_source": "field_7i84u.hal",
    "cleanup_notes": "Interposing relay for drive enable input.",
@@ -9350,7 +9528,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 313,
+     "line": 317,
      "text": "net z-enable     <= z-drive-drop-delay.out",
      "commented": false,
      "producers": [
@@ -9361,7 +9539,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 314,
+     "line": 318,
      "text": "net z-enable     => hm2_7i80.0.7i84.0.1.output-02   # Z servo S-ON to MELDAS DK-427",
      "commented": false,
      "producers": [],
@@ -9381,12 +9559,12 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "313",
+     "lines": "317",
      "note": "net z-enable     <= z-drive-drop-delay.out"
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "314",
+     "lines": "318",
      "note": "net z-enable     => hm2_7i80.0.7i84.0.1.output-02   # Z servo S-ON to MELDAS DK-427"
     },
     {
@@ -9419,6 +9597,8 @@ window.MAZAK_DATA = {
    "field_point": "SOL-62 via RLY-5 (interposing relay for 100VAC coil)",
    "dest_connector": "",
    "dest_pin": "",
+   "factory_wire": "",
+   "bbia_class": "exception",
    "designations": [
     "SOL-62",
     "RLY-5"
@@ -9442,7 +9622,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 320,
+     "line": 324,
      "text": "net air-blast          => hm2_7i80.0.7i84.0.1.output-03  # SOL-62 via RLY-5",
      "commented": false,
      "producers": [],
@@ -9462,7 +9642,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "320",
+     "lines": "324",
      "note": "net air-blast          => hm2_7i80.0.7i84.0.1.output-03  # SOL-62 via RLY-5"
     },
     {
@@ -9495,8 +9675,10 @@ window.MAZAK_DATA = {
    "machine_subsystem": "Pneumatics",
    "status": "FACTORY_INTERFACE",
    "field_point": "SOL-35 via RLY-6 (interposing relay for 100VAC coil)",
-   "dest_connector": "",
-   "dest_pin": "",
+   "dest_connector": "CN11",
+   "dest_pin": "10",
+   "factory_wire": "261",
+   "bbia_class": "plane",
    "designations": [
     "SOL-35",
     "RLY-6",
@@ -9521,7 +9703,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 321,
+     "line": 325,
      "text": "net touch-sensor-blast => hm2_7i80.0.7i84.0.1.output-04  # SOL-35 via RLY-6",
      "commented": false,
      "producers": [],
@@ -9541,7 +9723,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "321",
+     "lines": "325",
      "note": "net touch-sensor-blast => hm2_7i80.0.7i84.0.1.output-04  # SOL-35 via RLY-6"
     },
     {
@@ -9576,6 +9758,8 @@ window.MAZAK_DATA = {
    "field_point": "SOL-61 via RLY-7 (interposing relay for 100VAC coil)",
    "dest_connector": "",
    "dest_pin": "",
+   "factory_wire": "",
+   "bbia_class": "exception",
    "designations": [
     "SOL-61",
     "RLY-7",
@@ -9600,7 +9784,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 322,
+     "line": 326,
      "text": "net tap-coolant-blast  => hm2_7i80.0.7i84.0.1.output-05  # SOL-61 via RLY-7",
      "commented": false,
      "producers": [],
@@ -9620,7 +9804,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "322",
+     "lines": "326",
      "note": "net tap-coolant-blast  => hm2_7i80.0.7i84.0.1.output-05  # SOL-61 via RLY-7"
     },
     {
@@ -9655,6 +9839,8 @@ window.MAZAK_DATA = {
    "field_point": "ATC barrier expand solenoid (PLC Y095 TCME.M)",
    "dest_connector": "",
    "dest_pin": "",
+   "factory_wire": "",
+   "bbia_class": "exception",
    "designations": [],
    "primary_source": "element_list_crosswalk_2026-07-27",
    "cleanup_notes": "Verify device exists on SN 060231 | [RECON 2026-08-08 §A: element list confirms Y095 TCME.M 'BARRIER EXPAND at ATC AREA' on 060231] | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/atc_ladder_transcription.md]",
@@ -9744,8 +9930,10 @@ window.MAZAK_DATA = {
    "machine_subsystem": "Coolant",
    "status": "FACTORY_INTERFACE",
    "field_point": "Flood coolant valve, separate from pump motor (PLC Y011 FCL)",
-   "dest_connector": "",
-   "dest_pin": "",
+   "dest_connector": "CN11",
+   "dest_pin": "13",
+   "factory_wire": "231",
+   "bbia_class": "plane",
    "designations": [],
    "primary_source": "element_list_crosswalk_2026-07-27",
    "cleanup_notes": "SOL-31 confirmed via TB-51 diagram. Separate from OUT11 pump on 7i84U-A. | [RECON 2026-08-08 §C: Y011 FCL valve genuinely distinct from Y010 FCM motor; Y012 THC through-hole separate] | [RECON 2026-08-08 follow-up: status PROPOSED -> COMMISSIONING_PENDING per §C element-list confirm] | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/coolant_ladder_transcription.md]",
@@ -9766,7 +9954,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 324,
+     "line": 328,
      "text": "net flood-valve        => hm2_7i80.0.7i84.0.1.output-07  # PLC Y011 FCL (SOL-31); driver TBD - candidate: follow flood-coolant net with pump",
      "commented": false,
      "producers": [],
@@ -9786,7 +9974,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "324",
+     "lines": "328",
      "note": "net flood-valve        => hm2_7i80.0.7i84.0.1.output-07  # PLC Y011 FCL (SOL-31); driver TBD - candidate: follow flood-coolant net with pump"
     },
     {
@@ -9819,6 +10007,8 @@ window.MAZAK_DATA = {
    "field_point": "Single energise-to-close magazine cover valve via interposing relay",
    "dest_connector": "",
    "dest_pin": "",
+   "factory_wire": "",
+   "bbia_class": "exception",
    "designations": [],
    "primary_source": "atc_orient.hal",
    "cleanup_notes": "Logical channel allocated only; trace valve identity coil voltage relay topology and safe direction before landing field wire | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/atc_ladder_transcription.md]",
@@ -9905,6 +10095,8 @@ window.MAZAK_DATA = {
    "field_point": "Work light via RLY-8 (interposing relay for 100VAC coil); OEM CN6 pin 8 wire WL (wire no. 3-34)",
    "dest_connector": "OEM CN6",
    "dest_pin": "8",
+   "factory_wire": "",
+   "bbia_class": "exception",
    "designations": [
     "RLY-8"
    ],
@@ -9956,6 +10148,8 @@ window.MAZAK_DATA = {
    "field_point": "Spare output on 7i84U-B",
    "dest_connector": "",
    "dest_pin": "",
+   "factory_wire": "",
+   "bbia_class": "spare",
    "designations": [],
    "primary_source": "mesa_firmware_checklist.md",
    "cleanup_notes": "Leave unlanded",
@@ -10005,6 +10199,8 @@ window.MAZAK_DATA = {
    "field_point": "Spare output on 7i84U-B",
    "dest_connector": "",
    "dest_pin": "",
+   "factory_wire": "",
+   "bbia_class": "spare",
    "designations": [],
    "primary_source": "mesa_firmware_checklist.md",
    "cleanup_notes": "Leave unlanded",
@@ -10054,6 +10250,8 @@ window.MAZAK_DATA = {
    "field_point": "Spare output on 7i84U-B",
    "dest_connector": "",
    "dest_pin": "",
+   "factory_wire": "",
+   "bbia_class": "spare",
    "designations": [],
    "primary_source": "mesa_firmware_checklist.md",
    "cleanup_notes": "Leave unlanded",
@@ -10103,6 +10301,8 @@ window.MAZAK_DATA = {
    "field_point": "Spare output on 7i84U-B",
    "dest_connector": "",
    "dest_pin": "",
+   "factory_wire": "",
+   "bbia_class": "spare",
    "designations": [],
    "primary_source": "mesa_firmware_checklist.md",
    "cleanup_notes": "Leave unlanded",
@@ -10152,6 +10352,8 @@ window.MAZAK_DATA = {
    "field_point": "Spare output on 7i84U-B",
    "dest_connector": "",
    "dest_pin": "",
+   "factory_wire": "",
+   "bbia_class": "spare",
    "designations": [],
    "primary_source": "mesa_firmware_checklist.md",
    "cleanup_notes": "Leave unlanded",
@@ -10201,6 +10403,8 @@ window.MAZAK_DATA = {
    "field_point": "Spare output on 7i84U-B",
    "dest_connector": "",
    "dest_pin": "",
+   "factory_wire": "",
+   "bbia_class": "spare",
    "designations": [],
    "primary_source": "mesa_firmware_checklist.md",
    "cleanup_notes": "Leave unlanded",
@@ -10250,6 +10454,8 @@ window.MAZAK_DATA = {
    "field_point": "Spare direct FPGA GPIO on P3 (all pins)",
    "dest_connector": "",
    "dest_pin": "",
+   "factory_wire": "",
+   "bbia_class": "spare",
    "designations": [],
    "primary_source": "mesa_firmware_checklist.md",
    "cleanup_notes": "P3 is unused/spare in this configuration. Actual GPIO indices depend on the verified bitfile/IDROM. Do NOT wire 24V field signals to bare P3; use isolated field I/O.",
@@ -10299,6 +10505,8 @@ window.MAZAK_DATA = {
    "field_point": "Field I/O logic power",
    "dest_connector": "",
    "dest_pin": "",
+   "factory_wire": "",
+   "bbia_class": "power-internal",
    "designations": [],
    "primary_source": "Mesa 7i84U manual pp.2/7-8/47",
    "cleanup_notes": "AG verified 08-07-2026: W1 physically RIGHT; direct VIN feed Mean Well +V2 through 5 A branch fuse to TB1-5; return -V4 to TB1-6; 24.0 VDC measured TB1-5 to TB1-6; de-energized continuity 0 ohms. Evidence: docs/commissioning_logs/mazak_commissioning_records_07-08-2026.json",
@@ -10353,6 +10561,8 @@ window.MAZAK_DATA = {
    "field_point": "VIN/VFIELD common return",
    "dest_connector": "",
    "dest_pin": "",
+   "factory_wire": "",
+   "bbia_class": "power-internal",
    "designations": [],
    "primary_source": "Mesa 7i84U manual pp.7-8",
    "cleanup_notes": "All three terminals are common; land 0 V only here.",
@@ -10407,6 +10617,8 @@ window.MAZAK_DATA = {
    "field_point": "Field I/O logic power",
    "dest_connector": "",
    "dest_pin": "",
+   "factory_wire": "",
+   "bbia_class": "power-internal",
    "designations": [],
    "primary_source": "Mesa 7i84U manual pp.2/7-8/47",
    "cleanup_notes": "W1 left links VIN internally to VFIELDB; W1 right requires a separate 5-28 VDC VIN supply. Record W1 position and do not double-feed.",
@@ -10461,6 +10673,8 @@ window.MAZAK_DATA = {
    "field_point": "VIN/VFIELD common return",
    "dest_connector": "",
    "dest_pin": "",
+   "factory_wire": "",
+   "bbia_class": "power-internal",
    "designations": [],
    "primary_source": "Mesa 7i84U manual pp.7-8",
    "cleanup_notes": "All three terminals are common; land 0 V only here.",

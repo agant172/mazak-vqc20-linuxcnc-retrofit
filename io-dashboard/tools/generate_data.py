@@ -170,6 +170,27 @@ def expected_for(sig_id, direction, status):
     return {"value": v, "label": label, "basis": basis, "kind": kind}
 
 
+def bbia_class(r):
+    """Classify a signal against the single machine-interface plane
+    (INTERFACE_ARCHITECTURE.md). 'plane' = crosses at a BBIA-1 CN connector;
+    everything else is an enumerated exception. Buckets are deliberately coarse
+    and derived only from robust columns, so nothing is mislabelled."""
+    conn = (r.get("dest_connector") or "").strip().upper()
+    if conn.startswith("CN"):
+        return "plane"
+    sid = (r.get("signal_id") or "").strip()
+    board = (r.get("mesa_card") or "").strip()
+    sub = (r.get("subsystem") or "").strip().lower()
+    status = (r.get("authority_status") or "").strip()
+    if board == "7i49":
+        return "analog-resolver"      # servo/spindle analog + resolver feedback
+    if sid.startswith("SSERIAL") or sub == "power" or conn.startswith("TB"):
+        return "power-internal"       # supply/return + card-internal, not machine I/O
+    if status in ("SPARE", "RESERVED", "RESERVED_VERIFY", "NOT_USED"):
+        return "spare"
+    return "exception"                # new-signal / unlocated / not-located; see provenance
+
+
 def build(root):
     nets, setps = parse_hal(root)
     auth = csv_rows_with_lines(os.path.join(root, AUTHORITY))
@@ -309,6 +330,8 @@ def build(root):
             "field_point": r["field_point_or_load"],
             "dest_connector": (r.get("dest_connector") or "").strip(),
             "dest_pin": (r.get("dest_pin") or "").strip(),
+            "factory_wire": (r.get("factory_wire") or "").strip(),
+            "bbia_class": bbia_class(r),
             "designations": designations(r["field_point_or_load"] + " " + loc_note),
             "primary_source": r["primary_source"],
             "cleanup_notes": r["cleanup_notes"],

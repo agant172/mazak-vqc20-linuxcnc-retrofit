@@ -1,8 +1,19 @@
-# Mazak VQC 20/40B LinuxCNC Retrofit — Project Instructions
+# CLAUDE.md — Read this first, every session
+
+This file loads automatically at the start of every Claude session (desktop app,
+CLI, or cloud). It is the **single operating manual** for the project — both the
+quick front-door orientation and the full working rules, in one place.
+
+> **The repo is the memory.** No Claude session — local or cloud — remembers past
+> conversations. Everything durable lives in these files. If a decision, value, or
+> result matters, it is not "known" until it is written to the repo and committed.
+> When you finish real work, update the relevant file so the next session inherits it.
+
+---
 
 ## Project purpose
 
-This project converts Mazak VQC 20/40B SN 060231 from its original Mazak
+This project converts **Mazak VQC 20/40B SN 060231** from its original Mazak
 M-2 / Mazatrol control to LinuxCNC. The machine was functioning well before
 the retrofit and is mechanically sound. The purpose is to replace obsolete
 NC/control hardware and software while retaining reliable OEM machine
@@ -13,6 +24,46 @@ wired MPG pendant, retained OEM DC servo amplifiers and spindle drive, and
 full OEM-style machine automation where practical — including spindle orient,
 ATC operation, machine interlocks, lubrication/hydraulic monitoring, and
 recoverable sequencing.
+
+---
+
+## Read these before proposing anything
+
+This file is the authoritative brief. In addition, consult:
+
+| Read | Why |
+|---|---|
+| **`INTERFACE_ARCHITECTURE.md`** | The single machine-interface plane (BBIA-1) — the root decision governing how the wiring CSV and I/O Navigator are structured. Read before touching the pin authority or wiring crosswalks. |
+| **`docs/project_status.md`** | Current state, TODO priorities, and the D1–D16 pre-power deliverables gating live power. |
+| **`docs/authority_hierarchy.md`** | Which file wins when two disagree, and the script that enforces it. |
+| **`mesa/current_pin_authority.csv`** | Electrical channel authority — one row per physical Mesa pin. The source of truth for pin/HAL bindings. |
+| **`wiring/authority_conflicts.md`** | Known documentation-vs-physical conflicts not yet resolved. |
+| **`docs/superseded_claims_2026-08-06.md`** | Retracted claims. Do not resurrect them (e.g. the P3 `gpio.042` probe binding, the 7i97T architecture). |
+
+---
+
+## Quick non-negotiable rules
+
+Full versions are in the detailed sections below; this is the skim list.
+
+- **Safety is hardware-first.** The OEM hardwired E-stop / contactor chain (MAR/EMS/OTR)
+  is the primary E-stop. LinuxCNC/HAL is **not** the only E-stop. Never treat the HAL/INI
+  skeletons or the pin-authority CSV as live-machine-ready — they are planning skeletons
+  with placeholder scales, polarities, and normal states.
+- **Sources of truth, in order:** (1) this repo, (2) OEM PDF set for SN 060231,
+  (3) Mesa manuals committed under `docs/Mesa Manuals/`. Repo wins. Everything else
+  (wiki, chat notes, forum posts) is secondary and cannot override the repo.
+- **Never invent** wire labels, pin assignments, parameters, polarity, component state,
+  I/O type, or firmware compatibility. Mark anything unverified and name the next
+  verification method (photo / meter / scope / commissioning check).
+- **Always separate** verified facts, inferences, open questions, proposed changes,
+  temporary bypasses, and tests-required-before-motion.
+- **Preserve the two-card identity** (7i84U-A vs 7i84U-B) and OEM safety wire numbers
+  (`57`, `57A`, `40`, `40A`, `EHB`, `MAR`, `EMS`, `OTR`, `PIOT`, `*ESP`) unless a
+  documented revision says otherwise. Do not reuse retired OEM wire numbers for new wiring.
+- **Keep the two 24 V domains isolated.** OEM `P24`/`G24` never connects to Mesa/new I/O;
+  every OEM↔new signal crosses an interposing relay.
+- **Cite everything** using the citation format below.
 
 ---
 
@@ -51,9 +102,31 @@ Intended 7i49 allocation:
 - RES0/1/2 — X, Y, Z resolver feedback.
 - AOUT0/1/2 — X, Y, Z axis velocity commands.
 - AOUT3 — FR-SX spindle speed command.
+
 Do not assume any Mesa connector, firmware, assignment, resolver ratio,
 carrier frequency, or HAL pin name is correct until verified against the
 applicable manual, installed firmware, and current pin-authority document.
+
+---
+
+## The single machine-interface plane (BBIA-1)
+
+The original NC talked to the machine through **one board, BBIA-1** — a straight
+pass-through terminal unit that was the NC back panel's breakout. The retrofit
+reproduces this exactly: LinuxCNC → 7i80HDT (Ethernet) → 7i44/7i49 (50-pin IDC) →
+7i84U-A/B (smart-serial) → **Mesa screw terminals** → cut & ferruled **MR cables** →
+**BBIA-1** → unchanged OEM harness → machine.
+
+**Single-plane rule:** every control↔machine signal crosses at the BBIA-1 connector
+plane. One physical conductor across that plane = one row in the I/O model, keyed on
+the **factory wire number** printed on the jacket. The machine-internal side is fixed
+OEM reference (`wiring/bbia1_cn_pinouts.csv`) — do not re-derive it; the retrofit owns
+and verifies only the **BBIA↔Mesa hop**. The few things that do *not* cross at BBIA-1
+— the standalone OEM E-stop/contactor chain, the power/return feeds, and the
+still-to-trace analog/resolver and unlocated-limit signals — are enumerated in
+**`INTERFACE_ARCHITECTURE.md`**, which is authoritative for this model and for how the
+wiring CSV and I/O Navigator are structured. Read it before editing the pin authority
+or wiring crosswalks.
 
 ---
 
@@ -263,3 +336,45 @@ original harness sections with original labels visible.
 The goal is a documented, maintainable, serviceable LinuxCNC-controlled
 Mazak VQC 20/40B that retains the useful behavior of the original machine
 and makes every changed circuit and control decision understandable years later.
+
+---
+
+## Where to do the work: local vs. cloud
+
+Both kinds of Claude session share this repo as memory, but they can touch different things.
+
+**Do LOCALLY (desktop app / CLI on the shop PC, with Desktop Commander)** — anything that
+needs the real machine, hardware, OS, or live measurements:
+- Live Mesa install, `mesaflash`/`readhmid`, bitfile flashing, IDROM/pin-dump capture.
+- Editing and testing HAL/INI on the control PC (`halrun`, watching real pins).
+- Host/NIC/network setup (static IP 192.168.1.121, `hm2_eth`, `enp0s31f6`), package installs,
+  systemd services.
+- Resolver/analog scope measurements, 24 V and safety-chain tracing, continuity checks.
+- Axis / spindle / ATC bring-up and every commissioning step.
+- Importing cabinet photos into `photos/`.
+- **Then write results into the repo and commit** — that is how the knowledge survives.
+
+**Hand to CLOUD (claude.com/code, parallel sessions, reviewed as PRs)** — self-contained
+work that only needs files already in git and cannot touch the machine:
+- Documentation polish and reconciliation (`docs/`, `README.md` progress tables, wiring narratives).
+- The `io-dashboard/` web app (pure JS/CSS/HTML).
+- Python tooling and validators (`scripts/validate_authority.py`, `validate_control_logic.py`,
+  `generate_*.py`, `build_manual_set.py`) — these can run their own checks in the container.
+- Regenerating derived artifacts (label CSVs, wire reference sheets, manual sets) from source data.
+- Cross-checking the CSV/XLSX pin-authority and BOM data for conflicts.
+
+**The trap:** a cloud session can *draft* a HAL file but has never seen the machine and cannot
+verify anything. Never let cloud output stand as commissioned truth — only local work against
+the real hardware (plus a human) can commission.
+
+---
+
+## Validation & housekeeping
+
+- After editing pin bindings or HAL, run the authority checker:
+  `python3 scripts/validate_authority.py` (and `validate_control_logic.py` where relevant).
+  Both must exit 0 — the same gate CI enforces on every PR.
+- When you complete real work, update `docs/project_status.md` and any file whose facts changed,
+  then commit with a clear message. An append-only decision/change log captures *why*, not just *where* —
+  prefer adding to it over overwriting history.
+- Commit and push before a session ends; a cloud container is ephemeral and unpushed work is lost.

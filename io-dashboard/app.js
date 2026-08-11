@@ -453,14 +453,18 @@
       // BBIA-1 CNDx source pin (top row); CNDx pin = CNx pin (straight pass-through)
       var cBB = td('c-bbsrc', 'BBIA-1 src');
       var bb = s.bb_source;
-      if (bb && bb.cnd_pin) {
+      if (s.bbia_class === 'plane' && s.dest_connector) {
         var bbWrap = el('span', 'mono-cell strong');
-        bbWrap.textContent = bb.cnd_pin;
-        bbWrap.title = 'wire ' + (bb.wire || '?') + ' \u00b7 bottom ' + (bb.cn_pin || '?') +
-          ' \u00b7 CNDx pin = CNx pin (labeled)';
+        bbWrap.textContent = s.dest_connector + '-' + s.dest_pin +
+          (s.factory_wire ? ' (' + s.factory_wire + ')' : '');
+        bbWrap.title = 'BBIA-1 plane \u00b7 wire ' + (s.factory_wire || '?') +
+          (bb && bb.provenance ? ' \u00b7 ' + bb.provenance : '');
         cBB.appendChild(bbWrap);
-      } else if (bb) {
-        cBB.appendChild(el('span', 'mono-cell none', 'label \u2014 fill'));
+      } else if (s.bbia_class && s.bbia_class !== 'plane') {
+        var offWrap = el('span', 'mono-cell none', 'off-plane');
+        offWrap.title = (bb && bb.provenance) ? bb.provenance :
+          'Does not cross at BBIA-1 (' + s.bbia_class + ')';
+        cBB.appendChild(offWrap);
       } else {
         cBB.appendChild(el('span', 'mono-cell none', '\u2014'));
       }
@@ -677,16 +681,32 @@
       'Per ' + D.meta.authority_file + (s.authority_line ? ':' + s.authority_line : '') + '.',
       s.status === 'CONFIG_ONLY'));
 
-    if (s.bb_source) {
-      var bb = s.bb_source;
-      var bbNote = [];
-      if (bb.wire) bbNote.push('wire ' + bb.wire);
-      if (bb.cn_pin) bbNote.push('bottom ' + bb.cn_pin);
-      bbNote.push(bb.cnd_pin ? 'CNDx pin = CNx pin, labeled' : 'CNDx top-row pin \u2014 add from your labels');
-      ul.appendChild(pathStep('4b \u00b7 BBIA-1 source (top row CNDx)',
-        bb.cnd_pin || 'label \u2014 to fill',
-        bbNote.join(' \u00b7 '),
-        !bb.cnd_pin));
+    // 4b - the single machine-interface plane (INTERFACE_ARCHITECTURE.md).
+    // Every signal is either on the BBIA-1 plane or a named exception.
+    var CLASS_LABEL = {
+      'plane': 'BBIA-1 plane',
+      'analog-resolver': 'off-plane \u00b7 analog/resolver (direct to drive)',
+      'power-internal': 'off-plane \u00b7 power/return or card-internal',
+      'spare': 'off-plane \u00b7 spare / reserved',
+      'exception': 'off-plane \u00b7 exception (new / untraced \u2014 see notes)'
+    };
+    var bb = s.bb_source;
+    if (s.bbia_class === 'plane' && s.dest_connector) {
+      var planeNote = [];
+      if (s.factory_wire) planeNote.push('factory wire ' + s.factory_wire);
+      planeNote.push('cut / ferruled MR conductor \u2192 Mesa screw terminal');
+      if (bb && bb.provenance) planeNote.push(bb.provenance);
+      ul.appendChild(pathStep('4b \u00b7 Machine-interface plane',
+        'BBIA-1 ' + s.dest_connector + '-' + s.dest_pin +
+          (s.factory_wire ? ' \u00b7 wire ' + s.factory_wire : ''),
+        planeNote.join(' \u00b7 '),
+        false));
+    } else {
+      ul.appendChild(pathStep('4b \u00b7 Machine-interface plane',
+        CLASS_LABEL[s.bbia_class] || 'off-plane',
+        (bb && bb.provenance) ? bb.provenance :
+          'Does not cross at BBIA-1; handled by its own subsystem (INTERFACE_ARCHITECTURE.md \u00a73).',
+        s.bbia_class === 'exception'));
     }
 
     ul.appendChild(pathStep('5 \u00b7 Field device',

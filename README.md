@@ -8,6 +8,12 @@ control to LinuxCNC using Mesa Electronics FPGA hardware.
 **New control:** LinuxCNC 2.9.10 on Debian 13 (PREEMPT-RT)
 **Interface hardware:** Mesa 7i80HDT (Ethernet FPGA host) + 7i44 on P1 (RS-422 sserial to 7i84U-A/B on physical channels 0/1 of HostMot2 port 0) + 7i49 on P2 (resolver + analog outs); P3 is unused/spare. The Renishaw MP-3 probe input is on **7i84U-B input-15** (opto-isolated 24 V), not on bare P3 GPIO.
 
+> 📖 **Start here:** [`CLAUDE.md`](CLAUDE.md) is the canonical project brief — the full
+> operating manual (control hardware, sources of truth, working rules, electrical
+> architecture, safety/commissioning sequence, and the local-vs-cloud work split). It loads
+> automatically at the start of every Claude session and is the first thing any contributor
+> (human or AI) should read.
+
 > ⚠️ **Safety:** The HAL/INI files in [`linuxcnc/`](linuxcnc/) and the pin authority in
 > [`mesa/current_pin_authority.csv`](mesa/current_pin_authority.csv) are **planning /
 > bring-up skeletons only** — not live-machine-ready. Pin names, resolver scales, analog
