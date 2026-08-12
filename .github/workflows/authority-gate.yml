@@ -2,7 +2,8 @@ name: Authority gate
 
 # Runs the two repo validators on every push and pull request.
 # Both must exit 0 (docs/authority_hierarchy.md): the pin authority CSV,
-# the HAL files, and the generated label CSVs must all agree.
+# the HAL files, the generated label CSVs, and the generated dashboard
+# data (io-dashboard/data.js) must all agree.
 
 on:
   push:
@@ -35,3 +36,9 @@ jobs:
           python3 scripts/generate_wire_reference_sheet.py
           # Ignore the volatile date/commit stamp line when comparing.
           git diff -I 'Generated .* from repo commit' --exit-code -- 'wiring/labels/*.html'
+
+      - name: Dashboard data.js matches authority (no silent drift)
+        run: |
+          python3 io-dashboard/tools/generate_data.py
+          # Ignore the volatile "generated" timestamp line when comparing.
+          git diff -I '"generated":' --exit-code -- io-dashboard/data.js
