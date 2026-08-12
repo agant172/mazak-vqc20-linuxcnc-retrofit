@@ -1,9 +1,10 @@
 # Spindle motor built-in PLG encoder — nameplate evidence
 
 **Machine:** Mazak VQC 20/40B SN 060231
-**Evidence:** nine owner-supplied photographs, reviewed 2026-08-12 — five inside
-the AC spindle motor's terminal/junction box, four of the motor in situ on the
-spindle head.
+**Evidence:** fourteen owner-supplied photographs, reviewed 2026-08-12 — five
+inside the AC spindle motor's terminal/junction box, four of the motor in situ
+on the spindle head, and five wide/close frames including a fully legible motor
+nameplate.
 **Where to find it:** **up on the spindle head.** The AC spindle motor is
 mounted **vertically on the head, driving downward** into the head/gearbox.
 Stacked top-to-bottom: **terminal box (the PLG lives in here) → blower/fan
@@ -14,7 +15,7 @@ box on top. Confirmed by in-situ photos 2026-08-12. Not in the cabinet.
 electrically verified, traced, or commissioned.
 
 > **Photos are not committed** (repo policy: no raw photos — see
-> [`photo_survey_misc.md`](photo_survey_misc.md)). File the nine originals in the
+> [`photo_survey_misc.md`](photo_survey_misc.md)). File the fourteen originals in the
 > Google Drive archive under `06 Nameplates & Labels` and add their camera IDs to
 > the [Photo IDs](#photo-ids-to-backfill) table below so this record becomes
 > re-checkable.
@@ -153,25 +154,66 @@ Connector part numbers printed alongside: **`AMP-350720-1`** and
 > `DO NOT SUPPLY POWER BETWEEN (OHS1) AND (OHS2).`
 > `(端子(OHS1)と(OHS2)間には電圧を印加しないよう注意下さい。)`
 
-### Motor nameplate (in situ, batch 2)
+### Motor nameplate — full legible transcription (batch 3)
 
-Legible on the motor body below the blower:
+Batch 3 (2026-08-12) includes a **sharp, fully legible** close-up of the motor
+nameplate. This supersedes the partial read of `IMG_2065` recorded in
+[`photo_survey_misc.md`](photo_survey_misc.md) and **corrects two values there**
+(see [§Corrections to `photo_survey_misc.md`](#corrections-to-photo_survey_miscmd)).
 
 | Field | Value as printed |
 |---|---|
 | Heading | `AC SPINDLE MOTOR` / `THREE PHASE INDUCTION MOTOR` |
-| Type | `SE-E_-FV` — **suffix not legible at this resolution** |
+| Type | **`SE-EV-FV`** — suffix now resolved |
 | Poles | `POLE 4` |
-| Paired drive | **`CONTROLLER TYPE FR-SX`** |
+| Frame | `L5-A112` (leading char reads `L`; `1` not fully excluded) |
+| Rotor | `CAGE` |
+| Insulation class | `F` |
+| Ambient temp | `40 °C` |
+| Weight | `65 kg` |
+| Vibration class | `V-10` |
+| Bearings | `6307 ZZC3` and `6306 ZZC3` |
+| Thermal protector | `KLIXON 9700L-246-215`, `OPEN 150 °C` / `CLOSE 99 °C`, **`24VDC 12A / 115VAC 12A / 230VAC 9A`** |
+| Blower | `IA-15040`, **`1Φ 2P`**, `INS.E`, `CAP. 0.8 µF`, `200/200V 50/60Hz`, `0.2/0.2A` |
+| Serial | `D91400020` (worn; consistent with the `D9140002_0` read from `IMG_2065`) |
+| Date | worn, not legible |
 | Maker | `MITSUBISHI ELECTRIC CORPORATION, JAPAN` |
+| Part no. | `995196-03` |
+| Paired drive | **`CONTROLLER TYPE FR-SX`** |
 | Warning sticker | `NO SHOCK AND NO USE OF FANCASE FOR LIFTING` |
 
-**`CONTROLLER TYPE FR-SX` on the motor's own plate is primary-source
-confirmation of the motor↔drive pairing** that this repo had previously
-assembled from schematics and cabinet photos. The ratings table is not legible
-in these frames — for kW/V/A and the 1500/4500/6000 rpm winding taps, `IMG_2065`
-in [`photo_survey_misc.md`](photo_survey_misc.md) remains the source, and the
-type suffix is still unresolved in both photo sets.
+**Ratings table — two duty columns, which the earlier record did not
+distinguish:**
+
+| | \@1500 rpm | \@4500 rpm | \@6000 rpm |
+|---|---|---|---|
+| **`CONT`** (continuous) | 3.7 kW, 130 V, 28 A | 3.7 kW, 170 V, 20 A | 2.2 kW, 170 V, 13 A |
+| **`1/2H`** (half-hour) | 5.5 kW, 130 V, 39 A | 5.5 kW, 170 V, 29 A | 3.7 kW, 170 V, 21 A |
+
+Three things follow:
+
+1. **`CONTROLLER TYPE FR-SX` on the motor's own plate** is primary-source
+   confirmation of the motor↔drive pairing this repo had assembled from
+   schematics and cabinet photos.
+2. **The 5.5 kW half-hour rating corroborates the drive sizing.**
+   `photo_survey_misc.md` identifies the drive as **`FR-SX-2-5.5K`** (5.5 kW,
+   40 A) from the chassis tag and ratings table. The drive is sized to this
+   motor's 30-minute rating, not its continuous rating — consistent, and worth
+   remembering when interpreting any current/thermal limit.
+3. **The blower is single-phase**, which resolves an ambiguity on the wiring
+   plate — see below.
+
+### The fan is 1-phase: `BW` is unused on this machine
+
+The wiring plate draws `FAN-MOTOR` terminals `(BU)` `(BV)` `(BW)` with `BW`
+**dashed** and annotated `IN CASE OF THREE PHASE MOTOR (三相モータの場合)`. The
+motor nameplate settles which case applies here: the blower is **`1Φ 2P`,
+200 V, 0.2 A, with a 0.8 µF run capacitor**.
+
+So on this machine the fan uses **`BU` and `BV` only; `BW` is not used**. If the
+retrofit ever powers or monitors the spindle blower, size it as a **single-phase
+200 VAC ~0.2 A load** — and note that 200 VAC must not land on a 7i84U terminal;
+it needs an interposing relay like the other 100/200 VAC loads.
 
 ### Wire labels observed in the box
 
@@ -221,13 +263,20 @@ type suffix is still unresolved in both photo sets.
    *Verification:* FR-SX / motor manual, or scope both pairs against `COM` and
    `AGA` while the spindle is barred over by hand.
 
-4. **`OHS1`/`OHS2` is the Klixon thermostat already on record.** The spindle
-   motor nameplate (`IMG_2065`) lists a `Klixon thermal protector
-   9700L-246-215 (open 150 °C / close 99 °C)` — a normally-closed bimetal
-   contact, which matches the series-contact symbol on the plate. The plate's
-   "do not supply power" warning then reads as *this is a sensing contact, not a
-   load-switching contact* — sense it at low voltage/current only.
-   *Verification:* cold continuity check across `OHS1`–`OHS2` (expect closed).
+4. ~~**`OHS1`/`OHS2` is the Klixon thermostat already on record.**~~
+   **CONFIRMED from the legible nameplate (batch 3).** The plate gives
+   `KLIXON 9700L-246-215`, `OPEN 150 °C / CLOSE 99 °C`, and — decisively — a
+   **switching rating of `24VDC 12A / 115VAC 12A / 230VAC 9A`**. A device with a
+   contact rating is a **dry, normally-closed bimetal contact**, not a
+   thermistor. That matches the series-contact symbol on the wiring plate.
+   The plate's "do not supply power between OHS1 and OHS2" therefore reads as
+   *do not treat these terminals as a power feed* — it is a protective sensing
+   contact in series, not a load to be energised.
+   **Retrofit consequence:** it is directly compatible with a 24 VDC sensing
+   circuit and can cross to a 7i84U input through the standard interposing-relay
+   boundary, well inside its 12 A rating. Still confirm it is not already
+   consumed by the existing `THERMAL_ALARM_CHAIN` before proposing a new input.
+   *Remaining check:* cold continuity across `OHS1`–`OHS2` (expect closed).
 
 5. **The `OH` line on the p090 `MS3108B 20-29P` connector is this motor's
    overheat sensor.** See the open question below — this is the thread worth
@@ -330,6 +379,55 @@ stays open, now narrowed rather than closed.
 
 ---
 
+## Corrections to `photo_survey_misc.md`
+
+The batch-3 nameplate close-up is sharp where `IMG_2065` was not. Two values in
+the `AC spindle motor` row of
+[`photo_survey_misc.md`](photo_survey_misc.md#hardware-inventory-recovered-from-nameplates)
+were misread and are corrected here:
+
+| Field | Recorded from `IMG_2065` | Actual (batch 3) |
+|---|---|---|
+| Volts | `150`/170/170/`150`/170/170 | **`130`**/170/170 / **`130`**/170/170 |
+| Amps | `26`/20/13/39/29/21 | **`28`**/20/13/39/29/21 |
+| Type suffix | `SE-EV-FV` *(suffix uncertain)* | **`SE-EV-FV` — confirmed** |
+
+Unchanged and now confirmed: kW 3.7/3.7/2.2 + 5.5/5.5/3.7, RPM
+1500/4500/6000 ×2, part no. `995196-03`, Klixon `9700L-246-215`
+(150 °C / 99 °C). The serial reads `D91400020`, consistent with the earlier
+`D9140002_0`; the date field is worn beyond reading in both sets.
+
+The six kW/V/A columns are **two duty ratings (`CONT` and `1/2H`), not six
+winding taps** — the earlier record listed them as a flat sequence, which
+obscured that. See the ratings table above.
+
+## Re-shoot target — the splash-guard device placard
+
+The batch-3 wide shots show a **printed legend placard mounted inside the
+splash-guard door**, diagramming the head with device tags called out. Read from
+a wide frame it appears to list:
+
+`GEAR SHIFT LOW SOL-13` · `GEAR SHIFT HIGH SOL-12` · `HIGH GEAR PRS-10` ·
+`LOW GEAR PRS-12` · `TOOL CLAMP PRS-3` · `TOOL UNCLAMP PRS-4` ·
+`FLOOD COOLANT SOL-31` · `OIL HOLE SOL-33` · `DUST INHALE ELIMINATE SOL-36` ·
+`AIR JET SOL-6` · `WORK AIR BLAST SOL-16` · `SPINDLE AIR BLAST SOL-15` ·
+`HEAD LUBE PRESSURE PRS-5`
+
+> ⚠️ **LOW-CONFIDENCE READ — do not cite these tags as evidence.** This is small
+> text in a wide shot, not a close-up. It is recorded here only to flag the
+> placard's existence and value. **Nothing in the pin authority or the conflict
+> register has been changed on the strength of it.**
+
+**Why it is worth a dedicated close-up photo:** this placard is an OEM-printed,
+machine-mounted device legend that appears to bear directly on several currently
+open or conflict-flagged items —
+[`../wiring/authority_conflicts.md`](../wiring/authority_conflicts.md) §1
+(gear-shift solenoid identity, `SOL-12` vs `SOL-13`), §2 (tool clamp/unclamp),
+the head-lube pressure switch, and the gear-confirm switch identities
+(`PRS-10`/`PRS-12`) that the orient/gear logic depends on. A single sharp frame
+could corroborate or challenge several rows at once, from a source physically
+attached to the machine rather than from a 1984 drawing.
+
 ## Correction to `servo_amp_analysis.md` §1.5
 
 [`servo_amp_analysis.md`](servo_amp_analysis.md) §1.4/§1.5 state:
@@ -369,6 +467,16 @@ physical device.
 | 8 | Looking down into the terminal box from above, encoder centred | _pending_ |
 | 9 | Wider context — head, lube manifold, ATC area | _pending_ |
 
+**Batch 3 — wide context + legible nameplate (2026-08-12):**
+
+| # | Subject | Camera ID |
+|---|---|---|
+| 10 | Head from the front, splash-guard open; **device legend placard visible** | _pending_ |
+| 11 | Same view closer — hydraulics, lube pump, gearbox casting, placard | _pending_ |
+| 12 | **Motor nameplate, sharp and fully legible** (`SE-EV-FV`, ratings, Klixon, blower) | _pending_ |
+| 13 | Motor nameplate in context below the blower | _pending_ |
+| 14 | Wiring plate `889515-01` re-shot, sharper than batch 1 | _pending_ |
+
 ---
 
 ## Next verification steps
@@ -389,4 +497,4 @@ physical device.
       same, but it is not proof — a device elsewhere on the head or drive train
       has not been positively excluded. Settle it by the p090 re-read and the
       continuity trace above, not by this photo alone.
-- [ ] File the nine photos in Drive and backfill the camera IDs above.
+- [ ] File the fourteen photos in Drive and backfill the camera IDs above.
