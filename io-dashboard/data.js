@@ -6,7 +6,7 @@ window.MAZAK_DATA = {
   "machine": "Mazak VQC-20/40",
   "serial": "060231",
   "architecture": "LinuxCNC + Mesa 7i80HDT (Ethernet FPGA host) + 7i44 on P1 (HostMot2 sserial port 0 channels 0/1 to 7i84U-A/B) + 7i49 on P2 (resolver + analog outs); P3 unused/spare",
-  "generated": "2026-08-10 23:23 UTC",
+  "generated": "2026-08-12 01:35 UTC",
   "source_repo": "mazak-vqc20-linuxcnc-retrofit",
   "authority_file": "mesa/current_pin_authority.csv",
   "epson_ferrule_file": "wiring/labels/bbia1_mesa_end_ferrules_epson.csv",
@@ -308,9 +308,7 @@ window.MAZAK_DATA = {
      "note": "primary_source column in the authority table"
     }
    ],
-   "conflicts": [
-    "C6"
-   ],
+   "conflicts": [],
    "bb_source": {
     "cnd_pin": "",
     "wire": "",
@@ -460,9 +458,7 @@ window.MAZAK_DATA = {
      "note": "primary_source column in the authority table"
     }
    ],
-   "conflicts": [
-    "C6"
-   ],
+   "conflicts": [],
    "bb_source": {
     "cnd_pin": "",
     "wire": "",
@@ -612,9 +608,7 @@ window.MAZAK_DATA = {
      "note": "primary_source column in the authority table"
     }
    ],
-   "conflicts": [
-    "C6"
-   ],
+   "conflicts": [],
    "bb_source": {
     "cnd_pin": "",
     "wire": "",
@@ -3178,7 +3172,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/mazak_vqc_20_40.hal",
-     "line": 307,
+     "line": 310,
      "text": "net spindle-fault        => logic.spindle-fault-not.in-00",
      "commented": false,
      "producers": [],
@@ -3242,7 +3236,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/mazak_vqc_20_40.hal",
-     "lines": "307",
+     "lines": "310",
      "note": "net spindle-fault        => logic.spindle-fault-not.in-00"
     },
     {
@@ -4304,9 +4298,7 @@ window.MAZAK_DATA = {
      "note": "primary_source column in the authority table"
     }
    ],
-   "conflicts": [
-    "C10"
-   ],
+   "conflicts": [],
    "bb_source": {
     "cnd_pin": "CN2-38",
     "wire": "238",
@@ -4764,7 +4756,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/mazak_vqc_20_40.hal",
-     "line": 241,
+     "line": 244,
      "text": "net estop-monitor     => estop-latch.0.ok-in",
      "commented": false,
      "producers": [],
@@ -4795,7 +4787,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/mazak_vqc_20_40.hal",
-     "lines": "241",
+     "lines": "244",
      "note": "net estop-monitor     => estop-latch.0.ok-in"
     },
     {
@@ -4909,7 +4901,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/mazak_vqc_20_40.hal",
-     "line": 314,
+     "line": 317,
      "text": "net servo-ready            => logic.spindle-permit-and.in-05",
      "commented": false,
      "producers": [],
@@ -4965,7 +4957,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/mazak_vqc_20_40.hal",
-     "lines": "314",
+     "lines": "317",
      "note": "net servo-ready            => logic.spindle-permit-and.in-05"
     },
     {
@@ -6213,9 +6205,7 @@ window.MAZAK_DATA = {
      "note": "primary_source column in the authority table"
     }
    ],
-   "conflicts": [
-    "C10"
-   ],
+   "conflicts": [],
    "bb_source": {
     "cnd_pin": "CN11-15",
     "wire": "236",
@@ -7030,9 +7020,7 @@ window.MAZAK_DATA = {
      "note": "primary_source column in the authority table"
     }
    ],
-   "conflicts": [
-    "C6"
-   ],
+   "conflicts": [],
    "bb_source": {
     "cnd_pin": "",
     "wire": "",
@@ -7127,9 +7115,7 @@ window.MAZAK_DATA = {
      "note": "primary_source column in the authority table"
     }
    ],
-   "conflicts": [
-    "C6"
-   ],
+   "conflicts": [],
    "bb_source": {
     "cnd_pin": "",
     "wire": "",
@@ -7243,9 +7229,7 @@ window.MAZAK_DATA = {
      "note": "Epson Mesa-end ferrule B-TB3-03; HOLD_SOURCE_TRACE"
     }
    ],
-   "conflicts": [
-    "C6"
-   ],
+   "conflicts": [],
    "bb_source": {
     "cnd_pin": "CN3-37",
     "wire": "+LY",
@@ -7340,9 +7324,7 @@ window.MAZAK_DATA = {
      "note": "primary_source column in the authority table"
     }
    ],
-   "conflicts": [
-    "C6"
-   ],
+   "conflicts": [],
    "bb_source": {
     "cnd_pin": "",
     "wire": "",
@@ -7456,9 +7438,7 @@ window.MAZAK_DATA = {
      "note": "Epson Mesa-end ferrule B-TB3-05; HOLD_SOURCE_TRACE"
     }
    ],
-   "conflicts": [
-    "C6"
-   ],
+   "conflicts": [],
    "bb_source": {
     "cnd_pin": "",
     "wire": "",
@@ -7572,9 +7552,7 @@ window.MAZAK_DATA = {
      "note": "Epson Mesa-end ferrule B-TB3-06; HOLD_SOURCE_TRACE"
     }
    ],
-   "conflicts": [
-    "C6"
-   ],
+   "conflicts": [],
    "bb_source": {
     "cnd_pin": "CN3-38",
     "wire": "-LZ",
@@ -7688,9 +7666,7 @@ window.MAZAK_DATA = {
      "note": "Epson Mesa-end ferrule B-TB3-07; HOLD_SOURCE_TRACE"
     }
    ],
-   "conflicts": [
-    "C6"
-   ],
+   "conflicts": [],
    "bb_source": {
     "cnd_pin": "CN2-15",
     "wire": "*DECX",
@@ -7804,9 +7780,7 @@ window.MAZAK_DATA = {
      "note": "Epson Mesa-end ferrule B-TB3-08; HOLD_SOURCE_TRACE"
     }
    ],
-   "conflicts": [
-    "C6"
-   ],
+   "conflicts": [],
    "bb_source": {
     "cnd_pin": "CN2-16",
     "wire": "*DECY",
@@ -7921,9 +7895,7 @@ window.MAZAK_DATA = {
      "note": "Epson Mesa-end ferrule B-TB3-09; HOLD_SOURCE_TRACE"
     }
    ],
-   "conflicts": [
-    "C6"
-   ],
+   "conflicts": [],
    "bb_source": {
     "cnd_pin": "CN1-14",
     "wire": "*DECZ",
@@ -9651,9 +9623,7 @@ window.MAZAK_DATA = {
      "note": "primary_source column in the authority table"
     }
    ],
-   "conflicts": [
-    "C6"
-   ],
+   "conflicts": [],
    "bb_source": {
     "cnd_pin": "",
     "wire": "",
@@ -9732,9 +9702,7 @@ window.MAZAK_DATA = {
      "note": "primary_source column in the authority table"
     }
    ],
-   "conflicts": [
-    "C6"
-   ],
+   "conflicts": [],
    "bb_source": {
     "cnd_pin": "CN11-10",
     "wire": "261",
@@ -9813,9 +9781,7 @@ window.MAZAK_DATA = {
      "note": "primary_source column in the authority table"
     }
    ],
-   "conflicts": [
-    "C6"
-   ],
+   "conflicts": [],
    "bb_source": {
     "cnd_pin": "",
     "wire": "",
@@ -10086,22 +10052,22 @@ window.MAZAK_DATA = {
    "board": "7i84U-B",
    "connector": "TB2",
    "channel": "OUT9",
-   "hal_net": "work-light",
+   "hal_net": "",
    "direction": "OUT",
    "direction_label": "Output (digital)",
    "subsystem": "Utility",
    "machine_subsystem": "Utility",
-   "status": "PROPOSED",
+   "status": "RESERVED",
    "field_point": "Work light via RLY-8 (interposing relay for 100VAC coil); OEM CN6 pin 8 wire WL (wire no. 3-34)",
    "dest_connector": "OEM CN6",
    "dest_pin": "8",
    "factory_wire": "",
-   "bbia_class": "exception",
+   "bbia_class": "spare",
    "designations": [
     "RLY-8"
    ],
    "primary_source": "wiring/bbia1_cn_pinouts.md",
-   "cleanup_notes": "Reassigned from SEVENI84UB_OUT9_SPARE 2026-08-09 | [CONFIRM 2026-08-09: 100VAC lamp confirmed by Andy - requires interposing relay RLY-8; same topology as RLY-5/6/7 (AIR_BLAST/TOUCH_SENSOR_BLAST/TAP_COOLANT_BLAST)] | Relay coil rating and CB-panel landing point not yet verified",
+   "cleanup_notes": "Reassigned from SEVENI84UB_OUT9_SPARE 2026-08-09 | [CONFIRM 2026-08-09: 100VAC lamp confirmed by Andy - requires interposing relay RLY-8; same topology as RLY-5/6/7 (AIR_BLAST/TOUCH_SENSOR_BLAST/TAP_COOLANT_BLAST)] | Relay coil rating and CB-panel landing point not yet verified | RESERVED 2026-08-11: hal_net set to none (no HAL binding yet) - re-assert net work-light when RLY-8 is wired | !! 100VAC LOAD: OUT9 drives the RLY-8 coil only; the lamp circuit is 100VAC - do NOT repurpose OUT9 as a low-voltage DC output while RLY-8 is landed",
    "location": "Unknown — trace in cabinet",
    "location_note": "",
    "expected": {
@@ -10742,9 +10708,9 @@ window.MAZAK_DATA = {
   },
   {
    "id": "C6",
-   "title": "All HostMot2 pin names are unverified placeholders",
-   "severity": "unverified",
-   "summary": "Every hm2_7i80.* name in the HAL set is a placeholder. Board tag, GPIO index ranges, resolver pin names, pwmgen instances, and the smart-serial device tag all need readhmid / halcmd show pin hm2 confirmation.",
+   "title": "CLEARED - HostMot2 pin-name placeholders no longer hold signals",
+   "severity": "cleared",
+   "summary": "CLEARED per owner (AG) 2026-08-11: per-signal holds removed - the placeholder pin-name question is a bring-up verification step (readhmid / halcmd show pin hm2 against the received 7i80hdt_rmsvss6_8.bin bitfile), not a per-signal wiring conflict, and it no longer blocks the wiring plan. The HAL-file placeholder warnings remain in force until that verification runs. Original scope: every hm2_7i80.* name (board tag, GPIO index ranges, resolver pin names, pwmgen instances, smart-serial device tag).",
    "detail": [
     "motion_7i80hdt.hal:4-7 — \"every hm2_7i80.* name below is an UNVERIFIED PLACEHOLDER... Confirm the exact board tag (hm2_7i80 expected)\"",
     "motion_7i80hdt.hal:32-33 — resolver pin names unverified",
@@ -10754,25 +10720,8 @@ window.MAZAK_DATA = {
     "mazak_vqc_20_40.hal:4-7 — board name, IP, firmware, resolver scales, drive polarity, normal states and safety wiring all unverified",
     "mazak_vqc_20_40.hal:25-26 — board_ip and config string still TODO despite 192.168.1.121 being set on line 31"
    ],
-   "action": "Load the real firmware, run readhmid and halcmd show pin hm2, then regenerate the HAL pin names. Treat every gpio.NNN in this dashboard as a label, not a landing point.",
-   "signals": [
-    "X_LIMIT_PLUS",
-    "X_LIMIT_MINUS",
-    "Y_LIMIT_PLUS",
-    "Y_LIMIT_MINUS",
-    "Z_LIMIT_PLUS",
-    "Z_LIMIT_MINUS",
-    "X_HOME",
-    "Y_HOME",
-    "Z_HOME",
-    "ESTOP_CHAIN",
-    "AIR_BLAST",
-    "TOUCH_SENSOR_BLAST",
-    "TAP_COOLANT_BLAST",
-    "X_RESOLVER",
-    "Y_RESOLVER",
-    "Z_RESOLVER"
-   ],
+   "action": "At bring-up: run readhmid and halcmd show pin hm2 against the real firmware, then regenerate the HAL pin names. Treat every gpio.NNN in this dashboard as a label, not a landing point. (Per-signal holds cleared 2026-08-11; signals list emptied then.)",
+   "signals": [],
    "sources": [
     "linuxcnc/motion_7i80hdt.hal:4-7,32-33,116,183-188",
     "linuxcnc/field_7i84u.hal:3-6",
@@ -10802,9 +10751,9 @@ window.MAZAK_DATA = {
   },
   {
    "id": "C10",
-   "title": "Coverage gaps: signals documented in research but absent from the authority",
-   "severity": "unverified",
-   "summary": "Mostly a retain-or-drop scope decision, not a wiring conflict. Several original gaps are now closed (SOL-31 flood coolant = FLOOD_VALVE; magazine cover-open located; spindle orient arrival exists; head-lube = LUBE_OK; 7i84U-B added). The genuine open items are the 2PC pallet changer and the door interlocks - decide scope before allocating channels.",
+   "title": "CLEARED - research-coverage gaps are scope decisions, not signal holds",
+   "severity": "cleared",
+   "summary": "CLEARED per owner (AG) 2026-08-11: per-signal holds removed - these were scope (retain-or-drop) decisions, not wiring conflicts, and should not hold allocated signals. Prior state: several original gaps already closed (SOL-31 flood coolant = FLOOD_VALVE; magazine cover-open located; spindle orient arrival exists; head-lube = LUBE_OK; 7i84U-B added); remaining open items (2PC pallet changer - since ruled out of scope, see CN12 characterization - and door interlocks) stay tracked in their own docs.",
    "detail": [
     "OPEN - 2PC pallet-changer set: SOL-22A/22B, SOL-24, SOL-25A/25B, SOL-82A/82B, SOL-87A/87B, PRS-98/99, PRS-92/93, RS-96/97, LS-83/84/87/88 - retain-or-drop decision (io_map_research_notes.md:106-146)",
     "OPEN - Door interlock switches LS-140/LS-141: decision + 1-2 inputs (io_map_research_notes.md:94-104)",
@@ -10812,13 +10761,8 @@ window.MAZAK_DATA = {
     "OPEN - way lube (AL-54) is separate from head lube; LUBE_OK covers head only - way lube may need its own channel",
     "CLOSED since: SOL-31 flood coolant = FLOOD_VALVE; magazine cover-open located (cover-close is a trace target); spindle orientation arrival = SPINDLE_ORIENT_ARRIVAL; 7i84U-B added on channel 1"
    ],
-   "action": "The current two-card allocation has 21 DI and 7 DO spare after AIR_OK and cover output. Inventory every pallet-changer device before restoring that scope; do not order a third remote from an estimate.",
-   "signals": [
-    "SECOND_SSERIAL_CARD",
-    "DOOR_INTERLOCK",
-    "LUBE_ON",
-    "COOLANT_ON"
-   ],
+   "action": "The current two-card allocation has 21 DI and 7 DO spare after AIR_OK and cover output. Inventory every pallet-changer device before restoring that scope; do not order a third remote from an estimate. (Per-signal holds cleared 2026-08-11; signals list emptied then.)",
+   "signals": [],
    "sources": [
     "wiring/io_map_research_notes.md:94-170,287-295",
     "mesa/current_pin_authority.csv:91"
@@ -10864,7 +10808,5 @@ window.MAZAK_DATA = {
   "none"
  ],
  "orphan_nets": [],
- "missing_from_hal": [
-  "WORK_LIGHT"
- ]
+ "missing_from_hal": []
 };
