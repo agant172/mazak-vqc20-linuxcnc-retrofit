@@ -1,16 +1,20 @@
 # Spindle motor built-in PLG encoder — nameplate evidence
 
 **Machine:** Mazak VQC 20/40B SN 060231
-**Evidence:** five owner-supplied photographs of the AC spindle motor's
-terminal/junction box, reviewed 2026-08-12.
-**Where to find it:** the box is **up on the spindle head** — the spindle motor
-is head-mounted, so its terminal box sits on the head casting (owner,
-2026-08-12). Look there, not in the cabinet.
+**Evidence:** nine owner-supplied photographs, reviewed 2026-08-12 — five inside
+the AC spindle motor's terminal/junction box, four of the motor in situ on the
+spindle head.
+**Where to find it:** **up on the spindle head.** The AC spindle motor is
+mounted **vertically on the head, driving downward** into the head/gearbox.
+Stacked top-to-bottom: **terminal box (the PLG lives in here) → blower/fan
+housing → motor body with its nameplate → drive end into the head.** So the
+encoder is at the motor's **non-drive (upper) end**, above the fan — open the
+box on top. Confirmed by in-situ photos 2026-08-12. Not in the cabinet.
 **Status:** device **identified from nameplates**. Nothing here is
 electrically verified, traced, or commissioned.
 
 > **Photos are not committed** (repo policy: no raw photos — see
-> [`photo_survey_misc.md`](photo_survey_misc.md)). File the five originals in the
+> [`photo_survey_misc.md`](photo_survey_misc.md)). File the nine originals in the
 > Google Drive archive under `06 Nameplates & Labels` and add their camera IDs to
 > the [Photo IDs](#photo-ids-to-backfill) table below so this record becomes
 > re-checkable.
@@ -149,6 +153,26 @@ Connector part numbers printed alongside: **`AMP-350720-1`** and
 > `DO NOT SUPPLY POWER BETWEEN (OHS1) AND (OHS2).`
 > `(端子(OHS1)と(OHS2)間には電圧を印加しないよう注意下さい。)`
 
+### Motor nameplate (in situ, batch 2)
+
+Legible on the motor body below the blower:
+
+| Field | Value as printed |
+|---|---|
+| Heading | `AC SPINDLE MOTOR` / `THREE PHASE INDUCTION MOTOR` |
+| Type | `SE-E_-FV` — **suffix not legible at this resolution** |
+| Poles | `POLE 4` |
+| Paired drive | **`CONTROLLER TYPE FR-SX`** |
+| Maker | `MITSUBISHI ELECTRIC CORPORATION, JAPAN` |
+| Warning sticker | `NO SHOCK AND NO USE OF FANCASE FOR LIFTING` |
+
+**`CONTROLLER TYPE FR-SX` on the motor's own plate is primary-source
+confirmation of the motor↔drive pairing** that this repo had previously
+assembled from schematics and cabinet photos. The ratings table is not legible
+in these frames — for kW/V/A and the 1500/4500/6000 rpm winding taps, `IMG_2065`
+in [`photo_survey_misc.md`](photo_survey_misc.md) remains the source, and the
+type suffix is still unresolved in both photo sets.
+
 ### Wire labels observed in the box
 
 - Motor-side leads labelled `U`, `V`, `W`; the incoming cable conductors spliced
@@ -165,15 +189,19 @@ Connector part numbers printed alongside: **`AMP-350720-1`** and
 
 ## Inferences (supported, not verified)
 
-1. ~~**This is the spindle motor, not an axis motor.**~~ **OWNER-CONFIRMED
-   2026-08-12** — the encoder rides the **spindle motor's shaft**, and the box
-   is on the spindle head because the motor is head-mounted. Supporting evidence
-   as originally reasoned: the axis drives are brushed-DC MELDAS HD / DK-427
-   with Tamagawa TS2014N resolvers — not 3-phase induction, and with no separate
-   fan motor; `SU`/`SV`/`SW` reads as **S**pindle U/V/W; the forced-vent fan is
-   characteristic of an inverter-duty spindle motor; and `IMG_2065` documents a
-   `Mitsubishi AC SPINDLE MOTOR TYPE SE-EV-FV` on this machine
-   ([`photo_survey_misc.md`](photo_survey_misc.md)).
+1. ~~**This is the spindle motor, not an axis motor.**~~ **CONFIRMED — no longer
+   an inference.** Owner confirmed 2026-08-12 that the encoder rides the
+   **spindle motor's shaft**, and a second photo set the same day shows the
+   whole assembly in situ with **the encoder box and the motor nameplate in one
+   frame** — which is exactly the verification this entry originally called for.
+   The motor nameplate reads `AC SPINDLE MOTOR` / `THREE PHASE INDUCTION MOTOR`,
+   `POLE 4`, and **`CONTROLLER TYPE FR-SX`**, independently confirming the
+   motor↔drive pairing this repo had assembled from schematics. (The type-suffix
+   line is still only partly legible — consistent with the `SE-E_-FV` family
+   already recorded from `IMG_2065`, suffix unresolved at this resolution.)
+   Originally-reasoned support, now redundant: the axis drives are brushed-DC
+   MELDAS HD / DK-427 with TS2014N resolvers, not 3-phase induction and with no
+   separate fan motor; `SU`/`SV`/`SW` reads as **S**pindle U/V/W.
    **This is the load-bearing fact for the gearbox argument** in the design
    decision above: motor-shaft-driven means upstream of the 2-speed gearbox.
 
@@ -322,6 +350,8 @@ physical device.
 
 ## Photo IDs to backfill
 
+**Batch 1 — inside the terminal box (2026-08-12):**
+
 | # | Subject | Camera ID |
 |---|---|---|
 | 1 | Terminal box open, `SU`/`SV`/`SW` splices held clear, encoder visible | _pending_ |
@@ -329,6 +359,15 @@ physical device.
 | 3 | Encoder nameplate close-up (`TS1526N55`, 512 c/t, ±15 V) | _pending_ |
 | 4 | `OHS1`/`OHS2` splices + Mitsubishi cap `No. A6022` | _pending_ |
 | 5 | Wide shot of the whole terminal box | _pending_ |
+
+**Batch 2 — motor in situ on the head (2026-08-12):**
+
+| # | Subject | Camera ID |
+|---|---|---|
+| 6 | Whole motor on the head: terminal box → blower → motor body → drive end | _pending_ |
+| 7 | Same view closer; motor nameplate incl. `CONTROLLER TYPE FR-SX` | _pending_ |
+| 8 | Looking down into the terminal box from above, encoder centred | _pending_ |
+| 9 | Wider context — head, lube manifold, ATC area | _pending_ |
 
 ---
 
@@ -350,4 +389,4 @@ physical device.
       same, but it is not proof — a device elsewhere on the head or drive train
       has not been positively excluded. Settle it by the p090 re-read and the
       continuity trace above, not by this photo alone.
-- [ ] File the five photos in Drive and backfill the camera IDs above.
+- [ ] File the nine photos in Drive and backfill the camera IDs above.
