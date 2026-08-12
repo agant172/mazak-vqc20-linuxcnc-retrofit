@@ -181,7 +181,7 @@ def check_safety_invariants(errors: list[str]) -> None:
                 fail(errors, f"{path.name}:{lineno}: spindle encoder path is unassigned; P3 must remain empty")
 
     require(field, "sets spindle-output-permit false", "FR-SX hold", errors)
-    require(main, "personality=0x801,0x801,0x106", "FR-SX combined permit", errors)
+    require(main, "personality=0x801,0x801,0x107", "FR-SX combined permit", errors)
     require(main, "net spindle-motion-permit  <= logic.spindle-permit-and.and", "FR-SX combined permit", errors)
     for input_net in (
         "spindle-output-permit => logic.spindle-permit-and.in-00",
@@ -190,8 +190,20 @@ def check_safety_invariants(errors: list[str]) -> None:
         "spindle-fault-clear    => logic.spindle-permit-and.in-03",
         "machine-is-on          => logic.spindle-permit-and.in-04",
         "servo-ready            => logic.spindle-permit-and.in-05",
+        "atc-live-permit        => logic.spindle-permit-and.in-06",
     ):
         require(main, input_net, "FR-SX combined permit", errors)
+
+    # ATC dry-run interlock: atc-live-permit is the single source of truth. It
+    # must initialize FALSE (dry-run), gate the spindle permit (checked above via
+    # in-06), and be the bit the remap reads on motion.digital-in-15. The INI
+    # DRY_RUN key must NOT come back as a second source.
+    require(main, "sets atc-live-permit 0", "ATC dry-run hold", errors)
+    require(main, "net atc-live-permit        => motion.digital-in-15", "ATC dry-run remap read", errors)
+    if re.search(r"^\s*DRY_RUN\s*=", INI.read_text(), re.MULTILINE):
+        fail(errors, "mazak_vqc_20_40.ini: [ATC] DRY_RUN key is retired; authority is the HAL bit atc-live-permit")
+    if "#<_ini[ATC]DRY_RUN>" in (LCNC / "remap" / "toolchange.ngc").read_text():
+        fail(errors, "toolchange.ngc: reads retired [ATC]DRY_RUN; must read atc-live-permit via M66 P15")
     require(main, "sets drive-output-permit false", "axis drive hold", errors)
     require(main, "net motion-permit       <= and2.6.out", "axis drive commissioning gate", errors)
     require(motion, "net x-resolver-fault => resolver-fault-x.in1", "X resolver fault consumer", errors)
