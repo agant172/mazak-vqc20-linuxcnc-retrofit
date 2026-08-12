@@ -6,7 +6,7 @@ window.MAZAK_DATA = {
   "machine": "Mazak VQC-20/40",
   "serial": "060231",
   "architecture": "LinuxCNC + Mesa 7i80HDT (Ethernet FPGA host) + 7i44 on P1 (HostMot2 sserial port 0 channels 0/1 to 7i84U-A/B) + 7i49 on P2 (resolver + analog outs); P3 unused/spare",
-  "generated": "2026-08-10 23:23 UTC",
+  "generated": "2026-08-12 01:29 UTC",
   "source_repo": "mazak-vqc20-linuxcnc-retrofit",
   "authority_file": "mesa/current_pin_authority.csv",
   "epson_ferrule_file": "wiring/labels/bbia1_mesa_end_ferrules_epson.csv",
@@ -3178,7 +3178,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/mazak_vqc_20_40.hal",
-     "line": 307,
+     "line": 310,
      "text": "net spindle-fault        => logic.spindle-fault-not.in-00",
      "commented": false,
      "producers": [],
@@ -3242,7 +3242,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/mazak_vqc_20_40.hal",
-     "lines": "307",
+     "lines": "310",
      "note": "net spindle-fault        => logic.spindle-fault-not.in-00"
     },
     {
@@ -4764,7 +4764,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/mazak_vqc_20_40.hal",
-     "line": 241,
+     "line": 244,
      "text": "net estop-monitor     => estop-latch.0.ok-in",
      "commented": false,
      "producers": [],
@@ -4795,7 +4795,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/mazak_vqc_20_40.hal",
-     "lines": "241",
+     "lines": "244",
      "note": "net estop-monitor     => estop-latch.0.ok-in"
     },
     {
@@ -4909,7 +4909,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/mazak_vqc_20_40.hal",
-     "line": 314,
+     "line": 317,
      "text": "net servo-ready            => logic.spindle-permit-and.in-05",
      "commented": false,
      "producers": [],
@@ -4965,7 +4965,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/mazak_vqc_20_40.hal",
-     "lines": "314",
+     "lines": "317",
      "note": "net servo-ready            => logic.spindle-permit-and.in-05"
     },
     {
@@ -10086,22 +10086,22 @@ window.MAZAK_DATA = {
    "board": "7i84U-B",
    "connector": "TB2",
    "channel": "OUT9",
-   "hal_net": "work-light",
+   "hal_net": "",
    "direction": "OUT",
    "direction_label": "Output (digital)",
    "subsystem": "Utility",
    "machine_subsystem": "Utility",
-   "status": "PROPOSED",
+   "status": "RESERVED",
    "field_point": "Work light via RLY-8 (interposing relay for 100VAC coil); OEM CN6 pin 8 wire WL (wire no. 3-34)",
    "dest_connector": "OEM CN6",
    "dest_pin": "8",
    "factory_wire": "",
-   "bbia_class": "exception",
+   "bbia_class": "spare",
    "designations": [
     "RLY-8"
    ],
    "primary_source": "wiring/bbia1_cn_pinouts.md",
-   "cleanup_notes": "Reassigned from SEVENI84UB_OUT9_SPARE 2026-08-09 | [CONFIRM 2026-08-09: 100VAC lamp confirmed by Andy - requires interposing relay RLY-8; same topology as RLY-5/6/7 (AIR_BLAST/TOUCH_SENSOR_BLAST/TAP_COOLANT_BLAST)] | Relay coil rating and CB-panel landing point not yet verified",
+   "cleanup_notes": "Reassigned from SEVENI84UB_OUT9_SPARE 2026-08-09 | [CONFIRM 2026-08-09: 100VAC lamp confirmed by Andy - requires interposing relay RLY-8; same topology as RLY-5/6/7 (AIR_BLAST/TOUCH_SENSOR_BLAST/TAP_COOLANT_BLAST)] | Relay coil rating and CB-panel landing point not yet verified | RESERVED 2026-08-11: hal_net set to none (no HAL binding yet) - re-assert net work-light when RLY-8 is wired | !! 100VAC LOAD: OUT9 drives the RLY-8 coil only; the lamp circuit is 100VAC - do NOT repurpose OUT9 as a low-voltage DC output while RLY-8 is landed",
    "location": "Unknown — trace in cabinet",
    "location_note": "",
    "expected": {
@@ -10864,7 +10864,5 @@ window.MAZAK_DATA = {
   "none"
  ],
  "orphan_nets": [],
- "missing_from_hal": [
-  "WORK_LIGHT"
- ]
+ "missing_from_hal": []
 };
