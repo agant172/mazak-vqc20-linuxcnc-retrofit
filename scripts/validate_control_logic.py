@@ -190,16 +190,22 @@ def check_safety_invariants(errors: list[str]) -> None:
         "spindle-fault-clear    => logic.spindle-permit-and.in-03",
         "machine-is-on          => logic.spindle-permit-and.in-04",
         "servo-ready            => logic.spindle-permit-and.in-05",
-        "atc-live-permit        => logic.spindle-permit-and.in-06",
+        "spindle-atc-ok         => logic.spindle-permit-and.in-06",
     ):
         require(main, input_net, "FR-SX combined permit", errors)
 
-    # ATC dry-run interlock: atc-live-permit is the single source of truth. It
-    # must initialize FALSE (dry-run), gate the spindle permit (checked above via
-    # in-06), and be the bit the remap reads on motion.digital-in-15. The INI
+    # ATC dry-run interlock. The spindle permit's in-06 term is spindle-atc-ok =
+    # (atc-live-permit OR spindle-maint-permit). Both bits initialize FALSE (safe)
+    # and are exposed to the remap on motion.digital-in-15 / -14 so the
+    # interpreter branch reads the same bits that enforce the permit. The INI
     # DRY_RUN key must NOT come back as a second source.
     require(main, "sets atc-live-permit 0", "ATC dry-run hold", errors)
+    require(main, "sets spindle-maint-permit 0", "spindle maintenance hold", errors)
+    require(main, "net atc-live-permit        => spindle-atc-permit-or.in0", "ATC dry-run OR term", errors)
+    require(main, "net spindle-maint-permit   => spindle-atc-permit-or.in1", "spindle maintenance OR term", errors)
+    require(main, "net spindle-atc-ok         <= spindle-atc-permit-or.out", "spindle-atc-ok source", errors)
     require(main, "net atc-live-permit        => motion.digital-in-15", "ATC dry-run remap read", errors)
+    require(main, "net spindle-maint-permit   => motion.digital-in-14", "spindle maintenance remap read", errors)
     if re.search(r"^\s*DRY_RUN\s*=", INI.read_text(), re.MULTILINE):
         fail(errors, "mazak_vqc_20_40.ini: [ATC] DRY_RUN key is retired; authority is the HAL bit atc-live-permit")
     if "#<_ini[ATC]DRY_RUN>" in (LCNC / "remap" / "toolchange.ngc").read_text():

@@ -122,6 +122,13 @@ o<toolchange> sub
   (  ------------------------------------------------------------------ )
   M66 P15 L0                 ( read atc-live-permit; #5399 = 0 means dry-run )
   o<tc_dryrun> if [#5399 EQ 0]
+    ( spindle-live MAINTENANCE (spindle-maint-permit on motion.digital-in-14):  )
+    ( the spindle is permitted while the ATC is held idle. A tool change here is )
+    ( unsafe - the spindle may be cutting - so ABORT rather than spoof the tool. )
+    M66 P14 L0               ( read spindle-maint-permit; #5399 = 1 in maint )
+    o<tc_maint> if [#5399 GT 0]
+      (abort, ATC: tool change requested in spindle maintenance mode - the ATC is held idle while the spindle is live. Clear spindle-maint-permit and set atc-live-permit before changing tools.)
+    o<tc_maint> endif
     (debug, ATC DRY_RUN active: T#<want_tool> cycle=#<cycle> - no outputs, no motion)
     M61 Q#<want_tool>          ( pretend the change succeeded so M6 returns )
     M72                        ( restore modal state saved by M70          )

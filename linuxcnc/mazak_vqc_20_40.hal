@@ -87,7 +87,7 @@ loadrt timedelay names=z-brake-delay,z-drive-drop-delay
 # loaded once, even though the ATC instances are scheduled in atc_orient.hal.
 # Each resolver error is combined with the corresponding MELDAS drive alarm
 # before reaching joint.N.amp-fault-in.
-loadrt or2 names=watchdog-fault-or,atc-fault-or,atc-abort-or,atc-safety-abort-or,resolver-fault-x,resolver-fault-y,resolver-fault-z
+loadrt or2 names=watchdog-fault-or,atc-fault-or,atc-abort-or,atc-safety-abort-or,resolver-fault-x,resolver-fault-y,resolver-fault-z,spindle-atc-permit-or
 
 # and2.6 combines watchdog permit with a fail-off axis commissioning hold.
 # and2.0..2 gate joint amp-enable requests with that combined permit.
@@ -98,8 +98,9 @@ loadrt and2 count=8
 # Two one-input NANDs invert the watchdog and spindle-fault signals. The
 # seven-input AND combines the static spindle commissioning hold, watchdog
 # health, software E-stop state, spindle-drive fault state, LinuxCNC machine-on
-# state, the field servo-ready input, and the ATC dry-run interlock
-# (atc-live-permit; see the block after spindle-motion-permit below).
+# state, the field servo-ready input, and the ATC dry-run interlock term
+# spindle-atc-ok (= atc-live-permit OR spindle-maint-permit; see the block after
+# spindle-motion-permit below).
 loadrt logic names=logic.watchdog-not,logic.spindle-fault-not,logic.spindle-permit-and personality=0x801,0x801,0x107
 # NOTE: do NOT loadrt threads — [EMCMOT]EMCMOT above creates the servo-thread from INI SERVO_PERIOD
 
@@ -111,6 +112,7 @@ addf watchdog-fault-or         servo-thread
 addf estop-latch.0             servo-thread
 addf logic.watchdog-not        servo-thread
 addf logic.spindle-fault-not   servo-thread
+addf spindle-atc-permit-or     servo-thread
 addf logic.spindle-permit-and  servo-thread
 addf motion-command-handler    servo-thread
 addf motion-controller         servo-thread
@@ -313,21 +315,39 @@ net estop-ok               => logic.spindle-permit-and.in-02
 net spindle-fault-clear    => logic.spindle-permit-and.in-03
 net machine-is-on          => logic.spindle-permit-and.in-04
 net servo-ready            => logic.spindle-permit-and.in-05
-net atc-live-permit        => logic.spindle-permit-and.in-06
+net spindle-atc-ok         => logic.spindle-permit-and.in-06
 net spindle-motion-permit  <= logic.spindle-permit-and.and
 
 # ATC dry-run interlock (audit finding: a dry-run M6 spoofs the requested tool
 # via M61 and returns success, so the interpreter believes a tool is loaded that
-# was never physically changed). atc-live-permit is the SINGLE source of truth:
-# FALSE = ATC dry-run (default, safe). Gated into spindle-permit-and above so NO
-# FR-SX path (FWD/REV/RUN/pwmgen.03/ORCM1) can run while the remap is spoofing
-# tool changes, and exposed on motion.digital-in-15 so the remap's dry-run branch
-# reads the same bit that enforces the inhibit - the two cannot diverge. Release
-# only through a reviewed edit tied to a signed ATC commissioning hold point, the
-# same discipline as spindle-output-permit. NOTE: this couples spindle-run to
-# ATC-live by design - you cannot cut while the ATC is in dry-run.
+# was never physically changed). Two static bits, both default FALSE (safe),
+# feed the spindle permit through spindle-atc-permit-or so the spindle runs only
+# when spindle-atc-ok = (atc-live-permit OR spindle-maint-permit):
+#
+#   atc-live-permit    0 = ATC dry-run (default). The remap (M66 P15) takes its
+#                      dry-run branch: spoof the tool with M61, assert no output,
+#                      move no axis. 1 = real ATC cycles run.
+#   spindle-maint-permit 0 = normal (default). 1 = spindle-live MAINTENANCE: the
+#                      spindle is permitted while atc-live-permit stays 0, so the
+#                      ATC is held idle. Lets you spin the spindle for diagnostics
+#                      without arming real ATC motion. The remap (M66 P14) sees
+#                      this and ABORTS any tool change instead of spoofing it, so
+#                      the audit hazard (cutting with a spoofed tool) cannot recur
+#                      while the spindle is live.
+#
+# Both are exposed on motion.digital-in-15 / -14 so the remap reads the SAME bits
+# that enforce the permit here - interpreter and physical interlock cannot
+# diverge. Release either only through a reviewed edit tied to a signed hold
+# point, the same discipline as spindle-output-permit. Do NOT set both to 1: that
+# is just "ATC live" with a redundant maintenance flag; clear maint before going
+# fully live.
+net atc-live-permit        => spindle-atc-permit-or.in0
+net spindle-maint-permit   => spindle-atc-permit-or.in1
+net spindle-atc-ok         <= spindle-atc-permit-or.out
 net atc-live-permit        => motion.digital-in-15
+net spindle-maint-permit   => motion.digital-in-14
 sets atc-live-permit 0
+sets spindle-maint-permit 0
 
 # Fail-off axis commissioning hold. Leave FALSE until every drive ALM/ENA
 # polarity, analog zero, resolver direction/scale, limit input, and hardwired
