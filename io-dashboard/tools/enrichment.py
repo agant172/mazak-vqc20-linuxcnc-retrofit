@@ -445,11 +445,14 @@ CONFLICTS = [
     },
     {
         "id": "C6",
-        "title": "All HostMot2 pin names are unverified placeholders",
-        "severity": "unverified",
-        "summary": "Every hm2_7i80.* name in the HAL set is a placeholder. Board tag, GPIO index ranges, "
-                   "resolver pin names, pwmgen instances, and the smart-serial device tag all need "
-                   "readhmid / halcmd show pin hm2 confirmation.",
+        "title": "CLEARED - HostMot2 pin-name placeholders no longer hold signals",
+        "severity": "cleared",
+        "summary": "CLEARED per owner (AG) 2026-08-11: per-signal holds removed - the placeholder pin-name "
+                   "question is a bring-up verification step (readhmid / halcmd show pin hm2 against the "
+                   "received 7i80hdt_rmsvss6_8.bin bitfile), not a per-signal wiring conflict, and it no "
+                   "longer blocks the wiring plan. The HAL-file placeholder warnings remain in force until "
+                   "that verification runs. Original scope: every hm2_7i80.* name (board tag, GPIO index "
+                   "ranges, resolver pin names, pwmgen instances, smart-serial device tag).",
         "detail": [
             "motion_7i80hdt.hal:4-7 \u2014 \"every hm2_7i80.* name below is an UNVERIFIED PLACEHOLDER... "
             "Confirm the exact board tag (hm2_7i80 expected)\"",
@@ -463,11 +466,10 @@ CONFLICTS = [
             "mazak_vqc_20_40.hal:25-26 \u2014 board_ip and config string still TODO despite 192.168.1.121 "
             "being set on line 31",
         ],
-        "action": "Load the real firmware, run readhmid and halcmd show pin hm2, then regenerate the HAL "
-                  "pin names. Treat every gpio.NNN in this dashboard as a label, not a landing point.",
-        "signals": ["X_LIMIT_PLUS", "X_LIMIT_MINUS", "Y_LIMIT_PLUS", "Y_LIMIT_MINUS", "Z_LIMIT_PLUS",
-                    "Z_LIMIT_MINUS", "X_HOME", "Y_HOME", "Z_HOME", "ESTOP_CHAIN", "AIR_BLAST",
-                    "TOUCH_SENSOR_BLAST", "TAP_COOLANT_BLAST", "X_RESOLVER", "Y_RESOLVER", "Z_RESOLVER"],
+        "action": "At bring-up: run readhmid and halcmd show pin hm2 against the real firmware, then "
+                  "regenerate the HAL pin names. Treat every gpio.NNN in this dashboard as a label, not a "
+                  "landing point. (Per-signal holds cleared 2026-08-11; signals list emptied then.)",
+        "signals": [],
         "sources": ["linuxcnc/motion_7i80hdt.hal:4-7,32-33,116,183-188", "linuxcnc/field_7i84u.hal:3-6",
                     "linuxcnc/mazak_vqc_20_40.hal:4-7,25-26"],
     },
@@ -492,12 +494,14 @@ CONFLICTS = [
     },
     {
         "id": "C10",
-        "title": "Coverage gaps: signals documented in research but absent from the authority",
-        "severity": "unverified",
-        "summary": "Mostly a retain-or-drop scope decision, not a wiring conflict. Several original gaps "
-                   "are now closed (SOL-31 flood coolant = FLOOD_VALVE; magazine cover-open located; spindle "
-                   "orient arrival exists; head-lube = LUBE_OK; 7i84U-B added). The genuine open items are the "
-                   "2PC pallet changer and the door interlocks - decide scope before allocating channels.",
+        "title": "CLEARED - research-coverage gaps are scope decisions, not signal holds",
+        "severity": "cleared",
+        "summary": "CLEARED per owner (AG) 2026-08-11: per-signal holds removed - these were scope "
+                   "(retain-or-drop) decisions, not wiring conflicts, and should not hold allocated signals. "
+                   "Prior state: several original gaps already closed (SOL-31 flood coolant = FLOOD_VALVE; "
+                   "magazine cover-open located; spindle orient arrival exists; head-lube = LUBE_OK; 7i84U-B "
+                   "added); remaining open items (2PC pallet changer - since ruled out of scope, see CN12 "
+                   "characterization - and door interlocks) stay tracked in their own docs.",
         "detail": [
             "OPEN - 2PC pallet-changer set: SOL-22A/22B, SOL-24, SOL-25A/25B, SOL-82A/82B, SOL-87A/87B, "
             "PRS-98/99, PRS-92/93, RS-96/97, LS-83/84/87/88 - retain-or-drop decision (io_map_research_notes.md:106-146)",
@@ -509,8 +513,9 @@ CONFLICTS = [
             "trace target); spindle orientation arrival = SPINDLE_ORIENT_ARRIVAL; 7i84U-B added on channel 1",
         ],
         "action": "The current two-card allocation has 21 DI and 7 DO spare after AIR_OK and cover output. "
-                  "Inventory every pallet-changer device before restoring that scope; do not order a third remote from an estimate.",
-        "signals": ["SECOND_SSERIAL_CARD", "DOOR_INTERLOCK", "LUBE_ON", "COOLANT_ON"],
+                  "Inventory every pallet-changer device before restoring that scope; do not order a third "
+                  "remote from an estimate. (Per-signal holds cleared 2026-08-11; signals list emptied then.)",
+        "signals": [],
         "sources": ["wiring/io_map_research_notes.md:94-170,287-295", "mesa/current_pin_authority.csv:91"],
     },
 ]
