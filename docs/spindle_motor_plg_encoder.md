@@ -35,6 +35,59 @@ Three consequences:
 
 ---
 
+## Design decision — LinuxCNC does not read spindle position
+
+**Decided 2026-08-12 (owner).** `num_encoders=0`, P3 empty, and
+`SPINDLE_ENCODER` `UNBOUND` are the **settled design**, not a holding pattern
+awaiting a device. Nothing in the retrofit requires LinuxCNC to know spindle
+angle or spindle count.
+
+Why nothing needs it:
+
+| Function | How it is served | Needs spindle position? |
+|---|---|---|
+| Spindle **orient** | FR-SX internal — discrete `ORCM1` out, `ORA1` arrival back | No |
+| **Zero-speed / at-speed** supervision | Discrete `SZS` (7i84U-A IN5), speed-reach (IN13) | No |
+| **Speed command** | ±10 V on 7i49 AOUT3 | No |
+| **Tapping** | **Floating / tension-compression holder** (owner-confirmed 2026-08-12) — needs only spindle FWD/REV and dwell, both already planned | No |
+| Rigid tapping / G33 threading | **Not a machine capability and not in scope** | Would — see below |
+
+> **Naming trap:** `TAPC` on CN6-18 is **"TAP COOLANT"**
+> (`wiring/bbia1_cn_pinouts.csv:123`), *not* a tapping-cycle or rigid-tap
+> signal. Do not read it as evidence of synchronised tapping.
+
+### Why the PLG could not serve that purpose even if it were wanted
+
+Two independent reasons, either one sufficient:
+
+1. **It is upstream of a 2-speed gearbox.** The PLG is on the *motor*; the
+   spindle is behind the `GSH` high / `CTL` low gear train (confirm switches
+   `PRS-10`/`PRS-12`, crossover 434 rpm per
+   [`parameters_sn060231.md`](parameters_sn060231.md)). Motor position is not
+   spindle position, and the ratio changes with gear state. No amount of careful
+   wiring fixes this.
+2. **No index/marker.** The P.L.G. pin table is `PA`/`RA`, `PB`/`RB` — two
+   phases and, most likely, their complements. There is no one-per-rev reference
+   line, so there is no threading datum.
+
+So the "do not parallel-tap the PLG" rule below is not primarily an electrical
+caution — the signal is **structurally unusable** for spindle-synchronised
+motion. The electrical caution stands on top of that.
+
+### If this decision is ever revisited
+
+Adding rigid tapping later means an encoder **mounted on the spindle, after the
+gearbox** — not a PLG tap and not an inherited OEM device. Budget for three
+things, not one: the encoder and its mechanical drive; a **receiver**, since
+7i80HDT P3 is bare 3.3 V FPGA GPIO and cannot take a differential or ±15 V
+device directly; and possibly **a new bitfile** — whether
+`7i80hdt_rmsvss6_8.bin` contains any encoder instances is not established
+([`mesa_pcw_bitfile_inquiry.md`](mesa_pcw_bitfile_inquiry.md) notes the count
+"isn't directly countable from this file"). Treat it as a scoped project, not a
+wiring change.
+
+---
+
 ## Verified from the nameplates
 
 ### Encoder nameplate
@@ -203,8 +256,10 @@ stays open, now narrowed rather than closed.
 
 1. **Do not allocate this to Mesa in the pin authority.** The `SPINDLE_ENCODER`
    row in [`current_pin_authority.csv`](../mesa/current_pin_authority.csv)
-   stays `UNBOUND`. It describes a *machine-side A/B/Z spindle encoder*, which
-   this PLG is not.
+   stays `UNBOUND` — permanently, per the
+   [design decision](#design-decision--linuxcnc-does-not-read-spindle-position)
+   above. It describes a *machine-side A/B/Z spindle encoder*, which this PLG is
+   not.
 
 2. **Do not parallel-tap the PLG for LinuxCNC.** If the FR-SX closes its speed
    loop on this device, bridging a second receiver onto the same conductors risks
@@ -220,10 +275,8 @@ stays open, now narrowed rather than closed.
    [`grounding_shielding_plan.md`](grounding_shielding_plan.md#possible-spindle-feedback-cable-s-1).
    `num_encoders=0` remains correct.
 
-4. **512 counts/turn is low for spindle-synchronised motion.** Adequate for
-   at-speed and orient supervision; marginal for threading or rigid tapping.
-   Relevant only if the PLG ever becomes a LinuxCNC input — which points 1–2
-   currently argue against.
+4. **512 counts/turn is low for spindle-synchronised motion** — a further point
+   against, though moot given the gearbox and missing index above.
 
 5. **`OHS1`/`OHS2` is a candidate motor-overheat input.** It is a dry NC contact
    per inference 4, so it can cross to a 7i84U input through the standard
