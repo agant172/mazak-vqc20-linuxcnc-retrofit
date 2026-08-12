@@ -44,9 +44,18 @@ Adjacent on CA4 (same connector, for context): `*DECX` → pin `c`, `*DECY` → 
 While reading p090 (dwg 4143075301): the **spindle rotary encoder** is a
 **`MS3108B 20-29P`** connector, pin/line map **A=PA, B=SC, C=PE, H=PSH, K=OH,
 N=PA, P=SC, R=PB**. This is the connector `servo_amp_analysis.md §1.5 / §3.5`
-flags as "spindle encoder location TBD in the 7i80HDT stack" — the OEM device is
-identified; the Mesa-side landing terminal still needs assigning in
+flags as "spindle encoder location TBD in the 7i80HDT stack" — the OEM connector
+is identified; the Mesa-side landing terminal still needs assigning in
 `current_pin_authority.csv`.
+
+> **Follow-up 2026-08-12.** Nameplate photos identified a Tamagawa **TS1526N55**
+> optical PLG built into the spindle *motor*, on a 9-pin `AMP-350720-1` connector
+> — see [`../docs/spindle_motor_plg_encoder.md`](../docs/spindle_motor_plg_encoder.md).
+> It shares `PA`/`PB` with the `MS3108B` map above, and that map's `K = OH`
+> (overheat) line points at a motor-mounted device, but the remaining pin names
+> disagree. **Whether these are one device or two is unresolved** — do not merge
+> the records. Note also that `N=PA` duplicates `A=PA` above, so at least one
+> entry in this transcription is likely an artifact (probably a complement).
 
 ## What's still needed
 

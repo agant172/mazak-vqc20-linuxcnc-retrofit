@@ -129,7 +129,11 @@ that is not here must be added here.
    plane. The other four may route via a terminal block outside the 19-connector
    Honda family, or be bussed upstream. **Field trace required; do not assume a pin.**
 5. **Spindle encoder (if fitted)** — currently `UNBOUND`, P3 empty, path unknown.
-   Identify model/format and interface before allocating.
+   Identify model/format and interface before allocating. The spindle *motor's*
+   built-in PLG (Tamagawa TS1526N55, ±15 V) is identified but is the FR-SX's own
+   detector, does not cross at BBIA-1, and is **not** a candidate Mesa input —
+   see [`docs/spindle_motor_plg_encoder.md`](docs/spindle_motor_plg_encoder.md).
+   Whether a separate machine-side encoder exists is still open.
 6. **Other Honda MR connectors that are NOT on BBIA-1** — e.g. the FR-SX spindle
    drive's SX-IO1 board (`CON1`/`CONA`/`CON2`/`CONAA`) and the RC3A relay card
    (`CN301`). Confirm whether any retrofit signal must land at one of *those* boards

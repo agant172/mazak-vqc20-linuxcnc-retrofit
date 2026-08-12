@@ -1,6 +1,6 @@
 # Project Status & TODO — Mazak VQC 20/40 LinuxCNC/Mesa Retrofit
 
-_Last updated: 2026-08-07_
+_Last updated: 2026-08-12_
 
 ## Pre-power deliverables (D1–D16)
 
@@ -97,6 +97,8 @@ See [`architecture_decision.md`](architecture_decision.md) for the full rational
 - [ ] Capture cabinet photo set using the cabinet photo checklist.
 - [ ] Capture/record X/Y/Z servo drive model labels and command/enable/fault terminal labels.
 - [ ] Capture/record Mitsubishi FR-SX spindle drive model and analog/run/direction/alarm terminals.
+- [ ] **Dump FR-SX parameters `#41 OSL` and `SP037` (`plgo`/`enco`/`nsno`)** — this is the single item that closes the orient-detector question. The spindle motor's built-in PLG is now identified (Tamagawa TS1526N55 optical, 512 counts/turn, ±15 V, nameplate photos 2026-08-12) but its existence does not prove which detector the drive orients from. See [`spindle_motor_plg_encoder.md`](spindle_motor_plg_encoder.md).
+- [ ] Determine whether the schematics' machine-side "SPINDLE ENCODER" (`MS3108B 20-29P`, dwg 4143075301 p090) is a **second** physical device or another view of the motor PLG. Photograph the spindle nose/head; continuity-trace the motor-box `AMP-350720-1` 9-pin. `SPINDLE_ENCODER` stays `UNBOUND` and `num_encoders=0` until settled — and the motor PLG must **not** be parallel-tapped for Mesa.
 - [ ] Trace HR-11F-24 (OEM) and DR-240-24 (retrofit) 24 V supplies, P24/G24 distribution, remote sense, TOG/CNT, and branch fusing.
 - [ ] Confirm scope: mist coolant, work light, manual tool clamp/unclamp pushbuttons, and cover-motion outputs are deferred or removed per [`io_capacity_reconciliation.md`](io_capacity_reconciliation.md). 2PC pallet changer is out of retrofit scope. 7i84U-A is at 100/100% — any new signal there requires reallocating an existing one to 7i84U-B.
 - [ ] Execute the hm2_eth NIC and multi-hour latency-under-load acceptance per [`hm2_eth_nic_validation.md`](hm2_eth_nic_validation.md); record NIC/MAC/driver/IRQ/offload state, verify the checked-in `packet-error-exceeded` + `watchdog.has_bit` inhibit wiring against actual HAL pins, and fault-inject both paths before enabling drives.

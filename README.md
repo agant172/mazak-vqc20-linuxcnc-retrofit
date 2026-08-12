@@ -137,6 +137,7 @@ they are static checks and do not replace a LinuxCNC load test or fault injectio
 - [linuxcnc/README.md](linuxcnc/README.md) — skeleton file guide and bring-up order.
 - [docs/ladder/atc_component_README.md](docs/ladder/atc_component_README.md) — ATC/orient component skeleton: rung-to-code map, placeholders, integration steps.
 - [docs/photo_survey_misc.md](docs/photo_survey_misc.md) — survey of 213 shop photos (2026-07-29): hardware nameplate inventory, OEM wire-label/terminal maps, and the OEM CN6/CN5/CN11 pin tables incl. 712/713 GEAR SHIFT HIGH/LOW and ORCM1 orient command.
+- [docs/spindle_motor_plg_encoder.md](docs/spindle_motor_plg_encoder.md) — spindle motor built-in PLG identified from nameplate photos (2026-08-12): Tamagawa TS1526N55 optical shaft encoder, 512 counts/turn, ±15 V; corrects the "magnetic pickup" claim, and explains why it is the FR-SX's detector rather than a Mesa input.
 - [docs/parameters_sn060231.md](docs/parameters_sn060231.md) — LIVE parameter values photographed 2026-07-28: ATC 2nd zero point RP=(0, +9.5000, -5.9055) in, both soft-limit boxes, gear crossover 434 rpm, backlash.
 - [docs/parameter_recovery.md](docs/parameter_recovery.md) — M-2 parameter recovery: SN 060231 values are NOT in the manuals; capture checklist + fallback measurement procedure.
 - [io-dashboard/README.md](io-dashboard/README.md) — I/O/commissioning workspace: use, records, live polling, and data regeneration.

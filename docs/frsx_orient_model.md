@@ -63,6 +63,15 @@ manufacture:
 | External encoder (OSE1024 / RFH-1024) | 4096 (multi-point) | CN6 | `#41 OSL = 1`, `SP037.enco = 1` |
 | Motor-built-in PLG detector | 4096 (multi-point) | CN5 | `#41 OSL = 0`, `SP037.plgo = 1` |
 
+> **This machine physically has a motor-built-in PLG** — a Tamagawa
+> **TS1526N55 optical shaft encoder, 512 counts/turn, DC ±15 V** in the spindle
+> motor's terminal box (nameplate photos 2026-08-12,
+> [`spindle_motor_plg_encoder.md`](spindle_motor_plg_encoder.md)). Two cautions:
+> the **512 counts/turn** does not match the `4096` in the row above (that figure
+> is quoted from the later MDS-CH manual — do not apply it to this motor), and
+> the mere presence of a PLG **does not prove** `#41 OSL = 0` is what the drive
+> is configured for. Only the FR-SX parameter dump settles that.
+
 Quoted parameter text:
 
 > `#41 OSL`: "The orientation method is set. 0: Motor built-in encoder,
@@ -213,6 +222,13 @@ the component watchdog.
   sensor on CN6, external encoder on CN6, or PLG on CN5). The physical
   cabling determines which `#41 OSL` / `SP037` bits are valid; the
   ladder transcription and orient tuning depend on this.
+  **Narrowed 2026-08-12, not closed:** a motor-built-in PLG is confirmed to
+  exist (Tamagawa TS1526N55, [`spindle_motor_plg_encoder.md`](spindle_motor_plg_encoder.md)),
+  so `OSL = 0` is now plausible — but a magnetic sensor or a machine-side
+  encoder on CN6 has not been ruled out, and the schematics' separate
+  "SPINDLE ENCODER" (`MS3108B 20-29P`, dwg 4143075301 p090) is still
+  unaccounted for. **Reading `#41 OSL` and `SP037` remains the item that
+  closes this.**
 - [ ] Measure actual orient arrival time in low gear once orient is
   wired end-to-end and set `mazak-orient.orient-timeout`,
   `mazak-orient.arrival-debounce`, and the outer `[ATC] ORIENT_TIMEOUT`
