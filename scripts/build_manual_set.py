@@ -645,7 +645,7 @@ def volume2(rows: list[dict[str, str]], source_ref: str) -> list[Flowable]:
     ))
     add_section(story, "1. Control station and current state", [
         "The planned interface is LinuxCNC Axis with an optional WHB04B-style USB pendant. Physical panel-button reuse is incomplete; the original Cycle Start input is deferred and the manual clamp input remains HAL-unbound. Do not assume an OEM button has retained its former function.",
-        "Both drive-output-permit and spindle-output-permit initialize FALSE. ATC DRY_RUN is 1. These deliberate holds are configuration controls and must be changed only by reviewed edits tied to signed commissioning steps.",
+        "Both drive-output-permit and spindle-output-permit initialize FALSE, and atc-live-permit initializes FALSE (ATC dry-run), which also holds the spindle motion permit off so nothing can cut while a dry-run M6 spoofs the tool. These deliberate holds are configuration controls and must be changed only by reviewed edits tied to signed commissioning steps.",
     ])
     add_section(story, "2. Power-up framework", items=[
         "Confirm the day's signed hold point authorizes the intended energy level; stop if it does not.",
@@ -675,7 +675,7 @@ def volume2(rows: list[dict[str, str]], source_ref: str) -> list[Flowable]:
         "Do not rotate the spindle until the spindle hold point is signed. Prove zero speed, at-speed, fault, run/direction exclusivity, analog scaling, gear confirmation, ORCM1-to-ORA1 timing, and cleanup after cancel/fault in both gear ranges.",
     ])
     add_section(story, "6. Tool changer and magazine", [
-        "Automatic M6 is blocked: [ATC] DRY_RUN remains 1, the Y soft-limit extension component is not implemented, the ATC hazard analysis/dry-cycle fixture is missing, and several solenoid identities/directions remain HOLD_CONFLICT.",
+        "Automatic M6 is blocked: atc-live-permit remains 0 (ATC dry-run, which also inhibits the spindle), the Y soft-limit extension component is not implemented, the ATC hazard analysis/dry-cycle fixture is missing, and several solenoid identities/directions remain HOLD_CONFLICT.",
         "A stalled or aborted ATC must not be jogged out under automatic power. Isolate energy, assess mechanical state, support any suspended tool, and use the approved manual recovery procedure after documenting the failure state.",
     ])
     story.append(data_table([
@@ -815,7 +815,7 @@ def volume3(rows: list[dict[str, str]], source_ref: str) -> list[Flowable]:
         "Execute the signed one-axis first-move plan, one axis physically enabled, at measured low authority. Do not assume Z first.",
         "Tune each velocity-mode outer loop from measured scaling: FF1, P, then only evidence-driven I/D; save traces.",
         "Commission spindle at low energy: analog scale, FWD/REV/RUN, zero speed, fault, gear, discrete orient, arrival/timeout cleanup.",
-        "Commission hydraulics and ATC output-by-output with no tool load, dry-cycle fixture, mutual exclusion, abort tests, and DRY_RUN held until acceptance.",
+        "Commission hydraulics and ATC output-by-output with no tool load, dry-cycle fixture, mutual exclusion, abort tests, and atc-live-permit held 0 (dry-run) until acceptance.",
     ]
     story.append(data_table([["Stage", "Required result"], *[[i + 1, text] for i, text in enumerate(stages)]], [16 * mm, 144 * mm], font_size=7.2))
     add_section(story, "8. Rejected and historical architectures")
