@@ -3,6 +3,9 @@
 **Machine:** Mazak VQC 20/40B SN 060231
 **Evidence:** five owner-supplied photographs of the AC spindle motor's
 terminal/junction box, reviewed 2026-08-12.
+**Where to find it:** the box is **up on the spindle head** — the spindle motor
+is head-mounted, so its terminal box sits on the head casting (owner,
+2026-08-12). Look there, not in the cabinet.
 **Status:** device **identified from nameplates**. Nothing here is
 electrically verified, traced, or commissioned.
 
@@ -132,6 +135,15 @@ Plate title `WIRING PLATE (接続名板)`. Reproduced verbatim:
 Connector part numbers printed alongside: **`AMP-350720-1`** and
 **`AMP-350689-1`**.
 
+> **Mitsubishi's own plate calls this device a tacho-generator.** The English
+> reads `CONNECTOR WIRING OF P.L.G.`; the Japanese gloss immediately below it is
+> **`タコジェネのコネクタ結線`** — *"connector wiring of the **tacho-gene**"*,
+> `タコジェネ` being the standard Japanese contraction of タコジェネレータ,
+> tachogenerator. So on this machine **"P.L.G." and "tacho generator" name the
+> same physical device**: this optical pulse generator. That matters for the
+> disputed "spindle tacho gen" legend entry — see
+> [`../wiring/authority_conflicts.md`](../wiring/authority_conflicts.md) §4.
+
 **Warning printed on the plate, verbatim:**
 
 > `DO NOT SUPPLY POWER BETWEEN (OHS1) AND (OHS2).`
@@ -153,15 +165,17 @@ Connector part numbers printed alongside: **`AMP-350720-1`** and
 
 ## Inferences (supported, not verified)
 
-1. **This is the spindle motor, not an axis motor.** High confidence. The axis
-   drives on this machine are brushed-DC MELDAS HD / DK-427 with Tamagawa
-   TS2014N resolvers — not 3-phase induction, and they have no separate fan
-   motor. The `SU`/`SV`/`SW` cable labels read naturally as **S**pindle U/V/W,
-   and the forced-vent fan is characteristic of an inverter-duty spindle motor.
-   Cross-reference: `IMG_2065` documents a `Mitsubishi AC SPINDLE MOTOR TYPE
-   SE-EV-FV` on this machine ([`photo_survey_misc.md`](photo_survey_misc.md)).
-   *Verification:* one wide photo showing this terminal box and the motor
-   nameplate `995196-03` in the same frame.
+1. ~~**This is the spindle motor, not an axis motor.**~~ **OWNER-CONFIRMED
+   2026-08-12** — the encoder rides the **spindle motor's shaft**, and the box
+   is on the spindle head because the motor is head-mounted. Supporting evidence
+   as originally reasoned: the axis drives are brushed-DC MELDAS HD / DK-427
+   with Tamagawa TS2014N resolvers — not 3-phase induction, and with no separate
+   fan motor; `SU`/`SV`/`SW` reads as **S**pindle U/V/W; the forced-vent fan is
+   characteristic of an inverter-duty spindle motor; and `IMG_2065` documents a
+   `Mitsubishi AC SPINDLE MOTOR TYPE SE-EV-FV` on this machine
+   ([`photo_survey_misc.md`](photo_survey_misc.md)).
+   **This is the load-bearing fact for the gearbox argument** in the design
+   decision above: motor-shaft-driven means upstream of the 2-speed gearbox.
 
 2. **`P.L.G.` = Pulse Generator, and this is the FR-SX's own motor feedback.**
    The name matches the "Motor-built-in PLG detector" row in the Mitsubishi
@@ -328,7 +342,12 @@ physical device.
       this is the item that closes the orient-detector question.
 - [ ] Cold-continuity check `OHS1`–`OHS2`; confirm NC and cross-reference against
       the existing `THERMAL_ALARM_CHAIN` record.
-- [ ] Photograph the spindle nose / head for a *second*, machine-side encoder.
-      If none exists, the p090 device and this PLG are the same and the records
-      merge.
+- [x] ~~Photograph the spindle nose / head for a *second*, machine-side
+      encoder.~~ **Done 2026-08-12** — the head was photographed; the box on it
+      is the spindle motor's own terminal box and the encoder in it rides the
+      motor shaft (owner-confirmed). **No second, spindle-driven encoder was
+      found.** This is evidence the p090 `MS3108B` device and this PLG are the
+      same, but it is not proof — a device elsewhere on the head or drive train
+      has not been positively excluded. Settle it by the p090 re-read and the
+      continuity trace above, not by this photo alone.
 - [ ] File the five photos in Drive and backfill the camera IDs above.

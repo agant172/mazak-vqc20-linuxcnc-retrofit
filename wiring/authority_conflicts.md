@@ -69,10 +69,22 @@ correcting the spindle-feedback section after the PLG nameplate photos.
   **4143175310** p079, transcribed in `electrical_diagram_index.md` as
   "spindle tacho gen, rotary encoder, per-axis resolvers". The underlying
   drawing has not been re-read since that transcription.
+- **Likely explanation of that legend entry (added 2026-08-12):** the spindle
+  **motor's own wiring plate** (`889515-01`, photographed 2026-08-12) titles the
+  PLG pin table `CONNECTOR WIRING OF P.L.G.` in English and
+  **`タコジェネのコネクタ結線`** in Japanese — *"connector wiring of the
+  tacho-gene"*, `タコジェネ` being the standard contraction of タコジェネレータ,
+  tachogenerator. **Mitsubishi's own plate therefore uses "P.L.G." and "tacho
+  generator" for the same device.** The most economical reading of p079's
+  "spindle tacho gen" is that it names **this motor-built-in optical PLG**, not
+  a separate DC tachogenerator. That is consistent with every other line of
+  evidence, and with the owner seeing no such separate device.
 - **Controlling position:** the **TGF-3D P402-Sx is an axis device**; that is
   supported by three independent repo sources plus a drawing citation, against
   one loosely transcribed legend. §1.5 has been corrected to stop asserting a
-  spindle tacho, and now points here.
+  spindle tacho, and now points here. Working conclusion: **no separate spindle
+  tachogenerator exists** — the p079 legend entry is the PLG under Mitsubishi's
+  own alternate name. Confirm by the p079 re-read below before closing.
 - **Resolution test:**
   1. Re-read dwg **4143175310 p079** at 300 DPI and transcribe the
      feedback-device legend exactly — including any part number attached to the
@@ -80,8 +92,9 @@ correcting the spindle-feedback section after the PLG nameplate photos.
   2. If a spindle tacho is genuinely drawn, look for its input on the FR-SX
      terminal/connector set and photograph the device on the machine.
   3. If p079 shows no such device, or the legend turns out to be generic
-     boilerplate, delete the claim from `electrical_diagram_index.md` p079 and
-     close this section.
+     boilerplate, or its "tacho gen" entry points at the motor-mounted PLG
+     (the expected outcome — see the `タコジェネ` note above), correct the claim
+     in `electrical_diagram_index.md` p079 and close this section.
 - **Do not** add a spindle-tacho row to `current_pin_authority.csv` on the
   strength of the legend line alone.
 
