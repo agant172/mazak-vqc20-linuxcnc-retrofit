@@ -220,10 +220,11 @@ the component watchdog.
   `mazak_orient.comp` against readable OEM sheets 28xx-30xx and 55xx; resolve
   every ambiguous contact, timer base, and SSET/SET1/SET2 identity before live
   operation.
-- [ ] Verify from the FR-SX drive nameplate and its parameter dump
-  which detector mode is provisioned on this machine (magnetic
-  sensor on CN6, external encoder on CN6, or PLG on CN5). The physical
-  cabling determines which `#41 OSL` / `SP037` bits are valid; the
+- [ ] Verify which detector mode is provisioned on this machine (magnetic
+  sensor on CN6, external encoder on CN6, or PLG on CN5) — procedure in
+  [`frsx_orient_detector_capture.md`](frsx_orient_detector_capture.md), which
+  leads with the **physical cable trace** rather than a parameter read. The
+  physical cabling determines which `#41 OSL` / `SP037` bits are valid; the
   ladder transcription and orient tuning depend on this.
   **Narrowed 2026-08-12, not closed:** a motor-built-in PLG is confirmed to
   exist (Tamagawa TS1526N55, [`spindle_motor_plg_encoder.md`](spindle_motor_plg_encoder.md)),

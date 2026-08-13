@@ -35,8 +35,10 @@ Three consequences:
 1. It **corrects** the repo's standing claim that the spindle motor's built-in
    feedback is a *magnetic* pickup ([§Correction](#correction-to-servo_amp_analysis-15)).
 2. It **narrows but does not close** the FR-SX orient-detector question — a PLG
-   physically exists, so `#41 OSL = 0` is *possible*, but which mode is actually
-   provisioned still requires the drive parameter dump
+   physically exists, but which detector the drive actually orients from is
+   unresolved. Settle it via
+   [`frsx_orient_detector_capture.md`](frsx_orient_detector_capture.md), which
+   starts by tracing the PLG cable to its drive connector
    ([§What this does not resolve](#what-this-does-not-resolve)).
 3. It is almost certainly **the FR-SX drive's own device, not a LinuxCNC
    resource**. Do not plan to land it on Mesa without reading
@@ -494,8 +496,10 @@ physical device.
       `MS3108B 20-29P` map and settle the `A=PA` / `N=PA` artifact.
 - [ ] Continuity-trace the motor-box `AMP-350720-1` 9-pin to its far end;
       confirm whether it reaches FR-SX **CN5** and/or the `MS3108B`.
-- [ ] Dump FR-SX parameters `#41 OSL` and `SP037` (`plgo` / `enco` / `nsno`) —
-      this is the item that closes the orient-detector question.
+- [ ] **Determine the orient detector** per
+      [`frsx_orient_detector_capture.md`](frsx_orient_detector_capture.md).
+      Start with the cable trace above — the `#41 OSL` / `SP037` parameter
+      numbers come from the later MDS-CH manual and may not exist on this drive.
 - [ ] Cold-continuity check `OHS1`–`OHS2`; confirm NC and cross-reference against
       the existing `THERMAL_ALARM_CHAIN` record.
 - [x] ~~Photograph the spindle nose / head for a *second*, machine-side
