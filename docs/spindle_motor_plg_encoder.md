@@ -213,7 +213,13 @@ The wiring plate draws `FAN-MOTOR` terminals `(BU)` `(BV)` `(BW)` with `BW`
 motor nameplate settles which case applies here: the blower is **`1Φ 2P`,
 200 V, 0.2 A, with a 0.8 µF run capacitor**.
 
-So on this machine the fan uses **`BU` and `BV` only; `BW` is not used**. If the
+So on this machine the fan uses **`BU` and `BV` only; `BW` is not used**.
+
+*Note:* the blower spec itself was **already in the repo** —
+[`servo_amp_analysis.md`](servo_amp_analysis.md) §1.4 lists
+`IA-15040, 1φ 2P, 200/200 V 50/60 Hz, 0.2/0.2 A`. What the nameplate photo added
+was the *consequence*: it resolves which case the wiring plate's dashed `BW`
+applies to. If the
 retrofit ever powers or monitors the spindle blower, size it as a **single-phase
 200 VAC ~0.2 A load** — and note that 200 VAC must not land on a 7i84U terminal;
 it needs an interposing relay like the other 100/200 VAC loads.
@@ -312,6 +318,25 @@ Most likely reading, **unproven**: the AMP 9-pin is the connector *at the motor
 box*, and the `MS3108B` is a downstream harness connector carrying the same
 feedback plus the thermal lines — but the differing pin names mean this cannot be
 asserted. **Do not merge the two records** in the pin authority until traced.
+
+> ### 2026-08-13 — the FR-SX manual makes "two devices" the likely answer
+>
+> §5.2 of the drive manual says the `SX-CPU2` card is fitted "when the controller
+> unit is equipped with **1024P×4/Rev. encoder type multi-point orientation**",
+> and this machine **has** an `SX-CPU2`
+> ([`frsx_maintenance_manual_notes.md`](frsx_maintenance_manual_notes.md)).
+>
+> So the drive **requires a 1024 ppr orient encoder** — and this motor PLG is
+> **512 counts/turn**, so it cannot be that encoder. A second, separate position
+> device must exist, which is exactly what the `MS3108B` entry describes.
+>
+> This also explains the `512` vs `4096` puzzle recorded below: **4096 = 1024×4
+> belongs to the orient encoder; 512 belongs to this motor's speed PLG.** Two
+> devices, two resolutions, two jobs.
+>
+> **Still unproven:** that the `MS3108B` device *is* the orient encoder, and
+> where it is mounted. The drive needs one and the schematics show one; nobody
+> has traced them together. Read its nameplate for a pulse count when found.
 
 *Verification:* re-read dwg 4143075301 p090 at 300 DPI for the full connector
 map, then continuity-trace from the AMP 9-pin at the motor box to the `MS3108B`

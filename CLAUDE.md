@@ -150,7 +150,9 @@ Three sources are authoritative, in priority order:
    - Machine Multipliers manual — axis geometry, ATC coordinates,
      compensation tables.
    - FR-SX Drive booklet — spindle drive terminals, parameters,
-     orient/zero-speed signal identification.
+     orient/zero-speed signal identification. **The FR-SX maintenance manual
+     (`BCN-21735-S5`) is now committed at `docs/OEM Manuals/` — printed pages
+     1–38 only, Chapter 6 missing.** Findings: `docs/frsx_maintenance_manual_notes.md`.
    Cite: pub name, PDF page, drawing number, sheet number.
 
 3. **Mesa manuals committed to `docs/Mesa Manuals/`**
