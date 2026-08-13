@@ -338,9 +338,15 @@ detector mode is provisioned (`#41 OSL` = magnetic sensor / encoder / PLG).
 This evidence proves **a PLG physically exists on the motor**. It does **not**
 prove the drive is configured to orient from it. `#41 OSL = 0` is now plausible,
 but the machine may still orient from a magnetic sensor or a machine-side encoder
-on CN6 — and the p090 `MS3108B` device remains unaccounted for. **Only the FR-SX
-parameter dump settles `#41 OSL` and the `SP037` bits.** That checklist item
-stays open, now narrowed rather than closed.
+on CN6 — and the p090 `MS3108B` device remains unaccounted for.
+
+**Capture procedure: [`frsx_orient_detector_capture.md`](frsx_orient_detector_capture.md).**
+An earlier revision of this paragraph said "only the FR-SX parameter dump settles
+`#41 OSL` and the `SP037` bits" — **that was overstated.** Those parameter
+numbers come from the later MDS-CH manual and may not exist on a 1985 FR-SX. The
+procedure leads with **tracing the PLG cable to its drive connector**, which is
+more certain and needs no power. The item stays open, now narrowed rather than
+closed.
 
 ---
 
