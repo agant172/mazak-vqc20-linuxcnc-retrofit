@@ -173,39 +173,58 @@ paper sources. `connector_crossref.md` predicted `415` → SOL-15 spindle air bl
 and `416` → SOL-16 work air blast from OEM dwg pg 90; both are physically on the
 two CKD coils exactly as predicted.
 
-### Wire `16` is the shared coil common — confirmed on all five
+### Wire `16` is the shared coil common — and it is earthed
 
-**Owner-confirmed 2026-08-13: every one of the five coils has wire `16` on its
-second pin.** Not all of them were captured in a photograph, but the wiring was
-checked on the machine.
+**Owner-confirmed 2026-08-13, twice over:**
 
-So each solenoid on the head is wired the same way:
+1. **Every one of the five coils has wire `16` on its second pin.** Not all were
+   captured photographically, but the wiring was checked on the machine.
+2. **The `16` terminals show continuity to ground** (metered at the cabinet
+   terminal strip).
+
+So each head solenoid is wired the same way:
 
 | Pin | Conductor | Role |
 |---|---|---|
-| 1 | `4NN` — `410`, `412`, `413`, `415`, `416` | **switched** side, one per solenoid, from the RC3A output bank |
-| 2 | **`16`** | **shared return**, common to all five |
+| 1 | `4NN` — `410`, `412`, `413`, `415`, `416` | **switched, live** side, one per solenoid, from the RC3A output bank |
+| 2 | **`16`** | **shared earthed return**, common to all five |
 
-That settles what `16` is: a **common rail**, not a signal. It also confirms the
-switching happens on the `4NN` side, which is exactly what the RC3A solenoid
-output bank does — one wire per solenoid.
+> **CORRECTION (2026-08-13).** An earlier revision of this section warned that
+> `16` might be a live conductor at mains potential rather than a grounded
+> neutral, and told you to meter it before treating it as safe. **You did — it is
+> earthed.** The warning is withdrawn. It was the right check to demand, and the
+> answer is the favourable one.
 
-> ⚠️ **Do not assume wire `16` is a grounded neutral.** These are **100 VAC**
-> coils, and this machine's 100 VAC distribution is an `AC100A` / `AC100B` pair
-> (`photo_survey_misc.md`), not necessarily a line-and-earthed-neutral pair. If
-> `16` is tied to `AC100B`, it is a **live conductor at mains potential**, not a
-> safe-to-touch return.
->
-> **Meter `16` to earth before treating it as anything.** This matters twice
-> over: for personal safety when working on the coils, and because it decides
-> which side of each coil an interposing relay contact must break — the relay has
-> to interrupt the **live** side, and if `16` were assumed to be neutral when it
-> is not, a "de-energised" coil could still sit at mains potential.
+Two consequences, both settled rather than open:
 
-The `15`/`16` pair appears among the TB2 distribution rails
-(`G`/`P24`/`G24`/`16`/`15`) in `photo_survey_misc.md`, which is consistent with
-`15`/`16` being the 100 VAC pair — **unconfirmed**, and the reason the meter
-check above is not optional.
+**The interposing relay contact goes in the `4NN` line.** With `16` earthed, the
+`4NN` conductor is the live, switched side — which is already what the RC3A
+output bank breaks. A retrofit relay contact belongs in series with `4NN`, and
+`16` stays connected. That is both the conventional arrangement and the safe one:
+a de-energised coil sits at earth potential on both pins.
+
+**Working on the coils is less hazardous than feared.** With the machine
+de-energised the coil common is bonded to earth. Normal
+verify-absence-of-voltage practice still applies before touching anything — a
+bonded conductor can still rise in potential under a fault or a broken bond — but
+there is no hidden mains-potential return here.
+
+*Not established:* whether `16` is the same node as `AC100B`. The cabinet strip
+carries `15`, `16`, `XA1`, `XB`, `10` and a `G` earth terminal as separate
+groups; the relationship between them has not been traced and is not needed for
+the relay decision above.
+
+### Cabinet terminal strip — observed in passing
+
+The strip photographed alongside the continuity check carries, top to bottom:
+`21`/`21A`, `26`, `25`, a block of **`16`** terminals with a green/yellow **`G`**
+earth conductor among them, a block of **`15`**, then `XB`, `XA1`, `16`, `10`,
+`XB`, `XA`, and the three-phase group `R12`/`S12`/`T12`. A Mitsubishi
+`MB30-CB` motor breaker (`7.1 A`, 220 V) sits nearby.
+
+*Recorded as an observation only* — no terminal has been traced, and which motor
+the breaker protects is not established. Useful raw material for the **D1**
+as-built one-line and terminal plan, not a wiring claim.
 
 ## §2 CLOSED — `SOL-10` is a single-coil valve
 

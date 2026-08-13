@@ -335,15 +335,15 @@ an allocation or a documented decision to drop it.
    (owner, 2026-08-13). Remaining question is whether `SOL-31` flood coolant and
    the others exist elsewhere on the machine, which matters before any row is
    dropped.
-6. ~~Confirm wire `16` is the coil common~~ — **CONFIRMED 2026-08-13 (owner):
-   all five coils carry wire `16` on the second pin.** Each solenoid is
-   `4NN` switched + `16` shared return.
-   **Still required — meter `16` to earth.** These are 100 VAC coils and the
-   machine's 100 VAC is an `AC100A`/`AC100B` pair, so `16` may be a **live
-   conductor, not a grounded neutral**. The interposing relay contact must break
-   the live side; assuming `16` is neutral when it is not would leave a
-   "de-energised" coil at mains potential. See
-   [`head_valve_hardware.md`](head_valve_hardware.md#wire-16-is-the-shared-coil-common--confirmed-on-all-five).
+6. ~~Confirm wire `16` is the coil common / meter it to earth~~ — **CLOSED
+   2026-08-13 (owner).** All five coils carry wire `16` on the second pin, and
+   **the `16` terminals meter continuity to ground**. Each solenoid is `4NN`
+   switched-live + `16` earthed return.
+   **Settled consequence:** the interposing relay contact belongs in the **`4NN`
+   line** — the live, switched side, which is what the RC3A bank already breaks.
+   `16` stays connected. An earlier warning that `16` might be a live conductor
+   is withdrawn; see
+   [`head_valve_hardware.md`](head_valve_hardware.md#wire-16-is-the-shared-coil-common--and-it-is-earthed).
 
 ### Status
 
