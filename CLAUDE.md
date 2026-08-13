@@ -351,7 +351,9 @@ needs the real machine, hardware, OS, or live measurements:
   systemd services.
 - Resolver/analog scope measurements, 24 V and safety-chain tracing, continuity checks.
 - Axis / spindle / ATC bring-up and every commissioning step.
-- Importing cabinet photos into `photos/`.
+- Capturing cabinet photos and filing them in Drive per
+  `docs/README_photo_sorting.md` (the single scheme). **Raw photos are never
+  committed** — the repo records references and findings only.
 - **Then write results into the repo and commit** — that is how the knowledge survives.
 
 **Hand to CLOUD (claude.com/code, parallel sessions, reviewed as PRs)** — self-contained

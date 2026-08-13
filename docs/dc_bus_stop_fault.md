@@ -87,9 +87,8 @@ can compensate for gaps in the physical stop chain.
 - [ ] Photograph the drive cabinet with the OEM covers off in daylight:
       rectifier unit, capacitor unit (if present), regenerative resistor
       (if present), each axis amplifier, all P/N bus bars, incoming AC
-      contactor, dynamic brake / Z-brake circuitry. File under
-      `docs/photos/09_EStop_Safety_Ready_Chain/` and
-      `docs/photos/03_Servo_Drives_XYZ/`.
+      contactor, dynamic brake / Z-brake circuitry. File in Drive under
+      `06_Safety` and `02_Drives` ([scheme](README_photo_sorting.md)).
 - [ ] Identify each unit's Mitsubishi part number and match to the
       manual set:
   - Rectifier / power supply unit part number → confirm resistance-

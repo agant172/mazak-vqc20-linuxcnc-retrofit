@@ -135,8 +135,9 @@ it must never be bypassed with an ad-hoc `halcmd sets` instruction.
 - **Owner:** machine owner. **Status:** PARTIAL — photograph
   survey drafted in `docs/cabinet_photo_checklist.md`; resolver
   suffix work drafted in `bom/README.md`. Photos not yet
-  captured. **Where it lands:** `docs/nameplate_register.md`
-  plus photographs in `docs/photos/nameplates/`.
+  captured. **Where it lands:** `docs/nameplate_register.md`, with the
+  photographs filed in Drive under the folder matching each device
+  ([scheme](README_photo_sorting.md)).
 - **Blocks:** [`servo_commissioning.md`](servo_commissioning.md),
   [`frsx_orient_model.md`](frsx_orient_model.md), first drive
   enable.
@@ -463,8 +464,9 @@ it must never be bypassed with an ad-hoc `halcmd sets` instruction.
 - **Owner:** machine owner. **Status:** TEMPLATE DRAFTED —
   [`restore_rollback_package.md`](restore_rollback_package.md); parameter
   recovery is partial and photograph/wire-ledger evidence is not captured.
-- **Where it lands:** `docs/restore_rollback_package.md` plus
-  `docs/photos/m2_cabinet/`.
+- **Where it lands:** `docs/restore_rollback_package.md`, with the cabinet
+  photographs filed in Drive under `01_Cabinet`
+  ([scheme](README_photo_sorting.md)).
 - **Blocks:** control-power hold point (partially — you should
   not disconnect the M-2 until backup exists).
 

@@ -133,7 +133,7 @@ they are static checks and do not replace a LinuxCNC load test or fault injectio
 - [mesa/current_pin_authority.csv](mesa/current_pin_authority.csv) — authoritative pin map.
 - [mesa/mesa_firmware_checklist.md](mesa/mesa_firmware_checklist.md) — info to collect before finalizing HAL.
 - [docs/cabinet_photo_checklist.md](docs/cabinet_photo_checklist.md) — what to photograph.
-- [docs/README_photo_sorting.md](docs/README_photo_sorting.md) — photo folder scheme.
+- [docs/README_photo_sorting.md](docs/README_photo_sorting.md) — **the single photo scheme**: 7 folders, naming rules, and the migration map from the two superseded lists.
 - [linuxcnc/README.md](linuxcnc/README.md) — skeleton file guide and bring-up order.
 - [docs/ladder/atc_component_README.md](docs/ladder/atc_component_README.md) — ATC/orient component skeleton: rung-to-code map, placeholders, integration steps.
 - [docs/photo_survey_misc.md](docs/photo_survey_misc.md) — survey of 213 shop photos (2026-07-29): hardware nameplate inventory, OEM wire-label/terminal maps, and the OEM CN6/CN5/CN11 pin tables incl. 712/713 GEAR SHIFT HIGH/LOW and ORCM1 orient command.
