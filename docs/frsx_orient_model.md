@@ -1,5 +1,22 @@
 # FR-SX / SJ spindle orient model — corrected
 
+> ## ✅ THE FR-SX MAINTENANCE MANUAL IS NOW IN THE REPO (2026-08-13)
+>
+> `docs/OEM Manuals/Mitsubishi_FR-SX_Spindle_Drive_Maintenance_Manual_BCN-21735-S5.pdf`
+> — findings in [`frsx_maintenance_manual_notes.md`](frsx_maintenance_manual_notes.md).
+> It is a **primary source and outranks the MDS-CH / FREQROL-SF borrowings this
+> document is built on.** Where they disagree, the FR-SX manual wins.
+>
+> **The detector question is largely answered.** §5.2 states the `SX-CPU2` card
+> is used "when the controller unit is equipped with **1024P×4/Rev. encoder type
+> multi-point orientation**" — and this machine **has** an `SX-CPU2`
+> (`BD625A552H04`, photographed). So this drive orients from an **encoder, not a
+> magnetic sensor**, and the orient encoder is a **1024 ppr device separate from
+> the motor's 512 c/t PLG**.
+>
+> Caveat: the scan is **incomplete** (printed pages 1–38); Chapter 6, the orient
+> detector installation procedure, is missing.
+
 > **UNVERIFIED FR-SX model & terminal layout (2026-08-06).** The exact FR-SX
 > model number on this machine and its terminal-strip layout have not been added
 > to the repo. The orient control model below is derived from the general
@@ -62,6 +79,14 @@ manufacture:
 | Magnetic sensor (MAGSENSOR) | 1 (single fixed point) | CN6 | `#41 OSL = 2`, `SP037.nsno = 1` |
 | External encoder (OSE1024 / RFH-1024) | 4096 (multi-point) | CN6 | `#41 OSL = 1`, `SP037.enco = 1` |
 | Motor-built-in PLG detector | 4096 (multi-point) | CN5 | `#41 OSL = 0`, `SP037.plgo = 1` |
+
+> **UPDATE 2026-08-13 — the FR-SX manual reframes this table.** The rows below
+> come from the later MDS-CH manual. The FR-SX's own manual says orientation is
+> either **magnetic-sensor single-point** or **encoder-type multi-point at
+> 1024P×4/Rev**, selected by *which CPU card is fitted* — and this machine's
+> `SX-CPU2` card means **encoder type**. Treat the `#41 OSL` / `SP037` column as
+> not applicable here. See
+> [`frsx_maintenance_manual_notes.md`](frsx_maintenance_manual_notes.md).
 
 > **This machine physically has a motor-built-in PLG** — a Tamagawa
 > **TS1526N55 optical shaft encoder, 512 counts/turn, DC ±15 V** in the spindle
@@ -194,6 +219,11 @@ depends on:
 - Servo rigidity parameter (SP001 for magnetic/PLG orient; SP002 for
   encoder orient).
 - Detector type (magnetic single-point vs encoder multi-point).
+
+**First hard number, 2026-08-13:** the FR-SX manual §3.3(2) gives an
+**orientation speed of 80–155 rpm** for encoder-type orient, and puts the 2nd
+positioning loop gain on `SW2-1/5/6/7`. That is not an arrival *time*, but it
+bounds the approach, and those switches are what the behaviour is tuned with.
 
 No supported source establishes an arrival-time range for this exact FR-SX,
 motor, detector, gearbox, and machine inertia. Record commanded speed, gear,

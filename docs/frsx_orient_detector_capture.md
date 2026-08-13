@@ -5,6 +5,33 @@
 
 ---
 
+> ## ⚠️ LARGELY SUPERSEDED 2026-08-13 — the FR-SX manual is now in the repo
+>
+> `docs/OEM Manuals/…BCN-21735-S5.pdf`, findings in
+> [`frsx_maintenance_manual_notes.md`](frsx_maintenance_manual_notes.md).
+>
+> **The headline question is answered.** §5.2: the `SX-CPU2` card is used "when
+> the controller unit is equipped with **1024P×4/Rev. encoder type multi-point
+> orientation**" — and this machine has an `SX-CPU2`. **This drive orients from
+> an encoder, not a magnetic sensor.** No cable trace was needed; the card's
+> presence is the configuration.
+>
+> **What is still worth doing at the machine, now much shorter:**
+>
+> | # | Read | Why |
+> |---|---|---|
+> | 1 | **`PIN11`** on the SX-CPU2 — "A" or "B" | "B" means the orient encoder is **powered by the NC**. Removing the Mazatrol would kill it. Covers off, no power. |
+> | 2 | `PIN12`/`PIN13` strapping | source vs sync input, different circuits |
+> | 3 | `SW2-1/5/6/7` positions | 2nd positioning loop gain |
+> | 4 | Locate the **1024 ppr orient encoder** and read its nameplate | the drive requires one; likely the `MS3108B` device |
+> | 5 | Photograph all SX-CPU2 DIP banks, positions legible | the card *is* the configuration |
+>
+> The PLG cable trace in step 1 below is still worth doing — it distinguishes the
+> speed PLG from the orient encoder — but it is no longer the thing that answers
+> "which detector".
+>
+> Everything below predates the manual. Kept for provenance.
+
 ## Read this before you go looking for `SP037`
 
 `docs/project_status.md` used to say the FR-SX parameter dump was *"the single

@@ -83,10 +83,10 @@ The 4.5 kHz excitation is important — see Section 3.1 below.
 | Field | Value |
 |---|---|
 | Controller | **Mitsubishi FREQROL FR-SX** |
-| Motor | **Mitsubishi SE-EY-FV** 3-phase AC induction spindle motor, 4-pole |
+| Motor | **Mitsubishi `SE-E?-FV`** 3-phase AC induction spindle motor, 4-pole. ⚠️ **Suffix disputed:** this row reads `SE-EY-FV`; [`spindle_motor_plg_encoder.md`](spindle_motor_plg_encoder.md) reads **`SE-EV-FV`** from a sharp 2026-08-12 nameplate close-up, and `photo_survey_misc.md` read `SE-EV-FV` (marked uncertain) from `IMG_2065`. Two sources say `EV`, one says `EY`. **Re-read the plate to settle it** — `V`/`Y` on a worn 1985 plate is exactly the ambiguity to expect. |
 | Motor ratings | 3.7 / 3.7 / 2.2 / 5.5 / 5.5 / 3.7 kW @ 1500 / 4500 / 6000 / 1500 / 4500 / 6000 rpm (CONT + 30-min ratings) |
 | Motor voltage | 170 V rated (from 230 V bus via FR-SX inverter) |
-| Motor serial | 091400020 |
+| Motor serial | `091400020` here vs **`D91400020`** in [`spindle_motor_plg_encoder.md`](spindle_motor_plg_encoder.md) (sharp close-up) and `D9140002_0` in `photo_survey_misc.md`. The leading character is probably `D`. Minor; not load-bearing. |
 | Blower | IA-15040, 1φ 2P, 200/200 V 50/60 Hz, 0.2/0.2 A |
 | Thermal protector | Klixon 9700L-246-215 (open 150 °C / close 99 °C, 24 VDC 12 A) |
 | Photo evidence | IMG_0078-4, IMG_0079-5 (drive front panel LEDs and fault plate), IMG_2065-9 (motor nameplate) |
@@ -238,7 +238,7 @@ Low priority. Reproduce later in HAL with a thermocouple → ADC → `axis.N.mot
 | 3 | Photograph the **PU-series power unit** nameplate (PU16/31/71) and note the CB Panel MCCB / soft-start card part numbers. | Medium |
 | 4 | With drive main power off, **buzz out** each Tamagawa resolver's R1-R2 winding and S1-S3, S2-S4 secondaries to verify no shorts to case. Expected primary DCR ~few tens of ohms. | High — before energizing |
 | 5 | Track down the **Mitsubishi TRA-series maintenance manual** (Scribd 649035071 is a strong lead, also cnc-shopping.com carries FR-SX/SE/SF stock and often has PDF references) for the exact enable-signal terminal pinout. | High |
-| 6 | Track down the **FR-SX interface/maintenance manual** (kamcompressor.ru / Scribd FR-SF/FR-SE variants) for the ±10 V analog reference pin numbers, orient command pin, and the SF-On/SPOR card pinout. | High |
+| 6 | ~~Track down the **FR-SX interface/maintenance manual**~~ **FOUND 2026-08-13** — `docs/OEM Manuals/Mitsubishi_FR-SX_Spindle_Drive_Maintenance_Manual_BCN-21735-S5.pdf`, findings in [`frsx_maintenance_manual_notes.md`](frsx_maintenance_manual_notes.md). **Partial scan: printed pages 1–38; the SX-PW/SX-AJ card sections and all of Chapter 6 are missing**, so the ±10 V reference pin numbers and SF-On/SPOR pinout are still not covered. A complete copy is still wanted. | High |
 | 7 | Confirm the **precharge / soft-start card** works before first bus energize. | Highest — safety |
 | 8 | ~~Physically confirm the **spindle encoder** part number and count.~~ **PARTIALLY DONE 2026-08-12** — the *motor-built-in PLG* is a Tamagawa **TS1526N55, 512 counts/turn, ±15 V** ([`spindle_motor_plg_encoder.md`](spindle_motor_plg_encoder.md)). Still open: whether the schematics' machine-side "SPINDLE ENCODER" (`MS3108B 20-29P`, dwg 4143075301 p090) is a **second** device or the same one. | Medium |
 | 9 | Decide **7i49 plain vs. 7i49HV** based on the resolver signal quality observed on first excitation test. | Medium |
