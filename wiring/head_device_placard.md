@@ -1,0 +1,122 @@
+# Spindle-head device placard — OEM legend, transcribed
+
+**Machine:** Mazak VQC 20/40B SN 060231
+**Source:** OEM printed placard mounted **inside the splash-guard door**, facing
+the spindle head. Plate drawing number **`24136209710`** (trailing katakana not
+transcribed). Photographed close-up 2026-08-12.
+**Type:** isometric line drawing of the spindle head with leader lines to each
+device, each labelled `FUNCTION` over `TAG`.
+
+> **What this source can and cannot establish.** It is an OEM, machine-mounted
+> **device-identity and location** legend — it says *which tag is which
+> function, and roughly where it sits on the head*. It carries **no wire
+> numbers, terminals, connector pins, coil voltages, or polarity**, and it only
+> covers devices **on the head**. Use it to settle *identity* questions; it
+> cannot settle a wiring path.
+
+---
+
+## Transcription (verbatim)
+
+**Left-hand callouts**
+
+| Function | Tag |
+|---|---|
+| `GEAR SHIFT LOW` | `SOL-13` |
+| `GEAR SHIFT HIGH` | `SOL-12` |
+| `TOOL UNCLAMP` | `SOL-10` |
+| `HIGH GEAR` | `PRS-10` |
+| `LOW GEAR` | `PRS-12` |
+
+**Right-hand callouts**
+
+| Function | Tag |
+|---|---|
+| `TOOL CLAMP` | `PRS-9` |
+| `TOOL UNCLAMP` | `PRS-8` |
+| `FLOOD COOLANT` | `SOL-31` |
+| `OIL HOLE` | `SOL-36` |
+| `DUST INHOLE ELIMINATE` | `SOL-35` |
+| `AIR JET` | `SOL-61` |
+| `WORK AIR BLAST` | `SOL-16` |
+| `SPINDLE AIR BLAST` | `SOL-15` |
+| `HEAD LUBE PRESSURE` | `PS-5` |
+
+Notes on the text itself:
+- The plate reads **`DUST INHOLE ELIMINATE`**. Elsewhere the repo has
+  "Dust Inhale Eliminate" (`connector_crossref.md`, `io_map_research_notes.md`).
+  Same device; treat the spelling difference as an OEM/transcription artifact,
+  not two devices.
+- `HEAD LUBE PRESSURE` is tagged **`PS-5`**, not `PRS-5` — the plate uses `PRS-`
+  for the other pressure switches but `PS-` for this one. The pin authority
+  already uses `PS-5`.
+- **Exactly one tool-related solenoid appears: `SOL-10 TOOL UNCLAMP`.** No
+  "tool clamp" solenoid is drawn anywhere on the head.
+
+---
+
+## What this confirms
+
+Cross-checked against `../mesa/current_pin_authority.csv`:
+
+| Authority row | CSV field point | Placard | Verdict |
+|---|---|---|---|
+| `GEAR_HI_SOL` (OUT7) | `SOL-12` | `GEAR SHIFT HIGH SOL-12` | ✅ confirmed |
+| `GEAR_LO_SOL` (OUT8) | `SOL-13` | `GEAR SHIFT LOW SOL-13` | ✅ confirmed |
+| `TOOL_UNCLAMP_SOL` (OUT10) | `SOL-10` | `TOOL UNCLAMP SOL-10` | ✅ confirmed |
+| `TOOL_CLAMP_SOL` (OUT9) | `NOT_USED` — "PHANTOM, SOL-10 is single-coil" | no clamp solenoid drawn | ✅ **supports the PHANTOM call** |
+| `TOOL_CLAMP_CONF` (IN15) | `PRS-9` | `TOOL CLAMP PRS-9` | ✅ confirmed |
+| `TOOL_UNCLAMP_CONF` (IN16) | `PRS-8` | `TOOL UNCLAMP PRS-8` | ✅ confirmed |
+| `GEAR_HI_CONF` (IN17) | `PRS-10` | `HIGH GEAR PRS-10` | ✅ confirmed |
+| `GEAR_LO_CONF` (IN18) | `PRS-12` | `LOW GEAR PRS-12` | ✅ confirmed |
+| `LUBE_OK` (IN25) | `PS-5` | `HEAD LUBE PRESSURE PS-5` | ✅ confirmed |
+
+Two entries in [`authority_conflicts.md`](authority_conflicts.md) gain
+independent, machine-mounted corroboration — see §1 and §2 there.
+
+---
+
+## What this contradicts
+
+**Three 7i84U-B relay-driven output rows carry solenoid identities the placard
+disagrees with.** Recorded as [`authority_conflicts.md`](authority_conflicts.md)
+**§5**. Summary:
+
+| Row | CSV says | Placard says | Problem |
+|---|---|---|---|
+| `AIR_BLAST` (OUT3) | `SOL-62`, "spindle air blast" | `SPINDLE AIR BLAST` = **`SOL-15`**; no `SOL-62` on the head | Tag may be wrong |
+| `TOUCH_SENSOR_BLAST` (OUT4) | `SOL-35`, "MMS touch-sensor air jet" | `AIR JET` = **`SOL-61`**; `SOL-35` = **dust inhole eliminate** | Function/tag crossed |
+| `TAP_COOLANT_BLAST` (OUT5) | `SOL-61`, tap coolant | `SOL-61` = **`AIR JET`** | Tag collision with the row above |
+
+These are **100 VAC solenoid loads** slated for interposing relays RLY-5/6/7. No
+output is landed or energised yet (pre-power), so there is no live hazard — but
+the identities must be settled **before** those relays are wired, or an output
+could drive the wrong device.
+
+**No pin binding, `hal_net`, or `authority_status` has been changed on the
+strength of this placard.** The affected CSV rows carry a pointer to §5 only.
+
+---
+
+## Provenance note — why the close-up mattered
+
+A first attempt to read these tags from a **wide** shot got **6 of 13 entries
+wrong**: `PRS-3`/`PRS-4` (actually `PRS-9`/`PRS-8`), `SOL-33` (actually
+`SOL-36`), `SOL-36` for dust (actually `SOL-35`), `SOL-6` (actually `SOL-61`),
+`PRS-5` (actually `PS-5`), and it missed `SOL-10 TOOL UNCLAMP` entirely. That
+read was explicitly marked low-confidence and nothing was changed from it.
+
+Two standing lessons, both already borne out in this repo: small text in a wide
+frame is not a source, and a plausible-looking tag read is exactly the failure
+mode that put `V 150` (actually `130`) into `photo_survey_misc.md`.
+
+---
+
+## Related
+
+- [`authority_conflicts.md`](authority_conflicts.md) §1, §2, §5
+- [`connector_crossref.md`](connector_crossref.md) — wire 415/416/435 → SOL-15/16/35
+- [`io_map_research_notes.md`](io_map_research_notes.md) — solenoid function table
+- [`bbia1_source_dest.csv`](bbia1_source_dest.csv) — `AIR_BLAST` ambiguity, `TOUCH_SENSOR_BLAST` wire 261
+- [`../mesa/current_pin_authority.csv`](../mesa/current_pin_authority.csv)
+- [`../docs/spindle_motor_plg_encoder.md`](../docs/spindle_motor_plg_encoder.md) — the photo batch this came from

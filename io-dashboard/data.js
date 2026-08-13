@@ -6,7 +6,7 @@ window.MAZAK_DATA = {
   "machine": "Mazak VQC-20/40",
   "serial": "060231",
   "architecture": "LinuxCNC + Mesa 7i80HDT (Ethernet FPGA host) + 7i44 on P1 (HostMot2 sserial port 0 channels 0/1 to 7i84U-A/B) + 7i49 on P2 (resolver + analog outs); P3 unused/spare",
-  "generated": "2026-08-12 23:23 UTC",
+  "generated": "2026-08-13 00:04 UTC",
   "source_repo": "mazak-vqc20-linuxcnc-retrofit",
   "authority_file": "mesa/current_pin_authority.csv",
   "epson_ferrule_file": "wiring/labels/bbia1_mesa_end_ferrules_epson.csv",
@@ -9576,7 +9576,7 @@ window.MAZAK_DATA = {
     "RLY-5"
    ],
    "primary_source": "field_7i84u.hal",
-   "cleanup_notes": "Verify SOL-62 identification against parts list pp.85-91 | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/coolant_ladder_transcription.md]",
+   "cleanup_notes": "Verify SOL-62 identification against parts list pp.85-91 | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/coolant_ladder_transcription.md] | [2026-08-12 CONFLICT: the OEM head placard (dwg 24136209710) disagrees with this solenoid identity - see wiring/authority_conflicts.md section 5 and wiring/head_device_placard.md. Nothing changed here; identity must be settled BEFORE RLY-5/6/7 are wired.]",
    "location": "Solenoid valve bank — SOL-62 via relay RLY-5",
    "location_note": "100 VAC coil — relay required",
    "expected": {
@@ -9655,7 +9655,7 @@ window.MAZAK_DATA = {
     "TB-51"
    ],
    "primary_source": "field_7i84u.hal",
-   "cleanup_notes": "MMS touch-sensor air jet | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/coolant_ladder_transcription.md]",
+   "cleanup_notes": "MMS touch-sensor air jet | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/coolant_ladder_transcription.md] | [2026-08-12 CONFLICT: the OEM head placard (dwg 24136209710) disagrees with this solenoid identity - see wiring/authority_conflicts.md section 5 and wiring/head_device_placard.md. Nothing changed here; identity must be settled BEFORE RLY-5/6/7 are wired.]",
    "location": "Solenoid valve bank — SOL-35 via relay RLY-6",
    "location_note": "SOL-35 = \"Dust Inhale Eliminate\" per connector_crossref.md:52 / TB-51 diagram",
    "expected": {
@@ -9734,7 +9734,7 @@ window.MAZAK_DATA = {
     "TB-51"
    ],
    "primary_source": "field_7i84u.hal",
-   "cleanup_notes": "[LADDER-REF 2026-08-10 (approved AG): docs/ladder/coolant_ladder_transcription.md]",
+   "cleanup_notes": "[LADDER-REF 2026-08-10 (approved AG): docs/ladder/coolant_ladder_transcription.md] | [2026-08-12 CONFLICT: the OEM head placard (dwg 24136209710) disagrees with this solenoid identity - see wiring/authority_conflicts.md section 5 and wiring/head_device_placard.md. Nothing changed here; identity must be settled BEFORE RLY-5/6/7 are wired.]",
    "location": "Solenoid valve bank — SOL-61 via relay RLY-7",
    "location_note": "SOL-61 = Air jet on the TB-51 diagram",
    "expected": {

@@ -6,7 +6,17 @@ This register reconciles the RC3A connector cross-reference with the current Mes
 
 ## 1. Gear-shift solenoids
 
-**RESOLVED 2026-08-08 (see CSV GEAR_HI_SOL / GEAR_LO_SOL):** pg100 TB-51 (Dwg 4143075338) confirms wire 412 → SOL-12 → GEAR SHIFT HIGH and wire 413 → SOL-13 → GEAR SHIFT LOW; physical double-check complete. `gear-lo-sol` bound to 7i84U-A OUT8 in HAL 2026-08-09. Coil voltage/current measurement and RLY-1/RLY-2 fitting still required before energizing. Original conservative record kept below for provenance.
+**RESOLVED 2026-08-08 (see CSV GEAR_HI_SOL / GEAR_LO_SOL):** pg100 TB-51 (Dwg 4143075338) confirms wire 412 → SOL-12 → GEAR SHIFT HIGH and wire 413 → SOL-13 → GEAR SHIFT LOW; physical double-check complete.
+
+> **INDEPENDENTLY CORROBORATED 2026-08-12.** The OEM spindle-head device placard
+> (dwg `24136209710`, mounted inside the splash-guard door) reads
+> `GEAR SHIFT HIGH — SOL-12` and `GEAR SHIFT LOW — SOL-13`, matching the 2026-08-08
+> resolution and confirming that the *original* authority rows (which had them
+> reversed) were the error. This is a machine-mounted source, independent of the
+> 1984 drawing set. See [`head_device_placard.md`](head_device_placard.md).
+> The placard also confirms the gear-confirm switches: `HIGH GEAR — PRS-10`,
+> `LOW GEAR — PRS-12`. Coil voltage/current measurement and RLY-1/RLY-2 fitting
+> are still required before energizing — the placard settles identity, not wiring. `gear-lo-sol` bound to 7i84U-A OUT8 in HAL 2026-08-09. Coil voltage/current measurement and RLY-1/RLY-2 fitting still required before energizing. Original conservative record kept below for provenance.
 
 - Current authority: `SOL-13` planned high gear on 7i84U TB3 OUT7.
 - Current authority: `SOL-12` planned low gear on 7i84U TB2 OUT8.
@@ -21,6 +31,20 @@ This register reconciles the RC3A connector cross-reference with the current Mes
 ## 2. Tool clamp/unclamp valve
 
 **Documentation status: CONSERVATIVELY RECORDED.** Physical valve topology and clamp-side path remain pending cabinet verification.
+
+> **SINGLE-COIL READING SUPPORTED 2026-08-12.** The OEM head placard (dwg
+> `24136209710`) draws **exactly one tool solenoid — `TOOL UNCLAMP — SOL-10`** —
+> and **no tool-clamp solenoid anywhere on the head**, alongside two pressure
+> switches, `TOOL CLAMP — PRS-9` and `TOOL UNCLAMP — PRS-8`. That is the classic
+> single-coil arrangement: energise to unclamp, spring/hydraulic return to clamp,
+> with a pressure switch confirming each state. It matches the CSV, which already
+> carries `TOOL_CLAMP_SOL` (OUT9) as `NOT_USED` / "PHANTOM — no separate clamp
+> solenoid; SOL-10 is single-coil", and `PRS-9`/`PRS-8` on IN15/IN16.
+> **Caveat:** the placard covers head-mounted devices only, so it cannot exclude a
+> clamp-side valve elsewhere. It answers this section's "single-coil or dual-coil"
+> question as *probably single-coil*, not conclusively. Physical valve inspection
+> with pressure removed is still the closing test.
+> See [`head_device_placard.md`](head_device_placard.md).
 
 - Current authority: TB2 OUT9 and OUT10 were both associated with `SOL-10`, with OUT9 clamp and OUT10 unclamp.
 - New evidence: `connector_crossref.md` identifies `SOL-10` as tool unclamp.
@@ -97,6 +121,80 @@ correcting the spindle-feedback section after the PLG nameplate photos.
      in `electrical_diagram_index.md` p079 and close this section.
 - **Do not** add a spindle-tacho row to `current_pin_authority.csv` on the
   strength of the legend line alone.
+
+## 5. Air/coolant solenoid identities vs. the head placard
+
+**Raised 2026-08-12** from a close-up of the OEM spindle-head device placard
+(dwg `24136209710`), transcribed in
+[`head_device_placard.md`](head_device_placard.md).
+
+**Nothing is landed or energised** — these are pre-power planning rows. But they
+are **100 VAC solenoid outputs** and the identities must be settled **before**
+RLY-5/6/7 are wired, or an output will drive the wrong device.
+
+### The disagreement
+
+The placard, `connector_crossref.md` (OEM dwg pg 90) and
+`io_map_research_notes.md` **all agree** with each other:
+
+| Tag | Function (placard + crossref + io_map notes) |
+|---|---|
+| `SOL-15` | Spindle air blast |
+| `SOL-16` | Work air blast |
+| `SOL-35` | Dust inhole/inhale eliminate |
+| `SOL-36` | Oil hole |
+| `SOL-61` | **Air jet** |
+
+The **pin authority CSV disagrees on three rows**:
+
+| Row | CSV field point | Conflict |
+|---|---|---|
+| `AIR_BLAST` (7i84U-B TB3 OUT3) | `SOL-62 via RLY-5`, spindle air blast | Placard gives spindle air blast as **`SOL-15`**. **No `SOL-62` appears on the head placard at all**, and `bbia1_source_dest.csv` already records "no wire# for SOL-62 found to disambiguate". The label legend writes it `SOL-62?`. |
+| `TOUCH_SENSOR_BLAST` (OUT4) | `SOL-35 via RLY-6`, "MMS touch-sensor air jet" | The *function* (air jet) maps to **`SOL-61`** on the placard; **`SOL-35` is dust inhole eliminate**. `bbia1_source_dest.csv` resolved this row to CN11-10 **wire 261 = AIR JET** — which supports the function but points at `SOL-61`, not `SOL-35`. |
+| `TAP_COOLANT_BLAST` (OUT5) | `SOL-61 via RLY-7`, tap coolant | Placard gives **`SOL-61` = AIR JET**. Collides directly with the row above. The element crosswalk separately maps `Y016 TAPC.M TAP COOLANT` → `SOL-61`. |
+
+### Where the tangle probably is
+
+Two element-list rows are involved and may have been crossed when the CSV was
+populated:
+
+- `Y035 A-JET.M` **AIR JET** → currently `TOUCH_SENSOR_BLAST`, noted "verify SOL-35"
+- `Y016 TAPC.M` **TAP COOLANT** → currently `TAP_COOLANT_BLAST`, mapped to `SOL-61`
+
+If the placard is right that `SOL-61` **is** the air jet, then `Y035 A-JET.M`
+belongs with `SOL-61`, and whatever solenoid serves tap coolant is a *different*
+tag not shown on this placard. Note `TAPC` is separately established as
+**"TAP COOLANT"** on CN6-18 (`bbia1_cn_pinouts.csv:123`). **This is a hypothesis,
+not a finding — do not act on it.**
+
+### Controlling position
+
+**Unresolved.** The placard is an OEM, machine-mounted source and agrees with
+two other repo sources on the tag→function map, which is strong. But it carries
+no wire numbers, and it only covers **head-mounted** devices — so it cannot by
+itself prove `SOL-62` does not exist elsewhere on the machine, nor which
+solenoid a given Mesa output should drive.
+
+### Resolution test
+
+1. Re-read OEM dwg **pg 90** and the parts list **pp. 85–91** for `SOL-15`,
+   `SOL-61`, `SOL-62` and their wire numbers; confirm whether `SOL-62` exists at
+   all and, if so, where.
+2. Trace wire **261** (CN11-10, "AIR JET") to the physical solenoid and read its
+   tag off the body.
+3. Trace the spindle-air-blast conductor (wire 415 per `connector_crossref.md`)
+   and read that solenoid's tag.
+4. Photograph each solenoid body tag on the head — the placard gives their
+   positions, so this is a quick pass.
+
+### Status
+
+`AIR_BLAST`, `TOUCH_SENSOR_BLAST`, and `TAP_COOLANT_BLAST` remain
+`FACTORY_INTERFACE` **unchanged** — no binding, `hal_net`, or status was altered
+on the strength of the placard. Each row carries a pointer to this section.
+**Recommendation (owner decision):** move all three to `HOLD_CONFLICT` until
+step 1–4 resolve them, matching how §1/§3 handled contested identities. Do not
+wire RLY-5/6/7 before then.
 
 ## Evidence documents
 

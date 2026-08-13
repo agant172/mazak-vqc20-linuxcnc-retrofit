@@ -1,10 +1,10 @@
 # Spindle motor built-in PLG encoder — nameplate evidence
 
 **Machine:** Mazak VQC 20/40B SN 060231
-**Evidence:** fourteen owner-supplied photographs, reviewed 2026-08-12 — five
+**Evidence:** fifteen owner-supplied photographs, reviewed 2026-08-12 — five
 inside the AC spindle motor's terminal/junction box, four of the motor in situ
-on the spindle head, and five wide/close frames including a fully legible motor
-nameplate.
+on the spindle head, five wide/close frames including a fully legible motor
+nameplate, and one close-up of the head device placard.
 **Where to find it:** **up on the spindle head.** The AC spindle motor is
 mounted **vertically on the head, driving downward** into the head/gearbox.
 Stacked top-to-bottom: **terminal box (the PLG lives in here) → blower/fan
@@ -15,7 +15,7 @@ box on top. Confirmed by in-situ photos 2026-08-12. Not in the cabinet.
 electrically verified, traced, or commissioned.
 
 > **Photos are not committed** (repo policy: no raw photos — see
-> [`photo_survey_misc.md`](photo_survey_misc.md)). File the fourteen originals in the
+> [`photo_survey_misc.md`](photo_survey_misc.md)). File the fifteen originals in the
 > Google Drive archive under `06 Nameplates & Labels` and add their camera IDs to
 > the [Photo IDs](#photo-ids-to-backfill) table below so this record becomes
 > re-checkable.
@@ -401,32 +401,28 @@ The six kW/V/A columns are **two duty ratings (`CONT` and `1/2H`), not six
 winding taps** — the earlier record listed them as a flat sequence, which
 obscured that. See the ratings table above.
 
-## Re-shoot target — the splash-guard device placard
+## The splash-guard device placard — photographed, transcribed elsewhere
 
-The batch-3 wide shots show a **printed legend placard mounted inside the
-splash-guard door**, diagramming the head with device tags called out. Read from
-a wide frame it appears to list:
+**Done 2026-08-12.** A close-up of the placard was taken and it is transcribed
+in full in [`../wiring/head_device_placard.md`](../wiring/head_device_placard.md).
+Plate drawing number `24136209710`.
 
-`GEAR SHIFT LOW SOL-13` · `GEAR SHIFT HIGH SOL-12` · `HIGH GEAR PRS-10` ·
-`LOW GEAR PRS-12` · `TOOL CLAMP PRS-3` · `TOOL UNCLAMP PRS-4` ·
-`FLOOD COOLANT SOL-31` · `OIL HOLE SOL-33` · `DUST INHALE ELIMINATE SOL-36` ·
-`AIR JET SOL-6` · `WORK AIR BLAST SOL-16` · `SPINDLE AIR BLAST SOL-15` ·
-`HEAD LUBE PRESSURE PRS-5`
+Outcome, in short:
 
-> ⚠️ **LOW-CONFIDENCE READ — do not cite these tags as evidence.** This is small
-> text in a wide shot, not a close-up. It is recorded here only to flag the
-> placard's existence and value. **Nothing in the pin authority or the conflict
-> register has been changed on the strength of it.**
+- It **corroborates nine pin-authority rows** — the gear-shift solenoids
+  (`SOL-12` high / `SOL-13` low), the gear-confirm switches (`PRS-10` high /
+  `PRS-12` low), `TOOL UNCLAMP SOL-10`, the tool clamp/unclamp pressure switches
+  (`PRS-9`/`PRS-8`), and head-lube `PS-5`. It also **supports the `TOOL_CLAMP_SOL`
+  PHANTOM call**: only one tool solenoid is drawn on the head.
+- It **contradicts three** air/coolant solenoid identities. Recorded as
+  [`../wiring/authority_conflicts.md`](../wiring/authority_conflicts.md) §5.
+  Nothing was changed on the strength of it.
 
-**Why it is worth a dedicated close-up photo:** this placard is an OEM-printed,
-machine-mounted device legend that appears to bear directly on several currently
-open or conflict-flagged items —
-[`../wiring/authority_conflicts.md`](../wiring/authority_conflicts.md) §1
-(gear-shift solenoid identity, `SOL-12` vs `SOL-13`), §2 (tool clamp/unclamp),
-the head-lube pressure switch, and the gear-confirm switch identities
-(`PRS-10`/`PRS-12`) that the orient/gear logic depends on. A single sharp frame
-could corroborate or challenge several rows at once, from a source physically
-attached to the machine rather than from a 1984 drawing.
+> **The earlier wide-shot read was wrong in 6 of 13 entries** — `PRS-3`/`PRS-4`
+> (actually `PRS-9`/`PRS-8`), `SOL-33`, `SOL-36` for dust, `SOL-6`, `PRS-5`, and it
+> missed `SOL-10` entirely. It was marked low-confidence and nothing was changed
+> from it, which is why that error cost nothing. Small text in a wide frame is not
+> a source.
 
 ## Correction to `servo_amp_analysis.md` §1.5
 
@@ -471,11 +467,17 @@ physical device.
 
 | # | Subject | Camera ID |
 |---|---|---|
-| 10 | Head from the front, splash-guard open; **device legend placard visible** | _pending_ |
+| 10 | Head from the front, splash-guard open; device legend placard visible | _pending_ |
 | 11 | Same view closer — hydraulics, lube pump, gearbox casting, placard | _pending_ |
 | 12 | **Motor nameplate, sharp and fully legible** (`SE-EV-FV`, ratings, Klixon, blower) | _pending_ |
 | 13 | Motor nameplate in context below the blower | _pending_ |
 | 14 | Wiring plate `889515-01` re-shot, sharper than batch 1 | _pending_ |
+
+**Batch 4 — device placard close-up (2026-08-12):**
+
+| # | Subject | Camera ID |
+|---|---|---|
+| 15 | **Head device placard, sharp** — dwg `24136209710`; transcribed in [`../wiring/head_device_placard.md`](../wiring/head_device_placard.md) | _pending_ |
 
 ---
 
@@ -497,4 +499,4 @@ physical device.
       same, but it is not proof — a device elsewhere on the head or drive train
       has not been positively excluded. Settle it by the p090 re-read and the
       continuity trace above, not by this photo alone.
-- [ ] File the fourteen photos in Drive and backfill the camera IDs above.
+- [ ] File the fifteen photos in Drive and backfill the camera IDs above.
