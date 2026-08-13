@@ -335,10 +335,15 @@ an allocation or a documented decision to drop it.
    (owner, 2026-08-13). Remaining question is whether `SOL-31` flood coolant and
    the others exist elsewhere on the machine, which matters before any row is
    dropped.
-6. **Confirm wire `16` is the 100 VAC coil common.** It appears on four of the
-   five coils, so it reads as a shared rail rather than a signal, and
-   `photo_survey_misc.md` lists `15`/`16` among the TB2 distribution rails. Meter
-   it — it determines which side of each coil an interposing relay contact breaks.
+6. ~~Confirm wire `16` is the coil common~~ — **CONFIRMED 2026-08-13 (owner):
+   all five coils carry wire `16` on the second pin.** Each solenoid is
+   `4NN` switched + `16` shared return.
+   **Still required — meter `16` to earth.** These are 100 VAC coils and the
+   machine's 100 VAC is an `AC100A`/`AC100B` pair, so `16` may be a **live
+   conductor, not a grounded neutral**. The interposing relay contact must break
+   the live side; assuming `16` is neutral when it is not would leave a
+   "de-energised" coil at mains potential. See
+   [`head_valve_hardware.md`](head_valve_hardware.md#wire-16-is-the-shared-coil-common--confirmed-on-all-five).
 
 ### Status
 

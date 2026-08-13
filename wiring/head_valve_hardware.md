@@ -164,7 +164,7 @@ it worked.
 |---|---|---|---|
 | Nachi `SA-G01-E3X-C1-31` — **left** coil | `412` + `16` | `SOL-12` | Gear shift **high** |
 | Nachi `SA-G01-E3X-C1-31` — **right** coil | `413` + `16` | `SOL-13` | Gear shift **low** |
-| Nachi lower directional valve | `410` | `SOL-10` | **Tool unclamp** |
+| Nachi lower directional valve | `410` + `16` | `SOL-10` | **Tool unclamp** |
 | CKD **upper** air solenoid | `416` + `16` | `SOL-16` | **Work air blast** |
 | CKD **lower** air solenoid | `415` + `16` | `SOL-15` | **Spindle air blast** |
 
@@ -173,18 +173,39 @@ paper sources. `connector_crossref.md` predicted `415` → SOL-15 spindle air bl
 and `416` → SOL-16 work air blast from OEM dwg pg 90; both are physically on the
 two CKD coils exactly as predicted.
 
-### Wire `16` is the shared coil common
+### Wire `16` is the shared coil common — confirmed on all five
 
-`16` appears on **four** of the five coils (the fifth, `410`, was photographed
-from an angle showing only one conductor). A number repeated across unrelated
-solenoids is a **common rail, not a signal**. `photo_survey_misc.md` records
-`15`/`16` among the TB2 distribution rails (`G`/`P24`/`G24`/`16`/`15`), and these
-coils are 100 VAC — so `16` is most plausibly the **100 VAC coil common/neutral**,
-with each `4NN` being the switched hot.
+**Owner-confirmed 2026-08-13: every one of the five coils has wire `16` on its
+second pin.** Not all of them were captured in a photograph, but the wiring was
+checked on the machine.
 
-*Inference, well supported but unverified:* confirm with a meter before wiring
-interposing relays, since it determines which side of each coil the relay contact
-breaks.
+So each solenoid on the head is wired the same way:
+
+| Pin | Conductor | Role |
+|---|---|---|
+| 1 | `4NN` — `410`, `412`, `413`, `415`, `416` | **switched** side, one per solenoid, from the RC3A output bank |
+| 2 | **`16`** | **shared return**, common to all five |
+
+That settles what `16` is: a **common rail**, not a signal. It also confirms the
+switching happens on the `4NN` side, which is exactly what the RC3A solenoid
+output bank does — one wire per solenoid.
+
+> ⚠️ **Do not assume wire `16` is a grounded neutral.** These are **100 VAC**
+> coils, and this machine's 100 VAC distribution is an `AC100A` / `AC100B` pair
+> (`photo_survey_misc.md`), not necessarily a line-and-earthed-neutral pair. If
+> `16` is tied to `AC100B`, it is a **live conductor at mains potential**, not a
+> safe-to-touch return.
+>
+> **Meter `16` to earth before treating it as anything.** This matters twice
+> over: for personal safety when working on the coils, and because it decides
+> which side of each coil an interposing relay contact must break — the relay has
+> to interrupt the **live** side, and if `16` were assumed to be neutral when it
+> is not, a "de-energised" coil could still sit at mains potential.
+
+The `15`/`16` pair appears among the TB2 distribution rails
+(`G`/`P24`/`G24`/`16`/`15`) in `photo_survey_misc.md`, which is consistent with
+`15`/`16` being the 100 VAC pair — **unconfirmed**, and the reason the meter
+check above is not optional.
 
 ## §2 CLOSED — `SOL-10` is a single-coil valve
 
