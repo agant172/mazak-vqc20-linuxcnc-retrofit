@@ -339,6 +339,9 @@ an allocation or a documented decision to drop it.
    2026-08-13 (owner).** All five coils carry wire `16` on the second pin, and
    **the `16` terminals meter continuity to ground**. Each solenoid is `4NN`
    switched-live + `16` earthed return.
+   A third measurement — **0 Ω between the solenoid-end `16` and the cabinet-strip
+   `16`** — shows the two are one continuous conductor, so the `16` return is a
+   **traced conductor** from cabinet strip to every head coil, not an assumed one.
    **Settled consequence:** the interposing relay contact belongs in the **`4NN`
    line** — the live, switched side, which is what the RC3A bank already breaks.
    `16` stays connected. An earlier warning that `16` might be a live conductor

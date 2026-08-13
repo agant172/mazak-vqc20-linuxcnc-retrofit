@@ -175,12 +175,25 @@ two CKD coils exactly as predicted.
 
 ### Wire `16` is the shared coil common — and it is earthed
 
-**Owner-confirmed 2026-08-13, twice over:**
+**Owner-confirmed 2026-08-13, three measurements:**
 
 1. **Every one of the five coils has wire `16` on its second pin.** Not all were
    captured photographically, but the wiring was checked on the machine.
 2. **The `16` terminals show continuity to ground** (metered at the cabinet
    terminal strip).
+3. **0 Ω between the solenoid-end `16` and the cabinet-strip `16`** — the two are
+   one continuous conductor.
+
+Measurement 3 matters more than it looks: it means the `16` at the valves and the
+`16` on the cabinet strip are **the same wire end to end**, with no hidden break,
+splice, or separate return net in between. Combined with 1 and 2, the whole `16`
+return is now a **traced conductor** — cabinet strip → head → every solenoid coil,
+bonded to earth — rather than three separate observations that happen to share a
+label.
+
+Practical upshot: the cabinet-strip `16` terminals are the correct landing point
+if the retrofit ever needs to reference or land the solenoid common, and there is
+no second `16` network to confuse it with.
 
 So each head solenoid is wired the same way:
 
@@ -209,10 +222,15 @@ verify-absence-of-voltage practice still applies before touching anything — a
 bonded conductor can still rise in potential under a fault or a broken bond — but
 there is no hidden mains-potential return here.
 
-*Not established:* whether `16` is the same node as `AC100B`. The cabinet strip
-carries `15`, `16`, `XA1`, `XB`, `10` and a `G` earth terminal as separate
-groups; the relationship between them has not been traced and is not needed for
-the relay decision above.
+*Still not established, and low priority:* **where the `16` rail is fed from.**
+The cabinet strip carries `15`, `16`, `XA1`, `XB`, `10` and a `G` earth terminal
+as separate labelled groups, and nothing has been traced back to the 100 VAC
+control transformer to say which of its two legs (`AC100A` / `AC100B`) supplies
+`16`. Since `16` measures earthed, whichever leg feeds it is the earthed one.
+
+**This does not affect any retrofit decision.** The relay wiring is settled by
+measurements 1–3 above: break the `4NN` live side, leave `16` alone. Answer the
+supply question only if the **D1** as-built one-line needs it.
 
 ### Cabinet terminal strip — observed in passing
 
