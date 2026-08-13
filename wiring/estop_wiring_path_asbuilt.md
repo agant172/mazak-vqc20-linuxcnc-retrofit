@@ -67,8 +67,11 @@ is identified; the Mesa-side landing terminal still needs assigning in
    > backplate. That is a **physical anchor for this trace**, not the circuit
    > itself. Photo inventory only, nothing metered:
    > [`cabinet_asfound_survey.md`](cabinet_asfound_survey.md).
-   > Note `57B` is a wire number not in this repo's preserve list — re-shoot it
-   > before treating it as real.
+   > **`57B` is a real OEM terminal designation** — confirmed on the marker-strip
+   > insert in a sharp re-shoot, reading `58` · `57B` · `57A` · `57` · `60` with
+   > the neighbours legible at the same time. It is **not** in `CLAUDE.md`'s
+   > preserve list, which names only `57` and `57A`. Adding it is recommended and
+   > awaiting owner approval.
 
    Recommended: manual scan of the power/magnetics schematic sheets (the
    transformer sheet is ~PDF p032, dwg region 4143075xxx), or resolve by

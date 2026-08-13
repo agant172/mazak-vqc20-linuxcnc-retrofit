@@ -1,8 +1,9 @@
 # Cabinet as-found survey — terminal strips, starters, control gear
 
 **Machine:** Mazak VQC 20/40B SN 060231
-**Evidence:** five owner-supplied cabinet photographs, reviewed 2026-08-13.
-Photos not committed (repo policy).
+**Evidence:** ten owner-supplied cabinet photographs, reviewed 2026-08-13 — five
+overview frames and five sharp close-ups of the terminal strips. Photos not
+committed (repo policy).
 
 > ## ⚠️ THIS IS A PHOTO INVENTORY, NOT A TRACED CIRCUIT
 >
@@ -15,6 +16,13 @@ Photos not committed (repo policy).
 > wide frames (`V 150` → actually `130` in `photo_survey_misc.md`; 6 of 13
 > placard tags wrong in `head_device_placard.md`). Treat every entry here as a
 > **lead to verify**, and re-shoot anything a decision depends on.
+>
+> **Two label systems are visible, and they are different evidence.** Each strip
+> carries an **OEM marker-strip insert** running down the centre (the printed
+> terminal designations) *and* **heat-shrink wire labels** on the conductors
+> either side. The marker strip is the OEM's own terminal identity; a wire label
+> identifies a conductor. They mostly agree here — where they differ it is noted,
+> and the marker strip is treated as the terminal's name.
 >
 > **Strip identities are not established.** The strips are labelled A/B/C below
 > by content only. Nothing in these frames names them `TB1`/`TB2`/`TB5`, and the
@@ -42,8 +50,15 @@ raw material D1 needs.
 
 **The highest-value frame in this set.** Labels read top to bottom:
 
-`G` · `59` · `INHRLS` · `DEC4` · `152` · `151` · `146` · `144` · `+24V` · `0G` ·
-`58` · `57B` · `57A` · `57` · `60` · `EMB` · `MAR` · `P24` · `G24` · `G`
+`G` · `59` · `INHRLS` · **`*DEC4`** · `152` · `151` · `146` · `144` · `+24V` ·
+`0G` · `58` · **`57B`** · `57A` · `57` · `60` · `EMB` · `MAR` · `P24` · `G24` · `G`
+
+> **`*DEC4` carries an active-low asterisk on the marker strip**, while the wire
+> label beside it reads plain `DEC4`. The repo's CN5 list has this as `XDEC4`
+> (4-axis zero-return decel). Three spellings of one signal — `*DEC4` (terminal),
+> `DEC4` (wire), `XDEC4` (CN5 list). The asterisk form matches this machine's
+> active-low convention (`*ESP`, `*DECX`, `*DECY`), so **the signal is very likely
+> active-low** — worth knowing before anyone assumes a normal state.
 
 ### The safety-chain conductors are here
 
@@ -51,12 +66,25 @@ raw material D1 needs.
 `EMS`, `OTR`, `PIOT`, `*ESP`. Four of those are physically on this strip —
 **`57`, `57A`, `MAR`, `EMB`** — together with **`58`**, **`59`**, **`60`**.
 
-> **`57B` is a wire number this repo has not recorded before.** The preserve list
-> in `CLAUDE.md` names `57` and `57A` but not `57B`. Either the list is
-> incomplete or this is a misread of `57A`/`57`. **Re-shoot this terminal
-> straight-on before adding it to any preserve list** — and if confirmed, add it,
-> because an unrecorded safety-chain conductor is exactly the kind of wire that
-> gets cut by accident.
+> ### `57B` CONFIRMED on the OEM marker strip — and it is not in the preserve list
+>
+> **Re-shot sharp 2026-08-13.** The marker-strip insert reads, in order:
+> `58` · **`57B`** · `57A` · `57` · `60`. `57B` is an **OEM terminal designation**,
+> printed by the factory — not a misread of `57A` or `57`, which sit on the
+> adjacent terminals and are legible at the same time.
+>
+> **`CLAUDE.md`'s preserve list names `57` and `57A` but not `57B`.** That list is
+> the project's standing instruction on which OEM safety wires must not be
+> disturbed. It is incomplete.
+>
+> **Recommended (owner decision — not applied):** add `57B` to the preserve list
+> in `CLAUDE.md`. An unrecorded safety-chain terminal is exactly what gets cut by
+> accident, and the whole point of that list is to stop that happening.
+>
+> *One thing still unread:* whether a conductor labelled `57B` lands on it. Red
+> spade lugs are visible on the left side at that row, but no wire label is
+> legible. The **terminal** exists regardless; whether it is occupied is a
+> separate question and does not change the recommendation.
 
 `57`/`57A`/`57B`/`58`/`59`/`60` appearing as a contiguous block reads like a
 series chain running through the strip — **that is a hypothesis from label order
@@ -67,7 +95,7 @@ alone, not a traced circuit.** Do not act on it.
 | Label | Repo cross-reference |
 |---|---|
 | `INHRLS` | "INHIBIT READ LS" — listed on BBIA-1 CN5 |
-| `DEC4` | 4-axis zero-return decel — CN5 lists `XDEC4` |
+| `*DEC4` | 4-axis zero-return decel — CN5 lists `XDEC4`; marker carries the active-low asterisk |
 | `144` | "THERMAL PROTECTOR TRIP" per the CN5 list |
 | `146` | "MAIN TRANSF. OVER HEAT" per the CN5 list |
 | `151`, `152`, `160`, `161`, `162` | not yet cross-referenced |
@@ -98,8 +126,13 @@ before relying on it.
 
 ## Strip A — control-power rails, and the `16` earth bond
 
-Labels read: `21` · `26` · `25` · `16`×4 · `15`×3 · `XB`×2 · `XA1`×2 · `16` ·
-`10` · `XB` · `XA` · `R12` · `S12` · `T12`
+Marker strip reads, top to bottom: `410` · `400` · `162` · `161` · `160` ·
+`132A` · `131` · `130` · `36` · `35` · `34` · `21A` · `21` · `26` · `25` ·
+**`16`×4** · `15`×3 · `XB`×2 · `XA1`×2 · `16` · `10` · `XB` · `XA` ·
+`R12` · `S12` · `T12`
+
+`R12`/`S12`/`T12` are on **black** conductors (three-phase); the control rails
+above are red. `132A` was not captured in the first pass.
 
 ### This is where the `16` measurements were taken
 
@@ -109,13 +142,17 @@ visible explanation for the owner's measurement that
 the rail is **deliberately bonded to earth at this strip**, not incidentally
 continuous to it.
 
-*Photo-read caveat:* the strip is dense and the exact terminal the `G` lands on
-is not certain from this frame. The **bond itself** is corroborated by the meter,
-so the conclusion holds even if the precise terminal is off by one.
+**Re-shot sharp 2026-08-13:** the green/yellow `G` conductor is clearly landing
+**within the `16` block**, adjacent to `16`-labelled conductors on the same
+terminals. The bond is no longer inferred from a dense frame — it is visible, and
+it is corroborated by the meter reading.
 
-`R12`/`S12`/`T12` at the bottom is a three-phase group. `15`/`16` are the control
-rails discussed in `head_valve_hardware.md`; `XA`/`XA1`/`XB` and `10`/`21`/`25`/
-`26` are not yet cross-referenced.
+*Still not pinned:* which individual terminal of the `16` block carries it. That
+does not matter for the relay decision, since the whole block is one rail.
+
+`15`/`16` are the control rails discussed in `head_valve_hardware.md`;
+`XA`/`XA1`/`XB`, `10`, `21`/`21A`, `25`/`26`, `34`/`35`/`36`, `130`/`131`/`132A`,
+`160`/`161`/`162`, `400`/`410` are not yet cross-referenced.
 
 ---
 
@@ -166,8 +203,9 @@ been established.
 
 ## What to do with this
 
-1. **Re-shoot `57B` straight-on.** Either a new safety-chain wire number or a
-   misread; both matter.
+1. ~~Re-shoot `57B` straight-on.~~ **DONE — confirmed an OEM terminal
+   designation.** Now: **add `57B` to the `CLAUDE.md` preserve list** (owner
+   decision), and read whether a conductor lands on it.
 2. **Field-trace the safety chain from strip C** toward the contactor drop — the
    D5 item the drawing pass could not locate.
 3. **Confirm strip B is the CN5 landing** rather than assuming it from name
@@ -198,3 +236,13 @@ rebound, or re-statused on the strength of it.
 | 3 | Strip A close-up with meter probe — `16` rail and the `G` earth bond | _pending_ |
 | 4 | Strip B — `P24`/`G24`, `RST`, `EFHD`, `RCTLS`, `ISP`/`OSP`, `4xx`/`1xx` | _pending_ |
 | 5 | Strip C — safety chain `57`/`57A`/`57B`/`58`/`59`/`60`, `EMB`, `MAR` | _pending_ |
+
+**Batch 2 — sharp close-ups (2026-08-13):**
+
+| # | Subject | Camera ID |
+|---|---|---|
+| 6 | Strip C close — `*DEC4`, `152`/`151`, `146`/`144`, `+24V`, `0G` | _pending_ |
+| 7 | **Strip C safety block** — `58`, **`57B`**, `57A`, `57`, `60`, `EMB` legible | _pending_ |
+| 8 | Strip A upper — `410`…`34`, `21A`/`21`/`26`/`25`, top of `16` block | _pending_ |
+| 9 | **Strip A `16` block with the `G` earth conductor** and meter probe | _pending_ |
+| 10 | Strip A lower — `15`, `XB`, `XA1`, `16`, `10`, `XA`, `R12`/`S12`/`T12` | _pending_ |
