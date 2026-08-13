@@ -104,16 +104,17 @@ The 4.5 kHz excitation is important — see Section 3.1 below.
 | Direction | Discrete input(s) — FWD/REV |
 | Orient | Optional **SF-On / SPOR** card feature; not integral to the FR-SX base drive. The **ORIENTATION (OPT)** indicator on the fault plate confirms this option is present. |
 | Ready/Alarm outputs | Discrete outputs mirroring the front-panel LEDs; wired to NC through terminal-unit CN6 (see §2 below) |
-| Motor built-in feedback | Motor has a built-in magnetic PA/PB pickup — waveform check point is in the drive adjustment procedure |
+| Motor built-in feedback | Motor has a built-in **optical** PA/PB pulse generator — the motor wiring plate calls it "P.L.G.", and the device is a Tamagawa **TS1526N55, 512 counts/turn, DC ±15 V** (nameplate photos 2026-08-12, [`spindle_motor_plg_encoder.md`](spindle_motor_plg_encoder.md)). Earlier revisions of this table said "magnetic pickup" — that was wrong; the PA/PB naming is right but the transducer is optical. Waveform check point is in the drive adjustment procedure |
 | DC bus | Shared with axis DK-427/TRA drives, ~310 VDC after rectifier |
 
 Family reference: the FR-SF/FR-SE/FR-SX line all use **AC ±10 V analog speed reference, less than 0.2 % speed regulation, 200/200-230 V 3-phase supply** ([studylib FR-SF maintenance manual](https://studylib.net/doc/27909929/mitsubishimanuals1399), [Scribd FR-SE spindle controller manual](https://www.scribd.com/document/741606209/FR-SE)).
 
 ### 1.5 Spindle position feedback
 
-- **Spindle tacho:** Tamagawa **TGF-3D P402-Sx** (from schematic 4143075313 sheet 3 — not yet physically confirmed in the uploaded photos)
-- **Spindle encoder:** separate device machine-side (schematic labels it "SPINDLE ENCODER" — physical model not confirmed)
-- FR-SX motor has an internal magnetic pickup used for its own speed loop; the machine-side encoder is what the NC uses for **threading position** and **orient**.
+- **Spindle tacho: DISPUTED — do not rely on this line.** Earlier revisions listed a "Spindle tacho: Tamagawa **TGF-3D P402-Sx**". That part number is attributed elsewhere in this repo to the **X/Y/Z axis** motors, not the spindle ([`servo_commissioning.md`](servo_commissioning.md) — "integral to the HD-101 / HD-81 motors"; [`architecture_decision.md`](architecture_decision.md) §"TRA-type drives close their velocity loop on a tachogenerator"; dwg 4143075404 p128 puts tacho `TG1`/`TG2` on the axis connectors `CNA3`/`CNA4`/`CNA5`). The owner reports no awareness of any spindle tacho device on the machine (2026-08-12), and an AC induction spindle on a vector drive would close its speed loop on the PLG below rather than on a DC tachogenerator. **Whether any separate spindle tachogenerator exists now rests on a single transcribed legend line from dwg 4143175310 p079** — and that entry most likely names the motor PLG itself, since the motor's wiring plate glosses `CONNECTOR WIRING OF P.L.G.` as `タコジェネのコネクタ結線` ("connector wiring of the tacho-gene"), i.e. Mitsubishi uses both names for the one device. See [`../wiring/authority_conflicts.md`](../wiring/authority_conflicts.md) §4. Nothing electrical depends on this; no pin-authority row or HAL net references a spindle tacho.
+- **Spindle motor built-in PLG:** **Tamagawa TS1526N55 optical shaft encoder, 512 counts/turn, DC ±15 V**, mounted in the spindle motor's terminal box; 9-pin `AMP-350720-1` connector, pins `PA RA PB RB AGA N15C GND P15C COM`. Nameplate-verified 2026-08-12 — see [`spindle_motor_plg_encoder.md`](spindle_motor_plg_encoder.md).
+- **Spindle encoder (machine-side):** schematics label a "SPINDLE ENCODER" on an `MS3108B 20-29P` connector (dwg 4143075301 p090). **Whether this is a second physical device or another view of the motor PLG above is an open question** — the two pin maps share `PA`/`PB` but otherwise disagree. Do not merge the records until traced; see the open question in `spindle_motor_plg_encoder.md`.
+- The FR-SX motor's built-in PLG is used for the drive's own speed loop. Which detector the NC/drive uses for **orient** is set by FR-SX parameter `#41 OSL` and is still unread — the presence of a PLG does not by itself prove PLG orient is provisioned.
 
 ---
 
@@ -220,7 +221,7 @@ FR-SX plan is straightforward:
 | Alarm in / from FR-SX | discrete input to 7i84U | FR-SX ALARM output |
 | Zero-speed detect | discrete input to 7i84U | matches PLC X001 "SZS.M" |
 | In-position / orient arrival | discrete input to 7i84U | matches PLC X003 "ORA1" |
-| Spindle encoder A/B/Z | Mesa FPGA encoder input — the 7i97T location no longer applies; confirm the terminal in the current 7i80HDT stack (P3 is the only spare FPGA I/O) against `mesa/current_pin_authority.csv` | machine-side encoder direct |
+| Spindle encoder A/B/Z | **Unallocated.** `SPINDLE_ENCODER` is `UNBOUND` in `mesa/current_pin_authority.csv`, P3 stays empty, `num_encoders=0`. The 7i97T location no longer applies, and bare P3 GPIO is not a valid landing for a differential or ±15 V device. The motor-built-in PLG is the FR-SX's own detector and is **not** a candidate Mesa input — see [`spindle_motor_plg_encoder.md`](spindle_motor_plg_encoder.md#retrofit-implications) | machine-side encoder, if a second device exists |
 
 ### 3.6 Heat-growth compensate amp
 
@@ -239,7 +240,7 @@ Low priority. Reproduce later in HAL with a thermocouple → ADC → `axis.N.mot
 | 5 | Track down the **Mitsubishi TRA-series maintenance manual** (Scribd 649035071 is a strong lead, also cnc-shopping.com carries FR-SX/SE/SF stock and often has PDF references) for the exact enable-signal terminal pinout. | High |
 | 6 | Track down the **FR-SX interface/maintenance manual** (kamcompressor.ru / Scribd FR-SF/FR-SE variants) for the ±10 V analog reference pin numbers, orient command pin, and the SF-On/SPOR card pinout. | High |
 | 7 | Confirm the **precharge / soft-start card** works before first bus energize. | Highest — safety |
-| 8 | Physically confirm the **spindle encoder** part number and count. | Medium |
+| 8 | ~~Physically confirm the **spindle encoder** part number and count.~~ **PARTIALLY DONE 2026-08-12** — the *motor-built-in PLG* is a Tamagawa **TS1526N55, 512 counts/turn, ±15 V** ([`spindle_motor_plg_encoder.md`](spindle_motor_plg_encoder.md)). Still open: whether the schematics' machine-side "SPINDLE ENCODER" (`MS3108B 20-29P`, dwg 4143075301 p090) is a **second** device or the same one. | Medium |
 | 9 | Decide **7i49 plain vs. 7i49HV** based on the resolver signal quality observed on first excitation test. | Medium |
 | 10 | **PLC I/O cross-walk** — map the 385-row YM2V39L element list against the 7i84U I/O workbook. | Medium (parallel task) |
 

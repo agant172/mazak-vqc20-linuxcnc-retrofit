@@ -321,9 +321,18 @@ net z-enable     => hm2_7i80.0.7i84.0.1.output-02   # Z servo S-ON to MELDAS DK-
 # READER-ONLY nets: no HAL writer drives them yet, so each output stays FALSE
 # by construction. Assign a driver (M-code digital-out or comp pin) per net
 # AND fit the interposing relay + suppression before any load can energise.
-net air-blast          => hm2_7i80.0.7i84.0.1.output-03  # SOL-62 via RLY-5
-net touch-sensor-blast => hm2_7i80.0.7i84.0.1.output-04  # SOL-35 via RLY-6
-net tap-coolant-blast  => hm2_7i80.0.7i84.0.1.output-05  # SOL-61 via RLY-7
+net air-blast          => hm2_7i80.0.7i84.0.1.output-03  # SOL-15 spindle air blast via RLY-5
+# OUT4 / OUT5 nets REMOVED 2026-08-13 (owner approved). Their devices do not
+# exist on this machine: only SOL-15 and SOL-16 are fitted on the head, and the
+# head placard turned out to be a generic VQC-20/40 family plate listing
+# optional equipment (SOL-31/35/36/61) that this serial number does not have.
+#   - OUT4 was 'touch-sensor-blast' (SOL-35). Reallocated in the pin authority
+#     to WORK_AIR_BLAST (SOL-16, wire 416 / CN11-7 216) - a real, wired device
+#     that had no row. RESERVED and deliberately HAL-unbound until RLY-6 is
+#     fitted and the wire is confirmed; do NOT net it here before then.
+#   - OUT5 was 'tap-coolant-blast' (SOL-61). NOT_USED - no tap-coolant solenoid
+#     has been located. Do not fit RLY-7.
+# Do not restore these nets without re-reading wiring/authority_conflicts.md 5.
 # OUT6 atc-barrier: netted in atc_orient.hal (PLC Y095 TCME.M)
 net flood-valve        => hm2_7i80.0.7i84.0.1.output-07  # PLC Y011 FCL (SOL-31); driver TBD - candidate: follow flood-coolant net with pump
 

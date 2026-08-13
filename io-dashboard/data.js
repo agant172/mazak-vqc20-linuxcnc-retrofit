@@ -6,7 +6,7 @@ window.MAZAK_DATA = {
   "machine": "Mazak VQC-20/40",
   "serial": "060231",
   "architecture": "LinuxCNC + Mesa 7i80HDT (Ethernet FPGA host) + 7i44 on P1 (HostMot2 sserial port 0 channels 0/1 to 7i84U-A/B) + 7i49 on P2 (resolver + analog outs); P3 unused/spare",
-  "generated": "2026-08-12 01:35 UTC",
+  "generated": "2026-08-13 02:35 UTC",
   "source_repo": "mazak-vqc20-linuxcnc-retrofit",
   "authority_file": "mesa/current_pin_authority.csv",
   "epson_ferrule_file": "wiring/labels/bbia1_mesa_end_ferrules_epson.csv",
@@ -636,7 +636,7 @@ window.MAZAK_DATA = {
    "bbia_class": "exception",
    "designations": [],
    "primary_source": "motion_7i80hdt.hal",
-   "cleanup_notes": "Current target leaves P3 empty and requests num_encoders=0. Identify encoder model/electrical format and select a compatible receiver/daughter interface plus IDROM-proven pins before allocation. | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/spindle_run_ladder_transcription.md]",
+   "cleanup_notes": "Current target leaves P3 empty and requests num_encoders=0. Identify encoder model/electrical format and select a compatible receiver/daughter interface plus IDROM-proven pins before allocation. | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/spindle_run_ladder_transcription.md] | [2026-08-12: STILL UNBOUND. The spindle MOTOR built-in PLG was identified from nameplate photos (Tamagawa TS1526N55 optical, 512 counts/turn, DC +/-15V, 9-pin AMP-350720-1) but it is the FR-SX drive's own detector, not this row - do not allocate it to Mesa and do not parallel-tap it. Whether the schematics' machine-side SPINDLE ENCODER (MS3108B 20-29P, dwg 4143075301 p090) is a separate device remains open. See docs/spindle_motor_plg_encoder.md] | [2026-08-12 DECIDED (owner): UNBOUND is now SETTLED, not pending. LinuxCNC does not read spindle position - orient is FR-SX internal (ORCM1/ORA1), speed supervision is discrete (SZS IN5 / speed-reach IN13), and tapping uses a floating holder so needs only FWD/REV + dwell. No rigid tapping or G33 in scope. Do not open this row again without a scoped project: an encoder on the SPINDLE side of the 2-speed gearbox, a receiver (P3 is bare 3.3V GPIO), and possibly a new bitfile]",
    "location": "Spindle head — machine-side A/B/Z encoder if fitted",
    "location_note": "Unassigned: part, electrical format, receiver/interface and FPGA pins are not confirmed. P3 remains empty.",
    "expected": {
@@ -4328,7 +4328,7 @@ window.MAZAK_DATA = {
     "PS-5"
    ],
    "primary_source": "Dwg 4143075338 pg100 + Dwg 4143075407 pg133 + owner machine confirmation 2026-08-09",
-   "cleanup_notes": "One physical head-lube pressure switch only: PS-5 wire 355 = X079 HLP.M. Owner confirmed on the machine 2026-08-09. X042 HLP2.M exists in the generic element list but has no second physical switch on SN 060231 and is not part of LUBE_OK. Land IN25 from PS-5 alone. Verify normal-state polarity and fail-open behavior before commissioning.",
+   "cleanup_notes": "One physical head-lube pressure switch only: PS-5 wire 355 = X079 HLP.M. Owner confirmed on the machine 2026-08-09. X042 HLP2.M exists in the generic element list but has no second physical switch on SN 060231 and is not part of LUBE_OK. Land IN25 from PS-5 alone. Verify normal-state polarity and fail-open behavior before commissioning. | [2026-08-13 PHYSICALLY CONFIRMED: photo shows the device's stamped 'PS 5' tag with wire 355 and G24 return attached - device tag, wire number and CN6-39 now agree across machine, BBIA-1 pinout and this row. G24 is the OEM 24V common, so this input MUST cross the interposing-relay boundary. Contact form and trip pressure still unverified. Status promotion recommended pending owner approval. See wiring/head_valve_hardware.md]",
    "location": "Unknown — trace in cabinet",
    "location_note": "",
    "expected": {
@@ -5791,7 +5791,7 @@ window.MAZAK_DATA = {
     "SOL-13"
    ],
    "primary_source": "phase2_plan",
-   "cleanup_notes": "Measure coil voltage before selecting relay contacts | [RECON 2026-08-08 §G: SWAPPED SOL-13->SOL-12 per Dwg 41431075414 p140 (Solenoid Driver 1) + element list Y00B GSH.M=SOL-12=HIGH] | [CONFIRMED 2026-08-08: pg100 TB-51 (Dwg 4143075338) wire 412->SOL-12->GEAR SHIFT HIGH; physical double-check of §G swap complete] | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/orient_ladder_transcription.md]",
+   "cleanup_notes": "Measure coil voltage before selecting relay contacts | [RECON 2026-08-08 §G: SWAPPED SOL-13->SOL-12 per Dwg 41431075414 p140 (Solenoid Driver 1) + element list Y00B GSH.M=SOL-12=HIGH] | [CONFIRMED 2026-08-08: pg100 TB-51 (Dwg 4143075338) wire 412->SOL-12->GEAR SHIFT HIGH; physical double-check of §G swap complete] | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/orient_ladder_transcription.md] | [2026-08-13 CONFIRMED: wire 412 read at the LEFT coil of the Nachi SA-G01-E3X-C1-31 double-solenoid valve = SOL-12 gear shift high]",
    "location": "Spindle gearbox — Fujikoshi hydraulic valve, via RLY-1",
    "location_note": "Authority: SOL-13 = high. connector_crossref.md:47 reads wire 413 as \"SOL-13 — Gear Shift Low\".",
    "expected": {
@@ -5888,7 +5888,7 @@ window.MAZAK_DATA = {
     "SOL-12"
    ],
    "primary_source": "phase2_plan",
-   "cleanup_notes": "Conflict: connector_crossref.md omits SOL-12 and identifies SOL-13 as low; verify both gear-shift coils before wiring | [RECON 2026-08-08 §G: SWAPPED SOL-12->SOL-13 per Dwg 41431075414 p140 + element list Y00C GSL.M=SOL-13=LOW; HOLD_CONFLICT cleared] | [CONFIRMED 2026-08-08: pg100 TB-51 (Dwg 4143075338) wire 413->SOL-13->GEAR SHIFT LOW; physical double-check of §G swap complete] | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/orient_ladder_transcription.md]",
+   "cleanup_notes": "Conflict: connector_crossref.md omits SOL-12 and identifies SOL-13 as low; verify both gear-shift coils before wiring | [RECON 2026-08-08 §G: SWAPPED SOL-12->SOL-13 per Dwg 41431075414 p140 + element list Y00C GSL.M=SOL-13=LOW; HOLD_CONFLICT cleared] | [CONFIRMED 2026-08-08: pg100 TB-51 (Dwg 4143075338) wire 413->SOL-13->GEAR SHIFT LOW; physical double-check of §G swap complete] | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/orient_ladder_transcription.md] | [2026-08-13 CONFIRMED: wire 413 read at the RIGHT coil of the same Nachi SA-G01-E3X-C1-31 valve = SOL-13 gear shift low. Both gear coils are on ONE 3-position valve]",
    "location": "Spindle gearbox — Fujikoshi hydraulic valve, via RLY-2",
    "location_note": "Authority: SOL-12 = low. connector_crossref.md omits SOL-12 entirely; io_map_research_notes.md:54 calls SOL-12 high.",
    "expected": {
@@ -5983,7 +5983,7 @@ window.MAZAK_DATA = {
     "SOL-10"
    ],
    "primary_source": "phase2_plan",
-   "cleanup_notes": "[C5 RESOLVED 2026-08-09: dropped. SOL-10 single-coil spring-return tool-unclamp (pg100 + connector_crossref + Dwg141331AS041); clamp is spring return. OUT9 now free. Confirm single-coil by tracing RLY-3/RLY-4 at cabinet.] | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/atc_ladder_transcription.md]",
+   "cleanup_notes": "[C5 RESOLVED 2026-08-09: dropped. SOL-10 single-coil spring-return tool-unclamp (pg100 + connector_crossref + Dwg141331AS041); clamp is spring return. OUT9 now free. Confirm single-coil by tracing RLY-3/RLY-4 at cabinet.] | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/atc_ladder_transcription.md] | [2026-08-13 PHANTOM CONFIRMED: coil wire labels read on the machine show three coils over two valve bodies - 412+413 on the double-solenoid gear-shift valve, 410 alone on a separate tool-unclamp valve. No second coil exists for a clamp solenoid. authority_conflicts.md section 2 RESOLVED]",
    "location": "Spindle head — Fujikoshi hydraulic valve SOL-10, via RLY-3",
    "location_note": "connector_crossref.md:46 identifies SOL-10 as tool UNCLAMP. Single- vs dual-coil unresolved.",
    "expected": {
@@ -6043,7 +6043,7 @@ window.MAZAK_DATA = {
     "TB-505"
    ],
    "primary_source": "phase2_plan",
-   "cleanup_notes": "Evidence supports SOL-10 tool unclamp; verify relay path and whether the valve is single-coil or dual-coil before energizing | [C5 2026-08-09: sole tool-clamp/unclamp output. SOL-10 single-coil spring-return - energize=unclamp, de-energize=clamp. TOOL_CLAMP_SOL/OUT9 dropped. Confirm RLY-4 load at cabinet.] | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/atc_ladder_transcription.md]",
+   "cleanup_notes": "Evidence supports SOL-10 tool unclamp; verify relay path and whether the valve is single-coil or dual-coil before energizing | [C5 2026-08-09: sole tool-clamp/unclamp output. SOL-10 single-coil spring-return - energize=unclamp, de-energize=clamp. TOOL_CLAMP_SOL/OUT9 dropped. Confirm RLY-4 load at cabinet.] | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/atc_ladder_transcription.md] | [2026-08-13 CONFIRMED: wire 410 read at the coil on a separate Nachi directional valve = SOL-10 tool unclamp, single coil]",
    "location": "Spindle head — Fujikoshi hydraulic valve SOL-10, via RLY-4",
    "location_note": "Wire tag 410D/410, pg 75 TB505 table + pg 90",
    "expected": {
@@ -9566,19 +9566,19 @@ window.MAZAK_DATA = {
    "subsystem": "Air",
    "machine_subsystem": "Pneumatics",
    "status": "FACTORY_INTERFACE",
-   "field_point": "SOL-62 via RLY-5 (interposing relay for 100VAC coil)",
-   "dest_connector": "",
-   "dest_pin": "",
-   "factory_wire": "",
-   "bbia_class": "exception",
+   "field_point": "SOL-15 spindle air blast via RLY-5 (interposing relay for 100VAC coil)",
+   "dest_connector": "CN11",
+   "dest_pin": "6",
+   "factory_wire": "215",
+   "bbia_class": "plane",
    "designations": [
-    "SOL-62",
+    "SOL-15",
     "RLY-5"
    ],
    "primary_source": "field_7i84u.hal",
-   "cleanup_notes": "Verify SOL-62 identification against parts list pp.85-91 | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/coolant_ladder_transcription.md]",
-   "location": "Solenoid valve bank — SOL-62 via relay RLY-5",
-   "location_note": "100 VAC coil — relay required",
+   "cleanup_notes": "Verify SOL-62 identification against parts list pp.85-91 | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/coolant_ladder_transcription.md] | [2026-08-12 CONFLICT: the OEM head placard (dwg 24136209710) disagrees with this solenoid identity - see wiring/authority_conflicts.md section 5 and wiring/head_device_placard.md. Nothing changed here; identity must be settled BEFORE RLY-5/6/7 are wired.] | [2026-08-13 IDENTIFIED: coil wire label read on the machine = 415 -> SOL-15 SPINDLE AIR BLAST, matching connector_crossref (OEM pg90). The SOL-62 label on this row was WRONG. Function and wire were already correct, so the fix is a relabel not a rebinding. Owner approval pending. See wiring/authority_conflicts.md section 5] | [2026-08-13 APPLIED (owner approved): field point corrected SOL-62 -> SOL-15. Coil wire label read on the machine = 415 (RC3A side) / 215 (terminal-unit side, CN11-6). Function and wire were already correct - this was a relabel, not a rebinding. hal_net air-blast and the OUT3 binding are unchanged.]",
+   "location": "Solenoid valve bank — SOL-15 spindle air blast via relay RLY-5",
+   "location_note": "100 VAC coil confirmed on the CKD nameplate — relay required",
    "expected": {
     "value": "0",
     "label": "0 / de-energized — output idle unless commanded",
@@ -9595,7 +9595,7 @@ window.MAZAK_DATA = {
     {
      "file": "linuxcnc/field_7i84u.hal",
      "line": 324,
-     "text": "net air-blast          => hm2_7i80.0.7i84.0.1.output-03  # SOL-62 via RLY-5",
+     "text": "net air-blast          => hm2_7i80.0.7i84.0.1.output-03  # SOL-15 spindle air blast via RLY-5",
      "commented": false,
      "producers": [],
      "consumers": [
@@ -9615,7 +9615,7 @@ window.MAZAK_DATA = {
     {
      "file": "linuxcnc/field_7i84u.hal",
      "lines": "324",
-     "note": "net air-blast          => hm2_7i80.0.7i84.0.1.output-03  # SOL-62 via RLY-5"
+     "note": "net air-blast          => hm2_7i80.0.7i84.0.1.output-03  # SOL-15 spindle air blast via RLY-5"
     },
     {
      "file": "field_7i84u.hal",
@@ -9633,56 +9633,43 @@ window.MAZAK_DATA = {
    "authority_line": 116
   },
   {
-   "id": "TOUCH_SENSOR_BLAST",
-   "name": "Touch Sensor Blast",
+   "id": "WORK_AIR_BLAST",
+   "name": "Work Air Blast",
    "board": "7i84U-B",
    "connector": "TB3",
    "channel": "OUT4",
-   "hal_net": "touch-sensor-blast",
+   "hal_net": "",
    "direction": "OUT",
    "direction_label": "Output (digital)",
    "subsystem": "Air",
    "machine_subsystem": "Pneumatics",
-   "status": "FACTORY_INTERFACE",
-   "field_point": "SOL-35 via RLY-6 (interposing relay for 100VAC coil)",
+   "status": "RESERVED",
+   "field_point": "SOL-16 work air blast via RLY-6 (interposing relay for 100VAC coil)",
    "dest_connector": "CN11",
-   "dest_pin": "10",
-   "factory_wire": "261",
+   "dest_pin": "7",
+   "factory_wire": "216",
    "bbia_class": "plane",
    "designations": [
-    "SOL-35",
+    "SOL-16",
     "RLY-6",
-    "TB-51"
+    "SOL-35",
+    "SOL-61"
    ],
    "primary_source": "field_7i84u.hal",
-   "cleanup_notes": "MMS touch-sensor air jet | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/coolant_ladder_transcription.md]",
-   "location": "Solenoid valve bank — SOL-35 via relay RLY-6",
-   "location_note": "SOL-35 = \"Dust Inhale Eliminate\" per connector_crossref.md:52 / TB-51 diagram",
+   "cleanup_notes": "MMS touch-sensor air jet | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/coolant_ladder_transcription.md] | [2026-08-12 CONFLICT: the OEM head placard (dwg 24136209710) disagrees with this solenoid identity - see wiring/authority_conflicts.md section 5 and wiring/head_device_placard.md. Nothing changed here; identity must be settled BEFORE RLY-5/6/7 are wired.] | [2026-08-13 DEVICE NOT FITTED: owner confirms only two air solenoids exist on the head (415=SOL-15, 416=SOL-16) and there are no hidden ones. This row was labelled SOL-35 (dust inhole eliminate); neither SOL-35 nor SOL-61 (air jet) is on the head. SOL-61 serves the MMS touch sensor, already flagged OPTION_VERIFY. RECOMMEND NOT_USED/RESERVED - do not fit RLY-6. Owner decision. See authority_conflicts.md section 5] | [2026-08-13 REPURPOSED (owner approved): was TOUCH_SENSOR_BLAST / SOL-35. That device (MMS touch-sensor air jet, SOL-61) is NOT FITTED on this machine - only SOL-15 and SOL-16 exist on the head. This terminal is reallocated to SOL-16 WORK AIR BLAST, which IS fitted and wired (coil label 416 / CN11-7 wire 216) but previously had no authority row. RESERVED with hal_net none per the MANUAL_TOOL_CLAMP_PB precedent: real device, not yet field-verified, so deliberately HAL-unbound. Bind it once RLY-6 is fitted and the wire is confirmed.]",
+   "location": "Solenoid valve bank — SOL-16 work air blast via relay RLY-6",
+   "location_note": "Repurposed from TOUCH_SENSOR_BLAST 2026-08-13: SOL-35/SOL-61 are not fitted; SOL-16 is",
    "expected": {
     "value": "0",
     "label": "0 / de-energized — output idle unless commanded",
     "basis": "No commanding logic in the active HAL for this net; outputs default off.",
     "kind": "default-off"
    },
-   "hal_state": "active",
-   "mesa_pins": [
-    "hm2_7i80.0.7i84.0.1.output-04"
-   ],
+   "hal_state": "absent",
+   "mesa_pins": [],
    "producers": [],
    "consumers": [],
-   "hal_refs": [
-    {
-     "file": "linuxcnc/field_7i84u.hal",
-     "line": 325,
-     "text": "net touch-sensor-blast => hm2_7i80.0.7i84.0.1.output-04  # SOL-35 via RLY-6",
-     "commented": false,
-     "producers": [],
-     "consumers": [
-      "hm2_7i80.0.7i84.0.1.output-04"
-     ],
-     "bidir": []
-    }
-   ],
+   "hal_refs": [],
    "setp_refs": [],
    "epson_ferrules": [],
    "sources": [
@@ -9692,23 +9679,13 @@ window.MAZAK_DATA = {
      "note": "Current wiring authority row"
     },
     {
-     "file": "linuxcnc/field_7i84u.hal",
-     "lines": "325",
-     "note": "net touch-sensor-blast => hm2_7i80.0.7i84.0.1.output-04  # SOL-35 via RLY-6"
-    },
-    {
      "file": "field_7i84u.hal",
      "lines": "",
      "note": "primary_source column in the authority table"
     }
    ],
    "conflicts": [],
-   "bb_source": {
-    "cnd_pin": "CN11-10",
-    "wire": "261",
-    "cn_pin": "SSR bd CN11-10",
-    "provenance": "RESOLVED 2026-08-10: BBIA-1 terminal-unit CN11 pin10 = wire261 AIR JET - matches 'MMS touch-sensor air jet' (SOL-35) exactly, the only air-jet entry on CN11"
-   },
+   "bb_source": null,
    "authority_line": 117
   },
   {
@@ -9717,51 +9694,35 @@ window.MAZAK_DATA = {
    "board": "7i84U-B",
    "connector": "TB3",
    "channel": "OUT5",
-   "hal_net": "tap-coolant-blast",
+   "hal_net": "",
    "direction": "OUT",
    "direction_label": "Output (digital)",
    "subsystem": "Coolant",
    "machine_subsystem": "Coolant",
-   "status": "FACTORY_INTERFACE",
-   "field_point": "SOL-61 via RLY-7 (interposing relay for 100VAC coil)",
+   "status": "NOT_USED",
+   "field_point": "NOT USED - no tap-coolant solenoid fitted (SOL-61 is the air jet and is absent)",
    "dest_connector": "",
    "dest_pin": "",
    "factory_wire": "",
-   "bbia_class": "exception",
+   "bbia_class": "spare",
    "designations": [
-    "SOL-61",
-    "RLY-7",
-    "TB-51"
+    "SOL-61"
    ],
    "primary_source": "field_7i84u.hal",
-   "cleanup_notes": "[LADDER-REF 2026-08-10 (approved AG): docs/ladder/coolant_ladder_transcription.md]",
-   "location": "Solenoid valve bank — SOL-61 via relay RLY-7",
-   "location_note": "SOL-61 = Air jet on the TB-51 diagram",
+   "cleanup_notes": "[LADDER-REF 2026-08-10 (approved AG): docs/ladder/coolant_ladder_transcription.md] | [2026-08-12 CONFLICT: the OEM head placard (dwg 24136209710) disagrees with this solenoid identity - see wiring/authority_conflicts.md section 5 and wiring/head_device_placard.md. Nothing changed here; identity must be settled BEFORE RLY-5/6/7 are wired.] | [2026-08-13 DEVICE NOT FITTED: SOL-61 is not on the head and no tap-coolant solenoid has been located anywhere. TAPC remains on CN6-18 -> CNB-46, untraced. RECOMMEND NOT_USED/RESERVED - do not fit RLY-7. Owner decision. See authority_conflicts.md section 5] | [2026-08-13 APPLIED (owner approved): NOT_USED, matching how MIST_COOLANT was handled when that system was found absent. The SOL-61 tag this row carried belongs to the air jet, which is not fitted; no tap-coolant solenoid has been located anywhere. TAPC remains on CN6-18 -> CNB-46, untraced. Do not fit RLY-7.]",
+   "location": "NOT USED — no tap-coolant solenoid fitted",
+   "location_note": "SOL-61 is the air jet and is absent; TAPC on CN6-18 still untraced",
    "expected": {
     "value": "0",
     "label": "0 / de-energized — output idle unless commanded",
     "basis": "No commanding logic in the active HAL for this net; outputs default off.",
     "kind": "default-off"
    },
-   "hal_state": "active",
-   "mesa_pins": [
-    "hm2_7i80.0.7i84.0.1.output-05"
-   ],
+   "hal_state": "absent",
+   "mesa_pins": [],
    "producers": [],
    "consumers": [],
-   "hal_refs": [
-    {
-     "file": "linuxcnc/field_7i84u.hal",
-     "line": 326,
-     "text": "net tap-coolant-blast  => hm2_7i80.0.7i84.0.1.output-05  # SOL-61 via RLY-7",
-     "commented": false,
-     "producers": [],
-     "consumers": [
-      "hm2_7i80.0.7i84.0.1.output-05"
-     ],
-     "bidir": []
-    }
-   ],
+   "hal_refs": [],
    "setp_refs": [],
    "epson_ferrules": [],
    "sources": [
@@ -9769,11 +9730,6 @@ window.MAZAK_DATA = {
      "file": "mesa/current_pin_authority.csv",
      "lines": "118",
      "note": "Current wiring authority row"
-    },
-    {
-     "file": "linuxcnc/field_7i84u.hal",
-     "lines": "326",
-     "note": "net tap-coolant-blast  => hm2_7i80.0.7i84.0.1.output-05  # SOL-61 via RLY-7"
     },
     {
      "file": "field_7i84u.hal",
@@ -9920,7 +9876,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 328,
+     "line": 337,
      "text": "net flood-valve        => hm2_7i80.0.7i84.0.1.output-07  # PLC Y011 FCL (SOL-31); driver TBD - candidate: follow flood-coolant net with pump",
      "commented": false,
      "producers": [],
@@ -9940,7 +9896,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "328",
+     "lines": "337",
      "note": "net flood-valve        => hm2_7i80.0.7i84.0.1.output-07  # PLC Y011 FCL (SOL-31); driver TBD - candidate: follow flood-coolant net with pump"
     },
     {

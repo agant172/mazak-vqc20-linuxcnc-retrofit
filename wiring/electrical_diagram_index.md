@@ -41,7 +41,7 @@ Built from printed title blocks actually read; these are reliable anchors.
 | p060 | 4143075160 | Timer (T), Counter (C) | PLC T.C.0–127; T.C.0 = ESPT |
 | p074 | 4143075304 | Terminal Unit Layout | BBIA1 board (mined → `bbia1_terminal_unit.md`) |
 | p078 | 4143175309 | SSR Board (D2W102F-33QB) | drives spindle air blast, gear-shift hi/lo, coolant, ATC outputs; CN11/CN12 MR20 |
-| p079 | 4143175310 | Cable Connection Diagram — Components | cabinet interconnect overview; **Spindle Controller** block (CON4/CON5, CDN1/CDN2, TB3); feedback-device legend (spindle tacho gen, rotary encoder, per-axis resolvers) |
+| p079 | 4143175310 | Cable Connection Diagram — Components | cabinet interconnect overview; **Spindle Controller** block (CON4/CON5, CDN1/CDN2, TB3); feedback-device legend (spindle tacho gen, rotary encoder, per-axis resolvers). ⚠️ **The "spindle tacho gen" entry is DISPUTED** — this transcription is the only evidence such a device exists, and it is contradicted by the axis attribution of the TGF-3D and by owner observation. Re-read this legend at 300 DPI before citing it; see [`authority_conflicts.md`](authority_conflicts.md) §4. |
 | p082 | 4143075313 | Servo/drive topology (X/Y/Z amps, FR-SX, rectifier) | per `servo_amp_analysis.md` |
 | p083 | 4143175314 | Terminal Blocks TB6/TB7 layout | per `servo_amp_analysis.md` |
 | p085 | 4143075322 | Terminal Unit Connection detail (MR connectors) | per `servo_amp_analysis.md` |

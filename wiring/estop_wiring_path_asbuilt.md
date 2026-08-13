@@ -44,18 +44,40 @@ Adjacent on CA4 (same connector, for context): `*DECX` → pin `c`, `*DECY` → 
 While reading p090 (dwg 4143075301): the **spindle rotary encoder** is a
 **`MS3108B 20-29P`** connector, pin/line map **A=PA, B=SC, C=PE, H=PSH, K=OH,
 N=PA, P=SC, R=PB**. This is the connector `servo_amp_analysis.md §1.5 / §3.5`
-flags as "spindle encoder location TBD in the 7i80HDT stack" — the OEM device is
-identified; the Mesa-side landing terminal still needs assigning in
+flags as "spindle encoder location TBD in the 7i80HDT stack" — the OEM connector
+is identified; the Mesa-side landing terminal still needs assigning in
 `current_pin_authority.csv`.
+
+> **Follow-up 2026-08-12.** Nameplate photos identified a Tamagawa **TS1526N55**
+> optical PLG built into the spindle *motor*, on a 9-pin `AMP-350720-1` connector
+> — see [`../docs/spindle_motor_plg_encoder.md`](../docs/spindle_motor_plg_encoder.md).
+> It shares `PA`/`PB` with the `MS3108B` map above, and that map's `K = OH`
+> (overheat) line points at a motor-mounted device, but the remaining pin names
+> disagree. **Whether these are one device or two is unresolved** — do not merge
+> the records. Note also that `N=PA` duplicates `A=PA` above, so at least one
+> entry in this transcription is likely an artifact (probably a complement).
 
 ## What's still needed
 
 1. **Locate the hardwired E-stop control circuit** (main magnetic contactor
-   drop + servo-ready gating). Recommended: manual scan of the power/magnetics
-   schematic sheets (the transformer sheet is ~PDF p032, dwg region 4143075xxx),
-   or resolve by field-tracing the cabinet per **D5** (as-built hardwired safety
-   schematic). This is the authoritative path anyway — the OEM drawings predate
-   this machine's M-2 upgrade and must be confirmed against the cabinet.
+   drop + servo-ready gating).
+   > **Starting point found 2026-08-13.** A cabinet terminal strip carries the
+   > safety-chain conductors — `57`, `57A`, `57B`, `58`, `59`, `60`, `EMB`, `MAR`
+   > — as a contiguous block, alongside four `S-A12` motor contactors on the same
+   > backplate. That is a **physical anchor for this trace**, not the circuit
+   > itself. Photo inventory only, nothing metered:
+   > [`cabinet_asfound_survey.md`](cabinet_asfound_survey.md).
+   > **`57B` is a real OEM terminal designation** — confirmed on the marker-strip
+   > insert in a sharp re-shoot, reading `58` · `57B` · `57A` · `57` · `60` with
+   > the neighbours legible at the same time. It is **not** in `CLAUDE.md`'s
+   > preserve list, which names only `57` and `57A`. Adding it is recommended and
+   > awaiting owner approval.
+
+   Recommended: manual scan of the power/magnetics schematic sheets (the
+   transformer sheet is ~PDF p032, dwg region 4143075xxx), or resolve by
+   field-tracing the cabinet per **D5** (as-built hardwired safety schematic).
+   This is the authoritative path anyway — the OEM drawings predate this
+   machine's M-2 upgrade and must be confirmed against the cabinet.
 2. **Assign the spindle-encoder landing** on the Mesa stack in the pin authority.
 
 _This doc records schematic-derived wiring evidence only; it is not a

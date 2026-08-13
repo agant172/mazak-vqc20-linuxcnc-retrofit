@@ -50,7 +50,7 @@ the isolated 7i84U-B probe path, and LinuxCNC HAL pin names.
 |---|---|---|---|
 | Host board | Exact Mesa board model/revision | 7i80HDT | Determines firmware target and HAL device name (expect `hm2_7i80` — confirm via readhmid). |
 | Ethernet | 7i80HDT IP address / host NIC | 192.168.1.121 / enp0s31f6 (192.168.1.1/24) | Confirms the control PC can reach the board deterministically. |
-| Ethernet | `hm2_eth` config string | `num_encoders=0 num_resolvers=3 num_pwmgens=4 num_stepgens=0 sserial_port_0=00xxxxxx` | Keeps the unverified spindle-encoder path disabled while exposing X/Y/Z resolver, analog, and two smart-serial channels. |
+| Ethernet | `hm2_eth` config string | `num_encoders=0 num_resolvers=3 num_pwmgens=4 num_stepgens=0 sserial_port_0=00xxxxxx` | Exposes X/Y/Z resolver, analog, and two smart-serial channels. `num_encoders=0` is a **settled design decision** (2026-08-12), not a temporary hold — LinuxCNC does not read spindle position; see [`../docs/spindle_motor_plg_encoder.md`](../docs/spindle_motor_plg_encoder.md#design-decision--linuxcnc-does-not-read-spindle-position). |
 | P2 (7i49) | Analog output count/scaling | 6× ±10 V hardware; active `num_pwmgens=4` maps X/Z/Y/spindle to AOUT0/1/2/3; AOUT4/5 spare | Required before safe first motion. Four requested PWM generators create instances 00-03 only. |
 | P2 (7i49) | Resolver interface present | Plain 7i49 (not 7i49HV) | Axis feedback is resolver, not encoder; firmware must expose resolver channels. |
 | P2 (7i49) | Host connection path | On 7i80HDT connector P2 | Determines board tag and `num_resolvers` config; how the 7i49 attaches must be verified. |
@@ -136,8 +136,10 @@ combination; the complete package is committed under `mesa/firmware/` — step 1
      `PWM` block with at least 4 channels - matches the 7i49.
    - P3 modules list only `IOPort` (bare GPIO), no smart-serial or analog.
    - Module inventory provides at least 3 resolver and 4 PWM instances. The
-     active config deliberately requests `num_encoders=0` until the spindle
-     encoder, receiver/interface, and connector pins are identified.
+     active config deliberately requests `num_encoders=0` — a settled decision
+     (2026-08-12), since LinuxCNC does not read spindle position on this
+     machine. Encoder instances in the bitfile, if any, are simply unused; do
+     not treat their presence or absence as a mismatch.
 
    If any of those disagree, the running layout does not match this repo's
    assumptions. The dump alone cannot prove the binary's filename or source;
