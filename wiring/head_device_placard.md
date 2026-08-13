@@ -130,4 +130,5 @@ mode that put `V 150` (actually `130`) into `photo_survey_misc.md`.
 - [`io_map_research_notes.md`](io_map_research_notes.md) — solenoid function table
 - [`bbia1_source_dest.csv`](bbia1_source_dest.csv) — `AIR_BLAST` ambiguity, `TOUCH_SENSOR_BLAST` wire 261
 - [`../mesa/current_pin_authority.csv`](../mesa/current_pin_authority.csv)
+- [`head_valve_hardware.md`](head_valve_hardware.md) — the physical valves these tags refer to (Nachi hydraulic, CKD pneumatic), photographed 2026-08-13
 - [`../docs/spindle_motor_plg_encoder.md`](../docs/spindle_motor_plg_encoder.md) — the photo batch this came from

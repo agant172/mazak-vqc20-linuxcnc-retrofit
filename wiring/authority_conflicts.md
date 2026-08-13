@@ -49,6 +49,16 @@ conservative record kept below for provenance.
 > question as *probably single-coil*, not conclusively. Physical valve inspection
 > with pressure removed is still the closing test.
 > See [`head_device_placard.md`](head_device_placard.md).
+>
+> **Hardware photographed 2026-08-13 — still not decisive.** The head hydraulic
+> stack is **two NACHI-FUJIKOSHI directional control valves** (upper one
+> `SA-G01-E3X-C1-31`), which confirms the "Fujikoshi hydraulic valve" description
+> on the CSV rows. But no frame shows either valve **end-on**, so coil count per
+> valve could not be established. Two bodies is consistent either way — gear
+> shift hi/lo is naturally one double-solenoid valve plus tool unclamp on a
+> second. See [`head_valve_hardware.md`](head_valve_hardware.md).
+> **Note also: the head hydraulics may still be pressurised** — depressurise
+> before valve inspection.
 
 - Current authority: TB2 OUT9 and OUT10 were both associated with `SOL-10`, with OUT9 clamp and OUT10 unclamp.
 - New evidence: `connector_crossref.md` identifies `SOL-10` as tool unclamp.
@@ -135,6 +145,14 @@ correcting the spindle-feedback section after the PLG nameplate photos.
 **Nothing is landed or energised** — these are pre-power planning rows. But they
 are **100 VAC solenoid outputs** and the identities must be settled **before**
 RLY-5/6/7 are wired, or an output will drive the wrong device.
+
+> **Coil voltage confirmed on the hardware 2026-08-13.** The CKD air solenoids
+> on the head are marked **`100V 110V 50/60`**
+> ([`head_valve_hardware.md`](head_valve_hardware.md)). The repo had been
+> carrying 100 VAC as a planning assumption; it is correct, so the
+> interposing-relay requirement rests on nameplate evidence rather than
+> inference. Coil **current** is still unmeasured — relay contact sizing stays
+> open.
 
 ### The disagreement
 
