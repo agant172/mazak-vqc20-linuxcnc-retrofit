@@ -60,11 +60,21 @@ is identified; the Mesa-side landing terminal still needs assigning in
 ## What's still needed
 
 1. **Locate the hardwired E-stop control circuit** (main magnetic contactor
-   drop + servo-ready gating). Recommended: manual scan of the power/magnetics
-   schematic sheets (the transformer sheet is ~PDF p032, dwg region 4143075xxx),
-   or resolve by field-tracing the cabinet per **D5** (as-built hardwired safety
-   schematic). This is the authoritative path anyway — the OEM drawings predate
-   this machine's M-2 upgrade and must be confirmed against the cabinet.
+   drop + servo-ready gating).
+   > **Starting point found 2026-08-13.** A cabinet terminal strip carries the
+   > safety-chain conductors — `57`, `57A`, `57B`, `58`, `59`, `60`, `EMB`, `MAR`
+   > — as a contiguous block, alongside four `S-A12` motor contactors on the same
+   > backplate. That is a **physical anchor for this trace**, not the circuit
+   > itself. Photo inventory only, nothing metered:
+   > [`cabinet_asfound_survey.md`](cabinet_asfound_survey.md).
+   > Note `57B` is a wire number not in this repo's preserve list — re-shoot it
+   > before treating it as real.
+
+   Recommended: manual scan of the power/magnetics schematic sheets (the
+   transformer sheet is ~PDF p032, dwg region 4143075xxx), or resolve by
+   field-tracing the cabinet per **D5** (as-built hardwired safety schematic).
+   This is the authoritative path anyway — the OEM drawings predate this
+   machine's M-2 upgrade and must be confirmed against the cabinet.
 2. **Assign the spindle-encoder landing** on the Mesa stack in the pin authority.
 
 _This doc records schematic-derived wiring evidence only; it is not a

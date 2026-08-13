@@ -184,6 +184,11 @@ two CKD coils exactly as predicted.
 3. **0 Ω between the solenoid-end `16` and the cabinet-strip `16`** — the two are
    one continuous conductor.
 
+**And the bond is visible.** A cabinet photo of that strip shows a **green/yellow
+`G` conductor landing on the `16` block** — so the rail is *deliberately bonded to
+earth* at the strip, not incidentally continuous to it. See
+[`cabinet_asfound_survey.md`](cabinet_asfound_survey.md#strip-a--control-power-rails-and-the-16-earth-bond).
+
 Measurement 3 matters more than it looks: it means the `16` at the valves and the
 `16` on the cabinet strip are **the same wire end to end**, with no hidden break,
 splice, or separate return net in between. Combined with 1 and 2, the whole `16`
