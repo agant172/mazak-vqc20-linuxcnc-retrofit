@@ -16,7 +16,11 @@ This register reconciles the RC3A connector cross-reference with the current Mes
 > 1984 drawing set. See [`head_device_placard.md`](head_device_placard.md).
 > The placard also confirms the gear-confirm switches: `HIGH GEAR — PRS-10`,
 > `LOW GEAR — PRS-12`. Coil voltage/current measurement and RLY-1/RLY-2 fitting
-> are still required before energizing — the placard settles identity, not wiring. `gear-lo-sol` bound to 7i84U-A OUT8 in HAL 2026-08-09. Coil voltage/current measurement and RLY-1/RLY-2 fitting still required before energizing. Original conservative record kept below for provenance.
+> are still required before energizing — the placard settles identity, not wiring.
+
+`gear-lo-sol` bound to 7i84U-A OUT8 in HAL 2026-08-09. Coil voltage/current
+measurement and RLY-1/RLY-2 fitting still required before energizing. Original
+conservative record kept below for provenance.
 
 - Current authority: `SOL-13` planned high gear on 7i84U TB3 OUT7.
 - Current authority: `SOL-12` planned low gear on 7i84U TB2 OUT8.
@@ -153,48 +157,108 @@ The **pin authority CSV disagrees on three rows**:
 | `TOUCH_SENSOR_BLAST` (OUT4) | `SOL-35 via RLY-6`, "MMS touch-sensor air jet" | The *function* (air jet) maps to **`SOL-61`** on the placard; **`SOL-35` is dust inhole eliminate**. `bbia1_source_dest.csv` resolved this row to CN11-10 **wire 261 = AIR JET** — which supports the function but points at `SOL-61`, not `SOL-35`. |
 | `TAP_COOLANT_BLAST` (OUT5) | `SOL-61 via RLY-7`, tap coolant | Placard gives **`SOL-61` = AIR JET**. Collides directly with the row above. The element crosswalk separately maps `Y016 TAPC.M TAP COOLANT` → `SOL-61`. |
 
-### Where the tangle probably is
+### TRACED 2026-08-12 — the wire numbers settle it
 
-Two element-list rows are involved and may have been crossed when the CSV was
-populated:
+A documentary trace across `connector_crossref.md` (OEM pg 90/91),
+`bbia1_cn_pinouts.csv` (CN11) and the head placard resolves all three rows.
 
-- `Y035 A-JET.M` **AIR JET** → currently `TOUCH_SENSOR_BLAST`, noted "verify SOL-35"
-- `Y016 TAPC.M` **TAP COOLANT** → currently `TAP_COOLANT_BLAST`, mapped to `SOL-61`
+**The rule: on the RC3A solenoid output bank, wire `4NN` drives `SOL-NN`.**
+Seven independent confirmations, no exceptions:
 
-If the placard is right that `SOL-61` **is** the air jet, then `Y035 A-JET.M`
-belongs with `SOL-61`, and whatever solenoid serves tap coolant is a *different*
-tag not shown on this placard. Note `TAPC` is separately established as
-**"TAP COOLANT"** on CN6-18 (`bbia1_cn_pinouts.csv:123`). **This is a hypothesis,
-not a finding — do not act on it.**
+| Wire | Solenoid | Function |
+|---|---|---|
+| `410` | `SOL-10` | Tool unclamp |
+| `413` | `SOL-13` | Gear shift low |
+| `415` | `SOL-15` | Spindle air blast |
+| `416` | `SOL-16` | Work air blast |
+| `417` | `SOL-17` | Mist coolant |
+| `431` | `SOL-31` | Flood coolant |
+| `435` | `SOL-35` | Dust inhale eliminate |
 
-### Controlling position
+The BBIA-1/terminal-unit side carries the same functions as **`2NN`**, and the
+last two digits track across all three: `2NN` ↔ `4NN` ↔ `SOL-NN`. The placard
+independently confirms two cases the crossref table did not cover — CN11-12
+wire `236` **OIL HOLE** ↔ `SOL-36`, and CN11-10 wire `261` **AIR JET** ↔
+`SOL-61`. Both land exactly where the rule predicts.
 
-**Unresolved.** The placard is an OEM, machine-mounted source and agrees with
-two other repo sources on the tag→function map, which is strong. But it carries
-no wire numbers, and it only covers **head-mounted** devices — so it cannot by
-itself prove `SOL-62` does not exist elsewhere on the machine, nor which
-solenoid a given Mesa output should drive.
+### Conclusions
 
-### Resolution test
+| Row | CSV had | **Traced identity** | Evidence |
+|---|---|---|---|
+| `AIR_BLAST` (OUT3) | `SOL-62` | **`SOL-15`**, spindle air blast | Element `Y018 SAB.M` = SPINDLE AIR BLAST → CN11-6 wire `215` → wire `415` → `SOL-15`. Placard: `SPINDLE AIR BLAST SOL-15`. This also settles the `bbia1_source_dest.csv` "CN11-6 vs CN11-7" ambiguity: the net is *spindle* blast, so CN11-6. |
+| `TOUCH_SENSOR_BLAST` (OUT4) | `SOL-35` | **`SOL-61`**, air jet | Element `Y035 A-JET.M` = AIR JET → CN11-10 wire `261` → wire `461` → `SOL-61`. Placard: `AIR JET SOL-61`. `bbia1_source_dest.csv` already had the *wire* right (261, CN11-10); only the `SOL` tag was wrong. `SOL-35` is dust inhale eliminate (wire 235/435) and belongs to no current row. |
+| `TAP_COOLANT_BLAST` (OUT5) | `SOL-61` | **Unresolved — but NOT `SOL-61`** | `SOL-61` is the air jet, claimed by OUT4 above. Element `Y016 TAPC.M` TAP COOLANT appears as signal `TAPC` on **CN6-18 → CNB-46** (`bbia1_cn_pinouts.csv:123`) — a different connector from the CN11 solenoid bank entirely. No `4NN` wire or `SOL` tag for tap coolant has been located. |
 
-1. Re-read OEM dwg **pg 90** and the parts list **pp. 85–91** for `SOL-15`,
-   `SOL-61`, `SOL-62` and their wire numbers; confirm whether `SOL-62` exists at
-   all and, if so, where.
-2. Trace wire **261** (CN11-10, "AIR JET") to the physical solenoid and read its
-   tag off the body.
-3. Trace the spindle-air-blast conductor (wire 415 per `connector_crossref.md`)
-   and read that solenoid's tag.
-4. Photograph each solenoid body tag on the head — the placard gives their
-   positions, so this is a quick pass.
+### What `SOL-62` actually is — probable, not proven
+
+`SOL-62` is real: wire **`462`** is recorded on the `03-81579-02` diode/opto
+board alongside `461` (`photo_survey_misc.md`). By the `4NN`→`SOL-NN` rule it
+drives `SOL-62`, and the matching control-side wire is CN11-9 **`262` = TOOL
+MEASURING ARM EXTEND** (PLC `Y034 AEXT.M`, ladder sheet 41 rung 4102).
+
+So **`SOL-62` is most likely the tool-measuring-arm extend solenoid** — which
+also explains cleanly why it is absent from the head placard: the measuring arm
+is not a head device. **This is an inference from the numbering pattern, not a
+direct drawing read.** It matters only as an explanation for how `SOL-62` got
+attached to the air-blast row; nothing depends on it.
+
+### Recommended correction (owner decision — not applied)
+
+1. `AIR_BLAST` OUT3 → field point **`SOL-15` via RLY-5**, wire 215 / CN11-6.
+2. `TOUCH_SENSOR_BLAST` OUT4 → field point **`SOL-61` via RLY-6**, wire 261 / CN11-10.
+3. `TAP_COOLANT_BLAST` OUT5 → **`HOLD_CONFLICT`**. Its solenoid is unidentified;
+   the `SOL-61` tag it currently carries belongs to OUT4. Do not wire RLY-7.
+
+`AIR_BLAST` and `TOUCH_SENSOR_BLAST` keep the correct *function* and the correct
+*wire* — only the `SOL-xx` label was wrong — so correcting them is a relabel, not
+a rebinding. `TAP_COOLANT_BLAST` is the genuinely open one.
+
+### Closing verification (still physical)
+
+The trace is documentary. Before RLY-5/6/7 are wired, confirm on the machine:
+
+1. Read the tag off the solenoid body at each head position the placard marks —
+   quickest single check, and it settles `SOL-15` and `SOL-61` outright.
+2. Buzz wire **261** (CN11-10) and wire **215** (CN11-6) through to their coils.
+3. For tap coolant: trace `TAPC` from **CN6-18 → CNB-46** to whatever it drives,
+   and read that device's tag. This is the one with no paper answer.
+4. Confirm whether `SOL-62` is the measuring-arm solenoid, if only to close the
+   loop on the mislabel.
 
 ### Status
 
-`AIR_BLAST`, `TOUCH_SENSOR_BLAST`, and `TAP_COOLANT_BLAST` remain
-`FACTORY_INTERFACE` **unchanged** — no binding, `hal_net`, or status was altered
-on the strength of the placard. Each row carries a pointer to this section.
-**Recommendation (owner decision):** move all three to `HOLD_CONFLICT` until
-step 1–4 resolve them, matching how §1/§3 handled contested identities. Do not
-wire RLY-5/6/7 before then.
+All three rows remain `FACTORY_INTERFACE` with bindings and `hal_net` unchanged;
+no status was altered. Each carries a pointer to this section.
+
+## 6. Gear-confirm and tool-clamp pressure switches — three-way disagreement
+
+**Raised in `io_map_research_notes.md`, RESOLVED IN FAVOUR OF THE CSV 2026-08-12.**
+
+`io_map_research_notes.md` records that the TB-51 diagram (pg 100, dwg
+4143075338) appeared to show **`PRS-9` = high gear, `PRS-10` = low gear,
+`PRS-12` = 2nd Z over-travel**, and flags this as a *third* answer conflicting
+with both the alarm-table OCR pass and `current_pin_authority.csv`. That note
+warns in its own words that "small-digit misreads (9 vs 8, 10 vs 12) on a faded
+scan are exactly the failure mode to expect here."
+
+**The head placard (dwg `24136209710`) backs the CSV:**
+
+| | CSV | Placard | TB-51 read |
+|---|---|---|---|
+| High gear confirm | `PRS-10` | **`PRS-10`** ✅ | `PRS-9` ❌ |
+| Low gear confirm | `PRS-12` | **`PRS-12`** ✅ | `PRS-10` ❌ |
+| Tool clamp confirm | `PRS-9` | **`PRS-9`** ✅ | — |
+| Tool unclamp confirm | `PRS-8` | **`PRS-8`** ✅ | — |
+
+The placard is a crisp, machine-mounted OEM source; the TB-51 reading came from
+a faded scan and was self-flagged as low/medium confidence. **Controlling
+position: the CSV values are correct.** The `PRS-3` "clamp (blue wire)" entry in
+the same TB-51 table is likely another misread of `PRS-9` and should not be
+cited.
+
+Treat this as documentary resolution, not commissioning: still meter each switch
+before relying on its state, per the standing rule that no normal-state is
+trusted until field-verified.
 
 ## Evidence documents
 

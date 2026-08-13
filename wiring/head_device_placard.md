@@ -80,7 +80,8 @@ independent, machine-mounted corroboration — see §1 and §2 there.
 
 **Three 7i84U-B relay-driven output rows carry solenoid identities the placard
 disagrees with.** Recorded as [`authority_conflicts.md`](authority_conflicts.md)
-**§5**. Summary:
+**§5**, where a follow-up wire-number trace (2026-08-12) resolves two of the
+three. Summary as first found:
 
 | Row | CSV says | Placard says | Problem |
 |---|---|---|---|
@@ -95,6 +96,16 @@ could drive the wrong device.
 
 **No pin binding, `hal_net`, or `authority_status` has been changed on the
 strength of this placard.** The affected CSV rows carry a pointer to §5 only.
+
+**Trace outcome (see §5 for the working):** the OEM wire numbering follows a
+strict rule — RC3A bank wire `4NN` drives `SOL-NN`, with the terminal-unit side
+carrying the same function as `2NN`. On that basis `AIR_BLAST` is `SOL-15` and
+`TOUCH_SENSOR_BLAST` is `SOL-61` — both keep their correct function and wire, so
+those are relabels rather than rebindings. `TAP_COOLANT_BLAST` is the genuinely
+open one: its `SOL-61` tag belongs to the air jet, and no solenoid has been
+identified for tap coolant. The placard's two novel data points, `OIL HOLE
+SOL-36` (wire 236) and `AIR JET SOL-61` (wire 261), both land exactly where the
+rule predicts — which is what makes the rule trustworthy.
 
 ---
 
