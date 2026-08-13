@@ -16,7 +16,8 @@ electrically verified, traced, or commissioned.
 
 > **Photos are not committed** (repo policy: no raw photos — see
 > [`photo_survey_misc.md`](photo_survey_misc.md)). File the fifteen originals in the
-> Google Drive archive under `06 Nameplates & Labels` and add their camera IDs to
+> Google Drive archive under `03_Motors_Feedback` (see
+> [`README_photo_sorting.md`](README_photo_sorting.md)) and add their camera IDs to
 > the [Photo IDs](#photo-ids-to-backfill) table below so this record becomes
 > re-checkable.
 
