@@ -34,7 +34,29 @@ conservative record kept below for provenance.
 
 ## 2. Tool clamp/unclamp valve
 
-**Documentation status: CONSERVATIVELY RECORDED.** Physical valve topology and clamp-side path remain pending cabinet verification.
+**RESOLVED 2026-08-13 — `SOL-10` IS A SINGLE-COIL VALVE.** Coil wire labels were
+read on every solenoid on the head
+([`head_valve_hardware.md`](head_valve_hardware.md#2-closed--sol-10-is-a-single-coil-valve)):
+
+- The Nachi `SA-G01-E3X-C1-31` carries a coil at **each** end — wire `412`
+  (`SOL-12` gear high) and wire `413` (`SOL-13` gear low). That is the gear-shift
+  double solenoid; its `E3X` 3-position spool fits high / neutral / low.
+- **Tool unclamp is a separate valve body** carrying wire `410` = `SOL-10`.
+
+Three coils over two bodies = 2 + 1, exactly as the placard's tag count forced.
+**`TOOL_CLAMP_SOL` (OUT9) `NOT_USED` / "PHANTOM — SOL-10 is single-coil" is
+confirmed** — there is no second coil anywhere for a clamp solenoid. Clamp is
+spring/hydraulic return, with `PRS-9`/`PRS-8` confirming each state.
+
+*Residual:* the far end of the tool-unclamp valve was not photographed. A second
+coil there is not photographically excluded, but it would need a tag and a wire
+number and has neither. A glance at that end closes it completely.
+
+**Still open regardless of coil count:** clamp/unclamp *behaviour* — contact
+form, valve porting, and prox response with pressure removed — remains
+uncommissioned. OUT9/OUT10 statuses are unchanged.
+
+Original conservative record kept below for provenance.
 
 > **SINGLE-COIL READING SUPPORTED 2026-08-12.** The OEM head placard (dwg
 > `24136209710`) draws **exactly one tool solenoid — `TOOL UNCLAMP — SOL-10`** —
@@ -49,6 +71,9 @@ conservative record kept below for provenance.
 > question as *probably single-coil*, not conclusively. Physical valve inspection
 > with pressure removed is still the closing test.
 > See [`head_device_placard.md`](head_device_placard.md).
+>
+> **[SUPERSEDED — the two blocks below were written before the coil wire labels
+> were read; the resolution above replaces them. Kept for provenance.]**
 >
 > **Hardware photographed 2026-08-13 — still not decisive.** The head hydraulic
 > stack is **two NACHI-FUJIKOSHI directional control valves** (upper one
@@ -235,39 +260,85 @@ is not a head device. **This is an inference from the numbering pattern, not a
 direct drawing read.** It matters only as an explanation for how `SOL-62` got
 attached to the air-blast row; nothing depends on it.
 
-### Recommended correction (owner decision — not applied)
+### PHYSICALLY CONFIRMED 2026-08-13 — and the picture changed
 
-1. `AIR_BLAST` OUT3 → field point **`SOL-15` via RLY-5**, wire 215 / CN11-6.
-2. `TOUCH_SENSOR_BLAST` OUT4 → field point **`SOL-61` via RLY-6**, wire 261 / CN11-10.
-3. `TAP_COOLANT_BLAST` OUT5 → **`HOLD_CONFLICT`**. Its solenoid is unidentified;
-   the `SOL-61` tag it currently carries belongs to OUT4. Do not wire RLY-7.
+Coil wire labels were read on every solenoid on the head. Two things came out of
+it, and the second is bigger than the first.
 
-`AIR_BLAST` and `TOUCH_SENSOR_BLAST` keep the correct *function* and the correct
-*wire* — only the `SOL-xx` label was wrong — so correcting them is a relabel, not
-a rebinding. `TAP_COOLANT_BLAST` is the genuinely open one.
+**1. `AIR_BLAST` is confirmed as `SOL-15`.** The CKD lower air solenoid carries
+wire **`415`**, and the upper carries **`416`** — precisely what
+`connector_crossref.md` predicted from OEM dwg pg 90 (`415` → SOL-15 spindle air
+blast, `416` → SOL-16 work air blast). The `SOL-62` label on this row was wrong.
 
-### Closing verification (still physical)
+**2. Only TWO air solenoids exist on the head. There are no hidden ones**
+(owner, on the machine). The placard lists six air/coolant solenoids; four have
+no device:
 
-The trace is documentary. Before RLY-5/6/7 are wired, confirm on the machine:
+| Tag | Function | On the head? |
+|---|---|---|
+| `SOL-15` | Spindle air blast | ✅ wire `415` |
+| `SOL-16` | Work air blast | ✅ wire `416` |
+| `SOL-31` | Flood coolant | ❌ not on the head |
+| `SOL-35` | Dust inhole eliminate | ❌ not on the head |
+| `SOL-36` | Oil hole | ❌ not on the head |
+| `SOL-61` | Air jet | ❌ not on the head |
 
-1. ~~Read the tag off the solenoid body~~ — **not possible: the solenoids carry
-   no `SOL-xx` tags** (owner, 2026-08-13). Instead read the **conductor label at
-   each coil's DIN plug**, which is how `PS-5` was confirmed (its wires were
-   labelled `355`/`G24`). A wire number resolves the identity directly through
-   the `2NN`/`4NN` → `SOL-NN` rule above. Failing a readable label, ring the coil
-   out to the RC3A bank with a meter.
-2. Buzz wire **261** (CN11-10) and wire **215** (CN11-6) through to their coils.
-3. For tap coolant: trace `TAPC` from **CN6-18 → CNB-46** to whatever it drives,
-   and read that device's tag. This is the one with no paper answer.
-4. Confirm whether `SOL-62` is the measuring-arm solenoid, if only to close the
-   loop on the mislabel.
-5. **Locate the missing air solenoids.** The placard lists six air/coolant
-   solenoids on the head (`SOL-15`, `-16`, `-31`, `-35`, `-36`, `-61`) but only
-   **two** CKD valves have been photographed — at least four are elsewhere on the
-   head and unlocated.
-6. Where a wire label is gone, **follow the plumbing**: spindle air blast exits
-   at the spindle nose, work air blast is aimed at the work, air jet serves the
-   MMS touch sensor. Destination identifies function with no electrical work.
+**The placard is a generic VQC-20/40 family plate listing optional equipment**,
+not an inventory of this serial number — see
+[`head_device_placard.md`](head_device_placard.md).
+
+### What this means for the three rows
+
+| Row | Status after the trace |
+|---|---|
+| `AIR_BLAST` (OUT3) | **Identified: `SOL-15`, wire `415`.** Function and wire were already right; only the tag was wrong. A relabel. |
+| `TOUCH_SENSOR_BLAST` (OUT4) | **Its device does not exist on the head.** It was labelled `SOL-35` (dust inhole eliminate); neither `SOL-35` nor `SOL-61` (air jet) is fitted. `SOL-61` serves the MMS touch sensor, which the element crosswalk already flags `OPTION_VERIFY`. |
+| `TAP_COOLANT_BLAST` (OUT5) | **Its device does not exist on the head.** `SOL-61` is not fitted, and no tap-coolant solenoid has been located anywhere. |
+
+### A gap this opened: `SOL-16` has no Mesa output
+
+**Work air blast (`SOL-16`, wire `416`) is physically fitted and wired, but no
+row in `current_pin_authority.csv` drives it.** The only air-blast row is
+`AIR_BLAST` (OUT3), now identified as spindle air blast (`SOL-15`). CN11-7 wire
+`216` carries WORK AIR BLAST on the terminal unit, so the signal exists on the
+BBIA-1 plane. **This is a real device with no assigned output** — it needs either
+an allocation or a documented decision to drop it.
+
+### Recommended action (owner decision — not applied)
+
+1. `AIR_BLAST` OUT3 → field point **`SOL-15` via RLY-5**, wire `415` / `215`,
+   CN11-6. Relabel only; binding unchanged.
+2. **Allocate an output for `SOL-16` work air blast** (wire `416` / `216`,
+   CN11-7), or record a decision to drop the function. 7i84U-A is at 100 % —
+   see [`../docs/io_capacity_reconciliation.md`](../docs/io_capacity_reconciliation.md)
+   before allocating.
+3. `TOUCH_SENSOR_BLAST` OUT4 and `TAP_COOLANT_BLAST` OUT5 → **`NOT_USED` or
+   `RESERVED`**, matching how `MIST_COOLANT` was handled when that system was
+   found absent. Do not fit RLY-6/RLY-7 for devices that are not there.
+4. Before dropping anything, confirm **where the missing four live**, if
+   anywhere. **Flood coolant especially** is a real machine function — the
+   authority carries `COOLANT_ON`, and CN11 carries wire `231` flood coolant plus
+   wire `236` flood-coolant motor starter. "Not on the head" is not "does not
+   exist".
+
+### Closing verification — mostly done
+
+1. ~~Read the conductor label at each coil's DIN plug~~ — **DONE 2026-08-13.**
+   All five head coils read: `410`, `412`, `413`, `415`, `416`.
+2. ~~Buzz wire 261 and wire 215 to their coils~~ — superseded; the labels were
+   readable directly.
+3. **Still open:** trace `TAPC` from **CN6-18 → CNB-46** and find what, if
+   anything, it drives. This is the last unresolved device path.
+4. **Still open:** confirm whether `SOL-62` is the measuring-arm solenoid — only
+   to close the loop on the original mislabel; nothing depends on it.
+5. ~~Locate the missing air solenoids~~ — **ANSWERED: they are not on the head**
+   (owner, 2026-08-13). Remaining question is whether `SOL-31` flood coolant and
+   the others exist elsewhere on the machine, which matters before any row is
+   dropped.
+6. **Confirm wire `16` is the 100 VAC coil common.** It appears on four of the
+   five coils, so it reads as a shared rail rather than a signal, and
+   `photo_survey_misc.md` lists `15`/`16` among the TB2 distribution rails. Meter
+   it — it determines which side of each coil an interposing relay contact breaks.
 
 ### Status
 

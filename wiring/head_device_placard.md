@@ -14,6 +14,46 @@ device, each labelled `FUNCTION` over `TAG`.
 > covers devices **on the head**. Use it to settle *identity* questions; it
 > cannot settle a wiring path.
 
+> ## ⚠️ THE PLACARD IS A GENERIC FAMILY PLATE — IT LISTS DEVICES THIS MACHINE
+> ## DOES NOT HAVE
+>
+> **Established 2026-08-13 (owner, on the machine): only two air solenoids exist
+> on the head, and there are no hidden ones.** Coil wire labels were read on every
+> device present — see
+> [`head_valve_hardware.md`](head_valve_hardware.md#coil-wire-labels--read-off-the-machine-2026-08-13).
+>
+> | Placard tag | Function | Fitted on this machine? |
+> |---|---|---|
+> | `SOL-10` | Tool unclamp | ✅ yes — wire `410` |
+> | `SOL-12` | Gear shift high | ✅ yes — wire `412` |
+> | `SOL-13` | Gear shift low | ✅ yes — wire `413` |
+> | `SOL-15` | Spindle air blast | ✅ yes — wire `415` |
+> | `SOL-16` | Work air blast | ✅ yes — wire `416` |
+> | `SOL-31` | Flood coolant | ❌ **not on the head** |
+> | `SOL-35` | Dust inhole eliminate | ❌ **not on the head** |
+> | `SOL-36` | Oil hole | ❌ **not on the head** |
+> | `SOL-61` | Air jet | ❌ **not on the head** |
+>
+> Four of the nine solenoid tags have no device. The plate is evidently printed
+> for the **VQC-20/40 family with all options**, not for this serial number. The
+> `PRS-`/`PS-` pressure switches it lists are unaffected — those were confirmed
+> against the pin authority independently.
+>
+> **Consequence: presence on this placard is NOT evidence a device exists.** The
+> tag→function mapping it gives remains reliable and is corroborated by
+> `connector_crossref.md` and the wire numbers. But every "confirmed" verdict
+> below should be read as *"the placard names this device correctly"*, never as
+> *"this device is fitted"*.
+>
+> **Do not conclude the missing four exist nowhere on the machine.** The placard
+> covers the head only, and some of these functions plausibly live elsewhere —
+> **flood coolant in particular** almost certainly exists as a machine function
+> (the pin authority carries `COOLANT_ON` and CN11 carries both wire `231` flood
+> coolant and wire `236` flood-coolant motor starter), just not as a head-mounted
+> valve. The correct reading is **"not on the head"**, not "does not exist".
+> `SOL-61` air jet serves the MMS touch sensor, which the element crosswalk
+> already flags `OPTION_VERIFY` — consistent with an unfitted option.
+
 ---
 
 ## Transcription (verbatim)

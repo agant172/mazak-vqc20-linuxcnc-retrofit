@@ -154,33 +154,57 @@ and trip pressure are still unverified; the tag confirms identity, not behaviour
 
 ---
 
-## What these photos do *not* settle
+## Coil wire labels — read off the machine 2026-08-13
 
-**The single-coil vs double-coil question in
-[`authority_conflicts.md`](authority_conflicts.md) §2 is not answered here.**
+**Every coil on the head stack now has its conductor label read.** This is the
+method that was proposed one round earlier (read the wire, not the device), and
+it worked.
 
-The closer 2026-08-13 frames show the stack is **larger than first counted** —
-at least two solenoid directional valves plus the `OY-G01-T-11` modular valve,
-with several `GDM`-type DIN connectors. One directional valve appears to carry a
-**coil at one end and a plain cap at the other**, which is the single-solenoid
-spring-return pattern — but **which valve that is, and which function it serves,
-is not determinable from these angles**, so it cannot be attached to `SOL-10`.
+| Device | Conductors at the coil | Rule → | Function |
+|---|---|---|---|
+| Nachi `SA-G01-E3X-C1-31` — **left** coil | `412` + `16` | `SOL-12` | Gear shift **high** |
+| Nachi `SA-G01-E3X-C1-31` — **right** coil | `413` + `16` | `SOL-13` | Gear shift **low** |
+| Nachi lower directional valve | `410` | `SOL-10` | **Tool unclamp** |
+| CKD **upper** air solenoid | `416` + `16` | `SOL-16` | **Work air blast** |
+| CKD **lower** air solenoid | `415` + `16` | `SOL-15` | **Spindle air blast** |
 
-The number of coils per valve still **cannot be counted reliably**. Note that
-the arrangement is what you would expect either way:
+**The `4NN` → `SOL-NN` rule is now confirmed on the machine**, not just across
+paper sources. `connector_crossref.md` predicted `415` → SOL-15 spindle air blast
+and `416` → SOL-16 work air blast from OEM dwg pg 90; both are physically on the
+two CKD coils exactly as predicted.
 
-- gear shift high/low (`SOL-12` + `SOL-13`) is naturally **one** double-solenoid
-  valve, plus
-- tool unclamp (`SOL-10`) on a second valve, single- or double-solenoid.
+### Wire `16` is the shared coil common
 
-So the hardware count is consistent with the placard's reading and does not
-challenge it — but it does not confirm it either. §2's conclusion still rests on
-the placard argument (only one tool solenoid is tagged, and a second coil would
-need a tag), with physical valve inspection as the closing test.
+`16` appears on **four** of the five coils (the fifth, `410`, was photographed
+from an angle showing only one conductor). A number repeated across unrelated
+solenoids is a **common rail, not a signal**. `photo_survey_misc.md` records
+`15`/`16` among the TB2 distribution rails (`G`/`P24`/`G24`/`16`/`15`), and these
+coils are 100 VAC — so `16` is most plausibly the **100 VAC coil common/neutral**,
+with each `4NN` being the switched hot.
 
-**Nothing here matches a device to a `SOL-xx` tag.** None of these frames shows a
-solenoid's own tag. That match is still the outstanding job — and it is the same
-one that closes §5.
+*Inference, well supported but unverified:* confirm with a meter before wiring
+interposing relays, since it determines which side of each coil the relay contact
+breaks.
+
+## §2 CLOSED — `SOL-10` is a single-coil valve
+
+The coil-count arithmetic proposed last round resolves exactly as predicted:
+
+- The **upper** Nachi `SA-G01-E3X-C1-31` carries **a coil at each end** —
+  `412` left, `413` right. That is the **gear-shift double solenoid**, and the
+  `E3X` 3-position spool fits high / neutral / low.
+- **Tool unclamp is a different valve.** Wire `410` lands on the **lower**
+  Nachi directional valve, a separate body.
+
+Three coils over two bodies = **2 + 1**, mapped exactly as the placard's tag
+count forced. `TOOL_CLAMP_SOL` (OUT9) `NOT_USED` / "PHANTOM — SOL-10 is
+single-coil" is **confirmed**: there is no second coil anywhere for a clamp
+solenoid.
+
+*Residual:* the far end of the lower valve was not photographed, so a second coil
+there is not photographically excluded — but it would need a tag and a wire
+number, and the placard has neither. Treat §2 as closed on documentary +
+physical agreement, with a glance at that valve's far end as a free final check.
 
 ---
 
