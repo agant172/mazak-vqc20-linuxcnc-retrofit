@@ -57,8 +57,23 @@ conservative record kept below for provenance.
 > valve could not be established. Two bodies is consistent either way — gear
 > shift hi/lo is naturally one double-solenoid valve plus tool unclamp on a
 > second. See [`head_valve_hardware.md`](head_valve_hardware.md).
-> **Note also: the head hydraulics may still be pressurised** — depressurise
-> before valve inspection.
+> **Pressure:** an earlier note here warned the head hydraulics might still be
+> pressurised. That came from a misread of an oblique frame — a straight-on shot
+> of the gauge shows **zero**. Normal verify-before-you-open practice still
+> applies; there is no specific stored-pressure concern.
+>
+> **CLOSING METHOD — no device tag needed (2026-08-13).** The solenoids carry no
+> `SOL-xx` tags, so this section cannot be closed by photographing one. It can be
+> closed by **arithmetic instead**: the placard lists three hydraulic solenoid
+> tags on the head (`SOL-10`, `SOL-12`, `SOL-13`) = three coils. Count the
+> solenoid valve bodies and the coils on each — excluding the `OY-G01-T-11`
+> modular sandwich plate, which is not a solenoid. **If there are two bodies,**
+> three coils over two bodies forces one double + one single; gear shift hi/lo is
+> the natural double (a 3-position valve: high / neutral / low), leaving `SOL-10`
+> as the single and confirming the `TOOL_CLAMP_SOL` PHANTOM call. **If there are
+> three bodies,** it could be 1+1+1 and this section stays open. Either way the
+> answer comes from one side-on photo of the stack.
+> Method detail in [`head_valve_hardware.md`](head_valve_hardware.md).
 
 - Current authority: TB2 OUT9 and OUT10 were both associated with `SOL-10`, with OUT9 clamp and OUT10 unclamp.
 - New evidence: `connector_crossref.md` identifies `SOL-10` as tool unclamp.
@@ -235,13 +250,24 @@ a rebinding. `TAP_COOLANT_BLAST` is the genuinely open one.
 
 The trace is documentary. Before RLY-5/6/7 are wired, confirm on the machine:
 
-1. Read the tag off the solenoid body at each head position the placard marks —
-   quickest single check, and it settles `SOL-15` and `SOL-61` outright.
+1. ~~Read the tag off the solenoid body~~ — **not possible: the solenoids carry
+   no `SOL-xx` tags** (owner, 2026-08-13). Instead read the **conductor label at
+   each coil's DIN plug**, which is how `PS-5` was confirmed (its wires were
+   labelled `355`/`G24`). A wire number resolves the identity directly through
+   the `2NN`/`4NN` → `SOL-NN` rule above. Failing a readable label, ring the coil
+   out to the RC3A bank with a meter.
 2. Buzz wire **261** (CN11-10) and wire **215** (CN11-6) through to their coils.
 3. For tap coolant: trace `TAPC` from **CN6-18 → CNB-46** to whatever it drives,
    and read that device's tag. This is the one with no paper answer.
 4. Confirm whether `SOL-62` is the measuring-arm solenoid, if only to close the
    loop on the mislabel.
+5. **Locate the missing air solenoids.** The placard lists six air/coolant
+   solenoids on the head (`SOL-15`, `-16`, `-31`, `-35`, `-36`, `-61`) but only
+   **two** CKD valves have been photographed — at least four are elsewhere on the
+   head and unlocated.
+6. Where a wire label is gone, **follow the plumbing**: spindle air blast exits
+   at the spindle nose, work air blast is aimed at the work, air jet serves the
+   MMS touch sensor. Destination identifies function with no electrical work.
 
 ### Status
 

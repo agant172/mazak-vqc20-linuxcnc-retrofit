@@ -184,15 +184,71 @@ one that closes §5.
 
 ---
 
-## Next photos, in priority order
+## How to identify a device that has no tag
 
-1. **Each Nachi valve end-on**, showing how many coils it has and any tag on the
-   coil or body — closes §2 and helps §5.
-2. **Each CKD air solenoid with its tag visible** — closes §5 outright by
-   attaching `SOL-15` / `SOL-16` / `SOL-61` / `SOL-35` to real devices.
-3. **The lower Nachi valve's model plate**, straight on — still not legible.
-4. **The CKD model line**, straight on and clean — completes the BOM entry.
-5. ~~The gauge face, straight on~~ — **done 2026-08-13**, reads zero.
+**The solenoids do not carry `SOL-xx` tags** (owner, 2026-08-13). Only `PS-5`
+had a stamped tag. So "photograph the tag" is not a usable instruction for the
+solenoids, and an earlier revision of this document asking for exactly that has
+been withdrawn. Three methods work without a tag.
+
+### 1. Count coils — needs no identification at all
+
+**This closes [`authority_conflicts.md`](authority_conflicts.md) §2 by
+arithmetic.** The placard lists **three** hydraulic solenoid tags on the head:
+`SOL-10` (tool unclamp), `SOL-12` (gear high), `SOL-13` (gear low). Three tags =
+three coils. So count the **solenoid valve bodies** and the **coils on each**:
+
+| If the stack has | Then |
+|---|---|
+| **2** solenoid bodies | 3 coils over 2 bodies forces **one double + one single**. Gear shift hi/lo is the natural double (one 3-position valve: high / neutral / low), leaving **`SOL-10` as the single** — which is exactly what the `TOOL_CLAMP_SOL` PHANTOM call assumes. |
+| **3** solenoid bodies | Could be 1+1+1, and the deduction collapses. §2 stays open. |
+
+So the photo to take is simply **the whole hydraulic stack side-on**, far enough
+back to count bodies, close enough to see whether each has a coil at both ends
+or a coil at one end and a plain spring cap at the other. **No tag required** —
+the placard supplies the tag count, the hardware supplies the coil count, and
+the mapping falls out. Do not count the `OY-G01-T-11` modular valve as a
+solenoid body; it is a sandwich plate.
+
+### 2. Read the wire number at the coil — the method that worked for `PS-5`
+
+The `PS-5` frame succeeded because the **wires** were labelled (`355`, `G24`),
+not the device. The solenoid coils have `GDM`-type DIN connectors with cables
+running to them, and those cables are the same OEM harness that labels
+conductors with heat-shrink numbers.
+
+**Photograph, or read, the conductor label closest to each coil's DIN plug.**
+A wire number resolves the identity outright via the numbering rule established
+in [`authority_conflicts.md`](authority_conflicts.md) §5 — terminal-unit side
+`2NN`, RC3A bank side `4NN`, both meaning **`SOL-NN`**:
+
+| Wire | Device |
+|---|---|
+| `215` / `415` | `SOL-15` spindle air blast |
+| `216` / `416` | `SOL-16` work air blast |
+| `231` / `431` | `SOL-31` flood coolant |
+| `235` / `435` | `SOL-35` dust inhole eliminate |
+| `236` | `SOL-36` oil hole |
+| `261` / `461` | `SOL-61` air jet |
+
+If the label is unreadable at the coil, ring the coil out to the RC3A terminal
+bank with a meter — same answer, more certain. **This is what closes §5.**
+
+### 3. Follow the plumbing — identity from destination
+
+Function is unambiguous at the outlet, no electrical work needed. Trace each
+CKD valve's air line to where it discharges: **spindle air blast** exits at the
+spindle nose/taper, **work air blast** is aimed at the work or table, **air jet**
+serves the MMS touch sensor, **dust inhole eliminate** feeds the extraction
+path. Slower than reading a wire number, but it needs nothing but eyes and
+works when every label has worn off.
+
+### Note — most of the air solenoids are not in these photos
+
+The placard lists **six** air/coolant solenoids on the head (`SOL-15`, `-16`,
+`-31`, `-35`, `-36`, `-61`). Only **two** CKD valves appear in this photo set,
+so **at least four more are elsewhere on the head** and have not been located.
+Finding them is part of closing §5.
 
 ---
 
