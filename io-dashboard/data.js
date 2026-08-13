@@ -6,7 +6,7 @@ window.MAZAK_DATA = {
   "machine": "Mazak VQC-20/40",
   "serial": "060231",
   "architecture": "LinuxCNC + Mesa 7i80HDT (Ethernet FPGA host) + 7i44 on P1 (HostMot2 sserial port 0 channels 0/1 to 7i84U-A/B) + 7i49 on P2 (resolver + analog outs); P3 unused/spare",
-  "generated": "2026-08-13 00:04 UTC",
+  "generated": "2026-08-13 00:36 UTC",
   "source_repo": "mazak-vqc20-linuxcnc-retrofit",
   "authority_file": "mesa/current_pin_authority.csv",
   "epson_ferrule_file": "wiring/labels/bbia1_mesa_end_ferrules_epson.csv",
@@ -4328,7 +4328,7 @@ window.MAZAK_DATA = {
     "PS-5"
    ],
    "primary_source": "Dwg 4143075338 pg100 + Dwg 4143075407 pg133 + owner machine confirmation 2026-08-09",
-   "cleanup_notes": "One physical head-lube pressure switch only: PS-5 wire 355 = X079 HLP.M. Owner confirmed on the machine 2026-08-09. X042 HLP2.M exists in the generic element list but has no second physical switch on SN 060231 and is not part of LUBE_OK. Land IN25 from PS-5 alone. Verify normal-state polarity and fail-open behavior before commissioning.",
+   "cleanup_notes": "One physical head-lube pressure switch only: PS-5 wire 355 = X079 HLP.M. Owner confirmed on the machine 2026-08-09. X042 HLP2.M exists in the generic element list but has no second physical switch on SN 060231 and is not part of LUBE_OK. Land IN25 from PS-5 alone. Verify normal-state polarity and fail-open behavior before commissioning. | [2026-08-13 PHYSICALLY CONFIRMED: photo shows the device's stamped 'PS 5' tag with wire 355 and G24 return attached - device tag, wire number and CN6-39 now agree across machine, BBIA-1 pinout and this row. G24 is the OEM 24V common, so this input MUST cross the interposing-relay boundary. Contact form and trip pressure still unverified. Status promotion recommended pending owner approval. See wiring/head_valve_hardware.md]",
    "location": "Unknown — trace in cabinet",
    "location_note": "",
    "expected": {
