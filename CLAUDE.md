@@ -59,7 +59,7 @@ Full versions are in the detailed sections below; this is the skim list.
 - **Always separate** verified facts, inferences, open questions, proposed changes,
   temporary bypasses, and tests-required-before-motion.
 - **Preserve the two-card identity** (7i84U-A vs 7i84U-B) and OEM safety wire numbers
-  (`57`, `57A`, `40`, `40A`, `EHB`, `MAR`, `EMS`, `OTR`, `PIOT`, `*ESP`) unless a
+  (`57`, `57A`, `57B`, `40`, `40A`, `EHB`, `MAR`, `EMS`, `OTR`, `PIOT`, `*ESP`) unless a
   documented revision says otherwise. Do not reuse retired OEM wire numbers for new wiring.
 - **Keep the two 24 V domains isolated.** OEM `P24`/`G24` never connects to Mesa/new I/O;
   every OEM↔new signal crosses an interposing relay.
@@ -242,7 +242,7 @@ test procedure, and rollback method if temporary.
 
 The OEM hardwired E-stop and contactor chain is the primary E-stop system.
 
-- Preserve OEM wires `57`, `57A`, `40`, `40A`, `EHB`, `MAR`, `EMS`, `OTR`,
+- Preserve OEM wires `57`, `57A`, `57B`, `40`, `40A`, `EHB`, `MAR`, `EMS`, `OTR`,
   `PIOT`, `*ESP` unless I explicitly direct a documented redesign.
 - LinuxCNC monitors machine-enabled state via a `MAR` aux contact or
   `MAR-MON` interposing relay contact. LinuxCNC is not the only E-stop.
