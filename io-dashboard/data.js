@@ -6,7 +6,7 @@ window.MAZAK_DATA = {
   "machine": "Mazak VQC-20/40",
   "serial": "060231",
   "architecture": "LinuxCNC + Mesa 7i80HDT (Ethernet FPGA host) + 7i44 on P3 (HostMot2 sserial port 0 channels 0/1 to 7i84U-A/B) + 7i49 on P1 (resolver + analog outs); P2 unused/spare (confirmed 2026-08-13 by readhmid)",
-  "generated": "2026-08-14 02:11 UTC",
+  "generated": "2026-08-14 02:50 UTC",
   "source_repo": "mazak-vqc20-linuxcnc-retrofit",
   "authority_file": "mesa/current_pin_authority.csv",
   "halfiles": [
@@ -9207,7 +9207,7 @@ window.MAZAK_DATA = {
    "status": "SPARE",
    "field_point": "Spare direct FPGA GPIO on P2 (all 24 pins)",
    "designations": [],
-   "primary_source": "mesa/readhmid_20260813.txt",
+   "primary_source": "mesa/firmware/readhmid_2026-08-13.txt",
    "cleanup_notes": "P2 is unused/spare in the confirmed rmsvss6_8 bitfile (readhmid 2026-08-13: all 24 P2 pins IOPort/None). Do NOT wire 24V field signals to bare P2; use isolated field I/O.",
    "location": "Unknown — trace in cabinet",
    "location_note": "",
@@ -9230,7 +9230,7 @@ window.MAZAK_DATA = {
      "note": "Current wiring authority row"
     },
     {
-     "file": "mesa/readhmid_20260813.txt",
+     "file": "mesa/firmware/readhmid_2026-08-13.txt",
      "lines": "",
      "note": "primary_source column in the authority table"
     }

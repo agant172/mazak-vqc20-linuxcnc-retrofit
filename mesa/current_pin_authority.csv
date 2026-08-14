@@ -126,4 +126,4 @@ SEVENI84UB_OUT12_SPARE,Spare,OUT,7i84U-B,TB2,OUT12,none,Spare output on 7i84U-B,
 SEVENI84UB_OUT13_SPARE,Spare,OUT,7i84U-B,TB2,OUT13,none,Spare output on 7i84U-B,SPARE,mesa_firmware_checklist.md,Leave unlanded
 SEVENI84UB_OUT14_SPARE,Spare,OUT,7i84U-B,TB2,OUT14,none,Spare output on 7i84U-B,SPARE,mesa_firmware_checklist.md,Leave unlanded
 SEVENI84UB_OUT15_SPARE,Spare,OUT,7i84U-B,TB2,OUT15,none,Spare output on 7i84U-B,SPARE,mesa_firmware_checklist.md,Leave unlanded
-P2_GPIO_SPARE,Spare,GPIO,7i80HDT,"P2 GPIO (bare, no daughter card)",gpio.024-gpio.047,none,Spare direct FPGA GPIO on P2 (all 24 pins),SPARE,mesa/readhmid_20260813.txt,"P2 is unused/spare in the confirmed rmsvss6_8 bitfile (readhmid 2026-08-13: all 24 P2 pins IOPort/None). Do NOT wire 24V field signals to bare P2; use isolated field I/O."
+P2_GPIO_SPARE,Spare,GPIO,7i80HDT,"P2 GPIO (bare, no daughter card)",gpio.024-gpio.047,none,Spare direct FPGA GPIO on P2 (all 24 pins),SPARE,mesa/firmware/readhmid_2026-08-13.txt,"P2 is unused/spare in the confirmed rmsvss6_8 bitfile (readhmid 2026-08-13: all 24 P2 pins IOPort/None). Do NOT wire 24V field signals to bare P2; use isolated field I/O."

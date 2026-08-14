@@ -70,8 +70,8 @@ the isolated 7i84U-B probe path, and LinuxCNC HAL pin names.
 | 7i84U-B | Smart-serial connection path | Via 7i44 P3, sserial channel 1 (`hm2_7i80.0.7i84.0.1.*`) | Determines smart-serial config and HAL names. |
 | 7i84U-B | Exact variant/revision and field power/load limits | 32 DI + 16 DO for limits/homes, drive enables, and relay-driven loads | Confirm field power, output ratings, relays, and suppression before wiring. |
 | Firmware | Exact bitfile / firmware name | `7i80hdt_rmsvss6_8.bin`, SHA-256 `68e07e25f7227609209f3c6d120319ff2cdec0eada07e92986cc517734d2be58` | HAL pin names come from the loaded firmware. |
-| Firmware | `readhmid` output | Save as `mesa_readhmid.txt` | Authoritative list of firmware functions and I/O pins. |
-| LinuxCNC | HAL pin dump | Save as `mesa_hal_pins.txt` | Authoritative list of actual HAL pin names. |
+| Firmware | `readhmid` output | Save as `mesa/firmware/readhmid_YYYY-MM-DD.txt` (done: [`firmware/readhmid_2026-08-13.txt`](firmware/readhmid_2026-08-13.txt)) | Authoritative list of firmware functions and I/O pins; also D3 acceptance item 4. |
+| LinuxCNC | HAL pin dump | Save as `mesa/firmware/hal_pins_YYYY-MM-DD.txt` | Authoritative list of actual HAL pin names. |
 | LinuxCNC | Smart-serial configuration | Confirm HostMot2 port 0 channels 0 and 1 (`sserial_port_0=00xxxxxx`) | Required to make 7i84U-A / 7i84U-B appear; verify actual values from the loaded firmware. |
 
 ## Commands to run on the LinuxCNC control PC
@@ -85,7 +85,7 @@ ping 192.168.1.121
 Read the Mesa hardware/firmware ID:
 
 ```bash
-mesaflash --device 7i80hdt --addr 192.168.1.121 --readhmid > mesa_readhmid.txt
+mesaflash --device 7i80hdt --addr 192.168.1.121 --readhmid > mesa/firmware/readhmid_$(date +%Y-%m-%d).txt
 ```
 
 List available firmware options if needed:
@@ -137,8 +137,8 @@ not the old stepper config). Evidence on hand:
   if needed).
 - **Two independent `readhmid` reads, byte-identical:** flash-time
   (2026-08-11, `~/Downloads/7i80hdt_rmsvss6_8_readhmid.txt`) and a repo-committed
-  re-check (2026-08-13, [`readhmid_20260813.txt`](readhmid_20260813.txt)). Also
-  see [`sserial_20260813.txt`](sserial_20260813.txt) (SSLBP port 0, v1.43,
+  re-check (2026-08-13, [`firmware/readhmid_2026-08-13.txt`](firmware/readhmid_2026-08-13.txt)). Also
+  see [`firmware/sserial_2026-08-13.txt`](firmware/sserial_2026-08-13.txt) (SSLBP port 0, v1.43,
   8 channels, 2.5 MBd — no remote 7i84U identity strings returned yet, consistent
   with no 7i84U currently powered/cabled, not by itself a fault).
 - **Confirmed layout** (from the readback, not the earlier "expected" list this
@@ -148,24 +148,26 @@ not the old stepper config). Evidence on hand:
   consistent with `num_encoders=0` — the spindle-encoder path is unassigned by
   hardware, not just by config.
 
-**D3 status:** layout, identity, and upstream source are now all confirmed —
-see "Upstream source" above. Remaining for full D3 closure per the checklist's
-acceptance criteria: (1) the binary itself (or a Git-LFS pointer) committed
-under `mesa/firmware/`, and (2) a documented recovery procedure (jumper
-positions to restore the factory bootloader / recover a bricked card). Neither
-requires further correspondence with PCW — both are local packaging work.
+**D3 status:** layout, identity, upstream source, the `readhmid` package
+location (item 4), and the binary itself (item 1 — committed at
+[`firmware/7i80hdt_rmsvss6_8.bin`](firmware/7i80hdt_rmsvss6_8.bin), verified
+against the recorded SHA-256) are now all confirmed/closed. Remaining for
+full D3 closure per the checklist's acceptance criteria: a documented
+recovery procedure (jumper positions to restore the factory bootloader /
+recover a bricked card, item 5) — this doesn't require further
+correspondence with PCW, it's local packaging work.
 
 To re-verify at any time:
 
 ```bash
-mesaflash --device 7i80hdt --addr 192.168.1.121 --readhmid > mesa/readhmid_$(date +%Y%m%d).txt
-mesaflash --device 7i80hdt --addr 192.168.1.121 --sserial > mesa/sserial_$(date +%Y%m%d).txt
-diff mesa/readhmid_20260813.txt mesa/readhmid_$(date +%Y%m%d).txt   # should be empty
+mesaflash --device 7i80hdt --addr 192.168.1.121 --readhmid > mesa/firmware/readhmid_$(date +%Y-%m-%d).txt
+mesaflash --device 7i80hdt --addr 192.168.1.121 --sserial > mesa/firmware/sserial_$(date +%Y-%m-%d).txt
+diff mesa/firmware/readhmid_2026-08-13.txt mesa/firmware/readhmid_$(date +%Y-%m-%d).txt   # should be empty
 ```
 
-If a future re-check disagrees with `readhmid_20260813.txt`, treat the board
-as having been reflashed or reset and re-derive every HAL pin name before any
-further commissioning step.
+If a future re-check disagrees with `firmware/readhmid_2026-08-13.txt`, treat
+the board as having been reflashed or reset and re-derive every HAL pin name
+before any further commissioning step.
 
 After the firmware and smart-serial config are close, dump HAL pins:
 
@@ -173,20 +175,20 @@ After the firmware and smart-serial config are close, dump HAL pins:
 halrun
 loadrt hostmot2
 loadrt hm2_eth board_ip="192.168.1.121" config="num_encoders=0 num_resolvers=3 num_pwmgens=4 num_stepgens=0 sserial_port_0=00xxxxxx"
-show pin hm2 > mesa/hal_pins_$(date +%Y%m%d).txt
+show pin hm2 > mesa/firmware/hal_pins_$(date +%Y-%m-%d).txt
 exit
 ```
 
 If running from a shell and redirecting output:
 
 ```bash
-halcmd show pin hm2 > mesa_hal_pins.txt
+halcmd show pin hm2 > mesa/firmware/hal_pins_$(date +%Y-%m-%d).txt
 ```
 
 ## Files to save in the Mazak project folder
 
-- `mesa_readhmid.txt`
-- `mesa_hal_pins.txt`
+- `mesa/firmware/readhmid_YYYY-MM-DD.txt` (done: [`firmware/readhmid_2026-08-13.txt`](firmware/readhmid_2026-08-13.txt))
+- `mesa/firmware/hal_pins_YYYY-MM-DD.txt`
 - Photo of the 7i80HDT board label (part number and revision).
 - Photo of the 7i80HDT Ethernet connector and any IP/jumper settings.
 - Photo of the 7i44 board label, its RS-422 screw terminals, and the P3 ribbon to the 7i80HDT.
@@ -206,8 +208,8 @@ Send or save the following:
 4. Confirmed 7i49 P1 seating and W2 jumper state (documentary only — W2 does not affect axis channels 0/1/2).
 5. Confirmed probe SKIP1 landing on 7i84U-B TB3 IN15 with 24 V opto-isolated input, and that all bare P2 GPIO pins are unused/spare (no 24 V field connections).
 6. Exact 7i84U-A and 7i84U-B variants/revisions and their 7i44 ports (0 and 1).
-7. The `mesa_readhmid.txt` output.
-8. The `mesa_hal_pins.txt` output (authoritative generated HAL names).
+7. The `readhmid` output (done: [`firmware/readhmid_2026-08-13.txt`](firmware/readhmid_2026-08-13.txt)).
+8. The `hal_pins_YYYY-MM-DD.txt` output (authoritative generated HAL names).
 9. Confirmed per-axis resolver label (Tamagawa TS2014N or other), winding pairs
    (ohmmeter-verified), return signal level, and resolver-to-machine-unit scale notes.
 10. Confirmed analog drive command polarity/scaling notes.

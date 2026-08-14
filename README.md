@@ -70,7 +70,7 @@ Full rationale: [docs/architecture_decision.md](docs/architecture_decision.md).
 **Next**
 - Run the full LinuxCNC latency and hm2_eth test on the exact control PC, NIC,
   kernel, BIOS, and workload that will operate the machine.
-- Install the 7i80HDT + 7i44 (P3) + 7i49 (P1) + 7i84U-A + 7i84U-B; leave P2 unused/spare (probe is on 7i84U-B input-15, not bare P2 GPIO). `readhmid` is saved ([`mesa/readhmid_20260813.txt`](mesa/readhmid_20260813.txt)); still need the actual `mesa_hal_pins.txt` (`show pin hm2`) dump once wired.
+- Install the 7i80HDT + 7i44 (P3) + 7i49 (P1) + 7i84U-A + 7i84U-B; leave P2 unused/spare (probe is on 7i84U-B input-15, not bare P2 GPIO). `readhmid` is saved ([`mesa/firmware/readhmid_2026-08-13.txt`](mesa/firmware/readhmid_2026-08-13.txt)); still need the actual `hal_pins_YYYY-MM-DD.txt` (`show pin hm2`) dump once wired.
 - Replace placeholder `hm2_7i80.0...` pin names in HAL from the real pin dump.
 - Set the 7i49 resolver excitation to **5 kHz** (TS2014N141E26 datasheet spec is 4.5 kHz; the 7i49 offers 2.5 / 5 / 10 kHz, so 5 kHz is the closest available option — about 11 % above nominal). The Tamagawa page publishes **no frequency tolerance**, so 5 kHz operation must be **verified at commissioning** by scoping RESDRV excitation and RESSIN/RESCOS amplitude and phase at rest and under motion. Record the exact `TS2014N###E##` suffix on every axis nameplate and match it to its own datasheet — PCW has warned that some TS2014 variants (e.g. E1/BRT) are not 7i49-compatible.
 - Identify each axis resolver winding pair with an **ohmmeter before applying power** (rotor pair R1/R2 → RESDRV±, matched stator pairs S1-S3, S2-S4 → RESSIN and RESCOS); verify, don't assume.

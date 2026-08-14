@@ -12,7 +12,7 @@ Summary of planning state as of this commit:
 | --- | --- | --- |
 | D1 | As-built one-line + terminal plan | NOT DRAFTED |
 | D2 | Installed nameplate register | PARTIAL (checklists drafted; photos pending) |
-| D3 | Immutable Mesa firmware package | PARTIAL (layout/identity/source all confirmed -- readhmid + SHA-256 2026-08-11/13, binary sourced from Peter Wallace/Mesa Electronics 2026-08-11; still need binary committed under mesa/firmware/ and a recovery procedure) |
+| D3 | Immutable Mesa firmware package | PARTIAL (layout/identity/source/readhmid/binary all confirmed and committed under mesa/firmware/ -- SHA-256 verified 2026-08-11/13, sourced from Peter Wallace/Mesa Electronics; still need a recovery procedure) |
 | D4 | I/O checkout sheet | NOT DRAFTED |
 | D5 | Hardware E-stop risk assessment + schematic | PARTIAL (software chain drafted) |
 | D6 | Shared-bus precharge / discharge procedure | DRAFTED (measurements pending) |
@@ -95,7 +95,7 @@ See [`architecture_decision.md`](architecture_decision.md) for the full rational
 ### Immediate
 - [x] 7i80HDT is in hand, on the network, and flashed with `7i80hdt_rmsvss6_8.bin`.
 - [ ] Order the 7i44 + 7i84U-B. (7i49 and 7i84U-A are already in the buy list / on hand.) Blocked on 50-pin IDC cables to physically seat the daughter cards once acquired.
-- [x] Firmware is flashed (`7i80hdt_rmsvss6_8.bin`, 2026-08-11), its layout/identity confirmed by two independent `readhmid` reads plus a recorded SHA-256, and its source cited (Peter Wallace, Mesa Electronics, `freeby.mesanet.com/7i80hdt_rmsvss6_8.zip`, 2026-08-11). Still open: commit the complete D3 package (binary + recovery procedure) under `mesa/firmware/`.
+- [x] Firmware is flashed (`7i80hdt_rmsvss6_8.bin`, 2026-08-11), its layout/identity confirmed by two independent `readhmid` reads plus a recorded SHA-256, its source cited (Peter Wallace, Mesa Electronics, `freeby.mesanet.com/7i80hdt_rmsvss6_8.zip`, 2026-08-11), and the binary itself committed under `mesa/firmware/`. Still open: a recovery procedure (jumper positions to restore the factory bootloader / recover a bricked card).
 - [ ] Confirm 7i80HDT Ethernet setup: static IP 192.168.1.121, `hm2_eth` `board_ip="192.168.1.121"`, and host NIC `enp0s31f6` at 192.168.1.1/24.
 - [ ] Confirm 24 V field power feed and 7i84U-A / 7i84U-B I/O sourcing/sinking behavior before wiring.
 - [ ] Capture cabinet photo set using the cabinet photo checklist.
@@ -114,8 +114,8 @@ See [`architecture_decision.md`](architecture_decision.md) for the full rational
 ### Next
 - [ ] Run LinuxCNC latency and hm2_eth qualification on the exact selected PC,
       NIC, kernel, BIOS settings, and representative system workload.
-- [ ] Physically install the 7i44 (P3) + 7i49 (P1) + 7i84U-A + 7i84U-B on the board and in the cabinet; leave P2 unused/spare (probe is on 7i84U-B input-15, not bare P2 GPIO). `readhmid` is already saved ([`../mesa/readhmid_20260813.txt`](../mesa/readhmid_20260813.txt)) from the board on the bench/network — still need the post-install re-check plus the `mesa_hal_pins.txt` dump below.
-- [ ] Dump actual HAL pins after firmware load and save as `mesa_hal_pins.txt`.
+- [ ] Physically install the 7i44 (P3) + 7i49 (P1) + 7i84U-A + 7i84U-B on the board and in the cabinet; leave P2 unused/spare (probe is on 7i84U-B input-15, not bare P2 GPIO). `readhmid` is already saved ([`../mesa/firmware/readhmid_2026-08-13.txt`](../mesa/firmware/readhmid_2026-08-13.txt)) from the board on the bench/network — still need the post-install re-check plus the `hal_pins_YYYY-MM-DD.txt` dump below.
+- [ ] Dump actual HAL pins after firmware load and save as `mesa/firmware/hal_pins_YYYY-MM-DD.txt`.
 - [ ] Replace placeholder `hm2_7i80.0...` pin names in the HAL files using the real HAL pin dump.
 - [ ] Set 7i49 resolver excitation to **5 kHz** (spec 4.5 kHz; options 2.5/5/10 kHz).
 - [ ] Identify each axis resolver winding pair with an **ohmmeter before power**: rotor pair (R1/R2) → RESDRV±, matched stator pairs (S1-S3, S2-S4) → RESSIN and RESCOS. Verify, don't assume.
