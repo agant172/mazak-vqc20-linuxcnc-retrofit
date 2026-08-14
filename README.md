@@ -6,7 +6,7 @@ control to LinuxCNC using Mesa Electronics FPGA hardware.
 **Machine:** Mazak VQC 20/40 Vertical Quality Center (SN 060231, Mazatrol M-2, ladder YM2V39L)
 **Original control:** Mazatrol M-2
 **New control:** LinuxCNC 2.9.10 on Debian 13 (PREEMPT-RT)
-**Interface hardware:** Mesa 7i80HDT (Ethernet FPGA host) + 7i44 on P1 (RS-422 sserial to 7i84U-A/B on physical channels 0/1 of HostMot2 port 0) + 7i49 on P2 (resolver + analog outs); P3 is unused/spare. The Renishaw MP-3 probe input is on **7i84U-B input-15** (opto-isolated 24 V), not on bare P3 GPIO.
+**Interface hardware:** Mesa 7i80HDT (Ethernet FPGA host) + 7i44 on P3 (RS-422 sserial to 7i84U-A/B on physical channels 0/1 of HostMot2 port 0) + 7i49 on P1 (resolver + analog outs); P2 is unused/spare. The Renishaw MP-3 probe input is on **7i84U-B input-15** (opto-isolated 24 V), not on bare P2 GPIO.
 
 > ⚠️ **Safety:** The HAL/INI files in [`linuxcnc/`](linuxcnc/) and the pin authority in
 > [`mesa/current_pin_authority.csv`](mesa/current_pin_authority.csv) are **planning /
@@ -16,12 +16,18 @@ control to LinuxCNC using Mesa Electronics FPGA hardware.
 > ratings before energizing outputs or enabling motion. Do not rely on LinuxCNC/HAL alone
 > for E-stop safety. See [docs/project_status.md](docs/project_status.md#safety-caveats).
 
-## Selected architecture (2026-08-06 rev)
+## Confirmed architecture (2026-08-13 rev)
+
+> P1/P2/P3 connector roles flipped vs. the earlier 2026-08-06 rev once the actual
+> `7i80hdt_rmsvss6_8.bin` firmware was flashed and read back with `mesaflash --readhmid`
+> on 2026-08-11 and re-confirmed 2026-08-13 (see
+> [`mesa/mesa_firmware_checklist.md`](mesa/mesa_firmware_checklist.md#bitfile-provenance-verification-procedure)).
+> Trust this section, not older docs/notes still describing P1=7i44/P2=7i49/P3=unused.
 
 - **LinuxCNC control PC** (Debian 13 / LinuxCNC 2.9.10) driving a **Mesa 7i80HDT** Ethernet FPGA host as the primary control board (`hm2_eth`, static IP 192.168.1.121).
-- **P1 → 7i44** — RS-422 smart-serial breakout. Physical channel 0 carries **7i84U-A** near the existing green breakout PCB; channel 1 carries **7i84U-B** for limit/home monitoring and relay-driven loads; channels 2-7 are spare. Both remotes are under HostMot2 smart-serial port 0.
-- **P2 → 7i49** (plain 7i49) — X/Y/Z resolver feedback on RES0/1/2 plus X/Z/Y servo velocity and FR-SX spindle velocity commands on AOUT0..AOUT3. AOUT4/AOUT5 are spare; FR-SX orient uses discrete ORCM1.
-- **P3 → unused/spare** — no daughter card fitted. All bare FPGA GPIO. Not safe for 24 V field wiring (probe was moved to 7i84U-B for opto-isolation).
+- **P1 → 7i49** (plain 7i49) — X/Y/Z resolver feedback on RES0/1/2 plus X/Z/Y servo velocity and FR-SX spindle velocity commands on AOUT0..AOUT3. AOUT4/AOUT5 are spare; FR-SX orient uses discrete ORCM1.
+- **P2 → unused/spare** — no daughter card fitted. All bare FPGA GPIO. Not safe for 24 V field wiring (probe stays on 7i84U-B for opto-isolation).
+- **P3 → 7i44** — RS-422 smart-serial breakout. Physical channel 0 carries **7i84U-A** near the existing green breakout PCB; channel 1 carries **7i84U-B** for limit/home monitoring and relay-driven loads; channels 2-7 are spare. Both remotes are under HostMot2 smart-serial port 0.
 - **7i84U-A on 7i44 channel 0** — remote field I/O for ATC, hydraulics, coolant, air, magazine, utility I/O, and cabinet field wiring.
 - **7i84U-B on 7i44 sserial channel 1** — TB3 IN0-5 carry X/Y/Z limits, IN6-8 homes, IN9 the air permissive, and IN15 the Renishaw MP-3 probe; TB3 OUT0-2 carry X/Y/Z drive enables and OUT3-7 the planned relay loads; TB2 OUT8 is the proposed magazine-cover close command. (7i84 layout: TB1 = power only, TB3 = IN0-15 + OUT0-7, TB2 = IN16-31 + OUT8-15.)
 - **Optional WHB04B-style USB pendant** after the base machine is proven safe.
@@ -54,7 +60,7 @@ Full rationale: [docs/architecture_decision.md](docs/architecture_decision.md).
 
 **Immediate**
 - Order the 7i80HDT, 7i44, and 7i84U-B (7i49 and 7i84U-A already in hand / buy list).
-- Confirm the Mesa/PCW-supplied Efinix resolver bitfile and stash it under `mesa/` once received; `7i80hdt_7i44_ss_7i49d.bit` is only a placeholder name. **Bitfile provenance is UNVERIFIED** — SHA-256, source/build provenance, IDROM readback, and pin dump must be recorded per [`mesa/mesa_firmware_checklist.md`](mesa/mesa_firmware_checklist.md) before it is treated as authoritative.
+- Bitfile `7i80hdt_rmsvss6_8.bin` is flashed and its **layout/identity confirmed by readhmid** (2026-08-11, re-checked 2026-08-13; SHA-256 recorded). Upstream source citation (PCW/Mesa release reference) is still open — see [`mesa/mesa_firmware_checklist.md`](mesa/mesa_firmware_checklist.md#bitfile-provenance-verification-procedure).
 - Confirm 7i80HDT Ethernet setup: static IP 192.168.1.121, `hm2_eth` `board_ip="192.168.1.121"`, and host NIC `enp0s31f6` at 192.168.1.1/24.
 - Confirm 24 V field power feed (OEM HR-11F-24 + retrofit DR-240-24, kept isolated) and 7i84U-A / 7i84U-B I/O sourcing/sinking behavior before wiring.
 - Capture cabinet photo set ([checklist](docs/cabinet_photo_checklist.md)).
@@ -64,7 +70,7 @@ Full rationale: [docs/architecture_decision.md](docs/architecture_decision.md).
 **Next**
 - Run the full LinuxCNC latency and hm2_eth test on the exact control PC, NIC,
   kernel, BIOS, and workload that will operate the machine.
-- Install the 7i80HDT + 7i44 + 7i49 + 7i84U-A + 7i84U-B; leave P3 unused/spare (probe is on 7i84U-B input-15, not bare P3 GPIO) and save `mesa_readhmid.txt` and the actual `mesa_hal_pins.txt` dump.
+- Install the 7i80HDT + 7i44 (P3) + 7i49 (P1) + 7i84U-A + 7i84U-B; leave P2 unused/spare (probe is on 7i84U-B input-15, not bare P2 GPIO). `readhmid` is saved ([`mesa/readhmid_20260813.txt`](mesa/readhmid_20260813.txt)); still need the actual `mesa_hal_pins.txt` (`show pin hm2`) dump once wired.
 - Replace placeholder `hm2_7i80.0...` pin names in HAL from the real pin dump.
 - Set the 7i49 resolver excitation to **5 kHz** (TS2014N141E26 datasheet spec is 4.5 kHz; the 7i49 offers 2.5 / 5 / 10 kHz, so 5 kHz is the closest available option — about 11 % above nominal). The Tamagawa page publishes **no frequency tolerance**, so 5 kHz operation must be **verified at commissioning** by scoping RESDRV excitation and RESSIN/RESCOS amplitude and phase at rest and under motion. Record the exact `TS2014N###E##` suffix on every axis nameplate and match it to its own datasheet — PCW has warned that some TS2014 variants (e.g. E1/BRT) are not 7i49-compatible.
 - Identify each axis resolver winding pair with an **ohmmeter before applying power** (rotor pair R1/R2 → RESDRV±, matched stator pairs S1-S3, S2-S4 → RESSIN and RESCOS); verify, don't assume.

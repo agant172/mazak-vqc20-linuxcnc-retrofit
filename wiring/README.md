@@ -7,7 +7,7 @@ conceptually here for wiring planning.
 ## Key references
 
 - Consolidated wiring master: [`Mazak_Wiring_Master_7i80HDT_7i44_7i49_7i84U_Current_Authority.xlsx`](Mazak_Wiring_Master_7i80HDT_7i44_7i49_7i84U_Current_Authority.xlsx)
-  — wiring workbook for the 7i80HDT / 7i44 / 7i49 / 7i84U-A / 7i84U-B stack. P3 GPIO is unused/spare; the Renishaw MP-3 probe is on 7i84U-B input-15 (opto-isolated 24 V). Phase 2
+  — wiring workbook for the 7i80HDT / 7i44 / 7i49 / 7i84U-A / 7i84U-B stack. P2 GPIO is unused/spare (confirmed 2026-08-13 by `readhmid`); the Renishaw MP-3 probe is on 7i84U-B input-15 (opto-isolated 24 V). Phase 2
   cabinet-sequence, BOM-gap, hydraulic/ATC, and conflict-review tabs are integrated
   as planning aids; check the conflict-review tab before changing final pin
   assignments. The `... - Overview.csv` sibling file is the plain-text index for
@@ -60,7 +60,7 @@ verification state and cleanup notes.
 
 Axis feedback is **resolver, not encoder**. The machine keeps its original **Tamagawa
 resolvers** (**Tamagawa TS2014N** / Mitsubishi BKO-NC6062A, confirmed on-machine July 2026), read through a **plain
-Mesa 7i49** on the 7i80HDT P2 daughter-card connector at **5 kHz** excitation. Wire the resolvers carefully:
+Mesa 7i49** on the 7i80HDT P1 daughter-card connector (confirmed 2026-08-13 by `readhmid`) at **5 kHz** excitation. Wire the resolvers carefully:
 
 - **Do not trust the original wire names.** The original **Meldas M2 / TRA** wiring may
   run the resolver "backwards" or phase-analog: **two-phase excitation into the stator,

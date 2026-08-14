@@ -176,9 +176,9 @@ def check_safety_invariants(errors: list[str]) -> None:
             if re.search(r"\.7i84\..*\.invert(?:_input)?\b", code):
                 fail(errors, f"{path.name}:{lineno}: nonexistent smart-serial inversion parameter")
             if re.search(r"hm2_7i80\.0\.gpio\.\d+", code):
-                fail(errors, f"{path.name}:{lineno}: active bare-P3 GPIO reference is forbidden")
+                fail(errors, f"{path.name}:{lineno}: active bare-P2 GPIO reference is forbidden")
             if re.search(r"hm2_7i80\.0\.encoder\.\d+", code):
-                fail(errors, f"{path.name}:{lineno}: spindle encoder path is unassigned; P3 must remain empty")
+                fail(errors, f"{path.name}:{lineno}: spindle encoder path is unassigned in the loaded firmware (no Encoder module)")
 
     require(field, "sets spindle-output-permit false", "FR-SX hold", errors)
     require(main, "personality=0x801,0x801,0x106", "FR-SX combined permit", errors)

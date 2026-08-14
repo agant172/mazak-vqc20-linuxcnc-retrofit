@@ -16,7 +16,7 @@
 
 # Misc. Photos — Relevance Assessment
 
-213 photos (8 triage batches, `findings_00.md`–`findings_07.md`) of the Mazak VQC 20/40 (SN 060231, Mazatrol CAM M-2, ladder YM2V39L) were reviewed for the LinuxCNC/Mesa 7i80HDT + 7i44 + 7i49 + two-7i84U retrofit; P3 is unused. Tally across the eight batch files: **134 HIGH**, **46 MEDIUM**, **34 LOW** (one batch's count is off by one due to a summary-line artifact — treat as ~213/134/45/34).
+213 photos (8 triage batches, `findings_00.md`–`findings_07.md`) of the Mazak VQC 20/40 (SN 060231, Mazatrol CAM M-2, ladder YM2V39L) were reviewed for the LinuxCNC/Mesa 7i80HDT + 7i44 + 7i49 + two-7i84U retrofit; P2 is unused (confirmed 2026-08-13 by `readhmid`, flipped from the P3-unused assumption in place when this survey was written). Tally across the eight batch files: **134 HIGH**, **46 MEDIUM**, **34 LOW** (one batch's count is off by one due to a summary-line artifact — treat as ~213/134/45/34).
 
 **The 5 most consequential things this photo set reveals:**
 

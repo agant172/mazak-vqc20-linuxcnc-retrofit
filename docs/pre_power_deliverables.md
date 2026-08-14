@@ -145,9 +145,15 @@ it must never be bypassed with an ad-hoc `halcmd sets` instruction.
      `mesa/firmware/readhmid_YYYY-MM-DD.txt`.
   5. Recovery procedure documents which jumper positions restore
      the factory bootloader and how to recover a bricked card.
-- **Owner:** retrofit commissioner. **Status:** NOT YET
-  ASSEMBLED. Placeholder bitfile name `7i80hdt_7i44_ss_7i49d.bit`
-  in current HAL is TBD per [claim audit item 1](claim_audit_2026-08-07.md).
+- **Owner:** retrofit commissioner. **Status:** PARTIAL. Bitfile
+  `7i80hdt_rmsvss6_8.bin` is flashed (2026-08-11); layout/identity
+  confirmed by two independent `readhmid` reads (2026-08-11, 2026-08-13,
+  byte-identical) plus a recorded SHA-256 and a pre-flash flash backup.
+  Still open: item 3 (Mesa release URL / Efinity commit citing the
+  binary's source) and item 4's exact `mesa/firmware/readhmid_YYYY-MM-DD.txt`
+  path (currently at `mesa/readhmid_20260813.txt` — move/duplicate into
+  `mesa/firmware/` once that package is assembled). See
+  [`../mesa/mesa_firmware_checklist.md`](../mesa/mesa_firmware_checklist.md#bitfile-provenance-verification-procedure).
 - **Where it lands:** `mesa/firmware/` with a `README.md`
   describing the package.
 - **Blocks:** control-power hold point.

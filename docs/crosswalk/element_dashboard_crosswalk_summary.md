@@ -49,7 +49,7 @@ scope analysis:
 | X01A manual unclamp | 7i84U-A TB3 IN9 and active in HAL |
 | X01B manual clamp | 7i84U-A TB2 IN30, reserved but intentionally HAL-unbound until field verification |
 | Y011 flood valve | 7i84U-B TB3 OUT7, separate from the flood-pump output on 7i84U-A OUT11 |
-| X03F `SKIP1.M` probe | 7i84U-B TB3 IN15; bare 7i80HDT P3 GPIO is prohibited for 24 V field wiring |
+| X03F `SKIP1.M` probe | 7i84U-B TB3 IN15; bare 7i80HDT P2 GPIO is prohibited for 24 V field wiring |
 | Y091 `OTR.M`, X02F `INHRLS`, Y023-Y025 M43-M45 | Dropped/deferred; no current authority landing |
 
 Every landing above retains the status and qualification in the authority CSV;

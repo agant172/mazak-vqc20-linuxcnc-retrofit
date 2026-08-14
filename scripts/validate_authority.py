@@ -24,7 +24,7 @@ Physical pin references it understands:
 
 It also requires one exact CSV row for every physical 7i84U input/output;
 aggregate range rows are rejected because they can overlap explicit pins.
-Any active direct 7i80HDT P3 GPIO reference is rejected by the companion
+Any active direct 7i80HDT P2 GPIO reference is rejected by the companion
 control-logic validator.
 
 Exit code

@@ -1,6 +1,6 @@
 # Mazak VQC 20/40 Cabinet Photo Checklist
 
-Use this checklist before ordering/flashing Mesa hardware. The goal is to capture enough detail to confirm the 7i80HDT + 7i44 + 7i49 + two-7i84U setup (P3 unused), drive interfaces, resolver wiring, 24 VDC I/O, and cabinet layout.
+Use this checklist before ordering/flashing Mesa hardware. The goal is to capture enough detail to confirm the 7i80HDT + 7i44 + 7i49 + two-7i84U setup (P2 unused, confirmed 2026-08-13 by `readhmid` — see [`../mesa/mesa_firmware_checklist.md`](../mesa/mesa_firmware_checklist.md#bitfile-provenance-verification-procedure)), drive interfaces, resolver wiring, 24 VDC I/O, and cabinet layout.
 
 ## Photo rules
 

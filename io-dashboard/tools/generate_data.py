@@ -238,16 +238,11 @@ def build(root):
         elif commented_nets:
             hal_state = "commented"
 
-        # P3 has no daughter card and all of its GPIO remains spare. Preserve
-        # 7i80HDT ownership for those authority rows.
-        # gpio.024-031 is retained as the 7i49 P2 classification if it appears.
+        # P2 has no daughter card (confirmed by readhmid 2026-08-13: all 24
+        # P2 pins, gpio.024-gpio.047, are IOPort/None) and all of its GPIO
+        # remains spare. P1 (7i49) and P3 (7i44) expose resolver/pwmgen/sserial
+        # instances, never gpio.N, so any gpio.N reference is always P2.
         board = r["mesa_card"]
-        if board == "7i80HDT":
-            m_idx = re.search(r"gpio\.(\d+)", r["pin_channel"])
-            if m_idx:
-                idx = int(m_idx.group(1))
-                if 24 <= idx <= 31:
-                    board = "7i49"
 
         signals.append({
             "id": sid,
@@ -316,15 +311,11 @@ def build(root):
             channel = chan.upper().replace("INPUT-", "IN").replace("OUTPUT-", "OUT")
             channel = re.sub(r"^(IN|OUT)0(\d)$", r"\1\2", channel)
         else:
-            # P3 has no daughter card and no active field-signal exception.
-            m_idx = re.search(r"gpio\.(\d+)", pin)
-            idx = int(m_idx.group(1)) if m_idx else -1
-            if 24 <= idx <= 31:
-                board = "7i49"      # P2 daughter card
-                conn = "P2"
-            else:
-                board = "7i80HDT"
-                conn = "P3 GPIO spare" if 32 <= idx <= 62 else "P1"
+            # P2 has no daughter card and no active field-signal exception.
+            # Confirmed by readhmid 2026-08-13: gpio.024-gpio.047 are the only
+            # GPIO pins in the loaded firmware, and they are all on P2.
+            board = "7i80HDT"
+            conn = "P2 GPIO spare"
             channel = pin.split("hm2_7i80.0.", 1)[-1]
         is_in = "input" in pin or pin.endswith(".in")
         direction = "IN" if is_in else "OUT"
@@ -378,7 +369,7 @@ def build(root):
     meta = {
         "machine": "Mazak VQC-20/40",
         "serial": "060231",
-        "architecture": "LinuxCNC + Mesa 7i80HDT (Ethernet FPGA host) + 7i44 on P1 (HostMot2 sserial port 0 channels 0/1 to 7i84U-A/B) + 7i49 on P2 (resolver + analog outs); P3 unused/spare",
+        "architecture": "LinuxCNC + Mesa 7i80HDT (Ethernet FPGA host) + 7i44 on P3 (HostMot2 sserial port 0 channels 0/1 to 7i84U-A/B) + 7i49 on P1 (resolver + analog outs); P2 unused/spare (confirmed 2026-08-13 by readhmid)",
         "generated": datetime.datetime.now(datetime.timezone.utc)
                              .strftime("%Y-%m-%d %H:%M UTC"),
         "source_repo": "mazak-vqc20-linuxcnc-retrofit",
@@ -388,12 +379,12 @@ def build(root):
         "rules": [
             "mesa/current_pin_authority.csv is the wiring authority.",
             "7i49 AOUT axis order is X=AOUT0, Z=AOUT1, Y=AOUT2.",
-            "Axis feedback is Tamagawa TS2014N resolver through the 7i49 on P2, not quadrature encoder.",
+            "Axis feedback is Tamagawa TS2014N resolver through the 7i49 on P1, not quadrature encoder.",
             "The hardware E-stop chain removes hazardous power. 7i84U-A TB2 IN29 is the sole software monitor; the OEM hardware chain remains authoritative.",
             "Every hm2_7i80.* pin name in the HAL set is an unverified placeholder until confirmed against a firmware readhmid.",
             "7i49 AOUT order is X=AOUT0, Z=AOUT1, Y=AOUT2, FR-SX spindle velocity=AOUT3; AOUT4/AOUT5 spare.",
             "7i84U-B on 7i44 channel 1: TB3 IN0-5 limits, IN6-8 homes, IN9 air pressure, IN15 probe; TB3 OUT0-2 drive enable, OUT3-7 relay loads; TB2 OUT8 proposed cover valve; OUT9-15 spare.",
-            "7i84U-A on sserial channel 0 is `hm2_7i80.0.7i84.0.0.*`; 7i84U-B on channel 1 is `hm2_7i80.0.7i84.0.1.*`; P3 has no active field binding.",
+            "7i84U-A on sserial channel 0 is `hm2_7i80.0.7i84.0.0.*`; 7i84U-B on channel 1 is `hm2_7i80.0.7i84.0.1.*`; P2 has no active field binding.",
         ],
     }
 

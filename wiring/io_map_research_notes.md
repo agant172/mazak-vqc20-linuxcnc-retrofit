@@ -23,7 +23,7 @@ photo/scan review of `41434WB.pdf` (Electrical Circuit Diagram), pages
 24, 30–34, 50, 61–66, 70, 95, 100, 105, 110–120, 121–130 — see "New from
 electrical diagram review" below for what each page contributed.
 
-Target hardware: Mesa 7i80HDT (Ethernet FPGA host) + 7i44 on P1 (RS-422 sserial to 7i84U-A/B on physical channels 0/1 of HostMot2 port 0) + 7i49 on P2 (resolver feedback + analog outs). P3 is unused/spare; no bare-FPGA GPIO is bound to a field signal. The Renishaw MP-3 probe SKIP1 lands on 7i84U-B TB3 IN15 (opto-isolated 24 V), NOT bare P3 GPIO.
+Target hardware: Mesa 7i80HDT (Ethernet FPGA host) + 7i44 on P3 (RS-422 sserial to 7i84U-A/B on physical channels 0/1 of HostMot2 port 0) + 7i49 on P1 (resolver feedback + analog outs). Connector roles confirmed 2026-08-13 by `readhmid` (see `../mesa/mesa_firmware_checklist.md`). P2 is unused/spare; no bare-FPGA GPIO is bound to a field signal. The Renishaw MP-3 probe SKIP1 lands on 7i84U-B TB3 IN15 (opto-isolated 24 V), NOT bare P2 GPIO.
 Pin assignments below are placeholders (TBD) pending final 7i84U channel
 allocation — fill in once total I/O count is confirmed.
 

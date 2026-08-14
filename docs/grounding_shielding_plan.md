@@ -68,10 +68,11 @@ record:
 
 ### Possible spindle-feedback cable S-1
 
-No spindle encoder/interface is assigned, P3 is empty, and `num_encoders=0`.
+No spindle encoder/interface is assigned, the confirmed rmsvss6_8 firmware has
+no Encoder module at all (readhmid 2026-08-13), and `num_encoders=0`.
 If a feedback device is proven to exist, identify its electrical format and
 select a documented compatible receiver before adding a cable schedule row.
-Bare 7i80HDT GPIO is neither a 24 V input nor an RS-422 receiver.
+Bare 7i80HDT GPIO (P2) is neither a 24 V input nor an RS-422 receiver.
 
 ### Enable and field-I/O cables
 
