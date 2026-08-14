@@ -42,13 +42,14 @@ VQC 20/40 retrofit. Evidence-state taxonomy defined in
   limits, X/Y/Z homes, X/Y/Z drive enables, relay-driven loads, and the
   Renishaw MP-3 probe SKIP1 (input-15), addressed as `hm2_7i80.0.7i84.0.1.*`.
   See `current_pin_authority.csv` for the exact TB2/TB3 pin map.
-- **Firmware bitfile**: `7i80hdt_rmsvss6_8.bin`, flashed 2026-08-11. **Layout
-  and identity CONFIRMED** by two independent `readhmid` reads (flash-time and
-  2026-08-13, byte-identical) plus a recorded SHA-256; upstream source
-  citation (PCW/Mesa email or forum thread for the binary itself) is still
-  open. Confirmed module layout: ResolverMod + 6× PWM on **P1** (via the
-  7i49), 8-channel SSerial on **P3** (via the 7i44), bare GPIO on **P2**, no
-  Encoder module present. See `mesa_firmware_checklist.md` (Bitfile
+- **Firmware bitfile**: `7i80hdt_rmsvss6_8.bin`, flashed 2026-08-11. **Layout,
+  identity, and upstream source all CONFIRMED**: two independent `readhmid`
+  reads (flash-time and 2026-08-13, byte-identical), a recorded SHA-256, and
+  the binary itself sourced directly from Peter Wallace at Mesa Electronics
+  (`freeby.mesanet.com/7i80hdt_rmsvss6_8.zip`, 2026-08-11). Confirmed module
+  layout: ResolverMod + 6× PWM on **P1** (via the 7i49), 8-channel SSerial on
+  **P3** (via the 7i44), bare GPIO on **P2**, no Encoder module present. See
+  `mesa_firmware_checklist.md` (Bitfile
   provenance) for the full evidence trail.
 
 ## Files

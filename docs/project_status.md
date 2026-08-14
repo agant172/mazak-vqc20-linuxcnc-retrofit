@@ -12,7 +12,7 @@ Summary of planning state as of this commit:
 | --- | --- | --- |
 | D1 | As-built one-line + terminal plan | NOT DRAFTED |
 | D2 | Installed nameplate register | PARTIAL (checklists drafted; photos pending) |
-| D3 | Immutable Mesa firmware package | PARTIAL (layout/identity confirmed by readhmid + SHA-256 2026-08-11/13; upstream Mesa/PCW source citation still open) |
+| D3 | Immutable Mesa firmware package | PARTIAL (layout/identity/source all confirmed -- readhmid + SHA-256 2026-08-11/13, binary sourced from Peter Wallace/Mesa Electronics 2026-08-11; still need binary committed under mesa/firmware/ and a recovery procedure) |
 | D4 | I/O checkout sheet | NOT DRAFTED |
 | D5 | Hardware E-stop risk assessment + schematic | PARTIAL (software chain drafted) |
 | D6 | Shared-bus precharge / discharge procedure | DRAFTED (measurements pending) |
@@ -54,7 +54,7 @@ control to LinuxCNC using Mesa Electronics FPGA hardware.
 - **P2: unused/spare** — no daughter card is fitted; all pins are bare-FPGA GPIO. Not safe for 24 V field wiring. The Renishaw MP-3 probe SKIP1 was moved off P2 and now lands on 7i84U-B TB3 IN15.
 - **7i84U-B I/O allocation**: TB3 IN0-5 = X/Y/Z limits, IN6-8 = homes, IN9 = air permissive, IN15 = Renishaw MP-3 probe; TB3 OUT0-2 = drive enables, OUT3-7 = air/touch/tap blasts, ATC barrier, and flood valve; TB2 OUT8 = proposed magazine-cover close. (7i84 layout: TB1 = power connector; TB3 = IN0-15 + OUT0-7; TB2 = IN16-31 + OUT8-15.)
 - **Optional WHB04B-style USB pendant** after base machine safety/motion is proven.
-- **Firmware bitfile**: `7i80hdt_rmsvss6_8.bin`, flashed 2026-08-11. Layout and identity **CONFIRMED** by two independent `readhmid` reads plus a recorded SHA-256; upstream Mesa/PCW source citation for the binary is still open.
+- **Firmware bitfile**: `7i80hdt_rmsvss6_8.bin`, flashed 2026-08-11. Layout, identity, and upstream source all **CONFIRMED**: two independent `readhmid` reads plus a recorded SHA-256, and the binary sourced directly from Peter Wallace at Mesa Electronics (`freeby.mesanet.com/7i80hdt_rmsvss6_8.zip`, 2026-08-11).
 
 See [`architecture_decision.md`](architecture_decision.md) for the full rationale.
 
@@ -95,7 +95,7 @@ See [`architecture_decision.md`](architecture_decision.md) for the full rational
 ### Immediate
 - [x] 7i80HDT is in hand, on the network, and flashed with `7i80hdt_rmsvss6_8.bin`.
 - [ ] Order the 7i44 + 7i84U-B. (7i49 and 7i84U-A are already in the buy list / on hand.) Blocked on 50-pin IDC cables to physically seat the daughter cards once acquired.
-- [x] Firmware is flashed (`7i80hdt_rmsvss6_8.bin`, 2026-08-11) and its layout/identity confirmed by two independent `readhmid` reads plus a recorded SHA-256. Still open: cite the Mesa/PCW source for the binary itself, and commit the complete D3 package under `mesa/firmware/`.
+- [x] Firmware is flashed (`7i80hdt_rmsvss6_8.bin`, 2026-08-11), its layout/identity confirmed by two independent `readhmid` reads plus a recorded SHA-256, and its source cited (Peter Wallace, Mesa Electronics, `freeby.mesanet.com/7i80hdt_rmsvss6_8.zip`, 2026-08-11). Still open: commit the complete D3 package (binary + recovery procedure) under `mesa/firmware/`.
 - [ ] Confirm 7i80HDT Ethernet setup: static IP 192.168.1.121, `hm2_eth` `board_ip="192.168.1.121"`, and host NIC `enp0s31f6` at 192.168.1.1/24.
 - [ ] Confirm 24 V field power feed and 7i84U-A / 7i84U-B I/O sourcing/sinking behavior before wiring.
 - [ ] Capture cabinet photo set using the cabinet photo checklist.

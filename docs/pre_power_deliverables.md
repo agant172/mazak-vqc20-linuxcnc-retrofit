@@ -149,10 +149,12 @@ it must never be bypassed with an ad-hoc `halcmd sets` instruction.
   `7i80hdt_rmsvss6_8.bin` is flashed (2026-08-11); layout/identity
   confirmed by two independent `readhmid` reads (2026-08-11, 2026-08-13,
   byte-identical) plus a recorded SHA-256 and a pre-flash flash backup.
-  Still open: item 3 (Mesa release URL / Efinity commit citing the
-  binary's source) and item 4's exact `mesa/firmware/readhmid_YYYY-MM-DD.txt`
-  path (currently at `mesa/readhmid_20260813.txt` — move/duplicate into
-  `mesa/firmware/` once that package is assembled). See
+  Item 3 (source) is now closed: obtained directly from Peter Wallace
+  (Mesa Electronics) at `freeby.mesanet.com/7i80hdt_rmsvss6_8.zip`,
+  2026-08-11. Still open: item 1 (commit the binary itself, or a Git-LFS
+  pointer, under `mesa/firmware/`), item 4's exact
+  `mesa/firmware/readhmid_YYYY-MM-DD.txt` path (currently at
+  `mesa/readhmid_20260813.txt`), and item 5 (recovery procedure). See
   [`../mesa/mesa_firmware_checklist.md`](../mesa/mesa_firmware_checklist.md#bitfile-provenance-verification-procedure).
 - **Where it lands:** `mesa/firmware/` with a `README.md`
   describing the package.

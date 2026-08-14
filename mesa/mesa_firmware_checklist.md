@@ -106,11 +106,27 @@ sudo mesaflash --device 7i80hdt --addr 192.168.1.121 --reload
 
 ## Bitfile provenance (verification procedure)
 
-**Status as of 2026-08-13: layout and identity CONFIRMED by readback; upstream
-source citation still OPEN.** The board is running `7i80hdt_rmsvss6_8.bin`,
-flashed 2026-08-11 (replacing a prior step/dir + encoder configuration; Andy
-confirmed this is the intended resolver-feedback + PWM analog-servo firmware
-for this machine, not the old stepper config). Evidence on hand:
+**Status as of 2026-08-13: layout, identity, AND upstream source citation all
+CONFIRMED.** The board is running `7i80hdt_rmsvss6_8.bin`, flashed 2026-08-11
+(replacing a prior step/dir + encoder configuration; Andy confirmed this is
+the intended resolver-feedback + PWM analog-servo firmware for this machine,
+not the old stepper config). Evidence on hand:
+
+- **Upstream source.** Requested by Andy directly from Peter Wallace (PCW,
+  Mesa Electronics) by email. PCW's first reply (2026-08-10) named the base
+  Efinity pin source as `PIN_RMSVSS6_8_72.vhd` and described its connector
+  layout as "P1=7I49,P2=GPIO,P4=7I44" (note: PCW wrote **P4** — the 7i80HDT
+  only has three daughter connectors, P1/P2/P3, so this is either a typo for
+  P3 or shorthand from the VHDL/pin-file side that doesn't map 1:1 to board
+  silkscreen; the direct `readhmid` readback below is unambiguous that the
+  physical connector is P3, so treat "P4" as PCW's typo, not as new
+  information that overrides the readback). The following day (2026-08-11)
+  PCW sent the built binary at
+  `freeby.mesanet.com/7i80hdt_rmsvss6_8.zip` — an official mesanet.com URL,
+  filename-consistent with the flashed `7i80hdt_rmsvss6_8.bin`. (Source: direct
+  email correspondence with Peter Wallace at Mesa Electronics, retained by
+  Andy outside this repo — not linked here since the thread is a private
+  email export.)
 
 - **Binary + hash.** `~/Downloads/7i80hdt_rmsvss6_8.bin`,
   SHA-256 `68e07e25f7227609209f3c6d120319ff2cdec0eada07e92986cc517734d2be58`.
@@ -132,13 +148,12 @@ for this machine, not the old stepper config). Evidence on hand:
   consistent with `num_encoders=0` — the spindle-encoder path is unassigned by
   hardware, not just by config.
 
-**What's still open for full D3 closure:** the checklist's own standard asks
-for a Mesa/PCW release reference or forum citation for the binary, not just a
-local hash. That citation has not been recorded — if you know where
-`7i80hdt_rmsvss6_8.bin` came from (PCW email, forum thread, Mesa download
-page), add it here as "Bitfile sourced from `<source>`, `<date>`." Until then,
-treat the *filename and source* as still open even though the *layout and
-identity* are now nailed down by direct readback.
+**D3 status:** layout, identity, and upstream source are now all confirmed —
+see "Upstream source" above. Remaining for full D3 closure per the checklist's
+acceptance criteria: (1) the binary itself (or a Git-LFS pointer) committed
+under `mesa/firmware/`, and (2) a documented recovery procedure (jumper
+positions to restore the factory bootloader / recover a bricked card). Neither
+requires further correspondence with PCW — both are local packaging work.
 
 To re-verify at any time:
 
