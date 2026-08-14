@@ -12,7 +12,7 @@ Summary of planning state as of this commit:
 | --- | --- | --- |
 | D1 | As-built one-line + terminal plan | NOT DRAFTED |
 | D2 | Installed nameplate register | PARTIAL (checklists drafted; photos pending) |
-| D3 | Immutable Mesa firmware package | PARTIAL (layout/identity/source/readhmid/binary all confirmed and committed under mesa/firmware/ -- SHA-256 verified 2026-08-11/13, sourced from Peter Wallace/Mesa Electronics; still need a recovery procedure) |
+| D3 | Immutable Mesa firmware package | COMPLETE (2026-08-13) -- layout/identity/source/readhmid/binary/recovery procedure all confirmed and committed under mesa/firmware/ and docs/Mesa Manuals/ |
 | D4 | I/O checkout sheet | NOT DRAFTED |
 | D5 | Hardware E-stop risk assessment + schematic | PARTIAL (software chain drafted) |
 | D6 | Shared-bus precharge / discharge procedure | DRAFTED (measurements pending) |
@@ -95,7 +95,7 @@ See [`architecture_decision.md`](architecture_decision.md) for the full rational
 ### Immediate
 - [x] 7i80HDT is in hand, on the network, and flashed with `7i80hdt_rmsvss6_8.bin`.
 - [ ] Order the 7i44 + 7i84U-B. (7i49 and 7i84U-A are already in the buy list / on hand.) Blocked on 50-pin IDC cables to physically seat the daughter cards once acquired.
-- [x] Firmware is flashed (`7i80hdt_rmsvss6_8.bin`, 2026-08-11), its layout/identity confirmed by two independent `readhmid` reads plus a recorded SHA-256, its source cited (Peter Wallace, Mesa Electronics, `freeby.mesanet.com/7i80hdt_rmsvss6_8.zip`, 2026-08-11), and the binary itself committed under `mesa/firmware/`. Still open: a recovery procedure (jumper positions to restore the factory bootloader / recover a bricked card).
+- [x] Firmware is flashed (`7i80hdt_rmsvss6_8.bin`, 2026-08-11), its layout/identity confirmed by two independent `readhmid` reads plus a recorded SHA-256, its source cited (Peter Wallace, Mesa Electronics, `freeby.mesanet.com/7i80hdt_rmsvss6_8.zip`, 2026-08-11), the binary itself committed under `mesa/firmware/`, and the recovery procedure documented from the 7I80HD manual (fallback + jumper-W5 dual-flash recovery) now committed at `docs/Mesa Manuals/7i80hdman.pdf`. D3 is complete.
 - [ ] Confirm 7i80HDT Ethernet setup: static IP 192.168.1.121, `hm2_eth` `board_ip="192.168.1.121"`, and host NIC `enp0s31f6` at 192.168.1.1/24.
 - [ ] Confirm 24 V field power feed and 7i84U-A / 7i84U-B I/O sourcing/sinking behavior before wiring.
 - [ ] Capture cabinet photo set using the cabinet photo checklist.

@@ -145,17 +145,20 @@ it must never be bypassed with an ad-hoc `halcmd sets` instruction.
      `mesa/firmware/readhmid_YYYY-MM-DD.txt`.
   5. Recovery procedure documents which jumper positions restore
      the factory bootloader and how to recover a bricked card.
-- **Owner:** retrofit commissioner. **Status:** PARTIAL. Bitfile
+- **Owner:** retrofit commissioner. **Status:** COMPLETE (2026-08-13). Bitfile
   `7i80hdt_rmsvss6_8.bin` is flashed (2026-08-11); layout/identity
   confirmed by two independent `readhmid` reads (2026-08-11, 2026-08-13,
   byte-identical) plus a recorded SHA-256 and a pre-flash flash backup.
-  Item 1 (binary committed at [`../mesa/firmware/7i80hdt_rmsvss6_8.bin`](../mesa/firmware/7i80hdt_rmsvss6_8.bin),
+  All five acceptance items are closed: item 1 (binary committed at
+  [`../mesa/firmware/7i80hdt_rmsvss6_8.bin`](../mesa/firmware/7i80hdt_rmsvss6_8.bin),
   verified against the recorded SHA-256), item 2 (SHA-256), item 3 (source —
   obtained directly from Peter Wallace, Mesa Electronics, at
-  `freeby.mesanet.com/7i80hdt_rmsvss6_8.zip`, 2026-08-11), and item 4
-  (`readhmid` output at `mesa/firmware/readhmid_2026-08-13.txt`) are all
-  closed. Still open: item 5 (recovery procedure). See
-  [`../mesa/mesa_firmware_checklist.md`](../mesa/mesa_firmware_checklist.md#bitfile-provenance-verification-procedure)
+  `freeby.mesanet.com/7i80hdt_rmsvss6_8.zip`, 2026-08-11), item 4 (`readhmid`
+  output at `mesa/firmware/readhmid_2026-08-13.txt`), and item 5 (recovery
+  procedure — the fallback + W5 dual-flash procedure from the 7I80HD manual,
+  now committed at [`../docs/Mesa Manuals/7i80hdman.pdf`](../docs/Mesa%20Manuals/7i80hdman.pdf)
+  and transcribed in `mesa_firmware_checklist.md`). See
+  [`../mesa/mesa_firmware_checklist.md`](../mesa/mesa_firmware_checklist.md#recovery-procedure-d3-item-5)
   and [`../mesa/firmware/README.md`](../mesa/firmware/README.md).
 - **Where it lands:** `mesa/firmware/` with a `README.md`
   describing the package (done — see

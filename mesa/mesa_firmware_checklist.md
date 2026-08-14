@@ -148,14 +148,43 @@ not the old stepper config). Evidence on hand:
   consistent with `num_encoders=0` — the spindle-encoder path is unassigned by
   hardware, not just by config.
 
-**D3 status:** layout, identity, upstream source, the `readhmid` package
-location (item 4), and the binary itself (item 1 — committed at
+**D3 status:** all five acceptance items are now closed — layout, identity,
+upstream source, the `readhmid` package location (item 4), the binary itself
+(item 1 — committed at
 [`firmware/7i80hdt_rmsvss6_8.bin`](firmware/7i80hdt_rmsvss6_8.bin), verified
-against the recorded SHA-256) are now all confirmed/closed. Remaining for
-full D3 closure per the checklist's acceptance criteria: a documented
-recovery procedure (jumper positions to restore the factory bootloader /
-recover a bricked card, item 5) — this doesn't require further
-correspondence with PCW, it's local packaging work.
+against the recorded SHA-256), and the recovery procedure below (item 5).
+
+### Recovery procedure (D3 item 5)
+
+Source: the 7I80HD manual (7I80HDT's base family; same FPGA config
+architecture), now committed at
+[`../docs/Mesa Manuals/7i80hdman.pdf`](../docs/Mesa%20Manuals/7i80hdman.pdf),
+"OPERATION / CONFIGURATION" section. The 7i80HDT holds **two** FPGA
+configuration images in its SPI flash, with two independent recovery
+mechanisms:
+
+1. **Fallback (automatic).** The flash normally holds a user image and a
+   fallback image. If the primary user configuration is corrupted (fails
+   CRC), the FPGA boots the fallback image automatically — no jumper action
+   needed — so the primary can be repaired remotely over Ethernet.
+2. **Dual EEPROM / jumper W5 (manual).** If a configuration loads with a
+   valid CRC but doesn't actually work (fallback isn't triggered), move
+   jumper **W5 to the DOWN position** and power-cycle the board to boot from
+   the secondary/backup flash instead, restoring Ethernet access so the
+   primary flash can be repaired (e.g. by re-flashing with `mesaflash`).
+   **Immediately restore W5 to the UP position** once the primary is
+   repaired — leaving it DOWN risks writing a bad configuration to both
+   flash images, which would require a JTAG bootstrap to recover from. W5
+   UP = primary/normal operation (default); DOWN = secondary/backup only,
+   for recovery.
+
+Related, from the same manual section: **jumpers W1/W2 select the board's IP
+address mode** (DOWN/DOWN = fixed `192.168.1.121` — this project's target
+static IP is the jumper *default*; DOWN/UP = fixed from EEPROM; UP/DOWN =
+BOOTP; UP/UP = invalid). **W3** enables/disables weak I/O pull-ups at
+power-up/reset (UP = enabled, the suggested default). Confirm actual jumper
+positions on the physical board against these defaults during the cabinet
+photo pass — see [`../docs/cabinet_photo_checklist.md`](../docs/cabinet_photo_checklist.md).
 
 To re-verify at any time:
 

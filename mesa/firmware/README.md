@@ -34,14 +34,19 @@ verification procedure: [`../mesa_firmware_checklist.md`](../mesa_firmware_check
   2.5 MBd) with no 7i84U remote identity strings yet — expected, since no
   7i84U is currently powered/cabled to the board.
 
-## Not yet in this package (D3 still open)
+## D3 status: all five acceptance items closed (2026-08-13)
 
-- **Recovery procedure.** Which jumper positions restore the factory
-  bootloader and how to recover a bricked card is not yet documented. The
-  pre-flash flash backup (`~/Downloads/7i80_flash_backup/7I80HDT_flash_backup_110826_190227.bin`,
-  SHA-256 `2a8ebd52f0eb13a63751f54d46c139b1107467aee35fc804250353ddbbad6297`)
-  restores the prior stepper configuration if needed, but that is a rollback
-  path, not a bricked-card recovery procedure.
+**Recovery procedure** (item 5): the 7i80HDT's base-family manual
+([`../../docs/Mesa Manuals/7i80hdman.pdf`](../../docs/Mesa%20Manuals/7i80hdman.pdf))
+documents two independent recovery mechanisms, transcribed with the full
+jumper table in
+[`../mesa_firmware_checklist.md`](../mesa_firmware_checklist.md#recovery-procedure-d3-item-5):
+automatic fallback on a bad-CRC config, and a manual jumper-W5 dual-flash
+recovery if a config loads but doesn't work. The pre-flash flash backup
+(`~/Downloads/7i80_flash_backup/7I80HDT_flash_backup_110826_190227.bin`,
+SHA-256 `2a8ebd52f0eb13a63751f54d46c139b1107467aee35fc804250353ddbbad6297`)
+is a separate rollback path (restores the prior stepper configuration), not
+the bricked-card procedure above.
 
 ## Re-verifying the running board
 
