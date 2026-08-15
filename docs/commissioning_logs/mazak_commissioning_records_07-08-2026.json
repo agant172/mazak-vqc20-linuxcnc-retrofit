@@ -10,10 +10,10 @@
     "SEVENI84U_VIN_24V": {
       "wire_number": "A5-24V+",
       "updated_at": "2026-08-08T02:34:38.580Z",
-      "from_terminal": "Mean Well +V2",
+      "from_terminal": "retrofit supply +24 V output",
       "to_terminal": "7i84U-A TB1-5",
       "conductor": "Red",
-      "fuse": "Branch fuse 5 amp at Mean Well",
+      "fuse": "Branch fuse 5 amp at the supply",
       "idle_voltage": "24.0 VDC between 7i84U-A TB1-5 (+) and TB1-6 (0 V)",
       "active_voltage": "N/A — continuous supply",
       "verified_by": "AG",
@@ -22,7 +22,7 @@
       "continuity": "pass",
       "note": "W1 physically observed RIGHT. De-energized continuity: +V2 to TB1-5 and -V4 to TB1-6. 0 ohms",
       "relay_terminal": "N/A",
-      "return_path": "Terminal -V4 on Mean Well power supply to TB1-6 — 0 volts"
+      "return_path": "Supply return terminal to TB1-6 — 0 volts"
     }
   }
 }

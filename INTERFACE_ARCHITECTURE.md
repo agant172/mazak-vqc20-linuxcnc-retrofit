@@ -106,7 +106,7 @@ that is not here must be added here.
    machine-enabled state via a `MAR` aux contact / `MAR-MON` interposing relay.
    LinuxCNC/HAL is not a safety input. (See `docs/estop_safety_chain.md`.)
 2. **Power and return.** The OEM `P24`/`G24` bus (Shindengen HR-11F-24) feeds BBIA-1
-   and OEM circuits; the retrofit `DR-240-24` supply feeds the Mesa cards, new relays,
+   and OEM circuits; the retrofit 24 V supply feeds the Mesa cards, new relays,
    and field loads. These are power, not machine signals, and **the two 24 V domains
    stay isolated** — every OEM↔new signal crossing the plane goes through an
    interposing relay (see CLAUDE.md § Electrical architecture).

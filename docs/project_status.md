@@ -65,7 +65,7 @@ See [`architecture_decision.md`](architecture_decision.md) for the full rational
 - **7i80HDT + 7i44 + 7i49 + 7i84U-A + 7i84U-B architecture selected.**
 - 7i49 resolver feedback interface selected (plain 7i49, 5 kHz baseline).
 - Tamagawa TS2014N resolvers identified on-machine (July 2026 photo survey).
-- Meanwell DR-240-24 retrofit 24V supply installed; kept isolated from OEM HR-11F-24 bus.
+- Retrofit 24V supply installed; kept isolated from OEM HR-11F-24 bus.
 - The 132-row I/O workbook is generated from the current authority CSV
   (`bom/Mazak_VQC_20-40_Retrofit_IO_Workbook.xlsx`).
 - HAL/INI bring-up skeleton drafted (`linuxcnc/`) — updated to new stack 2026-08-06.
@@ -111,7 +111,7 @@ See [`architecture_decision.md`](architecture_decision.md) for the full rational
 - [ ] Find a **complete** FR-SX manual scan — the committed copy is printed pages 1–38; Chapter 6 (orient detector installation) and the SX-PW/SX-AJ sections are missing.
 - [x] **DECIDED 2026-08-12 (owner): LinuxCNC does not read spindle position.** `num_encoders=0`, P3 empty, and `SPINDLE_ENCODER` `UNBOUND` are settled, not pending. Orient is FR-SX internal, speed supervision is discrete, and tapping uses a floating holder (no rigid tapping / G33 in scope). The motor PLG is structurally unusable anyway — it sits upstream of the 2-speed gearbox and has no index line. See [`spindle_motor_plg_encoder.md`](spindle_motor_plg_encoder.md#design-decision--linuxcnc-does-not-read-spindle-position).
 - [ ] *(documentation accuracy only, not gating)* Determine whether the schematics' machine-side "SPINDLE ENCODER" (`MS3108B 20-29P`, dwg 4143075301 p090) is a **second** physical device or another view of the motor PLG. Cheapest check: photograph the spindle head for anything encoder-shaped. Nothing depends on the answer now that the decision above is settled.
-- [ ] Trace HR-11F-24 (OEM) and DR-240-24 (retrofit) 24 V supplies, P24/G24 distribution, remote sense, TOG/CNT, and branch fusing.
+- [ ] Trace the OEM HR-11F-24 and the retrofit 24 V supplies, P24/G24 distribution, remote sense, TOG/CNT, and branch fusing.
 - [ ] **DECISIONS PENDING OWNER APPROVAL from the 2026-08-12/13 photo survey** — all recorded, none applied. See [`../wiring/authority_conflicts.md`](../wiring/authority_conflicts.md) §5 and [`../wiring/cabinet_asfound_survey.md`](../wiring/cabinet_asfound_survey.md):
   - [ ] Add **`57B`** to the OEM preserve list in `CLAUDE.md`. Confirmed a factory terminal designation on the cabinet safety-chain strip; the list currently names only `57` and `57A`.
   - [ ] `AIR_BLAST` (7i84U-B OUT3): relabel field point **`SOL-62` → `SOL-15`** (wire `415`, read at the coil). Function and wire were already correct — a relabel, not a rebinding.
@@ -165,7 +165,7 @@ See [`architecture_decision.md`](architecture_decision.md) for the full rational
 ## Bring-up order (summary)
 
 1. Confirm 7i80HDT detection over Ethernet (host static IP 192.168.1.1/24, `ping 192.168.1.121`, `mesaflash --device 7i80hdt --addr 192.168.1.121 --readhmid`, `hm2_eth` HAL load).
-2. Confirm 24 VDC P24/G24 bus (OEM HR-11F-24 and retrofit DR-240-24 isolated), fusing, and 0 V common/reference strategy.
+2. Confirm 24 VDC P24/G24 bus (OEM HR-11F-24 and retrofit supply isolated), fusing, and 0 V common/reference strategy.
 3. Confirm resolver wiring on 7i49 P1 with drives disabled: ohmmeter the winding pairs, wire RESDRV/RESSIN/RESCOS, set 5 kHz excitation, scope the return level, then confirm counts, direction, and scale.
 4. Confirm 7i49 P1 analog command wiring with drives disabled/inhibited (zero command, polarity on AOUT0/1/2/3).
 5. Confirm 7i84U-A and 7i84U-B appear on HostMot2 smart-serial port 0 channels 0 and 1 via `halcmd show pin hm2` — verify device tags `hm2_7i80.0.7i84.0.0.*` and `hm2_7i80.0.7i84.0.1.*`.
