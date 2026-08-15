@@ -33,6 +33,7 @@ This file is the authoritative brief. In addition, consult:
 
 | Read | Why |
 |---|---|
+| **[Session conventions](#session-conventions)** (below, in this file) | Which machine this session is on and what it may state as verified, the SSH boundary, `git pull` before you start, and what to run before you push. Read first — it governs what the rest of this table entitles you to claim. |
 | **`INTERFACE_ARCHITECTURE.md`** | The single machine-interface plane (BBIA-1) — the root decision governing how the wiring CSV and I/O Navigator are structured. Read before touching the pin authority or wiring crosswalks. |
 | **`docs/project_status.md`** | Current state, TODO priorities, and the D1–D16 pre-power deliverables gating live power. |
 | **`docs/authority_hierarchy.md`** | Which file wins when two disagree, and the script that enforces it. |
