@@ -6,7 +6,7 @@ window.MAZAK_DATA = {
   "machine": "Mazak VQC-20/40",
   "serial": "060231",
   "architecture": "LinuxCNC + Mesa 7i80HDT (Ethernet FPGA host) + 7i44 on P3 (HostMot2 sserial port 0 channels 0/1 to 7i84U-A/B) + 7i49 on P1 (resolver + analog outs); P2 unused/spare (confirmed 2026-08-13 by readhmid)",
-  "generated": "2026-08-15 20:08 UTC",
+  "generated": "2026-08-15 20:37 UTC",
   "source_repo": "mazak-vqc20-linuxcnc-retrofit",
   "authority_file": "mesa/current_pin_authority.csv",
   "epson_ferrule_file": "wiring/labels/bbia1_mesa_end_ferrules_epson.csv",
@@ -1796,7 +1796,7 @@ window.MAZAK_DATA = {
     "TB-3"
    ],
    "primary_source": "Mesa 7i84U manual pp.2/7-8/47",
-   "cleanup_notes": "Both terminals are VFIELDA; powers TB3 outputs 0-7 and inputs 0-15. Never connect either pin to 0 V.",
+   "cleanup_notes": "Both terminals are VFIELDA; powers TB3 outputs 0-7 and inputs 0-15. Never connect either pin to 0 V. Field-power source is the retrofit Mean Well RQ-125D V3 rail (+24 V / 2.0 A / 48 W max, nameplate; supply identified by photograph 2026-08-13). V3/COM is the only rail feeding 7i84U field power; V1/V2/V4 are unused. 2.0 A is shared across ALL 7i84U-A and 7i84U-B field banks -- verify the combined output current budget before energizing; earlier planning assumed a ~240 W DR-240-24 and is void.",
    "location": "Field I/O enclosure — 7i84U-A TB1 pins 3/4",
    "location_note": "VFIELDA for TB3 bank",
    "expected": {
@@ -1854,7 +1854,7 @@ window.MAZAK_DATA = {
     "TB-2"
    ],
    "primary_source": "Mesa 7i84U manual pp.2/7-8/47",
-   "cleanup_notes": "Both terminals are VFIELDB; powers TB2 outputs 8-15 and inputs 16-31. Never connect either pin to 0 V.",
+   "cleanup_notes": "Both terminals are VFIELDB; powers TB2 outputs 8-15 and inputs 16-31. Never connect either pin to 0 V. Field-power source is the retrofit Mean Well RQ-125D V3 rail (+24 V / 2.0 A / 48 W max, nameplate; supply identified by photograph 2026-08-13). V3/COM is the only rail feeding 7i84U field power; V1/V2/V4 are unused. 2.0 A is shared across ALL 7i84U-A and 7i84U-B field banks -- verify the combined output current budget before energizing; earlier planning assumed a ~240 W DR-240-24 and is void.",
    "location": "Field I/O enclosure — 7i84U-A TB1 pins 1/2",
    "location_note": "VFIELDB for TB2 bank",
    "expected": {
@@ -6823,7 +6823,7 @@ window.MAZAK_DATA = {
     "TB-3"
    ],
    "primary_source": "Mesa 7i84U manual pp.2/7-8/47",
-   "cleanup_notes": "Both terminals are VFIELDA; powers TB3 outputs 0-7 and inputs 0-15. Never connect either pin to 0 V.",
+   "cleanup_notes": "Both terminals are VFIELDA; powers TB3 outputs 0-7 and inputs 0-15. Never connect either pin to 0 V. Field-power source is the retrofit Mean Well RQ-125D V3 rail (+24 V / 2.0 A / 48 W max, nameplate; supply identified by photograph 2026-08-13). V3/COM is the only rail feeding 7i84U field power; V1/V2/V4 are unused. 2.0 A is shared across ALL 7i84U-A and 7i84U-B field banks -- verify the combined output current budget before energizing; earlier planning assumed a ~240 W DR-240-24 and is void.",
    "location": "Field I/O enclosure — 7i84U-B TB1 pins 3/4",
    "location_note": "VFIELDA for TB3 bank",
    "expected": {
@@ -6881,7 +6881,7 @@ window.MAZAK_DATA = {
     "TB-2"
    ],
    "primary_source": "Mesa 7i84U manual pp.2/7-8/47",
-   "cleanup_notes": "Both terminals are VFIELDB; powers TB2 outputs 8-15 and inputs 16-31. Never connect either pin to 0 V.",
+   "cleanup_notes": "Both terminals are VFIELDB; powers TB2 outputs 8-15 and inputs 16-31. Never connect either pin to 0 V. Field-power source is the retrofit Mean Well RQ-125D V3 rail (+24 V / 2.0 A / 48 W max, nameplate; supply identified by photograph 2026-08-13). V3/COM is the only rail feeding 7i84U field power; V1/V2/V4 are unused. 2.0 A is shared across ALL 7i84U-A and 7i84U-B field banks -- verify the combined output current budget before energizing; earlier planning assumed a ~240 W DR-240-24 and is void.",
    "location": "Field I/O enclosure — 7i84U-B TB1 pins 1/2",
    "location_note": "VFIELDB for TB2 bank",
    "expected": {
@@ -10431,7 +10431,7 @@ window.MAZAK_DATA = {
    "bbia_class": "power-internal",
    "designations": [],
    "primary_source": "Mesa 7i84U manual pp.2/7-8/47",
-   "cleanup_notes": "AG verified 08-07-2026: W1 physically RIGHT; direct VIN feed Mean Well +V2 through 5 A branch fuse to TB1-5; return -V4 to TB1-6; 24.0 VDC measured TB1-5 to TB1-6; de-energized continuity 0 ohms. Evidence: docs/commissioning_logs/mazak_commissioning_records_07-08-2026.json",
+   "cleanup_notes": "AG verified 08-07-2026: W1 physically RIGHT; direct VIN feed Mean Well +V2 through 5 A branch fuse to TB1-5; return -V4 to TB1-6; 24.0 VDC measured TB1-5 to TB1-6; de-energized continuity 0 ohms. Evidence: docs/commissioning_logs/mazak_commissioning_records_07-08-2026.json HOLD_CONFLICT 2026-08-15: this row's 2026-08-07 note records the VIN feed as Mean Well +V2 with return -V4, but the RQ-125D nameplate (photographed 2026-08-13) makes +V2 the +12 V rail and -V4 the -12 V rail. Those two in series do measure 24.0 V, matching what was logged, but that is not the V3 +24 V rail, it floats with respect to COM, and it is limited by V4's 0.5 A -- below the 5 A branch fuse protecting it. Either the rail labels in the 08-07 note are wrong or VIN is fed from a series pair of auxiliary rails. Re-verify at the PSU terminals before energizing; do not treat the 24.0 V measurement as proving the source.",
    "location": "Field I/O enclosure — 7i84U-A TB1 pin 5",
    "location_note": "W1 RIGHT verified; direct VIN feed from Mean Well +V2",
    "expected": {
