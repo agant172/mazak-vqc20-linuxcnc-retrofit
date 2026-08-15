@@ -373,6 +373,79 @@ the real hardware (plus a human) can commission.
 
 ---
 
+## Session conventions
+
+Where things live and how a session is expected to behave. Every value below is
+sourced from a file in this repo — if you change one of these in the real world,
+change it here in the same commit.
+
+### Repository scope
+
+- **One repo only:** `agant172/mazak-vqc20-linuxcnc-retrofit`. Default branch `main`.
+  There is no second repo, no private sibling, no gist. If work seems to need another
+  repository, ask before adding one.
+- **Cloud sessions never push to `main`.** Work on a feature branch and open a **draft
+  PR**; the Authority gate (`.github/workflows/authority-gate.yml`) must pass before merge.
+- **`main` moves on its own.** The shop PC pushes `status/host_status.{md,json}` to `main`
+  every 5 minutes via a systemd timer (`scripts/host_status/collect_status.sh`). Fetch and
+  rebase before pushing rather than assuming your base is current, and don't be alarmed by
+  commits you didn't write in `status/`.
+
+### The shop PC (local sessions)
+
+| Item | Value | Source |
+|---|---|---|
+| Machine | Dell OptiPlex 7050, Debian 13, PREEMPT-RT | `scripts/host_status/README.md` |
+| User | `andy` | `scripts/host_status/install.sh` |
+| Working copy | `/home/andy/mazak-vqc20-linuxcnc-retrofit` | `scripts/host_status/collect_status.sh` |
+| Control NIC | `192.168.1.1/24`; interface name `enp0s31f6` **unverified** — confirm with `ip -o link show` | `linuxcnc/README.md`, `docs/hm2_eth_nic_validation.md` |
+| Mesa 7i80HDT | `192.168.1.121` (static) | same |
+
+Work in the git working copy, not in a scratch directory — anything produced outside it is
+lost, and the repo is the memory. LinuxCNC runtime output (`mesa_readhmid.txt`,
+`mesa_hal_pins.txt`, `*.var.bak`) is deliberately git-ignored: paste the *findings* into a
+doc rather than committing the dump.
+
+### Photos and large media
+
+- **Never commit raw media.** `.gitignore` blocks `*.jpg/.png/.heic/.mp4/…` on purpose.
+- Photos live in
+  [Google Drive](https://drive.google.com/drive/folders/1YYpWPyWiRuoY2z5GACSDw6H3zzSQoVdf?usp=drive_link),
+  in the eight folders `00_Inbox` … `07_Reference`. Originals are also backed up to OneDrive.
+  A second unsorted batch sits at `My Drive/Mazak/Misc. Photos`.
+- Any `photos/…` path written in this repo means a **Drive folder**, not a directory on disk.
+- **Cite photos as `YYYY-MM-DD/IMG_nnnn`** — never a bare `IMG_nnnn`, which recurs across
+  batches. Full scheme and migration table: `docs/README_photo_sorting.md`.
+
+### Before you push
+
+Run what CI runs, or the gate will fail on the PR:
+
+```bash
+python3 scripts/validate_authority.py        # CSV <-> HAL <-> label CSVs
+python3 scripts/validate_control_logic.py    # static HAL invariants
+python3 scripts/generate_label_csvs.py --write
+python3 scripts/generate_wire_reference_sheet.py
+python3 io-dashboard/tools/generate_data.py
+git diff --stat                              # generated files must be committed, not left dirty
+```
+
+Label CSVs, the printable wire sheets, and `io-dashboard/data.js` are **generated**. Edit the
+source (`mesa/current_pin_authority.csv` and the HAL files) and regenerate — hand-edits are
+detected and rejected by CI.
+
+### Session etiquette
+
+- **Start by reading, not proposing.** This file, then `docs/project_status.md`, then whichever
+  file in the read-first table covers the question.
+- **State which session type you are** when it matters. A cloud session should say plainly that
+  it cannot measure, meter, or flash anything.
+- **One topic per PR** where practical, with a commit message that says *why*, not just *what*.
+- **Finish by writing it down.** Update `docs/project_status.md` and any file whose facts
+  changed, commit, and push before the session ends.
+
+---
+
 ## Validation & housekeeping
 
 - After editing pin bindings or HAL, run the authority checker:
