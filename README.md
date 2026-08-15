@@ -8,6 +8,12 @@ control to LinuxCNC using Mesa Electronics FPGA hardware.
 **New control:** LinuxCNC 2.9.10 on Debian 13 (PREEMPT-RT)
 **Interface hardware:** Mesa 7i80HDT (Ethernet FPGA host) + 7i44 on P3 (RS-422 sserial to 7i84U-A/B on physical channels 0/1 of HostMot2 port 0) + 7i49 on P1 (resolver + analog outs); P2 is unused/spare. The Renishaw MP-3 probe input is on **7i84U-B input-15** (opto-isolated 24 V), not on bare P2 GPIO.
 
+> 📖 **Start here:** [`CLAUDE.md`](CLAUDE.md) is the canonical project brief — the full
+> operating manual (control hardware, sources of truth, working rules, electrical
+> architecture, safety/commissioning sequence, and the local-vs-cloud work split). It loads
+> automatically at the start of every Claude session and is the first thing any contributor
+> (human or AI) should read.
+
 > ⚠️ **Safety:** The HAL/INI files in [`linuxcnc/`](linuxcnc/) and the pin authority in
 > [`mesa/current_pin_authority.csv`](mesa/current_pin_authority.csv) are **planning /
 > bring-up skeletons only** — not live-machine-ready. Pin names, resolver scales, analog
@@ -42,7 +48,7 @@ Full rationale: [docs/architecture_decision.md](docs/architecture_decision.md).
 | **7i80HDT + 7i44 + 7i49 + 7i84U-A + 7i84U-B architecture** | Selected; hardware/bitfile proof pending |
 | 7i49 resolver feedback interface (plain, 5 kHz baseline) | Selected; suffix compatibility and scope proof pending |
 | Tamagawa TS2014N resolver identification | Family identified; exact per-axis suffixes unresolved |
-| I/O workbook created | ✅ Completed |
+| 132-row I/O authority workbooks regenerated from the current CSV | ✅ Completed |
 | HAL/INI bring-up skeleton drafted | ✅ Completed |
 | Pin authority CSV structurally reconciled; field evidence pending | 🔄 In progress |
 | Mesa firmware / photo checklists drafted | ✅ Completed |
@@ -86,12 +92,14 @@ Full rationale: [docs/architecture_decision.md](docs/architecture_decision.md).
 
 Full, checkbox-tracked TODO and progress: **[docs/project_status.md](docs/project_status.md)**.
 
-## I/O dashboard
+## I/O and commissioning workspace
 
-[`io-dashboard/`](io-dashboard/) is a single-page, offline I/O navigator generated from
-`mesa/current_pin_authority.csv`, the HAL config and the wiring notes. It walks
-LinuxCNC pin → HAL net → Mesa pin → connector/channel → field device → machine location
-for all 128 current authority rows, and flags the open conflicts. Full guide:
+[`io-dashboard/`](io-dashboard/) is one offline app with two views generated from the same
+`mesa/current_pin_authority.csv`, HAL config, and wiring notes. The I/O navigator walks
+LinuxCNC pin → HAL net → Mesa pin → connector/channel → field device → machine location.
+The commissioning view renders those rows as signal/power/return/shield paths, links to repo
+evidence, and keeps browser-local checkout records that can be exported as JSON or CSV. It flags
+unknown physical details instead of guessing and never changes wiring authority. Full guide:
 [io-dashboard/README.md](io-dashboard/README.md).
 
 ```bash
@@ -115,9 +123,9 @@ they are static checks and do not replace a LinuxCNC load test or fault injectio
 
 ```
 ├── README.md          # This file — project overview, status, and top TODOs
-├── bom/               # I/O workbook and parts-planning material
+├── bom/               # Generated I/O authority workbook and parts-planning material
 ├── docs/              # Architecture decision, checklists, photo-sorting, project status
-├── io-dashboard/      # Offline single-page I/O navigator (generated from mesa/ + linuxcnc/)
+├── io-dashboard/      # Offline I/O navigator + commissioning wiring workspace
 ├── linuxcnc/          # LinuxCNC INI/HAL bring-up skeletons, ATC/orient components, remapped M6
 ├── mesa/              # Mesa pin authority (`current_pin_authority.csv`), firmware checklist
 ├── wiring/            # Wiring / field-I/O planning references
@@ -131,14 +139,20 @@ they are static checks and do not replace a LinuxCNC load test or fault injectio
 - [mesa/current_pin_authority.csv](mesa/current_pin_authority.csv) — authoritative pin map.
 - [mesa/mesa_firmware_checklist.md](mesa/mesa_firmware_checklist.md) — info to collect before finalizing HAL.
 - [docs/cabinet_photo_checklist.md](docs/cabinet_photo_checklist.md) — what to photograph.
-- [docs/README_photo_sorting.md](docs/README_photo_sorting.md) — photo folder scheme.
+- [docs/README_photo_sorting.md](docs/README_photo_sorting.md) — **the single photo scheme**: 7 folders, naming rules, and the migration map from the two superseded lists.
 - [linuxcnc/README.md](linuxcnc/README.md) — skeleton file guide and bring-up order.
 - [docs/ladder/atc_component_README.md](docs/ladder/atc_component_README.md) — ATC/orient component skeleton: rung-to-code map, placeholders, integration steps.
 - [docs/photo_survey_misc.md](docs/photo_survey_misc.md) — survey of 213 shop photos (2026-07-29): hardware nameplate inventory, OEM wire-label/terminal maps, and the OEM CN6/CN5/CN11 pin tables incl. 712/713 GEAR SHIFT HIGH/LOW and ORCM1 orient command.
+- [wiring/head_device_placard.md](wiring/head_device_placard.md) — OEM head device placard transcribed; **it is a generic family plate and lists four solenoids this machine does not have**.
+- [wiring/head_valve_hardware.md](wiring/head_valve_hardware.md) — head valve inventory and the coil wire labels that identify every head solenoid.
+- [wiring/cabinet_asfound_survey.md](wiring/cabinet_asfound_survey.md) — cabinet terminal strips, motor starters and control gear as found (photo inventory).
+- [docs/spindle_motor_plg_encoder.md](docs/spindle_motor_plg_encoder.md) — spindle motor built-in PLG identified from nameplate photos (2026-08-12): Tamagawa TS1526N55 optical shaft encoder, 512 counts/turn, ±15 V; corrects the "magnetic pickup" claim, and explains why it is the FR-SX's detector rather than a Mesa input.
 - [docs/parameters_sn060231.md](docs/parameters_sn060231.md) — LIVE parameter values photographed 2026-07-28: ATC 2nd zero point RP=(0, +9.5000, -5.9055) in, both soft-limit boxes, gear crossover 434 rpm, backlash.
+- [docs/frsx_maintenance_manual_notes.md](docs/frsx_maintenance_manual_notes.md) — **the FR-SX maintenance manual is now committed** (`docs/OEM Manuals/…BCN-21735-S5.pdf`). What it settles: this drive orients from a **1024P×4/rev encoder**, proven by the `SX-CPU2` card being fitted; `PIN11` decides whether the NC powers that encoder; `ST2` runs orient standalone.
+- [docs/frsx_orient_detector_capture.md](docs/frsx_orient_detector_capture.md) — how to determine which detector the FR-SX orients from: trace the PLG cable first, photograph the drive's configuration hardware, and treat the MDS-CH parameter numbers as possibly inapplicable.
 - [docs/parameter_recovery.md](docs/parameter_recovery.md) — M-2 parameter recovery: SN 060231 values are NOT in the manuals; capture checklist + fallback measurement procedure.
-- [io-dashboard/README.md](io-dashboard/README.md) — offline I/O navigator: how to run it and how to regenerate its data.
-- [bom/Mazak_VQC_20-40_Retrofit_IO_Workbook.xlsx](bom/Mazak_VQC_20-40_Retrofit_IO_Workbook.xlsx) — full I/O workbook.
+- [io-dashboard/README.md](io-dashboard/README.md) — I/O/commissioning workspace: use, records, live polling, and data regeneration.
+- [bom/Mazak_VQC_20-40_Retrofit_IO_Workbook.xlsx](bom/Mazak_VQC_20-40_Retrofit_IO_Workbook.xlsx) — generated 132-row Excel snapshot of the current pin authority; `mesa/current_pin_authority.csv` remains authoritative.
 
 ## References
 

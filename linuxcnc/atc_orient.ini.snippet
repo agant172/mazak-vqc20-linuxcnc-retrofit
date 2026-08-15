@@ -79,12 +79,12 @@ ON_ABORT_COMMAND = O <on_abort> call
 # ZP1/ZP2 were absent from the generic uploaded parameter dictionary. The
 # values below were later recovered from this machine's live battery-backed
 # RP1-RP3 display. They are evidence-backed candidates, not commissioned motion
-# coordinates: keep DRY_RUN enabled and verify limits/direction at reduced rapid.
+# coordinates: keep atc-live-permit = 0 (dry-run) and verify limits/direction at reduced rapid.
 
 # VALUES FILLED 2026-07-28 from the live control's MACH CONSTANT PAR NO.2
 # screen (RP1-RP3 "2nd zero point" = 0 / +95000 / -59055 in 0.0001-inch
 # counts; see docs/parameters_sn060231.md). G53 machine coordinates, inches.
-# VERIFY with a dry run at reduced rapid before trusting - DRY_RUN stays 1.
+# VERIFY with a dry run at reduced rapid before trusting - atc-live-permit stays 0.
 [ATC]
 # ref-1: pot exchange height - Z down, toolholder engaged in the pot (RP3).
 REF1_Z = -5.9055
@@ -103,10 +103,13 @@ ORIENT_TIMEOUT  = 15.0
 CONFIRM_TIMEOUT = 10.0
 INDEX_TIMEOUT   = 40.0
 
-# 1 = return from the remap before any output or axis motion. The requested
-# tool number is simulated with M61 for offline smoke tests. Set 0 only after
-# every ATC commissioning hold is cleared and the abort tests pass.
-DRY_RUN = 1
+# Dry-run authority is NOT here - it is the HAL bit atc-live-permit in
+# mazak_vqc_20_40.hal (default 0 = dry-run: returns from the remap before any
+# output or axis motion, spoofs the tool with M61 for offline smoke tests, and
+# holds the spindle motion permit FALSE). Do NOT add a [ATC] DRY_RUN key back to
+# the INI - the validator rejects it as a second source of truth. Set
+# atc-live-permit = 1 only after every ATC commissioning hold is cleared and the
+# abort tests pass.
 
 
 #####################################################################

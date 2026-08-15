@@ -110,8 +110,8 @@ Note: the M92 bit is labeled SDSA on some rungs and SOSA on others — same elem
 ## Open questions
 
 1. **Timer base unverified.** K values read T-5 K 3, T-18 K 100, T-19 K 3000(?), T-0 K 201. A 100 ms base gives sensible 0.3 s / 10 s values but makes T-19 300 s — either the base differs per timer, or T-19 reads K 300. Get the M-2 PLC timer spec or measure on the live machine before locking watchdog constants. The 0.3 s debounce / 10 s orient watchdog are safe engineering values regardless.
-2. **FR-SX terminals** for ORCM1, CTL, SSET, ORA1, SZS need physical identification (electrical schematics pp.127–130) — polarity and contact rating before wiring the PROPOSED pins.
-3. **1000OS (M436)** appears as an orient-path qualifier (10,000 min⁻¹ spec / high-speed option flag?) — identify before assuming it's always false on this machine.
+2. **FR-SX terminals** for ORCM1, CTL, SSET, ORA1, SZS need physical identification — polarity and contact rating before wiring the PROPOSED pins. **UPDATE 2026-08-10:** the "electrical schematics pp.127–130" pointer is wrong — PDF pp.128/130/131 are the axis servo drive (4143075404), Magnescale option (not fitted), and aux motor control (4143075405), **not** the spindle. The 41434WB set has **no FR-SX terminal-detail sheet** (see `wiring/electrical_diagram_index.md`). This is a **commissioning / Mitsubishi-FR-SX-manual** item, not paper-mineable — verify at the drive terminals.
+3. **1000OS (M436)** appears as an orient-path qualifier (10,000 min⁻¹ spec / high-speed option flag?) — identify before assuming it's always false on this machine. **UPDATE 2026-08-10:** `M436` is **not** in the element list (`VQC20-40_060231_Element_List.csv` is X/Y physical I/O only), so it's an **internal PLC relay**, not a field I/O point — it can't be resolved from the I/O dictionary; determine its set-condition from the ladder rung that drives M436, or treat as constant per the machine's spindle-speed spec (4000 rpm nameplate ⇒ not a 10k-rpm machine, so likely always false here).
 4. **ORA1 also feeds the recess-tool option** (rung 4810 RECMEM) — irrelevant unless the recessing option is fitted.
 
 ## Sources

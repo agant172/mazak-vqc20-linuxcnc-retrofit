@@ -13,7 +13,7 @@ and spare counts are historical evidence, not current wiring authority.
 
 The current authority is [`../../mesa/current_pin_authority.csv`](../../mesa/current_pin_authority.csv),
 the combined HAL files, and the generated dashboard. The dashboard now contains
-128 authority rows. Pin allocation and HAL drift are enforced by
+132 authority rows. Pin allocation and HAL drift are enforced by
 `scripts/validate_authority.py` and `scripts/validate_control_logic.py`.
 
 ## Historical element classification

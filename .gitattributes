@@ -1,0 +1,8 @@
+*.pdf binary
+*.xlsx binary
+*.xls binary
+*.zip binary
+*.jpg binary
+*.jpeg binary
+*.png binary
+wiring/*_epson.csv text eol=crlf

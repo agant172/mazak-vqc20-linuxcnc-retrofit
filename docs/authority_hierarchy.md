@@ -38,7 +38,8 @@ that mechanically enforces it.
        │  ELECTRICAL CHANNEL AUTHORITY                           │
        │  One row per physical Mesa pin.                         │
        │  Owns: mesa_card, connector, pin_channel, hal_net,      │
-       │        field_point_or_load, authority_status.           │
+       │        field_point_or_load, dest_connector, dest_pin,   │
+       │        authority_status.                                │
        └─────────────────────────────────────────────────────────┘
                               │  validated by
                               ▼
@@ -83,23 +84,44 @@ that mechanically enforces it.
   binding is planned yet
 - `field_point_or_load` — machine-side identifier (LS-42, PRS-9, SOL-10,
   RLY-1, coil identity, wire number)
+- `dest_connector` and `dest_pin` — the field/far end landing when it is an
+  actual terminal with a pin (e.g. a 7i84U RJ45 conductor, an OEM connector
+  like `OEM CN6` pin `8`, or a field-power terminal block `TB2`/`TB3`).
+  Leave both blank when the destination is a loose device/load rather than a
+  numbered terminal; `dest_pin` may be blank while `dest_connector` names a
+  terminal block that has no discrete pin number
 - `authority_status` — see the evidence-state taxonomy in
   [`pre_power_deliverables.md`](pre_power_deliverables.md)
 - `primary_source` — where this row's claim came from
 - `cleanup_notes` — TODOs, polarity assumptions, promotion criteria
+
+`FACTORY_LINK` and `FACTORY_INTERFACE` are final authority states, not
+incomplete field-verification states. A `FACTORY_LINK` is accepted by checking
+the supplied assembly, connector keying/orientation, seating, strain relief,
+and successful Mesa enumeration; do not continuity-probe or re-terminate its
+individual conductors. A `FACTORY_INTERFACE` finalizes an OEM interface
+identity from authoritative factory documentation without claiming that the
+whole machine function has been commissioned. `UNBOUND` is treated as the
+legacy equivalent of `DEFERRED`.
 
 **Does not own.** HAL logic. Joint routing. Input polarity choice (raw vs `-not` complement pin, per [sserial(9)](https://linuxcnc.org/docs/html/man/man9/sserial.9.html)).
 Prose. The CSV is the pin-to-signal map, not the control program.
 
 **Editing rules.**
 
-- One row per physical pin. Duplicate physical assignments are an
-  integrity error (the validator catches them).
+- One row per physical I/O pin. Electrically duplicated TB1 power terminals
+  may be grouped by net (for example VFIELDB pins 1/2); the validator enforces
+  the exact Mesa map for those groups. Duplicate I/O assignments are an
+  integrity error.
 - Every change must leave the validator at exit 0 (no ERRORS).
 - Every change that reassigns a pin must update the corresponding HAL
   binding in the same commit.
 - Never delete a row. Move it to `authority_status = SPARE` and clear
   `hal_net` to `none`.
+- Keep both 7i84U TB1 maps and the printable 7i84U-B TB1 legend at the
+  validator-enforced assignment: pins 1/2 VFIELDB, pins 3/4 VFIELDA, pin 5
+  VIN, and pins 6/7/8 GND/common. Pins 2 and 4 are positive supply terminals,
+  not returns.
 
 ### 3.2 `linuxcnc/*.hal` — control logic and pin binding
 
@@ -177,6 +199,12 @@ file in `linuxcnc/` and checks:
 8. **Active 7i49 resolver-position and pwmgen-value bindings match RES/AOUT
    rows**, the capacity table matches the exact allocation, and every allocated
    7i84U-B terminal is present in the printable terminal legend.
+9. **All Epson printer CSVs match deterministic generated output.** The
+   7i84U-B legend derives physical pin, HAL net, authority status, and release
+   hold from current authority; the BBIA-1 trace batch derives from the OEM
+   connector pinout CSV; and the Mesa-end ferrule batch derives from the
+   explicitly reviewed BBIA-to-authority crosswalk. Regenerate with
+   `python3 scripts/generate_label_csvs.py --write`.
 
 **Exit code.** `0` if no ERRORS; `1` if any ERROR. Warnings do not fail
 the check.

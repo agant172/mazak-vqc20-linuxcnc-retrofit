@@ -1,5 +1,5 @@
 # 7i80HDT + 7i44 (sserial) + 7i49 motion, spindle, safety, and core panel I/O
-# Logical allocation from the Mazak VQC 20/40 retrofit workbook.
+# Logical allocation from mesa/current_pin_authority.csv; Excel workbooks are generated views.
 #
 # PLACEHOLDER PIN NAMES: every hm2_7i80.* name below is an UNVERIFIED PLACEHOLDER.
 # The Mesa 7i80HDT is a bare-FPGA Ethernet host (hm2_eth) with three 50-pin daughter
@@ -324,10 +324,15 @@ net z-brake-release => hm2_7i80.0.pwmgen.01.enable
 
 # Spindle analog speed command to Mitsubishi FR-SX (pwmgen.03 -> 7i49 AOUT3).
 #
-# HOLD POINT - SPINDLE DRIVE POLARITY UNVERIFIED (audit 2026-08-07):
+# SPINDLE COMMAND - architecture (A) chosen & implemented 2026-08-09 (C3):
 # ------------------------------------------------------------------
-# Two mutually incompatible spindle-command architectures are wired in this
-# repo simultaneously:
+# RESOLVED: the FR-SX takes an unsigned 0-10 V magnitude + discrete FWD/REV
+# (pg127). AOUT3 now carries spindle.0.speed-out-abs (see the net below); the
+# spindle-output-permit remains held pending bench scaling/polarity. The A/B
+# analysis retained below is the rationale (the "current net feeds signed"
+# paragraph no longer applies):
+#
+# Two spindle-command architectures were considered:
 #   (A) UNIPOLAR 0-10 V magnitude via pwmgen.03 + discrete FWD/REV outputs
 #       on 7i84U-A OUT0/OUT1 (spindle-fwd / spindle-rev). This is the
 #       classic Mitsubishi FR-SX pattern for freq-inverter spindles.
@@ -379,7 +384,14 @@ setp hm2_7i80.0.pwmgen.03.scale       [SPINDLE_0]OUTPUT_SCALE
 # PID. pid.s is loaded (mazak_vqc_20_40.hal) but unconnected - pid.s.enable
 # defaults to false so it outputs 0 harmlessly. Do NOT close the loop until
 # the HOLD above is cleared.
-net spindle-speed-cmd <= spindle.0.speed-out
+#
+# ARCHITECTURE (A) implemented 2026-08-09 (C3 resolved per pg127): feed the
+# built-in UNSIGNED magnitude spindle.0.speed-out-abs into pwmgen.03 so AOUT3
+# never goes negative; spindle direction is the discrete FWD/REV outputs
+# (7i84U-A OUT0/OUT1). The spindle-output-permit stays held - bench-verify the
+# FR-SX scaling (10 V = max RPM) and SRN/SRI polarity/sink-source before
+# clearing the permit.
+net spindle-speed-cmd <= spindle.0.speed-out-abs
 net spindle-speed-cmd => hm2_7i80.0.pwmgen.03.value
 # The safe RUN signal is the output of the commissioning gate and therefore
 # enables the analog channel only when the physical RUN output is also allowed.

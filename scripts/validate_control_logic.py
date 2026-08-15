@@ -181,7 +181,7 @@ def check_safety_invariants(errors: list[str]) -> None:
                 fail(errors, f"{path.name}:{lineno}: spindle encoder path is unassigned in the loaded firmware (no Encoder module)")
 
     require(field, "sets spindle-output-permit false", "FR-SX hold", errors)
-    require(main, "personality=0x801,0x801,0x106", "FR-SX combined permit", errors)
+    require(main, "personality=0x801,0x801,0x107", "FR-SX combined permit", errors)
     require(main, "net spindle-motion-permit  <= logic.spindle-permit-and.and", "FR-SX combined permit", errors)
     for input_net in (
         "spindle-output-permit => logic.spindle-permit-and.in-00",
@@ -190,8 +190,26 @@ def check_safety_invariants(errors: list[str]) -> None:
         "spindle-fault-clear    => logic.spindle-permit-and.in-03",
         "machine-is-on          => logic.spindle-permit-and.in-04",
         "servo-ready            => logic.spindle-permit-and.in-05",
+        "spindle-atc-ok         => logic.spindle-permit-and.in-06",
     ):
         require(main, input_net, "FR-SX combined permit", errors)
+
+    # ATC dry-run interlock. The spindle permit's in-06 term is spindle-atc-ok =
+    # (atc-live-permit OR spindle-maint-permit). Both bits initialize FALSE (safe)
+    # and are exposed to the remap on motion.digital-in-15 / -14 so the
+    # interpreter branch reads the same bits that enforce the permit. The INI
+    # DRY_RUN key must NOT come back as a second source.
+    require(main, "sets atc-live-permit 0", "ATC dry-run hold", errors)
+    require(main, "sets spindle-maint-permit 0", "spindle maintenance hold", errors)
+    require(main, "net atc-live-permit        => spindle-atc-permit-or.in0", "ATC dry-run OR term", errors)
+    require(main, "net spindle-maint-permit   => spindle-atc-permit-or.in1", "spindle maintenance OR term", errors)
+    require(main, "net spindle-atc-ok         <= spindle-atc-permit-or.out", "spindle-atc-ok source", errors)
+    require(main, "net atc-live-permit        => motion.digital-in-15", "ATC dry-run remap read", errors)
+    require(main, "net spindle-maint-permit   => motion.digital-in-14", "spindle maintenance remap read", errors)
+    if re.search(r"^\s*DRY_RUN\s*=", INI.read_text(), re.MULTILINE):
+        fail(errors, "mazak_vqc_20_40.ini: [ATC] DRY_RUN key is retired; authority is the HAL bit atc-live-permit")
+    if "#<_ini[ATC]DRY_RUN>" in (LCNC / "remap" / "toolchange.ngc").read_text():
+        fail(errors, "toolchange.ngc: reads retired [ATC]DRY_RUN; must read atc-live-permit via M66 P15")
     require(main, "sets drive-output-permit false", "axis drive hold", errors)
     require(main, "net motion-permit       <= and2.6.out", "axis drive commissioning gate", errors)
     require(motion, "net x-resolver-fault => resolver-fault-x.in1", "X resolver fault consumer", errors)

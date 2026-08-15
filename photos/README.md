@@ -1,28 +1,18 @@
-# Mazak VQC-20 Photos
+# Photos
 
-Full photo archive stored on Google Drive (400+ photos and videos):
+**No raw photos are committed to this repo.** They live in
+[Google Drive](https://drive.google.com/drive/folders/1YYpWPyWiRuoY2z5GACSDw6H3zzSQoVdf?usp=drive_link).
+This directory is a pointer.
 
-📁 **[View Mazak Photos on Google Drive](https://drive.google.com/drive/folders/1YYpWPyWiRuoY2z5GACSDw6H3zzSQoVdf?usp=drive_link)**
+📁 **Scheme, naming, and migration:
+[`../docs/README_photo_sorting.md`](../docs/README_photo_sorting.md)**
 
-## Contents
+Two things worth knowing before you cite a photo:
 
-| Folder | Description |
-|--------|-------------|
-| `01 Cabinet & Racks` | Electrical cabinet and rack assembly |
-| `02 Boards & PCBs` | Original Mazatrol boards and PCBs |
-| `03 Wiring & Cabling` | Wiring harnesses and cable routing |
-| `04 Connectors & Terminals` | Connector blocks and terminal strips |
-| `05 Drives & Power` | Servo drives and power supplies |
-| `06 Nameplates & Labels` | Machine nameplates and wiring labels |
-| `07 Machine & Exterior` | Full machine exterior shots |
-| `08 Other` | Miscellaneous |
-| `09 Screens & Diagnostics` | Mazatrol screen captures and diagnostics |
-| `Live Photo Motion` | Live Photo MP4 motion clips |
-| `Videos` | Full video walkthroughs and recordings |
-| `Manuals` | Reference PDFs |
+- Any `photos/…` path in this repo means a **Drive folder**, not a directory on disk.
+- Cite as **`YYYY-MM-DD/IMG_nnnn`**. A bare `IMG_nnnn` is ambiguous — the same
+  camera numbers recur across batches.
 
-## Notes
-
-- Photos sourced from iPhone, organized by category
-- Formats: JPG, HEIC, JPEG, PNG, MOV, MP4
-- Original files also backed up to OneDrive
+A second, unsorted batch sits at `My Drive/Mazak/Misc. Photos`, surveyed in
+[`../docs/photo_survey_misc.md`](../docs/photo_survey_misc.md). Originals are
+also backed up to OneDrive.

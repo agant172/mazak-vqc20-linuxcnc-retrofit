@@ -37,6 +37,29 @@ or pair identity does not agree with the exact suffix data.
 5. Confirm the three pair shields terminate at the 7i49 end only and that the
    old control/drive no longer owns any resolver winding.
 
+### OEM connector reference (starting hypothesis — VERIFY, don't trust)
+
+From the OEM servo-drive sheet `41434WB` PDF p128 (dwg 4143075404): each axis
+resolver (**RT-5XA-11**, = the Tamagawa TS2014N / BKO-NC6062A pickup) lands on
+connector **CNA3 (X) / CNA4 (Y) / CNA5 (Z)**. The 6 resolver leads (A/B/F/E/H/J)
+map to these pins/labels:
+
+| OEM label | CNA pin | Resolver leads | Likely 7i49 role | Verify by |
+|---|---|---|---|---|
+| **R01 / R02** | 16 / 17 | H / J | **RESDRV** (rotor / excitation, "R0") | rotor DCR ≈ **121 Ω** |
+| **RS1 / RS2** | 12 / 13 | A / B | **RESSIN** (sin stator, S1/S3) | stator DCR ≈ **69 Ω** |
+| **RC1 / RC2** | 14 / 15 | F / E | **RESCOS** (cos stator, S2/S4) | stator DCR ≈ **69 Ω** |
+| TG1 / TG2 | 18 / 19 | tacho | **stays with the drive** (2 V/1000 rpm, not read by LinuxCNC) | — |
+| SG / AG / P12 / M12 | 20 / 7,1 / 6 / 2 | shield-gnd / motor armature | not resolver | — |
+
+**This is a starting hypothesis only.** The `R0=rotor, RS=sin, RC=cos` reading
+matches the labels and the resolver symbol, but the original **Meldas / TRA
+wiring may drive the resolver in a non-7i49 convention** (two-phase excitation
+into the stators, read from the rotor). So step 2 above still governs: confirm
+each pair by **ohmmeter** — the **~121 Ω pair is the rotor → RESDRV**, the two
+**~69 Ω pairs are the stators → RESSIN/RESCOS** — before wiring the 7i49. Use the
+OEM labels to speed identification and cross-check, not to skip the measurement.
+
 ## Excitation and return proof
 
 The checked-in 5 kHz value is a working baseline because 4.5 kHz is not a 7i49

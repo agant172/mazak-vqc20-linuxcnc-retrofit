@@ -6,12 +6,16 @@ conceptually here for wiring planning.
 
 ## Key references
 
+All Epson batch CSVs in this folder target Epson Label Editor on Windows and
+use Windows CRLF records on checkout.
+
 - Consolidated wiring master: [`Mazak_Wiring_Master_7i80HDT_7i44_7i49_7i84U_Current_Authority.xlsx`](Mazak_Wiring_Master_7i80HDT_7i44_7i49_7i84U_Current_Authority.xlsx)
-  — wiring workbook for the 7i80HDT / 7i44 / 7i49 / 7i84U-A / 7i84U-B stack. P2 GPIO is unused/spare (confirmed 2026-08-13 by `readhmid`); the Renishaw MP-3 probe is on 7i84U-B input-15 (opto-isolated 24 V). Phase 2
-  cabinet-sequence, BOM-gap, hydraulic/ATC, and conflict-review tabs are integrated
-  as planning aids; check the conflict-review tab before changing final pin
-  assignments. The `... - Overview.csv` sibling file is the plain-text index for
-  that workbook. Prefer `../mesa/current_pin_authority.csv` for authoritative pin data.
+  — generated 132-row Excel snapshot of the current authority for the 7i80HDT /
+  7i44 / 7i49 / 7i84U-A / 7i84U-B stack. It includes formula-driven summaries;
+  P2 is unused/spare (confirmed 2026-08-13 by `readhmid`) and the Renishaw
+  MP-3 probe is on 7i84U-B input-15 (opto-isolated 24 V). The
+  `... - Overview.csv` sibling file is a plain-text workbook index. The authoritative
+  source remains `../mesa/current_pin_authority.csv`.
 - Current pin authority: [`../mesa/current_pin_authority.csv`](../mesa/current_pin_authority.csv)
   — current table for connector, pin/channel, HAL net, status, source basis, and
   cleanup notes.
@@ -22,22 +26,32 @@ conceptually here for wiring planning.
   `../mesa/current_pin_authority.csv` before wiring (see its "Reconciliation" and
   "Still to locate" sections).
 - I/O workbook: [`../bom/Mazak_VQC_20-40_Retrofit_IO_Workbook.xlsx`](../bom/Mazak_VQC_20-40_Retrofit_IO_Workbook.xlsx)
-  — full I/O planning spreadsheet the skeleton was generated from.
+  — second generated 132-row Excel view of the current authority for I/O planning
+  and parts coordination; it is not an independent authority source.
 - Cabinet photo checklist: [`../docs/cabinet_photo_checklist.md`](../docs/cabinet_photo_checklist.md)
   — what to photograph before finalizing wiring.
 - Sister-machine wiring reference: [SRDCO MazakVQC1540 complete 2017 reference package](https://github.com/srdco/MazakVQC1540/tree/master/MAZAK-VQC1540-20170501)
   — full 2017-05-01 config/wiring snapshot from the VQC 15/40 build; cross-check winding
   pairs, resolver/drive wiring, and HAL nets against this before finalizing.
 - [Authority conflicts](authority_conflicts.md) — unresolved solenoid and magazine-direction conflicts that must be cleared before affected outputs are wired.
+- **Spindle-head device placard:** [`head_device_placard.md`](head_device_placard.md) — OEM legend (dwg `24136209710`) transcribed. **Read the warning at the top: it is a generic family plate listing devices this machine does not have.**
+- **Spindle-head valve hardware:** [`head_valve_hardware.md`](head_valve_hardware.md) — Nachi/CKD valve inventory, coil wire labels (`410`/`412`/`413`/`415`/`416` + `16` common), 100 VAC coil confirmation, pressure data.
+- **Cabinet as-found survey:** [`cabinet_asfound_survey.md`](cabinet_asfound_survey.md) — terminal strips, motor starters, control gear. Photo inventory only. Carries the safety-chain strip (`57`/`57A`/`57B`/`58`/`59`/`60`/`EMB`/`MAR`) that anchors the D5 trace.
 - **BBIA-1 terminal unit ("Honda" MR-series connectors):** [`bbia1_terminal_unit.md`](bbia1_terminal_unit.md) — board role, connector family (HTK MR-50RMW / MR-20RMW), and connector map (CN1–CN6, CN7, CN11, CN12).
 - **BBIA-1 CN1–CN6 & CN11 detailed pinouts:** [`bbia1_cn_pinouts.md`](bbia1_cn_pinouts.md) and [`bbia1_cn_pinouts.csv`](bbia1_cn_pinouts.csv) — per-pin wire number, signal name, function, and inside/outside connector for the connectors being cut and re-labeled for the Mesa retrofit.
-- **Epson LW-PX700 label batch:** [`bbia1_cn_labels_epson.md`](bbia1_cn_labels_epson.md) and [`bbia1_cn_labels_epson.csv`](bbia1_cn_labels_epson.csv) — 164 label rows (Wire / Location / Signal / Destination) formatted for Epson Label Editor for Mac batch import, ready to print heat-shrink ferrules for every active pin on CN1–CN6 and CN11.
+- **BBIA-1 laminated reference sheet (replaces per-wire CN ferrules, 2026-08-09):** [`bbia1_cn_labels_epson.md`](labels/bbia1_cn_labels_epson.md) and [`bbia1_cn_labels_epson.csv`](labels/bbia1_cn_labels_epson.csv) — 164 rows (`Wire` / `Location` / `Signal`) feeding [`bbia1_wire_reference_sheet.html`](labels/bbia1_wire_reference_sheet.html) via `scripts/generate_wire_reference_sheet.py`; print 8.5"×11", laminate, hang in the cabinet. The factory jacket print identifies each conductor at the cut.
+- **Epson 6 mm Mesa-end ferrule batch:** [`bbia1_mesa_end_ferrules_epson.md`](labels/bbia1_mesa_end_ferrules_epson.md) and [`bbia1_mesa_end_ferrules_epson.csv`](labels/bbia1_mesa_end_ferrules_epson.csv) — conservative direct-to-Mesa subset of the cut BBIA conductors. Only `Label_Text` (for example `B-TB3-07`) is printed; all current rows remain `HOLD_SOURCE_TRACE` pending continuity proof.
+- **Epson LW-PX700 7i84U-B terminal batch:** [`7i84u_b_terminal_legend_epson.md`](labels/7i84u_b_terminal_legend_epson.md) and [`7i84u_b_terminal_legend_epson.csv`](labels/7i84u_b_terminal_legend_epson.csv) — physical terminal position plus logical channel, signal, HAL reference, authority status, and a print-release hold. Regenerate all printer CSVs with `python3 scripts/generate_label_csvs.py --write`.
 
 ## Status
 
-**I/O mapping documentation: COMPLETE.** The current wiring assignments and
-cross-references are documented in the authority workbook and
-`../mesa/current_pin_authority.csv`.
+**Logical I/O allocation: documented. Physical BBIA-to-retrofit destination
+crosswalk: incomplete hold.** The authority workbook and
+`../mesa/current_pin_authority.csv` record the planned Mesa functions. The
+initial destination crosswalk contains only 14 conservative direct-input
+matches; all remain `HOLD_SOURCE_TRACE`. Relay-contact, hardware-safety,
+power/common, series-net, ambiguous, retired, and remaining field destinations
+must be traced before their ferrules are generated.
 
 Terminal labels, wire numbers, normal states (NO/NC), and drive/encoder pinouts
 still require cabinet verification before any wiring or bring-up. See the

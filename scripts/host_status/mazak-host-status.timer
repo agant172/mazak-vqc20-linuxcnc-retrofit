@@ -1,0 +1,15 @@
+[Unit]
+Description=Run Mazak LinuxCNC host status reporter every 5 minutes
+Documentation=https://github.com/agant172/mazak-vqc20-linuxcnc-retrofit
+
+[Timer]
+# Fire ~2 min after boot so network + git are ready, then every 5 min.
+OnBootSec=2min
+OnUnitActiveSec=5min
+AccuracySec=15s
+# If the machine was off when a run was due, catch up once on next boot.
+Persistent=true
+Unit=mazak-host-status.service
+
+[Install]
+WantedBy=timers.target

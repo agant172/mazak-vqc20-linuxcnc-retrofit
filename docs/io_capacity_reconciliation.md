@@ -18,15 +18,23 @@ card. Source: [Mesa 7i84U manual](https://www.mesanet.com/pdf/parallel/7i84uman.
 
 | Card | Required DI | Required DO | Capacity | Reserve |
 |---|---:|---:|---:|---:|
-| 7i84U-A | 32 | 16 | 32 DI / 16 DO | 0 DI / 0 DO |
-| 7i84U-B | 11 | 9 | 32 DI / 16 DO | 21 DI / 7 DO |
-| **Total** | **43** | **25** | **64 DI / 32 DO** | **21 DI / 7 DO** |
+| 7i84U-A | 30 | 16 | 32 DI / 16 DO | 2 DI / 0 DO |
+| 7i84U-B | 11 | 10 | 32 DI / 16 DO | 21 DI / 6 DO |
+| **Total** | **41** | **26** | **64 DI / 32 DO** | **23 DI / 6 DO** |
 
-The B-card count includes the two channels absent from the earlier
+> **2026-08-11 (owner decision AG):** the three per-axis servo-fault inputs
+> (former `X/Y/Z_DRIVE_FAULT` on 7i84U-A `IN10/IN11/IN12`) were consolidated to
+> a single combined servo-alarm input `SERVO_FAULT` on `IN10` — the OEM `SER`
+> line at `CN6-27` is one shared contact for all axes, not one per axis. `IN11`
+> and `IN12` are now spare, so 7i84U-A drops from 32 to 30 required DI and gains
+> 2 DI of reserve.
+
+The B-card count includes the three channels absent from the earlier
 calculation:
 
 - `IN9` — `AIR_OK`, fail-inhibited ATC pressure permissive.
 - `OUT8` — `MAG_COVER_CLOSE_SOL`, proposed single-coil cover command.
+- `OUT9` — `WORK_LIGHT`, proposed 100VAC work light via interposing relay RLY-8.
 
 The former `43 DI + 25 DO` text reached the same numbers incorrectly by
 counting aggregate spare-range rows as occupied channels. Those aggregate
@@ -38,7 +46,8 @@ channel rows and are enforced by `scripts/validate_authority.py`.
 Yes: **two cards total are required and sufficient for the currently scoped
 retrofit**.
 
-- One card cannot fit 43 DI / 25 DO and 7i84U-A is already full.
+- One card cannot fit the full DI/DO inventory; 7i84U-A is effectively full
+  (30 of 32 DI used, only the 2 servo-fault channels freed on 2026-08-11 spare).
 - The second card leaves 21 DI and 7 DO after allocating air pressure and the
   magazine-cover valve.
 - A third 7i84U is not justified by the current signal inventory.

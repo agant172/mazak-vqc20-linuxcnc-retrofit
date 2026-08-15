@@ -1,56 +1,62 @@
-# Mazak Retrofit Photo Sorting Guide
+# Photo scheme
 
-Use this folder structure to keep cabinet photos, Mesa firmware notes, and LinuxCNC outputs organized while planning the VQC 20/40 retrofit.
+**The single scheme for this project.** Settled 2026-08-13 (owner). Two earlier
+folder lists are superseded — see [Migration](#migration) to find older material.
 
-## Fast workflow
+## Three rules
 
-1. If you are in a hurry, dump everything into `00_Inbox_To_Sort`.
-2. Move photos into the numbered folders when you have time.
-3. Keep the original photo/video files, even if you rename copies later.
-4. For close-ups, try to keep a matching wide/context shot in the same folder.
-5. Put Mesa command outputs such as `mesa_readhmid.txt` and `mesa_hal_pins.txt` in `17_LinuxCNC_Config_Outputs`.
+1. **No raw photos in the repo.** They live in
+   [Google Drive](https://drive.google.com/drive/folders/1YYpWPyWiRuoY2z5GACSDw6H3zzSQoVdf?usp=drive_link).
+   Any `photos/…` path in this repo means a Drive folder.
+2. **Cite photos as `YYYY-MM-DD/IMG_nnnn`.** Never bare `IMG_nnnn` — `IMG_0373`
+   is a Z-axis servo card in one batch and a CRT screen in another
+   ([`photo_survey_misc.md`](photo_survey_misc.md)). The date is what makes it unique.
+3. **Keep the original filename.** Rename to
+   `IMG_2065_spindle_motor_nameplate_2026-08-13.jpg` if you like, but don't drop
+   the `IMG_nnnn`.
 
-## Folder map
+## Folders
 
-| Folder | Put these here |
+| Folder | What goes in |
 |---|---|
-| `00_Inbox_To_Sort` | Unsorted photos, videos, screenshots, notes, and temporary files. |
-| `01_Cabinet_Wide_Shots` | Wide shots of the left, center, and right cabinet bays. |
-| `02_PC_Mazatrol_Rack_Area` | Photos and measurements of the old Mazatrol rack area where the control PC may mount. |
-| `03_Servo_Drives_XYZ` | X/Y/Z servo amplifier model plates, terminal strips, command, enable, and fault wiring. |
-| `04_Encoders_Motors_Pickups` | Encoder connectors, motor nameplates, pickup units, and feedback wiring. |
-| `05_Spindle_FRSX` | Mitsubishi FR-SX spindle controller label, terminals, analog speed input, run/direction/enable/alarm wiring. |
-| `06_24V_P24_G24_Power` | HR-11F-24 supply, P24/G24 terminal strips, fuses, jumpers, 24 VDC distribution. |
-| `07_Green_Breakout_PCB` | Green YM VQC-20-40/50 breakout PCB, circular plugs, D-sub connectors, board labels. |
-| `08_IO_Terminal_Strips` | Field I/O terminal strips, wire numbers, labels such as INHRLS, DEC2, CH4, limits, ATC signals. |
-| `09_EStop_Safety_Ready_Chain` | E-stop relays, door interlocks, servo contactor, ready chain, safety hardware. |
-| `10_ATC_Tool_Clamp_Gear_Magazine` | Tool clamp/unclamp, gear shift, magazine rotation, PRS sensors, SOL valves, ATC hydraulics. |
-| `11_Coolant_Air_Utilities` | Coolant pump contactors, mist/tap coolant, air blast valves, work light, utility relays. |
-| `12_Grounding_Shields_Common` | PE ground bars, 0 V common points, shield drain/clamp locations, analog/encoder shield landings. |
-| `13_DIN_Rail_Panel_Space` | Open DIN rail, wire duct, panel space, door clearance, possible Mesa card mounting spots. |
-| `14_Operator_Panel` | Cycle start, feed hold, single block, overrides, lamps, pendant-related panel notes. |
-| `15_Mesa_Cards_Firmware` | Mesa board labels, firmware/bitfile notes, 7i80HDT Ethernet/IP settings, 7i44 P3 smart-serial daughter card, 7i49 P1 resolver/analog daughter card, unused P2 header, and both 7i84U smart-serial connection photos. |
-| `16_Manuals_Schematics` | Mazak manuals, schematics, terminal charts, inside-door legends, printed references. |
-| `17_LinuxCNC_Config_Outputs` | LinuxCNC configs, HAL/INI files, `mesa_readhmid.txt`, `mesa_hal_pins.txt`, latency-test screenshots. |
+| `00_Inbox` | Unsorted. Dump here when in a hurry. |
+| `01_Cabinet` | Cabinet bays, racks, panel space, DIN rail, motor starters, contactors |
+| `02_Drives` | X/Y/Z servo amps, FR-SX spindle drive, Mesa cards, firmware notes |
+| `03_Motors_Feedback` | Motors, encoders, resolvers, pickups, and their nameplates |
+| `04_Wiring_Terminals` | Terminal strips, wire numbers, connectors, breakout PCB, 24 V distribution, grounding |
+| `05_Machine` | Spindle head, ATC, gear shift, valves, coolant/air, operator panel |
+| `06_Safety` | E-stop, safety relays, interlocks, ready chain, servo contactor |
+| `07_Reference` | Manuals, schematics, placards and door legends, CRT screens, LinuxCNC/Mesa outputs |
 
-## Naming suggestions
+Videos and Live Photo clips stay where they are — outside this scheme.
 
-Use names that describe the object and date:
+When a close-up matters, keep a wide shot of the same thing beside it. That one
+habit has repeatedly been the difference between a readable label and a guess.
 
-- `cabinet_wide_left_2026-06-01.jpg`
-- `x_servo_drive_terminals_2026-06-01.jpg`
-- `frsx_spindle_drive_terminal_strip_2026-06-01.jpg`
-- `p24_g24_terminal_strip_2026-06-01.jpg`
-- `green_breakout_pcb_connectors_2026-06-01.jpg`
-- `estop_safety_chain_relays_2026-06-01.jpg`
+## Migration
 
-## First batch to collect
+Both older lists fold in as follows. Existing files stay findable until moved.
 
-For the next Mesa/HAL update, the highest-value first batch is:
+| Old folder | → |
+|---|---|
+| `01 Cabinet & Racks`, `07 Machine & Exterior` | `01_Cabinet` |
+| `05 Drives & Power`, `02 Boards & PCBs` | `02_Drives` (24 V and PCB wiring → `04_Wiring_Terminals`) |
+| `03 Wiring & Cabling`, `04 Connectors & Terminals` | `04_Wiring_Terminals` |
+| `06 Nameplates & Labels` | the folder matching the device |
+| `09 Screens & Diagnostics`, `Manuals` | `07_Reference` |
+| `08 Other`, `Misc. Photos` (`My Drive/Mazak/`) | `00_Inbox`, then sort |
 
-1. Whole cabinet wide shots.
-2. X/Y/Z servo amplifier model and terminal-strip photos.
-3. FR-SX spindle controller model and terminal-strip photos.
-4. HR-11F-24 and P24/G24 terminal photos.
-5. Green breakout PCB and connector-label photos.
-6. E-stop, safety relay, ready chain, and servo contactor photos.
+**Moving files is safe; renaming them is not.**
+[`photo_survey_misc.md`](photo_survey_misc.md) cites ~200 photos by camera
+filename — update the citation in the same pass if you rename anything.
+
+## Outstanding
+
+35 photo-ID rows are unfilled, so those documents' conclusions can't yet be
+checked against their sources:
+
+| Document | Rows |
+|---|---|
+| [`spindle_motor_plg_encoder.md`](spindle_motor_plg_encoder.md) | 15 |
+| [`../wiring/head_valve_hardware.md`](../wiring/head_valve_hardware.md) | 10 |
+| [`../wiring/cabinet_asfound_survey.md`](../wiring/cabinet_asfound_survey.md) | 10 |

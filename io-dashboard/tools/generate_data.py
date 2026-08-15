@@ -31,6 +31,7 @@ HAL_FILES = [
 ]
 INI_FILE = "linuxcnc/mazak_vqc_20_40.ini"
 AUTHORITY = "mesa/current_pin_authority.csv"
+EPSON_FERRULES = "wiring/labels/bbia1_mesa_end_ferrules_epson.csv"
 
 NET_RE = re.compile(r"^\s*(#\s*)?net\s+(\S+)\s*(.*)$")
 SETP_RE = re.compile(r"^\s*(#\s*)?setp\s+(\S+)\s+(\S+)")
@@ -169,9 +170,59 @@ def expected_for(sig_id, direction, status):
     return {"value": v, "label": label, "basis": basis, "kind": kind}
 
 
+def bbia_class(r):
+    """Classify a signal against the single machine-interface plane
+    (INTERFACE_ARCHITECTURE.md). 'plane' = crosses at a BBIA-1 CN connector;
+    everything else is an enumerated exception. Buckets are deliberately coarse
+    and derived only from robust columns, so nothing is mislabelled."""
+    conn = (r.get("dest_connector") or "").strip().upper()
+    if conn.startswith("CN"):
+        return "plane"
+    sid = (r.get("signal_id") or "").strip()
+    board = (r.get("mesa_card") or "").strip()
+    sub = (r.get("subsystem") or "").strip().lower()
+    status = (r.get("authority_status") or "").strip()
+    if board == "7i49":
+        return "analog-resolver"      # servo/spindle analog + resolver feedback
+    if sid.startswith("SSERIAL") or sub == "power" or conn.startswith("TB"):
+        return "power-internal"       # supply/return + card-internal, not machine I/O
+    if status in ("SPARE", "RESERVED", "RESERVED_VERIFY", "NOT_USED"):
+        return "spare"
+    return "exception"                # new-signal / unlocated / not-located; see provenance
+
+
 def build(root):
     nets, setps = parse_hal(root)
     auth = csv_rows_with_lines(os.path.join(root, AUTHORITY))
+    epson_by_signal = {}
+    for r in csv_rows_with_lines(os.path.join(root, EPSON_FERRULES)):
+        sid = r["Authority_ID"]
+        epson_by_signal.setdefault(sid, []).append({
+            "label_text": r["Label_Text"],
+            "wire": r["Wire"],
+            "old_location": r["Old_Location"],
+            "signal": r["Signal"],
+            "mesa_card": r["Mesa_Card"],
+            "connector": r["Connector"],
+            "logical_channel": r["Logical_Channel"],
+            "physical_pin": r["Physical_Pin"],
+            "crosswalk_status": r["Crosswalk_Status"],
+            "release_status": r["Release_Status"],
+            "source_line": r["_line"],
+        })
+    # BBIA-1 terminal-unit source pins (CNDx top row) -> Mesa destination.
+    # CNDx pin == CNx pin (straight pass-through). Editable fill-in worksheet.
+    bb_source = {}
+    bb_path = os.path.join(root, "wiring/bbia1_source_dest.csv")
+    if os.path.exists(bb_path):
+        for r in csv_rows_with_lines(bb_path):
+            bb_source[r["signal_id"]] = {
+                "cnd_pin": (r.get("cnd_source_pin") or "").strip(),
+                "wire": (r.get("factory_wire") or "").strip(),
+                "cn_pin": (r.get("bottom_cn_pin") or "").strip(),
+                "provenance": (r.get("source_provenance") or "").strip(),
+            }
+
     conflict_by_signal = {}
     for c in E.CONFLICTS:
         for s in c["signals"]:
@@ -180,6 +231,7 @@ def build(root):
     signals = []
     for r in auth:
         sid = r["signal_id"]
+        epson_ferrules = epson_by_signal.get(sid, [])
         net = r["hal_net"]
         has_net = net and net.lower() != "none"
         direction = r["direction"]
@@ -228,6 +280,20 @@ def build(root):
                 "file": r["primary_source"], "lines": "",
                 "note": "primary_source column in the authority table",
             })
+        for evidence_path in re.findall(
+                r"docs/commissioning_logs/[A-Za-z0-9_.-]+", r["cleanup_notes"]):
+            sources.append({
+                "file": evidence_path,
+                "lines": "",
+                "note": "Commissioning evidence referenced by the authority row",
+            })
+        for ferrule in epson_ferrules:
+            sources.append({
+                "file": EPSON_FERRULES,
+                "lines": str(ferrule["source_line"]),
+                "note": "Epson Mesa-end ferrule %s; %s" % (
+                    ferrule["label_text"], ferrule["release_status"]),
+            })
 
         active_nets = [x for x in hal_refs if not x["commented"]]
         commented_nets = [x for x in hal_refs if x["commented"]]
@@ -257,6 +323,10 @@ def build(root):
             "machine_subsystem": machine_sub,
             "status": status,
             "field_point": r["field_point_or_load"],
+            "dest_connector": (r.get("dest_connector") or "").strip(),
+            "dest_pin": (r.get("dest_pin") or "").strip(),
+            "factory_wire": (r.get("factory_wire") or "").strip(),
+            "bbia_class": bbia_class(r),
             "designations": designations(r["field_point_or_load"] + " " + loc_note),
             "primary_source": r["primary_source"],
             "cleanup_notes": r["cleanup_notes"],
@@ -269,9 +339,10 @@ def build(root):
             "consumers": cons,
             "hal_refs": hal_refs,
             "setp_refs": setp_refs,
-
+            "epson_ferrules": epson_ferrules,
             "sources": sources,
             "conflicts": conflict_by_signal.get(sid, []),
+            "bb_source": bb_source.get(sid),
             "authority_line": r["_line"],
         })
 
@@ -352,6 +423,7 @@ def build(root):
             "consumers": cons2,
             "hal_refs": refs,
             "setp_refs": [],
+            "epson_ferrules": [],
             "sources": srcs,
             "conflicts": ["C1" if is_in else "C2"],
             "authority_line": None,
@@ -374,6 +446,7 @@ def build(root):
                              .strftime("%Y-%m-%d %H:%M UTC"),
         "source_repo": "mazak-vqc20-linuxcnc-retrofit",
         "authority_file": AUTHORITY,
+        "epson_ferrule_file": EPSON_FERRULES,
         "halfiles": halfiles,
         "board_ip": "192.168.1.121",
         "rules": [

@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "machine": "Mazak VQC-20/40",
+  "machine_serial": "060231",
+  "authority_file": "mesa/current_pin_authority.csv",
+  "authority_generated": "2026-08-08 00:34 UTC",
+  "saved_at": "2026-08-08T02:35:18.145Z",
+  "note": "Owner-operator commissioning evidence. This record documents observed field conditions and does not itself permit energization.",
+  "records": {
+    "SEVENI84U_VIN_24V": {
+      "wire_number": "A5-24V+",
+      "updated_at": "2026-08-08T02:34:38.580Z",
+      "from_terminal": "Mean Well +V2",
+      "to_terminal": "7i84U-A TB1-5",
+      "conductor": "Red",
+      "fuse": "Branch fuse 5 amp at Mean Well",
+      "idle_voltage": "24.0 VDC between 7i84U-A TB1-5 (+) and TB1-6 (0 V)",
+      "active_voltage": "N/A — continuous supply",
+      "verified_by": "AG",
+      "verified_date": "08-07-2026",
+      "evidence_ref": "mazak_commissioning_records_07-08-2026.json#SEVENI84U_VIN_24V",
+      "continuity": "pass",
+      "note": "W1 physically observed RIGHT. De-energized continuity: +V2 to TB1-5 and -V4 to TB1-6. 0 ohms",
+      "relay_terminal": "N/A",
+      "return_path": "Terminal -V4 on Mean Well power supply to TB1-6 — 0 volts"
+    }
+  }
+}

@@ -22,9 +22,12 @@
   /* ---------------------------------------------------------------- state */
 
   var state = {
+    mode: 'io',                  // io | wiring
+    layer: 'signal',             // signal | power | return | shield
     view: 'ALL',                 // ALL | 7i80HDT | 7i44 | 7i49 | 7i84U-A | 7i84U-B | CONFLICTS
     q: '',
     board: '', conn: '', dir: '', sub: '', status: '',
+    hideNoise: true,             // hide SPARE/PROPOSED/DEFERRED/etc rows unless explicitly selected via Status
     selected: null,              // signal id
     sim: Object.create(null),    // id -> { value: '0'|'1'|null, note: string }
     live: { on: false, ok: false, error: '', values: Object.create(null), timer: null, ts: '' }
@@ -39,20 +42,62 @@
   };
   function esc(s) { return String(s == null ? '' : s); }
 
+  var REPO_BLOB = 'https://github.com/agant172/mazak-vqc20-linuxcnc-retrofit/blob/main/';
+  function sourceHref(file, lines) {
+    if (!file) return '';
+    if (/^https?:\/\//i.test(file)) return file;
+    if (/\.hal$/i.test(file) && file.indexOf('/') === -1 &&
+        (D.meta.halfiles || []).indexOf(file) !== -1) file = 'linuxcnc/' + file;
+    if (!(/[\/]/.test(file) && !/\s/.test(file)) &&
+        !/\.(md|hal|ini|csv|py|json|js|html|css|txt|ya?ml)$/i.test(file)) return '';
+    var path = String(file).replace(/^\.\//, '').split('/').map(encodeURIComponent).join('/');
+    var firstLine = String(lines == null ? '' : lines).match(/\d+/);
+    return REPO_BLOB + path + (firstLine ? '#L' + firstLine[0] : '');
+  }
+
+  function appendSourceFile(parent, file, lines, extra) {
+    var label = file + (lines ? ':' + lines : '') + (extra || '');
+    var href = sourceHref(file, lines);
+    if (href) {
+      var a = el('a', 'src-file', label);
+      a.href = href;
+      a.target = '_blank';
+      a.rel = 'noopener noreferrer';
+      parent.appendChild(a);
+    } else {
+      parent.appendChild(el('span', 'src-file', label));
+    }
+  }
+
   /* ---------------------------------------------------------- search index */
 
   SIGNALS.forEach(function (s) {
+    var ferruleSearch = (s.epson_ferrules || []).map(function (f) {
+      return [f.label_text, f.wire, f.old_location, f.signal, f.physical_pin,
+        f.crosswalk_status, f.release_status].join(' ');
+    }).join(' ');
     s._hay = [
       s.id, s.name, s.hal_net, s.board, s.connector, s.channel, s.direction,
       s.subsystem, s.machine_subsystem, s.field_point, s.location, s.location_note,
       s.cleanup_notes, (s.designations || []).join(' '),
       (s.mesa_pins || []).join(' '), (s.producers || []).join(' '),
       (s.consumers || []).join(' '), (STATUS[s.status] || {}).label,
-      (s.conflicts || []).join(' ')
+      (s.conflicts || []).join(' '), ferruleSearch
     ].join(' ').toLowerCase();
   });
 
   /* --------------------------------------------------------------- filters */
+
+  // Statuses that represent "not commissioning-relevant right now" — spare/
+  // unassigned channels, draft proposals, deferred/reserved-for-later items,
+  // and architecturally excluded rows. Hidden by default via the "Hide
+  // spare/draft/deferred" toggle; explicitly picking one of these from the
+  // Status dropdown still shows it (see matches() below).
+  var NOISE_STATUSES = {
+    SPARE: true, PROPOSED: true, DEFERRED: true, UNBOUND: true,
+    RESERVED: true, RESERVED_VERIFY: true, NOT_USED: true,
+    HOLD_NOT_ORDERED: true, OPTIONAL_VERIFY: true
+  };
 
   function inView(s) {
     if (state.view === 'ALL') return true;
@@ -70,6 +115,7 @@
     if (state.dir && s.direction !== state.dir) return false;
     if (state.sub && s.subsystem !== state.sub) return false;
     if (state.status && s.status !== state.status) return false;
+    if (!state.status && state.hideNoise && NOISE_STATUSES[s.status]) return false;
     if (state.q) {
       var terms = state.q.toLowerCase().split(/\s+/).filter(Boolean);
       for (var i = 0; i < terms.length; i++) {
@@ -201,14 +247,20 @@
     fs.addEventListener('change', function () { state.sub = fs.value; render(); });
     ft.addEventListener('change', function () { state.status = ft.value; render(); });
 
+    var fn = $('f-hide-noise');
+    fn.checked = state.hideNoise;
+    fn.addEventListener('change', function () { state.hideNoise = fn.checked; render(); });
+
     $('q').addEventListener('input', function () { state.q = this.value.trim(); render(); });
     $('btn-reset').addEventListener('click', resetFilters);
   }
 
   function resetFilters() {
     state.q = ''; state.board = ''; state.conn = ''; state.dir = ''; state.sub = ''; state.status = '';
+    state.hideNoise = true;
     $('q').value = '';
     ['f-board', 'f-conn', 'f-dir', 'f-sub', 'f-status'].forEach(function (i) { $(i).value = ''; });
+    $('f-hide-noise').checked = true;
     render();
   }
 
@@ -223,6 +275,7 @@
     if (state.dir) active.push({ k: 'dir', v: state.dir, clear: function () { state.dir = ''; $('f-dir').value = ''; } });
     if (state.sub) active.push({ k: 'subsystem', v: state.sub, clear: function () { state.sub = ''; $('f-sub').value = ''; } });
     if (state.status) active.push({ k: 'status', v: (STATUS[state.status] || {}).label || state.status, clear: function () { state.status = ''; $('f-status').value = ''; } });
+    if (state.hideNoise) active.push({ k: 'hiding', v: 'spare/draft/deferred', clear: function () { state.hideNoise = false; $('f-hide-noise').checked = false; } });
 
     active.forEach(function (a) {
       var c = el('button', 'chip');
@@ -376,6 +429,46 @@
       c4.appendChild(el('span', 'mono-cell strong',
         (s.connector === 'none' ? '\u2014' : s.connector) + (s.channel ? ' \u00b7 ' + s.channel : '')));
       tr.appendChild(c4);
+
+      // Epson Mesa-end ferrule designation (draft until source continuity is traced)
+      var cLabel = td('c-label', 'Epson ferrule');
+      var ferrules = s.epson_ferrules || [];
+      if (ferrules.length) {
+        ferrules.forEach(function (ferrule) {
+          var labelWrap = el('span', 'ferrule-cell');
+          labelWrap.appendChild(el('span', 'ferrule-code', ferrule.label_text));
+          var release = el('span', 'ferrule-state',
+            ferrule.release_status === 'RELEASED' ? 'released' : 'hold \u00b7 trace');
+          release.dataset.release = ferrule.release_status;
+          labelWrap.appendChild(release);
+          labelWrap.title = 'OEM wire ' + ferrule.wire + ' from ' + ferrule.old_location +
+            '; ' + ferrule.release_status;
+          cLabel.appendChild(labelWrap);
+        });
+      } else {
+        cLabel.appendChild(el('span', 'mono-cell none', '\u2014'));
+      }
+      tr.appendChild(cLabel);
+
+      // BBIA-1 CNDx source pin (top row); CNDx pin = CNx pin (straight pass-through)
+      var cBB = td('c-bbsrc', 'BBIA-1 src');
+      var bb = s.bb_source;
+      if (s.bbia_class === 'plane' && s.dest_connector) {
+        var bbWrap = el('span', 'mono-cell strong');
+        bbWrap.textContent = s.dest_connector + '-' + s.dest_pin +
+          (s.factory_wire ? ' (' + s.factory_wire + ')' : '');
+        bbWrap.title = 'BBIA-1 plane \u00b7 wire ' + (s.factory_wire || '?') +
+          (bb && bb.provenance ? ' \u00b7 ' + bb.provenance : '');
+        cBB.appendChild(bbWrap);
+      } else if (s.bbia_class && s.bbia_class !== 'plane') {
+        var offWrap = el('span', 'mono-cell none', 'off-plane');
+        offWrap.title = (bb && bb.provenance) ? bb.provenance :
+          'Does not cross at BBIA-1 (' + s.bbia_class + ')';
+        cBB.appendChild(offWrap);
+      } else {
+        cBB.appendChild(el('span', 'mono-cell none', '\u2014'));
+      }
+      tr.appendChild(cBB);
 
       // hal net
       var c5 = td('c-net', 'HAL net');
@@ -588,6 +681,34 @@
       'Per ' + D.meta.authority_file + (s.authority_line ? ':' + s.authority_line : '') + '.',
       s.status === 'CONFIG_ONLY'));
 
+    // 4b - the single machine-interface plane (INTERFACE_ARCHITECTURE.md).
+    // Every signal is either on the BBIA-1 plane or a named exception.
+    var CLASS_LABEL = {
+      'plane': 'BBIA-1 plane',
+      'analog-resolver': 'off-plane \u00b7 analog/resolver (direct to drive)',
+      'power-internal': 'off-plane \u00b7 power/return or card-internal',
+      'spare': 'off-plane \u00b7 spare / reserved',
+      'exception': 'off-plane \u00b7 exception (new / untraced \u2014 see notes)'
+    };
+    var bb = s.bb_source;
+    if (s.bbia_class === 'plane' && s.dest_connector) {
+      var planeNote = [];
+      if (s.factory_wire) planeNote.push('factory wire ' + s.factory_wire);
+      planeNote.push('cut / ferruled MR conductor \u2192 Mesa screw terminal');
+      if (bb && bb.provenance) planeNote.push(bb.provenance);
+      ul.appendChild(pathStep('4b \u00b7 Machine-interface plane',
+        'BBIA-1 ' + s.dest_connector + '-' + s.dest_pin +
+          (s.factory_wire ? ' \u00b7 wire ' + s.factory_wire : ''),
+        planeNote.join(' \u00b7 '),
+        false));
+    } else {
+      ul.appendChild(pathStep('4b \u00b7 Machine-interface plane',
+        CLASS_LABEL[s.bbia_class] || 'off-plane',
+        (bb && bb.provenance) ? bb.provenance :
+          'Does not cross at BBIA-1; handled by its own subsystem (INTERFACE_ARCHITECTURE.md \u00a73).',
+        s.bbia_class === 'exception'));
+    }
+
     ul.appendChild(pathStep('5 \u00b7 Field device',
       ((s.designations || []).length ? s.designations.join(' / ') + ' \u2014 ' : '') + (s.field_point || 'unassigned'),
       s.location_note || null,
@@ -683,6 +804,13 @@
     kvRow(dl, 'Board', (BOARDS[s.board] || {}).name || s.board);
     kvRow(dl, 'Connector', s.connector, true);
     kvRow(dl, 'Channel', s.channel, true);
+    var ferrules = s.epson_ferrules || [];
+    if (ferrules.length) {
+      kvRow(dl, 'Epson ferrule', ferrules.map(function (f) { return f.label_text; }).join(', '), true);
+      kvRow(dl, 'OEM wire', ferrules.map(function (f) { return f.wire; }).join(', '), true);
+      kvRow(dl, 'OEM source', ferrules.map(function (f) { return f.old_location; }).join(', '), true);
+      kvRow(dl, 'Label release', ferrules.map(function (f) { return f.release_status; }).join(', '), true);
+    }
     kvRow(dl, 'Direction', s.direction_label);
     kvRow(dl, 'HAL net', s.hal_net || 'not defined', true);
     kvRow(dl, 'Subsystem', s.subsystem + (s.machine_subsystem && s.machine_subsystem !== s.subsystem ? ' \u2192 ' + s.machine_subsystem : ''));
@@ -708,7 +836,7 @@
     }
     refs.forEach(function (r) {
       var li = el('li');
-      li.appendChild(el('span', 'src-file', r.file + ':' + r.line + (r.commented ? '  (commented out)' : '')));
+      appendSourceFile(li, r.file, r.line, r.commented ? '  (commented out)' : '');
       li.appendChild(el('span', 'src-note', r.text));
       hl.appendChild(li);
     });
@@ -721,7 +849,7 @@
       var sl = el('ul', 'src-list');
       s.sources.forEach(function (src) {
         var li = el('li');
-        li.appendChild(el('span', 'src-file', src.file + (src.lines ? ':' + src.lines : '')));
+        appendSourceFile(li, src.file, src.lines);
         if (src.note) li.appendChild(el('span', 'src-note', src.note));
         sl.appendChild(li);
       });
@@ -776,12 +904,14 @@
       'direction', 'subsystem', 'machine_subsystem', 'expected_idle', 'expected_basis',
       'authority_status', 'status_label', 'hal_state', 'mesa_pins', 'linuxcnc_producers',
       'linuxcnc_consumers', 'designations', 'field_point', 'machine_location',
-      'conflicts', 'authority_ref', 'manual_state', 'manual_note', 'live_value'];
+      'epson_label', 'epson_oem_wire', 'epson_oem_source', 'epson_physical_pin',
+      'epson_release_status', 'conflicts', 'authority_ref', 'manual_state', 'manual_note', 'live_value'];
     var lines = [head.join(',')];
 
     rows.forEach(function (s) {
       var sim = state.sim[s.id] || {};
       var lv = (state.live.on && state.live.ok && s.hal_net) ? state.live.values[s.hal_net] : '';
+      var ferrules = s.epson_ferrules || [];
       lines.push([
         s.id, s.name, s.board, s.connector, s.channel, s.hal_net,
         s.direction_label, s.subsystem, s.machine_subsystem,
@@ -789,7 +919,13 @@
         s.status, (STATUS[s.status] || {}).label, s.hal_state,
         (s.mesa_pins || []).join(' | '), (s.producers || []).join(' | '),
         (s.consumers || []).join(' | '), (s.designations || []).join(' | '),
-        s.field_point, s.location, (s.conflicts || []).join(' '),
+        s.field_point, s.location,
+        ferrules.map(function (f) { return f.label_text; }).join(' | '),
+        ferrules.map(function (f) { return f.wire; }).join(' | '),
+        ferrules.map(function (f) { return f.old_location; }).join(' | '),
+        ferrules.map(function (f) { return f.physical_pin; }).join(' | '),
+        ferrules.map(function (f) { return f.release_status; }).join(' | '),
+        (s.conflicts || []).join(' '),
         s.authority_line ? D.meta.authority_file + ':' + s.authority_line : '',
         sim.value == null ? '' : sim.value, sim.note || '',
         lv === undefined ? '' : lv
@@ -911,6 +1047,7 @@
     }
     renderChips(rows);
     renderStatusCounts(rows);
+    if (window.MAZAK_COMMISSIONING) window.MAZAK_COMMISSIONING.render(rows);
   }
 
   /* -------------------------------------------------------------- keyboard */
@@ -928,7 +1065,12 @@
     if (typing) return;
 
     if (e.key === '/') { e.preventDefault(); $('q').focus(); $('q').select(); return; }
-    if (e.key === 'e' && (e.metaKey || e.ctrlKey)) { e.preventDefault(); exportCSV(); return; }
+    if (e.key === 'e' && (e.metaKey || e.ctrlKey)) {
+      e.preventDefault();
+      if (state.mode === 'wiring' && window.MAZAK_COMMISSIONING) window.MAZAK_COMMISSIONING.exportCSV();
+      else exportCSV();
+      return;
+    }
 
     if (e.key === 'ArrowDown' || e.key === 'ArrowUp' || e.key === 'j' || e.key === 'k') {
       var rs = rowEls();
@@ -963,5 +1105,16 @@
   var h = location.hash.match(/signal=([A-Za-z0-9_]+)/);
   if (h && SIG_BY_ID[h[1]]) openDrawer(h[1]);
 
-  window.MAZAK_APP = { state: state, render: render, openDrawer: openDrawer, exportCSV: exportCSV };
+  window.MAZAK_APP = {
+    state: state,
+    render: render,
+    openDrawer: openDrawer,
+    closeDrawer: closeDrawer,
+    exportCSV: exportCSV,
+    toast: toast,
+    sourceHref: sourceHref,
+    statuses: STATUS,
+    signalsById: SIG_BY_ID,
+    sortedFiltered: function () { return sortSignals(filtered()); }
+  };
 })();

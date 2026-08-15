@@ -55,7 +55,7 @@ the isolated 7i84U-B probe path, and LinuxCNC HAL pin names.
 |---|---|---|---|
 | Host board | Exact Mesa board model/revision | 7i80HDT | Determines firmware target and HAL device name (expect `hm2_7i80` — confirm via readhmid). |
 | Ethernet | 7i80HDT IP address / host NIC | 192.168.1.121 / enp0s31f6 (192.168.1.1/24) | Confirms the control PC can reach the board deterministically. |
-| Ethernet | `hm2_eth` config string | `num_encoders=0 num_resolvers=3 num_pwmgens=4 num_stepgens=0 sserial_port_0=00xxxxxx` | Keeps the unverified spindle-encoder path disabled while exposing X/Y/Z resolver, analog, and two smart-serial channels. |
+| Ethernet | `hm2_eth` config string | `num_encoders=0 num_resolvers=3 num_pwmgens=4 num_stepgens=0 sserial_port_0=00xxxxxx` | Exposes X/Y/Z resolver, analog, and two smart-serial channels. `num_encoders=0` is a **settled design decision** (2026-08-12), not a temporary hold — LinuxCNC does not read spindle position; see [`../docs/spindle_motor_plg_encoder.md`](../docs/spindle_motor_plg_encoder.md#design-decision--linuxcnc-does-not-read-spindle-position). |
 | P1 (7i49) | Analog output count/scaling | 6× ±10 V hardware; active `num_pwmgens=4` maps X/Z/Y/spindle to AOUT0/1/2/3; AOUT4/5 spare | Required before safe first motion. Four requested PWM generators create instances 00-03 only. |
 | P1 (7i49) | Resolver interface present | Plain 7i49 (not 7i49HV) | Axis feedback is resolver, not encoder; firmware must expose resolver channels. |
 | P1 (7i49) | Host connection path | On 7i80HDT connector P1 (confirmed by readhmid 2026-08-13, not P2 as earlier docs assumed) | Determines board tag and `num_resolvers` config. |
@@ -94,13 +94,13 @@ List available firmware options if needed:
 mesaflash --device 7i80hdt --addr 192.168.1.121 --list
 ```
 
-Do not flash the placeholder filename used by this repo. After D3 provenance is
-complete, substitute the verified filename and cross-check its SHA-256 before
-running the write command:
+Cross-check the SHA-256 before running the write command — do this even though
+the filename is no longer a placeholder, since D3 provenance (live readhmid +
+HAL pin cross-check) is still open (see below):
 
 ```bash
 sha256sum --check mesa/firmware/SHA256SUMS
-sudo mesaflash --device 7i80hdt --addr 192.168.1.121 --write mesa/firmware/<verified-7i80hdt-bitfile>.bit
+sudo mesaflash --device 7i80hdt --addr 192.168.1.121 --write mesa/firmware/7i80hdt_rmsvss6_8.bin
 sudo mesaflash --device 7i80hdt --addr 192.168.1.121 --reload
 ```
 

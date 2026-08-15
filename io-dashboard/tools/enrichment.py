@@ -11,12 +11,15 @@
 # ---------------------------------------------------------------------------
 STATUS = {
     "PROPOSED": {
-        "label": "Proposed \u2014 from element-list cross-walk",
+        "label": "Proposed \u2014 draft assignment",
         "tone": "reserved",
         "order": 3,
-        "blurb": "Drafted from the YM2V39L element-list cross-walk (2026-07-27). "
-                 "Assignment is a proposal only; verify the device, ladder behavior, "
-                 "and FR-SX/relay terminals before accepting into the wiring plan.",
+        "blurb": "Draft pin assignment not yet accepted into the wiring authority. "
+                 "The 2026-07-27 element-list cross-walk signals have since been located "
+                 "in the OEM diagrams and promoted (2026-08-08); the rows remaining here are "
+                 "HAL-planned field signals (axis over-travel limits, home switches, air-OK, "
+                 "probe SKIP1) plus the E-stop status monitor. Verify the device and terminals "
+                 "before accepting into the wiring plan.",
         "safe_to_energize": "Not accepted. Do not wire.",
     },
     "FIELD_VERIFIED": {
@@ -25,6 +28,27 @@ STATUS = {
         "order": 0,
         "blurb": "Measured in the cabinet and signed off. No rows currently qualify.",
         "safe_to_energize": "Verified per repo records.",
+    },
+    "FACTORY_LINK": {
+        "label": "Ready — factory link",
+        "tone": "verified",
+        "order": 0,
+        "blurb": "Final factory-built Mesa link with two distinct plug-in segments: a Mesa "
+                 "50-pin IDC cable from 7i80HDT P1 to 7i44, then CAT5 smart-serial from "
+                 "7i44 to 7i84U. Inspect identity, keying, seating, strain relief, and visible "
+                 "condition; do not continuity-audit individual conductors. Verify by clean "
+                 "smart-serial enumeration at LinuxCNC startup.",
+        "safe_to_energize": "Factory plug-in link; functional acceptance is clean smart-serial enumeration.",
+    },
+    "FACTORY_INTERFACE": {
+        "label": "Factory interface — verify at first power",
+        "tone": "pending",
+        "order": 4,
+        "blurb": "Machine side is OEM Mazak harness landing on the BBIA1 terminal unit — no cabinet "
+                 "wire to trace or land; the only wiring is Mesa <-> BBIA1 at the interface. (Board-power "
+                 "rows are the 24 V supply to TB1.) Commissioning is a first-power functional check at the "
+                 "interface — input senses / output actuates / 24 V present — not field tracing.",
+        "safe_to_energize": "Not yet commissioned. Confirm function at first power before relying on it.",
     },
     "ACCEPTED": {
         "label": "Accepted \u2014 verify continuity",
@@ -68,8 +92,9 @@ STATUS = {
         "label": "Commissioning pending",
         "tone": "pending",
         "order": 4,
-        "blurb": "Planned assignment awaiting cabinet tracing, polarity confirmation, or "
-                 "load measurement.",
+        "blurb": "Landing is at the interface, not the field. Awaiting a first-power functional "
+                 "check — command polarity vs feedback direction, or load measurement — before the "
+                 "loop is closed or the circuit is energized.",
         "safe_to_energize": "NOT commissioned. Do not energize this circuit.",
     },
     "HOLD_CONFLICT": {
@@ -210,10 +235,38 @@ EXPECTED = {
     "TB5_FIELD_GND": ("n/a", "Power common \u2014 not a logic signal", "current_pin_authority.csv:33", "na"),
     "TB5_FIELD_24V": ("24 V", "Field supply rail \u2014 confirm capacity and fusing",
                       "current_pin_authority.csv:34", "na"),
-    "SEVENI84U_FIELD_A_24V": ("24 V", "Field bank A supply (outputs 0-7, inputs 0-15)",
-                              "current_pin_authority.csv:41", "na"),
-    "SEVENI84U_FIELD_B_24V": ("24 V", "Field bank B supply (outputs 8-15, inputs 16-31)",
-                              "current_pin_authority.csv:42", "na"),
+    "SEVENI84U_FIELD_A_24V": (
+        "24 V", "VFIELDA supply for TB3 outputs 0-7 and inputs 0-15; TB1 pins 3/4 are both positive",
+        "Mesa 7i84U manual pp.7-8/47", "na",
+    ),
+    "SEVENI84U_FIELD_B_24V": (
+        "24 V", "VFIELDB supply for TB2 outputs 8-15 and inputs 16-31; TB1 pins 1/2 are both positive",
+        "Mesa 7i84U manual pp.7-8/47", "na",
+    ),
+    "SEVENI84U_VIN_24V": (
+        "24.0 VDC", "Measured TB1 pin 5 to TB1 pin 6; W1 physically RIGHT",
+        "docs/commissioning_logs/mazak_commissioning_records_07-08-2026.json", "na",
+    ),
+    "SEVENI84U_GND": (
+        "0 V", "VIN/VFIELD common on TB1 pins 6/7/8",
+        "Mesa 7i84U manual pp.7-8", "na",
+    ),
+    "SEVENI84UB_FIELD_A_24V": (
+        "24 V", "VFIELDA supply for TB3 outputs 0-7 and inputs 0-15; TB1 pins 3/4 are both positive",
+        "Mesa 7i84U manual pp.7-8/47", "na",
+    ),
+    "SEVENI84UB_FIELD_B_24V": (
+        "24 V", "VFIELDB supply for TB2 outputs 8-15 and inputs 16-31; TB1 pins 1/2 are both positive",
+        "Mesa 7i84U manual pp.7-8/47", "na",
+    ),
+    "SEVENI84UB_VIN_24V": (
+        "24 V", "Logic supply on TB1 pin 5; verify W1 before wiring",
+        "Mesa 7i84U manual pp.2/7-8/47", "na",
+    ),
+    "SEVENI84UB_GND": (
+        "0 V", "VIN/VFIELD common on TB1 pins 6/7/8",
+        "Mesa 7i84U manual pp.7-8", "na",
+    ),
 }
 
 # Generic fallbacks by direction when the signal is not in EXPECTED.
@@ -269,12 +322,18 @@ LOCATION = {
                     "Operating Panel A & B E-stop pushbuttons (AH25-P182A); DS-1/DS-2 door relay sits ahead of the main contactor"),
     "TB5_FIELD_GND": ("Control cabinet \u2014 G24 common bus", "Field power", "HR-11F-24 supply: +S / + / - / -S / TOG / CNT / FG"),
     "TB5_FIELD_24V": ("Control cabinet \u2014 P24 distribution", "Field power", "HR-11F-24 supply and branch fusing to trace"),
-    "AIR_BLAST": ("Solenoid valve bank \u2014 SOL-62 via relay RLY-5", "Pneumatics", "100 VAC coil \u2014 relay required"),
-    "TOUCH_SENSOR_BLAST": ("Solenoid valve bank \u2014 SOL-35 via relay RLY-6", "Pneumatics",
-                           "SOL-35 = \"Dust Inhale Eliminate\" per connector_crossref.md:52 / TB-51 diagram"),
-    "TAP_COOLANT_BLAST": ("Solenoid valve bank \u2014 SOL-61 via relay RLY-7", "Coolant", "SOL-61 = Air jet on the TB-51 diagram"),
-    "SEVENI84U_FIELD_A_24V": ("Field I/O enclosure \u2014 near the original green breakout PCB", "Field power", ""),
-    "SEVENI84U_FIELD_B_24V": ("Field I/O enclosure \u2014 near the original green breakout PCB", "Field power", ""),
+    "AIR_BLAST": ("Solenoid valve bank \u2014 SOL-15 spindle air blast via relay RLY-5", "Pneumatics", "100 VAC coil confirmed on the CKD nameplate \u2014 relay required"),
+    "WORK_AIR_BLAST": ("Solenoid valve bank \u2014 SOL-16 work air blast via relay RLY-6", "Pneumatics",
+                       "Repurposed from TOUCH_SENSOR_BLAST 2026-08-13: SOL-35/SOL-61 are not fitted; SOL-16 is"),
+    "TAP_COOLANT_BLAST": ("NOT USED \u2014 no tap-coolant solenoid fitted", "Coolant", "SOL-61 is the air jet and is absent; TAPC on CN6-18 still untraced"),
+    "SEVENI84U_FIELD_A_24V": ("Field I/O enclosure \u2014 7i84U-A TB1 pins 3/4", "Field power", "VFIELDA for TB3 bank"),
+    "SEVENI84U_FIELD_B_24V": ("Field I/O enclosure \u2014 7i84U-A TB1 pins 1/2", "Field power", "VFIELDB for TB2 bank"),
+    "SEVENI84U_VIN_24V": ("Field I/O enclosure \u2014 7i84U-A TB1 pin 5", "Logic power", "W1 RIGHT verified; direct VIN feed from Mean Well +V2"),
+    "SEVENI84U_GND": ("Field I/O enclosure \u2014 7i84U-A TB1 pins 6/7/8", "Power common", "VIN/VFIELD common return"),
+    "SEVENI84UB_FIELD_A_24V": ("Field I/O enclosure \u2014 7i84U-B TB1 pins 3/4", "Field power", "VFIELDA for TB3 bank"),
+    "SEVENI84UB_FIELD_B_24V": ("Field I/O enclosure \u2014 7i84U-B TB1 pins 1/2", "Field power", "VFIELDB for TB2 bank"),
+    "SEVENI84UB_VIN_24V": ("Field I/O enclosure \u2014 7i84U-B TB1 pin 5", "Logic power", "Verify W1 position before landing VIN"),
+    "SEVENI84UB_GND": ("Field I/O enclosure \u2014 7i84U-B TB1 pins 6/7/8", "Power common", "VIN/VFIELD common return"),
     "ATC_ZONE_Y": ("Y axis \u2014 tool-change zone prox", "ATC", "PRS-55. Switch may not physically exist \u2014 confirm."),
     "ATC_ZONE_Z": ("Z axis \u2014 tool-change zone prox", "ATC", "PRS-66. Switch may not physically exist \u2014 confirm."),
     "MAG_TOOL_AVAILABLE": ("Tool magazine \u2014 tool-available photo sensor", "ATC magazine",
@@ -333,11 +392,13 @@ LOCATION = {
     "SECOND_SSERIAL_CARD": ("Replaced by 7i84U-B on 7i44 channel 1", "Expansion", "No third smart-serial field-I/O card is currently required. The prior single-7i84U plan used: drops (Y091 OTR, X078 MPWS, X02F INHRLS, Y023-Y025 M43-M45T) + series consolidations (HLP+HLP2, THR+ONT, ITMDSS+LS-140/141) + panel moves (FEED_HOLD/SINGLE_BLOCK to touchscreen, panel-power-on to software state, reset-out to TB5 SSR) fit 5 DI + 5 DO of gap load into 6 DI + 6 DO available before the dual-7i84U architecture revision."),
 }
 
-SSERIAL_LOC = ("Control cabinet \u2014 7i80HDT P3 (7i44 channel 0) to 7i84U-A RJ45 (RS-422 smart-serial)", "Field I/O link",
-               "Use the verified 7i44 channel-0 pinout. Shield drain at the 7i80HDT / 7i44 end only.")
-for _k in ("SSERIAL_GND_A", "SSERIAL_GND_B", "SSERIAL_RX_PLUS", "SSERIAL_RX_MINUS",
-           "SSERIAL_TX_PLUS", "SSERIAL_TX_MINUS", "SSERIAL_5V_A", "SSERIAL_5V_B"):
-    LOCATION[_k] = SSERIAL_LOC
+SSERIAL_LOC_A = ("Control cabinet — 7i80HDT P3 to 7i44 by Mesa 50-pin IDC; 7i44 channel 0 to 7i84U-A CN0/RJ45 by CAT5 smart-serial", "Field I/O link",
+                 "Factory plug-in link: inspect identity, keying/orientation, seating, strain relief, and visible condition; verify clean smart-serial enumeration. Do not continuity-audit or re-terminate individual conductors.")
+SSERIAL_LOC_B = ("Control cabinet — 7i80HDT P3 to 7i44 by Mesa 50-pin IDC; 7i44 channel 1 to 7i84U-B CN0/RJ45 by CAT5 smart-serial", "Field I/O link",
+                 "Factory plug-in link: inspect identity, keying/orientation, seating, strain relief, and visible condition; verify clean smart-serial enumeration. Do not continuity-audit or re-terminate individual conductors.")
+for _s in ("TXA", "TXB", "RXA", "RXB", "GND", "5V"):
+    LOCATION["SSERIAL_PORT0_%s" % _s] = SSERIAL_LOC_A
+    LOCATION["SSERIAL_PORT1_%s" % _s] = SSERIAL_LOC_B
 
 SPARE_LOC = {
     "TB5_SSR_OUT3_SPARE": ("Control cabinet \u2014 historical TB5 SSR3", "Reallocated",
@@ -366,11 +427,9 @@ for i in range(9, 16):
 CONFLICTS = [
     {
         "id": "C3",
-        "title": "FR-SX command architecture and polarity remain unverified",
-        "severity": "conflict",
-        "summary": "The field wiring has not established whether AOUT3 is an unsigned 0-10 V magnitude "
-                   "with discrete direction or a signed bipolar command. All motion-producing spindle "
-                   "paths are held by the fail-off spindle permit chain.",
+        "title": "FR-SX command architecture resolved; polarity/scaling pending bench",
+        "severity": "unverified",
+        "summary": "RESOLVED (diagram, pg 127 Dwg 4143075403): FR-SX takes an unsigned 0-10 V speed magnitude (SPEED REFERENCE '10V MAX SPEED', SE1/SE2/SE3) plus discrete direction (SPINDLE FORWARD SRN / SPINDLE REVERSE SRI) - it is NOT a signed bipolar command. AOUT3 should carry an absolute-value magnitude, not signed speed-out. PENDING BENCH: exact scaling (10 V = max RPM), 0 V = zero speed, and SRN/SRI polarity/sink-source before clearing the spindle permit.",
         "detail": [
             "AOUT3 currently receives signed spindle.0.speed-out.",
             "7i84U-A OUT0/OUT1/OUT2 carry gated FWD/REV/RUN outputs.",
@@ -386,55 +445,15 @@ CONFLICTS = [
                     "docs/frsx_orient_model.md"],
     },
     {
-        "id": "C4",
-        "title": "Gear low: SOL-12 vs SOL-13 identity, and the gear-confirm prox",
-        "severity": "conflict",
-        "summary": "Three documents disagree about which solenoid is low gear, and three disagree about "
-                   "which prox confirms low gear. GEAR_LO_SOL is held.",
-        "detail": [
-            "Authority: OUT7 gear-hi-sol = SOL-13 (RLY-1), OUT8 gear-lo-sol = SOL-12 (RLY-2) "
-            "(current_pin_authority.csv:82-83)",
-            "connector_crossref.md:47 reads cabinet wire tag 413 as \"SOL-13 \u2014 Gear Shift Low\" "
-            "and never mentions SOL-12",
-            "io_map_research_notes.md:54-55 reads the TB-51 diagram (pg 100) as SOL-12 = high, SOL-13 = low",
-            "Gear confirm prox: authority says PRS-10 high / PRS-12 low; the alarm table OCR says "
-            "PRS-10 high (HGPRS) / PRS-2 low (LGPRS); the TB-51 diagram says PRS-9 high / PRS-10 low "
-            "and calls PRS-12 \"2nd Z over-travel\" (io_map_research_notes.md:78-86)",
-            "authority_conflicts.md:7-15 requires tracing both coil wire tags from RC3A and updating both "
-            "rows together",
-        ],
-        "action": "Trace both gear coils from the RC3A board, identify the valve ports, measure coil "
-                  "voltage/current, and visually check the original diagram for the confirm prox. "
-                  "Update both solenoid rows and both prox rows in one change.",
-        "signals": ["GEAR_LO_SOL", "GEAR_HI_SOL", "GEAR_LO_CONF", "GEAR_HI_CONF"],
-        "sources": ["mesa/current_pin_authority.csv:82-83,60-61", "wiring/connector_crossref.md:47",
-                    "wiring/io_map_research_notes.md:54-55,78-86", "wiring/authority_conflicts.md:7-15"],
-    },
-    {
-        "id": "C5",
-        "title": "Tool clamp/unclamp valve: SOL-10 claimed by two outputs",
-        "severity": "conflict",
-        "summary": "TB2 OUT9 and OUT10 both land on SOL-10. Valve topology (single-coil vs dual-coil) "
-                   "is unresolved.",
-        "detail": [
-            "current_pin_authority.csv:84 TOOL_CLAMP_SOL \u2192 OUT9 \u2192 RLY-3 \u2192 SOL-10",
-            "current_pin_authority.csv:85 TOOL_UNCLAMP_SOL \u2192 OUT10 \u2192 RLY-4 \u2192 SOL-10",
-            "connector_crossref.md:46 identifies SOL-10 (wire 410D/410) as tool UNCLAMP only",
-            "authority_conflicts.md:19-24 holds the clamp output and leaves unclamp at COMMISSIONING_PENDING",
-        ],
-        "action": "Trace the RLY-3 and RLY-4 load sides to the valve, determine coil count, and verify "
-                  "clamp/unclamp prox behaviour with hydraulic pressure removed.",
-        "signals": ["TOOL_CLAMP_SOL", "TOOL_UNCLAMP_SOL", "TOOL_CLAMP_CONF", "TOOL_UNCLAMP_CONF"],
-        "sources": ["mesa/current_pin_authority.csv:84-85", "wiring/connector_crossref.md:46",
-                    "wiring/authority_conflicts.md:19-24"],
-    },
-    {
         "id": "C6",
-        "title": "All HostMot2 pin names are unverified placeholders",
-        "severity": "unverified",
-        "summary": "Every hm2_7i80.* name in the HAL set is a placeholder. Board tag, GPIO index ranges, "
-                   "resolver pin names, pwmgen instances, and the smart-serial device tag all need "
-                   "readhmid / halcmd show pin hm2 confirmation.",
+        "title": "CLEARED - HostMot2 pin-name placeholders no longer hold signals",
+        "severity": "cleared",
+        "summary": "CLEARED per owner (AG) 2026-08-11: per-signal holds removed - the placeholder pin-name "
+                   "question is a bring-up verification step (readhmid / halcmd show pin hm2 against the "
+                   "received 7i80hdt_rmsvss6_8.bin bitfile), not a per-signal wiring conflict, and it no "
+                   "longer blocks the wiring plan. The HAL-file placeholder warnings remain in force until "
+                   "that verification runs. Original scope: every hm2_7i80.* name (board tag, GPIO index "
+                   "ranges, resolver pin names, pwmgen instances, smart-serial device tag).",
         "detail": [
             "motion_7i80hdt.hal:4-7 \u2014 \"every hm2_7i80.* name below is an UNVERIFIED PLACEHOLDER... "
             "Confirm the exact board tag (hm2_7i80 expected)\"",
@@ -448,20 +467,18 @@ CONFLICTS = [
             "mazak_vqc_20_40.hal:25-26 \u2014 board_ip and config string still TODO despite 192.168.1.121 "
             "being set on line 31",
         ],
-        "action": "Load the real firmware, run readhmid and halcmd show pin hm2, then regenerate the HAL "
-                  "pin names. Treat every gpio.NNN in this dashboard as a label, not a landing point.",
-        "signals": ["X_LIMIT_PLUS", "X_LIMIT_MINUS", "Y_LIMIT_PLUS", "Y_LIMIT_MINUS", "Z_LIMIT_PLUS",
-                    "Z_LIMIT_MINUS", "X_HOME", "Y_HOME", "Z_HOME", "ESTOP_CHAIN", "AIR_BLAST",
-                    "TOUCH_SENSOR_BLAST", "TAP_COOLANT_BLAST", "X_RESOLVER", "Y_RESOLVER", "Z_RESOLVER"],
+        "action": "At bring-up: run readhmid and halcmd show pin hm2 against the real firmware, then "
+                  "regenerate the HAL pin names. Treat every gpio.NNN in this dashboard as a label, not a "
+                  "landing point. (Per-signal holds cleared 2026-08-11; signals list emptied then.)",
+        "signals": [],
         "sources": ["linuxcnc/motion_7i80hdt.hal:4-7,32-33,116,183-188", "linuxcnc/field_7i84u.hal:3-6",
                     "linuxcnc/mazak_vqc_20_40.hal:4-7,25-26"],
     },
     {
         "id": "C9",
-        "title": "Magazine rotation direction SOL-8A/8B is unassigned and contradicted",
-        "severity": "conflict",
-        "summary": "The authority has generic ATC_FWD/ATC_REV relay outputs but never binds them to "
-                   "SOL-8A/SOL-8B, and the two sources disagree on which coil is which direction.",
+        "title": "Magazine SOL-8A/8B assignment resolved; physical rotation pending bench",
+        "severity": "unverified",
+        "summary": "RESOLVED (diagram, pg 91 Dwg 4143075332 + connector_crossref.md:44-45): SOL-8A = wire 408A = MAGAZINE CCW (forward); SOL-8B = wire 408B = MAGAZINE CW (reverse). The alarm-table OCR that had them opposite was wrong. Bind ATC_FWD -> SOL-8A, ATC_REV -> SOL-8B. PENDING BENCH: verify actual magazine motion direction under controlled commissioning before promoting.",
         "detail": [
             "connector_crossref.md:44-45 \u2014 408A = SOL-8A Magazine CCW (forward), 408B = SOL-8B "
             "Magazine CW (reverse)",
@@ -478,24 +495,28 @@ CONFLICTS = [
     },
     {
         "id": "C10",
-        "title": "Coverage gaps: signals documented in research but absent from the authority",
-        "severity": "unverified",
-        "summary": "io_map_research_notes.md lists functional areas with no Mesa channel allocated. If any "
-                   "are retained they need channels that the current 32-in/16-out budget may not have.",
+        "title": "CLEARED - research-coverage gaps are scope decisions, not signal holds",
+        "severity": "cleared",
+        "summary": "CLEARED per owner (AG) 2026-08-11: per-signal holds removed - these were scope "
+                   "(retain-or-drop) decisions, not wiring conflicts, and should not hold allocated signals. "
+                   "Prior state: several original gaps already closed (SOL-31 flood coolant = FLOOD_VALVE; "
+                   "magazine cover-open located; spindle orient arrival exists; head-lube = LUBE_OK; 7i84U-B "
+                   "added); remaining open items (2PC pallet changer - since ruled out of scope, see CN12 "
+                   "characterization - and door interlocks) stay tracked in their own docs.",
         "detail": [
-            "Entire 2PC pallet-changer set: SOL-22A/22B, SOL-24, SOL-25A/25B, SOL-82A/82B, SOL-87A/87B, "
-            "PRS-98/99, PRS-92/93, RS-96/97, LS-83/84/87/88 (io_map_research_notes.md:106-146)",
-            "Door interlock switches LS-140/LS-141 (io_map_research_notes.md:94-104)",
-            "SOL-31 flood coolant and the CB-4 + CMS overload relay (io_map_research_notes.md:148-170)",
-            "Magazine cover reed switches RS-79 / RS-18, spindle orientation arrival signal, ATC arm "
-            "position sensors, tool-measure stand switches (io_map_research_notes.md:287-295)",
-            "Two lube systems (head AL-56, way AL-54) share one generic LUBE_ON output "
-            "(io_map_research_notes.md:293-295)",
-            "7i84U-B on physical channel 1 superseded the prior single-7i84U plan",
+            "OPEN - 2PC pallet-changer set: SOL-22A/22B, SOL-24, SOL-25A/25B, SOL-82A/82B, SOL-87A/87B, "
+            "PRS-98/99, PRS-92/93, RS-96/97, LS-83/84/87/88 - retain-or-drop decision (io_map_research_notes.md:106-146)",
+            "OPEN - Door interlock switches LS-140/LS-141: decision + 1-2 inputs (io_map_research_notes.md:94-104)",
+            "OPEN - ATC arm position sensors + tool-measure stand switches: unallocated if ATC retained "
+            "(io_map_research_notes.md:287-295)",
+            "OPEN - way lube (AL-54) is separate from head lube; LUBE_OK covers head only - way lube may need its own channel",
+            "CLOSED since: SOL-31 flood coolant = FLOOD_VALVE; magazine cover-open located (cover-close is a "
+            "trace target); spindle orientation arrival = SPINDLE_ORIENT_ARRIVAL; 7i84U-B added on channel 1",
         ],
         "action": "The current two-card allocation has 21 DI and 7 DO spare after AIR_OK and cover output. "
-                  "Inventory every pallet-changer device before restoring that scope; do not order a third remote from an estimate.",
-        "signals": ["SECOND_SSERIAL_CARD", "DOOR_INTERLOCK", "LUBE_ON", "COOLANT_ON"],
+                  "Inventory every pallet-changer device before restoring that scope; do not order a third "
+                  "remote from an estimate. (Per-signal holds cleared 2026-08-11; signals list emptied then.)",
+        "signals": [],
         "sources": ["wiring/io_map_research_notes.md:94-170,287-295", "mesa/current_pin_authority.csv:91"],
     },
 ]

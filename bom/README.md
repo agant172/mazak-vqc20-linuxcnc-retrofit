@@ -3,10 +3,11 @@
 ## I/O workbook
 
 - [`Mazak_VQC_20-40_Retrofit_IO_Workbook.xlsx`](Mazak_VQC_20-40_Retrofit_IO_Workbook.xlsx)
-  — historical retrofit I/O planning workbook and working parts-planning
-  material. It is not current pin authority; use
-  [`../mesa/current_pin_authority.csv`](../mesa/current_pin_authority.csv) and
-  the validated HAL for present assignments.
+  — generated Excel snapshot of all 132 rows in
+  [`../mesa/current_pin_authority.csv`](../mesa/current_pin_authority.csv), with
+  formula-driven authority summaries and the selected 7i80HDT / 7i44 / 7i49 /
+  two-7i84U architecture. The CSV remains the source of truth; regenerate the
+  workbook after authority changes rather than editing assignments only in Excel.
 
 ## Planned core Mesa stack (to confirm before purchase)
 

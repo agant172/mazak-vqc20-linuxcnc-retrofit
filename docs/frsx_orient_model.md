@@ -1,5 +1,22 @@
 # FR-SX / SJ spindle orient model — corrected
 
+> ## ✅ THE FR-SX MAINTENANCE MANUAL IS NOW IN THE REPO (2026-08-13)
+>
+> `docs/OEM Manuals/Mitsubishi_FR-SX_Spindle_Drive_Maintenance_Manual_BCN-21735-S5.pdf`
+> — findings in [`frsx_maintenance_manual_notes.md`](frsx_maintenance_manual_notes.md).
+> It is a **primary source and outranks the MDS-CH / FREQROL-SF borrowings this
+> document is built on.** Where they disagree, the FR-SX manual wins.
+>
+> **The detector question is largely answered.** §5.2 states the `SX-CPU2` card
+> is used "when the controller unit is equipped with **1024P×4/Rev. encoder type
+> multi-point orientation**" — and this machine **has** an `SX-CPU2`
+> (`BD625A552H04`, photographed). So this drive orients from an **encoder, not a
+> magnetic sensor**, and the orient encoder is a **1024 ppr device separate from
+> the motor's 512 c/t PLG**.
+>
+> Caveat: the scan is **incomplete** (printed pages 1–38); Chapter 6, the orient
+> detector installation procedure, is missing.
+
 > **UNVERIFIED FR-SX model & terminal layout (2026-08-06).** The exact FR-SX
 > model number on this machine and its terminal-strip layout have not been added
 > to the repo. The orient control model below is derived from the general
@@ -49,7 +66,7 @@ terminal-block terminal. The corresponding Mazak PLC output on this
 machine is **Y093 ORCM1.M** as documented in the OEM wire-tag survey
 ([`docs/photo_survey_misc.md`](photo_survey_misc.md)) and the
 element/dashboard crosswalk
-([`docs/crosswalk/element_dashboard_crosswalk_summary.md`](crosswalk/element_dashboard_crosswalk_summary.md)).
+([`archive/crosswalk/element_dashboard_crosswalk_summary.md`](../archive/crosswalk/element_dashboard_crosswalk_summary.md)).
 
 ### Target position is set by drive hardware + parameters
 
@@ -62,6 +79,26 @@ manufacture:
 | Magnetic sensor (MAGSENSOR) | 1 (single fixed point) | CN6 | `#41 OSL = 2`, `SP037.nsno = 1` |
 | External encoder (OSE1024 / RFH-1024) | 4096 (multi-point) | CN6 | `#41 OSL = 1`, `SP037.enco = 1` |
 | Motor-built-in PLG detector | 4096 (multi-point) | CN5 | `#41 OSL = 0`, `SP037.plgo = 1` |
+
+> **UPDATE 2026-08-13 — the FR-SX manual reframes this table.** The rows below
+> come from the later MDS-CH manual. The FR-SX's own manual says orientation is
+> either **magnetic-sensor single-point** or **encoder-type multi-point at
+> 1024P×4/Rev**, selected by *which CPU card is fitted* — and this machine's
+> `SX-CPU2` card means **encoder type**. Treat the `#41 OSL` / `SP037` column as
+> not applicable here. See
+> [`frsx_maintenance_manual_notes.md`](frsx_maintenance_manual_notes.md).
+
+> **This machine physically has a motor-built-in PLG** — a Tamagawa
+> **TS1526N55 optical shaft encoder, 512 counts/turn, DC ±15 V** in the spindle
+> motor's terminal box (nameplate photos 2026-08-12,
+> [`spindle_motor_plg_encoder.md`](spindle_motor_plg_encoder.md)). Two cautions:
+> the **512 counts/turn** does not match the `4096` in the row above (that figure
+> is quoted from the later MDS-CH manual — do not apply it to this motor), and
+> the mere presence of a PLG **does not prove** `#41 OSL = 0` is what the drive
+> is configured for. **Do not assume the parameter numbers in this table apply
+> here** — they come from the later MDS-CH manual. What settles it is
+> [`frsx_orient_detector_capture.md`](frsx_orient_detector_capture.md), which
+> starts by tracing the PLG cable to its drive connector.
 
 Quoted parameter text:
 
@@ -134,7 +171,7 @@ References:
 - ATC/orient HAL nets:
   [`linuxcnc/atc_orient.hal`](../linuxcnc/atc_orient.hal)
 - Element / dashboard crosswalk:
-  [`docs/crosswalk/element_dashboard_crosswalk_summary.md`](crosswalk/element_dashboard_crosswalk_summary.md)
+  [`archive/crosswalk/element_dashboard_crosswalk_summary.md`](../archive/crosswalk/element_dashboard_crosswalk_summary.md)
 
 ### Required orient sequence in `mazak_orient.comp`
 
@@ -183,6 +220,11 @@ depends on:
   encoder orient).
 - Detector type (magnetic single-point vs encoder multi-point).
 
+**First hard number, 2026-08-13:** the FR-SX manual §3.3(2) gives an
+**orientation speed of 80–155 rpm** for encoder-type orient, and puts the 2nd
+positioning loop gain on `SW2-1/5/6/7`. That is not an arrival *time*, but it
+bounds the approach, and those switches are what the behaviour is tuned with.
+
 No supported source establishes an arrival-time range for this exact FR-SX,
 motor, detector, gearbox, and machine inertia. Record commanded speed, gear,
 ORCM1 edge, ORA1 edge, and repeatability on the machine. Set the component
@@ -208,11 +250,24 @@ the component watchdog.
   `mazak_orient.comp` against readable OEM sheets 28xx-30xx and 55xx; resolve
   every ambiguous contact, timer base, and SSET/SET1/SET2 identity before live
   operation.
-- [ ] Verify from the FR-SX drive nameplate and its parameter dump
-  which detector mode is provisioned on this machine (magnetic
-  sensor on CN6, external encoder on CN6, or PLG on CN5). The physical
-  cabling determines which `#41 OSL` / `SP037` bits are valid; the
+- [ ] Verify which detector mode is provisioned on this machine (magnetic
+  sensor on CN6, external encoder on CN6, or PLG on CN5) — procedure in
+  [`frsx_orient_detector_capture.md`](frsx_orient_detector_capture.md), which
+  leads with the **physical cable trace** rather than a parameter read. The
+  physical cabling determines which `#41 OSL` / `SP037` bits are valid; the
   ladder transcription and orient tuning depend on this.
+  **Narrowed 2026-08-12, not closed:** a motor-built-in PLG is confirmed to
+  exist (Tamagawa TS1526N55, [`spindle_motor_plg_encoder.md`](spindle_motor_plg_encoder.md)),
+  so `OSL = 0` is now plausible — but a magnetic sensor or a machine-side
+  encoder on CN6 has not been ruled out, and the schematics' separate
+  "SPINDLE ENCODER" (`MS3108B 20-29P`, dwg 4143075301 p090) is still
+  unaccounted for.
+  **Capture procedure: [`frsx_orient_detector_capture.md`](frsx_orient_detector_capture.md).**
+  An earlier revision said "reading `#41 OSL` and `SP037` remains the item that
+  closes this" — **that was overstated.** Those parameter numbers are quoted
+  above from the later **MDS-CH** manual and may not exist on a 1985 FR-SX. The
+  procedure leads instead with **tracing the PLG cable to its drive connector**,
+  which is more certain and needs no power.
 - [ ] Measure actual orient arrival time in low gear once orient is
   wired end-to-end and set `mazak-orient.orient-timeout`,
   `mazak-orient.arrival-debounce`, and the outer `[ATC] ORIENT_TIMEOUT`
@@ -230,7 +285,7 @@ the component watchdog.
   orient sequence prerequisites and OSL/PLG selection:
   [https://manuals.plus/m/37e41d6934496a6467e1b636303c0cb5337c7a675d8f65aed2fd35711a6cd1db](https://manuals.plus/m/37e41d6934496a6467e1b636303c0cb5337c7a675d8f65aed2fd35711a6cd1db)
 - Repo cross-references (internal): `docs/photo_survey_misc.md`,
-  `docs/crosswalk/element_dashboard_crosswalk_summary.md`,
+  `archive/crosswalk/element_dashboard_crosswalk_summary.md`,
   `linuxcnc/atc_orient.hal`, `linuxcnc/field_7i84u.hal`,
   `linuxcnc/mazak_vqc_20_40.ini` (`[ATC] ORIENT_TIMEOUT`),
   `docs/estop_safety_chain.md`, `docs/dc_bus_stop_fault.md`.

@@ -66,12 +66,13 @@ See [`architecture_decision.md`](architecture_decision.md) for the full rational
 - 7i49 resolver feedback interface selected (plain 7i49, 5 kHz baseline).
 - Tamagawa TS2014N resolvers identified on-machine (July 2026 photo survey).
 - Meanwell DR-240-24 retrofit 24V supply installed; kept isolated from OEM HR-11F-24 bus.
-- Initial I/O workbook created (`bom/Mazak_VQC_20-40_Retrofit_IO_Workbook.xlsx`).
+- The 132-row I/O workbook is generated from the current authority CSV
+  (`bom/Mazak_VQC_20-40_Retrofit_IO_Workbook.xlsx`).
 - HAL/INI bring-up skeleton drafted (`linuxcnc/`) — updated to new stack 2026-08-06.
 - Mesa firmware/HAL-pin checklist drafted (`mesa/mesa_firmware_checklist.md`).
 - Cabinet photo checklist drafted (`docs/cabinet_photo_checklist.md`).
 - Ladder transcription: ATC (mazak_atc.comp), Orient/Gear (mazak_orient.comp).
-- 385-signal ladder crosswalk; 128 current authority rows covered in io-dashboard.
+- 385-signal ladder crosswalk; 132 current authority rows covered in io-dashboard.
 - Element list catalog (VQC20-40_060231) — 5,247 elements categorized.
 - Pin authority CSV structurally reconciled for the full stack
   (`mesa/current_pin_authority.csv`); physical tracing and electrical/HAL
@@ -101,7 +102,30 @@ See [`architecture_decision.md`](architecture_decision.md) for the full rational
 - [ ] Capture cabinet photo set using the cabinet photo checklist.
 - [ ] Capture/record X/Y/Z servo drive model labels and command/enable/fault terminal labels.
 - [ ] Capture/record Mitsubishi FR-SX spindle drive model and analog/run/direction/alarm terminals.
+- [x] **FR-SX orient detector — ANSWERED 2026-08-13 from the drive manual.** `docs/OEM Manuals/…BCN-21735-S5.pdf` §5.2: the `SX-CPU2` card is fitted "when the controller unit is equipped with **1024P×4/Rev. encoder type multi-point orientation**" — and this machine has an `SX-CPU2`. So the drive orients from a **1024 ppr encoder**, which is **not** the motor's 512 c/t PLG. See [`frsx_maintenance_manual_notes.md`](frsx_maintenance_manual_notes.md).
+- [ ] **Read `PIN11` on the SX-CPU2 card — "A" or "B".** "B" means the orient encoder is **powered from the NC**, so removing the Mazatrol would silently kill it. Covers off, no power needed. Decide before the NC comes out.
+- [ ] Read/photograph the rest of the SX-CPU2 configuration: `PIN12`/`PIN13` (source vs sync input) and `SW2-1/5/6/7` (2nd positioning loop gain), positions legible.
+- [ ] **Locate the 1024 ppr orient encoder** and read its nameplate — very likely the `MS3108B 20-29P` device from dwg 4143075301 p090, which would close that open question too.
+- [ ] Consider using the drive's own **`ST2 ORIENTATION TEST`** toggle to prove orient standalone — no NC, no LinuxCNC — ideally *before* the Mazatrol is removed.
+- [ ] `ORCM2` exists per the drive manual but is untracked in this repo (only `ORCM1` is). Check the element list and terminal unit.
+- [ ] Find a **complete** FR-SX manual scan — the committed copy is printed pages 1–38; Chapter 6 (orient detector installation) and the SX-PW/SX-AJ sections are missing.
+- [x] **DECIDED 2026-08-12 (owner): LinuxCNC does not read spindle position.** `num_encoders=0`, P3 empty, and `SPINDLE_ENCODER` `UNBOUND` are settled, not pending. Orient is FR-SX internal, speed supervision is discrete, and tapping uses a floating holder (no rigid tapping / G33 in scope). The motor PLG is structurally unusable anyway — it sits upstream of the 2-speed gearbox and has no index line. See [`spindle_motor_plg_encoder.md`](spindle_motor_plg_encoder.md#design-decision--linuxcnc-does-not-read-spindle-position).
+- [ ] *(documentation accuracy only, not gating)* Determine whether the schematics' machine-side "SPINDLE ENCODER" (`MS3108B 20-29P`, dwg 4143075301 p090) is a **second** physical device or another view of the motor PLG. Cheapest check: photograph the spindle head for anything encoder-shaped. Nothing depends on the answer now that the decision above is settled.
 - [ ] Trace HR-11F-24 (OEM) and DR-240-24 (retrofit) 24 V supplies, P24/G24 distribution, remote sense, TOG/CNT, and branch fusing.
+- [ ] **DECISIONS PENDING OWNER APPROVAL from the 2026-08-12/13 photo survey** — all recorded, none applied. See [`../wiring/authority_conflicts.md`](../wiring/authority_conflicts.md) §5 and [`../wiring/cabinet_asfound_survey.md`](../wiring/cabinet_asfound_survey.md):
+  - [ ] Add **`57B`** to the OEM preserve list in `CLAUDE.md`. Confirmed a factory terminal designation on the cabinet safety-chain strip; the list currently names only `57` and `57A`.
+  - [ ] `AIR_BLAST` (7i84U-B OUT3): relabel field point **`SOL-62` → `SOL-15`** (wire `415`, read at the coil). Function and wire were already correct — a relabel, not a rebinding.
+  - [ ] `TOUCH_SENSOR_BLAST` (OUT4) and `TAP_COOLANT_BLAST` (OUT5): **their devices are not fitted**. Recommend `NOT_USED`/`RESERVED`, as was done for `MIST_COOLANT`. Do not fit RLY-6/RLY-7.
+  - [ ] **`SOL-16` work air blast is fitted and wired (wire `416`/`216`, CN11-7) but no authority row drives it.** Allocate an output or record a decision to drop the function. 7i84U-A is at 100 % — check [`io_capacity_reconciliation.md`](io_capacity_reconciliation.md) first.
+  - [ ] `LUBE_OK` (IN25): status promotion now justified — `PS-5` tag, wire `355` and `CN6-39` all physically confirmed together. Contact form and trip pressure still unverified.
+- [ ] **Shop items opened by the same survey:**
+  - [ ] Field-trace the safety chain from the cabinet strip (`57`/`57A`/`57B`/`58`/`59`/`60`/`EMB`/`MAR`) toward the contactor drop — the **D5** item the drawing pass could not locate.
+  - [ ] Trace `TAPC` from **CN6-18 → CNB-46** and find what it drives. Last unresolved device path in §5.
+  - [ ] Confirm whether `SOL-31` flood coolant and the other three unfitted placard tags exist **elsewhere** on the machine before any row is dropped. "Not on the head" is not "does not exist".
+  - [ ] Assign the four motor starter circuits (`U11`/`U21`/`U31`/`U44`) to their motors; read the overload and `MB30-CB` breaker settings — **D1** input.
+  - [ ] Establish what the Mitsubishi `SRE` voltage relay (AC 100 V, 120–150 V dial) gates, and its setpoint.
+  - [ ] Measure solenoid coil **current** to size RLY-1…RLY-7 contacts. Coil voltage is confirmed 100 VAC; current is not.
+  - [ ] Re-read dwg **4143175310 p079** (spindle-tacho legend, §4) and **4143075301 p090** (`MS3108B` — same device as the motor PLG, or a second one?).
 - [ ] Confirm scope: mist coolant, work light, manual tool clamp/unclamp pushbuttons, and cover-motion outputs are deferred or removed per [`io_capacity_reconciliation.md`](io_capacity_reconciliation.md). 2PC pallet changer is out of retrofit scope. 7i84U-A is at 100/100% — any new signal there requires reallocating an existing one to 7i84U-B.
 - [ ] Execute the hm2_eth NIC and multi-hour latency-under-load acceptance per [`hm2_eth_nic_validation.md`](hm2_eth_nic_validation.md); record NIC/MAC/driver/IRQ/offload state, verify the checked-in `packet-error-exceeded` + `watchdog.has_bit` inhibit wiring against actual HAL pins, and fault-inject both paths before enabling drives.
 - [ ] Build the resolver + analog cables per [`grounding_shielding_plan.md`](grounding_shielding_plan.md): three individually shielded twisted pairs per resolver, shields at the 7i49 end only, drive-specific analog-common/shield treatment, and documented routing away from switching power. Establish sourced project acceptance thresholds, execute the staged noise survey, and log results under `docs/commissioning_logs/`.

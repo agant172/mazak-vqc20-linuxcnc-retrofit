@@ -17,9 +17,11 @@
 # scripts/validate_authority.py -- run it before every commit that touches
 # this file or the CSV. See docs/authority_hierarchy.md for the full hierarchy.
 #
-# TERMINAL BLOCKS: Per Mesa 7i84 manual (http://www.mesanet.com/pdf/parallel/7i84man.pdf)
-# the physical terminal blocks on the 7i84 are TB1 (POWER ONLY: VFIELDA, VFIELDB,
-# VIN, GND), TB3 (INPUT0-15 and OUTPUT0-7), and TB2 (INPUT16-31 and OUTPUT8-15).
+# TERMINAL BLOCKS: Per the Mesa 7i84U manual (https://www.mesanet.com/pdf/parallel/7i84uman.pdf),
+# TB1 pins 1/2 are both VFIELDB positive field power for TB2; pins 3/4 are both
+# VFIELDA positive field power for TB3; pin 5 is VIN; pins 6/7/8 are GND/common.
+# Pins 2 and 4 are NOT returns. Use the conservative 5-28 VDC specification.
+# TB3 carries INPUT0-15 and OUTPUT0-7; TB2 carries INPUT16-31 and OUTPUT8-15.
 # The hostmot2 pin names below are `input-NN` / `output-NN` regardless of
 # physical terminal - the physical TB assignment is documented for wiring only.
 
@@ -36,24 +38,28 @@ net atc-z-zone         <= hm2_7i80.0.7i84.0.0.input-01   # IN1  PRS-66 Z ATC zon
 # manual-unclamp-pb). Do NOT re-net them here.
 net thermal-alarm      <= hm2_7i80.0.7i84.0.0.input-08   # IN8  X073 THR.M + X07B ONT.M series NC
 
-# --- IN10..IN15  (drive faults + spindle + tool clamp, TB3 pins 11-16) ---
+# --- IN10, IN11/IN12 spare, IN13..IN15  (servo/spindle/tool clamp, TB3 pins 11-16) ---
 # amp-fault-in: if TRUE, motion module immediately aborts and enters E-stop.
 # CAUTION: confirm input polarity before enabling. The Mitsubishi HD81/HD101 ALM
 # output is BELIEVED to be open-collector-active-low (fault = low/open), so
-# consuming '-not' on these inputs would present logic 1 to joint.N.amp-fault-in
-# on a fault. Do NOT use a nonexistent invert_input parameter - see the input-
-# polarity note above the limit block.
+# consuming '-not' on the combined servo-alarm input would present logic 1 to
+# joint.N.amp-fault-in on a fault. Do NOT use a nonexistent invert_input
+# parameter - see the input-polarity note above the limit block.
 # **UNVERIFIED** - no primary Mitsubishi manual for HD81/HD101 is in this repo;
 # the polarity assumption comes from a PCW forum discussion, not manufacturer
 # documentation. Bench-verify the actual ALM contact behavior against the amp
 # BEFORE these inputs are wired into the safety chain. See
 # docs/superseded_claims_2026-08-06.md #16.
-net x-drive-fault      <= hm2_7i80.0.7i84.0.0.input-10   # IN10 X drive ALM
-net x-drive-fault      => resolver-fault-x.in0
-net y-drive-fault      <= hm2_7i80.0.7i84.0.0.input-11   # IN11 Y drive ALM
-net y-drive-fault      => resolver-fault-y.in0
-net z-drive-fault      <= hm2_7i80.0.7i84.0.0.input-12   # IN12 Z drive ALM
-net z-drive-fault      => resolver-fault-z.in0
+# Owner decision 2026-08-11: the OEM servo-error output (SER, CN6-27) is a
+# SINGLE combined contact for all three axes, not one alarm per axis (only one
+# SER line exists on the 50-pin CN6). It is read on IN10 and fans out to every
+# axis's OR gate below, so any servo amp fault trips all three joints. IN11 and
+# IN12 are freed to spare. Each axis still ORs this shared alarm with its own
+# resolver fault before reaching that joint's amp-fault-in.
+net servo-fault        <= hm2_7i80.0.7i84.0.0.input-10   # IN10 CN6-27 SER combined servo ALM (all axes)
+net servo-fault        => resolver-fault-x.in0
+net servo-fault        => resolver-fault-y.in0
+net servo-fault        => resolver-fault-z.in0
 net x-axis-fault       <= resolver-fault-x.out
 net x-axis-fault       => joint.0.amp-fault-in
 net y-axis-fault       <= resolver-fault-y.out
@@ -72,7 +78,7 @@ net tool-unclamped     <= hm2_7i80.0.7i84.0.0.input-16   # IN16 PRS-8 tool-uncla
 
 # --- IN24..IN27  (safety chain + utility, TB2 pins 9-12) ---
 net door-interlock     <= hm2_7i80.0.7i84.0.0.input-24   # IN24 LS-140+LS-141+X01D ITMDSS series NC
-net lube-ok            <= hm2_7i80.0.7i84.0.0.input-25   # IN25 X042 HLP2 + X079 HLP series NC
+net lube-ok            <= hm2_7i80.0.7i84.0.0.input-25   # IN25 PS-5 wire 355 / X079 HLP.M; sole head-lube pressure switch
 net coolant-low        <= hm2_7i80.0.7i84.0.0.input-26   # IN26 coolant level (polarity TBD)
 # IN27 hydraulic-ok netted in atc_orient.hal.
 
@@ -87,8 +93,9 @@ net coolant-low        <= hm2_7i80.0.7i84.0.0.input-26   # IN26 coolant level (p
 # docs/pre_power_deliverables.md D4.
 net mag-in-pos         <= hm2_7i80.0.7i84.0.0.input-28   # IN28 MIPRS mag-in-pos prox (PLC X00D)
 net estop-monitor      <= hm2_7i80.0.7i84.0.0.input-29   # IN29 OEM MAR aux via interposing relay
-# IN30 manual-clamp-pb reserved (PROPOSED, not netted until wired):
-# net manual-clamp-pb    <= hm2_7i80.0.7i84.0.0.input-30
+# IN30 RESERVED for the manual tool-clamp foot switch (CSV MANUAL_TOOL_CLAMP_PB,
+# 2026-08-09) - deferred per io_capacity_reconciliation.md; net name was
+# manual-clamp-pb, recorded in CSV cleanup_notes for restoration.
 # IN31 servo-ready netted in atc_orient.hal.
 
 #####################################################################
@@ -159,27 +166,23 @@ setp z-drive-drop-delay.off-delay 0.100  # retain torque while brake engages
 net z-enable-request   => z-brake-delay.in
 net z-brake-release    <= z-brake-delay.out
 net z-brake-release    => hm2_7i80.0.7i84.0.0.output-06  # OUT6  N1J-L2-201 Z brake release
-# OUT7  gear-hi-sol        (netted in atc_orient.hal - Y00B GSH.M / RLY-1 to SOL-13)
-# OUT8  gear-lo-sol        (HOLD_CONFLICT in authority CSV; unbound in atc_orient.hal)
-# OUT9  tool-clamp-sol     (netted in atc_orient.hal - dual-coil clamp reserved)
+# OUT7  gear-hi-sol        (netted in atc_orient.hal - Y00B GSH.M / RLY-1 to SOL-12, swap confirmed 2026-08-08)
+# OUT8  gear-lo-sol        (netted in atc_orient.hal 2026-08-09 - Y00C GSL.M / RLY-2 to SOL-13, conflict resolved)
+# OUT9  FREE - C5 2026-08-09: no separate clamp solenoid (SOL-10 single-coil spring-return); TOOL_CLAMP_SOL dropped
 # OUT10 tool-unclamp-sol   (netted below - single writer)
 net tool-unclamp-sol   => hm2_7i80.0.7i84.0.0.output-10  # OUT10 RLY-4 to SOL-10
 net flood-coolant      <= iocontrol.0.coolant-flood
 net flood-coolant      => hm2_7i80.0.7i84.0.0.output-11  # OUT11 flood pump relay
-# HOLD_CONFLICT: OUT12 physical load identity unverified.
-# See wiring/authority_conflicts.md and mesa/current_pin_authority.csv MIST_COOLANT row.
-# Do NOT restore this binding until the physical load is traced at the cabinet.
-# net mist-coolant       <= iocontrol.0.coolant-mist
-# net mist-coolant       => hm2_7i80.0.7i84.0.0.output-12  # OUT12 (was lube-on; verify)
+# OUT12 free: mist coolant eliminated 2026-08-09 (no mist system on this machine).
 
-# HOLD_CONFLICT: OUT13/OUT14 magazine rotation direction unproven.
-# See wiring/authority_conflicts.md #3 and mesa/current_pin_authority.csv MAG_CW_SOL / MAG_CCW_SOL rows.
-# atc_orient.hal creates the mag-cw-sol / mag-ccw-sol nets from mazak-atc; keeping them
-# off the physical relays until SOL-8A/SOL-8B mapping is verified under controlled commissioning.
-# net mag-cw-sol         => hm2_7i80.0.7i84.0.0.output-13  # OUT13 ATC motor fwd relay
-# net mag-ccw-sol        => hm2_7i80.0.7i84.0.0.output-14  # OUT14 ATC motor rev relay
-# OUT15 alarm-out: optional stack light / horn
-# net alarm-out          => hm2_7i80.0.7i84.0.0.output-15
+# OUT13/OUT14 magazine rotation: coil identity RESOLVED 2026-08-09 (pg91 Dwg 4143075332):
+#   MAG_CW_SOL  -> SOL-8B (OUT13),  MAG_CCW_SOL -> SOL-8A (OUT14).
+# Physical bindings live in atc_orient.hal (bound 2026-08-09) next to the
+# mazak-atc writers. Field wires stay UNLANDED until the observed rotation
+# direction is verified under controlled commissioning - see CSV rows
+# MAG_CW_SOL / MAG_CCW_SOL (PENDING BENCH).
+# OUT15 RESERVED for optional stack light / horn (CSV ALARM_OUT, 2026-08-09) -
+# load unconfirmed; net name was alarm-out, recorded in CSV cleanup_notes.
 
 #####################################################################
 # IOCONTROL loopbacks (active immediately; replace when ATC logic is ready)
@@ -315,12 +318,24 @@ net z-enable-request => z-drive-drop-delay.in
 net z-enable     <= z-drive-drop-delay.out
 net z-enable     => hm2_7i80.0.7i84.0.1.output-02   # Z servo S-ON to MELDAS DK-427
 
-# 100 VAC solenoid outputs via interposing relays. Uncomment as each relay is wired.
-# net air-blast          => hm2_7i80.0.7i84.0.1.output-03  # SOL-62 via RLY-5
-# net touch-sensor-blast => hm2_7i80.0.7i84.0.1.output-04  # SOL-35 via RLY-6
-# net tap-coolant-blast  => hm2_7i80.0.7i84.0.1.output-05  # SOL-61 via RLY-7
+# 100 VAC solenoid outputs via interposing relays. Bound 2026-08-09 as
+# READER-ONLY nets: no HAL writer drives them yet, so each output stays FALSE
+# by construction. Assign a driver (M-code digital-out or comp pin) per net
+# AND fit the interposing relay + suppression before any load can energise.
+net air-blast          => hm2_7i80.0.7i84.0.1.output-03  # SOL-15 spindle air blast via RLY-5
+# OUT4 / OUT5 nets REMOVED 2026-08-13 (owner approved). Their devices do not
+# exist on this machine: only SOL-15 and SOL-16 are fitted on the head, and the
+# head placard turned out to be a generic VQC-20/40 family plate listing
+# optional equipment (SOL-31/35/36/61) that this serial number does not have.
+#   - OUT4 was 'touch-sensor-blast' (SOL-35). Reallocated in the pin authority
+#     to WORK_AIR_BLAST (SOL-16, wire 416 / CN11-7 216) - a real, wired device
+#     that had no row. RESERVED and deliberately HAL-unbound until RLY-6 is
+#     fitted and the wire is confirmed; do NOT net it here before then.
+#   - OUT5 was 'tap-coolant-blast' (SOL-61). NOT_USED - no tap-coolant solenoid
+#     has been located. Do not fit RLY-7.
+# Do not restore these nets without re-reading wiring/authority_conflicts.md 5.
 # OUT6 atc-barrier: netted in atc_orient.hal (PLC Y095 TCME.M)
-# net flood-valve        => hm2_7i80.0.7i84.0.1.output-07  # PLC Y011 FCL
+net flood-valve        => hm2_7i80.0.7i84.0.1.output-07  # PLC Y011 FCL (SOL-31); driver TBD - candidate: follow flood-coolant net with pump
 
 # OUT8 is the proposed single-coil magazine-cover close command, bound in
 # atc_orient.hal. OUT9-OUT15 remain spare.

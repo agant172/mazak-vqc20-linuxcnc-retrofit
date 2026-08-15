@@ -1,12 +1,25 @@
-# Mazak VQC-20/40 — I/O Navigator
+# Mazak VQC-20/40 — I/O and Commissioning Workspace
 
-A single-page, offline wiring navigator for the Mazak VQC-20/40 LinuxCNC + Mesa retrofit
-(machine S/N 060231). It turns `mesa/current_pin_authority.csv`, the HAL config and the
-wiring notes into a click-through path:
+A single-page, offline I/O authority navigator and commissioning wiring workspace for the
+Mazak VQC-20/40 LinuxCNC + Mesa retrofit (machine S/N 060231). Both modes use the same filters,
+authority rows, HAL references, conflict status, and optional read-only live values.
+
+**I/O navigator** turns `mesa/current_pin_authority.csv`, the HAL config and the wiring notes
+into a searchable table and click-through path:
 
 ```
 LinuxCNC pin -> HAL net -> HostMot2/Mesa pin -> connector/channel -> field device -> machine location
 ```
+
+The table and commissioning paths also show the short Epson Mesa-end ferrule codes from
+`wiring/labels/bbia1_mesa_end_ferrules_epson.csv`. Search accepts the printed code (`B-TB3-07`), OEM wire
+(`*DECX`), or old connector location (`CN2-15`). Current ferrule rows are explicitly shown as
+`HOLD_SOURCE_TRACE`; a displayed code is a planned destination, not permission to terminate.
+
+**Commissioning wiring** renders the same filtered rows as four-node circuit paths. Its layer
+selector exposes the signal, power, return/common, and shield/cable context without filling
+unknown physical details with guesses. Each path has direct repo source links and a browser-local
+checkout record.
 
 **This is a configuration snapshot, not a safety controller.** Nothing in it is a permission to
 energize. The hardware E-stop chain must remove hazardous power independently of LinuxCNC.
@@ -59,6 +72,72 @@ function.
 
 Python 3 standard library only. No pip installs, no internet access.
 
+### 3. Auto-start on boot, reachable over Tailscale
+
+To keep a bookmark that always works, run the bridge as a systemd service on the
+LinuxCNC host and reach it by the host's Tailscale name from any device on your
+tailnet. A ready-to-edit unit is at [`deploy/mazak-io-navigator.service`](deploy/mazak-io-navigator.service).
+
+On the LinuxCNC host:
+
+```bash
+# 1. Find this host's Tailscale name/IP (used in the bookmark below)
+tailscale status          # the first column is the device name, e.g. "mazak"
+tailscale ip -4           # or the 100.x.y.z address
+
+# 2. Edit the two EDIT-ME lines in the unit (User + WorkingDirectory), then install
+sudo cp io-dashboard/deploy/mazak-io-navigator.service /etc/systemd/system/
+sudo systemctl daemon-reload
+sudo systemctl enable --now mazak-io-navigator
+
+# 3. Verify
+systemctl status mazak-io-navigator
+curl -s http://127.0.0.1:8765/api/health     # {"ok": true, "halcmd": true/false, ...}
+```
+
+**Bookmark:** `http://<host-tailscale-name>:8765/` (e.g. `http://mazak:8765/` with
+MagicDNS, or `http://100.x.y.z:8765/`). Open it and press **Live poll** in the
+header. The unit binds `0.0.0.0` so the Tailscale interface can reach it; to keep
+it off the local LAN entirely, bind this host's Tailscale IP instead (see the
+comment in the unit) and let your tailnet ACLs govern who connects.
+
+The service is safe to start before LinuxCNC: until HAL is up, `/api/io` reports
+offline and the app stays in planning mode, then live poll begins working the
+moment LinuxCNC starts — no restart needed.
+
+### Reach it from your phone (different subnet / cellular)
+
+Whether a phone can open the dashboard depends on the network path to the
+LinuxCNC host, not on the app — it is just a web page on port `8765`.
+
+**Same router, different subnet** (e.g. the wired shop LAN vs. your normal
+Wi-Fi, where the router routes between them): no extra setup. Make sure the
+bridge is bound to `0.0.0.0` (the systemd unit already is; or run
+`python3 serve_live.py --host 0.0.0.0`), find the host's shop-LAN address with
+`ip -4 addr` on the host (its *LAN* IP, not the `192.168.1.121` Mesa-NIC
+address), and browse to `http://<host-LAN-IP>:8765/`.
+
+**Isolated subnet or off-site** (guest Wi-Fi, a separate VLAN with no
+inter-routing, or the phone on **cellular**): plain LAN can't reach it — use
+**Tailscale**, which the boot service above is already built for. It gives the
+phone a bookmark that works from any network without opening a single firewall
+port:
+
+1. Set up the host once, as in section 3 (install Tailscale, `sudo tailscale up`,
+   enable the `mazak-io-navigator` service).
+2. On the phone: install the **Tailscale** app and sign in to the **same
+   tailnet** (same account) as the host.
+3. Open `http://<host-tailscale-name>:8765/` — e.g. `http://mazak:8765/` with
+   MagicDNS, or `http://100.x.y.z:8765/`. Add it to your home screen for a
+   one-tap bookmark, then press **Live poll** in the header.
+
+**Do not port-forward `8765` to the internet.** The bridge is read-only (it only
+runs `halcmd -s show sig` and refuses writes), but a machine tool has no business
+exposed on a public port. Tailscale needs no open ports and gates access with
+your tailnet ACLs; to keep the dashboard off the shop LAN entirely, bind the
+host's `100.x.y.z` Tailscale IP instead of `0.0.0.0` (see the comment in the
+unit file).
+
 ---
 
 ## Using it
@@ -72,6 +151,8 @@ Python 3 standard library only. No pip installs, no internet access.
 | Export the filtered view | **Export CSV**, or `Ctrl/Cmd + E`                                   |
 | Theme                 | Sun icon in the header (dark is the default for shop lighting)         |
 | Deep link a signal    | `index.html#signal=ESTOP_CHAIN`                                        |
+| Switch workspace      | **I/O navigator** / **Commissioning wiring** in the header              |
+| Deep link a circuit   | `index.html#wiring=AIR_BLAST`                                           |
 
 **Views:** All signals, 7i80HDT, 7i44, 7i49, 7i84U-A, 7i84U-B, and Conflicts / unverified. The conflicts view puts
 the C1–C10 register above the affected rows.
@@ -84,6 +165,26 @@ to keep it: the `manual_state` and `manual_note` columns come along.
 **Observed column.** Shows `MAN n` for a manual override, a live value when the bridge is
 connected, and `—` otherwise. A manual override always wins over the live value so a checkout note
 is never silently overwritten.
+
+### Commissioning wiring records
+
+The commissioning workspace has four layers:
+
+- **Signal path** — LinuxCNC/HAL, computed Mesa connector pin, known interface, field device.
+- **Power context** — documented 7i84U field-power bank, with untraced source/fuse/load details flagged.
+- **Return / common** — documented 7i84U common terminals, kept distinct from the untraced load return.
+- **Shield / cable** — project grounding rules where specific, with unknown cable-end treatment flagged.
+
+Checkout fields include wire and cable IDs, both terminal landings, relay/interface terminals,
+fuse, return and shield paths, voltage readings, continuity, normal state, verifier, date, evidence
+reference, and notes. User-entered verification dates and export filenames use `DD-MM-YYYY`;
+machine-readable save timestamps remain ISO 8601. Records autosave in the current browser using `localStorage`. Use **Export JSON**
+for backup/transfer, **Import JSON** to merge a saved record, **Export filtered CSV** for a work
+package, and **Print view** for paper/PDF output.
+
+These local records are evidence notes only. They do not edit `current_pin_authority.csv`, promote
+an authority status, write HAL, or permit energization. Promote authority only through the repo's
+documented review and validation process.
 
 ---
 
@@ -138,10 +239,12 @@ Expected states come from explicit repo evidence, and every value carries its ba
 | `mesa/current_pin_authority.csv` | **Wiring authority.** Wins every disagreement. |
 | `linuxcnc/*.hal`, `mazak_vqc_20_40.ini` | Configured HAL chains. Contain placeholders and known conflicts. |
 | `wiring/connector_crossref.md`, `wiring/io_map_research_notes.md` | Machine-side designations, locations, conflict notes. |
+| `wiring/labels/bbia1_mesa_end_ferrules_epson.csv` | Draft short Epson codes for conservative BBIA cut-wire matches; release status is preserved. |
 | `mesa/signal_map.csv` | **Stale.** Surfaced only as "do not use" context in the detail panel. |
 
-Current snapshot: **116 rows** — 90 from the authority plus 26 HAL-only nets that have no authority
-row, 10 register conflicts, 25 authority rows not yet present in any HAL file.
+Current snapshot: **132 rows**, all from the authority, with 4 registered conflicts,
+0 HAL-only orphan nets, and 1 authority net missing from HAL (`work-light`, planned but not yet
+wired — see `tools/generate_data.py` output for the live count).
 
 ---
 
@@ -186,6 +289,8 @@ Update conventions:
 index.html        markup, inline SVG mark
 styles.css        design system, dark + light, responsive to 375px
 app.js            all behaviour (vanilla, no build step, no dependencies)
+commissioning.css commissioning circuit paths, evidence form, responsive and print layout
+commissioning.js  wiring layers, source links, local checkout record import/export
 data.js           GENERATED — window.MAZAK_DATA
 serve_live.py     optional read-only halcmd bridge (stdlib only)
 tools/
@@ -200,6 +305,7 @@ tools/
   Confirm real names with `halcmd show pin` after the first `hm2_eth` load.
 - The live bridge reads HAL signal values only. It cannot see anything that is not a HAL signal,
   and a HAL value tells you what the software thinks, not what the wire is doing.
-- Manual checkout state is lost on refresh by design. Export CSV.
+- The table drawer's manual 0/1 scratch state is session-only. Commissioning wiring records persist
+  in that browser, but still require JSON export for backup, transfer, or version-controlled retention.
 - 7i84U-A channel numbers in `field_7i84u.hal` currently disagree with the authority (C1, C2).
   Do not land wire from the HAL numbers.

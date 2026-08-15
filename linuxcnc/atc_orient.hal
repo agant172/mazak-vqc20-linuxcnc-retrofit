@@ -127,10 +127,12 @@ net hyd-pump-on           => hm2_7i80.0.7i84.0.0.output-03  # OUT3  Y096 HYD.M
 net spindle-orient-cmd    => hm2_7i80.0.7i84.0.0.output-04  # OUT4  Y093 ORCM1.M
 net orient-lo-gear        => hm2_7i80.0.7i84.0.0.output-05  # OUT5  Y094 CTL.M
 net gear-hi-sol           => hm2_7i80.0.7i84.0.0.output-07  # OUT7  Y00B GSH.M
-# OUT8 gear-lo-sol is HOLD_CONFLICT (SOL-12 vs SOL-13 identity unresolved,
-# wiring/authority_conflicts.md section 1). Left unbound on purpose: the comp
-# still drives the net, so it can be watched in halscope before wiring.
-# net gear-lo-sol         => hm2_7i80.0.7i84.0.0.output-08  # OUT8  Y00C GSL.M
+# OUT8 gear-lo-sol: the SOL-12/SOL-13 identity conflict is RESOLVED and
+# physically confirmed 2026-08-08 (pg100 TB-51, Dwg 4143075338: wire 413 ->
+# SOL-13 -> GEAR SHIFT LOW; see mesa/current_pin_authority.csv GEAR_LO_SOL).
+# Bound 2026-08-09. Field wire still unlanded: measure coil voltage/current
+# and fit RLY-2 with suppression before energising.
+net gear-lo-sol         => hm2_7i80.0.7i84.0.0.output-08  # OUT8  Y00C GSL.M
 # ATC barrier solenoid: on 7i84U-B (7i44 channel 1) OUT6 -- verify device exists
 # on SN 060231 before wiring (PLC Y095 TCME.M, PROPOSED).
 net atc-barrier           => hm2_7i80.0.7i84.0.1.output-06  # 7i84U-B OUT6 (PLC Y095 TCME.M)
@@ -199,26 +201,33 @@ net hydraulic-ok        => mazak-atc.hydraulic-ok
 net air-ok              => mazak-atc.air-ok
 
 # Magazine. mag-in-pos is sourced by field_7i84u.hal from authority input
-# 7i84U-A IN28. Direction nets remain physically unbound because OUT13/OUT14
-# are HOLD_CONFLICT until SOL-8A/SOL-8B direction is traced.
+# 7i84U-A IN28. OUT13/OUT14 direction nets are bound below (coil identity
+# resolved 2026-08-09); observed rotation is still pending bench verification.
 net mag-in-pos     => mazak-atc.mag-in-pos
 net mag-bcd-bit0   => mazak-atc.mag-bcd-bit0
 net mag-bcd-bit1   => mazak-atc.mag-bcd-bit1
 net mag-bcd-bit2   => mazak-atc.mag-bcd-bit2
 net mag-bcd-bit3   => mazak-atc.mag-bcd-bit3
 net mag-bcd-bit4   => mazak-atc.mag-bcd-bit4
-# DIRECTION UNVERIFIED: wiring/authority_conflicts.md section 3 has SOL-8A as
-# CCW/forward and SOL-8B as CW/reverse. fwd->cw is an assumption.
+# fwd->cw mapping per CSV MAG_CW_SOL/MAG_CCW_SOL (identity resolved
+# 2026-08-09); observed rotation direction still requires bench verification.
 net mag-cw-sol     <= mazak-atc.mag-fwd-sol
 net mag-ccw-sol    <= mazak-atc.mag-rev-sol
+# Coil identity resolved 2026-08-09 (SOL-8B = CW on OUT13, SOL-8A = CCW on
+# OUT14, per pg91 Dwg 4143075332 + connector_crossref). Observed rotation
+# direction is PENDING BENCH verification under controlled commissioning -
+# do not land or energise either field wire until verified.
+net mag-cw-sol     => hm2_7i80.0.7i84.0.0.output-13  # OUT13 SOL-8B (CW) via relay
+net mag-ccw-sol    => hm2_7i80.0.7i84.0.0.output-14  # OUT14 SOL-8A (CCW) via relay
 
 # Tool clamp.
 net tool-clamped        => mazak-atc.tool-clamped
 net tool-unclamped      => mazak-atc.tool-unclamped
 net manual-unclamp-pb   => mazak-atc.manual-unclamp-pb
 net tool-unclamp-sol    <= mazak-atc.tool-unclamp-sol
-# tool-clamp-sol only exists as a net; the output stays FALSE while
-# mazak-atc.clamp-dual-coil is 0.
+# tool-clamp-sol is PHANTOM (C5 resolved 2026-08-09): SOL-10 is a single-coil
+# spring-return valve (clamp = de-energize), so there is no clamp solenoid.
+# Kept only as a held-FALSE dead-end from mazak-atc; OUT9 is free.
 net tool-clamp-sol      <= mazak-atc.tool-clamp-sol
 
 # Cover. ONE solenoid, energised = closed (ladder sheet 31). The existing

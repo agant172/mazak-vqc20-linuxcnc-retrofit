@@ -24,6 +24,9 @@ Physical pin references it understands:
 
 It also requires one exact CSV row for every physical 7i84U input/output;
 aggregate range rows are rejected because they can overlap explicit pins.
+The 7i84U TB1 power map and the printable B-card TB1 legend are checked
+against the fixed Mesa terminal assignment so pins 2 or 4 cannot regress
+to being documented as 0 V returns.
 Any active direct 7i80HDT P2 GPIO reference is rejected by the companion
 control-logic validator.
 
@@ -50,6 +53,8 @@ import sys
 from collections import defaultdict
 from pathlib import Path
 
+from generate_label_csvs import expected_texts as expected_label_texts, read_text_exact
+
 # ----------------------------------------------------------------------
 # Paths (repo-root relative).  The script figures out repo root by
 # walking up from its own location; running it from any subdirectory
@@ -61,7 +66,85 @@ REPO_ROOT = SCRIPT_DIR.parent
 CSV_PATH = REPO_ROOT / "mesa" / "current_pin_authority.csv"
 HAL_DIR = REPO_ROOT / "linuxcnc"
 CAPACITY_DOC = REPO_ROOT / "docs" / "io_capacity_reconciliation.md"
-LEGEND_PATH = REPO_ROOT / "wiring" / "7i84u_b_terminal_legend_epson.csv"
+LEGEND_PATH = REPO_ROOT / "wiring" / "labels" / "7i84u_b_terminal_legend_epson.csv"
+SOURCE_DEST_PATH = REPO_ROOT / "wiring" / "bbia1_source_dest.csv"
+
+POWER_MAP = {
+    "7i84U-A": {
+        "SEVENI84U_FIELD_A_24V": (
+            "TB1 pins 3/4 VFIELDA (+24 V field power, 5-28 VDC)",
+            "Field power bank A (TB3 I/O)",
+        ),
+        "SEVENI84U_FIELD_B_24V": (
+            "TB1 pins 1/2 VFIELDB (+24 V field power, 5-28 VDC)",
+            "Field power bank B (TB2 I/O)",
+        ),
+        "SEVENI84U_VIN_24V": (
+            "TB1 pin 5 VIN (+24 V logic power)",
+            "Field I/O logic power",
+        ),
+        "SEVENI84U_GND": (
+            "TB1 pins 6/7/8 GND (VIN/VFIELD common)",
+            "VIN/VFIELD common return",
+        ),
+    },
+    "7i84U-B": {
+        "SEVENI84UB_FIELD_A_24V": (
+            "TB1 pins 3/4 VFIELDA (+24 V field power, 5-28 VDC)",
+            "Field power bank A (TB3 I/O)",
+        ),
+        "SEVENI84UB_FIELD_B_24V": (
+            "TB1 pins 1/2 VFIELDB (+24 V field power, 5-28 VDC)",
+            "Field power bank B (TB2 I/O)",
+        ),
+        "SEVENI84UB_VIN_24V": (
+            "TB1 pin 5 VIN (+24 V logic power)",
+            "Field I/O logic power",
+        ),
+        "SEVENI84UB_GND": (
+            "TB1 pins 6/7/8 GND (VIN/VFIELD common)",
+            "VIN/VFIELD common return",
+        ),
+    },
+}
+
+POWER_LEGEND = {
+    "TB1-1": ("VFIELDB +24V (TB2 BANK)", "7i84U-B VFIELDB"),
+    "TB1-2": ("VFIELDB +24V (TB2 BANK)", "7i84U-B VFIELDB"),
+    "TB1-3": ("VFIELDA +24V (TB3 BANK)", "7i84U-B VFIELDA"),
+    "TB1-4": ("VFIELDA +24V (TB3 BANK)", "7i84U-B VFIELDA"),
+    "TB1-5": ("VIN LOGIC +24V (VERIFY W1)", "7i84U-B VIN"),
+    "TB1-6": ("FIELD/VIN COMMON 0V", "7i84U-B GND"),
+    "TB1-7": ("FIELD/VIN COMMON 0V", "7i84U-B GND"),
+    "TB1-8": ("FIELD/VIN COMMON 0V", "7i84U-B GND"),
+}
+
+POWER_AUTHORITY_STATES = {
+    "PROPOSED", "COMMISSIONING_PENDING", "TRACED",
+    "ELECTRICALLY_VERIFIED", "HAL_VERIFIED", "COMMISSIONED",
+}
+POWER_EVIDENCE_STATES = {
+    "TRACED", "ELECTRICALLY_VERIFIED", "HAL_VERIFIED", "COMMISSIONED",
+}
+
+AUTHORITY_STATES = {
+    "PROPOSED",
+    "TRACED",
+    "ELECTRICALLY_VERIFIED",
+    "HAL_VERIFIED",
+    "COMMISSIONED",
+    "FACTORY_LINK",
+    "FACTORY_INTERFACE",
+    "COMMISSIONING_PENDING",
+    "SPARE",
+    "RESERVED",
+    "RESERVED_VERIFY",
+    "DEFERRED",
+    "UNBOUND",  # Legacy alias for DEFERRED.
+    "HOLD_CONFLICT",
+    "OPTIONAL_VERIFY",
+    "NOT_USED",
+}
 
 # ----------------------------------------------------------------------
 # Regexes for HAL parsing.
@@ -167,6 +250,13 @@ def check_csv_integrity(rows: list[dict], by_pin: dict[str, dict]) -> list[Findi
                                     f"duplicate signal_id '{sid}' (first at line {ids[sid]})."))
         ids[sid] = lineno
 
+        status = (row.get("authority_status") or "").strip()
+        if status not in AUTHORITY_STATES:
+            findings.append(Finding(
+                "ERROR", f"{CSV_PATH.name}:{lineno}",
+                f"unknown authority_status '{status}' for signal_id '{sid}'."
+            ))
+
         if (row.get("mesa_card") or "").startswith("7i84U"):
             channel = (row.get("pin_channel") or "").strip()
             if re.fullmatch(r"(?:IN|OUT)\d+\s*-\s*(?:(?:IN|OUT))?\d+", channel):
@@ -192,6 +282,128 @@ def check_csv_integrity(rows: list[dict], by_pin: dict[str, dict]) -> list[Findi
     for key in sorted(actual - expected):
         findings.append(Finding("ERROR", CSV_PATH.name,
                                 f"out-of-range 7i84U terminal row {key}."))
+    return findings
+
+
+def check_7i84u_power_map(rows: list[dict]) -> list[Finding]:
+    """Enforce the Mesa 7i84U TB1 map in authority and the print legend."""
+    findings: list[Finding] = []
+    by_id: dict[str, list[dict]] = defaultdict(list)
+    for row in rows:
+        by_id[(row.get("signal_id") or "").strip()].append(row)
+
+    for card, expected_rows in POWER_MAP.items():
+        actual_ids = {
+            (row.get("signal_id") or "").strip()
+            for row in rows
+            if (row.get("mesa_card") or "").strip() == card
+            and (row.get("connector") or "").strip() == "TB1"
+            and (row.get("direction") or "").strip() == "POWER"
+        }
+        expected_ids = set(expected_rows)
+        for signal_id in sorted(expected_ids - actual_ids):
+            findings.append(Finding(
+                "ERROR", CSV_PATH.name,
+                f"{card} TB1 power map is missing authority row {signal_id}."
+            ))
+        for signal_id in sorted(actual_ids - expected_ids):
+            findings.append(Finding(
+                "ERROR", CSV_PATH.name,
+                f"{card} TB1 has unexpected POWER row {signal_id}; update POWER_MAP deliberately."
+            ))
+
+        for signal_id, (pin_channel, field_point) in expected_rows.items():
+            matches = by_id.get(signal_id, [])
+            if len(matches) != 1:
+                if len(matches) > 1:
+                    findings.append(Finding(
+                        "ERROR", CSV_PATH.name,
+                        f"{signal_id} appears {len(matches)} times; exactly one row is required."
+                    ))
+                continue
+            row = matches[0]
+            expected_fields = {
+                "mesa_card": card,
+                "connector": "TB1",
+                "direction": "POWER",
+                "pin_channel": pin_channel,
+                "hal_net": "none",
+                "field_point_or_load": field_point,
+            }
+            for field, expected in expected_fields.items():
+                actual = (row.get(field) or "").strip()
+                if actual != expected:
+                    findings.append(Finding(
+                        "ERROR", CSV_PATH.name,
+                        f"{signal_id} {field} is '{actual}', expected '{expected}'."
+                    ))
+            status = (row.get("authority_status") or "").strip()
+            if status not in POWER_AUTHORITY_STATES:
+                findings.append(Finding(
+                    "ERROR", CSV_PATH.name,
+                    f"{signal_id} authority_status is '{status}', expected one of "
+                    f"{sorted(POWER_AUTHORITY_STATES)}."
+                ))
+            notes = (row.get("cleanup_notes") or "").strip()
+            if status in POWER_EVIDENCE_STATES and "docs/commissioning_logs/" not in notes:
+                findings.append(Finding(
+                    "ERROR", CSV_PATH.name,
+                    f"{signal_id} is {status} but cleanup_notes has no "
+                    "docs/commissioning_logs evidence reference."
+                ))
+            source = (row.get("primary_source") or "").strip()
+            if "Mesa 7i84U manual" not in source:
+                findings.append(Finding(
+                    "ERROR", CSV_PATH.name,
+                    f"{signal_id} must cite the Mesa 7i84U manual as its primary source."
+                ))
+
+    forbidden = ("pin 1 + and pin 2 -", "pin 3 + and pin 4 -")
+    for lineno, row in enumerate(rows, start=2):
+        if (row.get("mesa_card") or "").strip() not in POWER_MAP:
+            continue
+        joined = " ".join(str(value) for value in row.values()).lower()
+        for phrase in forbidden:
+            if phrase in joined:
+                findings.append(Finding(
+                    "ERROR", f"{CSV_PATH.name}:{lineno}",
+                    f"forbidden legacy TB1 polarity text '{phrase}' treats a positive terminal as return."
+                ))
+
+    legend_rows = list(csv.DictReader(LEGEND_PATH.open()))
+    actual_power: dict[str, tuple[str, str]] = {}
+    seen: set[str] = set()
+    for lineno, row in enumerate(legend_rows, start=2):
+        terminal = (row.get("Terminal") or "").strip()
+        if not terminal.startswith("TB1-"):
+            continue
+        if terminal in seen:
+            findings.append(Finding(
+                "ERROR", f"{LEGEND_PATH.relative_to(REPO_ROOT)}:{lineno}",
+                f"duplicate power-legend terminal {terminal}."
+            ))
+        seen.add(terminal)
+        actual_power[terminal] = (
+            (row.get("Signal") or "").strip(),
+            (row.get("HAL_Net") or "").strip(),
+        )
+
+    for terminal in sorted(POWER_LEGEND.keys() - actual_power.keys()):
+        findings.append(Finding(
+            "ERROR", str(LEGEND_PATH.relative_to(REPO_ROOT)),
+            f"power legend is missing {terminal}."
+        ))
+    for terminal in sorted(actual_power.keys() - POWER_LEGEND.keys()):
+        findings.append(Finding(
+            "ERROR", str(LEGEND_PATH.relative_to(REPO_ROOT)),
+            f"power legend has unexpected terminal {terminal}."
+        ))
+    for terminal in sorted(POWER_LEGEND.keys() & actual_power.keys()):
+        if actual_power[terminal] != POWER_LEGEND[terminal]:
+            findings.append(Finding(
+                "ERROR", str(LEGEND_PATH.relative_to(REPO_ROOT)),
+                f"{terminal} legend is {actual_power[terminal]}, expected {POWER_LEGEND[terminal]}."
+            ))
     return findings
 
 
@@ -284,6 +496,24 @@ def check_capacity_and_legend(rows: list[dict]) -> list[Finding]:
                 "ERROR", str(LEGEND_PATH.relative_to(REPO_ROOT)),
                 f"{terminal} legend net '{actual_legend[terminal]}' does not match authority "
                 f"'{expected_legend[terminal]}'."
+            ))
+    return findings
+
+
+def check_generated_label_csvs() -> list[Finding]:
+    """Reject hand-edited or stale printer CSVs, including their visible label text."""
+    findings: list[Finding] = []
+    try:
+        expected = expected_label_texts()
+    except (KeyError, ValueError) as exc:
+        return [Finding("ERROR", "scripts/generate_label_csvs.py", str(exc))]
+    for path, content in expected.items():
+        relative = str(path.relative_to(REPO_ROOT))
+        if not path.exists() or read_text_exact(path) != content:
+            findings.append(Finding(
+                "ERROR", relative,
+                "printer CSV is stale or was hand-edited; run "
+                "'python3 scripts/generate_label_csvs.py --write'."
             ))
     return findings
 
@@ -493,6 +723,82 @@ def cross_check(
 # Main.
 # ----------------------------------------------------------------------
 
+def check_bbia_plane(rows: list[dict]) -> list[Finding]:
+    """Report BBIA-1 plane completeness (INTERFACE_ARCHITECTURE.md).
+
+    Every control<->machine signal crosses at the BBIA-1 plane except the
+    enumerated exceptions. This check is advisory (WARN only, never ERROR, so
+    it cannot break CI): it surfaces the work still to do, not a defect.
+
+      - Consistency: a row that carries a factory_wire should also carry a
+        BBIA connector+pin (dest_connector/dest_pin), and vice versa.
+      - Coverage: a factory discrete signal (7i84U IN/OUT with a FACTORY_*
+        authority_status) that has no BBIA end AND is not accounted for in
+        wiring/bbia1_source_dest.csv (neither a plane pin nor a recorded
+        exception) still needs a BBIA trace or an exception classification.
+
+    The BBIA pin data itself comes from bbia1_source_dest.csv via
+    scripts/consolidate_bbia_authority.py; this check never invents it.
+    """
+    findings: list[Finding] = []
+
+    # signal_ids that bbia1_source_dest.csv has already reasoned about -- either
+    # mapped to a plane pin or explicitly recorded as an exception ("N/A ...",
+    # "NOT LOCATED", "NOT INDIVIDUALLY LOCATED", "AMBIGUOUS", "CANDIDATE" ...).
+    accounted: set[str] = set()
+    if SOURCE_DEST_PATH.exists():
+        with SOURCE_DEST_PATH.open(newline="") as fh:
+            accounted = {r["signal_id"] for r in csv.DictReader(fh)}
+
+    mapped = 0
+    untraced: list[str] = []
+    for lineno, row in enumerate(rows, start=2):
+        sid = (row.get("signal_id") or "").strip()
+        conn = (row.get("dest_connector") or "").strip()
+        pin = (row.get("dest_pin") or "").strip()
+        wire = (row.get("factory_wire") or "").strip()
+        # A BBIA-1 plane row is one whose dest_connector is a CN* connector.
+        # dest_connector is also used pre-existingly for non-plane far ends
+        # (TB* field power, RJ45 sserial, "OEM ..."); those are not policed here.
+        has_bbia = bool(conn) and conn.upper().startswith("CN")
+
+        # Consistency: wire present but no BBIA pin, or a BBIA connector with no pin.
+        if wire and not conn:
+            findings.append(Finding(
+                "WARN", f"{CSV_PATH.name}:{lineno}",
+                f"{sid} has factory_wire '{wire}' but no dest_connector; "
+                f"re-run scripts/consolidate_bbia_authority.py."))
+        if has_bbia and not pin:
+            findings.append(Finding(
+                "WARN", f"{CSV_PATH.name}:{lineno}",
+                f"{sid} has BBIA connector '{conn}' but no dest_pin."))
+
+        if has_bbia:
+            mapped += 1
+            continue
+
+        # Coverage: factory discrete signals with no plane pin that source_dest
+        # has never reasoned about.
+        is_factory_discrete = (
+            (row.get("mesa_card") or "").startswith("7i84U")
+            and (row.get("direction") or "").strip() in {"IN", "OUT"}
+            and (row.get("authority_status") or "").strip() in {"FACTORY_LINK", "FACTORY_INTERFACE"}
+        )
+        if is_factory_discrete and sid not in accounted:
+            untraced.append(sid)
+
+    for sid in untraced:
+        findings.append(Finding(
+            "WARN", CSV_PATH.name,
+            f"{sid}: factory discrete signal not yet mapped to a BBIA-1 pin and "
+            f"not recorded in bbia1_source_dest.csv — trace its plane pin or "
+            f"record it as an exception (INTERFACE_ARCHITECTURE.md)."))
+
+    print(f"BBIA-1 plane:          {mapped} rows mapped to a connector/pin; "
+          f"{len(untraced)} factory signal(s) still to trace")
+    return findings
+
+
 def main() -> int:
     csv_by_pin, all_rows = load_csv()
     hal_pins, parse_findings = parse_hal_files()
@@ -500,9 +806,12 @@ def main() -> int:
     findings = (
         parse_findings
         + check_csv_integrity(all_rows, csv_by_pin)
+        + check_7i84u_power_map(all_rows)
         + cross_check(csv_by_pin, hal_pins)
         + check_7i49_motion_bindings(all_rows)
         + check_capacity_and_legend(all_rows)
+        + check_generated_label_csvs()
+        + check_bbia_plane(all_rows)
     )
 
     errors = [f for f in findings if f.level == "ERROR"]
