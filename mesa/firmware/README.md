@@ -67,11 +67,38 @@ commissioning step.
   both SHA-256
   `c80c8f29805c2baccf55fe816b786c6ad8a71bedbee9fffe2334b49a4fbce3c3`). The
   capture was **not** committed — a second copy of an identical file adds a
-  filename, not evidence. Note the wired link to the board had dropped for
-  ~3.7 h earlier that day and came back on its own (`e1000e` carrier loss on
-  `enp0s31f6`, 100 Mbps full duplex on both sides of the gap); the firmware
-  configuration was unaffected, but the flap is unexplained and worth
-  resolving before `hm2_eth` runs in realtime.
+  filename, not evidence.
+
+- **2026-08-15 — the 2026-08-14 Ethernet link drop is explained; closed.**
+  The earlier entry recorded a ~3.7 h `e1000e` carrier loss on `enp0s31f6` as
+  unexplained and flagged it for resolution before `hm2_eth` runs in realtime.
+  Andy reports it was the 7i80HDT being powered off and back on, and the kernel
+  log agrees:
+
+  ```
+  Aug 14 18:49:30  NIC Link is Down
+  Aug 14 22:32:57  NIC Link is Up   100 Mbps Half Duplex
+  Aug 14 22:32:57  NIC Link is Down
+  Aug 14 22:32:59  NIC Link is Up   100 Mbps Full Duplex
+  ```
+
+  Three things fit a deliberate power cycle and not a fault: the gap is one
+  continuous 3 h 43 m down period with **no intermediate flapping** (a marginal
+  cable or failing PHY flaps repeatedly); the recovery is a
+  half-duplex → down → full-duplex sequence inside 2 s, which is the ordinary
+  autonegotiation settling pattern of a link partner *powering up* rather than a
+  link healing; and the `readhmid` re-verification was committed at 22:38:02,
+  about five minutes after the link returned.
+
+  Correction to the entry above: it stated "100 Mbps full duplex on both sides
+  of the gap." The link actually came back at **half** duplex first and settled
+  to full 2 s later. The pre-drop speed/duplex is not in the retained log.
+
+  This is an operator account corroborated by the link-transition log, not an
+  instrumented measurement — it rules out an intermittent link fault as the
+  explanation, which was the concern. Nothing here bears on `hm2_eth` realtime
+  packet-loss behaviour, which is still to be qualified separately per
+  `docs/hm2_eth_nic_validation.md`.
 
   Scope of this check: it confirms the FPGA's own IDROM still matches
   `../current_pin_authority.csv` on connector roles and module inventory. It
