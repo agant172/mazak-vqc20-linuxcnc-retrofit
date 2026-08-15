@@ -47,11 +47,47 @@ Requires `halcompile`, `halrun`, `halcmd` from a LinuxCNC install.
 
 The install step is deliberately separate and explicit: it writes root-owned
 `.so` files into a system directory, which is not something a test runner should
-do silently. Undo with:
+do silently.
 
-```bash
-sudo rm /usr/lib/linuxcnc/modules/mazak_atc.so /usr/lib/linuxcnc/modules/mazak_orient.so
+**Leave the installed components in place.** They are not test-only scaffolding:
+`linuxcnc/atc_orient.hal` (HALFILE 4 in `mazak_vqc_20_40.ini`) does
+`loadrt mazak_orient` / `loadrt mazak_atc`, so the real machine configuration
+will not start without them. Installing them is integration step 3 in
+`docs/ladder/atc_component_README.md`, not a side effect of testing.
+
+### Staleness is a hard stop
+
+`loadrt` resolves the installed `.so`, never the `.comp` in the repo. An edited
+component that has not been reinstalled would therefore be skipped silently: the
+suite would exercise the *previous* build and report 405 green checks while the
+source it claims to cover is untested. A false pass is worse than no test.
+
+`install_components.sh` records the SHA-256 of each `.comp` it built from, and
+`run_tests.py` preflights by comparing the working-tree source against it,
+refusing to run (exit 2, not 1) on a mismatch:
+
 ```
+PREFLIGHT: STALE: mazak_atc.comp differs from the source mazak_atc.so was
+  built from (f7b6f613e1b8 vs 82f209ef7421) - reinstall with
+  tests/hal/install_components.sh, or the suite would test the previous
+  build and pass
+```
+
+The comparison is a content hash, deliberately **not** an mtime: any fresh
+checkout or branch switch rewrites `.comp` mtimes without changing a byte, so an
+mtime check fires on identical sources and trains everyone to ignore it.
+
+### When to re-run
+
+- **After editing either `.comp`** — reinstall first; the preflight enforces it.
+- **After editing `docs/ladder/*.md`** — the vectors are derived from the rung
+  text, so a changed transcription can invalidate an expectation.
+- **When resolving one of the divergences below** — that is the moment a guessed
+  behaviour becomes a decided one.
+- **Before a commissioning step that trusts component behaviour** (ATC dry run).
+
+Not useful after HAL, INI, or CSV edits — this harness never loads HAL. That is
+what the two static validators cover.
 
 ## Relationship to the static validators
 
