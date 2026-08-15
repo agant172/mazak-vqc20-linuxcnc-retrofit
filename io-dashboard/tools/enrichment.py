@@ -328,7 +328,7 @@ LOCATION = {
     "TAP_COOLANT_BLAST": ("NOT USED \u2014 no tap-coolant solenoid fitted", "Coolant", "SOL-61 is the air jet and is absent; TAPC on CN6-18 still untraced"),
     "SEVENI84U_FIELD_A_24V": ("Field I/O enclosure \u2014 7i84U-A TB1 pins 3/4", "Field power", "VFIELDA for TB3 bank"),
     "SEVENI84U_FIELD_B_24V": ("Field I/O enclosure \u2014 7i84U-A TB1 pins 1/2", "Field power", "VFIELDB for TB2 bank"),
-    "SEVENI84U_VIN_24V": ("Field I/O enclosure \u2014 7i84U-A TB1 pin 5", "Logic power", "W1 RIGHT verified; direct VIN feed from Mean Well +V2"),
+    "SEVENI84U_VIN_24V": ("Field I/O enclosure \u2014 7i84U-A TB1 pin 5", "Logic power", "W1 RIGHT verified; direct VIN feed through a 5 A branch fuse"),
     "SEVENI84U_GND": ("Field I/O enclosure \u2014 7i84U-A TB1 pins 6/7/8", "Power common", "VIN/VFIELD common return"),
     "SEVENI84UB_FIELD_A_24V": ("Field I/O enclosure \u2014 7i84U-B TB1 pins 3/4", "Field power", "VFIELDA for TB3 bank"),
     "SEVENI84UB_FIELD_B_24V": ("Field I/O enclosure \u2014 7i84U-B TB1 pins 1/2", "Field power", "VFIELDB for TB2 bank"),

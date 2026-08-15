@@ -93,14 +93,14 @@ interchangeable:
 | Net | Required disposition |
 |---|---|
 | Protective earth (PE) | Bond exposed conductive parts, cabinet, doors, motor frames, and equipment PE terminals per the applicable electrical design and measured protective-bond requirements. Conductor sizing is not specified by this repo. |
-| Retrofit 24 V return | Keep within the DR-240-24 circuit. Whether it is intentionally bonded to PE is **unresolved**; inspect the PSU instructions and the complete isolation design before adding a bond. |
+| Retrofit 24 V return | Keep within the retrofit 24 V circuit. Whether it is intentionally bonded to PE is **unresolved**; inspect the PSU instructions and the complete isolation design before adding a bond. |
 | OEM 24 V return | Keep isolated from the retrofit return unless the approved interface drawing explicitly joins them. |
 | 7i49 signal/analog GND | Use only as documented by Mesa and as the signal reference required by the connected drive. Do not add an unsourced PE strap at the card. |
 | Drive analog common | Dedicated command return to the drive's documented analog-common terminal, not motor-frame PE. |
 | Resolver shields | 7i49 end only, at the local GND terminal identified by the 7i49 manual. |
 | Other cable shields | Follow the source and receiver manuals for that circuit; do not copy the resolver rule automatically. |
 
-The repository formerly prescribed a 6 AWG “star,” a mandatory DR-240-24
+The repository formerly prescribed a 6 AWG “star,” a mandatory dedicated retrofit supply
 negative-to-PE bond, and millivolt limits without an as-built drawing or source.
 Those values are retracted. The final bond topology belongs in the pre-power
 one-line and must be continuity-tested.

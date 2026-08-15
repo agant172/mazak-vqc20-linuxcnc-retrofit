@@ -220,7 +220,7 @@ OEM side:
 - Do not tap `P24`/`G24` for Mesa cards, new I/O, touchscreen, or new relays.
 
 Retrofit side:
-- New dedicated 24 VDC DIN-rail supply (Meanwell DR-240-24 class, 10 A)
+- New dedicated 24 VDC DIN-rail supply
   powers 7i84U-A, 7i84U-B, new relays, field loads, touchscreen, pendant.
 - Bond retrofit supply 0 V to chassis at one star point on the cabinet
   backplate only.

@@ -105,7 +105,7 @@ with the actual correction applied.
   - VIN present before enabling drives (already implicit in the
     smart-serial acceptance).
   - Do not switch VFIELDA/VFIELDB with an interposing relay —
-    field power should be a wired supply from DR-240-24, not
+    field power should be a wired supply, not
     switched.
   - After field-power dropout, cycle VIN and re-run the
     packet-error-limit reset procedure before re-enabling
