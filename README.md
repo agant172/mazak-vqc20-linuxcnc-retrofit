@@ -10,9 +10,9 @@ control to LinuxCNC using Mesa Electronics FPGA hardware.
 
 > 📖 **Start here:** [`CLAUDE.md`](CLAUDE.md) is the canonical project brief — the full
 > operating manual (control hardware, sources of truth, working rules, electrical
-> architecture, safety/commissioning sequence, and the local-vs-cloud work split). It loads
-> automatically at the start of every Claude session and is the first thing any contributor
-> (human or AI) should read.
+> architecture, safety/commissioning sequence, session conventions, and the split between
+> work done at the machine and work done away from it). It loads automatically at the start
+> of every Claude session and is the first thing any contributor (human or AI) should read.
 
 > ⚠️ **Safety:** The HAL/INI files in [`linuxcnc/`](linuxcnc/) and the pin authority in
 > [`mesa/current_pin_authority.csv`](mesa/current_pin_authority.csv) are **planning /
