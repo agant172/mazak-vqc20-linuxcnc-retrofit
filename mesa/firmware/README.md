@@ -59,3 +59,21 @@ diff mesa/firmware/readhmid_2026-08-13.txt mesa/firmware/readhmid_$(date +%Y-%m-
 If a re-check ever disagrees with `readhmid_2026-08-13.txt`, treat the board
 as reflashed or reset and re-derive every HAL pin name before any further
 commissioning step.
+
+### Re-verification log
+
+- **2026-08-14** — `--readhmid` re-run against the live board; output
+  byte-identical to `readhmid_2026-08-13.txt` (159 lines, `diff -u` empty,
+  both SHA-256
+  `c80c8f29805c2baccf55fe816b786c6ad8a71bedbee9fffe2334b49a4fbce3c3`). The
+  capture was **not** committed — a second copy of an identical file adds a
+  filename, not evidence. Note the wired link to the board had dropped for
+  ~3.7 h earlier that day and came back on its own (`e1000e` carrier loss on
+  `enp0s31f6`, 100 Mbps full duplex on both sides of the gap); the firmware
+  configuration was unaffected, but the flap is unexplained and worth
+  resolving before `hm2_eth` runs in realtime.
+
+  Scope of this check: it confirms the FPGA's own IDROM still matches
+  `../current_pin_authority.csv` on connector roles and module inventory. It
+  says nothing about field wiring, resolver scale, analog polarity, or I/O
+  normal states, and upgrades no `authority_status` value in the CSV.
