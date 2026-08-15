@@ -341,11 +341,14 @@ and makes every changed circuit and control decision understandable years later.
 
 ---
 
-## Where to do the work: local vs. cloud
+## Where to do the work: at the machine vs. away from it
 
-Both kinds of Claude session share this repo as memory, but they can touch different things.
+Every Claude session — OptiPlex, MacBook Pro, iMac, or cloud — shares this repo as memory,
+but they can touch different things. The dividing line is **not** local vs. cloud; it is
+**at the machine vs. away from it**. See [Session conventions](#the-machines) for which
+machine is which.
 
-**Do LOCALLY (desktop app / CLI on the shop PC, with Desktop Commander)** — anything that
+**Do AT THE MACHINE (a session on the OptiPlex, with a human present)** — anything that
 needs the real machine, hardware, OS, or live measurements:
 - Live Mesa install, `mesaflash`/`readhmid`, bitfile flashing, IDROM/pin-dump capture.
 - Editing and testing HAL/INI on the control PC (`halrun`, watching real pins).
@@ -358,8 +361,8 @@ needs the real machine, hardware, OS, or live measurements:
   committed** — the repo records references and findings only.
 - **Then write results into the repo and commit** — that is how the knowledge survives.
 
-**Hand to CLOUD (claude.com/code, parallel sessions, reviewed as PRs)** — self-contained
-work that only needs files already in git and cannot touch the machine:
+**Hand to a DESK SESSION (iMac, MacBook Pro, or claude.com/code — reviewed as PRs)** —
+self-contained work that only needs files already in git and cannot touch the machine:
 - Documentation polish and reconciliation (`docs/`, `README.md` progress tables, wiring narratives).
 - The `io-dashboard/` web app (pure JS/CSS/HTML).
 - Python tooling and validators (`scripts/validate_authority.py`, `validate_control_logic.py`,
@@ -367,9 +370,157 @@ work that only needs files already in git and cannot touch the machine:
 - Regenerating derived artifacts (label CSVs, wire reference sheets, manual sets) from source data.
 - Cross-checking the CSV/XLSX pin-authority and BOM data for conflicts.
 
-**The trap:** a cloud session can *draft* a HAL file but has never seen the machine and cannot
-verify anything. Never let cloud output stand as commissioned truth — only local work against
-the real hardware (plus a human) can commission.
+**The trap:** a desk session can *draft* a HAL file but has never seen the machine and cannot
+verify anything. A Mac session is exactly as unable to meter a wire as a cloud session — being
+"local" buys it nothing. Never let desk output stand as commissioned truth; only work against
+the real hardware, with a human at the machine, can commission.
+
+---
+
+## Session conventions
+
+Where things live and how a session is expected to behave. Every value below is
+sourced from a file in this repo — if you change one of these in the real world,
+change it here in the same commit.
+
+### Repository scope
+
+- **One repo only:** `agant172/mazak-vqc20-linuxcnc-retrofit`. Default branch `main`.
+  There is no second repo, no private sibling, no gist. If work seems to need another
+  repository, ask before adding one.
+- **Desk sessions never push to `main`** — Macs and cloud alike. Work on a feature branch and
+  open a **draft PR**; the Authority gate (`.github/workflows/authority-gate.yml`) must pass
+  before merge. The OptiPlex commits directly when recording a measurement at the machine.
+- **`main` moves on its own.** The OptiPlex pushes `status/host_status.{md,json}` to `main`
+  every 5 minutes via a systemd timer (`scripts/host_status/collect_status.sh`). Fetch and
+  rebase before pushing rather than assuming your base is current, and don't be alarmed by
+  commits you didn't write in `status/`.
+
+### The machines
+
+Work happens on three physical machines plus cloud containers. All four kinds of session
+share this repo as memory; they do **not** share equal authority to state a fact.
+
+**Identify yourself first.** No configuration is needed — the machine is discoverable:
+
+```bash
+uname -s                        # Linux = the OptiPlex; Darwin = a Mac
+sysctl -n hw.model 2>/dev/null  # MacBookPro… or iMac… (macOS only)
+hostname -s
+```
+
+| Session location | Role | May state as verified |
+|---|---|---|
+| **OptiPlex 7050** — Debian 13, PREEMPT-RT | The control PC. The only machine wired to the Mazak. | Anything it measured, with a human at the machine |
+| **MacBook Pro** — macOS | Portable desk session; goes to the shop as a reference | Nothing about hardware |
+| **iMac** — macOS | Desk session | Nothing about hardware |
+| **Cloud** — claude.com/code | Ephemeral clone, PR-only | Nothing about hardware |
+
+**The rule: verification authority follows the wire, not the OS.** Being "local" is not the
+same as being able to check. A Mac session and a cloud session have identical standing on any
+physical question — both may draft, neither may confirm. If a session cannot meter it, it
+writes `PROPOSED`, not `ELECTRICALLY_VERIFIED`
+(`docs/pre_power_deliverables.md#new-evidence-state-taxonomy`).
+
+| Item | Value | Source |
+|---|---|---|
+| OptiPlex user | `andy` | `scripts/host_status/install.sh` |
+| Working copy — **all three machines** | `~/mazak-vqc20-linuxcnc-retrofit` | `scripts/host_status/collect_status.sh` |
+| Control NIC | `192.168.1.1/24`; interface name `enp0s31f6` **unverified** — confirm with `ip -o link show` | `linuxcnc/README.md`, `docs/hm2_eth_nic_validation.md` |
+| Mesa 7i80HDT | `192.168.1.121` (static) | same |
+
+Work in the git working copy, not in a scratch directory — anything produced outside it is
+lost, and the repo is the memory. LinuxCNC runtime output (`mesa_readhmid.txt`,
+`mesa_hal_pins.txt`, `*.var.bak`) is deliberately git-ignored: paste the *findings* into a
+doc rather than committing the dump.
+
+### Working from a Mac over SSH
+
+A Mac session may reach the OptiPlex over SSH. That makes the *machine* reachable from a room
+where **nobody can see it move and nobody can reach the E-stop**, so the boundary is drawn by
+consequence, not by convenience:
+
+**Allowed over SSH, unattended** — read-only inspection that cannot move anything or energize
+an output:
+- `mesaflash --readhmid`, `halcmd show pin|sig|param`, `halcmd -s show` sampling.
+- Reading logs: `journalctl -u linuxcnc`, dmesg, latency notes, `systemctl status`.
+- `ip -o link show`, `ping 192.168.1.121`, package queries, editing files, git operations.
+
+**Requires a human physically at the machine, with the E-stop in reach** — anything that can
+move an axis, turn the spindle, actuate a solenoid, energize a coil, or change what the drives
+do on the next power-up:
+- `halcmd setp`/`sets` on any output, enable, or command pin; loading or restarting a config.
+- Starting LinuxCNC, homing, jogging, MDI, any spindle or ATC function.
+- Flashing a bitfile, or editing HAL/INI that will be loaded on the next start.
+
+Never arrange to satisfy this by leaving the machine powered and walking away. If a step needs
+a person and no person is there, the step waits — say so and stop rather than proceeding.
+
+**Attribution.** A measurement taken over SSH belongs to the OptiPlex and the human who was
+standing there, not to the Mac session that typed it. Record it that way: note the date and
+that it was taken at the machine, so a later reader can tell a real reading from a remote guess.
+
+### Getting a machine onto the shared memory
+
+`CLAUDE.md` travels with the repo, so a machine joins simply by cloning it — there is nothing
+to copy by hand and nothing machine-specific to configure:
+
+```bash
+git clone https://github.com/agant172/mazak-vqc20-linuxcnc-retrofit.git \
+  ~/mazak-vqc20-linuxcnc-retrofit
+cd ~/mazak-vqc20-linuxcnc-retrofit && python3 scripts/validate_authority.py   # expect exit 0
+```
+
+As of 2026-08-15 the MacBook Pro is believed to have a clone and the iMac is believed not to —
+**both unconfirmed**. Check with `ls ~/mazak-vqc20-linuxcnc-retrofit` and update this line once
+confirmed.
+
+**`~/.claude/CLAUDE.md` does not sync.** It is user-level memory, private to one machine, and no
+other machine or cloud session can see it — that is exactly how the project's startup
+conventions went missing until 2026-08-15. Anything that should be true on every machine goes in
+*this* file, in the repo. Keep per-machine user memory empty, or limited to genuinely local
+facts (an SSH alias, a printer).
+
+**Start every session with `git pull`.** With three machines and an automated status push, a
+stale working copy is now the most likely way to act on facts that are no longer true.
+
+### Photos and large media
+
+- **Never commit raw media.** `.gitignore` blocks `*.jpg/.png/.heic/.mp4/…` on purpose.
+- Photos live in
+  [Google Drive](https://drive.google.com/drive/folders/1YYpWPyWiRuoY2z5GACSDw6H3zzSQoVdf?usp=drive_link),
+  in the eight folders `00_Inbox` … `07_Reference`. Originals are also backed up to OneDrive.
+  A second unsorted batch sits at `My Drive/Mazak/Misc. Photos`.
+- Any `photos/…` path written in this repo means a **Drive folder**, not a directory on disk.
+- **Cite photos as `YYYY-MM-DD/IMG_nnnn`** — never a bare `IMG_nnnn`, which recurs across
+  batches. Full scheme and migration table: `docs/README_photo_sorting.md`.
+
+### Before you push
+
+Run what CI runs, or the gate will fail on the PR:
+
+```bash
+python3 scripts/validate_authority.py        # CSV <-> HAL <-> label CSVs
+python3 scripts/validate_control_logic.py    # static HAL invariants
+python3 scripts/generate_label_csvs.py --write
+python3 scripts/generate_wire_reference_sheet.py
+python3 io-dashboard/tools/generate_data.py
+git diff --stat                              # generated files must be committed, not left dirty
+```
+
+Label CSVs, the printable wire sheets, and `io-dashboard/data.js` are **generated**. Edit the
+source (`mesa/current_pin_authority.csv` and the HAL files) and regenerate — hand-edits are
+detected and rejected by CI.
+
+### Session etiquette
+
+- **Start by reading, not proposing.** This file, then `docs/project_status.md`, then whichever
+  file in the read-first table covers the question.
+- **State which session type you are** when it matters. A cloud session should say plainly that
+  it cannot measure, meter, or flash anything.
+- **One topic per PR** where practical, with a commit message that says *why*, not just *what*.
+- **Finish by writing it down.** Update `docs/project_status.md` and any file whose facts
+  changed, commit, and push before the session ends.
 
 ---
 
