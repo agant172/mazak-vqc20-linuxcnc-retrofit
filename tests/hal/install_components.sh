@@ -23,6 +23,12 @@ for comp in mazak_atc mazak_orient; do
     [ -f "$src" ] || { echo "missing $src" >&2; exit 1; }
     echo "installing $comp ..."
     sudo halcompile --install "$src"
+    # Record the source hash this .so was built from. run_tests.py compares the
+    # working-tree .comp against this and refuses to run on a mismatch, so an
+    # edited-but-not-reinstalled component cannot produce a false green. Content
+    # hash, not mtime: a fresh checkout rewrites mtimes without changing source.
+    sha256sum "$src" | awk '{print $1}' \
+        | sudo tee "/usr/lib/linuxcnc/modules/$comp.comp.sha256" > /dev/null
 done
 
 echo

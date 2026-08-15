@@ -14,6 +14,7 @@ concurrent runs corrupt each other. A lockfile enforces this.
 from __future__ import annotations
 
 import fcntl
+import hashlib
 import importlib.util
 import sys
 import time
@@ -30,13 +31,55 @@ LOCKFILE = Path("/tmp/mazak-hal-harness.lock")
 RTMOD = Path(halharness.RTMOD_DIR)
 
 
+COMPONENT_DIR = HERE.parent.parent / "linuxcnc" / "components"
+
+
 def preflight() -> list[str]:
+    """Refuse to run unless every component is installed AND built from the
+    working-tree source.
+
+    loadrt resolves the installed .so, not the .comp in the repo, so an edited
+    component that has not been reinstalled would be silently skipped: the suite
+    would exercise the previous build and report green. A false pass is worse
+    than no test, so a stale binary is a hard stop.
+
+    The comparison is a content hash recorded by install_components.sh, not an
+    mtime. mtimes are rewritten by any fresh checkout or branch switch, which
+    would make an mtime check fire on byte-identical sources and train everyone
+    to ignore it.
+    """
     problems = []
-    for so in ("mazak_atc.so", "mazak_orient.so"):
-        if not (RTMOD / so).exists():
-            problems.append(f"missing {RTMOD / so} - run tests/hal/install_components.sh")
     if not Path(halharness.REALTIME).exists():
         problems.append(f"missing {halharness.REALTIME} - is LinuxCNC installed?")
+
+    for name in ("mazak_atc", "mazak_orient"):
+        so = RTMOD / f"{name}.so"
+        comp = COMPONENT_DIR / f"{name}.comp"
+        stamp = RTMOD / f"{name}.comp.sha256"
+
+        if not so.exists():
+            problems.append(f"missing {so} - run tests/hal/install_components.sh")
+            continue
+        if not comp.exists():
+            problems.append(f"missing {comp} - cannot verify what {so.name} was built from")
+            continue
+        if not stamp.exists():
+            problems.append(
+                f"{so.name} has no recorded source hash ({stamp.name}) - it predates "
+                f"this check, so the suite cannot tell whether it matches "
+                f"{comp.name}. Re-run tests/hal/install_components.sh."
+            )
+            continue
+
+        want = stamp.read_text().strip()
+        got = hashlib.sha256(comp.read_bytes()).hexdigest()
+        if want != got:
+            problems.append(
+                f"STALE: {comp.name} differs from the source {so.name} was built "
+                f"from ({got[:12]} vs {want[:12]}) - reinstall with "
+                f"tests/hal/install_components.sh, or the suite would test the "
+                f"previous build and pass"
+            )
     return problems
 
 
