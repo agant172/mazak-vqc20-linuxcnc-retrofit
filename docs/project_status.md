@@ -12,7 +12,7 @@ Summary of planning state as of this commit:
 | --- | --- | --- |
 | D1 | As-built one-line + terminal plan | NOT DRAFTED |
 | D2 | Installed nameplate register | PARTIAL (checklists drafted; photos pending) |
-| D3 | Immutable Mesa firmware package | PARTIAL — bitfile `7i80hdt_rmsvss6_8.bin` received from Mesa/PCW and committed under `mesa/firmware/` with SHA-256; static VHD check done. Live `readhmid`/HAL pin-dump cross-check still open (board unpowered as of 2026-08-11). See [`mesa_pcw_bitfile_inquiry.md`](mesa_pcw_bitfile_inquiry.md) |
+| D3 | Immutable Mesa firmware package | COMPLETE (2026-08-13) -- layout/identity/source/readhmid/binary/recovery procedure all confirmed and committed under mesa/firmware/ and docs/Mesa Manuals/ |
 | D4 | I/O checkout sheet | NOT DRAFTED |
 | D5 | Hardware E-stop risk assessment + schematic | PARTIAL (software chain drafted) |
 | D6 | Shared-bus precharge / discharge procedure | DRAFTED (measurements pending) |
@@ -41,15 +41,20 @@ control to LinuxCNC using Mesa Electronics FPGA hardware.
 > states, and coil/current ratings before energizing any output or enabling motion.
 > See [Safety caveats](#safety-caveats) below.
 
-## Selected architecture (2026-08-06 rev)
+## Confirmed architecture (2026-08-13 rev)
+
+> P1/P2/P3 connector roles flipped vs. the 2026-08-06 rev once
+> `7i80hdt_rmsvss6_8.bin` was flashed and read back with `mesaflash --readhmid`
+> (2026-08-11, re-confirmed byte-identical 2026-08-13) — see
+> [`../mesa/mesa_firmware_checklist.md`](../mesa/mesa_firmware_checklist.md#bitfile-provenance-verification-procedure).
 
 - **LinuxCNC control PC** (Debian 13 / LinuxCNC 2.9.10) driving a **Mesa 7i80HDT** Ethernet FPGA host as the primary control board (`hm2_eth`, static IP 192.168.1.121).
-- **P1: Mesa 7i44** — RS-422 sserial breakout. Physical channels 0/1 → **7i84U-A/B** within HostMot2 port 0; channels 2-7 spare.
-- **P2: Mesa 7i49** — plain 7i49 (not 7i49HV). X/Y/Z resolver feedback on RES0/1/2 + X/Z/Y servo velocity command on AOUT0..AOUT2 and FR-SX spindle velocity on AOUT3. AOUT4/AOUT5 spare. FR-SX orient is a DISCRETE ORCM1 command on 7i84U-A TB3 OUT4 (not analog); see [`frsx_orient_model.md`](frsx_orient_model.md).
-- **P3: unused/spare** — no daughter card is fitted; all pins are bare-FPGA GPIO. Not safe for 24 V field wiring. The Renishaw MP-3 probe SKIP1 was moved off P3 and now lands on 7i84U-B TB3 IN15.
+- **P3: Mesa 7i44** — RS-422 sserial breakout. Physical channels 0/1 → **7i84U-A/B** within HostMot2 port 0; channels 2-7 spare.
+- **P1: Mesa 7i49** — plain 7i49 (not 7i49HV). X/Y/Z resolver feedback on RES0/1/2 + X/Z/Y servo velocity command on AOUT0..AOUT2 and FR-SX spindle velocity on AOUT3. AOUT4/AOUT5 spare. FR-SX orient is a DISCRETE ORCM1 command on 7i84U-A TB3 OUT4 (not analog); see [`frsx_orient_model.md`](frsx_orient_model.md).
+- **P2: unused/spare** — no daughter card is fitted; all pins are bare-FPGA GPIO. Not safe for 24 V field wiring. The Renishaw MP-3 probe SKIP1 was moved off P2 and now lands on 7i84U-B TB3 IN15.
 - **7i84U-B I/O allocation**: TB3 IN0-5 = X/Y/Z limits, IN6-8 = homes, IN9 = air permissive, IN15 = Renishaw MP-3 probe; TB3 OUT0-2 = drive enables, OUT3-7 = air/touch/tap blasts, ATC barrier, and flood valve; TB2 OUT8 = proposed magazine-cover close. (7i84 layout: TB1 = power connector; TB3 = IN0-15 + OUT0-7; TB2 = IN16-31 + OUT8-15.)
 - **Optional WHB04B-style USB pendant** after base machine safety/motion is proven.
-- **Firmware bitfile**: `7i80hdt_rmsvss6_8.bin`, received from Mesa/PCW 2026-08-11, committed under `mesa/firmware/` with SHA-256. Static VHD pin-map check confirms 6 PWM/analog instances (matches AOUT0-5) and a resolver module present; **IDROM/readhmid readback and HAL pin dump are still open** (board unpowered as of this update) — do not treat as field-verified until those run.
+- **Firmware bitfile**: `7i80hdt_rmsvss6_8.bin`, flashed 2026-08-11. Layout, identity, and upstream source all **CONFIRMED**: two independent `readhmid` reads plus a recorded SHA-256, and the binary sourced directly from Peter Wallace at Mesa Electronics (`freeby.mesanet.com/7i80hdt_rmsvss6_8.zip`, 2026-08-11).
 
 See [`architecture_decision.md`](architecture_decision.md) for the full rationale.
 
@@ -74,7 +79,7 @@ See [`architecture_decision.md`](architecture_decision.md) for the full rational
   verification remain pending.
 
 ### In progress
-- Purchase list for 7i80HDT + 7i44 + 7i84U-B (7i49 and 7i84U-A already ordered / on hand).
+- 7i80HDT is in hand, on the network at 192.168.1.121, and flashed with `7i80hdt_rmsvss6_8.bin`. Purchase list for 7i44 + 7i84U-B still open (7i49 and 7i84U-A already ordered / on hand). Blocked on 50-pin IDC cables to physically seat the daughter cards.
 - Collecting cabinet photos.
 - Tracing 24 V distribution and the safety chain.
 
@@ -89,9 +94,9 @@ See [`architecture_decision.md`](architecture_decision.md) for the full rational
 ## TODO list
 
 ### Immediate
-- [x] **GATE — confirm before ordering:** email Mesa/PCW to confirm an **Efinix bitfile exists (or can be built)** for the 7i80HDT that exposes **7i49 resolver + analog on P2** and **7i44 smart-serial on P1**. CLEARED 2026-08-11 — bitfile received (`7i80hdt_rmsvss6_8.bin`), see [`mesa_pcw_bitfile_inquiry.md`](mesa_pcw_bitfile_inquiry.md) Outcome section.
-- [x] Order the 7i80HDT + 7i44 + 7i84U-B. Board is now on hand and network-connected (192.168.1.121) as of 2026-08-11, though currently unpowered.
-- [ ] Obtain the confirmed Efinix resolver bitfile from Mesa/PCW — **binary + SHA-256 + static VHD check done** (`mesa/firmware/`, 2026-08-11). **IDROM readback and HAL pin dump still open**, need the board powered — do not assume field-verified until those run.
+- [x] 7i80HDT is in hand, on the network, and flashed with `7i80hdt_rmsvss6_8.bin`.
+- [ ] Order the 7i44 + 7i84U-B. (7i49 and 7i84U-A are already in the buy list / on hand.) Blocked on 50-pin IDC cables to physically seat the daughter cards once acquired.
+- [x] Firmware is flashed (`7i80hdt_rmsvss6_8.bin`, 2026-08-11), its layout/identity confirmed by two independent `readhmid` reads plus a recorded SHA-256, its source cited (Peter Wallace, Mesa Electronics, `freeby.mesanet.com/7i80hdt_rmsvss6_8.zip`, 2026-08-11), the binary itself committed under `mesa/firmware/`, and the recovery procedure documented from the 7I80HD manual (fallback + jumper-W5 dual-flash recovery) now committed at `docs/Mesa Manuals/7i80hdman.pdf`. D3 is complete.
 - [ ] Confirm 7i80HDT Ethernet setup: static IP 192.168.1.121, `hm2_eth` `board_ip="192.168.1.121"`, and host NIC `enp0s31f6` at 192.168.1.1/24.
 - [ ] Confirm 24 V field power feed and 7i84U-A / 7i84U-B I/O sourcing/sinking behavior before wiring.
 - [ ] Capture cabinet photo set using the cabinet photo checklist.
@@ -128,13 +133,13 @@ See [`architecture_decision.md`](architecture_decision.md) for the full rational
 - [ ] Design and commission `mazak_atc_zone` HAL component + `M100`/`M101` user-M-code permit pair that dynamically drives `ini.y.max_limit` from +0.0394 to +9.5000 only after prerequisites are met (homed, no fault, spindle oriented, Z >= -5.9449, PRS-55/66 consistent). Prove motmod's update timing with halscope; do not assume it. Until this exists the remap will not tool-change and `[ATC] DRY_RUN = 1` remains set. See [`y_soft_limit_atc_zone.md`](y_soft_limit_atc_zone.md).
 - [ ] Trace E-stop, door, ready chain, and servo contactor wiring before any control rewiring. Draw the as-built hardwired safety schematic and validate the fault-injection matrix per [`estop_safety_chain.md`](estop_safety_chain.md) BEFORE energizing drives under retrofit control. Until validated, LinuxCNC/HAL is monitoring/inhibit only — not the primary safety element and not a safety-rated backup.
 - [ ] Survey the OEM Mitsubishi TRA rectifier/capacitor/amplifier DC-bus stack per [`dc_bus_stop_fault.md`](dc_bus_stop_fault.md): draw the as-built one-line, label TP-DC+/TP-DC-/TP-CHG/TP-BRK-Z/TP-RDY-* candidates, identify the exact service-voltage threshold from the installed unit manual, measure discharge under both at-rest and post-deceleration conditions, and test single-amplifier fault propagation. LinuxCNC monitors/inhibits only; it is not the primary stop element.
-- [ ] Confirm the Renishaw MP-3 probe SKIP1 lands on 7i84U-B TB3 IN15 (opto-isolated 24 V input). Do NOT wire the probe to bare P3 GPIO — that path is RETRACTED (see [`superseded_claims_2026-08-06.md`](superseded_claims_2026-08-06.md) row 15). All P3 pins remain unused/spare.
+- [ ] Confirm the Renishaw MP-3 probe SKIP1 lands on 7i84U-B TB3 IN15 (opto-isolated 24 V input). Do NOT wire the probe to bare P2 GPIO — that path is RETRACTED (see [`superseded_claims_2026-08-06.md`](superseded_claims_2026-08-06.md) row 15). All P2 pins remain unused/spare.
 
 ### Next
 - [ ] Run LinuxCNC latency and hm2_eth qualification on the exact selected PC,
       NIC, kernel, BIOS settings, and representative system workload.
-- [ ] Install the 7i80HDT + 7i44 + 7i49 + 7i84U-A + 7i84U-B; leave P3 unused/spare (probe is on 7i84U-B input-15, not bare P3 GPIO) and save `mesaflash --device 7i80hdt --addr 192.168.1.121 --readhmid` output as `mesa_readhmid.txt`.
-- [ ] Dump actual HAL pins after firmware load and save as `mesa_hal_pins.txt`.
+- [ ] Physically install the 7i44 (P3) + 7i49 (P1) + 7i84U-A + 7i84U-B on the board and in the cabinet; leave P2 unused/spare (probe is on 7i84U-B input-15, not bare P2 GPIO). `readhmid` is already saved ([`../mesa/firmware/readhmid_2026-08-13.txt`](../mesa/firmware/readhmid_2026-08-13.txt)) from the board on the bench/network — still need the post-install re-check plus the `hal_pins_YYYY-MM-DD.txt` dump below.
+- [ ] Dump actual HAL pins after firmware load and save as `mesa/firmware/hal_pins_YYYY-MM-DD.txt`.
 - [ ] Replace placeholder `hm2_7i80.0...` pin names in the HAL files using the real HAL pin dump.
 - [ ] Set 7i49 resolver excitation to **5 kHz** (spec 4.5 kHz; options 2.5/5/10 kHz).
 - [ ] Identify each axis resolver winding pair with an **ohmmeter before power**: rotor pair (R1/R2) → RESDRV±, matched stator pairs (S1-S3, S2-S4) → RESSIN and RESCOS. Verify, don't assume.
@@ -150,7 +155,7 @@ See [`architecture_decision.md`](architecture_decision.md) for the full rational
 - [ ] Measure solenoid/contactor coil voltages and currents to decide interposing relay/suppression needs.
 
 ### Later
-- [ ] Bring up resolver feedback via the 7i49 (P2) with drives disabled.
+- [ ] Bring up resolver feedback via the 7i49 (P1) with drives disabled.
 - [ ] Bring up one axis at a time at low gain / low speed.
 - [ ] Prove homes/limits (7i84U-B TB3) and hardware E-stop behavior.
 - [ ] Bring up spindle at low RPM with verified analog scaling on 7i49 AOUT3.
@@ -161,10 +166,10 @@ See [`architecture_decision.md`](architecture_decision.md) for the full rational
 
 1. Confirm 7i80HDT detection over Ethernet (host static IP 192.168.1.1/24, `ping 192.168.1.121`, `mesaflash --device 7i80hdt --addr 192.168.1.121 --readhmid`, `hm2_eth` HAL load).
 2. Confirm 24 VDC P24/G24 bus (OEM HR-11F-24 and retrofit DR-240-24 isolated), fusing, and 0 V common/reference strategy.
-3. Confirm resolver wiring on 7i49 P2 with drives disabled: ohmmeter the winding pairs, wire RESDRV/RESSIN/RESCOS, set 5 kHz excitation, scope the return level, then confirm counts, direction, and scale.
-4. Confirm 7i49 P2 analog command wiring with drives disabled/inhibited (zero command, polarity on AOUT0/1/2/3).
+3. Confirm resolver wiring on 7i49 P1 with drives disabled: ohmmeter the winding pairs, wire RESDRV/RESSIN/RESCOS, set 5 kHz excitation, scope the return level, then confirm counts, direction, and scale.
+4. Confirm 7i49 P1 analog command wiring with drives disabled/inhibited (zero command, polarity on AOUT0/1/2/3).
 5. Confirm 7i84U-A and 7i84U-B appear on HostMot2 smart-serial port 0 channels 0 and 1 via `halcmd show pin hm2` — verify device tags `hm2_7i80.0.7i84.0.0.*` and `hm2_7i80.0.7i84.0.1.*`.
-6. Confirm 7i84U-A + 7i84U-B TB3 wiring (limits/homes/E-stop/probe/drive-enables/relay-driven outputs) with all outputs disabled; P3 has no field wiring.
+6. Confirm 7i84U-A + 7i84U-B TB3 wiring (limits/homes/E-stop/probe/drive-enables/relay-driven outputs) with all outputs disabled; P2 has no field wiring.
 7. Bring up one axis at a time at low gain / low speed per [`servo_commissioning.md`](servo_commissioning.md) (FF1 first, then P; I only for residual bias, D cautiously; explicit rollback criteria).
 8. Confirm home and limit logic before homing.
 9. Confirm spindle analog scaling, run/enable/direction, zero-speed, at-speed, orient.
@@ -174,7 +179,7 @@ Detailed bring-up notes: [`../linuxcnc/README.md`](../linuxcnc/README.md).
 
 ## Safety caveats
 
-- The `linuxcnc/` HAL/INI files and `mesa/current_pin_authority.csv` are **skeletons**. Pin names (`hm2_7i80.0...`), resolver scales, analog polarity/scaling, spindle FR-SX command mode, and I/O normal states are **placeholders** and must be replaced with the actual generated HAL names and measured/verified values from the installed 7i80HDT + 7i44 + 7i49 + 7i84U-A + 7i84U-B stack. The probe SKIP1 now lands on 7i84U-B TB3 IN15 (opto-isolated) rather than bare P3 GPIO.
+- The `linuxcnc/` HAL/INI files and `mesa/current_pin_authority.csv` are **skeletons**. Pin names (`hm2_7i80.0...`), resolver scales, analog polarity/scaling, spindle FR-SX command mode, and I/O normal states are **placeholders** and must be replaced with the actual generated HAL names and measured/verified values from the installed 7i80HDT + 7i44 + 7i49 + 7i84U-A + 7i84U-B stack. The probe SKIP1 now lands on 7i84U-B TB3 IN15 (opto-isolated) rather than bare P2 GPIO.
 - **Resolver wiring is not conventional.** The original Meldas M2 / TRA wiring may drive the resolver "backwards" (two-phase excitation into the stator, phase read from the rotor), whereas the 7i49 uses single excitation and reads sin/cos amplitude. **Ohmmeter the winding pairs before applying power** and do not trust the original wire names. The 7i49 must be the **sole resolver excitation source** — the old TRA drive closes its velocity loop on a tachometer, not the resolver, so LinuxCNC/7i49 can own excitation, but nothing else may share those windings.
 - `MS3108B 20-29P` is a **connector shell part number, not a resolver model** — the resolvers themselves are Tamagawa TS2014N (BKO-NC6062A).
 - Preserve or rebuild a **hardware safety chain** that removes hazardous power. Do not rely on LinuxCNC/HAL alone for E-stop safety. The E-stop chain is monitored solely via the 7i84U-A TB2 IN29 interposing-relay status contact; the OEM hardware chain remains authoritative.

@@ -5,8 +5,8 @@ window.MAZAK_DATA = {
  "meta": {
   "machine": "Mazak VQC-20/40",
   "serial": "060231",
-  "architecture": "LinuxCNC + Mesa 7i80HDT (Ethernet FPGA host) + 7i44 on P1 (HostMot2 sserial port 0 channels 0/1 to 7i84U-A/B) + 7i49 on P2 (resolver + analog outs); P3 unused/spare",
-  "generated": "2026-08-13 02:35 UTC",
+  "architecture": "LinuxCNC + Mesa 7i80HDT (Ethernet FPGA host) + 7i44 on P3 (HostMot2 sserial port 0 channels 0/1 to 7i84U-A/B) + 7i49 on P1 (resolver + analog outs); P2 unused/spare (confirmed 2026-08-13 by readhmid)",
+  "generated": "2026-08-15 20:08 UTC",
   "source_repo": "mazak-vqc20-linuxcnc-retrofit",
   "authority_file": "mesa/current_pin_authority.csv",
   "epson_ferrule_file": "wiring/labels/bbia1_mesa_end_ferrules_epson.csv",
@@ -20,32 +20,32 @@ window.MAZAK_DATA = {
   "rules": [
    "mesa/current_pin_authority.csv is the wiring authority.",
    "7i49 AOUT axis order is X=AOUT0, Z=AOUT1, Y=AOUT2.",
-   "Axis feedback is Tamagawa TS2014N resolver through the 7i49 on P2, not quadrature encoder.",
+   "Axis feedback is Tamagawa TS2014N resolver through the 7i49 on P1, not quadrature encoder.",
    "The hardware E-stop chain removes hazardous power. 7i84U-A TB2 IN29 is the sole software monitor; the OEM hardware chain remains authoritative.",
    "Every hm2_7i80.* pin name in the HAL set is an unverified placeholder until confirmed against a firmware readhmid.",
    "7i49 AOUT order is X=AOUT0, Z=AOUT1, Y=AOUT2, FR-SX spindle velocity=AOUT3; AOUT4/AOUT5 spare.",
    "7i84U-B on 7i44 channel 1: TB3 IN0-5 limits, IN6-8 homes, IN9 air pressure, IN15 probe; TB3 OUT0-2 drive enable, OUT3-7 relay loads; TB2 OUT8 proposed cover valve; OUT9-15 spare.",
-   "7i84U-A on sserial channel 0 is `hm2_7i80.0.7i84.0.0.*`; 7i84U-B on channel 1 is `hm2_7i80.0.7i84.0.1.*`; P3 has no active field binding."
+   "7i84U-A on sserial channel 0 is `hm2_7i80.0.7i84.0.0.*`; 7i84U-B on channel 1 is `hm2_7i80.0.7i84.0.1.*`; P2 has no active field binding."
   ]
  },
  "boards": {
   "7i80HDT": {
    "name": "Mesa 7i80HDT",
    "role": "Ethernet FPGA host (hm2_eth)",
-   "detail": "Primary control board. P1 = 7i44 sserial breakout, P2 = 7i49 resolvers + analog outs; P3 is unused/spare; the probe is on 7i84U-B IN15.",
+   "detail": "Primary control board. P1 = 7i49 resolvers + analog outs, P3 = 7i44 sserial breakout; P2 is unused/spare (confirmed 2026-08-13 by readhmid); the probe is on 7i84U-B IN15.",
    "address": "board_ip 192.168.1.121 (host NIC enp0s31f6 at 192.168.1.1/24)"
   },
   "7i44": {
    "name": "Mesa 7i44",
-   "role": "8-channel RS-422 smart-serial breakout (on 7i80HDT P1)",
+   "role": "8-channel RS-422 smart-serial breakout (on 7i80HDT P3)",
    "detail": "Physical channel 0 carries 7i84U-A and channel 1 carries 7i84U-B. Channels 2-7 are spare.",
-   "address": "7i80HDT P1 HostMot2 sserial port 0, channels 0 and 1"
+   "address": "7i80HDT P3 HostMot2 sserial port 0, channels 0 and 1"
   },
   "7i49": {
    "name": "Mesa 7i49",
-   "role": "Resolver-to-digital interface + ±10V DACs (on 7i80HDT P2)",
+   "role": "Resolver-to-digital interface + ±10V DACs (on 7i80HDT P1)",
    "detail": "Plain 7i49 (not HV). Reads the machine's original Tamagawa TS2014N shaft resolvers for X/Y/Z on RES0/1/2 at 5 kHz excitation. AOUT0/1/2 drive the X/Z/Y servos, AOUT3 drives FR-SX spindle velocity, and AOUT4/AOUT5 are spare.",
-   "address": "num_resolvers=3, num_pwmgens=4 on 7i80HDT P2"
+   "address": "num_resolvers=3, num_pwmgens=4 on 7i80HDT P1"
   },
   "7i84U-A": {
    "name": "Mesa 7i84U-A",
@@ -171,7 +171,7 @@ window.MAZAK_DATA = {
    "id": "X_RESOLVER",
    "name": "X Resolver",
    "board": "7i49",
-   "connector": "P2 Resolver channel",
+   "connector": "P1 Resolver channel",
    "channel": "RES0",
    "hal_net": "x-pos-fb",
    "direction": "RESOLVER_IN",
@@ -207,7 +207,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "line": 162,
+     "line": 164,
      "text": "net x-pos-fb        <= hm2_7i80.0.resolver.00.position",
      "commented": false,
      "producers": [
@@ -218,7 +218,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "line": 167,
+     "line": 169,
      "text": "net x-pos-fb        => joint.0.motor-pos-fb",
      "commented": false,
      "producers": [],
@@ -229,7 +229,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "line": 286,
+     "line": 289,
      "text": "net x-pos-fb   => pid.x.feedback",
      "commented": false,
      "producers": [],
@@ -242,7 +242,7 @@ window.MAZAK_DATA = {
    "setp_refs": [
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "line": 116,
+     "line": 118,
      "text": "setp hm2_7i80.0.resolver.00.scale [JOINT_0]RESOLVER_SCALE",
      "commented": false,
      "target": "hm2_7i80.0.resolver.00.scale",
@@ -250,7 +250,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "line": 145,
+     "line": 147,
      "text": "setp hm2_7i80.0.resolver.00.velocity-scale  [JOINT_0]RESOLVER_VELOCITY_SCALE",
      "commented": false,
      "target": "hm2_7i80.0.resolver.00.velocity-scale",
@@ -258,7 +258,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "line": 155,
+     "line": 157,
      "text": "setp hm2_7i80.0.resolver.00.index-divisor   [JOINT_0]RESOLVER_INDEX_DIVISOR",
      "commented": false,
      "target": "hm2_7i80.0.resolver.00.index-divisor",
@@ -274,32 +274,32 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "lines": "162",
+     "lines": "164",
      "note": "net x-pos-fb        <= hm2_7i80.0.resolver.00.position"
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "lines": "167",
+     "lines": "169",
      "note": "net x-pos-fb        => joint.0.motor-pos-fb"
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "lines": "286",
+     "lines": "289",
      "note": "net x-pos-fb   => pid.x.feedback"
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "lines": "116",
+     "lines": "118",
      "note": "setp hm2_7i80.0.resolver.00.scale [JOINT_0]RESOLVER_SCALE"
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "lines": "145",
+     "lines": "147",
      "note": "setp hm2_7i80.0.resolver.00.velocity-scale  [JOINT_0]RESOLVER_VELOCITY_SCALE"
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "lines": "155",
+     "lines": "157",
      "note": "setp hm2_7i80.0.resolver.00.index-divisor   [JOINT_0]RESOLVER_INDEX_DIVISOR"
     },
     {
@@ -321,7 +321,7 @@ window.MAZAK_DATA = {
    "id": "Y_RESOLVER",
    "name": "Y Resolver",
    "board": "7i49",
-   "connector": "P2 Resolver channel",
+   "connector": "P1 Resolver channel",
    "channel": "RES1",
    "hal_net": "y-pos-fb",
    "direction": "RESOLVER_IN",
@@ -357,7 +357,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "line": 169,
+     "line": 171,
      "text": "net y-pos-fb        <= hm2_7i80.0.resolver.01.position",
      "commented": false,
      "producers": [
@@ -368,7 +368,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "line": 174,
+     "line": 176,
      "text": "net y-pos-fb        => joint.1.motor-pos-fb",
      "commented": false,
      "producers": [],
@@ -379,7 +379,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "line": 299,
+     "line": 302,
      "text": "net y-pos-fb   => pid.y.feedback",
      "commented": false,
      "producers": [],
@@ -392,7 +392,7 @@ window.MAZAK_DATA = {
    "setp_refs": [
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "line": 117,
+     "line": 119,
      "text": "setp hm2_7i80.0.resolver.01.scale [JOINT_1]RESOLVER_SCALE",
      "commented": false,
      "target": "hm2_7i80.0.resolver.01.scale",
@@ -400,7 +400,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "line": 146,
+     "line": 148,
      "text": "setp hm2_7i80.0.resolver.01.velocity-scale  [JOINT_1]RESOLVER_VELOCITY_SCALE",
      "commented": false,
      "target": "hm2_7i80.0.resolver.01.velocity-scale",
@@ -408,7 +408,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "line": 156,
+     "line": 158,
      "text": "setp hm2_7i80.0.resolver.01.index-divisor   [JOINT_1]RESOLVER_INDEX_DIVISOR",
      "commented": false,
      "target": "hm2_7i80.0.resolver.01.index-divisor",
@@ -424,32 +424,32 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "lines": "169",
+     "lines": "171",
      "note": "net y-pos-fb        <= hm2_7i80.0.resolver.01.position"
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "lines": "174",
+     "lines": "176",
      "note": "net y-pos-fb        => joint.1.motor-pos-fb"
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "lines": "299",
+     "lines": "302",
      "note": "net y-pos-fb   => pid.y.feedback"
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "lines": "117",
+     "lines": "119",
      "note": "setp hm2_7i80.0.resolver.01.scale [JOINT_1]RESOLVER_SCALE"
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "lines": "146",
+     "lines": "148",
      "note": "setp hm2_7i80.0.resolver.01.velocity-scale  [JOINT_1]RESOLVER_VELOCITY_SCALE"
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "lines": "156",
+     "lines": "158",
      "note": "setp hm2_7i80.0.resolver.01.index-divisor   [JOINT_1]RESOLVER_INDEX_DIVISOR"
     },
     {
@@ -471,7 +471,7 @@ window.MAZAK_DATA = {
    "id": "Z_RESOLVER",
    "name": "Z Resolver",
    "board": "7i49",
-   "connector": "P2 Resolver channel",
+   "connector": "P1 Resolver channel",
    "channel": "RES2",
    "hal_net": "z-pos-fb",
    "direction": "RESOLVER_IN",
@@ -507,7 +507,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "line": 176,
+     "line": 178,
      "text": "net z-pos-fb        <= hm2_7i80.0.resolver.02.position",
      "commented": false,
      "producers": [
@@ -518,7 +518,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "line": 181,
+     "line": 183,
      "text": "net z-pos-fb        => joint.2.motor-pos-fb",
      "commented": false,
      "producers": [],
@@ -529,7 +529,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "line": 309,
+     "line": 312,
      "text": "net z-pos-fb   => pid.z.feedback",
      "commented": false,
      "producers": [],
@@ -542,7 +542,7 @@ window.MAZAK_DATA = {
    "setp_refs": [
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "line": 118,
+     "line": 120,
      "text": "setp hm2_7i80.0.resolver.02.scale [JOINT_2]RESOLVER_SCALE",
      "commented": false,
      "target": "hm2_7i80.0.resolver.02.scale",
@@ -550,7 +550,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "line": 147,
+     "line": 149,
      "text": "setp hm2_7i80.0.resolver.02.velocity-scale  [JOINT_2]RESOLVER_VELOCITY_SCALE",
      "commented": false,
      "target": "hm2_7i80.0.resolver.02.velocity-scale",
@@ -558,7 +558,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "line": 157,
+     "line": 159,
      "text": "setp hm2_7i80.0.resolver.02.index-divisor   [JOINT_2]RESOLVER_INDEX_DIVISOR",
      "commented": false,
      "target": "hm2_7i80.0.resolver.02.index-divisor",
@@ -574,32 +574,32 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "lines": "176",
+     "lines": "178",
      "note": "net z-pos-fb        <= hm2_7i80.0.resolver.02.position"
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "lines": "181",
+     "lines": "183",
      "note": "net z-pos-fb        => joint.2.motor-pos-fb"
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "lines": "309",
+     "lines": "312",
      "note": "net z-pos-fb   => pid.z.feedback"
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "lines": "118",
+     "lines": "120",
      "note": "setp hm2_7i80.0.resolver.02.scale [JOINT_2]RESOLVER_SCALE"
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "lines": "147",
+     "lines": "149",
      "note": "setp hm2_7i80.0.resolver.02.velocity-scale  [JOINT_2]RESOLVER_VELOCITY_SCALE"
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "lines": "157",
+     "lines": "159",
      "note": "setp hm2_7i80.0.resolver.02.index-divisor   [JOINT_2]RESOLVER_INDEX_DIVISOR"
     },
     {
@@ -638,11 +638,11 @@ window.MAZAK_DATA = {
    "primary_source": "motion_7i80hdt.hal",
    "cleanup_notes": "Current target leaves P3 empty and requests num_encoders=0. Identify encoder model/electrical format and select a compatible receiver/daughter interface plus IDROM-proven pins before allocation. | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/spindle_run_ladder_transcription.md] | [2026-08-12: STILL UNBOUND. The spindle MOTOR built-in PLG was identified from nameplate photos (Tamagawa TS1526N55 optical, 512 counts/turn, DC +/-15V, 9-pin AMP-350720-1) but it is the FR-SX drive's own detector, not this row - do not allocate it to Mesa and do not parallel-tap it. Whether the schematics' machine-side SPINDLE ENCODER (MS3108B 20-29P, dwg 4143075301 p090) is a separate device remains open. See docs/spindle_motor_plg_encoder.md] | [2026-08-12 DECIDED (owner): UNBOUND is now SETTLED, not pending. LinuxCNC does not read spindle position - orient is FR-SX internal (ORCM1/ORA1), speed supervision is discrete (SZS IN5 / speed-reach IN13), and tapping uses a floating holder so needs only FWD/REV + dwell. No rigid tapping or G33 in scope. Do not open this row again without a scoped project: an encoder on the SPINDLE side of the 2-speed gearbox, a receiver (P3 is bare 3.3V GPIO), and possibly a new bitfile]",
    "location": "Spindle head — machine-side A/B/Z encoder if fitted",
-   "location_note": "Unassigned: part, electrical format, receiver/interface and FPGA pins are not confirmed. P3 remains empty.",
+   "location_note": "Unassigned: part, electrical format, and receiver/interface are not confirmed. The confirmed rmsvss6_8 firmware has no Encoder module at all.",
    "expected": {
     "value": "Dynamic",
     "label": "Unavailable — encoder and receiver not identified; num_encoders=0",
-    "basis": "motion_7i80hdt.hal spindle-feedback hold; P3 remains physically empty and resolver.03 is not used for spindle",
+    "basis": "motion_7i80hdt.hal spindle-feedback hold; the confirmed rmsvss6_8 firmware has no Encoder module at all (readhmid 2026-08-13), and resolver.03 is not used for spindle",
     "kind": "dynamic"
    },
    "hal_state": "absent",
@@ -672,7 +672,7 @@ window.MAZAK_DATA = {
    "id": "RES3_SPARE",
    "name": "Res3 Spare",
    "board": "7i49",
-   "connector": "P2 Resolver channel",
+   "connector": "P1 Resolver channel",
    "channel": "RES3",
    "hal_net": "",
    "direction": "RESOLVER_IN",
@@ -723,7 +723,7 @@ window.MAZAK_DATA = {
    "id": "RES4_SPARE",
    "name": "Res4 Spare",
    "board": "7i49",
-   "connector": "P2 Resolver channel",
+   "connector": "P1 Resolver channel",
    "channel": "RES4",
    "hal_net": "",
    "direction": "RESOLVER_IN",
@@ -774,7 +774,7 @@ window.MAZAK_DATA = {
    "id": "RES5_SPARE",
    "name": "Res5 Spare",
    "board": "7i49",
-   "connector": "P2 Resolver channel",
+   "connector": "P1 Resolver channel",
    "channel": "RES5",
    "hal_net": "",
    "direction": "RESOLVER_IN",
@@ -825,7 +825,7 @@ window.MAZAK_DATA = {
    "id": "X_AXIS_CMD",
    "name": "X Axis Cmd",
    "board": "7i49",
-   "connector": "P2 Analog TB",
+   "connector": "P1 Analog TB",
    "channel": "AOUT0",
    "hal_net": "x-vel-cmd",
    "direction": "ANALOG_OUT",
@@ -860,7 +860,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "line": 292,
+     "line": 295,
      "text": "net x-vel-cmd  <= pid.x.output",
      "commented": false,
      "producers": [
@@ -871,7 +871,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "line": 293,
+     "line": 296,
      "text": "net x-vel-cmd  => hm2_7i80.0.pwmgen.00.value",
      "commented": false,
      "producers": [],
@@ -884,7 +884,7 @@ window.MAZAK_DATA = {
    "setp_refs": [
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "line": 277,
+     "line": 280,
      "text": "setp hm2_7i80.0.pwmgen.00.output-type 2    # X axis  -> 7i49 AOUT0",
      "commented": false,
      "target": "hm2_7i80.0.pwmgen.00.output-type",
@@ -892,7 +892,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "line": 278,
+     "line": 281,
      "text": "setp hm2_7i80.0.pwmgen.00.scale       [JOINT_0]OUTPUT_SCALE",
      "commented": false,
      "target": "hm2_7i80.0.pwmgen.00.scale",
@@ -908,22 +908,22 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "lines": "292",
+     "lines": "295",
      "note": "net x-vel-cmd  <= pid.x.output"
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "lines": "293",
+     "lines": "296",
      "note": "net x-vel-cmd  => hm2_7i80.0.pwmgen.00.value"
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "lines": "277",
+     "lines": "280",
      "note": "setp hm2_7i80.0.pwmgen.00.output-type 2    # X axis  -> 7i49 AOUT0"
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "lines": "278",
+     "lines": "281",
      "note": "setp hm2_7i80.0.pwmgen.00.scale       [JOINT_0]OUTPUT_SCALE"
     },
     {
@@ -945,7 +945,7 @@ window.MAZAK_DATA = {
    "id": "Z_AXIS_CMD",
    "name": "Z Axis Cmd",
    "board": "7i49",
-   "connector": "P2 Analog TB",
+   "connector": "P1 Analog TB",
    "channel": "AOUT1",
    "hal_net": "z-vel-cmd",
    "direction": "ANALOG_OUT",
@@ -980,7 +980,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "line": 312,
+     "line": 315,
      "text": "net z-vel-cmd  <= pid.z.output",
      "commented": false,
      "producers": [
@@ -991,7 +991,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "line": 313,
+     "line": 316,
      "text": "net z-vel-cmd  => hm2_7i80.0.pwmgen.01.value    # Z → pwmgen.01 (7i49 AOUT1)",
      "commented": false,
      "producers": [],
@@ -1004,7 +1004,7 @@ window.MAZAK_DATA = {
    "setp_refs": [
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "line": 279,
+     "line": 282,
      "text": "setp hm2_7i80.0.pwmgen.01.output-type 2    # Z axis  -> 7i49 AOUT1",
      "commented": false,
      "target": "hm2_7i80.0.pwmgen.01.output-type",
@@ -1012,7 +1012,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "line": 280,
+     "line": 283,
      "text": "setp hm2_7i80.0.pwmgen.01.scale       [JOINT_2]OUTPUT_SCALE",
      "commented": false,
      "target": "hm2_7i80.0.pwmgen.01.scale",
@@ -1028,22 +1028,22 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "lines": "312",
+     "lines": "315",
      "note": "net z-vel-cmd  <= pid.z.output"
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "lines": "313",
+     "lines": "316",
      "note": "net z-vel-cmd  => hm2_7i80.0.pwmgen.01.value    # Z → pwmgen.01 (7i49 AOUT1)"
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "lines": "279",
+     "lines": "282",
      "note": "setp hm2_7i80.0.pwmgen.01.output-type 2    # Z axis  -> 7i49 AOUT1"
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "lines": "280",
+     "lines": "283",
      "note": "setp hm2_7i80.0.pwmgen.01.scale       [JOINT_2]OUTPUT_SCALE"
     },
     {
@@ -1065,7 +1065,7 @@ window.MAZAK_DATA = {
    "id": "Y_AXIS_CMD",
    "name": "Y Axis Cmd",
    "board": "7i49",
-   "connector": "P2 Analog TB",
+   "connector": "P1 Analog TB",
    "channel": "AOUT2",
    "hal_net": "y-vel-cmd",
    "direction": "ANALOG_OUT",
@@ -1100,7 +1100,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "line": 302,
+     "line": 305,
      "text": "net y-vel-cmd  <= pid.y.output",
      "commented": false,
      "producers": [
@@ -1111,7 +1111,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "line": 303,
+     "line": 306,
      "text": "net y-vel-cmd  => hm2_7i80.0.pwmgen.02.value    # Y → pwmgen.02 (7i49 AOUT2)",
      "commented": false,
      "producers": [],
@@ -1124,7 +1124,7 @@ window.MAZAK_DATA = {
    "setp_refs": [
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "line": 281,
+     "line": 284,
      "text": "setp hm2_7i80.0.pwmgen.02.output-type 2    # Y axis  -> 7i49 AOUT2",
      "commented": false,
      "target": "hm2_7i80.0.pwmgen.02.output-type",
@@ -1132,7 +1132,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "line": 282,
+     "line": 285,
      "text": "setp hm2_7i80.0.pwmgen.02.scale       [JOINT_1]OUTPUT_SCALE",
      "commented": false,
      "target": "hm2_7i80.0.pwmgen.02.scale",
@@ -1148,22 +1148,22 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "lines": "302",
+     "lines": "305",
      "note": "net y-vel-cmd  <= pid.y.output"
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "lines": "303",
+     "lines": "306",
      "note": "net y-vel-cmd  => hm2_7i80.0.pwmgen.02.value    # Y → pwmgen.02 (7i49 AOUT2)"
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "lines": "281",
+     "lines": "284",
      "note": "setp hm2_7i80.0.pwmgen.02.output-type 2    # Y axis  -> 7i49 AOUT2"
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "lines": "282",
+     "lines": "285",
      "note": "setp hm2_7i80.0.pwmgen.02.scale       [JOINT_1]OUTPUT_SCALE"
     },
     {
@@ -1185,7 +1185,7 @@ window.MAZAK_DATA = {
    "id": "SPINDLE_SPEED_CMD",
    "name": "Spindle Speed Cmd",
    "board": "7i49",
-   "connector": "P2 Analog TB",
+   "connector": "P1 Analog TB",
    "channel": "AOUT3",
    "hal_net": "spindle-speed-cmd",
    "direction": "ANALOG_OUT",
@@ -1220,7 +1220,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "line": 391,
+     "line": 394,
      "text": "net spindle-speed-cmd <= spindle.0.speed-out-abs",
      "commented": false,
      "producers": [
@@ -1231,7 +1231,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "line": 392,
+     "line": 395,
      "text": "net spindle-speed-cmd => hm2_7i80.0.pwmgen.03.value",
      "commented": false,
      "producers": [],
@@ -1244,7 +1244,7 @@ window.MAZAK_DATA = {
    "setp_refs": [
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "line": 377,
+     "line": 380,
      "text": "setp hm2_7i80.0.pwmgen.03.output-type 2",
      "commented": false,
      "target": "hm2_7i80.0.pwmgen.03.output-type",
@@ -1252,7 +1252,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "line": 378,
+     "line": 381,
      "text": "setp hm2_7i80.0.pwmgen.03.offset-mode 0",
      "commented": false,
      "target": "hm2_7i80.0.pwmgen.03.offset-mode",
@@ -1260,7 +1260,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "line": 379,
+     "line": 382,
      "text": "setp hm2_7i80.0.pwmgen.03.scale       [SPINDLE_0]OUTPUT_SCALE",
      "commented": false,
      "target": "hm2_7i80.0.pwmgen.03.scale",
@@ -1276,27 +1276,27 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "lines": "391",
+     "lines": "394",
      "note": "net spindle-speed-cmd <= spindle.0.speed-out-abs"
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "lines": "392",
+     "lines": "395",
      "note": "net spindle-speed-cmd => hm2_7i80.0.pwmgen.03.value"
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "lines": "377",
+     "lines": "380",
      "note": "setp hm2_7i80.0.pwmgen.03.output-type 2"
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "lines": "378",
+     "lines": "381",
      "note": "setp hm2_7i80.0.pwmgen.03.offset-mode 0"
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "lines": "379",
+     "lines": "382",
      "note": "setp hm2_7i80.0.pwmgen.03.scale       [SPINDLE_0]OUTPUT_SCALE"
     },
     {
@@ -1320,7 +1320,7 @@ window.MAZAK_DATA = {
    "id": "AOUT4_SPARE",
    "name": "Aout4 Spare",
    "board": "7i49",
-   "connector": "P2 Analog TB",
+   "connector": "P1 Analog TB",
    "channel": "AOUT4",
    "hal_net": "",
    "direction": "ANALOG_OUT",
@@ -1371,7 +1371,7 @@ window.MAZAK_DATA = {
    "id": "AOUT5_SPARE",
    "name": "Aout5 Spare",
    "board": "7i49",
-   "connector": "P2 Analog TB",
+   "connector": "P1 Analog TB",
    "channel": "AOUT5",
    "hal_net": "",
    "direction": "ANALOG_OUT",
@@ -1422,7 +1422,7 @@ window.MAZAK_DATA = {
    "id": "SSERIAL_PORT0_TXA",
    "name": "Sserial Port0 Txa",
    "board": "7i44",
-   "connector": "P1 7i44 physical channel 0",
+   "connector": "P3 7i44 physical channel 0",
    "channel": "port0.TX+",
    "hal_net": "",
    "direction": "LINK",
@@ -1438,7 +1438,7 @@ window.MAZAK_DATA = {
    "designations": [],
    "primary_source": "mesa_firmware_checklist.md",
    "cleanup_notes": "7i44 channel 0 to 7i84U-A CN0 under HostMot2 port 0; RS-422 differential pair | [MESA-CONFIRMED 2026-08-08: matches 7i84U J1 RJ-45 pinout (7i84uman.pdf: p1 RXA/p2 RXB/p3 TXA/p6 TXB/p4-5 GND/p7-8 +5V, 568B colors); straight CAT5 to 7i44; plug-in cable, no continuity trace needed] | [READY 2026-08-09: factory-link acceptance applies to two distinct plug-in segments: Mesa 50-pin IDC from 7i80HDT P1 to 7i44, then CAT5 smart-serial from 7i44 to the identified 7i84U channel. Inspect assembly identity, keying/orientation, seating, strain relief, and visible condition; verify expected smart-serial enumeration without communication or watchdog faults. Do not continuity-audit or re-terminate individual conductors.]",
-   "location": "Control cabinet — 7i80HDT P1 to 7i44 by Mesa 50-pin IDC; 7i44 channel 0 to 7i84U-A CN0/RJ45 by CAT5 smart-serial",
+   "location": "Control cabinet — 7i80HDT P3 to 7i44 by Mesa 50-pin IDC; 7i44 channel 0 to 7i84U-A CN0/RJ45 by CAT5 smart-serial",
    "location_note": "Factory plug-in link: inspect identity, keying/orientation, seating, strain relief, and visible condition; verify clean smart-serial enumeration. Do not continuity-audit or re-terminate individual conductors.",
    "expected": {
     "value": "n/a",
@@ -1473,7 +1473,7 @@ window.MAZAK_DATA = {
    "id": "SSERIAL_PORT0_TXB",
    "name": "Sserial Port0 Txb",
    "board": "7i44",
-   "connector": "P1 7i44 physical channel 0",
+   "connector": "P3 7i44 physical channel 0",
    "channel": "port0.TX-",
    "hal_net": "",
    "direction": "LINK",
@@ -1489,7 +1489,7 @@ window.MAZAK_DATA = {
    "designations": [],
    "primary_source": "mesa_firmware_checklist.md",
    "cleanup_notes": "RS-422 differential pair | [MESA-CONFIRMED 2026-08-08: matches 7i84U J1 RJ-45 pinout (7i84uman.pdf: p1 RXA/p2 RXB/p3 TXA/p6 TXB/p4-5 GND/p7-8 +5V, 568B colors); straight CAT5 to 7i44; plug-in cable, no continuity trace needed] | [READY 2026-08-09: factory-link acceptance applies to two distinct plug-in segments: Mesa 50-pin IDC from 7i80HDT P1 to 7i44, then CAT5 smart-serial from 7i44 to the identified 7i84U channel. Inspect assembly identity, keying/orientation, seating, strain relief, and visible condition; verify expected smart-serial enumeration without communication or watchdog faults. Do not continuity-audit or re-terminate individual conductors.]",
-   "location": "Control cabinet — 7i80HDT P1 to 7i44 by Mesa 50-pin IDC; 7i44 channel 0 to 7i84U-A CN0/RJ45 by CAT5 smart-serial",
+   "location": "Control cabinet — 7i80HDT P3 to 7i44 by Mesa 50-pin IDC; 7i44 channel 0 to 7i84U-A CN0/RJ45 by CAT5 smart-serial",
    "location_note": "Factory plug-in link: inspect identity, keying/orientation, seating, strain relief, and visible condition; verify clean smart-serial enumeration. Do not continuity-audit or re-terminate individual conductors.",
    "expected": {
     "value": "n/a",
@@ -1524,7 +1524,7 @@ window.MAZAK_DATA = {
    "id": "SSERIAL_PORT0_RXA",
    "name": "Sserial Port0 Rxa",
    "board": "7i44",
-   "connector": "P1 7i44 physical channel 0",
+   "connector": "P3 7i44 physical channel 0",
    "channel": "port0.RX+",
    "hal_net": "",
    "direction": "LINK",
@@ -1540,7 +1540,7 @@ window.MAZAK_DATA = {
    "designations": [],
    "primary_source": "mesa_firmware_checklist.md",
    "cleanup_notes": "RS-422 differential pair | [MESA-CONFIRMED 2026-08-08: matches 7i84U J1 RJ-45 pinout (7i84uman.pdf: p1 RXA/p2 RXB/p3 TXA/p6 TXB/p4-5 GND/p7-8 +5V, 568B colors); straight CAT5 to 7i44; plug-in cable, no continuity trace needed] | [READY 2026-08-09: factory-link acceptance applies to two distinct plug-in segments: Mesa 50-pin IDC from 7i80HDT P1 to 7i44, then CAT5 smart-serial from 7i44 to the identified 7i84U channel. Inspect assembly identity, keying/orientation, seating, strain relief, and visible condition; verify expected smart-serial enumeration without communication or watchdog faults. Do not continuity-audit or re-terminate individual conductors.]",
-   "location": "Control cabinet — 7i80HDT P1 to 7i44 by Mesa 50-pin IDC; 7i44 channel 0 to 7i84U-A CN0/RJ45 by CAT5 smart-serial",
+   "location": "Control cabinet — 7i80HDT P3 to 7i44 by Mesa 50-pin IDC; 7i44 channel 0 to 7i84U-A CN0/RJ45 by CAT5 smart-serial",
    "location_note": "Factory plug-in link: inspect identity, keying/orientation, seating, strain relief, and visible condition; verify clean smart-serial enumeration. Do not continuity-audit or re-terminate individual conductors.",
    "expected": {
     "value": "n/a",
@@ -1575,7 +1575,7 @@ window.MAZAK_DATA = {
    "id": "SSERIAL_PORT0_RXB",
    "name": "Sserial Port0 Rxb",
    "board": "7i44",
-   "connector": "P1 7i44 physical channel 0",
+   "connector": "P3 7i44 physical channel 0",
    "channel": "port0.RX-",
    "hal_net": "",
    "direction": "LINK",
@@ -1591,7 +1591,7 @@ window.MAZAK_DATA = {
    "designations": [],
    "primary_source": "mesa_firmware_checklist.md",
    "cleanup_notes": "RS-422 differential pair | [MESA-CONFIRMED 2026-08-08: matches 7i84U J1 RJ-45 pinout (7i84uman.pdf: p1 RXA/p2 RXB/p3 TXA/p6 TXB/p4-5 GND/p7-8 +5V, 568B colors); straight CAT5 to 7i44; plug-in cable, no continuity trace needed] | [READY 2026-08-09: factory-link acceptance applies to two distinct plug-in segments: Mesa 50-pin IDC from 7i80HDT P1 to 7i44, then CAT5 smart-serial from 7i44 to the identified 7i84U channel. Inspect assembly identity, keying/orientation, seating, strain relief, and visible condition; verify expected smart-serial enumeration without communication or watchdog faults. Do not continuity-audit or re-terminate individual conductors.]",
-   "location": "Control cabinet — 7i80HDT P1 to 7i44 by Mesa 50-pin IDC; 7i44 channel 0 to 7i84U-A CN0/RJ45 by CAT5 smart-serial",
+   "location": "Control cabinet — 7i80HDT P3 to 7i44 by Mesa 50-pin IDC; 7i44 channel 0 to 7i84U-A CN0/RJ45 by CAT5 smart-serial",
    "location_note": "Factory plug-in link: inspect identity, keying/orientation, seating, strain relief, and visible condition; verify clean smart-serial enumeration. Do not continuity-audit or re-terminate individual conductors.",
    "expected": {
     "value": "n/a",
@@ -1626,7 +1626,7 @@ window.MAZAK_DATA = {
    "id": "SSERIAL_PORT0_GND",
    "name": "Sserial Port0 Gnd",
    "board": "7i44",
-   "connector": "P1 7i44 physical channel 0",
+   "connector": "P3 7i44 physical channel 0",
    "channel": "port0.GND",
    "hal_net": "",
    "direction": "LINK",
@@ -1642,7 +1642,7 @@ window.MAZAK_DATA = {
    "designations": [],
    "primary_source": "mesa_firmware_checklist.md",
    "cleanup_notes": "Factory-link signal ground; cable construction is not field-modified | [MESA-CONFIRMED 2026-08-08: matches 7i84U J1 RJ-45 pinout (7i84uman.pdf: p1 RXA/p2 RXB/p3 TXA/p6 TXB/p4-5 GND/p7-8 +5V, 568B colors); straight CAT5 to 7i44] | [READY 2026-08-09: two distinct plug-in segments: Mesa 50-pin IDC from 7i80HDT P1 to 7i44, then CAT5 smart-serial from 7i44 channel 0 to 7i84U-A. Inspect assembly identity, keying/orientation, seating, strain relief, and visible condition; verify expected smart-serial enumeration without communication or watchdog faults. Do not continuity-audit or re-terminate individual conductors.]",
-   "location": "Control cabinet — 7i80HDT P1 to 7i44 by Mesa 50-pin IDC; 7i44 channel 0 to 7i84U-A CN0/RJ45 by CAT5 smart-serial",
+   "location": "Control cabinet — 7i80HDT P3 to 7i44 by Mesa 50-pin IDC; 7i44 channel 0 to 7i84U-A CN0/RJ45 by CAT5 smart-serial",
    "location_note": "Factory plug-in link: inspect identity, keying/orientation, seating, strain relief, and visible condition; verify clean smart-serial enumeration. Do not continuity-audit or re-terminate individual conductors.",
    "expected": {
     "value": "n/a",
@@ -1677,7 +1677,7 @@ window.MAZAK_DATA = {
    "id": "SSERIAL_PORT0_5V",
    "name": "Sserial Port0 5V",
    "board": "7i44",
-   "connector": "P1 7i44 physical channel 0",
+   "connector": "P3 7i44 physical channel 0",
    "channel": "port0.+5V",
    "hal_net": "",
    "direction": "LINK",
@@ -1693,7 +1693,7 @@ window.MAZAK_DATA = {
    "designations": [],
    "primary_source": "mesa_firmware_checklist.md",
    "cleanup_notes": "Serial power for 7i84U-A logic | [MESA-CONFIRMED 2026-08-08: matches 7i84U J1 RJ-45 pinout (7i84uman.pdf: p1 RXA/p2 RXB/p3 TXA/p6 TXB/p4-5 GND/p7-8 +5V, 568B colors); straight CAT5 to 7i44; plug-in cable, no continuity trace needed] | [READY 2026-08-09: factory-link acceptance applies to two distinct plug-in segments: Mesa 50-pin IDC from 7i80HDT P1 to 7i44, then CAT5 smart-serial from 7i44 to the identified 7i84U channel. Inspect assembly identity, keying/orientation, seating, strain relief, and visible condition; verify expected smart-serial enumeration without communication or watchdog faults. Do not continuity-audit or re-terminate individual conductors.]",
-   "location": "Control cabinet — 7i80HDT P1 to 7i44 by Mesa 50-pin IDC; 7i44 channel 0 to 7i84U-A CN0/RJ45 by CAT5 smart-serial",
+   "location": "Control cabinet — 7i80HDT P3 to 7i44 by Mesa 50-pin IDC; 7i44 channel 0 to 7i84U-A CN0/RJ45 by CAT5 smart-serial",
    "location_note": "Factory plug-in link: inspect identity, keying/orientation, seating, strain relief, and visible condition; verify clean smart-serial enumeration. Do not continuity-audit or re-terminate individual conductors.",
    "expected": {
     "value": "n/a",
@@ -1728,7 +1728,7 @@ window.MAZAK_DATA = {
    "id": "SSERIAL_PORTS_2_7_SPARE",
    "name": "Sserial Ports 2 7 Spare",
    "board": "7i44",
-   "connector": "P1 7i44 physical channels 2-7",
+   "connector": "P3 7i44 physical channels 2-7",
    "channel": "ports2-7",
    "hal_net": "",
    "direction": "LINK",
@@ -1930,7 +1930,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 33,
+     "line": 34,
      "text": "net atc-y-zone         <= hm2_7i80.0.7i84.0.0.input-00   # IN0  PRS-55 Y ATC zone",
      "commented": false,
      "producers": [
@@ -1950,7 +1950,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "33",
+     "lines": "34",
      "note": "net atc-y-zone         <= hm2_7i80.0.7i84.0.0.input-00   # IN0  PRS-55 Y ATC zone"
     },
     {
@@ -2007,7 +2007,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 34,
+     "line": 35,
      "text": "net atc-z-zone         <= hm2_7i80.0.7i84.0.0.input-01   # IN1  PRS-66 Z ATC zone",
      "commented": false,
      "producers": [
@@ -2027,7 +2027,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "34",
+     "lines": "35",
      "note": "net atc-z-zone         <= hm2_7i80.0.7i84.0.0.input-01   # IN1  PRS-66 Z ATC zone"
     },
     {
@@ -2682,7 +2682,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 38,
+     "line": 39,
      "text": "net thermal-alarm      <= hm2_7i80.0.7i84.0.0.input-08   # IN8  X073 THR.M + X07B ONT.M series NC",
      "commented": false,
      "producers": [
@@ -2702,7 +2702,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "38",
+     "lines": "39",
      "note": "net thermal-alarm      <= hm2_7i80.0.7i84.0.0.input-08   # IN8  X073 THR.M + X07B ONT.M series NC"
     },
     {
@@ -2854,7 +2854,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 58,
+     "line": 59,
      "text": "net servo-fault        <= hm2_7i80.0.7i84.0.0.input-10   # IN10 CN6-27 SER combined servo ALM (all axes)",
      "commented": false,
      "producers": [
@@ -2865,7 +2865,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 59,
+     "line": 60,
      "text": "net servo-fault        => resolver-fault-x.in0",
      "commented": false,
      "producers": [],
@@ -2876,7 +2876,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 60,
+     "line": 61,
      "text": "net servo-fault        => resolver-fault-y.in0",
      "commented": false,
      "producers": [],
@@ -2887,7 +2887,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 61,
+     "line": 62,
      "text": "net servo-fault        => resolver-fault-z.in0",
      "commented": false,
      "producers": [],
@@ -2907,22 +2907,22 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "58",
+     "lines": "59",
      "note": "net servo-fault        <= hm2_7i80.0.7i84.0.0.input-10   # IN10 CN6-27 SER combined servo ALM (all axes)"
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "59",
+     "lines": "60",
      "note": "net servo-fault        => resolver-fault-x.in0"
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "60",
+     "lines": "61",
      "note": "net servo-fault        => resolver-fault-y.in0"
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "61",
+     "lines": "62",
      "note": "net servo-fault        => resolver-fault-z.in0"
     },
     {
@@ -3081,7 +3081,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 68,
+     "line": 69,
      "text": "net spindle-at-speed   <= hm2_7i80.0.7i84.0.0.input-13   # IN13 FR-SX SPD-REACH",
      "commented": false,
      "producers": [
@@ -3092,7 +3092,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 69,
+     "line": 70,
      "text": "net spindle-at-speed   => spindle.0.at-speed",
      "commented": false,
      "producers": [],
@@ -3112,12 +3112,12 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "68",
+     "lines": "69",
      "note": "net spindle-at-speed   <= hm2_7i80.0.7i84.0.0.input-13   # IN13 FR-SX SPD-REACH"
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "69",
+     "lines": "70",
      "note": "net spindle-at-speed   => spindle.0.at-speed"
     },
     {
@@ -3172,7 +3172,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/mazak_vqc_20_40.hal",
-     "line": 310,
+     "line": 316,
      "text": "net spindle-fault        => logic.spindle-fault-not.in-00",
      "commented": false,
      "producers": [],
@@ -3183,7 +3183,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 70,
+     "line": 71,
      "text": "net spindle-fault      <= hm2_7i80.0.7i84.0.0.input-14   # IN14 FR-SX ALM",
      "commented": false,
      "producers": [
@@ -3194,7 +3194,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 71,
+     "line": 72,
      "text": "net spindle-fault      => spindle.0.amp-fault-in",
      "commented": false,
      "producers": [],
@@ -3236,17 +3236,17 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/mazak_vqc_20_40.hal",
-     "lines": "310",
+     "lines": "316",
      "note": "net spindle-fault        => logic.spindle-fault-not.in-00"
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "70",
+     "lines": "71",
      "note": "net spindle-fault      <= hm2_7i80.0.7i84.0.0.input-14   # IN14 FR-SX ALM"
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "71",
+     "lines": "72",
      "note": "net spindle-fault      => spindle.0.amp-fault-in"
     },
     {
@@ -3315,7 +3315,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 72,
+     "line": 73,
      "text": "net tool-clamped       <= hm2_7i80.0.7i84.0.0.input-15   # IN15 PRS-9 tool-clamp confirm",
      "commented": false,
      "producers": [
@@ -3346,7 +3346,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "72",
+     "lines": "73",
      "note": "net tool-clamped       <= hm2_7i80.0.7i84.0.0.input-15   # IN15 PRS-9 tool-clamp confirm"
     },
     {
@@ -3410,7 +3410,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 75,
+     "line": 76,
      "text": "net tool-unclamped     <= hm2_7i80.0.7i84.0.0.input-16   # IN16 PRS-8 tool-unclamp confirm",
      "commented": false,
      "producers": [
@@ -3441,7 +3441,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "75",
+     "lines": "76",
      "note": "net tool-unclamped     <= hm2_7i80.0.7i84.0.0.input-16   # IN16 PRS-8 tool-unclamp confirm"
     },
     {
@@ -4269,7 +4269,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 79,
+     "line": 80,
      "text": "net door-interlock     <= hm2_7i80.0.7i84.0.0.input-24   # IN24 LS-140+LS-141+X01D ITMDSS series NC",
      "commented": false,
      "producers": [
@@ -4289,7 +4289,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "79",
+     "lines": "80",
      "note": "net door-interlock     <= hm2_7i80.0.7i84.0.0.input-24   # IN24 LS-140+LS-141+X01D ITMDSS series NC"
     },
     {
@@ -4346,7 +4346,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 80,
+     "line": 81,
      "text": "net lube-ok            <= hm2_7i80.0.7i84.0.0.input-25   # IN25 PS-5 wire 355 / X079 HLP.M; sole head-lube pressure switch",
      "commented": false,
      "producers": [
@@ -4366,7 +4366,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "80",
+     "lines": "81",
      "note": "net lube-ok            <= hm2_7i80.0.7i84.0.0.input-25   # IN25 PS-5 wire 355 / X079 HLP.M; sole head-lube pressure switch"
     },
     {
@@ -4421,7 +4421,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 81,
+     "line": 82,
      "text": "net coolant-low        <= hm2_7i80.0.7i84.0.0.input-26   # IN26 coolant level (polarity TBD)",
      "commented": false,
      "producers": [
@@ -4441,7 +4441,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "81",
+     "lines": "82",
      "note": "net coolant-low        <= hm2_7i80.0.7i84.0.0.input-26   # IN26 coolant level (polarity TBD)"
     },
     {
@@ -4642,7 +4642,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 93,
+     "line": 94,
      "text": "net mag-in-pos         <= hm2_7i80.0.7i84.0.0.input-28   # IN28 MIPRS mag-in-pos prox (PLC X00D)",
      "commented": false,
      "producers": [
@@ -4687,7 +4687,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "93",
+     "lines": "94",
      "note": "net mag-in-pos         <= hm2_7i80.0.7i84.0.0.input-28   # IN28 MIPRS mag-in-pos prox (PLC X00D)"
     },
     {
@@ -4756,7 +4756,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/mazak_vqc_20_40.hal",
-     "line": 244,
+     "line": 250,
      "text": "net estop-monitor     => estop-latch.0.ok-in",
      "commented": false,
      "producers": [],
@@ -4767,7 +4767,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 94,
+     "line": 95,
      "text": "net estop-monitor      <= hm2_7i80.0.7i84.0.0.input-29   # IN29 OEM MAR aux via interposing relay",
      "commented": false,
      "producers": [
@@ -4787,12 +4787,12 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/mazak_vqc_20_40.hal",
-     "lines": "244",
+     "lines": "250",
      "note": "net estop-monitor     => estop-latch.0.ok-in"
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "94",
+     "lines": "95",
      "note": "net estop-monitor      <= hm2_7i80.0.7i84.0.0.input-29   # IN29 OEM MAR aux via interposing relay"
     },
     {
@@ -4901,7 +4901,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/mazak_vqc_20_40.hal",
-     "line": 317,
+     "line": 323,
      "text": "net servo-ready            => logic.spindle-permit-and.in-05",
      "commented": false,
      "producers": [],
@@ -4957,7 +4957,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/mazak_vqc_20_40.hal",
-     "lines": "317",
+     "lines": "323",
      "note": "net servo-ready            => logic.spindle-permit-and.in-05"
     },
     {
@@ -5029,7 +5029,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 119,
+     "line": 120,
      "text": "net spindle-fwd        <= and2.3.out",
      "commented": false,
      "producers": [
@@ -5040,7 +5040,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 120,
+     "line": 121,
      "text": "net spindle-fwd        => hm2_7i80.0.7i84.0.0.output-00  # OUT0  FR-SX FWD",
      "commented": false,
      "producers": [],
@@ -5060,12 +5060,12 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "119",
+     "lines": "120",
      "note": "net spindle-fwd        <= and2.3.out"
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "120",
+     "lines": "121",
      "note": "net spindle-fwd        => hm2_7i80.0.7i84.0.0.output-00  # OUT0  FR-SX FWD"
     },
     {
@@ -5124,7 +5124,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 124,
+     "line": 125,
      "text": "net spindle-rev        <= and2.4.out",
      "commented": false,
      "producers": [
@@ -5135,7 +5135,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 125,
+     "line": 126,
      "text": "net spindle-rev        => hm2_7i80.0.7i84.0.0.output-01  # OUT1  FR-SX REV",
      "commented": false,
      "producers": [],
@@ -5155,12 +5155,12 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "124",
+     "lines": "125",
      "note": "net spindle-rev        <= and2.4.out"
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "125",
+     "lines": "126",
      "note": "net spindle-rev        => hm2_7i80.0.7i84.0.0.output-01  # OUT1  FR-SX REV"
     },
     {
@@ -5220,7 +5220,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "line": 395,
+     "line": 398,
      "text": "net spindle-run-output => hm2_7i80.0.pwmgen.03.enable",
      "commented": false,
      "producers": [],
@@ -5231,7 +5231,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 128,
+     "line": 129,
      "text": "net spindle-run-output <= and2.5.out",
      "commented": false,
      "producers": [
@@ -5242,7 +5242,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 129,
+     "line": 130,
      "text": "net spindle-run-output => hm2_7i80.0.7i84.0.0.output-02  # OUT2  FR-SX RUN/STOP",
      "commented": false,
      "producers": [],
@@ -5255,7 +5255,7 @@ window.MAZAK_DATA = {
    "setp_refs": [
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "line": 377,
+     "line": 380,
      "text": "setp hm2_7i80.0.pwmgen.03.output-type 2",
      "commented": false,
      "target": "hm2_7i80.0.pwmgen.03.output-type",
@@ -5263,7 +5263,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "line": 378,
+     "line": 381,
      "text": "setp hm2_7i80.0.pwmgen.03.offset-mode 0",
      "commented": false,
      "target": "hm2_7i80.0.pwmgen.03.offset-mode",
@@ -5271,7 +5271,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "line": 379,
+     "line": 382,
      "text": "setp hm2_7i80.0.pwmgen.03.scale       [SPINDLE_0]OUTPUT_SCALE",
      "commented": false,
      "target": "hm2_7i80.0.pwmgen.03.scale",
@@ -5287,32 +5287,32 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "lines": "395",
+     "lines": "398",
      "note": "net spindle-run-output => hm2_7i80.0.pwmgen.03.enable"
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "128",
+     "lines": "129",
      "note": "net spindle-run-output <= and2.5.out"
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "129",
+     "lines": "130",
      "note": "net spindle-run-output => hm2_7i80.0.7i84.0.0.output-02  # OUT2  FR-SX RUN/STOP"
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "lines": "377",
+     "lines": "380",
      "note": "setp hm2_7i80.0.pwmgen.03.output-type 2"
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "lines": "378",
+     "lines": "381",
      "note": "setp hm2_7i80.0.pwmgen.03.offset-mode 0"
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "lines": "379",
+     "lines": "382",
      "note": "setp hm2_7i80.0.pwmgen.03.scale       [SPINDLE_0]OUTPUT_SCALE"
     },
     {
@@ -5655,7 +5655,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "line": 319,
+     "line": 322,
      "text": "net z-brake-release => pid.z.enable",
      "commented": false,
      "producers": [],
@@ -5666,7 +5666,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "line": 320,
+     "line": 323,
      "text": "net z-brake-release => hm2_7i80.0.pwmgen.01.enable",
      "commented": false,
      "producers": [],
@@ -5677,7 +5677,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 166,
+     "line": 167,
      "text": "net z-brake-release    <= z-brake-delay.out",
      "commented": false,
      "producers": [
@@ -5688,7 +5688,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 167,
+     "line": 168,
      "text": "net z-brake-release    => hm2_7i80.0.7i84.0.0.output-06  # OUT6  N1J-L2-201 Z brake release",
      "commented": false,
      "producers": [],
@@ -5701,7 +5701,7 @@ window.MAZAK_DATA = {
    "setp_refs": [
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "line": 279,
+     "line": 282,
      "text": "setp hm2_7i80.0.pwmgen.01.output-type 2    # Z axis  -> 7i49 AOUT1",
      "commented": false,
      "target": "hm2_7i80.0.pwmgen.01.output-type",
@@ -5709,7 +5709,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "line": 280,
+     "line": 283,
      "text": "setp hm2_7i80.0.pwmgen.01.scale       [JOINT_2]OUTPUT_SCALE",
      "commented": false,
      "target": "hm2_7i80.0.pwmgen.01.scale",
@@ -5725,32 +5725,32 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "lines": "319",
+     "lines": "322",
      "note": "net z-brake-release => pid.z.enable"
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "lines": "320",
+     "lines": "323",
      "note": "net z-brake-release => hm2_7i80.0.pwmgen.01.enable"
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "166",
+     "lines": "167",
      "note": "net z-brake-release    <= z-brake-delay.out"
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "167",
+     "lines": "168",
      "note": "net z-brake-release    => hm2_7i80.0.7i84.0.0.output-06  # OUT6  N1J-L2-201 Z brake release"
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "lines": "279",
+     "lines": "282",
      "note": "setp hm2_7i80.0.pwmgen.01.output-type 2    # Z axis  -> 7i49 AOUT1"
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "lines": "280",
+     "lines": "283",
      "note": "setp hm2_7i80.0.pwmgen.01.scale       [JOINT_2]OUTPUT_SCALE"
     },
     {
@@ -6063,7 +6063,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 172,
+     "line": 173,
      "text": "net tool-unclamp-sol   => hm2_7i80.0.7i84.0.0.output-10  # OUT10 RLY-4 to SOL-10",
      "commented": false,
      "producers": [],
@@ -6094,7 +6094,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "172",
+     "lines": "173",
      "note": "net tool-unclamp-sol   => hm2_7i80.0.7i84.0.0.output-10  # OUT10 RLY-4 to SOL-10"
     },
     {
@@ -6160,7 +6160,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 173,
+     "line": 174,
      "text": "net flood-coolant      <= iocontrol.0.coolant-flood",
      "commented": false,
      "producers": [
@@ -6171,7 +6171,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 174,
+     "line": 175,
      "text": "net flood-coolant      => hm2_7i80.0.7i84.0.0.output-11  # OUT11 flood pump relay",
      "commented": false,
      "producers": [],
@@ -6191,12 +6191,12 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "173",
+     "lines": "174",
      "note": "net flood-coolant      <= iocontrol.0.coolant-flood"
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "174",
+     "lines": "175",
      "note": "net flood-coolant      => hm2_7i80.0.7i84.0.0.output-11  # OUT11 flood pump relay"
     },
     {
@@ -6500,7 +6500,7 @@ window.MAZAK_DATA = {
    "id": "SSERIAL_PORT1_TXA",
    "name": "Sserial Port1 Txa",
    "board": "7i44",
-   "connector": "P1 7i44 physical channel 1",
+   "connector": "P3 7i44 physical channel 1",
    "channel": "port1.TX+",
    "hal_net": "",
    "direction": "LINK",
@@ -6516,7 +6516,7 @@ window.MAZAK_DATA = {
    "designations": [],
    "primary_source": "mesa_firmware_checklist.md",
    "cleanup_notes": "7i44 channel 1 to 7i84U-B CN0 under HostMot2 port 0; RS-422 differential pair | [MESA-CONFIRMED 2026-08-08: matches 7i84U J1 RJ-45 pinout (7i84uman.pdf: p1 RXA/p2 RXB/p3 TXA/p6 TXB/p4-5 GND/p7-8 +5V, 568B colors); straight CAT5 to 7i44; plug-in cable, no continuity trace needed] | [READY 2026-08-09: factory-link acceptance applies to two distinct plug-in segments: Mesa 50-pin IDC from 7i80HDT P1 to 7i44, then CAT5 smart-serial from 7i44 to the identified 7i84U channel. Inspect assembly identity, keying/orientation, seating, strain relief, and visible condition; verify expected smart-serial enumeration without communication or watchdog faults. Do not continuity-audit or re-terminate individual conductors.]",
-   "location": "Control cabinet — 7i80HDT P1 to 7i44 by Mesa 50-pin IDC; 7i44 channel 1 to 7i84U-B CN0/RJ45 by CAT5 smart-serial",
+   "location": "Control cabinet — 7i80HDT P3 to 7i44 by Mesa 50-pin IDC; 7i44 channel 1 to 7i84U-B CN0/RJ45 by CAT5 smart-serial",
    "location_note": "Factory plug-in link: inspect identity, keying/orientation, seating, strain relief, and visible condition; verify clean smart-serial enumeration. Do not continuity-audit or re-terminate individual conductors.",
    "expected": {
     "value": "n/a",
@@ -6551,7 +6551,7 @@ window.MAZAK_DATA = {
    "id": "SSERIAL_PORT1_TXB",
    "name": "Sserial Port1 Txb",
    "board": "7i44",
-   "connector": "P1 7i44 physical channel 1",
+   "connector": "P3 7i44 physical channel 1",
    "channel": "port1.TX-",
    "hal_net": "",
    "direction": "LINK",
@@ -6567,7 +6567,7 @@ window.MAZAK_DATA = {
    "designations": [],
    "primary_source": "mesa_firmware_checklist.md",
    "cleanup_notes": "RS-422 differential pair | [MESA-CONFIRMED 2026-08-08: matches 7i84U J1 RJ-45 pinout (7i84uman.pdf: p1 RXA/p2 RXB/p3 TXA/p6 TXB/p4-5 GND/p7-8 +5V, 568B colors); straight CAT5 to 7i44; plug-in cable, no continuity trace needed] | [READY 2026-08-09: factory-link acceptance applies to two distinct plug-in segments: Mesa 50-pin IDC from 7i80HDT P1 to 7i44, then CAT5 smart-serial from 7i44 to the identified 7i84U channel. Inspect assembly identity, keying/orientation, seating, strain relief, and visible condition; verify expected smart-serial enumeration without communication or watchdog faults. Do not continuity-audit or re-terminate individual conductors.]",
-   "location": "Control cabinet — 7i80HDT P1 to 7i44 by Mesa 50-pin IDC; 7i44 channel 1 to 7i84U-B CN0/RJ45 by CAT5 smart-serial",
+   "location": "Control cabinet — 7i80HDT P3 to 7i44 by Mesa 50-pin IDC; 7i44 channel 1 to 7i84U-B CN0/RJ45 by CAT5 smart-serial",
    "location_note": "Factory plug-in link: inspect identity, keying/orientation, seating, strain relief, and visible condition; verify clean smart-serial enumeration. Do not continuity-audit or re-terminate individual conductors.",
    "expected": {
     "value": "n/a",
@@ -6602,7 +6602,7 @@ window.MAZAK_DATA = {
    "id": "SSERIAL_PORT1_RXA",
    "name": "Sserial Port1 Rxa",
    "board": "7i44",
-   "connector": "P1 7i44 physical channel 1",
+   "connector": "P3 7i44 physical channel 1",
    "channel": "port1.RX+",
    "hal_net": "",
    "direction": "LINK",
@@ -6618,7 +6618,7 @@ window.MAZAK_DATA = {
    "designations": [],
    "primary_source": "mesa_firmware_checklist.md",
    "cleanup_notes": "RS-422 differential pair | [MESA-CONFIRMED 2026-08-08: matches 7i84U J1 RJ-45 pinout (7i84uman.pdf: p1 RXA/p2 RXB/p3 TXA/p6 TXB/p4-5 GND/p7-8 +5V, 568B colors); straight CAT5 to 7i44; plug-in cable, no continuity trace needed] | [READY 2026-08-09: factory-link acceptance applies to two distinct plug-in segments: Mesa 50-pin IDC from 7i80HDT P1 to 7i44, then CAT5 smart-serial from 7i44 to the identified 7i84U channel. Inspect assembly identity, keying/orientation, seating, strain relief, and visible condition; verify expected smart-serial enumeration without communication or watchdog faults. Do not continuity-audit or re-terminate individual conductors.]",
-   "location": "Control cabinet — 7i80HDT P1 to 7i44 by Mesa 50-pin IDC; 7i44 channel 1 to 7i84U-B CN0/RJ45 by CAT5 smart-serial",
+   "location": "Control cabinet — 7i80HDT P3 to 7i44 by Mesa 50-pin IDC; 7i44 channel 1 to 7i84U-B CN0/RJ45 by CAT5 smart-serial",
    "location_note": "Factory plug-in link: inspect identity, keying/orientation, seating, strain relief, and visible condition; verify clean smart-serial enumeration. Do not continuity-audit or re-terminate individual conductors.",
    "expected": {
     "value": "n/a",
@@ -6653,7 +6653,7 @@ window.MAZAK_DATA = {
    "id": "SSERIAL_PORT1_RXB",
    "name": "Sserial Port1 Rxb",
    "board": "7i44",
-   "connector": "P1 7i44 physical channel 1",
+   "connector": "P3 7i44 physical channel 1",
    "channel": "port1.RX-",
    "hal_net": "",
    "direction": "LINK",
@@ -6669,7 +6669,7 @@ window.MAZAK_DATA = {
    "designations": [],
    "primary_source": "mesa_firmware_checklist.md",
    "cleanup_notes": "RS-422 differential pair | [MESA-CONFIRMED 2026-08-08: matches 7i84U J1 RJ-45 pinout (7i84uman.pdf: p1 RXA/p2 RXB/p3 TXA/p6 TXB/p4-5 GND/p7-8 +5V, 568B colors); straight CAT5 to 7i44; plug-in cable, no continuity trace needed] | [READY 2026-08-09: factory-link acceptance applies to two distinct plug-in segments: Mesa 50-pin IDC from 7i80HDT P1 to 7i44, then CAT5 smart-serial from 7i44 to the identified 7i84U channel. Inspect assembly identity, keying/orientation, seating, strain relief, and visible condition; verify expected smart-serial enumeration without communication or watchdog faults. Do not continuity-audit or re-terminate individual conductors.]",
-   "location": "Control cabinet — 7i80HDT P1 to 7i44 by Mesa 50-pin IDC; 7i44 channel 1 to 7i84U-B CN0/RJ45 by CAT5 smart-serial",
+   "location": "Control cabinet — 7i80HDT P3 to 7i44 by Mesa 50-pin IDC; 7i44 channel 1 to 7i84U-B CN0/RJ45 by CAT5 smart-serial",
    "location_note": "Factory plug-in link: inspect identity, keying/orientation, seating, strain relief, and visible condition; verify clean smart-serial enumeration. Do not continuity-audit or re-terminate individual conductors.",
    "expected": {
     "value": "n/a",
@@ -6704,7 +6704,7 @@ window.MAZAK_DATA = {
    "id": "SSERIAL_PORT1_GND",
    "name": "Sserial Port1 Gnd",
    "board": "7i44",
-   "connector": "P1 7i44 physical channel 1",
+   "connector": "P3 7i44 physical channel 1",
    "channel": "port1.GND",
    "hal_net": "",
    "direction": "LINK",
@@ -6720,7 +6720,7 @@ window.MAZAK_DATA = {
    "designations": [],
    "primary_source": "mesa_firmware_checklist.md",
    "cleanup_notes": "Factory-link signal ground; cable construction is not field-modified | [MESA-CONFIRMED 2026-08-08: matches 7i84U J1 RJ-45 pinout (7i84uman.pdf: p1 RXA/p2 RXB/p3 TXA/p6 TXB/p4-5 GND/p7-8 +5V, 568B colors); straight CAT5 to 7i44] | [READY 2026-08-09: two distinct plug-in segments: Mesa 50-pin IDC from 7i80HDT P1 to 7i44, then CAT5 smart-serial from 7i44 channel 1 to 7i84U-B. Inspect assembly identity, keying/orientation, seating, strain relief, and visible condition; verify expected smart-serial enumeration without communication or watchdog faults. Do not continuity-audit or re-terminate individual conductors.]",
-   "location": "Control cabinet — 7i80HDT P1 to 7i44 by Mesa 50-pin IDC; 7i44 channel 1 to 7i84U-B CN0/RJ45 by CAT5 smart-serial",
+   "location": "Control cabinet — 7i80HDT P3 to 7i44 by Mesa 50-pin IDC; 7i44 channel 1 to 7i84U-B CN0/RJ45 by CAT5 smart-serial",
    "location_note": "Factory plug-in link: inspect identity, keying/orientation, seating, strain relief, and visible condition; verify clean smart-serial enumeration. Do not continuity-audit or re-terminate individual conductors.",
    "expected": {
     "value": "n/a",
@@ -6755,7 +6755,7 @@ window.MAZAK_DATA = {
    "id": "SSERIAL_PORT1_5V",
    "name": "Sserial Port1 5V",
    "board": "7i44",
-   "connector": "P1 7i44 physical channel 1",
+   "connector": "P3 7i44 physical channel 1",
    "channel": "port1.+5V",
    "hal_net": "",
    "direction": "LINK",
@@ -6771,7 +6771,7 @@ window.MAZAK_DATA = {
    "designations": [],
    "primary_source": "mesa_firmware_checklist.md",
    "cleanup_notes": "Serial power for 7i84U-B logic | [MESA-CONFIRMED 2026-08-08: matches 7i84U J1 RJ-45 pinout (7i84uman.pdf: p1 RXA/p2 RXB/p3 TXA/p6 TXB/p4-5 GND/p7-8 +5V, 568B colors); straight CAT5 to 7i44; plug-in cable, no continuity trace needed] | [READY 2026-08-09: factory-link acceptance applies to two distinct plug-in segments: Mesa 50-pin IDC from 7i80HDT P1 to 7i44, then CAT5 smart-serial from 7i44 to the identified 7i84U channel. Inspect assembly identity, keying/orientation, seating, strain relief, and visible condition; verify expected smart-serial enumeration without communication or watchdog faults. Do not continuity-audit or re-terminate individual conductors.]",
-   "location": "Control cabinet — 7i80HDT P1 to 7i44 by Mesa 50-pin IDC; 7i44 channel 1 to 7i84U-B CN0/RJ45 by CAT5 smart-serial",
+   "location": "Control cabinet — 7i80HDT P3 to 7i44 by Mesa 50-pin IDC; 7i44 channel 1 to 7i84U-B CN0/RJ45 by CAT5 smart-serial",
    "location_note": "Factory plug-in link: inspect identity, keying/orientation, seating, strain relief, and visible condition; verify clean smart-serial enumeration. Do not continuity-audit or re-terminate individual conductors.",
    "expected": {
     "value": "n/a",
@@ -6959,7 +6959,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 217,
+     "line": 218,
      "text": "#     net limit-x-plus <= hm2_7i80.0.7i84.0.1.input-00-not",
      "commented": true,
      "producers": [
@@ -6970,7 +6970,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 225,
+     "line": 226,
      "text": "net limit-x-plus  <= hm2_7i80.0.7i84.0.1.input-00-not   # X_LIMIT_PLUS  (NC contact)",
      "commented": false,
      "producers": [
@@ -6981,7 +6981,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 226,
+     "line": 227,
      "text": "net limit-x-plus  => joint.0.pos-lim-sw-in",
      "commented": false,
      "producers": [],
@@ -7001,17 +7001,17 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "217",
+     "lines": "218",
      "note": "commented out — #     net limit-x-plus <= hm2_7i80.0.7i84.0.1.input-00-not"
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "225",
+     "lines": "226",
      "note": "net limit-x-plus  <= hm2_7i80.0.7i84.0.1.input-00-not   # X_LIMIT_PLUS  (NC contact)"
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "226",
+     "lines": "227",
      "note": "net limit-x-plus  => joint.0.pos-lim-sw-in"
     },
     {
@@ -7070,7 +7070,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 227,
+     "line": 228,
      "text": "net limit-x-minus <= hm2_7i80.0.7i84.0.1.input-01-not   # X_LIMIT_MINUS (NC contact)",
      "commented": false,
      "producers": [
@@ -7081,7 +7081,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 228,
+     "line": 229,
      "text": "net limit-x-minus => joint.0.neg-lim-sw-in",
      "commented": false,
      "producers": [],
@@ -7101,12 +7101,12 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "227",
+     "lines": "228",
      "note": "net limit-x-minus <= hm2_7i80.0.7i84.0.1.input-01-not   # X_LIMIT_MINUS (NC contact)"
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "228",
+     "lines": "229",
      "note": "net limit-x-minus => joint.0.neg-lim-sw-in"
     },
     {
@@ -7165,7 +7165,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 229,
+     "line": 230,
      "text": "net limit-y-plus  <= hm2_7i80.0.7i84.0.1.input-02-not   # Y_LIMIT_PLUS  (NC contact)",
      "commented": false,
      "producers": [
@@ -7176,7 +7176,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 230,
+     "line": 231,
      "text": "net limit-y-plus  => joint.1.pos-lim-sw-in",
      "commented": false,
      "producers": [],
@@ -7210,12 +7210,12 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "229",
+     "lines": "230",
      "note": "net limit-y-plus  <= hm2_7i80.0.7i84.0.1.input-02-not   # Y_LIMIT_PLUS  (NC contact)"
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "230",
+     "lines": "231",
      "note": "net limit-y-plus  => joint.1.pos-lim-sw-in"
     },
     {
@@ -7279,7 +7279,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 231,
+     "line": 232,
      "text": "net limit-y-minus <= hm2_7i80.0.7i84.0.1.input-03-not   # Y_LIMIT_MINUS (NC contact)",
      "commented": false,
      "producers": [
@@ -7290,7 +7290,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 232,
+     "line": 233,
      "text": "net limit-y-minus => joint.1.neg-lim-sw-in",
      "commented": false,
      "producers": [],
@@ -7310,12 +7310,12 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "231",
+     "lines": "232",
      "note": "net limit-y-minus <= hm2_7i80.0.7i84.0.1.input-03-not   # Y_LIMIT_MINUS (NC contact)"
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "232",
+     "lines": "233",
      "note": "net limit-y-minus => joint.1.neg-lim-sw-in"
     },
     {
@@ -7374,7 +7374,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 233,
+     "line": 234,
      "text": "net limit-z-plus  <= hm2_7i80.0.7i84.0.1.input-04-not   # Z_LIMIT_PLUS  (NC contact)",
      "commented": false,
      "producers": [
@@ -7385,7 +7385,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 234,
+     "line": 235,
      "text": "net limit-z-plus  => joint.2.pos-lim-sw-in",
      "commented": false,
      "producers": [],
@@ -7419,12 +7419,12 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "233",
+     "lines": "234",
      "note": "net limit-z-plus  <= hm2_7i80.0.7i84.0.1.input-04-not   # Z_LIMIT_PLUS  (NC contact)"
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "234",
+     "lines": "235",
      "note": "net limit-z-plus  => joint.2.pos-lim-sw-in"
     },
     {
@@ -7488,7 +7488,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 235,
+     "line": 236,
      "text": "net limit-z-minus <= hm2_7i80.0.7i84.0.1.input-05-not   # Z_LIMIT_MINUS (NC contact)",
      "commented": false,
      "producers": [
@@ -7499,7 +7499,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 236,
+     "line": 237,
      "text": "net limit-z-minus => joint.2.neg-lim-sw-in",
      "commented": false,
      "producers": [],
@@ -7533,12 +7533,12 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "235",
+     "lines": "236",
      "note": "net limit-z-minus <= hm2_7i80.0.7i84.0.1.input-05-not   # Z_LIMIT_MINUS (NC contact)"
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "236",
+     "lines": "237",
      "note": "net limit-z-minus => joint.2.neg-lim-sw-in"
     },
     {
@@ -7602,7 +7602,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 238,
+     "line": 239,
      "text": "net home-x <= hm2_7i80.0.7i84.0.1.input-06        # LS-42 assumed",
      "commented": false,
      "producers": [
@@ -7613,7 +7613,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 239,
+     "line": 240,
      "text": "net home-x => joint.0.home-sw-in",
      "commented": false,
      "producers": [],
@@ -7647,12 +7647,12 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "238",
+     "lines": "239",
      "note": "net home-x <= hm2_7i80.0.7i84.0.1.input-06        # LS-42 assumed"
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "239",
+     "lines": "240",
      "note": "net home-x => joint.0.home-sw-in"
     },
     {
@@ -7716,7 +7716,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 240,
+     "line": 241,
      "text": "net home-y <= hm2_7i80.0.7i84.0.1.input-07        # LS-52 assumed",
      "commented": false,
      "producers": [
@@ -7727,7 +7727,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 241,
+     "line": 242,
      "text": "net home-y => joint.1.home-sw-in",
      "commented": false,
      "producers": [],
@@ -7761,12 +7761,12 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "240",
+     "lines": "241",
      "note": "net home-y <= hm2_7i80.0.7i84.0.1.input-07        # LS-52 assumed"
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "241",
+     "lines": "242",
      "note": "net home-y => joint.1.home-sw-in"
     },
     {
@@ -7831,7 +7831,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 242,
+     "line": 243,
      "text": "net home-z <= hm2_7i80.0.7i84.0.1.input-08        # LS-62 confirmed TB-51",
      "commented": false,
      "producers": [
@@ -7842,7 +7842,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 243,
+     "line": 244,
      "text": "net home-z => joint.2.home-sw-in",
      "commented": false,
      "producers": [],
@@ -7876,12 +7876,12 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "242",
+     "lines": "243",
      "note": "net home-z <= hm2_7i80.0.7i84.0.1.input-08        # LS-62 confirmed TB-51"
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "243",
+     "lines": "244",
      "note": "net home-z => joint.2.home-sw-in"
     },
     {
@@ -7943,7 +7943,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 248,
+     "line": 249,
      "text": "net air-ok <= hm2_7i80.0.7i84.0.1.input-09",
      "commented": false,
      "producers": [
@@ -7974,7 +7974,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "248",
+     "lines": "249",
      "note": "net air-ok <= hm2_7i80.0.7i84.0.1.input-09"
     },
     {
@@ -8286,7 +8286,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 266,
+     "line": 267,
      "text": "net probe-in <= hm2_7i80.0.7i84.0.1.input-15-not",
      "commented": false,
      "producers": [
@@ -8297,7 +8297,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 267,
+     "line": 268,
      "text": "net probe-in => motion.probe-input",
      "commented": false,
      "producers": [],
@@ -8317,12 +8317,12 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "266",
+     "lines": "267",
      "note": "net probe-in <= hm2_7i80.0.7i84.0.1.input-15-not"
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "267",
+     "lines": "268",
      "note": "net probe-in => motion.probe-input"
     },
     {
@@ -9193,7 +9193,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "line": 294,
+     "line": 297,
      "text": "net x-enable   => pid.x.enable",
      "commented": false,
      "producers": [],
@@ -9204,7 +9204,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "line": 295,
+     "line": 298,
      "text": "net x-enable   => hm2_7i80.0.pwmgen.00.enable",
      "commented": false,
      "producers": [],
@@ -9215,7 +9215,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 303,
+     "line": 304,
      "text": "net x-enable     <= and2.0.out",
      "commented": false,
      "producers": [
@@ -9226,7 +9226,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 304,
+     "line": 305,
      "text": "net x-enable     => hm2_7i80.0.7i84.0.1.output-00   # X servo S-ON to MELDAS DK-427",
      "commented": false,
      "producers": [],
@@ -9239,7 +9239,7 @@ window.MAZAK_DATA = {
    "setp_refs": [
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "line": 277,
+     "line": 280,
      "text": "setp hm2_7i80.0.pwmgen.00.output-type 2    # X axis  -> 7i49 AOUT0",
      "commented": false,
      "target": "hm2_7i80.0.pwmgen.00.output-type",
@@ -9247,7 +9247,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "line": 278,
+     "line": 281,
      "text": "setp hm2_7i80.0.pwmgen.00.scale       [JOINT_0]OUTPUT_SCALE",
      "commented": false,
      "target": "hm2_7i80.0.pwmgen.00.scale",
@@ -9263,32 +9263,32 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "lines": "294",
+     "lines": "297",
      "note": "net x-enable   => pid.x.enable"
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "lines": "295",
+     "lines": "298",
      "note": "net x-enable   => hm2_7i80.0.pwmgen.00.enable"
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "303",
+     "lines": "304",
      "note": "net x-enable     <= and2.0.out"
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "304",
+     "lines": "305",
      "note": "net x-enable     => hm2_7i80.0.7i84.0.1.output-00   # X servo S-ON to MELDAS DK-427"
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "lines": "277",
+     "lines": "280",
      "note": "setp hm2_7i80.0.pwmgen.00.output-type 2    # X axis  -> 7i49 AOUT0"
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "lines": "278",
+     "lines": "281",
      "note": "setp hm2_7i80.0.pwmgen.00.scale       [JOINT_0]OUTPUT_SCALE"
     },
     {
@@ -9348,7 +9348,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "line": 304,
+     "line": 307,
      "text": "net y-enable   => pid.y.enable",
      "commented": false,
      "producers": [],
@@ -9359,7 +9359,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "line": 305,
+     "line": 308,
      "text": "net y-enable   => hm2_7i80.0.pwmgen.02.enable",
      "commented": false,
      "producers": [],
@@ -9370,7 +9370,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 309,
+     "line": 310,
      "text": "net y-enable     <= and2.1.out",
      "commented": false,
      "producers": [
@@ -9381,7 +9381,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 310,
+     "line": 311,
      "text": "net y-enable     => hm2_7i80.0.7i84.0.1.output-01   # Y servo S-ON to MELDAS DK-427",
      "commented": false,
      "producers": [],
@@ -9394,7 +9394,7 @@ window.MAZAK_DATA = {
    "setp_refs": [
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "line": 281,
+     "line": 284,
      "text": "setp hm2_7i80.0.pwmgen.02.output-type 2    # Y axis  -> 7i49 AOUT2",
      "commented": false,
      "target": "hm2_7i80.0.pwmgen.02.output-type",
@@ -9402,7 +9402,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "line": 282,
+     "line": 285,
      "text": "setp hm2_7i80.0.pwmgen.02.scale       [JOINT_1]OUTPUT_SCALE",
      "commented": false,
      "target": "hm2_7i80.0.pwmgen.02.scale",
@@ -9418,32 +9418,32 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "lines": "304",
+     "lines": "307",
      "note": "net y-enable   => pid.y.enable"
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "lines": "305",
+     "lines": "308",
      "note": "net y-enable   => hm2_7i80.0.pwmgen.02.enable"
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "309",
+     "lines": "310",
      "note": "net y-enable     <= and2.1.out"
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "310",
+     "lines": "311",
      "note": "net y-enable     => hm2_7i80.0.7i84.0.1.output-01   # Y servo S-ON to MELDAS DK-427"
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "lines": "281",
+     "lines": "284",
      "note": "setp hm2_7i80.0.pwmgen.02.output-type 2    # Y axis  -> 7i49 AOUT2"
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "lines": "282",
+     "lines": "285",
      "note": "setp hm2_7i80.0.pwmgen.02.scale       [JOINT_1]OUTPUT_SCALE"
     },
     {
@@ -9500,7 +9500,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 317,
+     "line": 318,
      "text": "net z-enable     <= z-drive-drop-delay.out",
      "commented": false,
      "producers": [
@@ -9511,7 +9511,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 318,
+     "line": 319,
      "text": "net z-enable     => hm2_7i80.0.7i84.0.1.output-02   # Z servo S-ON to MELDAS DK-427",
      "commented": false,
      "producers": [],
@@ -9531,12 +9531,12 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "317",
+     "lines": "318",
      "note": "net z-enable     <= z-drive-drop-delay.out"
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "318",
+     "lines": "319",
      "note": "net z-enable     => hm2_7i80.0.7i84.0.1.output-02   # Z servo S-ON to MELDAS DK-427"
     },
     {
@@ -9594,7 +9594,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 324,
+     "line": 325,
      "text": "net air-blast          => hm2_7i80.0.7i84.0.1.output-03  # SOL-15 spindle air blast via RLY-5",
      "commented": false,
      "producers": [],
@@ -9614,7 +9614,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "324",
+     "lines": "325",
      "note": "net air-blast          => hm2_7i80.0.7i84.0.1.output-03  # SOL-15 spindle air blast via RLY-5"
     },
     {
@@ -9876,7 +9876,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 337,
+     "line": 338,
      "text": "net flood-valve        => hm2_7i80.0.7i84.0.1.output-07  # PLC Y011 FCL (SOL-31); driver TBD - candidate: follow flood-coolant net with pump",
      "commented": false,
      "producers": [],
@@ -9896,7 +9896,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "337",
+     "lines": "338",
      "note": "net flood-valve        => hm2_7i80.0.7i84.0.1.output-07  # PLC Y011 FCL (SOL-31); driver TBD - candidate: follow flood-coolant net with pump"
     },
     {
@@ -10365,7 +10365,7 @@ window.MAZAK_DATA = {
    "id": "P3_GPIO_SPARE",
    "name": "P3 Gpio Spare",
    "board": "7i80HDT",
-   "connector": "P3 GPIO (bare, no daughter card)",
+   "connector": "P2 GPIO (bare, no daughter card)",
    "channel": "TBD_FROM_IDROM",
    "hal_net": "",
    "direction": "GPIO",
@@ -10751,12 +10751,12 @@ window.MAZAK_DATA = {
   "Utility"
  ],
  "connectors": [
-  "P1 7i44 physical channel 0",
-  "P1 7i44 physical channel 1",
-  "P1 7i44 physical channels 2-7",
-  "P2 Analog TB",
-  "P2 Resolver channel",
-  "P3 GPIO (bare, no daughter card)",
+  "P1 Analog TB",
+  "P1 Resolver channel",
+  "P2 GPIO (bare, no daughter card)",
+  "P3 7i44 physical channel 0",
+  "P3 7i44 physical channel 1",
+  "P3 7i44 physical channels 2-7",
   "TB1",
   "TB2",
   "TB3",

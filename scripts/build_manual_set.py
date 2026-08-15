@@ -402,8 +402,8 @@ def architecture_diagram() -> Drawing:
     d = Drawing(500, 250)
     box(d, 10, 175, 100, 48, "LinuxCNC PC\nhm2_eth", NAVY)
     box(d, 155, 165, 120, 68, "Mesa 7i80HDT\nP1 / P2 / P3", GREEN)
-    box(d, 325, 190, 95, 45, "7i44 on P1\nRS-422", GREEN)
-    box(d, 325, 115, 95, 45, "7i49 on P2\nresolver + analog", AMBER)
+    box(d, 325, 190, 95, 45, "7i44 on P3\nRS-422", GREEN)
+    box(d, 325, 115, 95, 45, "7i49 on P1\nresolver + analog", AMBER)
     box(d, 325, 40, 95, 42, "P3 EMPTY\n3.3 V bare GPIO", RED)
     box(d, 445, 195, 50, 35, "7i84U-A\nch 0", GREEN, 7)
     box(d, 445, 150, 50, 35, "7i84U-B\nch 1", GREEN, 7)
@@ -737,8 +737,8 @@ def volume3(rows: list[dict[str, str]], source_ref: str) -> list[Flowable]:
         ["Item", "Role", "Current qualification"],
         ["LinuxCNC host", "Trajectory, HAL, GUI", "Debian 13 / LinuxCNC 2.9.10 / PREEMPT_RT target"],
         ["Mesa 7i80HDT", "100BaseT FPGA host, 3 x 50-pin connectors", "Board/revision and loaded IDROM still to capture"],
-        ["Mesa 7i44 on P1", "8-channel RS-422; channels 0/1 active", "Physical link and exact HAL names unverified"],
-        ["Mesa 7i49 on P2", "6 resolver + 6 bipolar analog channels", "Plain board baseline; installed revision and signal levels unverified"],
+        ["Mesa 7i44 on P3", "8-channel RS-422; channels 0/1 active", "Physical link and exact HAL names unverified"],
+        ["Mesa 7i49 on P1", "6 resolver + 6 bipolar analog channels", "Plain board baseline; installed revision and signal levels unverified"],
         ["7i84U-A ch 0", "32 DI / 16 DO machine field I/O", "Fully allocated; physical states unverified"],
         ["7i84U-B ch 1", "Limits, homes, probe, enables, relay loads", "11 DI / 9 DO used; physical states unverified"],
         ["P3", "Future daughter-card position", "Empty; bare 3.3 V GPIO must not see 24 V"],

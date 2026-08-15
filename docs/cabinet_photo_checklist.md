@@ -1,6 +1,6 @@
 # Mazak VQC 20/40 Cabinet Photo Checklist
 
-Use this checklist before ordering/flashing Mesa hardware. The goal is to capture enough detail to confirm the 7i80HDT + 7i44 + 7i49 + two-7i84U setup (P3 unused), drive interfaces, resolver wiring, 24 VDC I/O, and cabinet layout.
+Use this checklist before ordering/flashing Mesa hardware. The goal is to capture enough detail to confirm the 7i80HDT + 7i44 + 7i49 + two-7i84U setup (P2 unused, confirmed 2026-08-13 by `readhmid` — see [`../mesa/mesa_firmware_checklist.md`](../mesa/mesa_firmware_checklist.md#bitfile-provenance-verification-procedure)), drive interfaces, resolver wiring, 24 VDC I/O, and cabinet layout.
 
 ## Photo rules
 
@@ -30,6 +30,7 @@ Use this checklist before ordering/flashing Mesa hardware. The goal is to captur
 | Medium | Coolant / air / utility outputs | Coolant contactors, air blast valves, tap coolant, work light, relays | Determines which outputs need 7i84U direct output vs interposing relay. |
 | Medium | Cabinet grounding/shield bars | PE bar, 0 V common bar, shield clamp areas, analog/encoder shield landings | Prevents noise and ground-loop problems. |
 | Medium | Available DIN rail / panel space | Open rail length, wire duct space, door clearance around proposed 7i80HDT / 7i44 / 7i49 / two-7i84U area | Drives the parts list for DIN rail, duct, terminals, and mounting. |
+| High | 7i80HDT jumper block (W1/W2/W3/W5) | Board label/revision, and physical positions of jumpers W1/W2 (IP address mode), W3 (I/O pull-ups), and W5 (primary/secondary flash select) | Confirms actual jumper state against the manufacturer defaults documented in [`../docs/Mesa Manuals/7i80hdman.pdf`](../docs/Mesa%20Manuals/7i80hdman.pdf) (W1/W2 DOWN/DOWN = fixed 192.168.1.121; W3 UP = pull-ups enabled; W5 UP = primary flash) — see [`../mesa/mesa_firmware_checklist.md`](../mesa/mesa_firmware_checklist.md#recovery-procedure-d3-item-5) for the recovery procedure this feeds. |
 | Low | Operator panel wiring | Cycle start, feed hold, single block, overrides, lamps | Helps decide which original panel controls to keep. |
 | Low | Existing manuals/labels | Any cabinet schematic pockets, inside-door legends, terminal charts | May save tracing time. |
 

@@ -12,7 +12,8 @@ use Windows CRLF records on checkout.
 - Consolidated wiring master: [`Mazak_Wiring_Master_7i80HDT_7i44_7i49_7i84U_Current_Authority.xlsx`](Mazak_Wiring_Master_7i80HDT_7i44_7i49_7i84U_Current_Authority.xlsx)
   — generated 132-row Excel snapshot of the current authority for the 7i80HDT /
   7i44 / 7i49 / 7i84U-A / 7i84U-B stack. It includes formula-driven summaries;
-  P3 is unused/spare and the Renishaw MP-3 probe is on 7i84U-B input-15. The
+  P2 is unused/spare (confirmed 2026-08-13 by `readhmid`) and the Renishaw
+  MP-3 probe is on 7i84U-B input-15 (opto-isolated 24 V). The
   `... - Overview.csv` sibling file is a plain-text workbook index. The authoritative
   source remains `../mesa/current_pin_authority.csv`.
 - Current pin authority: [`../mesa/current_pin_authority.csv`](../mesa/current_pin_authority.csv)
@@ -73,7 +74,7 @@ verification state and cleanup notes.
 
 Axis feedback is **resolver, not encoder**. The machine keeps its original **Tamagawa
 resolvers** (**Tamagawa TS2014N** / Mitsubishi BKO-NC6062A, confirmed on-machine July 2026), read through a **plain
-Mesa 7i49** on the 7i80HDT P2 daughter-card connector at **5 kHz** excitation. Wire the resolvers carefully:
+Mesa 7i49** on the 7i80HDT P1 daughter-card connector (confirmed 2026-08-13 by `readhmid`) at **5 kHz** excitation. Wire the resolvers carefully:
 
 - **Do not trust the original wire names.** The original **Meldas M2 / TRA** wiring may
   run the resolver "backwards" or phase-analog: **two-phase excitation into the stator,

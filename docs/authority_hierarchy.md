@@ -223,8 +223,8 @@ CSV rows, unique HAL pin references, ERRORS, and WARNINGS.
 
 The authority validator covers 7i84U-A/B smart-serial terminals plus active
 7i49 resolver `.position` and pwmgen `.value` bindings. The companion
-`scripts/validate_control_logic.py` rejects active direct P3 GPIO and spindle
-encoder bindings while P3 is empty, checks duplicate signal writers and
+`scripts/validate_control_logic.py` rejects active direct P2 GPIO and spindle
+encoder bindings while P2 is empty, checks duplicate signal writers and
 real-time module loads, verifies servo-thread ordering, and enforces the
 spindle/Z/ATC commissioning holds and abort paths.
 

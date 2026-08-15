@@ -27,7 +27,7 @@ aggregate range rows are rejected because they can overlap explicit pins.
 The 7i84U TB1 power map and the printable B-card TB1 legend are checked
 against the fixed Mesa terminal assignment so pins 2 or 4 cannot regress
 to being documented as 0 V returns.
-Any active direct 7i80HDT P3 GPIO reference is rejected by the companion
+Any active direct 7i80HDT P2 GPIO reference is rejected by the companion
 control-logic validator.
 
 Exit code

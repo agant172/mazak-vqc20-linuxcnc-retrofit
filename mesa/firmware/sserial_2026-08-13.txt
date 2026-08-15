@@ -1,0 +1,4 @@
+SSLBP port 0:
+  SSLBP Version: 1.43
+  SSLBP Channels: 8
+  SSLBP Baud Rate: 2500000

@@ -221,7 +221,7 @@ FR-SX plan is straightforward:
 | Alarm in / from FR-SX | discrete input to 7i84U | FR-SX ALARM output |
 | Zero-speed detect | discrete input to 7i84U | matches PLC X001 "SZS.M" |
 | In-position / orient arrival | discrete input to 7i84U | matches PLC X003 "ORA1" |
-| Spindle encoder A/B/Z | **Unallocated.** `SPINDLE_ENCODER` is `UNBOUND` in `mesa/current_pin_authority.csv`, P3 stays empty, `num_encoders=0`. The 7i97T location no longer applies, and bare P3 GPIO is not a valid landing for a differential or ±15 V device. The motor-built-in PLG is the FR-SX's own detector and is **not** a candidate Mesa input — see [`spindle_motor_plg_encoder.md`](spindle_motor_plg_encoder.md#retrofit-implications) | machine-side encoder, if a second device exists |
+| Spindle encoder A/B/Z | **Unallocated.** `SPINDLE_ENCODER` is `UNBOUND` in `mesa/current_pin_authority.csv`, P2 stays empty, `num_encoders=0`. The 7i97T location no longer applies, and bare P2 GPIO is not a valid landing for a differential or ±15 V device. The motor-built-in PLG is the FR-SX's own detector and is **not** a candidate Mesa input — see [`spindle_motor_plg_encoder.md`](spindle_motor_plg_encoder.md#retrofit-implications) | machine-side encoder, if a second device exists |
 
 ### 3.6 Heat-growth compensate amp
 

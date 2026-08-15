@@ -6,10 +6,17 @@
 # UNVERIFIED PLACEHOLDERS. Confirm the exact board tag (`hm2_7i80` expected) and the
 # real generated HAL names from `readhmid` / `show pin hm2` before live testing.
 #
-# Selected architecture (2026-08-06 rev):
+# Confirmed architecture (2026-08-13 rev; P1/P2/P3 roles flipped vs. the
+# 2026-08-06 rev once the actual 7i80hdt_rmsvss6_8.bin firmware was flashed
+# and read back with mesaflash --readhmid on 2026-08-11, re-confirmed
+# 2026-08-13 -- see ../mesa/mesa_firmware_checklist.md):
 # LinuxCNC control PC connected to a Mesa 7i80HDT Ethernet FPGA host over hm2_eth
 # (static IP). Daughter cards:
-#   P1: 7i44 (RS-422 sserial breakout - one sserial port with 8 channels)
+#   P1: 7i49 (3 resolver channels used out of 6 + 4 of 6 +/-10V analog outs used)
+#   P2: unused/spare - all bare FPGA GPIO (no daughter card fitted). Probe was
+#       previously wired to a bare GPIO pin but was moved to 7i84U-B for 24V
+#       opto-isolation.
+#   P3: 7i44 (RS-422 sserial breakout - one sserial port with 8 channels)
 #        channel 0 -> 7i84U-A (existing 32/16 field I/O near green breakout PCB:
 #                     ATC, hydraulic, coolant, air, utility, spindle digital I/O,
 #                     hm2_7i80.0.7i84.0.0.*)
@@ -19,16 +26,13 @@
 #        channels 2-7 disabled (sserial_port_0="00xxxxxx") and reserved for
 #                     future compatible smart-serial devices. With a 7i44
 #                     fitted, these are RS-422 channels, not general field GPIO.
-#   P2: 7i49 (3 resolver channels used out of 6 + 4 of 6 +/-10V analog outs used)
-#   P3: unused/spare - all bare FPGA GPIO (no daughter card fitted). Probe was
-#       previously wired here but was moved to 7i84U-B for 24V opto-isolation.
 # Axis position feedback is RESOLVER via the 7i49 (5 kHz excitation baseline), reading
 # the machine's original Tamagawa TS2014N resolvers - not quadrature encoders.
 # All field I/O -- limits/homes/E-stop monitor/drive-enables/spindle digital/
 # 100 VAC solenoids -- lives on the two 7i84U cards via sserial. The 7i80HDT
 # directly owns only motion-critical signals: resolvers, +/-10V velocity
 # commands. The Renishaw MP-3 probe input lives on 7i84U-B TB3 IN15
-# (opto-isolated 24V), NOT bare P3 GPIO; P3 remains unused/spare.
+# (opto-isolated 24V), NOT bare P2 GPIO; P2 remains unused/spare.
 
 loadrt trivkins coordinates=XYZ
 # num_dio=16 required by linuxcnc/atc_orient.hal + remap/toolchange.ngc, which use
@@ -36,7 +40,7 @@ loadrt trivkins coordinates=XYZ
 loadrt [EMCMOT]EMCMOT base_period_nsec=0 servo_period_nsec=[EMCMOT]SERVO_PERIOD num_joints=[KINS]JOINTS num_dio=16
 
 # The 7i80HDT is an Ethernet board loaded via hm2_eth. Set board_ip to the confirmed
-# static IP and adjust num_resolvers (7i49 on P2) / sserial (7i44 on P1) for the actual
+# static IP and adjust num_resolvers (7i49 on P1) / sserial (7i44 on P3) for the actual
 # firmware. Axis feedback is resolver via the 7i49, so the firmware/config must expose
 # resolver channels (num_resolvers) rather than plain encoders. The two 7i84Us
 # use physical 7i44 channels 0 and 1 inside HostMot2 smart-serial port 0; the
@@ -54,10 +58,11 @@ loadrt hm2_eth board_ip="192.168.1.121" config="num_encoders=0 num_resolvers=3 n
 #   00/01/02. Spindle feedback is not assigned to a resolver channel.
 # num_encoders=0: deliberate commissioning hold. A separate machine-side
 #   spindle A/B/Z source is only a hypothesis: its existence, model, electrical
-#   format, receiver hardware, and FPGA pin assignment are unknown, and P3
-#   remains physically empty. Enable an encoder instance only after that complete
-#   signal chain and the bitfile IDROM are documented.
-# num_pwmgens=4: 7i49 P2 AOUT0=X, AOUT1=Z, AOUT2=Y, AOUT3=spindle velocity.
+#   format, and receiver hardware are unknown, and the confirmed rmsvss6_8
+#   firmware has no Encoder module at all (readhmid 2026-08-13). Enable an
+#   encoder instance only after that complete signal chain is documented and
+#   firmware that actually provisions it is identified.
+# num_pwmgens=4: 7i49 P1 AOUT0=X, AOUT1=Z, AOUT2=Y, AOUT3=spindle velocity.
 #   AOUT4/AOUT5 spare. All bipolar +/-10V. FR-SX orient uses a DISCRETE
 #   ORCM1 command on 7i84U-A OUT4 (Y093), NOT an analog reference — the FR-SX
 #   does not accept an external analog orient reference. See
@@ -67,10 +72,10 @@ loadrt hm2_eth board_ip="192.168.1.121" config="num_encoders=0 num_resolvers=3 n
 #   string configures ONE CHANNEL of a single sserial port (each port has 1-8
 #   channels). Both 7i84Us live on port 0: channel 0 = 7i84U-A, channel 1 = 7i84U-B.
 #   Disabling channels 2..7 with "x" may expose the underlying FPGA functions as
-#   GPIO in HostMot2, but P1 is physically routed through 7i44 RS-422 transceivers;
+#   GPIO in HostMot2, but P3 is physically routed through 7i44 RS-422 transceivers;
 #   do not treat those connectors as general-purpose field GPIO. sserial_port_1..3
 #   are NOT declared because
-#   the 7i80HDT+7i44 firmware only instantiates one sserial port on P1.
+#   the 7i80HDT+7i44 firmware only instantiates one sserial port on P3.
 #   Ref: https://linuxcnc.org/docs/html/man/man9/hostmot2.9.html (sserial_port_N).
 
 loadrt pid names=pid.x,pid.y,pid.z,pid.s
@@ -194,7 +199,8 @@ setp pid.z.maxerror               [JOINT_2]MAX_ERROR
 
 # Spindle PID — leave unconnected until a spindle-feedback source and compatible
 # receiver are identified and assigned. The possible machine-side A/B/Z path is
-# not verified, num_encoders=0, and P3 is empty. Spindle does not consume a 7i49
+# not verified, num_encoders=0, and no Encoder module is present in the
+# confirmed firmware. Spindle does not consume a 7i49
 # resolver channel; num_resolvers=3 above allocates only X/Y/Z.
 setp pid.s.Pgain                  [SPINDLE_0]P
 setp pid.s.Igain                  [SPINDLE_0]I

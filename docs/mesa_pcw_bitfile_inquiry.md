@@ -14,6 +14,18 @@ specific Efinix build for *this* P1/P2 layout exists or can be built.
 
 ---
 
+> **Correction, 2026-08-13 — the P1/P2 layout described below is wrong.**
+> This page is a historical record of an inquiry sent *before* the board was
+> flashed and read back, so the email text is quoted verbatim and deliberately
+> **not** edited. `mesaflash --readhmid` against the delivered firmware
+> (`7i80hdt_rmsvss6_8.bin`, read 2026-08-11, re-confirmed 2026-08-13 and
+> 2026-08-14) shows the actual layout is **7i49 on P1**, **7i44 on P3**, and
+> **P2 unused/bare GPIO** — the opposite of what was asked for below. The
+> delivered bitfile is correct and in use; only this request's assumption was
+> mistaken. See [`../mesa/mesa_firmware_checklist.md`](../mesa/mesa_firmware_checklist.md)
+> for the evidence trail, and treat `../mesa/current_pin_authority.csv` as
+> authoritative.
+
 ## Draft email (copy, fill the two blanks, send)
 
 > **To:** Mesa Electronics — Peter Wallace / sales+support (`pcw@mesanet.com`, `sales@mesanet.com`)

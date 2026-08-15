@@ -1,11 +1,12 @@
 Mazak VQC-20/40 Wiring Master — Current Pin Authority,
 Machine,"Mazak VQC-20/40, S/N 060231"
-Current architecture,"LinuxCNC + Mesa 7i80HDT Ethernet host; 7i44 on P1 with smart-serial channels 0/1 to 7i84U-A/B; 7i49 on P2 for X/Y/Z resolvers and AOUT0..3; P3 unused/spare; probe on 7i84U-B IN15"
+Current architecture,"LinuxCNC + Mesa 7i80HDT Ethernet host; 7i44 on P3 with smart-serial channels 0/1 to 7i84U-A/B; 7i49 on P1 for X/Y/Z resolvers and AOUT0..3; P2 unused/spare; probe on 7i84U-B IN15"
 Source of truth,../mesa/current_pin_authority.csv
 Authority rows,132
 Generated,2026-08-09
+Correction,"P1/P2/P3 connector text corrected 2026-08-13 to match confirmed readhmid (P1=7i49, P2=unused, P3=7i44). The underlying .xlsx workbook itself was NOT re-exported/re-generated -- only this text summary. Regenerate the workbook's own connector-map tab before treating it as authoritative again."
 Workbook sheets,"README; Current Pin Authority; Authority Summary"
 Status rule,"FACTORY_LINK and FACTORY_INTERFACE are final; UNBOUND is the legacy equivalent of DEFERRED; commissioning/proposed/reserved rows retain their stated holds and checks."
-Feedback rule,"Axis feedback is Tamagawa TS2014N resolver feedback through the 7i49 on P2, not quadrature encoder feedback."
+Feedback rule,"Axis feedback is Tamagawa TS2014N resolver feedback through the 7i49 on P1, not quadrature encoder feedback."
 Safety rule,"The hardware E-stop chain removes hazardous power; workbook and HAL assignments are planning/commissioning aids and do not replace field verification."
 Channel order,"7i49 AOUT order is X=AOUT0, Z=AOUT1, Y=AOUT2, FR-SX spindle velocity=AOUT3; AOUT4/AOUT5 spare. FR-SX orient is discrete ORCM1."

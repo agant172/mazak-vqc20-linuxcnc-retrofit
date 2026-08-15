@@ -206,7 +206,8 @@ EXPECTED = {
     "SPINDLE_ENCODER": (
         "Dynamic",
         "Unavailable \u2014 encoder and receiver not identified; num_encoders=0",
-        "motion_7i80hdt.hal spindle-feedback hold; P3 remains physically empty and "
+        "motion_7i80hdt.hal spindle-feedback hold; the confirmed rmsvss6_8 "
+        "firmware has no Encoder module at all (readhmid 2026-08-13), and "
         "resolver.03 is not used for spindle",
         "dynamic",
     ),
@@ -295,8 +296,8 @@ LOCATION = {
     "Z_RESOLVER": ("Z ball screw, non-drive end \u2014 Tamagawa TS2014N shaft resolver on flex coupling",
                    "Axis feedback", "BKO-NC6062A; Z amp cable CA1 / BBIA-1 CN3"),
     "SPINDLE_ENCODER": ("Spindle head \u2014 machine-side A/B/Z encoder if fitted",
-                         "Spindle feedback", "Unassigned: part, electrical format, receiver/interface and FPGA pins are not confirmed. P3 remains empty."),
-    "TB2_AXIS_ENCODERS": ("Control cabinet \u2014 axis encoder inputs, unused; feedback comes through 7i49 P2 resolver channels",
+                         "Spindle feedback", "Unassigned: part, electrical format, and receiver/interface are not confirmed. The confirmed rmsvss6_8 firmware has no Encoder module at all."),
+    "TB2_AXIS_ENCODERS": ("Control cabinet \u2014 axis encoder inputs, unused; feedback comes through 7i49 P1 resolver channels",
                           "Axis feedback", "Architecturally excluded: feedback is resolver via 7i49."),
     "X_DRIVE_ENABLE": ("Servo bay \u2014 X TRA-series servo amp, S-ON terminal", "Servo drives", "X/Y amp path via CA3/CA4 (BBIA-1 CN1/CN2)"),
     "Y_DRIVE_ENABLE": ("Servo bay \u2014 Y TRA-series servo amp, S-ON terminal", "Servo drives", "X/Y amp path via CA3/CA4"),
@@ -391,9 +392,9 @@ LOCATION = {
     "SECOND_SSERIAL_CARD": ("Replaced by 7i84U-B on 7i44 channel 1", "Expansion", "No third smart-serial field-I/O card is currently required. The prior single-7i84U plan used: drops (Y091 OTR, X078 MPWS, X02F INHRLS, Y023-Y025 M43-M45T) + series consolidations (HLP+HLP2, THR+ONT, ITMDSS+LS-140/141) + panel moves (FEED_HOLD/SINGLE_BLOCK to touchscreen, panel-power-on to software state, reset-out to TB5 SSR) fit 5 DI + 5 DO of gap load into 6 DI + 6 DO available before the dual-7i84U architecture revision."),
 }
 
-SSERIAL_LOC_A = ("Control cabinet — 7i80HDT P1 to 7i44 by Mesa 50-pin IDC; 7i44 channel 0 to 7i84U-A CN0/RJ45 by CAT5 smart-serial", "Field I/O link",
+SSERIAL_LOC_A = ("Control cabinet — 7i80HDT P3 to 7i44 by Mesa 50-pin IDC; 7i44 channel 0 to 7i84U-A CN0/RJ45 by CAT5 smart-serial", "Field I/O link",
                  "Factory plug-in link: inspect identity, keying/orientation, seating, strain relief, and visible condition; verify clean smart-serial enumeration. Do not continuity-audit or re-terminate individual conductors.")
-SSERIAL_LOC_B = ("Control cabinet — 7i80HDT P1 to 7i44 by Mesa 50-pin IDC; 7i44 channel 1 to 7i84U-B CN0/RJ45 by CAT5 smart-serial", "Field I/O link",
+SSERIAL_LOC_B = ("Control cabinet — 7i80HDT P3 to 7i44 by Mesa 50-pin IDC; 7i44 channel 1 to 7i84U-B CN0/RJ45 by CAT5 smart-serial", "Field I/O link",
                  "Factory plug-in link: inspect identity, keying/orientation, seating, strain relief, and visible condition; verify clean smart-serial enumeration. Do not continuity-audit or re-terminate individual conductors.")
 for _s in ("TXA", "TXB", "RXA", "RXB", "GND", "5V"):
     LOCATION["SSERIAL_PORT0_%s" % _s] = SSERIAL_LOC_A
@@ -527,23 +528,23 @@ BOARDS = {
     "7i80HDT": {
         "name": "Mesa 7i80HDT",
         "role": "Ethernet FPGA host (hm2_eth)",
-        "detail": "Primary control board. P1 = 7i44 sserial breakout, P2 = 7i49 resolvers + analog outs; "
-                  "P3 is unused/spare; the probe is on 7i84U-B IN15.",
+        "detail": "Primary control board. P1 = 7i49 resolvers + analog outs, P3 = 7i44 sserial breakout; "
+                  "P2 is unused/spare (confirmed 2026-08-13 by readhmid); the probe is on 7i84U-B IN15.",
         "address": "board_ip 192.168.1.121 (host NIC enp0s31f6 at 192.168.1.1/24)",
     },
     "7i44": {
         "name": "Mesa 7i44",
-        "role": "8-channel RS-422 smart-serial breakout (on 7i80HDT P1)",
+        "role": "8-channel RS-422 smart-serial breakout (on 7i80HDT P3)",
         "detail": "Physical channel 0 carries 7i84U-A and channel 1 carries 7i84U-B. Channels 2-7 are spare.",
-        "address": "7i80HDT P1 HostMot2 sserial port 0, channels 0 and 1",
+        "address": "7i80HDT P3 HostMot2 sserial port 0, channels 0 and 1",
     },
     "7i49": {
         "name": "Mesa 7i49",
-        "role": "Resolver-to-digital interface + ±10V DACs (on 7i80HDT P2)",
+        "role": "Resolver-to-digital interface + ±10V DACs (on 7i80HDT P1)",
         "detail": "Plain 7i49 (not HV). Reads the machine's original Tamagawa TS2014N shaft resolvers "
                   "for X/Y/Z on RES0/1/2 at 5 kHz excitation. AOUT0/1/2 drive the X/Z/Y servos, AOUT3 "
                   "drives FR-SX spindle velocity, and AOUT4/AOUT5 are spare.",
-        "address": "num_resolvers=3, num_pwmgens=4 on 7i80HDT P2",
+        "address": "num_resolvers=3, num_pwmgens=4 on 7i80HDT P1",
     },
     "7i84U-A": {
         "name": "Mesa 7i84U-A",

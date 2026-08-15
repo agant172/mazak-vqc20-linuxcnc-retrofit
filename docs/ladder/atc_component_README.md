@@ -1,8 +1,12 @@
 # ATC + Orient Component Skeleton — rung-to-code map
 
-**Status:** SKELETON, never built, never run. No build environment exists in this
-repo, so the `.comp` files have not been through `halcompile`. Treat every
-timer, coordinate, polarity and direction below as unverified.
+**Status:** Never run on the machine. Both `.comp` files now compile clean under
+`halcompile` (2026-08-15, no errors in either file) and are exercised by the
+no-hardware regression harness in [`tests/hal/`](../../tests/hal/README.md),
+which drives them under `halrun` with simulated inputs. That is evidence about
+the *code* only: it says the transcribed logic behaves as transcribed. Treat
+every timer, coordinate, polarity and direction below as unverified, and do not
+advance any `authority_status` on the strength of a passing harness run.
 
 **What this covers:** the LinuxCNC implementation of the Mazatrol M-2 spindle
 orient / gear shift sequence and the ATC confirmation layer, derived from
@@ -181,9 +185,11 @@ straight to `mazak-atc.target-pot`.
    corresponding continuity/polarity evidence is filed.
 2. Run `scripts/validate_authority.py` and
    `scripts/validate_control_logic.py`; both must report zero errors.
-3. `halcompile --install linuxcnc/components/mazak_orient.comp` and the same for
-   `mazak_atc.comp`. Expect to fix compile errors — these files have never been
-   through the compiler.
+3. `bash tests/hal/install_components.sh`, which runs
+   `sudo halcompile --install` on each component. Both compile clean as of
+   2026-08-15. Install them one file per invocation — passing both `.comp` files
+   to a single `halcompile` call fails with `Duplicate option name singleton`,
+   because halcompile does not reset its option table between files.
 4. Confirm the already-merged active INI/HAL settings against
    `linuxcnc/atc_orient.ini.snippet`, including `num_dio=16`, the M6 remap,
    abort handler, `[ATC]` values, and `DRY_RUN=1`.
@@ -193,6 +199,11 @@ straight to `mazak-atc.target-pot`.
    ORA1/SZS, BCD/MIPRS, and cover inputs. Do not try to `setp` a component input
    or signal that is still linked to an hm2 output pin. Verify every alarm,
    abort source, and output-safe transition in the test harness.
+   Implemented as [`tests/hal/`](../../tests/hal/README.md) —
+   `python3 tests/hal/run_tests.py`. It loads one component at a time into a
+   bare `halrun` session with no Mesa driver and no motion controller, so no
+   component input is ever linked to an hm2 pin. Read that README's "What this
+   does not prove" section before citing a passing run.
 7. Recover the real timer values and the ZP1/ZP2 coordinates. Replace the
    placeholders.
 8. Only then bring up hardware, one output at a time, per the bring-up order in

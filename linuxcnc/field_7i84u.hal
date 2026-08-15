@@ -1,4 +1,5 @@
-# 7i84U remote field I/O -- two cards on 7i80HDT smart-serial (via 7i44 P1)
+# 7i84U remote field I/O -- two cards on 7i80HDT smart-serial (via 7i44 P3,
+# confirmed 2026-08-13 by readhmid; see ../mesa/mesa_firmware_checklist.md)
 #
 # 7i84U-A (physical 7i44 channel 0): ATC, hydraulics, coolant, air, utility, spindle digital I/O
 #                   (existing 32/16 field I/O near green breakout PCB).
@@ -217,7 +218,7 @@ net tool-prepare-loopback  iocontrol.0.tool-prepare => iocontrol.0.tool-prepared
 #     net limit-x-plus <= hm2_7i80.0.7i84.0.1.input-00-not
 # Reference: <https://linuxcnc.org/docs/html/man/man9/sserial.9.html>
 #
-# Why 7i84U (sserial) and not P3 direct GPIO: bare P3 GPIO is 3.3 V LVCMOS
+# Why 7i84U (sserial) and not P2 direct GPIO: bare P2 GPIO is 3.3 V LVCMOS
 # without opto-isolation - direct connection to 24 V field wiring would destroy
 # the FPGA. The 7i84U provides opto-isolated 24 V-tolerant inputs. Timing
 # characteristics of the sserial link are discussed in `docs/smart_serial_latency.md`.
@@ -249,7 +250,7 @@ net air-ok <= hm2_7i80.0.7i84.0.1.input-09
 
 # Renishaw MP-3 probe SKIP1 on 7i84U-B input-15 (physically TB3 pin 16).
 # Rationale: the 7i84U provides opto-isolated 24 V-tolerant field inputs, which
-# the bare 7i80HDT P3 GPIOs do not (P3 = unbuffered 3.3 V LVCMOS -- 24 V would
+# the bare 7i80HDT P2 GPIOs do not (P2 = unbuffered 3.3 V LVCMOS -- 24 V would
 # destroy the FPGA input). End-to-end probe latency and jitter are not
 # established by baud rate or servo period alone. The Mesa manual gives a
 # transaction-time bound, but neither it nor hostmot2(9) proves a fixed
@@ -258,7 +259,7 @@ net air-ok <= hm2_7i80.0.7i84.0.1.input-09
 # motion.probe-input path at the intended servo period and probing feeds before
 # accepting it; see docs/smart_serial_latency.md. If the measured stopping error
 # is excessive, use an isolated input interface designed for the required
-# capture behavior; never use bare P3 GPIO on a 24 V field circuit.
+# capture behavior; never use bare P2 GPIO on a 24 V field circuit.
 # Probe interface (Renishaw MI 12 or similar) idles NC -> probe trigger = low,
 # so consume the '-not' complement pin to make motion.probe-input TRUE on
 # contact. (sserial input pins have no invert_input parameter - see the note

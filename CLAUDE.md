@@ -39,7 +39,7 @@ This file is the authoritative brief. In addition, consult:
 | **`docs/authority_hierarchy.md`** | Which file wins when two disagree, and the script that enforces it. |
 | **`mesa/current_pin_authority.csv`** | Electrical channel authority — one row per physical Mesa pin. The source of truth for pin/HAL bindings. |
 | **`wiring/authority_conflicts.md`** | Known documentation-vs-physical conflicts not yet resolved. |
-| **`docs/superseded_claims_2026-08-06.md`** | Retracted claims. Do not resurrect them (e.g. the P3 `gpio.042` probe binding, the 7i97T architecture). |
+| **`docs/superseded_claims_2026-08-06.md`** | Retracted claims. Do not resurrect them (e.g. the bare-GPIO `gpio.042` probe binding, the 7i97T architecture). |
 
 ---
 
@@ -75,15 +75,15 @@ Host system:
 
 Mesa hardware stack:
 - Mesa 7i80HDT — Ethernet FPGA host.
-- Mesa 7i49 on P2 — resolver feedback and ±10 V analog outputs.
-- Mesa 7i44 on P1 — Smart-Serial interface.
+- Mesa 7i49 on P1 — resolver feedback and ±10 V analog outputs.
+- Mesa 7i44 on P3 — Smart-Serial interface.
 - Mesa 7i84U-A on 7i44 port 0 — general field I/O.
 - Mesa 7i84U-B on 7i44 port 1 — X/Y/Z limits, homes, drive-enable I/O,
   relay-driven loads.
-- 7i80HDT P3 — unused/spare, no exceptions. No daughter card is fitted and
+- 7i80HDT P2 — unused/spare, no exceptions. No daughter card is fitted and
   bare 3.3 V FPGA GPIO must never carry 24 V field wiring. The Renishaw MP-3
   probe SKIP1 lands on 7i84U-B TB3 IN15 (opto-isolated 24 V; HAL consumes
-  `input-15-not`). The former P3 `gpio.042` probe binding is RETRACTED — see
+  `input-15-not`). The former bare-GPIO `gpio.042` probe binding is RETRACTED — see
   `docs/superseded_claims_2026-08-06.md` row 15.
 
 Preserve `7i84U-A` and `7i84U-B` identities in all wire labels, I/O maps,

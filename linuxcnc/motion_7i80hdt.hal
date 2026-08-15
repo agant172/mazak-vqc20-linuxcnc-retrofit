@@ -4,21 +4,23 @@
 # PLACEHOLDER PIN NAMES: every hm2_7i80.* name below is an UNVERIFIED PLACEHOLDER.
 # The Mesa 7i80HDT is a bare-FPGA Ethernet host (hm2_eth) with three 50-pin daughter
 # connectors (P1/P2/P3). Confirm the exact board tag (`hm2_7i80` expected) and the
-# real analog-output (7i49 P2 pwmgen) and resolver (7i49 P2 resolver channel)
+# real analog-output (7i49 P1 pwmgen) and resolver (7i49 P1 resolver channel)
 # pin structure from `readhmid` and
 # `halcmd show pin hm2` before use. Axis feedback is RESOLVER via the 7i49,
 # not quadrature encoder.
 #
-# Stack summary (2026-08-06 rev):
-#   P1: 7i44 sserial breakout - ONE sserial port with 8 channels
+# Stack summary (2026-08-13 rev; P1/P2/P3 roles flipped vs. the 2026-08-06 rev
+# once the actual 7i80hdt_rmsvss6_8.bin firmware was flashed and read back --
+# see ../mesa/mesa_firmware_checklist.md):
+#   P1: 7i49 (6 resolver channels + 6× ±10V analog outs)
+#   P2: unused/spare (all bare-FPGA GPIO). Probe was previously wired to a bare
+#       GPIO pin but has been moved to 7i84U-B (opto-isolated) - see fix #8.
+#   P3: 7i44 sserial breakout - ONE sserial port with 8 channels
 #        channel 0 -> 7i84U-A (existing 32/16 field I/O, hm2_7i80.0.7i84.0.0.*)
 #        channel 1 -> 7i84U-B (limits, homes, drive-enables, relay-driven loads,
 #                     probe, hm2_7i80.0.7i84.0.1.*)
 #        channels 2-7 disabled in sserial_port_0="00xxxxxx" (reserved 7i44
 #        RS-422 channels, not general field GPIO)
-#   P2: 7i49 (6 resolver channels + 6× ±10V analog outs)
-#   P3: unused/spare (all bare-FPGA GPIO). Probe was previously wired to P3
-#       gpio.042 but has been moved to 7i84U-B (opto-isolated) - see fix #8.
 #
 # All field I/O - limits, homes, E-stop monitor, drive-enables, spindle
 # digital I/O, probe, and 100 VAC solenoid outputs - is on the two 7i84U cards
@@ -26,7 +28,7 @@
 # signals: resolvers and +/-10V velocity commands.
 
 #####################################################################
-# Resolver feedback channels (via Mesa 7i49 on P2)
+# Resolver feedback channels (via Mesa 7i49 on P1)
 #####################################################################
 #
 # Axis feedback on this machine is RESOLVER, not quadrature encoder.
@@ -202,8 +204,9 @@ net z-pos-fb        => joint.2.motor-pos-fb
 #   Tachogenerator: Tamagawa TGF-3D P402-Sx (from schematic 4143075313 sh3) — feeds the
 #     FR-SX drive's own internal speed loop; LinuxCNC does not read this directly.
 #   A separate machine-side A/B/Z encoder is believed present, but its model,
-#     electrical format, receiver/interface, and FPGA pin assignment are not
-#     confirmed. P3 is empty and the active HostMot2 config uses num_encoders=0.
+#     electrical format, and receiver/interface are not confirmed. The
+#     confirmed rmsvss6_8 firmware has no Encoder module at all (readhmid
+#     2026-08-13), and the active HostMot2 config uses num_encoders=0.
 # No resolver.03 instance is created by the active three-channel configuration.
 #
 # TODO: after identifying the encoder, add a compatible receiver/daughter
@@ -226,7 +229,7 @@ net z-pos-fb        => joint.2.motor-pos-fb
 # feeds spindle.0.amp-fault-in.
 
 #####################################################################
-# Analog servo outputs (7i49 P2 ±10V DACs, driven by pwmgen)
+# Analog servo outputs (7i49 P1 ±10V DACs, driven by pwmgen)
 #####################################################################
 #
 # On the 7i49 the ±10V analog outputs are hostmot2 PWMGEN instances feeding
@@ -243,7 +246,7 @@ net z-pos-fb        => joint.2.motor-pos-fb
 #   http://www.mesanet.com/pdf/parallel/7i49man.pdf (HostMot2 config section)
 # The pwmgen .enable pin MUST be true or the output stays parked at zero.
 #
-# 7i49 P2 analog assignment (2026-08-06 rev):
+# 7i49 P1 analog assignment (2026-08-13 rev):
 #   AOUT0 = X axis velocity command  -> pwmgen.00
 #   AOUT1 = Z axis velocity command  -> pwmgen.01
 #   AOUT2 = Y axis velocity command  -> pwmgen.02
@@ -418,15 +421,15 @@ net spindle-run-output => hm2_7i80.0.pwmgen.03.enable
 # the count to 3 would remove the spindle instance, not merely a spare output.
 
 #####################################################################
-# P3: unused (no bare-FPGA I/O bindings)
+# P2: unused (no bare-FPGA I/O bindings)
 #####################################################################
 #
-# The stack uses P1 (7i44 sserial) and P2 (7i49 analog+resolver). P3 is
-# reserved/spare. The actual GPIO indices are bitfile/IDROM-dependent; nothing
-# in this configuration binds a P3 pin.
+# The stack uses P1 (7i49 analog+resolver) and P3 (7i44 sserial). P2 is
+# reserved/spare, confirmed bare GPIO (gpio.024-gpio.047) by readhmid
+# 2026-08-13; nothing in this configuration binds a P2 pin.
 #
-# Earlier drafts wired the Renishaw MP-3 probe SKIP1 signal to bare P3 GPIO
-# for latency reasons. That path was REMOVED because the 7i80HDT P3 GPIO
+# Earlier drafts wired the Renishaw MP-3 probe SKIP1 signal to bare GPIO
+# for latency reasons. That path was REMOVED because the 7i80HDT's bare-GPIO
 # pins are 3.3 V logic without opto-isolation: exposing them to 24 V field
 # wiring risks destroying the FPGA. The probe is now routed through the
 # 7i84U-B card (isolated 24 V input) - see field_7i84u.hal (input-15) and
