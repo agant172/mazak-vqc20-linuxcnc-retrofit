@@ -52,6 +52,34 @@ cabinet visit before treating the X/Y suffix pattern as machine-wide.
    read spindle position, and no Mesa input exists for a ±15 V-supplied
    device without an interface that has never been scoped.
 
+## External corroboration — Z tachometer (reference-grade, 2026-08-15)
+
+A supplier listing located by AG catalogs `TS3033N4E2` / spec `BKO-NC6075` /
+type TT-A-11 specifically — an exact part match, not a family match — as a
+Tamagawa brushless DC tachogenerator used on Mitsubishi DC servo systems with
+Mazatrol T-1..T-4 / M-1 / M-2 controls, which corroborates this machine's
+provenance. Listed figures (source: supplier listing, **unverified against a
+Tamagawa datasheet**):
+
+- Output 2 V DC per 1000 rpm, tolerance ±10%, ripple <1% p-p
+- Max operating speed 5000 rpm
+- **Associated supply ±12 VDC** — the unit is brushless with internal
+  commutation electronics, so unlike a permanent-magnet tach it needs a
+  supply to produce its output.
+
+The nameplate independently confirms 2 V/1000. The tolerance, ripple, speed
+and supply figures rest on the listing alone.
+
+Use: diagnostics only. The tacho is the TRA drive's velocity feedback, stays
+with the drive, and is never a LinuxCNC input. If an axis drive misbehaves
+during commissioning, the expected output is linear (≈1.0 V at 500 rpm up to
+≈10.0 V at 5000 rpm, polarity reversing with rotation) at the drive
+terminals — and a dead tach signal may actually be a missing ±12 V rail.
+
+Serial-number note: first field reading was `23868`; a re-read of the photo
+suggests `2386`. The stamp is smudged; either may be right, and nothing
+depends on it.
+
 ## Follow-ups
 
 - [ ] Read the Z resolver pickup nameplate (raking light; it is the unit the
