@@ -41,7 +41,9 @@
 #   motors have integral tachogenerators for the TRAxxA velocity loop — completely
 #   separate from the resolver position feedback path).
 #
-# Electrical spec (Tamagawa FA-SOLVER page, TS2014N141E26 row):
+# Electrical spec (Tamagawa FA-SOLVER page, TS2014N141E26 row — COMPARISON DATA
+# from a different suffix: the installed pickups read TS2014N 25 E … on X/Y,
+# 2026-08-15 survey, docs/feedback_nameplate_survey_2026-08-15.md):
 #   Excitation: 10 Vrms at 4.5 kHz, Primary R1-R2 (rotor, BRX type)
 #   Transformation ratio K: 0.5 (no tolerance published on the Tamagawa page)
 #   Rotor DC resistance:  121 ohms
@@ -51,25 +53,34 @@
 #   If Reverse, position counts backwards — fix with negative scale setp below.
 #
 #   *** Full suffix matters. The values above are for TS2014N141E26 specifically.
-#       Every axis's exact TS2014N###E## suffix must be read off the nameplate
-#       and matched against its own datasheet before these values can be trusted.
-#       PCW has warned on the LinuxCNC forum that some TS2014 variants (e.g.
-#       the E1/BRT family) are not compatible with the 7i49 at all. ***
+#       The 2026-08-15 nameplate survey read TS2014N 25 E … on X and Y (Z
+#       resolver nameplate still unread) — a DIFFERENT suffix, so none of the
+#       absolutes above is a spec for this machine until the 25E datasheet is
+#       obtained. PCW has warned on the LinuxCNC forum that some TS2014
+#       variants (e.g. the E1/BRT family) are not compatible with the 7i49 at
+#       all — that warning is live again for the 25E suffix. ***
 #
 # 7i49 default drive is ~2 Vrms and it expects ~1 Vrms on SIN/COS (2:1 ratio
-# per the 7i49 manual). With a K=0.5 resolver at ~2 Vrms drive the return should
-# sit near 1 Vrms. Confirm on scope; do NOT add external dividers or 7i49HV
+# per the 7i49 manual). IF the installed 25E suffix shares K=0.5 (a 141E26
+# comparison figure — installed suffix reads TS2014N 25 E…, 2026-08-15 survey;
+# unconfirmed until the 25E datasheet is obtained), ~2 Vrms drive would return
+# near 1 Vrms. Confirm on scope; do NOT add external dividers or 7i49HV
 # hardware without a Mesa (PCW) review of the specific suffix.
 #
 # PLACEHOLDER: hm2_7i80.0.resolver.NN.* pin names unverified — confirm from
 # `readhmid` / `halcmd show pin hm2` after loading firmware with resolver module.
 #
 # Pre-power ohmmeter checks (all values approximate — measure before energizing):
-#   R1-R2 rotor winding: DC resistance ~121 ohms (TS2014N141E26 datasheet)
-#                        (ZRO = 250 + j377 ohms at 4.5 kHz)
-#   S1-S3 (sin pair):    DC resistance ~69 ohms  (TS2014N141E26 datasheet)
-#                        (ZSS = 326 + j623 ohms at 4.5 kHz)
+#   R1-R2 rotor winding: DC resistance ~121 ohms (141E26 comparison data —
+#                        installed suffix reads TS2014N 25 E…, 2026-08-15
+#                        survey; absolutes unconfirmed until the 25E datasheet
+#                        is obtained. ZRO = 250 + j377 ohms at 4.5 kHz, same
+#                        caveat)
+#   S1-S3 (sin pair):    DC resistance ~69 ohms  (141E26 comparison data,
+#                        same caveat; ZSS = 326 + j623 ohms at 4.5 kHz)
 #   S2-S4 (cos pair):    same as S1-S3
+#   The RATIO reasoning holds regardless of suffix: expect one distinctly
+#   higher-DCR pair (rotor) and two matched lower pairs (stators).
 #   Measure DC resistance FIRST and compare to the datasheet for the exact
 #   suffix stamped on this resolver to confirm the variant before trusting
 #   downstream signal-level predictions.
@@ -94,9 +105,11 @@
 #                     as machine linear velocity, set velocity-scale to the
 #                     same signed inches-per-revolution as .scale.
 #   .index-divisor  = cycles per rev of the resolver (multi-speed resolvers
-#                     have >1). TS2014N with K = 0.5 is documented as a
-#                     single-speed BRX resolver so 1 is expected; verify from
-#                     the exact suffix datasheet. The HostMot2 doc warns:
+#                     have >1). Single-speed BRX is expected from the TS2014N
+#                     family argument (the K = 0.5 figure is 141E26 comparison
+#                     data — installed suffix reads TS2014N 25 E…, 2026-08-15
+#                     survey), so 1 is expected; confirm from the 25E datasheet
+#                     once obtained. The HostMot2 doc warns:
 #                     'It is not appropriate to use this parameter for
 #                     index-homing of axis drives.' — see the index-enable
 #                     note further down.
@@ -122,14 +135,15 @@ setp hm2_7i80.0.resolver.02.scale [JOINT_2]RESOLVER_SCALE
 # 7i49 global excitation frequency.
 # Confirmed resolvers (July 2026 photos): Tamagawa TS2014N series (Size 25 SHAFT resolvers),
 # Mitsubishi/Mazak part BKO-NC6062A. Mounted at non-drive end of each ball screw via flex
-# coupling — NOT motor-mounted. TS2014N141E26 datasheet: 10 Vrms at 4.5 kHz, K = 0.5.
-# The full suffix on each axis is NOT yet confirmed from the nameplate photos; treat
-# the E26 datasheet as tentative until each axis suffix is read and its own datasheet
-# is obtained.
+# coupling — NOT motor-mounted. 141E26 comparison data: 10 Vrms at 4.5 kHz, K = 0.5.
+# The 2026-08-15 nameplate survey (docs/feedback_nameplate_survey_2026-08-15.md) read
+# the installed suffix as TS2014N 25 E… on X and Y — a DIFFERENT suffix from 141E26 —
+# with the Z resolver nameplate still unread. Absolutes above are unconfirmed until
+# the 25E datasheet is obtained.
 #
 # 7i49 selectable carrier frequencies per the 7i49 manual (RESMOD register): 2.5 / 5
 # / 10 kHz. 4.5 kHz is not selectable, so the closest option is 5 kHz — about 11%
-# above nominal. Tamagawa's FA-SOLVER page publishes NO frequency tolerance for
+# above the 141E26 comparison figure (the installed 25E nominal is unknown). Tamagawa's FA-SOLVER page publishes NO frequency tolerance for
 # TS2014N141E26, so 5 kHz operation is an assumption to VERIFY at commissioning by
 # scoping RESDRV excitation and RESSIN/RESCOS amplitude and phase at rest and under
 # motion — not to declare acceptable from a tolerance figure the datasheet doesn't

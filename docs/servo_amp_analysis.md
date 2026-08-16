@@ -63,7 +63,10 @@ Physical device (all three axes, mounted at the **non-drive end of each ball scr
 | Date code | 198X |
 | Photo evidence | IMG_0075, IMG_0076-2, IMG_0077-3, IMG_2064-8, IMG_2064-12.MP4 |
 
-Electrical spec (from Tamagawa TS2014N datasheet, [100y.com.tw PDF](https://images.100y.com.tw/pdf_file/79-TAMAGAWA.pdf)):
+Electrical spec (from the Tamagawa **TS2014N141E26** datasheet, [100y.com.tw PDF](https://images.100y.com.tw/pdf_file/79-TAMAGAWA.pdf)).
+⚠ **Entire table = 141E26 comparison data.** The installed suffix reads `TS2014N 25 E …` on X and Y
+(2026-08-15 survey, [`feedback_nameplate_survey_2026-08-15.md`](feedback_nameplate_survey_2026-08-15.md);
+Z resolver nameplate still unread) — absolutes below are unconfirmed until the 25E datasheet is obtained:
 
 | Parameter | Value |
 |---|---|
@@ -138,18 +141,21 @@ Both rendered PNGs in `Manuals_SN060231/`:
 
 This is the **most important detail** to flag for the retrofit.
 
-- **Tamagawa TS2014N native excitation: 4.5 kHz at 10 Vrms.**
+- **Tamagawa TS2014N141E26 native excitation: 4.5 kHz at 10 Vrms** — 141E26 comparison data;
+  the installed suffix reads `TS2014N 25 E …` (2026-08-15 survey,
+  [`feedback_nameplate_survey_2026-08-15.md`](feedback_nameplate_survey_2026-08-15.md)), and its
+  absolutes are unconfirmed until the 25E datasheet is obtained.
 - **Mesa 7i49 plain excitation options: 2 / 5 / 10 kHz (jumper-selectable), 2 Vrms typical.**
 
-The 7i49's **5 kHz** setting is close enough to the TS2014N's **4.5 kHz** to work — resolvers tolerate ±10 % excitation frequency deviation with only modest accuracy degradation, and the transformation ratio is a broad ±10 % anyway. **The 7i49 plain at 5 kHz is the correct card choice for this resolver.**
+The 7i49's **5 kHz** setting sits close to the 141E26's **4.5 kHz** nominal — but that figure (and its transformation ratio) is 141E26 comparison data; the installed suffix reads `TS2014N 25 E …` (2026-08-15 survey), and no excitation-frequency tolerance is published for it. **The 7i49 plain at 5 kHz remains the planned card choice**, resting on the family-level argument (same TS2014N family, same rotor/stator winding pattern), not on 141E26 absolutes — it must be confirmed by scope and by the 25E datasheet once obtained. PCW's warning that some TS2014 variants are not 7i49-compatible applies to the 25E suffix until then.
 
 However, the **excitation voltage** difference matters:
-- TS2014N is spec'd at 10 Vrms input.
+- The 141E26 is spec'd at 10 Vrms input (comparison data — the installed 25E figure is unconfirmed).
 - 7i49 outputs ~2 Vrms.
 
-Result: the resolver's SIN/COS output will be roughly K × 2 V = ~1 V (vs. the ~5 V the original NC's detector card saw). That's **within the 7i49's input range** (it's designed for exactly this level), but **it does mean the SIN/COS signal-to-noise ratio is lower than the original NC saw**. This is a known trade-off with 7i49 vs. 7i49HV — the HV variant runs higher excitation and can drive resolvers spec'd for 7+ Vrms with a better SNR.
+Result: using the 141E26 figures (K = 0.5), the resolver's SIN/COS output would be roughly K × 2 V = ~1 V (vs. the ~5 V the original NC's detector card saw) — a 141E26-derived estimate; the actual level for the installed 25E units must be confirmed by scope. If in that region it's **within the 7i49's input range** (it's designed for exactly this level), but **it does mean the SIN/COS signal-to-noise ratio is lower than the original NC saw**. This is a known trade-off with 7i49 vs. 7i49HV — the HV variant runs higher excitation and can drive resolvers spec'd for 7+ Vrms with a better SNR.
 
-**Recommendation:** Stay with the **plain 7i49 at 5 kHz** for first bring-up (matches the GitHub plan). Add a scope check on the resolver S1-S3 and S2-S4 outputs during commissioning — if signal integrity looks marginal (peak-to-peak below ~500 mV, or noisy), switch to the **7i49HV** at 5 kHz to double the excitation drive. The HV upgrade is a drop-in card swap.
+**Recommendation:** Stay with the **plain 7i49 at 5 kHz** for first bring-up (matches the GitHub plan). Add a scope check on the resolver S1-S3 and S2-S4 outputs during commissioning — if signal integrity looks marginal (peak-to-peak below ~500 mV — a threshold derived from the 141E26 K = 0.5, to be revisited once the 25E datasheet is obtained — or noisy), switch to the **7i49HV** at 5 kHz to double the excitation drive. The HV upgrade is a drop-in card swap.
 
 ### 3.2 Servo amplifier scenario — signal path implications
 
