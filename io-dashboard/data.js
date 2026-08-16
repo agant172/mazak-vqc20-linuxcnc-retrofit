@@ -6,7 +6,7 @@ window.MAZAK_DATA = {
   "machine": "Mazak VQC-20/40",
   "serial": "060231",
   "architecture": "LinuxCNC + Mesa 7i80HDT (Ethernet FPGA host) + 7i44 on P3 (HostMot2 sserial port 0 channels 0/1 to 7i84U-A/B) + 7i49 on P1 (resolver + analog outs); P2 unused/spare (confirmed 2026-08-13 by readhmid)",
-  "generated": "2026-08-15 23:39 UTC",
+  "generated": "2026-08-16 00:00 UTC",
   "source_repo": "mazak-vqc20-linuxcnc-retrofit",
   "authority_file": "mesa/current_pin_authority.csv",
   "epson_ferrule_file": "wiring/labels/bbia1_mesa_end_ferrules_epson.csv",
@@ -1776,122 +1776,6 @@ window.MAZAK_DATA = {
    "authority_line": 21
   },
   {
-   "id": "SEVENI84U_FIELD_A_24V",
-   "name": "Seveni84U Field A 24V",
-   "board": "7i84U-A",
-   "connector": "TB1",
-   "channel": "TB1 pins 3/4 VFIELDA (+24 V field power, 5-28 VDC)",
-   "hal_net": "",
-   "direction": "POWER",
-   "direction_label": "Power / common",
-   "subsystem": "Power",
-   "machine_subsystem": "Field power",
-   "status": "PROPOSED",
-   "field_point": "Field power bank A (TB3 I/O)",
-   "dest_connector": "TB3",
-   "dest_pin": "",
-   "factory_wire": "",
-   "bbia_class": "power-internal",
-   "designations": [
-    "TB-3"
-   ],
-   "primary_source": "Mesa 7i84U manual pp.2/7-8/47",
-   "cleanup_notes": "Both terminals are VFIELDA; powers TB3 outputs 0-7 and inputs 0-15. Never connect either pin to 0 V. Retrofit field-power supply is unspecified. Its 24 V output rating is shared across ALL 7i84U-A and 7i84U-B field banks -- identify the source and verify the combined output current budget before energizing.",
-   "location": "Field I/O enclosure — 7i84U-A TB1 pins 3/4",
-   "location_note": "VFIELDA for TB3 bank",
-   "expected": {
-    "value": "24 V",
-    "label": "VFIELDA supply for TB3 outputs 0-7 and inputs 0-15; TB1 pins 3/4 are both positive",
-    "basis": "Mesa 7i84U manual pp.7-8/47",
-    "kind": "na"
-   },
-   "hal_state": "absent",
-   "mesa_pins": [],
-   "producers": [],
-   "consumers": [],
-   "hal_refs": [],
-   "setp_refs": [],
-   "epson_ferrules": [],
-   "sources": [
-    {
-     "file": "mesa/current_pin_authority.csv",
-     "lines": "22",
-     "note": "Current wiring authority row"
-    },
-    {
-     "file": "Mesa 7i84U manual pp.2/7-8/47",
-     "lines": "",
-     "note": "primary_source column in the authority table"
-    }
-   ],
-   "conflicts": [],
-   "bb_source": {
-    "cnd_pin": "",
-    "wire": "",
-    "cn_pin": "",
-    "provenance": "N/A 2026-08-10: not a BBIA-1 pass-through signal - new dedicated Mesa field-power wiring, same supply as VIN per the commissioning log"
-   },
-   "authority_line": 22
-  },
-  {
-   "id": "SEVENI84U_FIELD_B_24V",
-   "name": "Seveni84U Field B 24V",
-   "board": "7i84U-A",
-   "connector": "TB1",
-   "channel": "TB1 pins 1/2 VFIELDB (+24 V field power, 5-28 VDC)",
-   "hal_net": "",
-   "direction": "POWER",
-   "direction_label": "Power / common",
-   "subsystem": "Power",
-   "machine_subsystem": "Field power",
-   "status": "PROPOSED",
-   "field_point": "Field power bank B (TB2 I/O)",
-   "dest_connector": "TB2",
-   "dest_pin": "",
-   "factory_wire": "",
-   "bbia_class": "power-internal",
-   "designations": [
-    "TB-2"
-   ],
-   "primary_source": "Mesa 7i84U manual pp.2/7-8/47",
-   "cleanup_notes": "Both terminals are VFIELDB; powers TB2 outputs 8-15 and inputs 16-31. Never connect either pin to 0 V. Retrofit field-power supply is unspecified. Its 24 V output rating is shared across ALL 7i84U-A and 7i84U-B field banks -- identify the source and verify the combined output current budget before energizing.",
-   "location": "Field I/O enclosure — 7i84U-A TB1 pins 1/2",
-   "location_note": "VFIELDB for TB2 bank",
-   "expected": {
-    "value": "24 V",
-    "label": "VFIELDB supply for TB2 outputs 8-15 and inputs 16-31; TB1 pins 1/2 are both positive",
-    "basis": "Mesa 7i84U manual pp.7-8/47",
-    "kind": "na"
-   },
-   "hal_state": "absent",
-   "mesa_pins": [],
-   "producers": [],
-   "consumers": [],
-   "hal_refs": [],
-   "setp_refs": [],
-   "epson_ferrules": [],
-   "sources": [
-    {
-     "file": "mesa/current_pin_authority.csv",
-     "lines": "23",
-     "note": "Current wiring authority row"
-    },
-    {
-     "file": "Mesa 7i84U manual pp.2/7-8/47",
-     "lines": "",
-     "note": "primary_source column in the authority table"
-    }
-   ],
-   "conflicts": [],
-   "bb_source": {
-    "cnd_pin": "",
-    "wire": "",
-    "cn_pin": "",
-    "provenance": "N/A 2026-08-10: not a BBIA-1 pass-through signal - new dedicated Mesa field-power wiring from PSU"
-   },
-   "authority_line": 23
-  },
-  {
    "id": "ATC_ZONE_Y",
    "name": "Atc Zone Y",
    "board": "7i84U-A",
@@ -1945,7 +1829,7 @@ window.MAZAK_DATA = {
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
-     "lines": "24",
+     "lines": "22",
      "note": "Current wiring authority row"
     },
     {
@@ -1966,7 +1850,7 @@ window.MAZAK_DATA = {
     "cn_pin": "CN3-44",
     "provenance": "RESOLVED 2026-08-10: Dwg 4143075409 pg135 '2nd +Y OVER TRAVEL' = PRS-55 wire +LY2 at T.U CN3-44 - matches authority CSV's PRS-55 citation exactly"
    },
-   "authority_line": 24
+   "authority_line": 22
   },
   {
    "id": "ATC_ZONE_Z",
@@ -2022,7 +1906,7 @@ window.MAZAK_DATA = {
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
-     "lines": "25",
+     "lines": "23",
      "note": "Current wiring authority row"
     },
     {
@@ -2043,7 +1927,7 @@ window.MAZAK_DATA = {
     "cn_pin": "CN3-39",
     "provenance": "RESOLVED 2026-08-10: Dwg 4143075409 pg135 '2nd -Z OVER TRAVEL' = PRS-66 wire -LZ2 at T.U CN3-39 - matches authority CSV's PRS-66 citation exactly"
    },
-   "authority_line": 25
+   "authority_line": 23
   },
   {
    "id": "MAG_TOOL_AVAILABLE",
@@ -2113,7 +1997,7 @@ window.MAZAK_DATA = {
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
-     "lines": "26",
+     "lines": "24",
      "note": "Current wiring authority row"
     },
     {
@@ -2139,7 +2023,7 @@ window.MAZAK_DATA = {
     "cn_pin": "CN2-13",
     "provenance": "RESOLVED 2026-08-10: Dwg 4143075409 pg135 confirms wire 381 = TOOL DETECTOR (PHS-181) at T.U CN2-13, matching the BBIA-1 board pinout's wire# at CN2-13 even though the board labels that pin LUBE TIMER (label mismatch, wire# + independent schematic corroboration trusted); supersedes the prior CN6-37 ambiguity"
    },
-   "authority_line": 26
+   "authority_line": 24
   },
   {
    "id": "SPINDLE_TOOL_AVAILABLE",
@@ -2209,7 +2093,7 @@ window.MAZAK_DATA = {
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
-     "lines": "27",
+     "lines": "25",
      "note": "Current wiring authority row"
     },
     {
@@ -2235,7 +2119,7 @@ window.MAZAK_DATA = {
     "cn_pin": "CN6-50",
     "provenance": "CANDIDATE 2026-08-10: BBIA-1 board pinout CN6-50 = wire382 MAGAZINE SPINDLE TOOL DETECTOR (best label match for PHS-182 spindle-tool-available); same wire382 also appears at CN2-42 SPINDLE TOOL CLAMP OK. Dwg 4143075408 pg134 shows a third candidate T.U CN3-44 'SPTDPRS' with no confirmed wire# - three plausible pins for one signal, verify in field before landing"
    },
-   "authority_line": 27
+   "authority_line": 25
   },
   {
    "id": "SPINDLE_ORIENT_ARRIVAL",
@@ -2302,7 +2186,7 @@ window.MAZAK_DATA = {
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
-     "lines": "28",
+     "lines": "26",
      "note": "Current wiring authority row"
     },
     {
@@ -2328,7 +2212,7 @@ window.MAZAK_DATA = {
     "cn_pin": "CN4-16",
     "provenance": "LOW CONFIDENCE 2026-08-10: pre-existing authority note flags this as unverified (FR-SX OBA1(t22)/OBA2(t23) -> CN4-16/CN4-17, 'digits verify'); BBIA-1 board pinout shows CN4-16/17 labeled SETA/SETB not OBA1/OBA2 - functionally plausible (orient-arrival confirmation bits) but not independently corroborated by wire# or a dedicated schematic row this session. Field-verify before commissioning"
    },
-   "authority_line": 28
+   "authority_line": 26
   },
   {
    "id": "SPINDLE_ZERO_SPEED",
@@ -2421,7 +2305,7 @@ window.MAZAK_DATA = {
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
-     "lines": "29",
+     "lines": "27",
      "note": "Current wiring authority row"
     },
     {
@@ -2457,7 +2341,7 @@ window.MAZAK_DATA = {
     "cn_pin": "CN4-1",
     "provenance": "BBIA-1 board pinout (trusted over pg135)"
    },
-   "authority_line": 29
+   "authority_line": 27
   },
   {
    "id": "MAG_COVER_OPEN_CONF",
@@ -2524,7 +2408,7 @@ window.MAZAK_DATA = {
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
-     "lines": "30",
+     "lines": "28",
      "note": "Current wiring authority row"
     },
     {
@@ -2550,7 +2434,7 @@ window.MAZAK_DATA = {
     "cn_pin": "CN2-11",
     "provenance": "BBIA-1 pinout: COVER OPEN at CN2-11 (wire 218 also lands CN2-10=POWER OPEN)"
    },
-   "authority_line": 30
+   "authority_line": 28
   },
   {
    "id": "MAG_COVER_CLOSE_CONF",
@@ -2617,7 +2501,7 @@ window.MAZAK_DATA = {
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
-     "lines": "31",
+     "lines": "29",
      "note": "Current wiring authority row"
     },
     {
@@ -2643,7 +2527,7 @@ window.MAZAK_DATA = {
     "cn_pin": "CN2-12",
     "provenance": "RESOLVED 2026-08-10: wire 219 confirmed by two independent sources - Dwg 4143075409 pg135 (RS-19 MGCCRS at T.U CN2-12) and BBIA-1 board pinout CSV (CN2-12 = wire219; board labels the pin MAGAZINE FWD/REV SW - label mismatch, wire# match trusted)"
    },
-   "authority_line": 31
+   "authority_line": 29
   },
   {
    "id": "THERMAL_ALARM_CHAIN",
@@ -2697,7 +2581,7 @@ window.MAZAK_DATA = {
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
-     "lines": "32",
+     "lines": "30",
      "note": "Current wiring authority row"
     },
     {
@@ -2718,7 +2602,7 @@ window.MAZAK_DATA = {
     "cn_pin": "CN5-1",
     "provenance": "RESOLVED 2026-08-10: Dwg 4143075407 pg133 confirms series chain T.U CN5-1 (wire144 THR.M/TRP.M external trip protector) + T.U CN5-3 (wire146/OHT.A main transformer overheat) - matches the pre-existing authority LOCATED note on both pins. BBIA-1 board pinout CN5-1='EXTERNAL TRIP PROTECTOR' wire144 confirms; CN5-3='OVER RUN EMG STOP' wire146 (board label differs from OHT mnemonic, wire# match trusted). Land IN8 from CN5-1 in series with CN5-3"
    },
-   "authority_line": 32
+   "authority_line": 30
   },
   {
    "id": "MANUAL_TOOL_UNCLAMP_PB",
@@ -2785,7 +2669,7 @@ window.MAZAK_DATA = {
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
-     "lines": "33",
+     "lines": "31",
      "note": "Current wiring authority row"
     },
     {
@@ -2811,7 +2695,7 @@ window.MAZAK_DATA = {
     "cn_pin": "CN2-3",
     "provenance": "verified wire# -> BBIA-1 pinout (CNDx pin = CNx pin)"
    },
-   "authority_line": 33
+   "authority_line": 31
   },
   {
    "id": "SERVO_FAULT",
@@ -2902,7 +2786,7 @@ window.MAZAK_DATA = {
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
-     "lines": "34",
+     "lines": "32",
      "note": "Current wiring authority row"
     },
     {
@@ -2938,7 +2822,7 @@ window.MAZAK_DATA = {
     "cn_pin": "CN6-27",
     "provenance": "RESOLVED 2026-08-11 (owner decision AG): CN6-27 = wire mnemonic SER, function SERVO ERROR - the SINGLE combined servo-alarm contact for all three axes (only one SER entry on the 50-pin CN6; docs/servo_amp_analysis.md 3.3 confirms SERVO ALARM lands at the terminal unit's CN6). Consolidated to one 7i84U-A input (IN10) that fans out to all three joint amp-faults; the former per-axis X/Y/Z_DRIVE_FAULT (IN10/11/12) design is retired and IN11/IN12 are freed to spare"
    },
-   "authority_line": 34
+   "authority_line": 32
   },
   {
    "id": "SEVENI84UA_IN11_SPARE",
@@ -2978,7 +2862,7 @@ window.MAZAK_DATA = {
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
-     "lines": "35",
+     "lines": "33",
      "note": "Current wiring authority row"
     },
     {
@@ -2989,7 +2873,7 @@ window.MAZAK_DATA = {
    ],
    "conflicts": [],
    "bb_source": null,
-   "authority_line": 35
+   "authority_line": 33
   },
   {
    "id": "SEVENI84UA_IN12_SPARE",
@@ -3029,7 +2913,7 @@ window.MAZAK_DATA = {
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
-     "lines": "36",
+     "lines": "34",
      "note": "Current wiring authority row"
     },
     {
@@ -3040,7 +2924,7 @@ window.MAZAK_DATA = {
    ],
    "conflicts": [],
    "bb_source": null,
-   "authority_line": 36
+   "authority_line": 34
   },
   {
    "id": "SPINDLE_AT_SPEED",
@@ -3107,7 +2991,7 @@ window.MAZAK_DATA = {
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
-     "lines": "37",
+     "lines": "35",
      "note": "Current wiring authority row"
     },
     {
@@ -3128,7 +3012,7 @@ window.MAZAK_DATA = {
    ],
    "conflicts": [],
    "bb_source": null,
-   "authority_line": 37
+   "authority_line": 35
   },
   {
    "id": "SPINDLE_FAULT",
@@ -3231,7 +3115,7 @@ window.MAZAK_DATA = {
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
-     "lines": "38",
+     "lines": "36",
      "note": "Current wiring authority row"
     },
     {
@@ -3272,7 +3156,7 @@ window.MAZAK_DATA = {
     "cn_pin": "CN4-3",
     "provenance": "RESOLVED 2026-08-10: Dwg 4143075408 pg134 T.U CN4-3/CN4-4 = wire mnemonics FA/FC 'SPINDLE CONTROLLER NORMAL', matching the authority note's FR-SX FA(t11)/FC(t12); BBIA-1 board pinout CN4-3='FA' labels it SPINDLE REV ROLLER THERMAL (label differs, mnemonic matches - trusted). Land IN14 from CN4-3; CN4-4 is the common return"
    },
-   "authority_line": 38
+   "authority_line": 36
   },
   {
    "id": "TOOL_CLAMP_CONF",
@@ -3341,7 +3225,7 @@ window.MAZAK_DATA = {
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
-     "lines": "39",
+     "lines": "37",
      "note": "Current wiring authority row"
     },
     {
@@ -3367,7 +3251,7 @@ window.MAZAK_DATA = {
     "cn_pin": "CN1-2",
     "provenance": "verified wire# -> BBIA-1 pinout (CNDx pin = CNx pin)"
    },
-   "authority_line": 39
+   "authority_line": 37
   },
   {
    "id": "TOOL_UNCLAMP_CONF",
@@ -3436,7 +3320,7 @@ window.MAZAK_DATA = {
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
-     "lines": "40",
+     "lines": "38",
      "note": "Current wiring authority row"
     },
     {
@@ -3462,7 +3346,7 @@ window.MAZAK_DATA = {
     "cn_pin": "CN1-1",
     "provenance": "verified wire# -> BBIA-1 pinout (CNDx pin = CNx pin)"
    },
-   "authority_line": 40
+   "authority_line": 38
   },
   {
    "id": "GEAR_HI_CONF",
@@ -3531,7 +3415,7 @@ window.MAZAK_DATA = {
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
-     "lines": "41",
+     "lines": "39",
      "note": "Current wiring authority row"
     },
     {
@@ -3557,7 +3441,7 @@ window.MAZAK_DATA = {
     "cn_pin": "CN1-3",
     "provenance": "verified wire# -> BBIA-1 pinout (CNDx pin = CNx pin)"
    },
-   "authority_line": 41
+   "authority_line": 39
   },
   {
    "id": "GEAR_LO_CONF",
@@ -3629,7 +3513,7 @@ window.MAZAK_DATA = {
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
-     "lines": "42",
+     "lines": "40",
      "note": "Current wiring authority row"
     },
     {
@@ -3655,7 +3539,7 @@ window.MAZAK_DATA = {
     "cn_pin": "CN1-4",
     "provenance": "verified wire# -> BBIA-1 pinout (CNDx pin = CNx pin)"
    },
-   "authority_line": 42
+   "authority_line": 40
   },
   {
    "id": "MAG_BCD_BIT0",
@@ -3738,7 +3622,7 @@ window.MAZAK_DATA = {
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
-     "lines": "43",
+     "lines": "41",
      "note": "Current wiring authority row"
     },
     {
@@ -3769,7 +3653,7 @@ window.MAZAK_DATA = {
     "cn_pin": "CN2-4",
     "provenance": "BBIA-1 board pinout (trusted over pg135)"
    },
-   "authority_line": 43
+   "authority_line": 41
   },
   {
    "id": "MAG_BCD_BIT1",
@@ -3852,7 +3736,7 @@ window.MAZAK_DATA = {
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
-     "lines": "44",
+     "lines": "42",
      "note": "Current wiring authority row"
     },
     {
@@ -3883,7 +3767,7 @@ window.MAZAK_DATA = {
     "cn_pin": "CN2-5",
     "provenance": "BBIA-1 board pinout (trusted over pg135)"
    },
-   "authority_line": 44
+   "authority_line": 42
   },
   {
    "id": "MAG_BCD_BIT2",
@@ -3966,7 +3850,7 @@ window.MAZAK_DATA = {
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
-     "lines": "45",
+     "lines": "43",
      "note": "Current wiring authority row"
     },
     {
@@ -3997,7 +3881,7 @@ window.MAZAK_DATA = {
     "cn_pin": "CN2-6",
     "provenance": "BBIA-1 board pinout (trusted over pg135)"
    },
-   "authority_line": 45
+   "authority_line": 43
   },
   {
    "id": "MAG_BCD_BIT3",
@@ -4080,7 +3964,7 @@ window.MAZAK_DATA = {
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
-     "lines": "46",
+     "lines": "44",
      "note": "Current wiring authority row"
     },
     {
@@ -4111,7 +3995,7 @@ window.MAZAK_DATA = {
     "cn_pin": "CN2-7",
     "provenance": "BBIA-1 board pinout (trusted over pg135)"
    },
-   "authority_line": 46
+   "authority_line": 44
   },
   {
    "id": "MAG_BCD_BIT4",
@@ -4194,7 +4078,7 @@ window.MAZAK_DATA = {
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
-     "lines": "47",
+     "lines": "45",
      "note": "Current wiring authority row"
     },
     {
@@ -4225,7 +4109,7 @@ window.MAZAK_DATA = {
     "cn_pin": "CN2-8",
     "provenance": "BBIA-1 board pinout (trusted over pg135)"
    },
-   "authority_line": 47
+   "authority_line": 45
   },
   {
    "id": "DOOR_INTERLOCK",
@@ -4284,7 +4168,7 @@ window.MAZAK_DATA = {
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
-     "lines": "48",
+     "lines": "46",
      "note": "Current wiring authority row"
     },
     {
@@ -4305,7 +4189,7 @@ window.MAZAK_DATA = {
     "cn_pin": "CN2-38",
     "provenance": "RESOLVED 2026-08-10 (primary): BBIA-1 board pinout CN2-38 = wire238 MACHINE DOOR INTERLOCK (mirrored at CN6-23, same wire# - internally consistent). ALT candidate: Dwg 4143075407 pg133 T.U CN3-3 wire142 MDINT.M (ladder-side finding, different wire#, not reconciled with the board pinout). Door-interlock chain is series-wired with LS-140/141 per open_issues.md so more than one physical contact may legitimately exist"
    },
-   "authority_line": 48
+   "authority_line": 46
   },
   {
    "id": "LUBE_OK",
@@ -4361,7 +4245,7 @@ window.MAZAK_DATA = {
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
-     "lines": "49",
+     "lines": "47",
      "note": "Current wiring authority row"
     },
     {
@@ -4382,7 +4266,7 @@ window.MAZAK_DATA = {
     "cn_pin": "CN6-39",
     "provenance": "verified wire# -> BBIA-1 pinout (CNDx pin = CNx pin)"
    },
-   "authority_line": 49
+   "authority_line": 47
   },
   {
    "id": "COOLANT_LOW",
@@ -4436,7 +4320,7 @@ window.MAZAK_DATA = {
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
-     "lines": "50",
+     "lines": "48",
      "note": "Current wiring authority row"
     },
     {
@@ -4457,7 +4341,7 @@ window.MAZAK_DATA = {
     "cn_pin": "CN1-5",
     "provenance": "CANDIDATE 2026-08-10: BBIA-1 board pinout CN1-5 = wire232 '2nd-S LEVEL' (function: coolant lvl) - plausible match for coolant level switch; not cross-checked against a ladder-side wire# this session, verify polarity/normal-state before commissioning"
    },
-   "authority_line": 50
+   "authority_line": 48
   },
   {
    "id": "HYD_PRESS_OK",
@@ -4524,7 +4408,7 @@ window.MAZAK_DATA = {
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
-     "lines": "51",
+     "lines": "49",
      "note": "Current wiring authority row"
     },
     {
@@ -4550,7 +4434,7 @@ window.MAZAK_DATA = {
     "cn_pin": "",
     "provenance": "NOT LOCATED 2026-08-10 (checked further): searched every mined ladder doc (docs/ladder/*.md) and the element crosswalk for a hydraulic pressure switch / PS- designator - the only pressure switch found anywhere is PS-5 (head-lube, already used for LUBE_OK). No hydraulic-pressure PLC input (X-address) surfaced. Possible this is a NEW sensor the retrofit is adding rather than a factory-existing signal - needs field trace or owner confirmation of whether Sanwa SPS-8T-PC-20 is already installed"
    },
-   "authority_line": 51
+   "authority_line": 49
   },
   {
    "id": "CYCLE_START_PB",
@@ -4590,7 +4474,7 @@ window.MAZAK_DATA = {
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
-     "lines": "52",
+     "lines": "50",
      "note": "Current wiring authority row"
     },
     {
@@ -4601,7 +4485,7 @@ window.MAZAK_DATA = {
    ],
    "conflicts": [],
    "bb_source": null,
-   "authority_line": 52
+   "authority_line": 50
   },
   {
    "id": "MAG_IN_POS",
@@ -4682,7 +4566,7 @@ window.MAZAK_DATA = {
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
-     "lines": "53",
+     "lines": "51",
      "note": "Current wiring authority row"
     },
     {
@@ -4713,7 +4597,7 @@ window.MAZAK_DATA = {
     "cn_pin": "CN2-9",
     "provenance": "BBIA-1 board pinout (trusted over pg135)"
    },
-   "authority_line": 53
+   "authority_line": 51
   },
   {
    "id": "ESTOP_MONITOR",
@@ -4782,7 +4666,7 @@ window.MAZAK_DATA = {
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
-     "lines": "54",
+     "lines": "52",
      "note": "Current wiring authority row"
     },
     {
@@ -4803,7 +4687,7 @@ window.MAZAK_DATA = {
    ],
    "conflicts": [],
    "bb_source": null,
-   "authority_line": 54
+   "authority_line": 52
   },
   {
    "id": "MANUAL_TOOL_CLAMP_PB",
@@ -4843,7 +4727,7 @@ window.MAZAK_DATA = {
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
-     "lines": "55",
+     "lines": "53",
      "note": "Current wiring authority row"
     },
     {
@@ -4859,7 +4743,7 @@ window.MAZAK_DATA = {
     "cn_pin": "CN2-44",
     "provenance": "RESOLVED 2026-08-10: confirmed by Dwg 4143075407 pg133 (T.U CN2-44, TCCFS.M, wire149B), matching the pre-existing authority CSV LOCATED note; cross-verified directly against BBIA-1 board pinout (CN2-44 = wire149B FOOT SWITCH)"
    },
-   "authority_line": 55
+   "authority_line": 53
   },
   {
    "id": "SERVO_READY",
@@ -4952,7 +4836,7 @@ window.MAZAK_DATA = {
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
-     "lines": "56",
+     "lines": "54",
      "note": "Current wiring authority row"
     },
     {
@@ -4988,7 +4872,7 @@ window.MAZAK_DATA = {
     "cn_pin": "CN6-7",
     "provenance": "RESOLVED 2026-08-10: BBIA-1 board pinout CN6-7 = wire mnemonic SA, function SERVO READY - exact label match"
    },
-   "authority_line": 56
+   "authority_line": 54
   },
   {
    "id": "SPINDLE_FWD",
@@ -5055,7 +4939,7 @@ window.MAZAK_DATA = {
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
-     "lines": "57",
+     "lines": "55",
      "note": "Current wiring authority row"
     },
     {
@@ -5083,7 +4967,7 @@ window.MAZAK_DATA = {
     "cn_pin": "CN4-9",
     "provenance": "CANDIDATE 2026-08-10: Dwg 4143075408 pg134 shows SPINDLE FORWARD landing at both T.U CN3-11 and CN4-9 (both wire mnemonic SRN - CN3/CN4 are parallel connectors into the same spindle-controller circuit per bbia1_terminal_unit.md). Chose CN4 (dedicated 20-pin spindle connector) for consistency with the SPINDLE_ZERO_SPEED precedent (CN4-1); CN3-11 is an equally valid alternate landing point"
    },
-   "authority_line": 57
+   "authority_line": 55
   },
   {
    "id": "SPINDLE_REV",
@@ -5150,7 +5034,7 @@ window.MAZAK_DATA = {
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
-     "lines": "58",
+     "lines": "56",
      "note": "Current wiring authority row"
     },
     {
@@ -5178,7 +5062,7 @@ window.MAZAK_DATA = {
     "cn_pin": "CN4-10",
     "provenance": "CANDIDATE 2026-08-10: Dwg 4143075408 pg134 shows SPINDLE REVERSE landing at both T.U CN3-12 and CN4-10 (both wire mnemonic SRI, parallel connectors). Chose CN4 for consistency with SPINDLE_ZERO_SPEED/SPINDLE_FWD; CN3-12 is an equally valid alternate"
    },
-   "authority_line": 58
+   "authority_line": 56
   },
   {
    "id": "SPINDLE_ENABLE",
@@ -5282,7 +5166,7 @@ window.MAZAK_DATA = {
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
-     "lines": "59",
+     "lines": "57",
      "note": "Current wiring authority row"
     },
     {
@@ -5330,7 +5214,7 @@ window.MAZAK_DATA = {
     "cn_pin": "",
     "provenance": "N/A 2026-08-10: no discrete OEM wire - spindle-motion-permit is a new HAL-internal logical gate combining FWD/REV/RUN/ORCM1/watchdog/E-stop/servo-ready/spindle-fault, not a 1:1 terminal-unit signal"
    },
-   "authority_line": 59
+   "authority_line": 57
   },
   {
    "id": "HYD_PUMP_ON",
@@ -5397,7 +5281,7 @@ window.MAZAK_DATA = {
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
-     "lines": "60",
+     "lines": "58",
      "note": "Current wiring authority row"
     },
     {
@@ -5423,7 +5307,7 @@ window.MAZAK_DATA = {
     "cn_pin": "SSR bd CN11-16",
     "provenance": "BBIA-1 terminal-unit CN11 pin16 (dwg 4113075022 sheet 85 / 41434WB p85) read 2026-08-10 - see wiring/bbia1_cn_pinouts.csv; NOT the SSR-board's own CN11 (see CN11-SSR)"
    },
-   "authority_line": 60
+   "authority_line": 58
   },
   {
    "id": "SPINDLE_ORIENT_CMD",
@@ -5490,7 +5374,7 @@ window.MAZAK_DATA = {
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
-     "lines": "61",
+     "lines": "59",
      "note": "Current wiring authority row"
     },
     {
@@ -5518,7 +5402,7 @@ window.MAZAK_DATA = {
     "cn_pin": "CN3-14",
     "provenance": "RESOLVED (pre-existing, reconfirmed 2026-08-10): authority CSV LOCATED note + Dwg 4143075408 pg134 T.U CN3-14 wire4-12 agree; BBIA-1 board pinout CN3-14 = 'ORI C1' matches"
    },
-   "authority_line": 61
+   "authority_line": 59
   },
   {
    "id": "SPINDLE_ORIENT_LOGEAR",
@@ -5585,7 +5469,7 @@ window.MAZAK_DATA = {
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
-     "lines": "62",
+     "lines": "60",
      "note": "Current wiring authority row"
     },
     {
@@ -5611,7 +5495,7 @@ window.MAZAK_DATA = {
     "cn_pin": "CN3-15",
     "provenance": "RESOLVED (pre-existing, reconfirmed 2026-08-10): authority CSV LOCATED note + Dwg 4143075408 pg134 T.U CN3-15 wire4-13 agree; BBIA-1 board pinout CN3-15 = 'CTL' matches"
    },
-   "authority_line": 62
+   "authority_line": 60
   },
   {
    "id": "Z_BRAKE_REL_ENABLE",
@@ -5720,7 +5604,7 @@ window.MAZAK_DATA = {
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
-     "lines": "63",
+     "lines": "61",
      "note": "Current wiring authority row"
     },
     {
@@ -5766,7 +5650,7 @@ window.MAZAK_DATA = {
     "cn_pin": "",
     "provenance": "NOT LOCATED 2026-08-10 (checked further): N1J-L2-201 Z brake release (SOL-201) not identified among transcribed BBIA-1 CN1-CN6/CN11 pins. docs/estop_safety_chain.md describes the Z-brake drop-out as a CABINET-LEVEL hardwired interlock requirement (brake-drop-before-amp-drop, triggered by the same relay contact that requests the amp contactor to drop) rather than a documented existing OEM signal - this looks like a NEW retrofit-designed circuit, not something to trace on the original BBIA-1 pass-through. Needs cabinet-level design/field verification, not a paper trace"
    },
-   "authority_line": 63
+   "authority_line": 61
   },
   {
    "id": "GEAR_HI_SOL",
@@ -5837,7 +5721,7 @@ window.MAZAK_DATA = {
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
-     "lines": "64",
+     "lines": "62",
      "note": "Current wiring authority row"
     },
     {
@@ -5863,7 +5747,7 @@ window.MAZAK_DATA = {
     "cn_pin": "SSR bd CN11-4",
     "provenance": "RESOLVED 2026-08-10: BBIA-1 terminal-unit CN11 pin4 = wire712 GEAR SHIFT HIGH (PLC-output/BBIA-1 side); downstream at the solenoid this becomes wire412 per pg100 TB-51 (SOL-12) - different wire# across the SSR-board relay contact is normal, CN11-4 is the correct Mesa landing point"
    },
-   "authority_line": 64
+   "authority_line": 62
   },
   {
    "id": "GEAR_LO_SOL",
@@ -5934,7 +5818,7 @@ window.MAZAK_DATA = {
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
-     "lines": "65",
+     "lines": "63",
      "note": "Current wiring authority row"
     },
     {
@@ -5960,7 +5844,7 @@ window.MAZAK_DATA = {
     "cn_pin": "SSR bd CN11-5",
     "provenance": "RESOLVED 2026-08-10: BBIA-1 terminal-unit CN11 pin5 = wire213 GEAR SHIFT LOW (PLC-output/BBIA-1 side); downstream becomes wire413 per pg100 TB-51 (SOL-13) - CN11-5 is the correct Mesa landing point"
    },
-   "authority_line": 65
+   "authority_line": 63
   },
   {
    "id": "TOOL_CLAMP_SOL",
@@ -6002,7 +5886,7 @@ window.MAZAK_DATA = {
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
-     "lines": "66",
+     "lines": "64",
      "note": "Current wiring authority row"
     },
     {
@@ -6018,7 +5902,7 @@ window.MAZAK_DATA = {
     "cn_pin": "",
     "provenance": "N/A 2026-08-10: eliminated per authority CSV (PHANTOM/NOT_USED) - SOL-10 is single-coil spring-return, clamp=de-energize, no separate clamp solenoid exists to land"
    },
-   "authority_line": 66
+   "authority_line": 64
   },
   {
    "id": "TOOL_UNCLAMP_SOL",
@@ -6089,7 +5973,7 @@ window.MAZAK_DATA = {
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
-     "lines": "67",
+     "lines": "65",
      "note": "Current wiring authority row"
     },
     {
@@ -6115,7 +5999,7 @@ window.MAZAK_DATA = {
     "cn_pin": "SSR bd CN11-3",
     "provenance": "RESOLVED 2026-08-10: BBIA-1 terminal-unit CN11 pin3 = wire710 TOOL UNCLAMP - exact label match, consistent with SOL-10 single-coil spring-return (energize=unclamp)"
    },
-   "authority_line": 67
+   "authority_line": 65
   },
   {
    "id": "COOLANT_ON",
@@ -6186,7 +6070,7 @@ window.MAZAK_DATA = {
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
-     "lines": "68",
+     "lines": "66",
      "note": "Current wiring authority row"
     },
     {
@@ -6212,7 +6096,7 @@ window.MAZAK_DATA = {
     "cn_pin": "SSR bd CN11-15",
     "provenance": "RESOLVED 2026-08-10: BBIA-1 terminal-unit CN11 pin15 = wire236 FLOOD COOLANT MOTOR STARTER, matching 'coolant pump relay' (motor starter = pump, distinct from FLOOD_VALVE at CN11-13). NB pin15 shares wire236 with pin12 OIL HOLE - a data-quality flag in the source CSV, not resolved here"
    },
-   "authority_line": 68
+   "authority_line": 66
   },
   {
    "id": "MIST_COOLANT",
@@ -6252,7 +6136,7 @@ window.MAZAK_DATA = {
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
-     "lines": "69",
+     "lines": "67",
      "note": "Current wiring authority row"
     },
     {
@@ -6263,7 +6147,7 @@ window.MAZAK_DATA = {
    ],
    "conflicts": [],
    "bb_source": null,
-   "authority_line": 69
+   "authority_line": 67
   },
   {
    "id": "MAG_CW_SOL",
@@ -6332,7 +6216,7 @@ window.MAZAK_DATA = {
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
-     "lines": "70",
+     "lines": "68",
      "note": "Current wiring authority row"
     },
     {
@@ -6353,7 +6237,7 @@ window.MAZAK_DATA = {
    ],
    "conflicts": [],
    "bb_source": null,
-   "authority_line": 70
+   "authority_line": 68
   },
   {
    "id": "MAG_CCW_SOL",
@@ -6422,7 +6306,7 @@ window.MAZAK_DATA = {
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
-     "lines": "71",
+     "lines": "69",
      "note": "Current wiring authority row"
     },
     {
@@ -6443,7 +6327,7 @@ window.MAZAK_DATA = {
    ],
    "conflicts": [],
    "bb_source": null,
-   "authority_line": 71
+   "authority_line": 69
   },
   {
    "id": "ALARM_OUT",
@@ -6483,7 +6367,7 @@ window.MAZAK_DATA = {
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
-     "lines": "72",
+     "lines": "70",
      "note": "Current wiring authority row"
     },
     {
@@ -6494,7 +6378,7 @@ window.MAZAK_DATA = {
    ],
    "conflicts": [],
    "bb_source": null,
-   "authority_line": 72
+   "authority_line": 70
   },
   {
    "id": "SSERIAL_PORT1_TXA",
@@ -6534,7 +6418,7 @@ window.MAZAK_DATA = {
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
-     "lines": "73",
+     "lines": "71",
      "note": "Current wiring authority row"
     },
     {
@@ -6545,7 +6429,7 @@ window.MAZAK_DATA = {
    ],
    "conflicts": [],
    "bb_source": null,
-   "authority_line": 73
+   "authority_line": 71
   },
   {
    "id": "SSERIAL_PORT1_TXB",
@@ -6585,7 +6469,7 @@ window.MAZAK_DATA = {
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
-     "lines": "74",
+     "lines": "72",
      "note": "Current wiring authority row"
     },
     {
@@ -6596,7 +6480,7 @@ window.MAZAK_DATA = {
    ],
    "conflicts": [],
    "bb_source": null,
-   "authority_line": 74
+   "authority_line": 72
   },
   {
    "id": "SSERIAL_PORT1_RXA",
@@ -6636,7 +6520,7 @@ window.MAZAK_DATA = {
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
-     "lines": "75",
+     "lines": "73",
      "note": "Current wiring authority row"
     },
     {
@@ -6647,7 +6531,7 @@ window.MAZAK_DATA = {
    ],
    "conflicts": [],
    "bb_source": null,
-   "authority_line": 75
+   "authority_line": 73
   },
   {
    "id": "SSERIAL_PORT1_RXB",
@@ -6687,7 +6571,7 @@ window.MAZAK_DATA = {
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
-     "lines": "76",
+     "lines": "74",
      "note": "Current wiring authority row"
     },
     {
@@ -6698,7 +6582,7 @@ window.MAZAK_DATA = {
    ],
    "conflicts": [],
    "bb_source": null,
-   "authority_line": 76
+   "authority_line": 74
   },
   {
    "id": "SSERIAL_PORT1_GND",
@@ -6738,7 +6622,7 @@ window.MAZAK_DATA = {
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
-     "lines": "77",
+     "lines": "75",
      "note": "Current wiring authority row"
     },
     {
@@ -6749,7 +6633,7 @@ window.MAZAK_DATA = {
    ],
    "conflicts": [],
    "bb_source": null,
-   "authority_line": 77
+   "authority_line": 75
   },
   {
    "id": "SSERIAL_PORT1_5V",
@@ -6789,7 +6673,7 @@ window.MAZAK_DATA = {
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
-     "lines": "78",
+     "lines": "76",
      "note": "Current wiring authority row"
     },
     {
@@ -6800,123 +6684,7 @@ window.MAZAK_DATA = {
    ],
    "conflicts": [],
    "bb_source": null,
-   "authority_line": 78
-  },
-  {
-   "id": "SEVENI84UB_FIELD_A_24V",
-   "name": "Seveni84Ub Field A 24V",
-   "board": "7i84U-B",
-   "connector": "TB1",
-   "channel": "TB1 pins 3/4 VFIELDA (+24 V field power, 5-28 VDC)",
-   "hal_net": "",
-   "direction": "POWER",
-   "direction_label": "Power / common",
-   "subsystem": "Power",
-   "machine_subsystem": "Field power",
-   "status": "PROPOSED",
-   "field_point": "Field power bank A (TB3 I/O)",
-   "dest_connector": "TB3",
-   "dest_pin": "",
-   "factory_wire": "",
-   "bbia_class": "power-internal",
-   "designations": [
-    "TB-3"
-   ],
-   "primary_source": "Mesa 7i84U manual pp.2/7-8/47",
-   "cleanup_notes": "Both terminals are VFIELDA; powers TB3 outputs 0-7 and inputs 0-15. Never connect either pin to 0 V. Retrofit field-power supply is unspecified. Its 24 V output rating is shared across ALL 7i84U-A and 7i84U-B field banks -- identify the source and verify the combined output current budget before energizing.",
-   "location": "Field I/O enclosure — 7i84U-B TB1 pins 3/4",
-   "location_note": "VFIELDA for TB3 bank",
-   "expected": {
-    "value": "24 V",
-    "label": "VFIELDA supply for TB3 outputs 0-7 and inputs 0-15; TB1 pins 3/4 are both positive",
-    "basis": "Mesa 7i84U manual pp.7-8/47",
-    "kind": "na"
-   },
-   "hal_state": "absent",
-   "mesa_pins": [],
-   "producers": [],
-   "consumers": [],
-   "hal_refs": [],
-   "setp_refs": [],
-   "epson_ferrules": [],
-   "sources": [
-    {
-     "file": "mesa/current_pin_authority.csv",
-     "lines": "79",
-     "note": "Current wiring authority row"
-    },
-    {
-     "file": "Mesa 7i84U manual pp.2/7-8/47",
-     "lines": "",
-     "note": "primary_source column in the authority table"
-    }
-   ],
-   "conflicts": [],
-   "bb_source": {
-    "cnd_pin": "",
-    "wire": "",
-    "cn_pin": "",
-    "provenance": "N/A 2026-08-10: not a BBIA-1 pass-through signal - new dedicated Mesa field-power wiring from the retrofit supply, per authority CSV"
-   },
-   "authority_line": 79
-  },
-  {
-   "id": "SEVENI84UB_FIELD_B_24V",
-   "name": "Seveni84Ub Field B 24V",
-   "board": "7i84U-B",
-   "connector": "TB1",
-   "channel": "TB1 pins 1/2 VFIELDB (+24 V field power, 5-28 VDC)",
-   "hal_net": "",
-   "direction": "POWER",
-   "direction_label": "Power / common",
-   "subsystem": "Power",
-   "machine_subsystem": "Field power",
-   "status": "PROPOSED",
-   "field_point": "Field power bank B (TB2 I/O)",
-   "dest_connector": "TB2",
-   "dest_pin": "",
-   "factory_wire": "",
-   "bbia_class": "power-internal",
-   "designations": [
-    "TB-2"
-   ],
-   "primary_source": "Mesa 7i84U manual pp.2/7-8/47",
-   "cleanup_notes": "Both terminals are VFIELDB; powers TB2 outputs 8-15 and inputs 16-31. Never connect either pin to 0 V. Retrofit field-power supply is unspecified. Its 24 V output rating is shared across ALL 7i84U-A and 7i84U-B field banks -- identify the source and verify the combined output current budget before energizing.",
-   "location": "Field I/O enclosure — 7i84U-B TB1 pins 1/2",
-   "location_note": "VFIELDB for TB2 bank",
-   "expected": {
-    "value": "24 V",
-    "label": "VFIELDB supply for TB2 outputs 8-15 and inputs 16-31; TB1 pins 1/2 are both positive",
-    "basis": "Mesa 7i84U manual pp.7-8/47",
-    "kind": "na"
-   },
-   "hal_state": "absent",
-   "mesa_pins": [],
-   "producers": [],
-   "consumers": [],
-   "hal_refs": [],
-   "setp_refs": [],
-   "epson_ferrules": [],
-   "sources": [
-    {
-     "file": "mesa/current_pin_authority.csv",
-     "lines": "80",
-     "note": "Current wiring authority row"
-    },
-    {
-     "file": "Mesa 7i84U manual pp.2/7-8/47",
-     "lines": "",
-     "note": "primary_source column in the authority table"
-    }
-   ],
-   "conflicts": [],
-   "bb_source": {
-    "cnd_pin": "",
-    "wire": "",
-    "cn_pin": "",
-    "provenance": "N/A 2026-08-10: not a BBIA-1 pass-through signal - new dedicated Mesa field-power wiring from PSU, per authority CSV"
-   },
-   "authority_line": 80
+   "authority_line": 76
   },
   {
    "id": "X_LIMIT_PLUS",
@@ -6996,7 +6764,7 @@ window.MAZAK_DATA = {
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
-     "lines": "81",
+     "lines": "77",
      "note": "Current wiring authority row"
     },
     {
@@ -7027,7 +6795,7 @@ window.MAZAK_DATA = {
     "cn_pin": "",
     "provenance": "NOT INDIVIDUALLY LOCATED 2026-08-10: same finding as X_LIMIT_MINUS - +X OVER TRAVEL (*+LX) has no BBIA-1 connector-box label on Dwg 4143075410 pg136. Needs field trace"
    },
-   "authority_line": 81
+   "authority_line": 77
   },
   {
    "id": "X_LIMIT_MINUS",
@@ -7096,7 +6864,7 @@ window.MAZAK_DATA = {
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
-     "lines": "82",
+     "lines": "78",
      "note": "Current wiring authority row"
     },
     {
@@ -7122,7 +6890,7 @@ window.MAZAK_DATA = {
     "cn_pin": "",
     "provenance": "NOT INDIVIDUALLY LOCATED 2026-08-10: Dwg 4143075410 pg136 (Motion Switch Input 4) shows -X OVER TRAVEL (*-LX) with NO connector-box label on the T.U. row - unlike +Y(CN3-37)/-Z(CN3-38) which ARE individually called out, X-axis over-travel appears to bypass BBIA-1 as a discrete pin (may be relay-combined upstream, or land on a terminal block outside the 19-connector family). Needs field trace - do not assume a pin"
    },
-   "authority_line": 82
+   "authority_line": 78
   },
   {
    "id": "Y_LIMIT_PLUS",
@@ -7205,7 +6973,7 @@ window.MAZAK_DATA = {
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
-     "lines": "83",
+     "lines": "79",
      "note": "Current wiring authority row"
     },
     {
@@ -7236,7 +7004,7 @@ window.MAZAK_DATA = {
     "cn_pin": "CN3-37",
     "provenance": "RESOLVED 2026-08-10: Dwg 4143075410 pg136 explicitly labels T.U CN3-37 = wire mnemonic +LY under '+Y OVER TRAVEL' - matches BBIA-1 board pinout CN3-37='+LY' exactly. Only individually-routed BBIA-1 pin among the six primary axis over-travels found this session (paired with Z_LIMIT_MINUS/CN3-38)"
    },
-   "authority_line": 83
+   "authority_line": 79
   },
   {
    "id": "Y_LIMIT_MINUS",
@@ -7305,7 +7073,7 @@ window.MAZAK_DATA = {
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
-     "lines": "84",
+     "lines": "80",
      "note": "Current wiring authority row"
     },
     {
@@ -7331,7 +7099,7 @@ window.MAZAK_DATA = {
     "cn_pin": "",
     "provenance": "NOT INDIVIDUALLY LOCATED 2026-08-10: Dwg 4143075410 pg136 shows -Y OVER TRAVEL (*-LY) with NO connector-box label on the T.U. row (only +Y/CN3-37 and -Z/CN3-38 are individually called out). Needs field trace"
    },
-   "authority_line": 84
+   "authority_line": 80
   },
   {
    "id": "Z_LIMIT_PLUS",
@@ -7414,7 +7182,7 @@ window.MAZAK_DATA = {
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
-     "lines": "85",
+     "lines": "81",
      "note": "Current wiring authority row"
     },
     {
@@ -7445,7 +7213,7 @@ window.MAZAK_DATA = {
     "cn_pin": "",
     "provenance": "NOT INDIVIDUALLY LOCATED 2026-08-10: Dwg 4143075410 pg136 shows +Z OVER TRAVEL (*+LZ) with NO connector-box label on the T.U. row. Needs field trace"
    },
-   "authority_line": 85
+   "authority_line": 81
   },
   {
    "id": "Z_LIMIT_MINUS",
@@ -7528,7 +7296,7 @@ window.MAZAK_DATA = {
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
-     "lines": "86",
+     "lines": "82",
      "note": "Current wiring authority row"
     },
     {
@@ -7559,7 +7327,7 @@ window.MAZAK_DATA = {
     "cn_pin": "CN3-38",
     "provenance": "RESOLVED 2026-08-10: Dwg 4143075410 pg136 explicitly labels T.U CN3-38 = wire mnemonic -LZ under '-Z OVER TRAVEL' - matches BBIA-1 board pinout CN3-38='-LZ' exactly. Paired with Y_LIMIT_PLUS/CN3-37 as the only two individually-routed axis over-travel pins found this session"
    },
-   "authority_line": 86
+   "authority_line": 82
   },
   {
    "id": "X_HOME",
@@ -7642,7 +7410,7 @@ window.MAZAK_DATA = {
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
-     "lines": "87",
+     "lines": "83",
      "note": "Current wiring authority row"
     },
     {
@@ -7673,7 +7441,7 @@ window.MAZAK_DATA = {
     "cn_pin": "CN2-15",
     "provenance": "RESOLVED 2026-08-10: Dwg 4143075410 pg136 T.U row shows pin -15 under 'X AXIS ZERO RETURN DECELERATION' (*DECX); BBIA-1 board pinout confirms CN2-15 = wire mnemonic *DECX - matches LS-42 per authority LOCATED note"
    },
-   "authority_line": 87
+   "authority_line": 83
   },
   {
    "id": "Y_HOME",
@@ -7756,7 +7524,7 @@ window.MAZAK_DATA = {
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
-     "lines": "88",
+     "lines": "84",
      "note": "Current wiring authority row"
     },
     {
@@ -7787,7 +7555,7 @@ window.MAZAK_DATA = {
     "cn_pin": "CN2-16",
     "provenance": "RESOLVED 2026-08-10: Dwg 4143075410 pg136 T.U row shows pin -16 under 'Y AXIS ZERO RETURN DECELERATION' (*DECY); BBIA-1 board pinout confirms CN2-16 = wire mnemonic *DECY - matches LS-52 per authority LOCATED note"
    },
-   "authority_line": 88
+   "authority_line": 84
   },
   {
    "id": "Z_HOME",
@@ -7871,7 +7639,7 @@ window.MAZAK_DATA = {
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
-     "lines": "89",
+     "lines": "85",
      "note": "Current wiring authority row"
     },
     {
@@ -7902,7 +7670,7 @@ window.MAZAK_DATA = {
     "cn_pin": "CN1-14",
     "provenance": "RESOLVED 2026-08-10: Dwg 4143075410 pg136 T.U row explicitly labels CN1-14 = wire mnemonic *DECZ under 'Z AXIS ZERO RETURN DECELERATION' - matches BBIA-1 board pinout CN1-14='*DECZ' exactly and LS-62 per authority LOCATED note"
    },
-   "authority_line": 89
+   "authority_line": 85
   },
   {
    "id": "AIR_OK",
@@ -7969,7 +7737,7 @@ window.MAZAK_DATA = {
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
-     "lines": "90",
+     "lines": "86",
      "note": "Current wiring authority row"
     },
     {
@@ -7990,7 +7758,7 @@ window.MAZAK_DATA = {
    ],
    "conflicts": [],
    "bb_source": null,
-   "authority_line": 90
+   "authority_line": 86
   },
   {
    "id": "SEVENI84UB_IN10_SPARE",
@@ -7998,6 +7766,210 @@ window.MAZAK_DATA = {
    "board": "7i84U-B",
    "connector": "TB3",
    "channel": "IN10",
+   "hal_net": "",
+   "direction": "IN",
+   "direction_label": "Input (digital)",
+   "subsystem": "Spare",
+   "machine_subsystem": "Spare",
+   "status": "SPARE",
+   "field_point": "Spare input on 7i84U-B",
+   "dest_connector": "",
+   "dest_pin": "",
+   "factory_wire": "",
+   "bbia_class": "spare",
+   "designations": [],
+   "primary_source": "mesa_firmware_checklist.md",
+   "cleanup_notes": "Leave unlanded",
+   "location": "Field I/O enclosure - 7i84U-B, unlanded",
+   "location_note": "",
+   "expected": {
+    "value": "0",
+    "label": "0 — spare channel, no field wiring",
+    "basis": "Marked SPARE in current_pin_authority.csv",
+    "kind": "default-off"
+   },
+   "hal_state": "absent",
+   "mesa_pins": [],
+   "producers": [],
+   "consumers": [],
+   "hal_refs": [],
+   "setp_refs": [],
+   "epson_ferrules": [],
+   "sources": [
+    {
+     "file": "mesa/current_pin_authority.csv",
+     "lines": "87",
+     "note": "Current wiring authority row"
+    },
+    {
+     "file": "mesa_firmware_checklist.md",
+     "lines": "",
+     "note": "primary_source column in the authority table"
+    }
+   ],
+   "conflicts": [],
+   "bb_source": null,
+   "authority_line": 87
+  },
+  {
+   "id": "SEVENI84UB_IN11_SPARE",
+   "name": "Seveni84Ub In11 Spare",
+   "board": "7i84U-B",
+   "connector": "TB3",
+   "channel": "IN11",
+   "hal_net": "",
+   "direction": "IN",
+   "direction_label": "Input (digital)",
+   "subsystem": "Spare",
+   "machine_subsystem": "Spare",
+   "status": "SPARE",
+   "field_point": "Spare input on 7i84U-B",
+   "dest_connector": "",
+   "dest_pin": "",
+   "factory_wire": "",
+   "bbia_class": "spare",
+   "designations": [],
+   "primary_source": "mesa_firmware_checklist.md",
+   "cleanup_notes": "Leave unlanded",
+   "location": "Field I/O enclosure - 7i84U-B, unlanded",
+   "location_note": "",
+   "expected": {
+    "value": "0",
+    "label": "0 — spare channel, no field wiring",
+    "basis": "Marked SPARE in current_pin_authority.csv",
+    "kind": "default-off"
+   },
+   "hal_state": "absent",
+   "mesa_pins": [],
+   "producers": [],
+   "consumers": [],
+   "hal_refs": [],
+   "setp_refs": [],
+   "epson_ferrules": [],
+   "sources": [
+    {
+     "file": "mesa/current_pin_authority.csv",
+     "lines": "88",
+     "note": "Current wiring authority row"
+    },
+    {
+     "file": "mesa_firmware_checklist.md",
+     "lines": "",
+     "note": "primary_source column in the authority table"
+    }
+   ],
+   "conflicts": [],
+   "bb_source": null,
+   "authority_line": 88
+  },
+  {
+   "id": "SEVENI84UB_IN12_SPARE",
+   "name": "Seveni84Ub In12 Spare",
+   "board": "7i84U-B",
+   "connector": "TB3",
+   "channel": "IN12",
+   "hal_net": "",
+   "direction": "IN",
+   "direction_label": "Input (digital)",
+   "subsystem": "Spare",
+   "machine_subsystem": "Spare",
+   "status": "SPARE",
+   "field_point": "Spare input on 7i84U-B",
+   "dest_connector": "",
+   "dest_pin": "",
+   "factory_wire": "",
+   "bbia_class": "spare",
+   "designations": [],
+   "primary_source": "mesa_firmware_checklist.md",
+   "cleanup_notes": "Leave unlanded",
+   "location": "Field I/O enclosure - 7i84U-B, unlanded",
+   "location_note": "",
+   "expected": {
+    "value": "0",
+    "label": "0 — spare channel, no field wiring",
+    "basis": "Marked SPARE in current_pin_authority.csv",
+    "kind": "default-off"
+   },
+   "hal_state": "absent",
+   "mesa_pins": [],
+   "producers": [],
+   "consumers": [],
+   "hal_refs": [],
+   "setp_refs": [],
+   "epson_ferrules": [],
+   "sources": [
+    {
+     "file": "mesa/current_pin_authority.csv",
+     "lines": "89",
+     "note": "Current wiring authority row"
+    },
+    {
+     "file": "mesa_firmware_checklist.md",
+     "lines": "",
+     "note": "primary_source column in the authority table"
+    }
+   ],
+   "conflicts": [],
+   "bb_source": null,
+   "authority_line": 89
+  },
+  {
+   "id": "SEVENI84UB_IN13_SPARE",
+   "name": "Seveni84Ub In13 Spare",
+   "board": "7i84U-B",
+   "connector": "TB3",
+   "channel": "IN13",
+   "hal_net": "",
+   "direction": "IN",
+   "direction_label": "Input (digital)",
+   "subsystem": "Spare",
+   "machine_subsystem": "Spare",
+   "status": "SPARE",
+   "field_point": "Spare input on 7i84U-B",
+   "dest_connector": "",
+   "dest_pin": "",
+   "factory_wire": "",
+   "bbia_class": "spare",
+   "designations": [],
+   "primary_source": "mesa_firmware_checklist.md",
+   "cleanup_notes": "Leave unlanded",
+   "location": "Field I/O enclosure - 7i84U-B, unlanded",
+   "location_note": "",
+   "expected": {
+    "value": "0",
+    "label": "0 — spare channel, no field wiring",
+    "basis": "Marked SPARE in current_pin_authority.csv",
+    "kind": "default-off"
+   },
+   "hal_state": "absent",
+   "mesa_pins": [],
+   "producers": [],
+   "consumers": [],
+   "hal_refs": [],
+   "setp_refs": [],
+   "epson_ferrules": [],
+   "sources": [
+    {
+     "file": "mesa/current_pin_authority.csv",
+     "lines": "90",
+     "note": "Current wiring authority row"
+    },
+    {
+     "file": "mesa_firmware_checklist.md",
+     "lines": "",
+     "note": "primary_source column in the authority table"
+    }
+   ],
+   "conflicts": [],
+   "bb_source": null,
+   "authority_line": 90
+  },
+  {
+   "id": "SEVENI84UB_IN14_SPARE",
+   "name": "Seveni84Ub In14 Spare",
+   "board": "7i84U-B",
+   "connector": "TB3",
+   "channel": "IN14",
    "hal_net": "",
    "direction": "IN",
    "direction_label": "Input (digital)",
@@ -8042,210 +8014,6 @@ window.MAZAK_DATA = {
    "conflicts": [],
    "bb_source": null,
    "authority_line": 91
-  },
-  {
-   "id": "SEVENI84UB_IN11_SPARE",
-   "name": "Seveni84Ub In11 Spare",
-   "board": "7i84U-B",
-   "connector": "TB3",
-   "channel": "IN11",
-   "hal_net": "",
-   "direction": "IN",
-   "direction_label": "Input (digital)",
-   "subsystem": "Spare",
-   "machine_subsystem": "Spare",
-   "status": "SPARE",
-   "field_point": "Spare input on 7i84U-B",
-   "dest_connector": "",
-   "dest_pin": "",
-   "factory_wire": "",
-   "bbia_class": "spare",
-   "designations": [],
-   "primary_source": "mesa_firmware_checklist.md",
-   "cleanup_notes": "Leave unlanded",
-   "location": "Field I/O enclosure - 7i84U-B, unlanded",
-   "location_note": "",
-   "expected": {
-    "value": "0",
-    "label": "0 — spare channel, no field wiring",
-    "basis": "Marked SPARE in current_pin_authority.csv",
-    "kind": "default-off"
-   },
-   "hal_state": "absent",
-   "mesa_pins": [],
-   "producers": [],
-   "consumers": [],
-   "hal_refs": [],
-   "setp_refs": [],
-   "epson_ferrules": [],
-   "sources": [
-    {
-     "file": "mesa/current_pin_authority.csv",
-     "lines": "92",
-     "note": "Current wiring authority row"
-    },
-    {
-     "file": "mesa_firmware_checklist.md",
-     "lines": "",
-     "note": "primary_source column in the authority table"
-    }
-   ],
-   "conflicts": [],
-   "bb_source": null,
-   "authority_line": 92
-  },
-  {
-   "id": "SEVENI84UB_IN12_SPARE",
-   "name": "Seveni84Ub In12 Spare",
-   "board": "7i84U-B",
-   "connector": "TB3",
-   "channel": "IN12",
-   "hal_net": "",
-   "direction": "IN",
-   "direction_label": "Input (digital)",
-   "subsystem": "Spare",
-   "machine_subsystem": "Spare",
-   "status": "SPARE",
-   "field_point": "Spare input on 7i84U-B",
-   "dest_connector": "",
-   "dest_pin": "",
-   "factory_wire": "",
-   "bbia_class": "spare",
-   "designations": [],
-   "primary_source": "mesa_firmware_checklist.md",
-   "cleanup_notes": "Leave unlanded",
-   "location": "Field I/O enclosure - 7i84U-B, unlanded",
-   "location_note": "",
-   "expected": {
-    "value": "0",
-    "label": "0 — spare channel, no field wiring",
-    "basis": "Marked SPARE in current_pin_authority.csv",
-    "kind": "default-off"
-   },
-   "hal_state": "absent",
-   "mesa_pins": [],
-   "producers": [],
-   "consumers": [],
-   "hal_refs": [],
-   "setp_refs": [],
-   "epson_ferrules": [],
-   "sources": [
-    {
-     "file": "mesa/current_pin_authority.csv",
-     "lines": "93",
-     "note": "Current wiring authority row"
-    },
-    {
-     "file": "mesa_firmware_checklist.md",
-     "lines": "",
-     "note": "primary_source column in the authority table"
-    }
-   ],
-   "conflicts": [],
-   "bb_source": null,
-   "authority_line": 93
-  },
-  {
-   "id": "SEVENI84UB_IN13_SPARE",
-   "name": "Seveni84Ub In13 Spare",
-   "board": "7i84U-B",
-   "connector": "TB3",
-   "channel": "IN13",
-   "hal_net": "",
-   "direction": "IN",
-   "direction_label": "Input (digital)",
-   "subsystem": "Spare",
-   "machine_subsystem": "Spare",
-   "status": "SPARE",
-   "field_point": "Spare input on 7i84U-B",
-   "dest_connector": "",
-   "dest_pin": "",
-   "factory_wire": "",
-   "bbia_class": "spare",
-   "designations": [],
-   "primary_source": "mesa_firmware_checklist.md",
-   "cleanup_notes": "Leave unlanded",
-   "location": "Field I/O enclosure - 7i84U-B, unlanded",
-   "location_note": "",
-   "expected": {
-    "value": "0",
-    "label": "0 — spare channel, no field wiring",
-    "basis": "Marked SPARE in current_pin_authority.csv",
-    "kind": "default-off"
-   },
-   "hal_state": "absent",
-   "mesa_pins": [],
-   "producers": [],
-   "consumers": [],
-   "hal_refs": [],
-   "setp_refs": [],
-   "epson_ferrules": [],
-   "sources": [
-    {
-     "file": "mesa/current_pin_authority.csv",
-     "lines": "94",
-     "note": "Current wiring authority row"
-    },
-    {
-     "file": "mesa_firmware_checklist.md",
-     "lines": "",
-     "note": "primary_source column in the authority table"
-    }
-   ],
-   "conflicts": [],
-   "bb_source": null,
-   "authority_line": 94
-  },
-  {
-   "id": "SEVENI84UB_IN14_SPARE",
-   "name": "Seveni84Ub In14 Spare",
-   "board": "7i84U-B",
-   "connector": "TB3",
-   "channel": "IN14",
-   "hal_net": "",
-   "direction": "IN",
-   "direction_label": "Input (digital)",
-   "subsystem": "Spare",
-   "machine_subsystem": "Spare",
-   "status": "SPARE",
-   "field_point": "Spare input on 7i84U-B",
-   "dest_connector": "",
-   "dest_pin": "",
-   "factory_wire": "",
-   "bbia_class": "spare",
-   "designations": [],
-   "primary_source": "mesa_firmware_checklist.md",
-   "cleanup_notes": "Leave unlanded",
-   "location": "Field I/O enclosure - 7i84U-B, unlanded",
-   "location_note": "",
-   "expected": {
-    "value": "0",
-    "label": "0 — spare channel, no field wiring",
-    "basis": "Marked SPARE in current_pin_authority.csv",
-    "kind": "default-off"
-   },
-   "hal_state": "absent",
-   "mesa_pins": [],
-   "producers": [],
-   "consumers": [],
-   "hal_refs": [],
-   "setp_refs": [],
-   "epson_ferrules": [],
-   "sources": [
-    {
-     "file": "mesa/current_pin_authority.csv",
-     "lines": "95",
-     "note": "Current wiring authority row"
-    },
-    {
-     "file": "mesa_firmware_checklist.md",
-     "lines": "",
-     "note": "primary_source column in the authority table"
-    }
-   ],
-   "conflicts": [],
-   "bb_source": null,
-   "authority_line": 95
   },
   {
    "id": "PROBE_SKIP1",
@@ -8312,7 +8080,7 @@ window.MAZAK_DATA = {
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
-     "lines": "96",
+     "lines": "92",
      "note": "Current wiring authority row"
     },
     {
@@ -8333,7 +8101,7 @@ window.MAZAK_DATA = {
    ],
    "conflicts": [],
    "bb_source": null,
-   "authority_line": 96
+   "authority_line": 92
   },
   {
    "id": "SEVENI84UB_IN16_SPARE",
@@ -8341,6 +8109,210 @@ window.MAZAK_DATA = {
    "board": "7i84U-B",
    "connector": "TB2",
    "channel": "IN16",
+   "hal_net": "",
+   "direction": "IN",
+   "direction_label": "Input (digital)",
+   "subsystem": "Spare",
+   "machine_subsystem": "Spare",
+   "status": "SPARE",
+   "field_point": "Spare input on 7i84U-B",
+   "dest_connector": "",
+   "dest_pin": "",
+   "factory_wire": "",
+   "bbia_class": "spare",
+   "designations": [],
+   "primary_source": "mesa_firmware_checklist.md",
+   "cleanup_notes": "Leave unlanded",
+   "location": "Field I/O enclosure - 7i84U-B, unlanded",
+   "location_note": "",
+   "expected": {
+    "value": "0",
+    "label": "0 — spare channel, no field wiring",
+    "basis": "Marked SPARE in current_pin_authority.csv",
+    "kind": "default-off"
+   },
+   "hal_state": "absent",
+   "mesa_pins": [],
+   "producers": [],
+   "consumers": [],
+   "hal_refs": [],
+   "setp_refs": [],
+   "epson_ferrules": [],
+   "sources": [
+    {
+     "file": "mesa/current_pin_authority.csv",
+     "lines": "93",
+     "note": "Current wiring authority row"
+    },
+    {
+     "file": "mesa_firmware_checklist.md",
+     "lines": "",
+     "note": "primary_source column in the authority table"
+    }
+   ],
+   "conflicts": [],
+   "bb_source": null,
+   "authority_line": 93
+  },
+  {
+   "id": "SEVENI84UB_IN17_SPARE",
+   "name": "Seveni84Ub In17 Spare",
+   "board": "7i84U-B",
+   "connector": "TB2",
+   "channel": "IN17",
+   "hal_net": "",
+   "direction": "IN",
+   "direction_label": "Input (digital)",
+   "subsystem": "Spare",
+   "machine_subsystem": "Spare",
+   "status": "SPARE",
+   "field_point": "Spare input on 7i84U-B",
+   "dest_connector": "",
+   "dest_pin": "",
+   "factory_wire": "",
+   "bbia_class": "spare",
+   "designations": [],
+   "primary_source": "mesa_firmware_checklist.md",
+   "cleanup_notes": "Leave unlanded",
+   "location": "Field I/O enclosure - 7i84U-B, unlanded",
+   "location_note": "",
+   "expected": {
+    "value": "0",
+    "label": "0 — spare channel, no field wiring",
+    "basis": "Marked SPARE in current_pin_authority.csv",
+    "kind": "default-off"
+   },
+   "hal_state": "absent",
+   "mesa_pins": [],
+   "producers": [],
+   "consumers": [],
+   "hal_refs": [],
+   "setp_refs": [],
+   "epson_ferrules": [],
+   "sources": [
+    {
+     "file": "mesa/current_pin_authority.csv",
+     "lines": "94",
+     "note": "Current wiring authority row"
+    },
+    {
+     "file": "mesa_firmware_checklist.md",
+     "lines": "",
+     "note": "primary_source column in the authority table"
+    }
+   ],
+   "conflicts": [],
+   "bb_source": null,
+   "authority_line": 94
+  },
+  {
+   "id": "SEVENI84UB_IN18_SPARE",
+   "name": "Seveni84Ub In18 Spare",
+   "board": "7i84U-B",
+   "connector": "TB2",
+   "channel": "IN18",
+   "hal_net": "",
+   "direction": "IN",
+   "direction_label": "Input (digital)",
+   "subsystem": "Spare",
+   "machine_subsystem": "Spare",
+   "status": "SPARE",
+   "field_point": "Spare input on 7i84U-B",
+   "dest_connector": "",
+   "dest_pin": "",
+   "factory_wire": "",
+   "bbia_class": "spare",
+   "designations": [],
+   "primary_source": "mesa_firmware_checklist.md",
+   "cleanup_notes": "Leave unlanded",
+   "location": "Field I/O enclosure - 7i84U-B, unlanded",
+   "location_note": "",
+   "expected": {
+    "value": "0",
+    "label": "0 — spare channel, no field wiring",
+    "basis": "Marked SPARE in current_pin_authority.csv",
+    "kind": "default-off"
+   },
+   "hal_state": "absent",
+   "mesa_pins": [],
+   "producers": [],
+   "consumers": [],
+   "hal_refs": [],
+   "setp_refs": [],
+   "epson_ferrules": [],
+   "sources": [
+    {
+     "file": "mesa/current_pin_authority.csv",
+     "lines": "95",
+     "note": "Current wiring authority row"
+    },
+    {
+     "file": "mesa_firmware_checklist.md",
+     "lines": "",
+     "note": "primary_source column in the authority table"
+    }
+   ],
+   "conflicts": [],
+   "bb_source": null,
+   "authority_line": 95
+  },
+  {
+   "id": "SEVENI84UB_IN19_SPARE",
+   "name": "Seveni84Ub In19 Spare",
+   "board": "7i84U-B",
+   "connector": "TB2",
+   "channel": "IN19",
+   "hal_net": "",
+   "direction": "IN",
+   "direction_label": "Input (digital)",
+   "subsystem": "Spare",
+   "machine_subsystem": "Spare",
+   "status": "SPARE",
+   "field_point": "Spare input on 7i84U-B",
+   "dest_connector": "",
+   "dest_pin": "",
+   "factory_wire": "",
+   "bbia_class": "spare",
+   "designations": [],
+   "primary_source": "mesa_firmware_checklist.md",
+   "cleanup_notes": "Leave unlanded",
+   "location": "Field I/O enclosure - 7i84U-B, unlanded",
+   "location_note": "",
+   "expected": {
+    "value": "0",
+    "label": "0 — spare channel, no field wiring",
+    "basis": "Marked SPARE in current_pin_authority.csv",
+    "kind": "default-off"
+   },
+   "hal_state": "absent",
+   "mesa_pins": [],
+   "producers": [],
+   "consumers": [],
+   "hal_refs": [],
+   "setp_refs": [],
+   "epson_ferrules": [],
+   "sources": [
+    {
+     "file": "mesa/current_pin_authority.csv",
+     "lines": "96",
+     "note": "Current wiring authority row"
+    },
+    {
+     "file": "mesa_firmware_checklist.md",
+     "lines": "",
+     "note": "primary_source column in the authority table"
+    }
+   ],
+   "conflicts": [],
+   "bb_source": null,
+   "authority_line": 96
+  },
+  {
+   "id": "SEVENI84UB_IN20_SPARE",
+   "name": "Seveni84Ub In20 Spare",
+   "board": "7i84U-B",
+   "connector": "TB2",
+   "channel": "IN20",
    "hal_net": "",
    "direction": "IN",
    "direction_label": "Input (digital)",
@@ -8387,11 +8359,11 @@ window.MAZAK_DATA = {
    "authority_line": 97
   },
   {
-   "id": "SEVENI84UB_IN17_SPARE",
-   "name": "Seveni84Ub In17 Spare",
+   "id": "SEVENI84UB_IN21_SPARE",
+   "name": "Seveni84Ub In21 Spare",
    "board": "7i84U-B",
    "connector": "TB2",
-   "channel": "IN17",
+   "channel": "IN21",
    "hal_net": "",
    "direction": "IN",
    "direction_label": "Input (digital)",
@@ -8438,11 +8410,11 @@ window.MAZAK_DATA = {
    "authority_line": 98
   },
   {
-   "id": "SEVENI84UB_IN18_SPARE",
-   "name": "Seveni84Ub In18 Spare",
+   "id": "SEVENI84UB_IN22_SPARE",
+   "name": "Seveni84Ub In22 Spare",
    "board": "7i84U-B",
    "connector": "TB2",
-   "channel": "IN18",
+   "channel": "IN22",
    "hal_net": "",
    "direction": "IN",
    "direction_label": "Input (digital)",
@@ -8489,11 +8461,11 @@ window.MAZAK_DATA = {
    "authority_line": 99
   },
   {
-   "id": "SEVENI84UB_IN19_SPARE",
-   "name": "Seveni84Ub In19 Spare",
+   "id": "SEVENI84UB_IN23_SPARE",
+   "name": "Seveni84Ub In23 Spare",
    "board": "7i84U-B",
    "connector": "TB2",
-   "channel": "IN19",
+   "channel": "IN23",
    "hal_net": "",
    "direction": "IN",
    "direction_label": "Input (digital)",
@@ -8540,11 +8512,11 @@ window.MAZAK_DATA = {
    "authority_line": 100
   },
   {
-   "id": "SEVENI84UB_IN20_SPARE",
-   "name": "Seveni84Ub In20 Spare",
+   "id": "SEVENI84UB_IN24_SPARE",
+   "name": "Seveni84Ub In24 Spare",
    "board": "7i84U-B",
    "connector": "TB2",
-   "channel": "IN20",
+   "channel": "IN24",
    "hal_net": "",
    "direction": "IN",
    "direction_label": "Input (digital)",
@@ -8591,11 +8563,11 @@ window.MAZAK_DATA = {
    "authority_line": 101
   },
   {
-   "id": "SEVENI84UB_IN21_SPARE",
-   "name": "Seveni84Ub In21 Spare",
+   "id": "SEVENI84UB_IN25_SPARE",
+   "name": "Seveni84Ub In25 Spare",
    "board": "7i84U-B",
    "connector": "TB2",
-   "channel": "IN21",
+   "channel": "IN25",
    "hal_net": "",
    "direction": "IN",
    "direction_label": "Input (digital)",
@@ -8642,11 +8614,11 @@ window.MAZAK_DATA = {
    "authority_line": 102
   },
   {
-   "id": "SEVENI84UB_IN22_SPARE",
-   "name": "Seveni84Ub In22 Spare",
+   "id": "SEVENI84UB_IN26_SPARE",
+   "name": "Seveni84Ub In26 Spare",
    "board": "7i84U-B",
    "connector": "TB2",
-   "channel": "IN22",
+   "channel": "IN26",
    "hal_net": "",
    "direction": "IN",
    "direction_label": "Input (digital)",
@@ -8693,11 +8665,11 @@ window.MAZAK_DATA = {
    "authority_line": 103
   },
   {
-   "id": "SEVENI84UB_IN23_SPARE",
-   "name": "Seveni84Ub In23 Spare",
+   "id": "SEVENI84UB_IN27_SPARE",
+   "name": "Seveni84Ub In27 Spare",
    "board": "7i84U-B",
    "connector": "TB2",
-   "channel": "IN23",
+   "channel": "IN27",
    "hal_net": "",
    "direction": "IN",
    "direction_label": "Input (digital)",
@@ -8744,11 +8716,11 @@ window.MAZAK_DATA = {
    "authority_line": 104
   },
   {
-   "id": "SEVENI84UB_IN24_SPARE",
-   "name": "Seveni84Ub In24 Spare",
+   "id": "SEVENI84UB_IN28_SPARE",
+   "name": "Seveni84Ub In28 Spare",
    "board": "7i84U-B",
    "connector": "TB2",
-   "channel": "IN24",
+   "channel": "IN28",
    "hal_net": "",
    "direction": "IN",
    "direction_label": "Input (digital)",
@@ -8795,11 +8767,11 @@ window.MAZAK_DATA = {
    "authority_line": 105
   },
   {
-   "id": "SEVENI84UB_IN25_SPARE",
-   "name": "Seveni84Ub In25 Spare",
+   "id": "SEVENI84UB_IN29_SPARE",
+   "name": "Seveni84Ub In29 Spare",
    "board": "7i84U-B",
    "connector": "TB2",
-   "channel": "IN25",
+   "channel": "IN29",
    "hal_net": "",
    "direction": "IN",
    "direction_label": "Input (digital)",
@@ -8846,11 +8818,11 @@ window.MAZAK_DATA = {
    "authority_line": 106
   },
   {
-   "id": "SEVENI84UB_IN26_SPARE",
-   "name": "Seveni84Ub In26 Spare",
+   "id": "SEVENI84UB_IN30_SPARE",
+   "name": "Seveni84Ub In30 Spare",
    "board": "7i84U-B",
    "connector": "TB2",
-   "channel": "IN26",
+   "channel": "IN30",
    "hal_net": "",
    "direction": "IN",
    "direction_label": "Input (digital)",
@@ -8897,11 +8869,11 @@ window.MAZAK_DATA = {
    "authority_line": 107
   },
   {
-   "id": "SEVENI84UB_IN27_SPARE",
-   "name": "Seveni84Ub In27 Spare",
+   "id": "SEVENI84UB_IN31_SPARE",
+   "name": "Seveni84Ub In31 Spare",
    "board": "7i84U-B",
    "connector": "TB2",
-   "channel": "IN27",
+   "channel": "IN31",
    "hal_net": "",
    "direction": "IN",
    "direction_label": "Input (digital)",
@@ -8946,210 +8918,6 @@ window.MAZAK_DATA = {
    "conflicts": [],
    "bb_source": null,
    "authority_line": 108
-  },
-  {
-   "id": "SEVENI84UB_IN28_SPARE",
-   "name": "Seveni84Ub In28 Spare",
-   "board": "7i84U-B",
-   "connector": "TB2",
-   "channel": "IN28",
-   "hal_net": "",
-   "direction": "IN",
-   "direction_label": "Input (digital)",
-   "subsystem": "Spare",
-   "machine_subsystem": "Spare",
-   "status": "SPARE",
-   "field_point": "Spare input on 7i84U-B",
-   "dest_connector": "",
-   "dest_pin": "",
-   "factory_wire": "",
-   "bbia_class": "spare",
-   "designations": [],
-   "primary_source": "mesa_firmware_checklist.md",
-   "cleanup_notes": "Leave unlanded",
-   "location": "Field I/O enclosure - 7i84U-B, unlanded",
-   "location_note": "",
-   "expected": {
-    "value": "0",
-    "label": "0 — spare channel, no field wiring",
-    "basis": "Marked SPARE in current_pin_authority.csv",
-    "kind": "default-off"
-   },
-   "hal_state": "absent",
-   "mesa_pins": [],
-   "producers": [],
-   "consumers": [],
-   "hal_refs": [],
-   "setp_refs": [],
-   "epson_ferrules": [],
-   "sources": [
-    {
-     "file": "mesa/current_pin_authority.csv",
-     "lines": "109",
-     "note": "Current wiring authority row"
-    },
-    {
-     "file": "mesa_firmware_checklist.md",
-     "lines": "",
-     "note": "primary_source column in the authority table"
-    }
-   ],
-   "conflicts": [],
-   "bb_source": null,
-   "authority_line": 109
-  },
-  {
-   "id": "SEVENI84UB_IN29_SPARE",
-   "name": "Seveni84Ub In29 Spare",
-   "board": "7i84U-B",
-   "connector": "TB2",
-   "channel": "IN29",
-   "hal_net": "",
-   "direction": "IN",
-   "direction_label": "Input (digital)",
-   "subsystem": "Spare",
-   "machine_subsystem": "Spare",
-   "status": "SPARE",
-   "field_point": "Spare input on 7i84U-B",
-   "dest_connector": "",
-   "dest_pin": "",
-   "factory_wire": "",
-   "bbia_class": "spare",
-   "designations": [],
-   "primary_source": "mesa_firmware_checklist.md",
-   "cleanup_notes": "Leave unlanded",
-   "location": "Field I/O enclosure - 7i84U-B, unlanded",
-   "location_note": "",
-   "expected": {
-    "value": "0",
-    "label": "0 — spare channel, no field wiring",
-    "basis": "Marked SPARE in current_pin_authority.csv",
-    "kind": "default-off"
-   },
-   "hal_state": "absent",
-   "mesa_pins": [],
-   "producers": [],
-   "consumers": [],
-   "hal_refs": [],
-   "setp_refs": [],
-   "epson_ferrules": [],
-   "sources": [
-    {
-     "file": "mesa/current_pin_authority.csv",
-     "lines": "110",
-     "note": "Current wiring authority row"
-    },
-    {
-     "file": "mesa_firmware_checklist.md",
-     "lines": "",
-     "note": "primary_source column in the authority table"
-    }
-   ],
-   "conflicts": [],
-   "bb_source": null,
-   "authority_line": 110
-  },
-  {
-   "id": "SEVENI84UB_IN30_SPARE",
-   "name": "Seveni84Ub In30 Spare",
-   "board": "7i84U-B",
-   "connector": "TB2",
-   "channel": "IN30",
-   "hal_net": "",
-   "direction": "IN",
-   "direction_label": "Input (digital)",
-   "subsystem": "Spare",
-   "machine_subsystem": "Spare",
-   "status": "SPARE",
-   "field_point": "Spare input on 7i84U-B",
-   "dest_connector": "",
-   "dest_pin": "",
-   "factory_wire": "",
-   "bbia_class": "spare",
-   "designations": [],
-   "primary_source": "mesa_firmware_checklist.md",
-   "cleanup_notes": "Leave unlanded",
-   "location": "Field I/O enclosure - 7i84U-B, unlanded",
-   "location_note": "",
-   "expected": {
-    "value": "0",
-    "label": "0 — spare channel, no field wiring",
-    "basis": "Marked SPARE in current_pin_authority.csv",
-    "kind": "default-off"
-   },
-   "hal_state": "absent",
-   "mesa_pins": [],
-   "producers": [],
-   "consumers": [],
-   "hal_refs": [],
-   "setp_refs": [],
-   "epson_ferrules": [],
-   "sources": [
-    {
-     "file": "mesa/current_pin_authority.csv",
-     "lines": "111",
-     "note": "Current wiring authority row"
-    },
-    {
-     "file": "mesa_firmware_checklist.md",
-     "lines": "",
-     "note": "primary_source column in the authority table"
-    }
-   ],
-   "conflicts": [],
-   "bb_source": null,
-   "authority_line": 111
-  },
-  {
-   "id": "SEVENI84UB_IN31_SPARE",
-   "name": "Seveni84Ub In31 Spare",
-   "board": "7i84U-B",
-   "connector": "TB2",
-   "channel": "IN31",
-   "hal_net": "",
-   "direction": "IN",
-   "direction_label": "Input (digital)",
-   "subsystem": "Spare",
-   "machine_subsystem": "Spare",
-   "status": "SPARE",
-   "field_point": "Spare input on 7i84U-B",
-   "dest_connector": "",
-   "dest_pin": "",
-   "factory_wire": "",
-   "bbia_class": "spare",
-   "designations": [],
-   "primary_source": "mesa_firmware_checklist.md",
-   "cleanup_notes": "Leave unlanded",
-   "location": "Field I/O enclosure - 7i84U-B, unlanded",
-   "location_note": "",
-   "expected": {
-    "value": "0",
-    "label": "0 — spare channel, no field wiring",
-    "basis": "Marked SPARE in current_pin_authority.csv",
-    "kind": "default-off"
-   },
-   "hal_state": "absent",
-   "mesa_pins": [],
-   "producers": [],
-   "consumers": [],
-   "hal_refs": [],
-   "setp_refs": [],
-   "epson_ferrules": [],
-   "sources": [
-    {
-     "file": "mesa/current_pin_authority.csv",
-     "lines": "112",
-     "note": "Current wiring authority row"
-    },
-    {
-     "file": "mesa_firmware_checklist.md",
-     "lines": "",
-     "note": "primary_source column in the authority table"
-    }
-   ],
-   "conflicts": [],
-   "bb_source": null,
-   "authority_line": 112
   },
   {
    "id": "X_DRIVE_ENABLE",
@@ -9258,7 +9026,7 @@ window.MAZAK_DATA = {
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
-     "lines": "113",
+     "lines": "109",
      "note": "Current wiring authority row"
     },
     {
@@ -9304,7 +9072,7 @@ window.MAZAK_DATA = {
     "cn_pin": "",
     "provenance": "N/A 2026-08-10: new signal - interposing relay lands directly at MELDAS DK-427 ENA input, not via a BBIA-1 pass-through pin (no OEM equivalent existed; ENA is a new Mesa-driven control point)"
    },
-   "authority_line": 113
+   "authority_line": 109
   },
   {
    "id": "Y_DRIVE_ENABLE",
@@ -9413,7 +9181,7 @@ window.MAZAK_DATA = {
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
-     "lines": "114",
+     "lines": "110",
      "note": "Current wiring authority row"
     },
     {
@@ -9459,7 +9227,7 @@ window.MAZAK_DATA = {
     "cn_pin": "",
     "provenance": "N/A 2026-08-10: new signal - interposing relay lands directly at MELDAS DK-427 ENA input, not via BBIA-1 (same reasoning as X_DRIVE_ENABLE)"
    },
-   "authority_line": 114
+   "authority_line": 110
   },
   {
    "id": "Z_DRIVE_ENABLE",
@@ -9526,7 +9294,7 @@ window.MAZAK_DATA = {
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
-     "lines": "115",
+     "lines": "111",
      "note": "Current wiring authority row"
     },
     {
@@ -9552,7 +9320,7 @@ window.MAZAK_DATA = {
     "cn_pin": "",
     "provenance": "N/A 2026-08-10: new signal - interposing relay lands directly at MELDAS DK-427 ENA input, not via BBIA-1 (same reasoning as X/Y_DRIVE_ENABLE)"
    },
-   "authority_line": 115
+   "authority_line": 111
   },
   {
    "id": "AIR_BLAST",
@@ -9609,7 +9377,7 @@ window.MAZAK_DATA = {
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
-     "lines": "116",
+     "lines": "112",
      "note": "Current wiring authority row"
     },
     {
@@ -9630,7 +9398,7 @@ window.MAZAK_DATA = {
     "cn_pin": "",
     "provenance": "AMBIGUOUS 2026-08-10: CN11-6 (wire215 SPINDLE AIR BLAST) vs CN11-7 (wire216 WORK AIR BLAST) both plausible for SOL-62 (RLY-5) - no wire# for SOL-62 found to disambiguate; verify against parts list pp.85-91 before landing"
    },
-   "authority_line": 116
+   "authority_line": 112
   },
   {
    "id": "WORK_AIR_BLAST",
@@ -9675,7 +9443,7 @@ window.MAZAK_DATA = {
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
-     "lines": "117",
+     "lines": "113",
      "note": "Current wiring authority row"
     },
     {
@@ -9686,7 +9454,7 @@ window.MAZAK_DATA = {
    ],
    "conflicts": [],
    "bb_source": null,
-   "authority_line": 117
+   "authority_line": 113
   },
   {
    "id": "TAP_COOLANT_BLAST",
@@ -9728,7 +9496,7 @@ window.MAZAK_DATA = {
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
-     "lines": "118",
+     "lines": "114",
      "note": "Current wiring authority row"
     },
     {
@@ -9744,7 +9512,7 @@ window.MAZAK_DATA = {
     "cn_pin": "",
     "provenance": "NOT LOCATED 2026-08-10 (CN12 lead dropped): CN12 is now fully transcribed (dwg 4143175309 p78) and confirmed 2PC/pallet-changer-only - every function label reconciled against its terminal-strip (PALLET SELECT/LOAD/UNLOAD/DOOR CLOSE/OPEN etc) is pallet-specific. SOL-61 tap-coolant is a coolant-subsystem signal, not a pallet function, so CN12 is not the right connector. Still not located anywhere - possibly a direct CB-panel landing outside BBIA-1's pass-through set, needs a different lead"
    },
-   "authority_line": 118
+   "authority_line": 114
   },
   {
    "id": "ATC_BARRIER_SOL",
@@ -9811,7 +9579,7 @@ window.MAZAK_DATA = {
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
-     "lines": "119",
+     "lines": "115",
      "note": "Current wiring authority row"
     },
     {
@@ -9837,7 +9605,7 @@ window.MAZAK_DATA = {
     "cn_pin": "",
     "provenance": "NOT LOCATED 2026-08-10 (CN12 lead dropped): CN12 is now fully transcribed (dwg 4143175309 p78) and confirmed 2PC/pallet-changer-only - every function label reconciled against its terminal-strip (PALLET SELECT/LOAD/UNLOAD/DOOR CLOSE/OPEN etc) is pallet-specific. Y095 TCME.M barrier-expand is an ATC-area signal, not a pallet function, so CN12 is not the right connector after all. Still not located anywhere - needs a different lead (not this page/board)"
    },
-   "authority_line": 119
+   "authority_line": 115
   },
   {
    "id": "FLOOD_VALVE",
@@ -9891,7 +9659,7 @@ window.MAZAK_DATA = {
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
-     "lines": "120",
+     "lines": "116",
      "note": "Current wiring authority row"
     },
     {
@@ -9912,7 +9680,7 @@ window.MAZAK_DATA = {
     "cn_pin": "SSR bd CN11-13",
     "provenance": "RESOLVED 2026-08-10: BBIA-1 terminal-unit CN11 pin13 = wire231 FLOOD COOLANT, matching 'flood coolant valve, separate from pump motor' (Y011 FCL) - distinct from COOLANT_ON/pump-motor at CN11-15"
    },
-   "authority_line": 120
+   "authority_line": 116
   },
   {
    "id": "MAG_COVER_CLOSE_SOL",
@@ -9979,7 +9747,7 @@ window.MAZAK_DATA = {
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
-     "lines": "121",
+     "lines": "117",
      "note": "Current wiring authority row"
     },
     {
@@ -10000,7 +9768,7 @@ window.MAZAK_DATA = {
    ],
    "conflicts": [],
    "bb_source": null,
-   "authority_line": 121
+   "authority_line": 117
   },
   {
    "id": "WORK_LIGHT",
@@ -10042,7 +9810,7 @@ window.MAZAK_DATA = {
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
-     "lines": "122",
+     "lines": "118",
      "note": "Current wiring authority row"
     },
     {
@@ -10053,7 +9821,7 @@ window.MAZAK_DATA = {
    ],
    "conflicts": [],
    "bb_source": null,
-   "authority_line": 122
+   "authority_line": 118
   },
   {
    "id": "SEVENI84UB_OUT10_SPARE",
@@ -10061,6 +9829,210 @@ window.MAZAK_DATA = {
    "board": "7i84U-B",
    "connector": "TB2",
    "channel": "OUT10",
+   "hal_net": "",
+   "direction": "OUT",
+   "direction_label": "Output (digital)",
+   "subsystem": "Spare",
+   "machine_subsystem": "Spare",
+   "status": "SPARE",
+   "field_point": "Spare output on 7i84U-B",
+   "dest_connector": "",
+   "dest_pin": "",
+   "factory_wire": "",
+   "bbia_class": "spare",
+   "designations": [],
+   "primary_source": "mesa_firmware_checklist.md",
+   "cleanup_notes": "Leave unlanded",
+   "location": "Field I/O enclosure - 7i84U-B TB2, unlanded",
+   "location_note": "",
+   "expected": {
+    "value": "0",
+    "label": "0 — spare channel, no field wiring",
+    "basis": "Marked SPARE in current_pin_authority.csv",
+    "kind": "default-off"
+   },
+   "hal_state": "absent",
+   "mesa_pins": [],
+   "producers": [],
+   "consumers": [],
+   "hal_refs": [],
+   "setp_refs": [],
+   "epson_ferrules": [],
+   "sources": [
+    {
+     "file": "mesa/current_pin_authority.csv",
+     "lines": "119",
+     "note": "Current wiring authority row"
+    },
+    {
+     "file": "mesa_firmware_checklist.md",
+     "lines": "",
+     "note": "primary_source column in the authority table"
+    }
+   ],
+   "conflicts": [],
+   "bb_source": null,
+   "authority_line": 119
+  },
+  {
+   "id": "SEVENI84UB_OUT11_SPARE",
+   "name": "Seveni84Ub Out11 Spare",
+   "board": "7i84U-B",
+   "connector": "TB2",
+   "channel": "OUT11",
+   "hal_net": "",
+   "direction": "OUT",
+   "direction_label": "Output (digital)",
+   "subsystem": "Spare",
+   "machine_subsystem": "Spare",
+   "status": "SPARE",
+   "field_point": "Spare output on 7i84U-B",
+   "dest_connector": "",
+   "dest_pin": "",
+   "factory_wire": "",
+   "bbia_class": "spare",
+   "designations": [],
+   "primary_source": "mesa_firmware_checklist.md",
+   "cleanup_notes": "Leave unlanded",
+   "location": "Field I/O enclosure - 7i84U-B TB2, unlanded",
+   "location_note": "",
+   "expected": {
+    "value": "0",
+    "label": "0 — spare channel, no field wiring",
+    "basis": "Marked SPARE in current_pin_authority.csv",
+    "kind": "default-off"
+   },
+   "hal_state": "absent",
+   "mesa_pins": [],
+   "producers": [],
+   "consumers": [],
+   "hal_refs": [],
+   "setp_refs": [],
+   "epson_ferrules": [],
+   "sources": [
+    {
+     "file": "mesa/current_pin_authority.csv",
+     "lines": "120",
+     "note": "Current wiring authority row"
+    },
+    {
+     "file": "mesa_firmware_checklist.md",
+     "lines": "",
+     "note": "primary_source column in the authority table"
+    }
+   ],
+   "conflicts": [],
+   "bb_source": null,
+   "authority_line": 120
+  },
+  {
+   "id": "SEVENI84UB_OUT12_SPARE",
+   "name": "Seveni84Ub Out12 Spare",
+   "board": "7i84U-B",
+   "connector": "TB2",
+   "channel": "OUT12",
+   "hal_net": "",
+   "direction": "OUT",
+   "direction_label": "Output (digital)",
+   "subsystem": "Spare",
+   "machine_subsystem": "Spare",
+   "status": "SPARE",
+   "field_point": "Spare output on 7i84U-B",
+   "dest_connector": "",
+   "dest_pin": "",
+   "factory_wire": "",
+   "bbia_class": "spare",
+   "designations": [],
+   "primary_source": "mesa_firmware_checklist.md",
+   "cleanup_notes": "Leave unlanded",
+   "location": "Field I/O enclosure - 7i84U-B TB2, unlanded",
+   "location_note": "",
+   "expected": {
+    "value": "0",
+    "label": "0 — spare channel, no field wiring",
+    "basis": "Marked SPARE in current_pin_authority.csv",
+    "kind": "default-off"
+   },
+   "hal_state": "absent",
+   "mesa_pins": [],
+   "producers": [],
+   "consumers": [],
+   "hal_refs": [],
+   "setp_refs": [],
+   "epson_ferrules": [],
+   "sources": [
+    {
+     "file": "mesa/current_pin_authority.csv",
+     "lines": "121",
+     "note": "Current wiring authority row"
+    },
+    {
+     "file": "mesa_firmware_checklist.md",
+     "lines": "",
+     "note": "primary_source column in the authority table"
+    }
+   ],
+   "conflicts": [],
+   "bb_source": null,
+   "authority_line": 121
+  },
+  {
+   "id": "SEVENI84UB_OUT13_SPARE",
+   "name": "Seveni84Ub Out13 Spare",
+   "board": "7i84U-B",
+   "connector": "TB2",
+   "channel": "OUT13",
+   "hal_net": "",
+   "direction": "OUT",
+   "direction_label": "Output (digital)",
+   "subsystem": "Spare",
+   "machine_subsystem": "Spare",
+   "status": "SPARE",
+   "field_point": "Spare output on 7i84U-B",
+   "dest_connector": "",
+   "dest_pin": "",
+   "factory_wire": "",
+   "bbia_class": "spare",
+   "designations": [],
+   "primary_source": "mesa_firmware_checklist.md",
+   "cleanup_notes": "Leave unlanded",
+   "location": "Field I/O enclosure - 7i84U-B TB2, unlanded",
+   "location_note": "",
+   "expected": {
+    "value": "0",
+    "label": "0 — spare channel, no field wiring",
+    "basis": "Marked SPARE in current_pin_authority.csv",
+    "kind": "default-off"
+   },
+   "hal_state": "absent",
+   "mesa_pins": [],
+   "producers": [],
+   "consumers": [],
+   "hal_refs": [],
+   "setp_refs": [],
+   "epson_ferrules": [],
+   "sources": [
+    {
+     "file": "mesa/current_pin_authority.csv",
+     "lines": "122",
+     "note": "Current wiring authority row"
+    },
+    {
+     "file": "mesa_firmware_checklist.md",
+     "lines": "",
+     "note": "primary_source column in the authority table"
+    }
+   ],
+   "conflicts": [],
+   "bb_source": null,
+   "authority_line": 122
+  },
+  {
+   "id": "SEVENI84UB_OUT14_SPARE",
+   "name": "Seveni84Ub Out14 Spare",
+   "board": "7i84U-B",
+   "connector": "TB2",
+   "channel": "OUT14",
    "hal_net": "",
    "direction": "OUT",
    "direction_label": "Output (digital)",
@@ -10107,11 +10079,11 @@ window.MAZAK_DATA = {
    "authority_line": 123
   },
   {
-   "id": "SEVENI84UB_OUT11_SPARE",
-   "name": "Seveni84Ub Out11 Spare",
+   "id": "SEVENI84UB_OUT15_SPARE",
+   "name": "Seveni84Ub Out15 Spare",
    "board": "7i84U-B",
    "connector": "TB2",
-   "channel": "OUT11",
+   "channel": "OUT15",
    "hal_net": "",
    "direction": "OUT",
    "direction_label": "Output (digital)",
@@ -10158,210 +10130,6 @@ window.MAZAK_DATA = {
    "authority_line": 124
   },
   {
-   "id": "SEVENI84UB_OUT12_SPARE",
-   "name": "Seveni84Ub Out12 Spare",
-   "board": "7i84U-B",
-   "connector": "TB2",
-   "channel": "OUT12",
-   "hal_net": "",
-   "direction": "OUT",
-   "direction_label": "Output (digital)",
-   "subsystem": "Spare",
-   "machine_subsystem": "Spare",
-   "status": "SPARE",
-   "field_point": "Spare output on 7i84U-B",
-   "dest_connector": "",
-   "dest_pin": "",
-   "factory_wire": "",
-   "bbia_class": "spare",
-   "designations": [],
-   "primary_source": "mesa_firmware_checklist.md",
-   "cleanup_notes": "Leave unlanded",
-   "location": "Field I/O enclosure - 7i84U-B TB2, unlanded",
-   "location_note": "",
-   "expected": {
-    "value": "0",
-    "label": "0 — spare channel, no field wiring",
-    "basis": "Marked SPARE in current_pin_authority.csv",
-    "kind": "default-off"
-   },
-   "hal_state": "absent",
-   "mesa_pins": [],
-   "producers": [],
-   "consumers": [],
-   "hal_refs": [],
-   "setp_refs": [],
-   "epson_ferrules": [],
-   "sources": [
-    {
-     "file": "mesa/current_pin_authority.csv",
-     "lines": "125",
-     "note": "Current wiring authority row"
-    },
-    {
-     "file": "mesa_firmware_checklist.md",
-     "lines": "",
-     "note": "primary_source column in the authority table"
-    }
-   ],
-   "conflicts": [],
-   "bb_source": null,
-   "authority_line": 125
-  },
-  {
-   "id": "SEVENI84UB_OUT13_SPARE",
-   "name": "Seveni84Ub Out13 Spare",
-   "board": "7i84U-B",
-   "connector": "TB2",
-   "channel": "OUT13",
-   "hal_net": "",
-   "direction": "OUT",
-   "direction_label": "Output (digital)",
-   "subsystem": "Spare",
-   "machine_subsystem": "Spare",
-   "status": "SPARE",
-   "field_point": "Spare output on 7i84U-B",
-   "dest_connector": "",
-   "dest_pin": "",
-   "factory_wire": "",
-   "bbia_class": "spare",
-   "designations": [],
-   "primary_source": "mesa_firmware_checklist.md",
-   "cleanup_notes": "Leave unlanded",
-   "location": "Field I/O enclosure - 7i84U-B TB2, unlanded",
-   "location_note": "",
-   "expected": {
-    "value": "0",
-    "label": "0 — spare channel, no field wiring",
-    "basis": "Marked SPARE in current_pin_authority.csv",
-    "kind": "default-off"
-   },
-   "hal_state": "absent",
-   "mesa_pins": [],
-   "producers": [],
-   "consumers": [],
-   "hal_refs": [],
-   "setp_refs": [],
-   "epson_ferrules": [],
-   "sources": [
-    {
-     "file": "mesa/current_pin_authority.csv",
-     "lines": "126",
-     "note": "Current wiring authority row"
-    },
-    {
-     "file": "mesa_firmware_checklist.md",
-     "lines": "",
-     "note": "primary_source column in the authority table"
-    }
-   ],
-   "conflicts": [],
-   "bb_source": null,
-   "authority_line": 126
-  },
-  {
-   "id": "SEVENI84UB_OUT14_SPARE",
-   "name": "Seveni84Ub Out14 Spare",
-   "board": "7i84U-B",
-   "connector": "TB2",
-   "channel": "OUT14",
-   "hal_net": "",
-   "direction": "OUT",
-   "direction_label": "Output (digital)",
-   "subsystem": "Spare",
-   "machine_subsystem": "Spare",
-   "status": "SPARE",
-   "field_point": "Spare output on 7i84U-B",
-   "dest_connector": "",
-   "dest_pin": "",
-   "factory_wire": "",
-   "bbia_class": "spare",
-   "designations": [],
-   "primary_source": "mesa_firmware_checklist.md",
-   "cleanup_notes": "Leave unlanded",
-   "location": "Field I/O enclosure - 7i84U-B TB2, unlanded",
-   "location_note": "",
-   "expected": {
-    "value": "0",
-    "label": "0 — spare channel, no field wiring",
-    "basis": "Marked SPARE in current_pin_authority.csv",
-    "kind": "default-off"
-   },
-   "hal_state": "absent",
-   "mesa_pins": [],
-   "producers": [],
-   "consumers": [],
-   "hal_refs": [],
-   "setp_refs": [],
-   "epson_ferrules": [],
-   "sources": [
-    {
-     "file": "mesa/current_pin_authority.csv",
-     "lines": "127",
-     "note": "Current wiring authority row"
-    },
-    {
-     "file": "mesa_firmware_checklist.md",
-     "lines": "",
-     "note": "primary_source column in the authority table"
-    }
-   ],
-   "conflicts": [],
-   "bb_source": null,
-   "authority_line": 127
-  },
-  {
-   "id": "SEVENI84UB_OUT15_SPARE",
-   "name": "Seveni84Ub Out15 Spare",
-   "board": "7i84U-B",
-   "connector": "TB2",
-   "channel": "OUT15",
-   "hal_net": "",
-   "direction": "OUT",
-   "direction_label": "Output (digital)",
-   "subsystem": "Spare",
-   "machine_subsystem": "Spare",
-   "status": "SPARE",
-   "field_point": "Spare output on 7i84U-B",
-   "dest_connector": "",
-   "dest_pin": "",
-   "factory_wire": "",
-   "bbia_class": "spare",
-   "designations": [],
-   "primary_source": "mesa_firmware_checklist.md",
-   "cleanup_notes": "Leave unlanded",
-   "location": "Field I/O enclosure - 7i84U-B TB2, unlanded",
-   "location_note": "",
-   "expected": {
-    "value": "0",
-    "label": "0 — spare channel, no field wiring",
-    "basis": "Marked SPARE in current_pin_authority.csv",
-    "kind": "default-off"
-   },
-   "hal_state": "absent",
-   "mesa_pins": [],
-   "producers": [],
-   "consumers": [],
-   "hal_refs": [],
-   "setp_refs": [],
-   "epson_ferrules": [],
-   "sources": [
-    {
-     "file": "mesa/current_pin_authority.csv",
-     "lines": "128",
-     "note": "Current wiring authority row"
-    },
-    {
-     "file": "mesa_firmware_checklist.md",
-     "lines": "",
-     "note": "primary_source column in the authority table"
-    }
-   ],
-   "conflicts": [],
-   "bb_source": null,
-   "authority_line": 128
-  },
-  {
    "id": "P3_GPIO_SPARE",
    "name": "P3 Gpio Spare",
    "board": "7i80HDT",
@@ -10399,7 +10167,7 @@ window.MAZAK_DATA = {
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
-     "lines": "129",
+     "lines": "125",
      "note": "Current wiring authority row"
     },
     {
@@ -10410,231 +10178,7 @@ window.MAZAK_DATA = {
    ],
    "conflicts": [],
    "bb_source": null,
-   "authority_line": 129
-  },
-  {
-   "id": "SEVENI84U_VIN_24V",
-   "name": "Seveni84U Vin 24V",
-   "board": "7i84U-A",
-   "connector": "TB1",
-   "channel": "TB1 pin 5 VIN (+24 V logic power)",
-   "hal_net": "",
-   "direction": "POWER",
-   "direction_label": "Power / common",
-   "subsystem": "Power",
-   "machine_subsystem": "Logic power",
-   "status": "ELECTRICALLY_VERIFIED",
-   "field_point": "Field I/O logic power",
-   "dest_connector": "",
-   "dest_pin": "",
-   "factory_wire": "",
-   "bbia_class": "power-internal",
-   "designations": [],
-   "primary_source": "Mesa 7i84U manual pp.2/7-8/47",
-   "cleanup_notes": "AG verified 08-07-2026: W1 physically RIGHT; direct VIN feed through a 5 A branch fuse to TB1-5; return to TB1-6; 24.0 VDC measured TB1-5 to TB1-6; de-energized continuity 0 ohms. Evidence: docs/commissioning_logs/mazak_commissioning_records_07-08-2026.json 2026-08-15: the source rail feeding this VIN is unresolved -- the 24.0 V reading does not by itself establish which supply output it came from. Re-identify at the supply terminals before energizing.",
-   "location": "Field I/O enclosure — 7i84U-A TB1 pin 5",
-   "location_note": "W1 RIGHT verified; direct VIN feed through a 5 A branch fuse",
-   "expected": {
-    "value": "24.0 VDC",
-    "label": "Measured TB1 pin 5 to TB1 pin 6; W1 physically RIGHT",
-    "basis": "docs/commissioning_logs/mazak_commissioning_records_07-08-2026.json",
-    "kind": "na"
-   },
-   "hal_state": "absent",
-   "mesa_pins": [],
-   "producers": [],
-   "consumers": [],
-   "hal_refs": [],
-   "setp_refs": [],
-   "epson_ferrules": [],
-   "sources": [
-    {
-     "file": "mesa/current_pin_authority.csv",
-     "lines": "130",
-     "note": "Current wiring authority row"
-    },
-    {
-     "file": "Mesa 7i84U manual pp.2/7-8/47",
-     "lines": "",
-     "note": "primary_source column in the authority table"
-    },
-    {
-     "file": "docs/commissioning_logs/mazak_commissioning_records_07-08-2026.json",
-     "lines": "",
-     "note": "Commissioning evidence referenced by the authority row"
-    }
-   ],
-   "conflicts": [],
-   "bb_source": null,
-   "authority_line": 130
-  },
-  {
-   "id": "SEVENI84U_GND",
-   "name": "Seveni84U Gnd",
-   "board": "7i84U-A",
-   "connector": "TB1",
-   "channel": "TB1 pins 6/7/8 GND (VIN/VFIELD common)",
-   "hal_net": "",
-   "direction": "POWER",
-   "direction_label": "Power / common",
-   "subsystem": "Power",
-   "machine_subsystem": "Power common",
-   "status": "PROPOSED",
-   "field_point": "VIN/VFIELD common return",
-   "dest_connector": "",
-   "dest_pin": "",
-   "factory_wire": "",
-   "bbia_class": "power-internal",
-   "designations": [],
-   "primary_source": "Mesa 7i84U manual pp.7-8",
-   "cleanup_notes": "All three terminals are common; land 0 V only here.",
-   "location": "Field I/O enclosure — 7i84U-A TB1 pins 6/7/8",
-   "location_note": "VIN/VFIELD common return",
-   "expected": {
-    "value": "0 V",
-    "label": "VIN/VFIELD common on TB1 pins 6/7/8",
-    "basis": "Mesa 7i84U manual pp.7-8",
-    "kind": "na"
-   },
-   "hal_state": "absent",
-   "mesa_pins": [],
-   "producers": [],
-   "consumers": [],
-   "hal_refs": [],
-   "setp_refs": [],
-   "epson_ferrules": [],
-   "sources": [
-    {
-     "file": "mesa/current_pin_authority.csv",
-     "lines": "131",
-     "note": "Current wiring authority row"
-    },
-    {
-     "file": "Mesa 7i84U manual pp.7-8",
-     "lines": "",
-     "note": "primary_source column in the authority table"
-    }
-   ],
-   "conflicts": [],
-   "bb_source": {
-    "cnd_pin": "",
-    "wire": "",
-    "cn_pin": "",
-    "provenance": "N/A 2026-08-10: not a BBIA-1 pass-through signal - common return; ELECTRICALLY_VERIFIED 2026-08-07 per authority CSV (supply return to TB1-6)"
-   },
-   "authority_line": 131
-  },
-  {
-   "id": "SEVENI84UB_VIN_24V",
-   "name": "Seveni84Ub Vin 24V",
-   "board": "7i84U-B",
-   "connector": "TB1",
-   "channel": "TB1 pin 5 VIN (+24 V logic power)",
-   "hal_net": "",
-   "direction": "POWER",
-   "direction_label": "Power / common",
-   "subsystem": "Power",
-   "machine_subsystem": "Logic power",
-   "status": "PROPOSED",
-   "field_point": "Field I/O logic power",
-   "dest_connector": "",
-   "dest_pin": "",
-   "factory_wire": "",
-   "bbia_class": "power-internal",
-   "designations": [],
-   "primary_source": "Mesa 7i84U manual pp.2/7-8/47",
-   "cleanup_notes": "W1 left links VIN internally to VFIELDB; W1 right requires a separate 5-28 VDC VIN supply. Record W1 position and do not double-feed.",
-   "location": "Field I/O enclosure — 7i84U-B TB1 pin 5",
-   "location_note": "Verify W1 position before landing VIN",
-   "expected": {
-    "value": "24 V",
-    "label": "Logic supply on TB1 pin 5; verify W1 before wiring",
-    "basis": "Mesa 7i84U manual pp.2/7-8/47",
-    "kind": "na"
-   },
-   "hal_state": "absent",
-   "mesa_pins": [],
-   "producers": [],
-   "consumers": [],
-   "hal_refs": [],
-   "setp_refs": [],
-   "epson_ferrules": [],
-   "sources": [
-    {
-     "file": "mesa/current_pin_authority.csv",
-     "lines": "132",
-     "note": "Current wiring authority row"
-    },
-    {
-     "file": "Mesa 7i84U manual pp.2/7-8/47",
-     "lines": "",
-     "note": "primary_source column in the authority table"
-    }
-   ],
-   "conflicts": [],
-   "bb_source": {
-    "cnd_pin": "",
-    "wire": "",
-    "cn_pin": "",
-    "provenance": "N/A 2026-08-10: not a BBIA-1 pass-through signal - new dedicated Mesa logic-power wiring from PSU"
-   },
-   "authority_line": 132
-  },
-  {
-   "id": "SEVENI84UB_GND",
-   "name": "Seveni84Ub Gnd",
-   "board": "7i84U-B",
-   "connector": "TB1",
-   "channel": "TB1 pins 6/7/8 GND (VIN/VFIELD common)",
-   "hal_net": "",
-   "direction": "POWER",
-   "direction_label": "Power / common",
-   "subsystem": "Power",
-   "machine_subsystem": "Power common",
-   "status": "PROPOSED",
-   "field_point": "VIN/VFIELD common return",
-   "dest_connector": "",
-   "dest_pin": "",
-   "factory_wire": "",
-   "bbia_class": "power-internal",
-   "designations": [],
-   "primary_source": "Mesa 7i84U manual pp.7-8",
-   "cleanup_notes": "All three terminals are common; land 0 V only here.",
-   "location": "Field I/O enclosure — 7i84U-B TB1 pins 6/7/8",
-   "location_note": "VIN/VFIELD common return",
-   "expected": {
-    "value": "0 V",
-    "label": "VIN/VFIELD common on TB1 pins 6/7/8",
-    "basis": "Mesa 7i84U manual pp.7-8",
-    "kind": "na"
-   },
-   "hal_state": "absent",
-   "mesa_pins": [],
-   "producers": [],
-   "consumers": [],
-   "hal_refs": [],
-   "setp_refs": [],
-   "epson_ferrules": [],
-   "sources": [
-    {
-     "file": "mesa/current_pin_authority.csv",
-     "lines": "133",
-     "note": "Current wiring authority row"
-    },
-    {
-     "file": "Mesa 7i84U manual pp.7-8",
-     "lines": "",
-     "note": "primary_source column in the authority table"
-    }
-   ],
-   "conflicts": [],
-   "bb_source": {
-    "cnd_pin": "",
-    "wire": "",
-    "cn_pin": "",
-    "provenance": "N/A 2026-08-10: not a BBIA-1 pass-through signal - common return for new dedicated Mesa field-power wiring"
-   },
-   "authority_line": 133
+   "authority_line": 125
   }
  ],
  "conflicts": [
@@ -10742,7 +10286,6 @@ window.MAZAK_DATA = {
   "Magazine",
   "Motion",
   "Panel",
-  "Power",
   "Safety",
   "Spare",
   "Spindle",
@@ -10757,7 +10300,6 @@ window.MAZAK_DATA = {
   "P3 7i44 physical channel 0",
   "P3 7i44 physical channel 1",
   "P3 7i44 physical channels 2-7",
-  "TB1",
   "TB2",
   "TB3",
   "UNASSIGNED",
