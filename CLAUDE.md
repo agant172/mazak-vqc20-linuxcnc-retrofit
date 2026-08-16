@@ -377,6 +377,11 @@ change it here in the same commit.
 - **One repo only:** `agant172/mazak-vqc20-linuxcnc-retrofit`. Default branch `main`.
   There is no second repo, no private sibling, no gist. If work seems to need another
   repository, ask before adding one.
+- **The repo is PRIVATE** (owner decision 2026-08-16 — all of the owner's repos were made
+  private). Every clone, fetch, and push needs credentials; anything that assumed anonymous
+  read no longer works. This is not a licence to commit secrets — see the `.obsidian` table
+  below. Do not link repo paths from anywhere expecting them to resolve for a reader who is
+  not signed in.
 - **Desk sessions never push to `main`** — Macs and cloud alike. Work on a feature branch and
   open a **draft PR**; the Authority gate (`.github/workflows/authority-gate.yml`) must pass
   before merge. The OptiPlex commits directly when recording a measurement at the machine.
@@ -452,13 +457,20 @@ that it was taken at the machine, so a later reader can tell a real reading from
 ### Getting a machine onto the shared memory
 
 `CLAUDE.md` travels with the repo, so a machine joins simply by cloning it — there is nothing
-to copy by hand and nothing machine-specific to configure:
+to copy by hand and nothing machine-specific to configure. **The repo is private (owner
+decision 2026-08-16), so the clone needs credentials** — an SSH key on the account, or
+`gh auth login` first. An unauthenticated clone fails with a misleading "repository not
+found":
 
 ```bash
-git clone https://github.com/agant172/mazak-vqc20-linuxcnc-retrofit.git \
+gh auth status || gh auth login          # or have an SSH key on the account
+git clone git@github.com:agant172/mazak-vqc20-linuxcnc-retrofit.git \
   ~/mazak-vqc20-linuxcnc-retrofit
 cd ~/mazak-vqc20-linuxcnc-retrofit && python3 scripts/validate_authority.py   # expect exit 0
 ```
+
+SSH is the form to use: the OptiPlex's 5-minute status timer pushes non-interactively over
+`git@github.com`, and an HTTPS remote would prompt for a password it cannot answer.
 
 As of 2026-08-15 the MacBook Pro is believed to have a clone and the iMac is believed not to —
 **both unconfirmed**. Check with `ls ~/mazak-vqc20-linuxcnc-retrofit` and update this line once
@@ -488,7 +500,7 @@ between machines instead of being set up three times. What stays local is listed
 | `.obsidian/workspace.json`, `workspace-mobile.json` | Which panes you had open — per-machine, and conflicts on every pull |
 | `.obsidian/cache`, `.obsidian/.trash/` | Machine-local scratch |
 | `.obsidian/plugins/` (the code) | ~9 MB of vendored JS per plugin set — it would drown every PR diff. `community-plugins.json` **is** tracked, so the *list* of enabled plugins syncs; install them once per machine from the community store. |
-| `.obsidian/plugins/*/data.json` | **Plugin settings can hold credentials** — `obsidian-local-rest-api` stores an API key, and this repo is public. Re-enter secrets per machine. |
+| `.obsidian/plugins/*/data.json` | **Plugin settings can hold credentials** — `obsidian-local-rest-api` stores an API key. The repo went private on 2026-08-16, which does **not** make this safe: a committed secret is in the history permanently, visible to every collaborator and to anything holding a token, and it survives the repo being made public again. Re-enter secrets per machine. |
 
 Settings changes ride the normal workflow — a desk session commits them on a branch and opens a
 PR like any other change. **Do not install the Obsidian *Git* plugin's auto-commit here:** it
