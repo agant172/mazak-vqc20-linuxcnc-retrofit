@@ -16,7 +16,6 @@ DESTINATION_CROSSWALK = REPO_ROOT / "wiring" / "bbia1_retrofit_destination_cross
 LEGEND_OUT = REPO_ROOT / "wiring" / "labels" / "7i84u_b_terminal_legend_epson.csv"
 BBIA_OUT = REPO_ROOT / "wiring" / "labels" / "bbia1_cn_labels_epson.csv"
 MESA_FERRULE_OUT = REPO_ROOT / "wiring" / "labels" / "bbia1_mesa_end_ferrules_epson.csv"
-POWER_RETURN_OUT = REPO_ROOT / "wiring" / "labels" / "power_return_labels_epson.csv"
 
 VERIFIED_STATES = {"TRACED", "ELECTRICALLY_VERIFIED", "HAL_VERIFIED", "COMMISSIONED", "FIELD_VERIFIED"}
 
@@ -46,38 +45,8 @@ SIGNAL_LABELS = {
     "WORK_LIGHT": "WORK LIGHT (100VAC / RLY-8)",
 }
 
-POWER_ROWS = (
-    ("SEVENI84UB_FIELD_B_24V", (1, 2), "VFIELDB +24V (TB2 BANK)", "7i84U-B VFIELDB"),
-    ("SEVENI84UB_FIELD_A_24V", (3, 4), "VFIELDA +24V (TB3 BANK)", "7i84U-B VFIELDA"),
-    ("SEVENI84UB_VIN_24V", (5,), "VIN LOGIC +24V (VERIFY W1)", "7i84U-B VIN"),
-    ("SEVENI84UB_GND", (6, 7, 8), "FIELD/VIN COMMON 0V", "7i84U-B GND"),
-)
-
-# Consolidated power/return print run: every TB1 power and return conductor on
-# BOTH 7i84U cards, one row per physical terminal, in its own CSV so the power
-# wiring can be printed as a separate batch from the signal labels. Label_Text
-# follows the ferrule convention (board letter + connector + 1-based pin,
-# e.g. "A-TB1-05"). Per 7i84uman.pdf: TB1 1/2 VFIELDB, 3/4 VFIELDA, 5 VIN,
-# 6/7/8 GND. SAFETY (7i84uman.pdf): VFIELD must connect directly to the DC
-# supply - fusing only, NO switch/breaker/relay in the field-power feed.
-POWER_RETURN_BOARDS = (
-    ("A", "7i84U-A", "SEVENI84U"),
-    ("B", "7i84U-B", "SEVENI84UB"),
-)
-POWER_RETURN_PINS = (
-    ("_FIELD_B_24V", (1, 2), "VFIELDB +24V (TB2 BANK)", "+24VDC", "FUSE ONLY - NO SWITCH IN FEED"),
-    ("_FIELD_A_24V", (3, 4), "VFIELDA +24V (TB3 BANK)", "+24VDC", "FUSE ONLY - NO SWITCH IN FEED"),
-    ("_VIN_24V", (5,), "VIN LOGIC +24V", "+24VDC", "VERIFY W1 JUMPER"),
-    ("_GND", (6, 7, 8), "FIELD/VIN COMMON 0V", "0V RETURN", ""),
-)
-
 LEGEND_FIELDS = (
     "Terminal", "Physical_Pin", "Signal", "HAL_Net", "Authority_Status", "Release_Status"
-)
-
-POWER_RETURN_FIELDS = (
-    "Label_Text", "Mesa_Card", "Terminal", "Signal", "Voltage_Class", "Notes",
-    "Authority_ID", "Authority_Status", "Release_Status"
 )
 
 
@@ -118,15 +87,7 @@ def legend_rows() -> list[dict[str, str]]:
     authority = read_csv(AUTHORITY)
     by_id = {row["signal_id"]: row for row in authority}
     rows: list[dict[str, str]] = []
-    for signal_id, pins, signal, reference in POWER_ROWS:
-        source = by_id[signal_id]
-        for pin in pins:
-            rows.append({
-                "Terminal": f"TB1-{pin}", "Physical_Pin": f"TB1-{pin:02d}",
-                "Signal": signal, "HAL_Net": reference,
-                "Authority_Status": source["authority_status"],
-                "Release_Status": release_status(source["authority_status"]),
-            })
+    # TB1 power/return terminals removed 2026-08-15 at owner request.
 
     allocated = [
         row for row in authority
@@ -158,31 +119,6 @@ def legend_rows() -> list[dict[str, str]]:
     return rows
 
 
-def power_return_rows() -> list[dict[str, str]]:
-    """One row per TB1 power/return terminal on both 7i84U cards."""
-    authority = {row["signal_id"]: row for row in read_csv(AUTHORITY)}
-    rows: list[dict[str, str]] = []
-    for board_letter, card, id_prefix in POWER_RETURN_BOARDS:
-        for id_suffix, pins, signal, voltage, notes in POWER_RETURN_PINS:
-            signal_id = id_prefix + id_suffix
-            source = authority.get(signal_id)
-            if source is None:
-                raise ValueError(f"power/return authority row {signal_id} is missing")
-            if source["mesa_card"] != card or source["connector"] != "TB1":
-                raise ValueError(f"power/return authority row {signal_id} is not {card} TB1")
-            for pin in pins:
-                rows.append({
-                    "Label_Text": f"{board_letter}-TB1-{pin:02d}",
-                    "Mesa_Card": card,
-                    "Terminal": f"TB1-{pin:02d}",
-                    "Signal": signal,
-                    "Voltage_Class": voltage,
-                    "Notes": notes,
-                    "Authority_ID": signal_id,
-                    "Authority_Status": source["authority_status"],
-                    "Release_Status": release_status(source["authority_status"]),
-                })
-    return rows
 
 
 def bbia_rows() -> list[dict[str, str]]:
@@ -258,7 +194,6 @@ def expected_texts() -> dict[Path, str]:
             "Connector", "Logical_Channel", "Physical_Pin", "Authority_ID",
             "Authority_Status", "Crosswalk_Status", "Release_Status"
         ), mesa_ferrule_rows(), "\r\n"),
-        POWER_RETURN_OUT: render(POWER_RETURN_FIELDS, power_return_rows(), "\r\n"),
     }
 
 

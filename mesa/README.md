@@ -83,9 +83,7 @@ VQC 20/40 retrofit. Evidence-state taxonomy defined in
   the limit/home monitoring inputs, drive enables, and relay-driven loads listed above.
 - OEM E-stop safety chain remains hardwired and authoritative. LinuxCNC only
   monitors the chain through an interposing relay dry contact.
-- OEM 24V (Shindengen HR-11F-24) and retrofit 24V buses
-  stay isolated. Every OEM-to-retrofit digital crossing uses an interposing
-  relay.
+- Every OEM-to-retrofit digital crossing uses an interposing relay.
 
 Do not order a third smart-serial card until the input count in
 `current_pin_authority.csv` is proven insufficient. The 7i44 has 6 spare

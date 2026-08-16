@@ -62,7 +62,6 @@ Full versions are in the detailed sections below; this is the skim list.
 - **Preserve the two-card identity** (7i84U-A vs 7i84U-B) and OEM safety wire numbers
   (`57`, `57A`, `57B`, `40`, `40A`, `EHB`, `MAR`, `EMS`, `OTR`, `PIOT`, `*ESP`) unless a
   documented revision says otherwise. Do not reuse retired OEM wire numbers for new wiring.
-- **Keep the two 24 V domains isolated.** OEM `P24`/`G24` never connects to Mesa/new I/O;
   every OEM↔new signal crosses an interposing relay.
 - **Cite everything** using the citation format below.
 
@@ -212,25 +211,9 @@ Always clearly separate:
 
 ## Electrical architecture
 
-The OEM and retrofit 24 VDC systems remain electrically separated.
-
-OEM side:
-- Shindengen HR-11F-24 and `P24`/`G24` bus remain dedicated to retained OEM
-  circuits, especially the MAR/EMS/OTR safety chain.
-- Do not tap `P24`/`G24` for Mesa cards, new I/O, touchscreen, or new relays.
-
-Retrofit side:
-- New dedicated 24 VDC DIN-rail supply
-  powers 7i84U-A, 7i84U-B, new relays, field loads, touchscreen, pendant.
-- Bond retrofit supply 0 V to chassis at one star point on the cabinet
-  backplate only.
-- Use a visually distinct wire-color for new-side 24 V. Do not reuse OEM
-  wire numbers for new signals.
-
 Boundary rule:
 - Every signal crossing between OEM and new-control domains crosses through
   an interposing relay with dry contacts at the boundary.
-- No direct OEM `P24`/`G24` connection to any 7i84U I/O common.
 - Any 7i84U output driving an OEM coil uses an interposing relay.
 - Any OEM contact read by a 7i84U crosses through a relay isolation boundary.
 
@@ -355,7 +338,7 @@ needs the real machine, hardware, OS, or live measurements:
 - Editing and testing HAL/INI on the control PC (`halrun`, watching real pins).
 - Host/NIC/network setup (static IP 192.168.1.121, `hm2_eth`, `enp0s31f6`), package installs,
   systemd services.
-- Resolver/analog scope measurements, 24 V and safety-chain tracing, continuity checks.
+- Resolver/analog scope measurements, safety-chain tracing, continuity checks.
 - Axis / spindle / ATC bring-up and every commissioning step.
 - Capturing cabinet photos and filing them in Drive per
   `docs/README_photo_sorting.md` (the single scheme). **Raw photos are never

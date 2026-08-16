@@ -54,7 +54,7 @@ Full rationale: [docs/architecture_decision.md](docs/architecture_decision.md).
 | Mesa firmware / photo checklists drafted | ✅ Completed |
 | Order 7i80HDT + 7i44 + 7i84U-B | 🔄 In progress |
 | Collect cabinet photos | 🔄 In progress |
-| Trace 24 V + safety chain | 🔄 In progress |
+| Trace safety chain | 🔄 In progress |
 | Live Mesa install | ⬜ Not started |
 | HAL pin replacement from `readhmid` | ⬜ Not started |
 | Resolver / analog measurements (return signal level, pairs) | ⬜ Not started |
@@ -68,7 +68,6 @@ Full rationale: [docs/architecture_decision.md](docs/architecture_decision.md).
 - Order the 7i80HDT, 7i44, and 7i84U-B (7i49 and 7i84U-A already in hand / buy list).
 - Bitfile `7i80hdt_rmsvss6_8.bin` is flashed and its **layout, identity, and upstream source all confirmed**: `readhmid` (2026-08-11, re-checked 2026-08-13; SHA-256 recorded) plus the binary sourced directly from Peter Wallace at Mesa Electronics (`freeby.mesanet.com/7i80hdt_rmsvss6_8.zip`, 2026-08-11) — see [`mesa/mesa_firmware_checklist.md`](mesa/mesa_firmware_checklist.md#bitfile-provenance-verification-procedure).
 - Confirm 7i80HDT Ethernet setup: static IP 192.168.1.121, `hm2_eth` `board_ip="192.168.1.121"`, and host NIC `enp0s31f6` at 192.168.1.1/24.
-- Confirm 24 V field power feed (OEM HR-11F-24 + retrofit 24 V supply, kept isolated) and 7i84U-A / 7i84U-B I/O sourcing/sinking behavior before wiring.
 - Capture cabinet photo set ([checklist](docs/cabinet_photo_checklist.md)).
 - Record X/Y/Z servo drive + Mitsubishi FR-SX spindle model/terminal labels.
 - Trace E-stop, door, ready chain, and servo contactor wiring.

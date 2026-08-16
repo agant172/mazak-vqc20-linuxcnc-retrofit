@@ -125,7 +125,6 @@ The original **Meldas M2 / TRA** resolver wiring may run the resolver "backwards
 - Confirm X/Y/Z drive command polarity and scaling on 7i49 AOUT0/1/2.
 - Confirm per-axis resolver label, winding pairs, transformation ratio, and return signal level.
 - Confirm FR-SX spindle command mode (analog speed reference on 7i49 AOUT3; digital FWD/REV/ENA on 7i84U).
-- Confirm the 24 VDC field power feed and its retrofit bus, I/O sourcing/sinking behavior, and field power/fusing at each 7i84U card.
 - Confirm output load currents at both 7i84Us, and interpose relays for legacy 100VAC solenoids (SOL-35/61/62) and the ATC barrier before energizing 7i84U-B outputs 3-7.
 
 ## Resolver unknowns still needing measurement

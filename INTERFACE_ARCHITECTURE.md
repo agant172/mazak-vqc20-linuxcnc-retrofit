@@ -105,10 +105,7 @@ that is not here must be added here.
    land in the **safety-relay chain, never on a Mesa input**. LinuxCNC only *monitors*
    machine-enabled state via a `MAR` aux contact / `MAR-MON` interposing relay.
    LinuxCNC/HAL is not a safety input. (See `docs/estop_safety_chain.md`.)
-2. **Power and return.** The OEM `P24`/`G24` bus (Shindengen HR-11F-24) feeds BBIA-1
-   and OEM circuits; the retrofit 24 V supply feeds the Mesa cards, new relays,
-   and field loads. These are power, not machine signals, and **the two 24 V domains
-   stay isolated** — every OEM↔new signal crossing the plane goes through an
+2. **Domain crossings.** Every OEM↔new signal crossing the plane goes through an
    interposing relay (see CLAUDE.md § Electrical architecture).
 
 ### 3b. Open — verify before assuming these cross at BBIA-1
@@ -154,7 +151,7 @@ that is not here must be added here.
   normal state (NO/NC), polarity, and (for analog) scale — captured in
   `mesa/current_pin_authority.csv` with an `authority_status`.
 - **Exceptions are handled by their own subsystem**, not shoehorned into the plane:
-  E-stop → safety-relay chain; power → the two isolated 24 V domains; analog/resolver
+  E-stop → safety-relay chain; analog/resolver
   → whatever path Section 3b resolves to.
 - **When something is found outside the plane, add it to Section 3** — keep the
   exception list exhaustive so the simplification stays true.
