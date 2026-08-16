@@ -85,6 +85,10 @@ See [`architecture_decision.md`](architecture_decision.md) for the full rational
 - Mesa firmware/HAL-pin checklist drafted (`mesa/mesa_firmware_checklist.md`).
 - Cabinet photo checklist drafted (`docs/cabinet_photo_checklist.md`).
 - Ladder transcription: ATC (mazak_atc.comp), Orient/Gear (mazak_orient.comp).
+- `halrun` component harness green on the OptiPlex — 12 scenarios, 405 checks,
+  0 failed (2026-08-16, commit `925ee7d`;
+  `docs/commissioning_logs/halrun_component_harness_2026-08-16.md`). Code evidence
+  only: no hardware in the loop, no `authority_status` may be advanced on it.
 - 385-signal ladder crosswalk; 132 current authority rows covered in io-dashboard.
 - Element list catalog (VQC20-40_060231) — 5,247 elements categorized.
 - Pin authority CSV structurally reconciled for the full stack
