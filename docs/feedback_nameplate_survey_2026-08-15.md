@@ -99,10 +99,16 @@ depends on it.
 
 - [x] ~~Locate the Z resolver pickup~~ — found at the Z screw's non-drive end,
   spec `BKO-NC6062A` confirmed same as X/Y (2026-08-15 second visit).
-- [ ] Ohmmeter pair sweep on each pickup's own MS connector (X, Y, Z): find
-  the three winding pairs empirically and record pin letters + DC ohms on the
-  D8 worksheet. The pin letters do NOT map one-to-one to the drawing's wire
-  names (verified on the tacho connector 2026-08-15) — sweep, don't assume.
+- [ ] Ohmmeter pair measurement for all three axes **at the drive-end CNA
+  connectors** (CNA3 = X, CNA4 = Y, CNA5 = Z; unplug at the drive, measure the
+  cable-side plug). This reads the windings through the mated pickup connector
+  and proves cable + connector in the same measurement. Drawing 4143075404
+  p128 pin hypothesis: 16-17 rotor (higher DCR), 12-13 sin, 14-15 cos
+  (matched); 18-19 is the tacho, ignore. If those pins read open, sweep the
+  plug — pin maps must be found, not assumed (the letter-map assumption
+  failed on the tacho connector 2026-08-15). The Z pickup's own MS connector
+  is inaccessible without pulling the spindle — do NOT pull the spindle for
+  this; the CNA5 end is electrically equivalent.
 - [ ] Re-read the faded type stamps (`RT-…`) and the E-suffix digits on X/Y,
   or obtain the `TS2014N25E…` datasheet from Tamagawa and reconcile.
 - [ ] Until the exact suffix datasheet is in hand, treat excitation level,
