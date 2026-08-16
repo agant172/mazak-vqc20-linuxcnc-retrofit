@@ -472,6 +472,33 @@ facts (an SSH alias, a printer).
 **Start every session with `git pull`.** With three machines and an automated status push, a
 stale working copy is now the most likely way to act on facts that are no longer true.
 
+### Reading the repo in Obsidian
+
+The repo is also an Obsidian vault — the docs are markdown, so Obsidian reads them directly
+with backlinks and graph view. Open the repo folder as a vault
+(Obsidian → vault switcher → *Open folder as vault*).
+
+`.obsidian/` is **tracked on purpose**, so appearance, hotkeys, and enabled plugins follow you
+between machines instead of being set up three times. What stays local is listed in
+`.gitignore`:
+
+| Not synced | Why |
+|---|---|
+| `.obsidian/workspace.json`, `workspace-mobile.json` | Which panes you had open — per-machine, and conflicts on every pull |
+| `.obsidian/cache`, `.obsidian/.trash/` | Machine-local scratch |
+| `.obsidian/plugins/` (the code) | ~9 MB of vendored JS per plugin set — it would drown every PR diff. `community-plugins.json` **is** tracked, so the *list* of enabled plugins syncs; install them once per machine from the community store. |
+| `.obsidian/plugins/*/data.json` | **Plugin settings can hold credentials** — `obsidian-local-rest-api` stores an API key, and this repo is public. Re-enter secrets per machine. |
+
+Settings changes ride the normal workflow — a desk session commits them on a branch and opens a
+PR like any other change. **Do not install the Obsidian *Git* plugin's auto-commit here:** it
+would push editor state straight to `main`, which desk sessions are not allowed to do, and bury
+the engineering history under workspace churn.
+
+**Two clones on one machine is a foot-gun.** As of 2026-08-15 the MacBook Pro has the working
+copy at `~/mazak-vqc20-linuxcnc-retrofit` *and* a vault clone at
+`~/Obsidian/mazak-vqc20-linuxcnc-retrofit`. Notes edited in Obsidian land in the vault clone
+only. Pull both, or point Obsidian at the working copy and keep a single clone.
+
 ### Photos and large media
 
 - **Never commit raw media.** `.gitignore` blocks `*.jpg/.png/.heic/.mp4/…` on purpose.
