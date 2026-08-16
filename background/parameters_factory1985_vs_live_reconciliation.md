@@ -1,5 +1,8 @@
 # Factory (1985) parameter sheet vs. live 2026 values — reconciliation
 
+> **ROLE: BACKGROUND** — moved from `docs/` 2026-08-15; settled conclusion: the 1985 factory sheet must not be used as current values. Index: [README.md](README.md).
+
+
 **Machine:** Mazak VQC-20/40 SN 060231 (Mazatrol M-2)
 **Reconciled:** 2026-08-09
 **Factory source:** `Manuals_SN060231/Original Manuals/60231 Parameters.pdf` — a

@@ -1,5 +1,8 @@
 # Authority Hierarchy — Mazak VQC 20/40 Retrofit
 
+> **ROLE: GOVERNANCE** — which file wins when two disagree; mandatory reading per `CLAUDE.md`. See [../INSTALL_SPINE.md](../INSTALL_SPINE.md).
+
+
 _Last updated: 2026-08-06_
 
 _Related: [`pre_power_deliverables.md`](pre_power_deliverables.md),

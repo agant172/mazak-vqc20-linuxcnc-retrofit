@@ -1,5 +1,8 @@
 # Claim audit reconciliation — 2026-08-07
 
+> **ROLE: PROVENANCE** — audit reconciliation record; documentation about documentation. See [../INSTALL_SPINE.md](../INSTALL_SPINE.md).
+
+
 Independent audit of the retrofit documentation raised ~20 point
 claims marked as V (verified), U (unverified), or C (contradicted).
 Each item below is reconciled against primary sources or repo state,

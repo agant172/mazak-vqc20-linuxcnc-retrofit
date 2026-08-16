@@ -1,5 +1,8 @@
 # Spindle run / direction ladder logic — from YM2V39L
 
+> **ROLE: BACKGROUND** — the retrofit's FWD/REV/RUN logic is LinuxCNC-native (`spindle.0.*` with the permit chain), not the ladder mirror described here. Kept at this path because `mesa/current_pin_authority.csv` cites it. See [../../INSTALL_SPINE.md](../../INSTALL_SPINE.md).
+
+
 **Machine:** Mazak VQC-20/40 SN 060231 (Mazatrol M-2)
 **Source:** `YM2V39L.pdf` / `VQC20-40_060231_Ladder_Diagrams.pdf`, drawing 4136081801.
 **Extracted:** 2026-08-10 (sheets 27-28, PDF p28-29). Cross-ref `SSLL` = sheet·line.

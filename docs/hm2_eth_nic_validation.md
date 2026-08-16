@@ -1,5 +1,8 @@
 # hm2_eth / Debian 13 NIC validation
 
+> **ROLE: COMMISSIONING (D14)** — PC-side qualification, before trusting Ethernet motion. Order of procedures: [../INSTALL_SPINE.md](../INSTALL_SPINE.md) Appendix B.
+
+
 ## Audit finding #20 (verbatim)
 
 > hm2_eth/Debian 13 validation is incomplete.

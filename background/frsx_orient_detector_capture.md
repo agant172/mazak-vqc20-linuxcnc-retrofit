@@ -1,5 +1,8 @@
 # FR-SX orient detector — how to actually find out
 
+> **ROLE: BACKGROUND** — moved from `docs/` 2026-08-15; largely superseded by the committed FR-SX maintenance manual. Index: [README.md](README.md).
+
+
 **Purpose:** determine which detector the FR-SX orients from on **this** machine.
 **Status:** capture procedure. Nothing here is a finding.
 
@@ -8,7 +11,7 @@
 > ## ⚠️ LARGELY SUPERSEDED 2026-08-13 — the FR-SX manual is now in the repo
 >
 > `docs/OEM Manuals/…BCN-21735-S5.pdf`, findings in
-> [`frsx_maintenance_manual_notes.md`](frsx_maintenance_manual_notes.md).
+> [`frsx_maintenance_manual_notes.md`](../docs/frsx_maintenance_manual_notes.md).
 >
 > **The headline question is answered.** §5.2: the `SX-CPU2` card is used "when
 > the controller unit is equipped with **1024P×4/Rev. encoder type multi-point
@@ -38,7 +41,7 @@
 item that closes the orient-detector question."* **That was overstated.**
 
 `#41 OSL` and `SP037.plgo/enco/nsno` are quoted in
-[`frsx_orient_model.md`](frsx_orient_model.md) from the **MDS-CH** instruction
+[`frsx_orient_model.md`](../docs/frsx_orient_model.md) from the **MDS-CH** instruction
 manual — a **later Mitsubishi generation** than this drive. That document already
 carries a standing warning that the whole orient model is unverified for this
 machine. So:
@@ -51,9 +54,9 @@ Two further reasons to expect configuration *not* to live in a parameter table:
 
 - The FR-SX is an **analogue-era drive**. Its speed reference is ±10 V on the
   SX-AJ / SX-IO1 card set, and orient is an **option card** (`SF-On` / `SPOR`) —
-  not integral to the base drive ([`servo_amp_analysis.md`](servo_amp_analysis.md) §1.4).
+  not integral to the base drive ([`servo_amp_analysis.md`](../docs/servo_amp_analysis.md) §1.4).
 - The SX-CPU2 board is configured **by sticker**: `BASE 1500 RPM / TOP 6000 RPM`
-  is written on the board itself ([`photo_survey_misc.md`](photo_survey_misc.md)).
+  is written on the board itself ([`photo_survey_misc.md`](../docs/photo_survey_misc.md)).
   A drive whose speed range is recorded on a label is usually set up with
   jumpers, DIP switches and pots — not a parameter menu.
 
@@ -76,7 +79,7 @@ The Mitsubishi detector table maps **detector → drive connector**:
 
 We already know this machine **has** a motor-built-in PLG — Tamagawa
 `TS1526N55`, on a 9-pin `AMP-350720-1` connector in the spindle motor's terminal
-box ([`spindle_motor_plg_encoder.md`](spindle_motor_plg_encoder.md)).
+box ([`spindle_motor_plg_encoder.md`](../docs/spindle_motor_plg_encoder.md)).
 
 **Follow that 9-pin cable from the motor terminal box to the drive and read
 which connector it lands on.**
@@ -140,7 +143,7 @@ this.
 
 **None of this changes the LinuxCNC spindle-position decision.** LinuxCNC still
 does not read spindle position — orient is the drive's job either way
-([`spindle_motor_plg_encoder.md`](spindle_motor_plg_encoder.md#design-decision--linuxcnc-does-not-read-spindle-position)).
+([`spindle_motor_plg_encoder.md`](../docs/spindle_motor_plg_encoder.md#design-decision--linuxcnc-does-not-read-spindle-position)).
 What this determines is how orient behaves and what `mazak_orient.comp` must
 wait for, not who owns the feedback.
 
@@ -150,7 +153,7 @@ wait for, not who owns the feedback.
 
 The **FR-SX interface / maintenance manual** is not in the repo, and its absence
 is why this procedure is a hunt rather than a lookup.
-[`servo_amp_analysis.md`](servo_amp_analysis.md) open item 6 already tracks
+[`servo_amp_analysis.md`](../docs/servo_amp_analysis.md) open item 6 already tracks
 finding it. If it turns up, most of the above becomes a five-minute read.
 
 Manuals for the other cards in the stack are committed under
@@ -175,5 +178,5 @@ before an afternoon of probing.
 | 10 | M-2 CRT spindle parameter pages | | powered step |
 | 11 | Any parameter resembling `OSL` / detector select | | may not exist |
 
-File photos per [`README_photo_sorting.md`](README_photo_sorting.md) under
+File photos per [`README_photo_sorting.md`](../docs/README_photo_sorting.md) under
 `02_Drives`, and cite them as `YYYY-MM-DD/IMG_nnnn`.

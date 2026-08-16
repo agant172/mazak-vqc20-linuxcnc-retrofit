@@ -1,5 +1,8 @@
 # Spindle-head valve hardware — as-found inventory
 
+> **ROLE: REFERENCE** — head valve nameplate inventory. Kept at this path because the pin authority and io-dashboard cite it. See [../INSTALL_SPINE.md](../INSTALL_SPINE.md).
+
+
 **Machine:** Mazak VQC 20/40B SN 060231
 **Evidence:** ten owner-supplied photographs of the head hydraulic/pneumatic
 stack, reviewed 2026-08-13 — five overview frames and five close-ups. Photos not

@@ -1,5 +1,8 @@
 # FR-SX maintenance manual — what it settles
 
+> **ROLE: REFERENCE** — what the committed FR-SX maintenance manual settles (orient detector, SX-CPU2, PIN11, ST2). Consulted for the open SSET/FR-SX terminal question. See [../INSTALL_SPINE.md](../INSTALL_SPINE.md).
+
+
 **Source:** `docs/OEM Manuals/Mitsubishi_FR-SX_Spindle_Drive_Maintenance_Manual_BCN-21735-S5.pdf`
 Mitsubishi document **`BCN-21735-S5`**, *AC SPINDLE DRIVE CONTROLLER TYPE FR-SX
 MAINTENANCE MANUAL*.

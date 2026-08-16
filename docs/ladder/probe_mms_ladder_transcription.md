@@ -1,5 +1,8 @@
 # Probe / MMS (measuring system) ladder logic — from YM2V39L
 
+> **ROLE: BACKGROUND** — confirmatory only: SKIP1 → 7i84U-B IN15 was already the plan of record, and the MMS arm is dropped. Informed no retrofit code. Kept at this path because `mesa/current_pin_authority.csv` cites it. See [../../INSTALL_SPINE.md](../../INSTALL_SPINE.md).
+
+
 **Machine:** Mazak VQC-20/40 SN 060231 (Mazatrol M-2)
 **Source:** `YM2V39L.pdf` / `VQC20-40_060231_Ladder_Diagrams.pdf`, drawing 4136081801.
 **Extracted:** 2026-08-10 (sheets 40-41, PDF p41-42). Cross-ref `SSLL` = sheet·line.

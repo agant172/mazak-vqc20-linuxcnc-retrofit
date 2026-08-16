@@ -1,5 +1,8 @@
 # First powered axis-move plan
 
+> **ROLE: COMMISSIONING (D9)** — executed under power, after installation. Order of procedures: [../INSTALL_SPINE.md](../INSTALL_SPINE.md) Appendix B.
+
+
 Status: procedure drafted; machine-specific values and signatures are blank.
 Do not execute this plan until the completed sheet is independently reviewed.
 

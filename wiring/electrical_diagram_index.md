@@ -1,5 +1,8 @@
 # 41434WB Electrical Diagram — coverage map / navigation index
 
+> **ROLE: REFERENCE** — navigation index for the 41434WB schematic set, used when targeting a trace. See [../INSTALL_SPINE.md](../INSTALL_SPINE.md).
+
+
 **Source:** `Manuals_SN060231/VQC20-40_060231_Electrical_Diagrams.pdf` (311 pp).
 **Purpose:** make the image-only schematic set navigable so extraction is targeted, not blind.
 **Started:** 2026-08-09.

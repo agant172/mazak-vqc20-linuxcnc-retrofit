@@ -1,5 +1,8 @@
 # E-stop ladder logic — transcribed from YM2V39L
 
+> **ROLE: BACKGROUND** — OEM ladder record only; the retrofit uses LinuxCNC's stock `estop_latch` and the E-stop system stays 100% OEM (owner decision 2026-08-15). Informed no retrofit code. Kept at this path because `mesa/current_pin_authority.csv` cites it. See [../../INSTALL_SPINE.md](../../INSTALL_SPINE.md).
+
+
 **Machine:** Mazak VQC-20/40 SN 060231 (Mazatrol M-2)
 **Source:** `YM2V39L.pdf` / `VQC20-40_060231_Ladder_Diagrams.pdf` — PLC Sequence
 Diagram, drawing **4136081801**, Yamazaki Machinery Works, 4/20/1985, 94 sheets.

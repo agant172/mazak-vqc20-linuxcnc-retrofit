@@ -1,5 +1,8 @@
 # Photo scheme
 
+> **ROLE: GOVERNANCE** — the single photo scheme and citation format. See [../INSTALL_SPINE.md](../INSTALL_SPINE.md).
+
+
 **The single scheme for this project.** Settled 2026-08-13 (owner). Two earlier
 folder lists are superseded — see [Migration](#migration) to find older material.
 

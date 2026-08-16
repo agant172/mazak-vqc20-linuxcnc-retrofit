@@ -1,5 +1,8 @@
 # Enable, fault, and Z-brake timing budget
 
+> **ROLE: COMMISSIONING (D7)** — executed under power, after installation. Order of procedures: [../INSTALL_SPINE.md](../INSTALL_SPINE.md) Appendix B.
+
+
 Status: sequence template drafted; no physical times are accepted. The checked-
 in 0.100 s Z delays are commissioning placeholders, not evidence that the head
 cannot drop.

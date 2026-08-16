@@ -1,5 +1,8 @@
 # FR-SX / SJ spindle orient model — corrected
 
+> **ROLE: BACKGROUND** — model of the OEM drive built from MDS-CH/FREQROL borrowings, outranked by the committed FR-SX maintenance manual (`docs/frsx_maintenance_manual_notes.md`). Kept at this path because the io-dashboard cites it. See [../INSTALL_SPINE.md](../INSTALL_SPINE.md).
+
+
 > ## ✅ THE FR-SX MAINTENANCE MANUAL IS NOW IN THE REPO (2026-08-13)
 >
 > `docs/OEM Manuals/Mitsubishi_FR-SX_Spindle_Drive_Maintenance_Manual_BCN-21735-S5.pdf`
@@ -97,7 +100,7 @@ manufacture:
 > the mere presence of a PLG **does not prove** `#41 OSL = 0` is what the drive
 > is configured for. **Do not assume the parameter numbers in this table apply
 > here** — they come from the later MDS-CH manual. What settles it is
-> [`frsx_orient_detector_capture.md`](frsx_orient_detector_capture.md), which
+> [`frsx_orient_detector_capture.md`](../background/frsx_orient_detector_capture.md), which
 > starts by tracing the PLG cable to its drive connector.
 
 Quoted parameter text:
@@ -252,7 +255,7 @@ the component watchdog.
   operation.
 - [ ] Verify which detector mode is provisioned on this machine (magnetic
   sensor on CN6, external encoder on CN6, or PLG on CN5) — procedure in
-  [`frsx_orient_detector_capture.md`](frsx_orient_detector_capture.md), which
+  [`frsx_orient_detector_capture.md`](../background/frsx_orient_detector_capture.md), which
   leads with the **physical cable trace** rather than a parameter read. The
   physical cabling determines which `#41 OSL` / `SP037` bits are valid; the
   ladder transcription and orient tuning depend on this.
@@ -262,7 +265,7 @@ the component watchdog.
   encoder on CN6 has not been ruled out, and the schematics' separate
   "SPINDLE ENCODER" (`MS3108B 20-29P`, dwg 4143075301 p090) is still
   unaccounted for.
-  **Capture procedure: [`frsx_orient_detector_capture.md`](frsx_orient_detector_capture.md).**
+  **Capture procedure: [`frsx_orient_detector_capture.md`](../background/frsx_orient_detector_capture.md).**
   An earlier revision said "reading `#41 OSL` and `SP037` remains the item that
   closes this" — **that was overstated.** Those parameter numbers are quoted
   above from the later **MDS-CH** manual and may not exist on a 1985 FR-SX. The

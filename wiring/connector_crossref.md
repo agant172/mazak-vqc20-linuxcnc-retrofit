@@ -1,5 +1,8 @@
 # Connector & Wire-Number Cross-Reference — Spindle/Servo Bay
 
+> **ROLE: REFERENCE** — connector/wire cross-reference for the spindle/servo bay (outside the BBIA-1 work area). Kept at this path because the io-dashboard cites it. See [../INSTALL_SPINE.md](../INSTALL_SPINE.md).
+
+
 Machine: Mazak VQC-20/40, SN 060231
 Source: `41434WB.pdf` — Electrical Circuit Diagram for VQC-20/40/50 (Mazatrol M-2),
 Publication #41434WB, 6/1984. Full 311-page set, delivered by Mazak Corporation

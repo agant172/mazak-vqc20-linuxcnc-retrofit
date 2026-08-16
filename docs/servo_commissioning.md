@@ -1,5 +1,8 @@
 # Servo commissioning — velocity-mode outer loop
 
+> **ROLE: COMMISSIONING (D10)** — executed under power, after installation. Order of procedures: [../INSTALL_SPINE.md](../INSTALL_SPINE.md) Appendix B.
+
+
 This mill retains the OEM Mitsubishi TRA-type DC servo drives. Each TRA drive
 already closes an **inner velocity loop on its own tachogenerator** (Tamagawa
 TGF-3D P402-Sx integral to the HD-101 / HD-81 motors). LinuxCNC on the 7i49

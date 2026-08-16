@@ -1,5 +1,8 @@
 # Original-control restore and retrofit rollback package
 
+> **ROLE: INSTALL-CORE (D15)** — gates the start of physical work and accompanies the rewire: one ledger row per conductor moved. See [../INSTALL_SPINE.md](../INSTALL_SPINE.md) §1.
+
+
 Status: template only. Do not disconnect the Mazatrol M-2 until every required
 entry has evidence and the baseline is signed.
 

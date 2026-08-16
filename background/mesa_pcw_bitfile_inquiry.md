@@ -1,12 +1,15 @@
 # Mesa/PCW inquiry — Efinix 7i49 resolver bitfile for the 7i80HDT stack
 
+> **ROLE: BACKGROUND** — moved from `docs/` 2026-08-15; historical — the bitfile was received, verified, and committed. Index: [README.md](README.md).
+
+
 **Purpose.** Confirm, *before ordering the remaining boards*, that Mesa/PCW has
 (or will build) a bitfile for this exact card combination that exposes resolver
 feedback + analog out on the 7i49. The 7i80HDT is an **Efinix**-FPGA host;
 pre-built resolver bitfiles are common on the older Xilinx Mesa boards but less
 so on the Efinix generation, so availability is the one open item that could
 force a host-board change. This is the gate — see
-[`project_status.md`](project_status.md) TODO.
+[`project_status.md`](../docs/project_status.md) TODO.
 
 This is **not** a claim the stack is unsupported: the 7i49 is Mesa's resolver
 interface and HostMot2 has a Resolver module. The only question is whether the
