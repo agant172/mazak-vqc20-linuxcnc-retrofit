@@ -19,8 +19,10 @@ Complete one row for X, Y, and Z before applying resolver excitation:
 | Cable/shield inspection | | | |
 | Reviewer/date | | | |
 
-The TS2014N141E26 values elsewhere in the repo are tentative comparison data,
-not proof of the suffix installed on an axis. Stop if resistance, insulation,
+The TS2014N141E26 values elsewhere in the repo are comparison data from a
+**different suffix than the one installed**: the 2026-08-15 nameplate survey
+read `TS2014N 25 E …` on X and Y (Z still unread). Use ~121 Ω / ~69 Ω only as
+a ratio discriminator between rotor and stator pairs, never as a spec. Stop if resistance, insulation,
 or pair identity does not agree with the exact suffix data.
 
 ## Power-off identification
@@ -117,4 +119,8 @@ enter [`first_move_plan.md`](first_move_plan.md).
 
 - [Mesa 7i49 manual](https://www.mesanet.com/pdf/motion/7i49man.pdf)
 - [LinuxCNC HostMot2 resolver documentation](https://linuxcnc.org/docs/2.9/html/man/man9/hostmot2.9.html)
-- Exact per-axis Tamagawa datasheet: **not yet captured**
+- Exact per-axis Tamagawa suffix: **partially read 2026-08-15** — X/Y pickups
+  read `TS2014N 25 E …` (faded; Z resolver nameplate still unread), which is
+  **not** the 141E26 variant the comparison figures come from. See
+  [`feedback_nameplate_survey_2026-08-15.md`](feedback_nameplate_survey_2026-08-15.md);
+  the matching datasheet is still to be obtained.

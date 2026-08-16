@@ -6,7 +6,7 @@ window.MAZAK_DATA = {
   "machine": "Mazak VQC-20/40",
   "serial": "060231",
   "architecture": "LinuxCNC + Mesa 7i80HDT (Ethernet FPGA host) + 7i44 on P3 (HostMot2 sserial port 0 channels 0/1 to 7i84U-A/B) + 7i49 on P1 (resolver + analog outs); P2 unused/spare (confirmed 2026-08-13 by readhmid)",
-  "generated": "2026-08-16 00:22 UTC",
+  "generated": "2026-08-16 02:32 UTC",
   "source_repo": "mazak-vqc20-linuxcnc-retrofit",
   "authority_file": "mesa/current_pin_authority.csv",
   "epson_ferrule_file": "wiring/labels/bbia1_mesa_end_ferrules_epson.csv",
@@ -207,7 +207,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "line": 164,
+     "line": 178,
      "text": "net x-pos-fb        <= hm2_7i80.0.resolver.00.position",
      "commented": false,
      "producers": [
@@ -218,7 +218,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "line": 169,
+     "line": 183,
      "text": "net x-pos-fb        => joint.0.motor-pos-fb",
      "commented": false,
      "producers": [],
@@ -229,7 +229,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "line": 289,
+     "line": 303,
      "text": "net x-pos-fb   => pid.x.feedback",
      "commented": false,
      "producers": [],
@@ -242,7 +242,7 @@ window.MAZAK_DATA = {
    "setp_refs": [
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "line": 118,
+     "line": 131,
      "text": "setp hm2_7i80.0.resolver.00.scale [JOINT_0]RESOLVER_SCALE",
      "commented": false,
      "target": "hm2_7i80.0.resolver.00.scale",
@@ -250,7 +250,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "line": 147,
+     "line": 161,
      "text": "setp hm2_7i80.0.resolver.00.velocity-scale  [JOINT_0]RESOLVER_VELOCITY_SCALE",
      "commented": false,
      "target": "hm2_7i80.0.resolver.00.velocity-scale",
@@ -258,7 +258,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "line": 157,
+     "line": 171,
      "text": "setp hm2_7i80.0.resolver.00.index-divisor   [JOINT_0]RESOLVER_INDEX_DIVISOR",
      "commented": false,
      "target": "hm2_7i80.0.resolver.00.index-divisor",
@@ -274,32 +274,32 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "lines": "164",
+     "lines": "178",
      "note": "net x-pos-fb        <= hm2_7i80.0.resolver.00.position"
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "lines": "169",
+     "lines": "183",
      "note": "net x-pos-fb        => joint.0.motor-pos-fb"
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "lines": "289",
+     "lines": "303",
      "note": "net x-pos-fb   => pid.x.feedback"
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "lines": "118",
+     "lines": "131",
      "note": "setp hm2_7i80.0.resolver.00.scale [JOINT_0]RESOLVER_SCALE"
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "lines": "147",
+     "lines": "161",
      "note": "setp hm2_7i80.0.resolver.00.velocity-scale  [JOINT_0]RESOLVER_VELOCITY_SCALE"
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "lines": "157",
+     "lines": "171",
      "note": "setp hm2_7i80.0.resolver.00.index-divisor   [JOINT_0]RESOLVER_INDEX_DIVISOR"
     },
     {
@@ -357,7 +357,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "line": 171,
+     "line": 185,
      "text": "net y-pos-fb        <= hm2_7i80.0.resolver.01.position",
      "commented": false,
      "producers": [
@@ -368,7 +368,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "line": 176,
+     "line": 190,
      "text": "net y-pos-fb        => joint.1.motor-pos-fb",
      "commented": false,
      "producers": [],
@@ -379,7 +379,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "line": 302,
+     "line": 316,
      "text": "net y-pos-fb   => pid.y.feedback",
      "commented": false,
      "producers": [],
@@ -392,7 +392,7 @@ window.MAZAK_DATA = {
    "setp_refs": [
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "line": 119,
+     "line": 132,
      "text": "setp hm2_7i80.0.resolver.01.scale [JOINT_1]RESOLVER_SCALE",
      "commented": false,
      "target": "hm2_7i80.0.resolver.01.scale",
@@ -400,7 +400,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "line": 148,
+     "line": 162,
      "text": "setp hm2_7i80.0.resolver.01.velocity-scale  [JOINT_1]RESOLVER_VELOCITY_SCALE",
      "commented": false,
      "target": "hm2_7i80.0.resolver.01.velocity-scale",
@@ -408,7 +408,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "line": 158,
+     "line": 172,
      "text": "setp hm2_7i80.0.resolver.01.index-divisor   [JOINT_1]RESOLVER_INDEX_DIVISOR",
      "commented": false,
      "target": "hm2_7i80.0.resolver.01.index-divisor",
@@ -424,32 +424,32 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "lines": "171",
+     "lines": "185",
      "note": "net y-pos-fb        <= hm2_7i80.0.resolver.01.position"
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "lines": "176",
+     "lines": "190",
      "note": "net y-pos-fb        => joint.1.motor-pos-fb"
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "lines": "302",
+     "lines": "316",
      "note": "net y-pos-fb   => pid.y.feedback"
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "lines": "119",
+     "lines": "132",
      "note": "setp hm2_7i80.0.resolver.01.scale [JOINT_1]RESOLVER_SCALE"
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "lines": "148",
+     "lines": "162",
      "note": "setp hm2_7i80.0.resolver.01.velocity-scale  [JOINT_1]RESOLVER_VELOCITY_SCALE"
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "lines": "158",
+     "lines": "172",
      "note": "setp hm2_7i80.0.resolver.01.index-divisor   [JOINT_1]RESOLVER_INDEX_DIVISOR"
     },
     {
@@ -507,7 +507,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "line": 178,
+     "line": 192,
      "text": "net z-pos-fb        <= hm2_7i80.0.resolver.02.position",
      "commented": false,
      "producers": [
@@ -518,7 +518,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "line": 183,
+     "line": 197,
      "text": "net z-pos-fb        => joint.2.motor-pos-fb",
      "commented": false,
      "producers": [],
@@ -529,7 +529,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "line": 312,
+     "line": 326,
      "text": "net z-pos-fb   => pid.z.feedback",
      "commented": false,
      "producers": [],
@@ -542,7 +542,7 @@ window.MAZAK_DATA = {
    "setp_refs": [
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "line": 120,
+     "line": 133,
      "text": "setp hm2_7i80.0.resolver.02.scale [JOINT_2]RESOLVER_SCALE",
      "commented": false,
      "target": "hm2_7i80.0.resolver.02.scale",
@@ -550,7 +550,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "line": 149,
+     "line": 163,
      "text": "setp hm2_7i80.0.resolver.02.velocity-scale  [JOINT_2]RESOLVER_VELOCITY_SCALE",
      "commented": false,
      "target": "hm2_7i80.0.resolver.02.velocity-scale",
@@ -558,7 +558,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "line": 159,
+     "line": 173,
      "text": "setp hm2_7i80.0.resolver.02.index-divisor   [JOINT_2]RESOLVER_INDEX_DIVISOR",
      "commented": false,
      "target": "hm2_7i80.0.resolver.02.index-divisor",
@@ -574,32 +574,32 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "lines": "178",
+     "lines": "192",
      "note": "net z-pos-fb        <= hm2_7i80.0.resolver.02.position"
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "lines": "183",
+     "lines": "197",
      "note": "net z-pos-fb        => joint.2.motor-pos-fb"
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "lines": "312",
+     "lines": "326",
      "note": "net z-pos-fb   => pid.z.feedback"
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "lines": "120",
+     "lines": "133",
      "note": "setp hm2_7i80.0.resolver.02.scale [JOINT_2]RESOLVER_SCALE"
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "lines": "149",
+     "lines": "163",
      "note": "setp hm2_7i80.0.resolver.02.velocity-scale  [JOINT_2]RESOLVER_VELOCITY_SCALE"
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "lines": "159",
+     "lines": "173",
      "note": "setp hm2_7i80.0.resolver.02.index-divisor   [JOINT_2]RESOLVER_INDEX_DIVISOR"
     },
     {
@@ -629,14 +629,14 @@ window.MAZAK_DATA = {
    "subsystem": "Spindle",
    "machine_subsystem": "Spindle feedback",
    "status": "UNBOUND",
-   "field_point": "Machine-side A/B/Z spindle encoder if fitted",
+   "field_point": "Tamagawa TS1526N55 optical shaft encoder, 512 counts/turn, DC +/-15 V (nameplate read 2026-08-15, ser A6022, 1984.6)",
    "dest_connector": "",
    "dest_pin": "",
    "factory_wire": "",
    "bbia_class": "exception",
    "designations": [],
    "primary_source": "motion_7i80hdt.hal",
-   "cleanup_notes": "Current target leaves P3 empty and requests num_encoders=0. Identify encoder model/electrical format and select a compatible receiver/daughter interface plus IDROM-proven pins before allocation. | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/spindle_run_ladder_transcription.md] | [2026-08-12: STILL UNBOUND. The spindle MOTOR built-in PLG was identified from nameplate photos (Tamagawa TS1526N55 optical, 512 counts/turn, DC +/-15V, 9-pin AMP-350720-1) but it is the FR-SX drive's own detector, not this row - do not allocate it to Mesa and do not parallel-tap it. Whether the schematics' machine-side SPINDLE ENCODER (MS3108B 20-29P, dwg 4143075301 p090) is a separate device remains open. See docs/spindle_motor_plg_encoder.md] | [2026-08-12 DECIDED (owner): UNBOUND is now SETTLED, not pending. LinuxCNC does not read spindle position - orient is FR-SX internal (ORCM1/ORA1), speed supervision is discrete (SZS IN5 / speed-reach IN13), and tapping uses a floating holder so needs only FWD/REV + dwell. No rigid tapping or G33 in scope. Do not open this row again without a scoped project: an encoder on the SPINDLE side of the 2-speed gearbox, a receiver (P3 is bare 3.3V GPIO), and possibly a new bitfile]",
+   "cleanup_notes": "Current target leaves P3 empty and requests num_encoders=0. Identify encoder model/electrical format and select a compatible receiver/daughter interface plus IDROM-proven pins before allocation. | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/spindle_run_ladder_transcription.md] | [2026-08-12: STILL UNBOUND. The spindle MOTOR built-in PLG was identified from nameplate photos (Tamagawa TS1526N55 optical, 512 counts/turn, DC +/-15V, 9-pin AMP-350720-1) but it is the FR-SX drive's own detector, not this row - do not allocate it to Mesa and do not parallel-tap it. Whether the schematics' machine-side SPINDLE ENCODER (MS3108B 20-29P, dwg 4143075301 p090) is a separate device remains open. See docs/spindle_motor_plg_encoder.md] | [2026-08-12 DECIDED (owner): UNBOUND is now SETTLED, not pending. LinuxCNC does not read spindle position - orient is FR-SX internal (ORCM1/ORA1), speed supervision is discrete (SZS IN5 / speed-reach IN13), and tapping uses a floating holder so needs only FWD/REV + dwell. No rigid tapping or G33 in scope. Do not open this row again without a scoped project: an encoder on the SPINDLE side of the 2-speed gearbox, a receiver (P3 is bare 3.3V GPIO), and possibly a new bitfile] | [IDENTIFIED 2026-08-15 (AG, nameplate photo): Tamagawa TS1526N55, 512 c/t, DC +/-15 V. Identification only -- num_encoders=0 stays the settled design decision (2026-08-12); no Mesa input exists for a +/-15 V-supplied device and none is being scoped. See docs/feedback_nameplate_survey_2026-08-15.md]",
    "location": "Spindle head — machine-side A/B/Z encoder if fitted",
    "location_note": "Unassigned: part, electrical format, and receiver/interface are not confirmed. The confirmed rmsvss6_8 firmware has no Encoder module at all.",
    "expected": {
@@ -860,7 +860,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "line": 295,
+     "line": 309,
      "text": "net x-vel-cmd  <= pid.x.output",
      "commented": false,
      "producers": [
@@ -871,7 +871,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "line": 296,
+     "line": 310,
      "text": "net x-vel-cmd  => hm2_7i80.0.pwmgen.00.value",
      "commented": false,
      "producers": [],
@@ -884,7 +884,7 @@ window.MAZAK_DATA = {
    "setp_refs": [
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "line": 280,
+     "line": 294,
      "text": "setp hm2_7i80.0.pwmgen.00.output-type 2    # X axis  -> 7i49 AOUT0",
      "commented": false,
      "target": "hm2_7i80.0.pwmgen.00.output-type",
@@ -892,7 +892,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "line": 281,
+     "line": 295,
      "text": "setp hm2_7i80.0.pwmgen.00.scale       [JOINT_0]OUTPUT_SCALE",
      "commented": false,
      "target": "hm2_7i80.0.pwmgen.00.scale",
@@ -908,22 +908,22 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "lines": "295",
+     "lines": "309",
      "note": "net x-vel-cmd  <= pid.x.output"
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "lines": "296",
+     "lines": "310",
      "note": "net x-vel-cmd  => hm2_7i80.0.pwmgen.00.value"
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "lines": "280",
+     "lines": "294",
      "note": "setp hm2_7i80.0.pwmgen.00.output-type 2    # X axis  -> 7i49 AOUT0"
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "lines": "281",
+     "lines": "295",
      "note": "setp hm2_7i80.0.pwmgen.00.scale       [JOINT_0]OUTPUT_SCALE"
     },
     {
@@ -980,7 +980,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "line": 315,
+     "line": 329,
      "text": "net z-vel-cmd  <= pid.z.output",
      "commented": false,
      "producers": [
@@ -991,7 +991,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "line": 316,
+     "line": 330,
      "text": "net z-vel-cmd  => hm2_7i80.0.pwmgen.01.value    # Z → pwmgen.01 (7i49 AOUT1)",
      "commented": false,
      "producers": [],
@@ -1004,7 +1004,7 @@ window.MAZAK_DATA = {
    "setp_refs": [
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "line": 282,
+     "line": 296,
      "text": "setp hm2_7i80.0.pwmgen.01.output-type 2    # Z axis  -> 7i49 AOUT1",
      "commented": false,
      "target": "hm2_7i80.0.pwmgen.01.output-type",
@@ -1012,7 +1012,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "line": 283,
+     "line": 297,
      "text": "setp hm2_7i80.0.pwmgen.01.scale       [JOINT_2]OUTPUT_SCALE",
      "commented": false,
      "target": "hm2_7i80.0.pwmgen.01.scale",
@@ -1028,22 +1028,22 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "lines": "315",
+     "lines": "329",
      "note": "net z-vel-cmd  <= pid.z.output"
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "lines": "316",
+     "lines": "330",
      "note": "net z-vel-cmd  => hm2_7i80.0.pwmgen.01.value    # Z → pwmgen.01 (7i49 AOUT1)"
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "lines": "282",
+     "lines": "296",
      "note": "setp hm2_7i80.0.pwmgen.01.output-type 2    # Z axis  -> 7i49 AOUT1"
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "lines": "283",
+     "lines": "297",
      "note": "setp hm2_7i80.0.pwmgen.01.scale       [JOINT_2]OUTPUT_SCALE"
     },
     {
@@ -1100,7 +1100,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "line": 305,
+     "line": 319,
      "text": "net y-vel-cmd  <= pid.y.output",
      "commented": false,
      "producers": [
@@ -1111,7 +1111,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "line": 306,
+     "line": 320,
      "text": "net y-vel-cmd  => hm2_7i80.0.pwmgen.02.value    # Y → pwmgen.02 (7i49 AOUT2)",
      "commented": false,
      "producers": [],
@@ -1124,7 +1124,7 @@ window.MAZAK_DATA = {
    "setp_refs": [
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "line": 284,
+     "line": 298,
      "text": "setp hm2_7i80.0.pwmgen.02.output-type 2    # Y axis  -> 7i49 AOUT2",
      "commented": false,
      "target": "hm2_7i80.0.pwmgen.02.output-type",
@@ -1132,7 +1132,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "line": 285,
+     "line": 299,
      "text": "setp hm2_7i80.0.pwmgen.02.scale       [JOINT_1]OUTPUT_SCALE",
      "commented": false,
      "target": "hm2_7i80.0.pwmgen.02.scale",
@@ -1148,22 +1148,22 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "lines": "305",
+     "lines": "319",
      "note": "net y-vel-cmd  <= pid.y.output"
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "lines": "306",
+     "lines": "320",
      "note": "net y-vel-cmd  => hm2_7i80.0.pwmgen.02.value    # Y → pwmgen.02 (7i49 AOUT2)"
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "lines": "284",
+     "lines": "298",
      "note": "setp hm2_7i80.0.pwmgen.02.output-type 2    # Y axis  -> 7i49 AOUT2"
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "lines": "285",
+     "lines": "299",
      "note": "setp hm2_7i80.0.pwmgen.02.scale       [JOINT_1]OUTPUT_SCALE"
     },
     {
@@ -1220,7 +1220,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "line": 394,
+     "line": 408,
      "text": "net spindle-speed-cmd <= spindle.0.speed-out-abs",
      "commented": false,
      "producers": [
@@ -1231,7 +1231,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "line": 395,
+     "line": 409,
      "text": "net spindle-speed-cmd => hm2_7i80.0.pwmgen.03.value",
      "commented": false,
      "producers": [],
@@ -1244,7 +1244,7 @@ window.MAZAK_DATA = {
    "setp_refs": [
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "line": 380,
+     "line": 394,
      "text": "setp hm2_7i80.0.pwmgen.03.output-type 2",
      "commented": false,
      "target": "hm2_7i80.0.pwmgen.03.output-type",
@@ -1252,7 +1252,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "line": 381,
+     "line": 395,
      "text": "setp hm2_7i80.0.pwmgen.03.offset-mode 0",
      "commented": false,
      "target": "hm2_7i80.0.pwmgen.03.offset-mode",
@@ -1260,7 +1260,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "line": 382,
+     "line": 396,
      "text": "setp hm2_7i80.0.pwmgen.03.scale       [SPINDLE_0]OUTPUT_SCALE",
      "commented": false,
      "target": "hm2_7i80.0.pwmgen.03.scale",
@@ -1276,27 +1276,27 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "lines": "394",
+     "lines": "408",
      "note": "net spindle-speed-cmd <= spindle.0.speed-out-abs"
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "lines": "395",
+     "lines": "409",
      "note": "net spindle-speed-cmd => hm2_7i80.0.pwmgen.03.value"
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "lines": "380",
+     "lines": "394",
      "note": "setp hm2_7i80.0.pwmgen.03.output-type 2"
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "lines": "381",
+     "lines": "395",
      "note": "setp hm2_7i80.0.pwmgen.03.offset-mode 0"
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "lines": "382",
+     "lines": "396",
      "note": "setp hm2_7i80.0.pwmgen.03.scale       [SPINDLE_0]OUTPUT_SCALE"
     },
     {
@@ -5104,7 +5104,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "line": 398,
+     "line": 412,
      "text": "net spindle-run-output => hm2_7i80.0.pwmgen.03.enable",
      "commented": false,
      "producers": [],
@@ -5139,7 +5139,7 @@ window.MAZAK_DATA = {
    "setp_refs": [
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "line": 380,
+     "line": 394,
      "text": "setp hm2_7i80.0.pwmgen.03.output-type 2",
      "commented": false,
      "target": "hm2_7i80.0.pwmgen.03.output-type",
@@ -5147,7 +5147,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "line": 381,
+     "line": 395,
      "text": "setp hm2_7i80.0.pwmgen.03.offset-mode 0",
      "commented": false,
      "target": "hm2_7i80.0.pwmgen.03.offset-mode",
@@ -5155,7 +5155,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "line": 382,
+     "line": 396,
      "text": "setp hm2_7i80.0.pwmgen.03.scale       [SPINDLE_0]OUTPUT_SCALE",
      "commented": false,
      "target": "hm2_7i80.0.pwmgen.03.scale",
@@ -5171,7 +5171,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "lines": "398",
+     "lines": "412",
      "note": "net spindle-run-output => hm2_7i80.0.pwmgen.03.enable"
     },
     {
@@ -5186,17 +5186,17 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "lines": "380",
+     "lines": "394",
      "note": "setp hm2_7i80.0.pwmgen.03.output-type 2"
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "lines": "381",
+     "lines": "395",
      "note": "setp hm2_7i80.0.pwmgen.03.offset-mode 0"
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "lines": "382",
+     "lines": "396",
      "note": "setp hm2_7i80.0.pwmgen.03.scale       [SPINDLE_0]OUTPUT_SCALE"
     },
     {
@@ -5539,7 +5539,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "line": 322,
+     "line": 336,
      "text": "net z-brake-release => pid.z.enable",
      "commented": false,
      "producers": [],
@@ -5550,7 +5550,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "line": 323,
+     "line": 337,
      "text": "net z-brake-release => hm2_7i80.0.pwmgen.01.enable",
      "commented": false,
      "producers": [],
@@ -5585,7 +5585,7 @@ window.MAZAK_DATA = {
    "setp_refs": [
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "line": 282,
+     "line": 296,
      "text": "setp hm2_7i80.0.pwmgen.01.output-type 2    # Z axis  -> 7i49 AOUT1",
      "commented": false,
      "target": "hm2_7i80.0.pwmgen.01.output-type",
@@ -5593,7 +5593,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "line": 283,
+     "line": 297,
      "text": "setp hm2_7i80.0.pwmgen.01.scale       [JOINT_2]OUTPUT_SCALE",
      "commented": false,
      "target": "hm2_7i80.0.pwmgen.01.scale",
@@ -5609,12 +5609,12 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "lines": "322",
+     "lines": "336",
      "note": "net z-brake-release => pid.z.enable"
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "lines": "323",
+     "lines": "337",
      "note": "net z-brake-release => hm2_7i80.0.pwmgen.01.enable"
     },
     {
@@ -5629,12 +5629,12 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "lines": "282",
+     "lines": "296",
      "note": "setp hm2_7i80.0.pwmgen.01.output-type 2    # Z axis  -> 7i49 AOUT1"
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "lines": "283",
+     "lines": "297",
      "note": "setp hm2_7i80.0.pwmgen.01.scale       [JOINT_2]OUTPUT_SCALE"
     },
     {
@@ -8961,7 +8961,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "line": 297,
+     "line": 311,
      "text": "net x-enable   => pid.x.enable",
      "commented": false,
      "producers": [],
@@ -8972,7 +8972,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "line": 298,
+     "line": 312,
      "text": "net x-enable   => hm2_7i80.0.pwmgen.00.enable",
      "commented": false,
      "producers": [],
@@ -9007,7 +9007,7 @@ window.MAZAK_DATA = {
    "setp_refs": [
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "line": 280,
+     "line": 294,
      "text": "setp hm2_7i80.0.pwmgen.00.output-type 2    # X axis  -> 7i49 AOUT0",
      "commented": false,
      "target": "hm2_7i80.0.pwmgen.00.output-type",
@@ -9015,7 +9015,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "line": 281,
+     "line": 295,
      "text": "setp hm2_7i80.0.pwmgen.00.scale       [JOINT_0]OUTPUT_SCALE",
      "commented": false,
      "target": "hm2_7i80.0.pwmgen.00.scale",
@@ -9031,12 +9031,12 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "lines": "297",
+     "lines": "311",
      "note": "net x-enable   => pid.x.enable"
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "lines": "298",
+     "lines": "312",
      "note": "net x-enable   => hm2_7i80.0.pwmgen.00.enable"
     },
     {
@@ -9051,12 +9051,12 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "lines": "280",
+     "lines": "294",
      "note": "setp hm2_7i80.0.pwmgen.00.output-type 2    # X axis  -> 7i49 AOUT0"
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "lines": "281",
+     "lines": "295",
      "note": "setp hm2_7i80.0.pwmgen.00.scale       [JOINT_0]OUTPUT_SCALE"
     },
     {
@@ -9116,7 +9116,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "line": 307,
+     "line": 321,
      "text": "net y-enable   => pid.y.enable",
      "commented": false,
      "producers": [],
@@ -9127,7 +9127,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "line": 308,
+     "line": 322,
      "text": "net y-enable   => hm2_7i80.0.pwmgen.02.enable",
      "commented": false,
      "producers": [],
@@ -9162,7 +9162,7 @@ window.MAZAK_DATA = {
    "setp_refs": [
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "line": 284,
+     "line": 298,
      "text": "setp hm2_7i80.0.pwmgen.02.output-type 2    # Y axis  -> 7i49 AOUT2",
      "commented": false,
      "target": "hm2_7i80.0.pwmgen.02.output-type",
@@ -9170,7 +9170,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "line": 285,
+     "line": 299,
      "text": "setp hm2_7i80.0.pwmgen.02.scale       [JOINT_1]OUTPUT_SCALE",
      "commented": false,
      "target": "hm2_7i80.0.pwmgen.02.scale",
@@ -9186,12 +9186,12 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "lines": "307",
+     "lines": "321",
      "note": "net y-enable   => pid.y.enable"
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "lines": "308",
+     "lines": "322",
      "note": "net y-enable   => hm2_7i80.0.pwmgen.02.enable"
     },
     {
@@ -9206,12 +9206,12 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "lines": "284",
+     "lines": "298",
      "note": "setp hm2_7i80.0.pwmgen.02.output-type 2    # Y axis  -> 7i49 AOUT2"
     },
     {
      "file": "linuxcnc/motion_7i80hdt.hal",
-     "lines": "285",
+     "lines": "299",
      "note": "setp hm2_7i80.0.pwmgen.02.scale       [JOINT_1]OUTPUT_SCALE"
     },
     {
