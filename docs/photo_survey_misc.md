@@ -1,5 +1,7 @@
 <!-- Photo survey of the "Misc. Photos" batch, 2026-07-29. -->
 
+> **ROLE: REFERENCE** — evidence index for the 2026-07-29 photo batch, including the OEM CN pin tables cited by the conflict register. See [../INSTALL_SPINE.md](../INSTALL_SPINE.md).
+
 > **Source photos are NOT in this repo** (repo policy: no raw photos). They live
 > in Andy's Google Drive at `My Drive/Mazak/Misc. Photos` — 238 files, 213 unique
 > after de-duplication. Photo IDs below are the original camera filenames.

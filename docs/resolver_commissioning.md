@@ -1,5 +1,8 @@
 # Resolver identification, phasing, and scale procedure
 
+> **ROLE: COMMISSIONING (D8)** — executed under power, after installation. Order of procedures: [../INSTALL_SPINE.md](../INSTALL_SPINE.md) Appendix B.
+
+
 Status: procedure only. No axis has passed it. Keep `drive-output-permit` FALSE
 and physically inhibit every S-ON path during all checks in this document.
 

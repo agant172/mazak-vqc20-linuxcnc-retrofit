@@ -1,5 +1,8 @@
 # Authority Conflicts — VQC-20/40 Retrofit
 
+> **ROLE: INSTALL-CORE** — controlling wiring content (resolved solenoid identities, per-output energize blocks, open gaps). Check the relevant entry before landing or energizing any output named here. See [../INSTALL_SPINE.md](../INSTALL_SPINE.md) §3.
+
+
 **Status:** DOCUMENTATION REVIEW RESOLVED — physical commissioning verification remains pending.
 
 This register reconciles the RC3A connector cross-reference with the current Mesa pin authority. The documentation conflicts have been reviewed and handled conservatively: contradictory outputs remain blocked until cabinet tracing confirms the final wiring. Do not energize affected outputs based on this document alone.

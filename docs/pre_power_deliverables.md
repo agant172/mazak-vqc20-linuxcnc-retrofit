@@ -1,5 +1,8 @@
 # Pre-power deliverables charter and evidence-state taxonomy
 
+> **ROLE: GOVERNANCE** — the D1–D16 deliverables charter and evidence-state taxonomy. See [../INSTALL_SPINE.md](../INSTALL_SPINE.md).
+
+
 > **Scope limit (owner decision 2026-08-15):** the machine's AC/DC power
 > circuits and the entire E-stop system remain 100% original OEM and are not
 > commissioned, traced, or verified in this conversion. The deliverables below
@@ -439,7 +442,7 @@ hold point.
      M-2, terminated back, or re-routed.
   3. Digital backup of parameters and ladder if extraction is
      feasible (per
-     [`parameter_recovery.md`](parameter_recovery.md) and
+     [`parameter_recovery.md`](../background/parameter_recovery.md) and
      [`parameters_sn060231.md`](parameters_sn060231.md)).
   4. "Known-safe" tag: a signed dated tag applied to the M-2
      cabinet stating what was left as-is at the moment the
@@ -516,5 +519,5 @@ gate on live power.
   [`servo_commissioning.md`](servo_commissioning.md),
   [`y_soft_limit_atc_zone.md`](y_soft_limit_atc_zone.md),
   [`claim_audit_2026-08-07.md`](claim_audit_2026-08-07.md),
-  [`parameter_recovery.md`](parameter_recovery.md),
+  [`parameter_recovery.md`](../background/parameter_recovery.md),
   [`parameters_sn060231.md`](parameters_sn060231.md).

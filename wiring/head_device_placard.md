@@ -1,5 +1,8 @@
 # Spindle-head device placard — OEM legend, transcribed
 
+> **ROLE: REFERENCE** — OEM placard transcription (a generic family plate; see its warnings). Kept at this path because the pin authority and io-dashboard cite it. See [../INSTALL_SPINE.md](../INSTALL_SPINE.md).
+
+
 **Machine:** Mazak VQC 20/40B SN 060231
 **Source:** OEM printed placard mounted **inside the splash-guard door**, facing
 the spindle head. Plate drawing number **`24136209710`** (trailing katakana not

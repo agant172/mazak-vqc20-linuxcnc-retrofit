@@ -1,5 +1,8 @@
 # Factory (1985) parameter sheet vs. live 2026 values — reconciliation
 
+> **ROLE: BACKGROUND** — moved from `docs/` 2026-08-15; settled conclusion: the 1985 factory sheet must not be used as current values. Index: [README.md](README.md).
+
+
 **Machine:** Mazak VQC-20/40 SN 060231 (Mazatrol M-2)
 **Reconciled:** 2026-08-09
 **Factory source:** `Manuals_SN060231/Original Manuals/60231 Parameters.pdf` — a
@@ -21,7 +24,7 @@ photos) remains authoritative for the current machine.** This factory sheet is
 useful only as (a) a historical as-shipped baseline and (b) a source of a few
 parameters the live capture is still missing — and even those must be treated as
 **unverified against the current control** until read live per
-`docs/parameter_recovery.md`.
+`parameter_recovery.md` (in this directory).
 
 The divergence is expected: 40 years of service, re-teaching the ATC position,
 backlash re-measurement, and soft-limit edits will all have moved values since

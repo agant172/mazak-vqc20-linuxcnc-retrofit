@@ -1,5 +1,8 @@
 # DC bus, stop sequence, and fault behavior (TRA/rectifier stack)
 
+> **ROLE: INSTALL GATE (read before the cut)** — the OEM-witness observation window closes permanently when the harness is cut, and § *Retrofit HAL / INI implications* binds while enable wiring is landed. (The D6 measurement program itself is withdrawn, owner decision 2026-08-15.) See [../INSTALL_SPINE.md](../INSTALL_SPINE.md) §1.
+
+
 The OEM drive stack on this VQC 20/40 is a **Mitsubishi Meldas TRA-family
 transistor amplifier group** sharing a **common DC bus (P/N)** from a
 single rectifier unit, with an optional capacitor unit. The retrofit plan

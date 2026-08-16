@@ -17,7 +17,7 @@ board** (`wiring/bbia1_source_dest.csv`, `INTERFACE_ARCHITECTURE.md`).
 
 ## Pre-power deliverables (D1–D16)
 
-Sixteen pre-power deliverables gate every live-power hold point.
+Fourteen pre-power deliverables gate the live-power hold points (D5 and D6 are WITHDRAWN — owner decision 2026-08-15: power and E-stop stay 100% OEM).
 See [`pre_power_deliverables.md`](pre_power_deliverables.md) for full acceptance criteria.
 Summary of planning state as of this commit:
 
@@ -27,8 +27,8 @@ Summary of planning state as of this commit:
 | D2 | Installed nameplate register | PARTIAL (checklists drafted; photos pending) |
 | D3 | Immutable Mesa firmware package | COMPLETE (2026-08-13) -- layout/identity/source/readhmid/binary/recovery procedure all confirmed and committed under mesa/firmware/ and docs/Mesa Manuals/ |
 | D4 | I/O checkout sheet | NOT DRAFTED |
-| D5 | Hardware E-stop risk assessment + schematic | PARTIAL (software chain drafted) |
-| D6 | Shared-bus precharge / discharge procedure | DRAFTED (measurements pending) |
+| D5 | Hardware E-stop risk assessment + schematic | WITHDRAWN (owner decision 2026-08-15; see estop_safety_chain.md) |
+| D6 | Shared-bus precharge / discharge procedure | WITHDRAWN (owner decision 2026-08-15; dc_bus_stop_fault.md kept as reference) |
 | D7 | Enable / fault / ready / Z-brake timing budget | TEMPLATE DRAFTED (measurements pending) |
 | D8 | Resolver phasing / commissioning procedure | PROCEDURE DRAFTED (measurements/traces pending) |
 | D9 | First-move plan | PROCEDURE DRAFTED (machine values/signatures pending) |

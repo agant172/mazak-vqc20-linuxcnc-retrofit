@@ -28,7 +28,7 @@ but noted for the record.
 The Y ATC position (+9.5 in) is **outside the machining envelope**
 (main-box Y max = +0.0394 in) and inside the ATC AREA box — confirming the
 two-box soft-limit scheme from the parameter dictionary (see
-`docs/parameter_recovery.md`).
+`background/parameter_recovery.md`).
 
 ## Soft limits — two boxes (0.0001 in, machine coordinates)
 

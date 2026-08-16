@@ -1,5 +1,8 @@
 # Mazak VQC 20/40 → Mesa I/O Map (working draft)
 
+> **ROLE: BACKGROUND** — imported working draft, superseded as wiring authority by `mesa/current_pin_authority.csv`. Kept at this path because the io-dashboard cites it. See [../INSTALL_SPINE.md](../INSTALL_SPINE.md).
+
+
 > **Import note:** brought into the repo as a cross-reference layer against
 > [`../mesa/current_pin_authority.csv`](../mesa/current_pin_authority.csv),
 > which this doc's own reconciliation section below refers to by that same

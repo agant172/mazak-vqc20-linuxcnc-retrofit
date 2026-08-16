@@ -1,5 +1,8 @@
 # Mazak VQC-20/40 SN 060231 — Servo Amp & Resolver Analysis (rev 3)
 
+> **ROLE: REFERENCE** — OEM drive/motor/resolver hardware analysis. Not needed at the cabinet; kept at this path because `wiring/bbia1_source_dest.csv` and the io-dashboard cite it. See [../INSTALL_SPINE.md](../INSTALL_SPINE.md).
+
+
 Machine: **VQC-20/40 SN 060231**, Mazatrol **M-2** control (drawing sets labeled M-1 reflect the original 10/1983 mechanical drawings — the NC was later upgraded to M-2).
 Incoming power: **460 VAC 3-phase → onboard variable-voltage transformer (VVT) → 230 VAC 3-phase bus** feeding a shared rectifier/condenser unit that supplies all axis amps and the FR-SX spindle drive.
 

@@ -1,5 +1,8 @@
 # Y soft-limit vs ATC zone — authorization survey
 
+> **ROLE: REFERENCE** — design position on soft limits vs the ATC zone. Kept at this path because the active INI cites it. See [../INSTALL_SPINE.md](../INSTALL_SPINE.md).
+
+
 ## Audit finding #17 (verbatim)
 
 > `[AXIS_Y] MAX_LIMIT = 9.5000` and `[JOINT_1] MAX_LIMIT = 9.5000` allow
@@ -57,7 +60,7 @@ soft limit is a global fence, not an authorization mechanism.**
 From the M-2 parameter recovery
 ([`docs/parameters_sn060231.md`](parameters_sn060231.md) and the
 parameter-recovery method
-[`docs/parameter_recovery.md`](parameter_recovery.md)), the OEM stored
+[`background/parameter_recovery.md`](../background/parameter_recovery.md)), the OEM stored
 **two** soft-limit boxes, not one:
 
 | Corner | X | Y | Z |
@@ -228,7 +231,7 @@ authorization pathway is still being built.
   `MIN_LIMIT` / `MAX_LIMIT`:
   [https://linuxcnc.org/docs/2.9/html/config/ini-config.html#_axis_letter_section](https://linuxcnc.org/docs/2.9/html/config/ini-config.html#_axis_letter_section)
 - Repo cross-references (internal): `docs/parameters_sn060231.md`,
-  `docs/parameter_recovery.md`, `docs/ladder/atc_ladder_transcription.md`,
+  `background/parameter_recovery.md`, `docs/ladder/atc_ladder_transcription.md`,
   `linuxcnc/mazak_vqc_20_40.ini`, `linuxcnc/remap/toolchange.ngc`,
   `linuxcnc/atc_orient.hal`, `linuxcnc/field_7i84u.hal`,
   `docs/estop_safety_chain.md`, `docs/frsx_orient_model.md`.

@@ -1,5 +1,8 @@
 # Cabinet as-found survey — terminal strips, starters, control gear
 
+> **ROLE: REFERENCE** — as-found photo inventory (label reads only; no traced circuits). See [../INSTALL_SPINE.md](../INSTALL_SPINE.md).
+
+
 **Machine:** Mazak VQC 20/40B SN 060231
 **Evidence:** ten owner-supplied cabinet photographs, reviewed 2026-08-13 — five
 overview frames and five sharp close-ups of the terminal strips. Photos not

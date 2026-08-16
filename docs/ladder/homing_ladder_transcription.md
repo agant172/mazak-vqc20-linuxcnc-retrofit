@@ -1,5 +1,8 @@
 # Homing / zero-return ladder logic — from YM2V39L
 
+> **ROLE: BACKGROUND** — key finding is negative: OEM homing was NC/resolver-managed, not ladder logic. LinuxCNC `HOME_*` values come from `docs/parameters_sn060231.md`, not this file. Kept at this path because `mesa/current_pin_authority.csv` cites it. See [../../INSTALL_SPINE.md](../../INSTALL_SPINE.md).
+
+
 **Machine:** Mazak VQC-20/40 SN 060231 (Mazatrol M-2)
 **Source:** `YM2V39L.pdf` / `VQC20-40_060231_Ladder_Diagrams.pdf`, drawing 4136081801.
 **Extracted:** 2026-08-10. Cross-ref `SSLL` = sheet·line; PDF page = sheet + 1.

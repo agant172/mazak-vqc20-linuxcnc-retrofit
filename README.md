@@ -8,6 +8,11 @@ control to LinuxCNC using Mesa Electronics FPGA hardware.
 **New control:** LinuxCNC 2.9.10 on Debian 13 (PREEMPT-RT)
 **Interface hardware:** Mesa 7i80HDT (Ethernet FPGA host) + 7i44 on P3 (RS-422 sserial to 7i84U-A/B on physical channels 0/1 of HostMot2 port 0) + 7i49 on P1 (resolver + analog outs); P2 is unused/spare. The Renishaw MP-3 probe input is on **7i84U-B input-15** (opto-isolated 24 V), not on bare P2 GPIO.
 
+> 🔩 **Installing or wiring?** The project physically touches the machine at one place —
+> the **BBIA-1 terminal unit** — plus the ladder→HAL translation. [`INSTALL_SPINE.md`](INSTALL_SPINE.md)
+> names the load-bearing files in order of use across that boundary (machine side →
+> interface plane → computer side). Everything it does not name is background.
+
 > 📖 **Start here:** [`CLAUDE.md`](CLAUDE.md) is the canonical project brief — the full
 > operating manual (control hardware, sources of truth, working rules, electrical
 > architecture, safety/commissioning sequence, session conventions, and the split between
@@ -120,6 +125,8 @@ they are static checks and do not replace a LinuxCNC load test or fault injectio
 
 ```
 ├── README.md          # This file — project overview, status, and top TODOs
+├── INSTALL_SPINE.md   # The load-bearing install path, in order of use
+├── background/        # Historical/educational shelf — nothing needed at the cabinet
 ├── bom/               # Generated I/O authority workbook and parts-planning material
 ├── docs/              # Architecture decision, checklists, photo-sorting, project status
 ├── io-dashboard/      # Offline I/O navigator + commissioning wiring workspace
@@ -146,8 +153,8 @@ they are static checks and do not replace a LinuxCNC load test or fault injectio
 - [docs/spindle_motor_plg_encoder.md](docs/spindle_motor_plg_encoder.md) — spindle motor built-in PLG identified from nameplate photos (2026-08-12): Tamagawa TS1526N55 optical shaft encoder, 512 counts/turn, ±15 V; corrects the "magnetic pickup" claim, and explains why it is the FR-SX's detector rather than a Mesa input.
 - [docs/parameters_sn060231.md](docs/parameters_sn060231.md) — LIVE parameter values photographed 2026-07-28: ATC 2nd zero point RP=(0, +9.5000, -5.9055) in, both soft-limit boxes, gear crossover 434 rpm, backlash.
 - [docs/frsx_maintenance_manual_notes.md](docs/frsx_maintenance_manual_notes.md) — **the FR-SX maintenance manual is now committed** (`docs/OEM Manuals/…BCN-21735-S5.pdf`). What it settles: this drive orients from a **1024P×4/rev encoder**, proven by the `SX-CPU2` card being fitted; `PIN11` decides whether the NC powers that encoder; `ST2` runs orient standalone.
-- [docs/frsx_orient_detector_capture.md](docs/frsx_orient_detector_capture.md) — how to determine which detector the FR-SX orients from: trace the PLG cable first, photograph the drive's configuration hardware, and treat the MDS-CH parameter numbers as possibly inapplicable.
-- [docs/parameter_recovery.md](docs/parameter_recovery.md) — M-2 parameter recovery: SN 060231 values are NOT in the manuals; capture checklist + fallback measurement procedure.
+- [background/frsx_orient_detector_capture.md](background/frsx_orient_detector_capture.md) — how to determine which detector the FR-SX orients from: trace the PLG cable first, photograph the drive's configuration hardware, and treat the MDS-CH parameter numbers as possibly inapplicable.
+- [background/parameter_recovery.md](background/parameter_recovery.md) — M-2 parameter recovery: SN 060231 values are NOT in the manuals; capture checklist + fallback measurement procedure.
 - [io-dashboard/README.md](io-dashboard/README.md) — I/O/commissioning workspace: use, records, live polling, and data regeneration.
 - [bom/Mazak_VQC_20-40_Retrofit_IO_Workbook.xlsx](bom/Mazak_VQC_20-40_Retrofit_IO_Workbook.xlsx) — generated 132-row Excel snapshot of the current pin authority; `mesa/current_pin_authority.csv` remains authoritative.
 

@@ -1,5 +1,8 @@
 # Architecture Decision: Mesa 7i80HDT + 7i44 + 7i49 + two 7i84Us (Ethernet)
 
+> **ROLE: REFERENCE** — decision record for the 7i80HDT + 7i44 + 7i49 + 7i84U stack. Not needed at the cabinet. See [../INSTALL_SPINE.md](../INSTALL_SPINE.md).
+
+
 > **Connector-assignment addendum (2026-08-13).** The rest of this document,
 > including "Decision" and "Selected control stack" below, has been edited in
 > place to the CONFIRMED connector mapping: **P1 = 7i49 (resolver +

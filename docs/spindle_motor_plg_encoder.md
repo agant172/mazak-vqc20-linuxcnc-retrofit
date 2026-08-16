@@ -1,5 +1,8 @@
 # Spindle motor built-in PLG encoder — nameplate evidence
 
+> **ROLE: REFERENCE** — settles the PLG encoder identity and why LinuxCNC reads no spindle position. Kept at this path because the pin authority and io-dashboard cite it. See [../INSTALL_SPINE.md](../INSTALL_SPINE.md).
+
+
 **Machine:** Mazak VQC 20/40B SN 060231
 **Evidence:** fifteen owner-supplied photographs, reviewed 2026-08-12 — five
 inside the AC spindle motor's terminal/junction box, four of the motor in situ
@@ -33,11 +36,11 @@ inside the motor's terminal box.
 Three consequences:
 
 1. It **corrects** the repo's standing claim that the spindle motor's built-in
-   feedback is a *magnetic* pickup ([§Correction](#correction-to-servo_amp_analysis-15)).
+   feedback is a *magnetic* pickup ([§Correction](#correction-to-servo_amp_analysismd-15)).
 2. It **narrows but does not close** the FR-SX orient-detector question — a PLG
    physically exists, but which detector the drive actually orients from is
    unresolved. Settle it via
-   [`frsx_orient_detector_capture.md`](frsx_orient_detector_capture.md), which
+   [`frsx_orient_detector_capture.md`](../background/frsx_orient_detector_capture.md), which
    starts by tracing the PLG cable to its drive connector
    ([§What this does not resolve](#what-this-does-not-resolve)).
 3. It is almost certainly **the FR-SX drive's own device, not a LinuxCNC
@@ -93,7 +96,7 @@ things, not one: the encoder and its mechanical drive; a **receiver**, since
 7i80HDT P3 is bare 3.3 V FPGA GPIO and cannot take a differential or ±15 V
 device directly; and possibly **a new bitfile** — whether
 `7i80hdt_rmsvss6_8.bin` contains any encoder instances is not established
-([`mesa_pcw_bitfile_inquiry.md`](mesa_pcw_bitfile_inquiry.md) notes the count
+([`mesa_pcw_bitfile_inquiry.md`](../background/mesa_pcw_bitfile_inquiry.md) notes the count
 "isn't directly countable from this file"). Treat it as a scoped project, not a
 wiring change.
 
@@ -367,7 +370,7 @@ prove the drive is configured to orient from it. `#41 OSL = 0` is now plausible,
 but the machine may still orient from a magnetic sensor or a machine-side encoder
 on CN6 — and the p090 `MS3108B` device remains unaccounted for.
 
-**Capture procedure: [`frsx_orient_detector_capture.md`](frsx_orient_detector_capture.md).**
+**Capture procedure: [`frsx_orient_detector_capture.md`](../background/frsx_orient_detector_capture.md).**
 An earlier revision of this paragraph said "only the FR-SX parameter dump settles
 `#41 OSL` and the `SP037` bits" — **that was overstated.** Those parameter
 numbers come from the later MDS-CH manual and may not exist on a 1985 FR-SX. The
@@ -522,7 +525,7 @@ physical device.
 - [ ] Continuity-trace the motor-box `AMP-350720-1` 9-pin to its far end;
       confirm whether it reaches FR-SX **CN5** and/or the `MS3108B`.
 - [ ] **Determine the orient detector** per
-      [`frsx_orient_detector_capture.md`](frsx_orient_detector_capture.md).
+      [`frsx_orient_detector_capture.md`](../background/frsx_orient_detector_capture.md).
       Start with the cable trace above — the `#41 OSL` / `SP037` parameter
       numbers come from the later MDS-CH manual and may not exist on this drive.
 - [ ] Cold-continuity check `OHS1`–`OHS2`; confirm NC and cross-reference against

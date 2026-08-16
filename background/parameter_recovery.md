@@ -1,5 +1,8 @@
 # M-2 Parameter Recovery — ZP2/ATC positions and machine constants
 
+> **ROLE: BACKGROUND** — moved from `docs/` 2026-08-15; the live parameters were captured (`docs/parameters_sn060231.md`). Index: [README.md](README.md).
+
+
 **Machine:** Mazak VQC 20/40, SN 060231 (Mazatrol M-2)
 **Status:** PARTIALLY RECOVERED 2026-07-28 — MACH CONSTANT PAR NO.2 photographed
 live and transcribed to `docs/parameters_sn060231.md` (RP/soft limits/gears/

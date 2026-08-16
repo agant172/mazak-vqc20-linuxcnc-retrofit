@@ -1,5 +1,8 @@
 # Smart-serial latency and watchdog limits
 
+> **ROLE: REFERENCE** — verified sserial timing/watchdog facts. Kept at this path because `linuxcnc/field_7i84u.hal` cites it. See [../INSTALL_SPINE.md](../INSTALL_SPINE.md).
+
+
 _Applies to two 7i84U remotes on 7i44 channels 0 and 1, HostMot2 smart-serial
 port 0, with a 1 kHz LinuxCNC servo thread._
 
