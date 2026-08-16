@@ -486,7 +486,8 @@ between machines instead of being set up three times. What stays local is listed
 |---|---|
 | `.obsidian/workspace.json`, `workspace-mobile.json` | Which panes you had open — per-machine, and conflicts on every pull |
 | `.obsidian/cache`, `.obsidian/.trash/` | Machine-local scratch |
-| `.obsidian/plugins/*/data.json` | **Plugin settings can hold credentials** — `obsidian-local-rest-api` stores an API key, and this repo is public. Re-enter secrets per machine. To sync one you have confirmed is secret-free, add a `!` exception in `.gitignore`. |
+| `.obsidian/plugins/` (the code) | ~9 MB of vendored JS per plugin set — it would drown every PR diff. `community-plugins.json` **is** tracked, so the *list* of enabled plugins syncs; install them once per machine from the community store. |
+| `.obsidian/plugins/*/data.json` | **Plugin settings can hold credentials** — `obsidian-local-rest-api` stores an API key, and this repo is public. Re-enter secrets per machine. |
 
 Settings changes ride the normal workflow — a desk session commits them on a branch and opens a
 PR like any other change. **Do not install the Obsidian *Git* plugin's auto-commit here:** it

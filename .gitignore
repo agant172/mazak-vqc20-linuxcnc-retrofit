@@ -40,10 +40,12 @@ desktop.ini
 .obsidian/workspace-mobile.json
 .obsidian/cache
 .obsidian/.trash/
-# Plugin settings can contain API keys (obsidian-local-rest-api stores one).
-# This repo is public — keep every plugin's data.json local. To sync one you
-# have confirmed holds no secret, add an exception below, e.g.
-#   !.obsidian/plugins/obsidian-importer/data.json
+# Plugin *code* is not tracked — the bundles run to ~9 MB of vendored JS and
+# would drown every PR diff. community-plugins.json below records which plugins
+# are enabled; install them once per machine from Obsidian's community store.
+.obsidian/plugins/
+# (Belt and braces: plugin settings can contain API keys — obsidian-local-rest-api
+# stores one — and this repo is public. Never track a plugin data.json.)
 .obsidian/plugins/*/data.json
 
 # LinuxCNC / Mesa runtime outputs kept locally, not committed
