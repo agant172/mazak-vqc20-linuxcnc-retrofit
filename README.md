@@ -8,6 +8,11 @@ control to LinuxCNC using Mesa Electronics FPGA hardware.
 **New control:** LinuxCNC 2.9.10 on Debian 13 (PREEMPT-RT)
 **Interface hardware:** Mesa 7i80HDT (Ethernet FPGA host) + 7i44 on P3 (RS-422 sserial to 7i84U-A/B on physical channels 0/1 of HostMot2 port 0) + 7i49 on P1 (resolver + analog outs); P2 is unused/spare. The Renishaw MP-3 probe input is on **7i84U-B input-15** (opto-isolated 24 V), not on bare P2 GPIO.
 
+> 🔩 **Installing or wiring?** The project physically touches the machine at one place —
+> the **BBIA-1 terminal unit** — plus the ladder→HAL translation. [`INSTALL_SPINE.md`](INSTALL_SPINE.md)
+> names the load-bearing files in order of use across that boundary (machine side →
+> interface plane → computer side). Everything it does not name is background.
+
 > 📖 **Start here:** [`CLAUDE.md`](CLAUDE.md) is the canonical project brief — the full
 > operating manual (control hardware, sources of truth, working rules, electrical
 > architecture, safety/commissioning sequence, session conventions, and the split between
