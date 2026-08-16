@@ -43,7 +43,7 @@ The 7i80HDT connects to the control PC over Ethernet using the `hm2_eth` driver 
 Earlier drafts of this document called for a **Mesa 7i37TA** field breakout on P2 to host limits, homes, drive-enables, and 100 VAC solenoid outputs. That was wrong on two counts:
 
 1. **The 7i84U already covers this I/O.** The 7i37TA is 16 isolated IN + 8 isolated OUT; the 7i84U is 32 DI + 16 DO on sserial. Adding a 7i37TA to the base stack duplicates capability the 7i84U already provides.
-2. **"Motion-critical" was mis-scoped.** Resolver feedback and ±10 V velocity commands remain on the 7i49 (P1). Limits, homes, drive enables, and the E-stop monitor may use isolated field I/O, but their end-to-end update age and fault response must be measured; servo-thread cadence alone does not make smart-serial and direct-GPIO behavior identical.
+2. **"Motion-critical" was mis-scoped.** Resolver feedback and ±10 V velocity commands remain on the 7i49 (P1). Limits, homes, and drive enables may use isolated field I/O, but their end-to-end update age and fault response must be measured; servo-thread cadence alone does not make smart-serial and direct-GPIO behavior identical.
 
 The touch probe was originally considered the one exception that might justify bare-FPGA GPIO for latency, but that carve-out has been retracted: exposing bare 3.3 V FPGA pins to 24 V field wiring is not safe. The probe is routed through 7i84U-B input-15; trigger-to-HAL latency, jitter, and stopping error must be measured at every approved probing feed before acceptance.
 

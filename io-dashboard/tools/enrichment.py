@@ -45,9 +45,9 @@ STATUS = {
         "tone": "pending",
         "order": 4,
         "blurb": "Machine side is OEM Mazak harness landing on the BBIA1 terminal unit — no cabinet "
-                 "wire to trace or land; the only wiring is Mesa <-> BBIA1 at the interface. (Board-power "
-                 "rows are the 24 V supply to TB1.) Commissioning is a first-power functional check at the "
-                 "interface — input senses / output actuates / 24 V present — not field tracing.",
+                 "wire to trace or land; the only wiring is Mesa <-> BBIA1 at the interface. "
+                 "Commissioning is a first-power functional check at the interface — input senses / "
+                 "output actuates — not field tracing.",
         "safe_to_energize": "Not yet commissioned. Confirm function at first power before relying on it.",
     },
     "ACCEPTED": {
@@ -167,11 +167,12 @@ EXPECTED = {
     "Z_HOME": ("0", "Logic 0 \u2014 NO switch, carriage off the home target", NO_HOME_BASIS, "evidenced"),
     # --- E-stop monitor ------------------------------------------------------
     "ESTOP_MONITOR": (
-        "1",
-        "Logic 1 \u2014 hardware E-stop chain healthy",
+        "0",
+        "Logic 0 \u2014 DEFERRED, input unwired (owner decision 2026-08-15); "
+        "software chain stays tripped, fails safe",
         "field_7i84u.hal: estop-monitor raw IN29 feeds estop-latch.ok-in; "
-        "contact polarity remains field-verification pending",
-        "proposed",
+        "no interposing relay is installed",
+        "deferred",
     ),
     # --- Analog commands -----------------------------------------------------
     "X_AXIS_CMD": ("0 V", "0 V idle \u2014 pwmgen.00 parked until enabled and commanded",
@@ -231,10 +232,6 @@ EXPECTED = {
         "no forced writer remains",
         "unknown-polarity",
     ),
-    # --- Field power / smart-serial link ------------------------------------
-    "TB5_FIELD_GND": ("n/a", "Power common \u2014 not a logic signal", "current_pin_authority.csv:33", "na"),
-    "TB5_FIELD_24V": ("24 V", "Field supply rail \u2014 confirm capacity and fusing",
-                      "current_pin_authority.csv:34", "na"),
 }
 
 # Generic fallbacks by direction when the signal is not in EXPECTED.
@@ -288,8 +285,6 @@ LOCATION = {
     "Z_HOME": ("Z axis \u2014 zero-return switch", "Axis homing", "LS-62 \u2014 confirmed as Z zero return on the TB-51 diagram (pg 100)"),
     "ESTOP_CHAIN": ("Hardwired E-stop relay chain \u2014 status contact only", "Safety chain",
                     "Operating Panel A & B E-stop pushbuttons (AH25-P182A); DS-1/DS-2 door relay sits ahead of the main contactor"),
-    "TB5_FIELD_GND": ("Control cabinet \u2014 G24 common bus", "Field power", "HR-11F-24 supply: +S / + / - / -S / TOG / CNT / FG"),
-    "TB5_FIELD_24V": ("Control cabinet \u2014 P24 distribution", "Field power", "HR-11F-24 supply and branch fusing to trace"),
     "AIR_BLAST": ("Solenoid valve bank \u2014 SOL-15 spindle air blast via relay RLY-5", "Pneumatics", "100 VAC coil confirmed on the CKD nameplate \u2014 relay required"),
     "WORK_AIR_BLAST": ("Solenoid valve bank \u2014 SOL-16 work air blast via relay RLY-6", "Pneumatics",
                        "Repurposed from TOUCH_SENSOR_BLAST 2026-08-13: SOL-35/SOL-61 are not fitted; SOL-16 is"),

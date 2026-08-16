@@ -596,12 +596,10 @@ def volume1(rows: list[dict[str, str]], source_ref: str) -> list[Flowable]:
         "A single-axis fault does not isolate that amplifier from the common P/N bus. Bus discharge, regen, READY propagation, contactor behavior, and vertical-axis brake timing must be surveyed and measured as a group.",
         "critical",
     ))
-    add_section(story, "4. E-stop and guard-chain acceptance", items=[
-        "Draw the as-built chain with every button contact, guard, limit, safety relay, MAR relay, contactor, mirror contact, wire number, and removed load.",
-        "Determine the achieved stopping category from hardware and measured stop behavior; do not assign Category 0 or 1 by assumption.",
-        "Execute and sign the 18-case fault-injection matrix in docs/estop_safety_chain.md.",
-        "Confirm manual reset is required after fault clearance and that communications recovery cannot automatically restore motion.",
-        "Prove hard overtravel and torque removal without a software round trip through either 7i84U.",
+    add_section(story, "4. E-stop scope (owner decision 2026-08-15)", items=[
+        "The OEM hardwired E-stop chain stays 100% original and is the sole safety function; it is not traced, modified, or verified by this conversion.",
+        "ESTOP_MONITOR is DEFERRED: no interposing relay is installed; the unwired input reads FALSE and the software chain fails safe.",
+        "LinuxCNC/HAL is a machine-availability interlock only, never personnel protection.",
     ])
     add_section(story, "5. Z-axis gravity and brake hazard", [
         "The HAL uses an asymmetric placeholder sequence: S-ON request rises immediately, brake release follows after 0.100 s; on disable the brake command drops immediately and S-ON is retained for 0.100 s. These are unmeasured commissioning placeholders, not proof that the brake is mechanically holding before torque disappears.",
@@ -1030,7 +1028,7 @@ def volume6(rows: list[dict[str, str]], source_ref: str) -> list[Flowable]:
         ["docs/architecture_decision.md", "Selected 7i80HDT/7i44/7i49/two-7i84U architecture"],
         ["linuxcnc/*.hal and *.ini", "Active logic skeleton and configuration placeholders"],
         ["docs/pre_power_deliverables.md", "D1-D16 evidence and hold-point charter"],
-        ["docs/estop_safety_chain.md", "Hardware safety requirements and 18-case fault matrix"],
+        ["docs/estop_safety_chain.md", "E-stop scope withdrawal record (OEM chain stays original)"],
         ["docs/dc_bus_stop_fault.md", "Shared-bus survey/discharge/regen/fault plan"],
         ["docs/resolver_commissioning.md", "Per-axis winding, phasing, scale, and noise proof"],
         ["docs/servo_commissioning.md", "Velocity-mode calibration and FF1-first tuning"],

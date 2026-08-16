@@ -85,7 +85,7 @@ The confirmed retrofit architecture is:
 
 ## Safety notes
 
-- Preserve or rebuild a hardware safety chain that removes hazardous power. Do not rely on LinuxCNC/HAL alone for E-stop safety. LinuxCNC only monitors the OEM MAR-MON contact via an interposing relay on 7i84U-A TB2 IN29.
+- The OEM hardwired E-stop chain stays 100% original and remains the sole safety function (owner decision 2026-08-15). Do not rely on LinuxCNC/HAL alone for E-stop safety. LinuxCNC only monitors the OEM MAR-MON contact via an interposing relay on 7i84U-A TB2 IN29.
 - Treat all `active-high`, `active-low`, `NO`, and `NC` assumptions in these files as placeholders until measured.
 - Use interposing relays or output modules where coil/load current exceeds Mesa output ratings or where isolation is needed. All 7i84U-B TB3 outputs to legacy 100 VAC solenoids (SOL-35/61/62 on OUT3/4/5) must use interposing relays (RLY-5/6/7).
 - Add flyback diodes, RC snubbers, or surge suppression appropriate to each coil type.

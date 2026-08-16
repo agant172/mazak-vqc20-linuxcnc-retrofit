@@ -66,8 +66,9 @@ VQC 20/40 retrofit. Evidence-state taxonomy defined in
 - Use **7i84U-B on 7i44 sserial channel 1** for X/Y/Z limits (TB3 IN0-5),
   X/Y/Z homes (TB3 IN6-8), air permissive (TB3 IN9), the Renishaw MP-3
   probe (TB3 IN15), X/Y/Z drive enables (TB3 OUT0-2), relay-driven loads
-  (TB3 OUT3-7), and the proposed cover-close command (TB2 OUT8). Use
-  **7i84U-A TB2 IN29** as the sole software E-stop monitor. Note the
+  (TB3 OUT3-7), and the proposed cover-close command (TB2 OUT8). **7i84U-A
+  TB2 IN29** (`ESTOP_MONITOR`) is DEFERRED — no interposing relay is installed
+  (owner decision 2026-08-15); the unwired input fails safe. Note the
   Mesa 7i84 layout: TB1 is the 8-pin power connector, TB3 carries IN0-15
   and OUT0-7, and TB2 carries IN16-31 and OUT8-15.
 - **Do NOT wire bare 7i80HDT P2 GPIO to any 24 V field signal.** P2 is 3.3 V

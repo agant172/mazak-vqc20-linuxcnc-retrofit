@@ -237,13 +237,15 @@ setp pid.s.maxerror               [SPINDLE_0]MAX_ERROR
 #
 # CAUTION - hardware chain remains authoritative:
 #   The OEM MAR relay hardware E-stop chain is the primary safety. See
-#   docs/estop_safety_chain.md for the required hardwired safety schematic
+#   docs/estop_safety_chain.md for the scope record (OEM chain stays original)
 #   and fault-injection matrix that must be validated before drives are
 #   energized under retrofit control. Per estop_latch(9), this component is
 #   'part of a simple software ESTOP chain' - not the whole chain. This latch
 #   is the SOFTWARE monitor of that chain (see wiring/front_control_panel_wiring.md).
-#   estop-monitor comes from a dry-contact aux on the MAR relay via an
-#   interposing relay; it does NOT bypass any hardware interlock.
+#   estop-monitor is DEFERRED (owner decision 2026-08-15): the interposing
+#   relay is not installed and the input is unwired, so it reads FALSE and
+#   the software chain stays tripped (fails safe). Nothing here bypasses
+#   any hardware interlock.
 
 net estop-reset       <= iocontrol.0.user-request-enable
 net estop-reset       => estop-latch.0.reset

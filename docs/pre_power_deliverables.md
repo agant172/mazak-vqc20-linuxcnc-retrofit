@@ -1,5 +1,11 @@
 # Pre-power deliverables charter and evidence-state taxonomy
 
+> **Scope limit (owner decision 2026-08-15):** the machine's AC/DC power
+> circuits and the entire E-stop system remain 100% original OEM and are not
+> commissioned, traced, or verified in this conversion. The deliverables below
+> apply to the NEW control system only; read any power- or E-stop-facing
+> acceptance item in that light. Only BBIA-1 pass-through power stays in scope.
+
 ## Audit finding #23 (verbatim)
 
 > Missing pre-power deliverables.
@@ -214,55 +220,20 @@ it must never be bypassed with an ad-hoc `halcmd sets` instruction.
 
 ### D5 — Hardware E-stop / guard risk assessment and schematic
 
-- **Contents required:** hazard identification, category rating
-  (ISO 13849-1 PL or IEC 62061 SIL as scoped), hardwired stop
-  category, guard-interlock architecture, restart rules, and
-  a fault-injection acceptance matrix.
-- **Acceptance criteria:**
-  1. Hazard list identifies every rotating, hydraulic, and
-     stored-energy hazard on the machine.
-  2. Category (Cat 0, Cat 1, Cat 2 per ISO 13850) for E-stop
-     is documented.
-  3. Schematic shows the two-channel hardware chain (if any).
-  4. Restart rules state whether a self-check is required after
-     E-stop reset.
-  5. Fault-injection matrix from [`estop_safety_chain.md`](estop_safety_chain.md)
-     is executed and signed off.
-- **Owner:** machine owner + retrofit commissioner jointly.
-  **Status:** PARTIAL — [`estop_safety_chain.md`](estop_safety_chain.md)
-  covers the software chain and fault-injection matrix skeleton;
-  the hardware risk assessment side and category rating are not
-  yet in the repo.
-- **Where it lands:** `docs/safety/risk_assessment.md` plus
-  signed acceptance under `docs/commissioning_logs/`.
-- **Blocks:** control-power hold point.
+**WITHDRAWN (owner decision 2026-08-15).** The E-stop system stays 100%
+original OEM and is not assessed, re-engineered, traced, or fault-injected by
+this conversion. The OEM hardwired chain is relied on as-is. No risk-assessment
+deliverable, category rating, schematic, or fault-injection matrix is produced;
+[`estop_safety_chain.md`](estop_safety_chain.md) records the withdrawal. This
+deliverable no longer gates any hold point.
 
 ### D6 — Shared-bus precharge / energize / discharge / regen / lockout
 
-- **Contents required:** procedure covering how to bring the
-  Mitsubishi TRA DC-bus stack up (precharge sequence), how to
-  discharge it safely, how regen is handled, how to lock out
-  for service, and the measured safe-discharge time from
-  operating voltage to the touch-safe/service threshold specified by the
-  identified Mitsubishi bus documentation and the site's lockout procedure.
-  No numeric threshold is assumed until those sources are captured.
-- **Acceptance criteria:**
-  1. Precharge sequence documents the contactor / resistor /
-     bypass timing.
-  2. Discharge test log shows time from at-rest and from post-rapid-decel to
-     the documented service threshold. Record the source for that threshold
-     and the measured voltage/time trace; do not substitute a calculated
-     decay time.
-  3. Regen path documented (does the machine dump to a resistor,
-     or return to bus?).
-  4. Lockout procedure documented per OSHA / lockout-tagout
-     conventions.
-- **Owner:** machine owner. **Status:** DRAFTED — see
-  [`dc_bus_stop_fault.md`](dc_bus_stop_fault.md); discharge test
-  and precharge sequence not yet measured.
-- **Where it lands:** [`dc_bus_stop_fault.md`](dc_bus_stop_fault.md)
-  and `docs/commissioning_logs/dc_bus_discharge_YYYY-MM-DD.txt`.
-- **Blocks:** DC-bus hold point, amp-enable hold point.
+**WITHDRAWN (owner decision 2026-08-15).** The Mitsubishi TRA DC-bus stack and
+all machine power circuits stay 100% original OEM and are not commissioned,
+measured, sequenced, or verified by this conversion. No precharge/discharge
+procedure or measurement is produced. This deliverable no longer gates any
+hold point.
 
 ### D7 — Enable / fault / ready / Z-brake timing budget
 
@@ -275,7 +246,6 @@ it must never be bypassed with an ad-hoc `halcmd sets` instruction.
   2. Brake drop time measured from the SOL-201 solenoid
      (N1J-L2-201 Z brake release) datasheet or measurement.
   3. Coast time measured from drive spec sheets.
-  4. E-stop timing verified against the fault-injection matrix.
 - **Owner:** retrofit commissioner. **Status:** TEMPLATE DRAFTED —
   [`stop_timing_budget.md`](stop_timing_budget.md); physical measurements are
   not yet captured.
@@ -488,8 +458,7 @@ it must never be bypassed with an ad-hoc `halcmd sets` instruction.
 - **Contents required:** signed hold points before each of
   these live-power milestones:
   1. Control power to the retrofit cabinet.
-  2. DC bus to the servo amplifiers.
-  3. Amp enable (S-ON).
+  2. Amp enable (S-ON).
   4. Z-brake release.
   5. Spindle rotation.
   6. First motion.
@@ -512,8 +481,7 @@ gate on live power.
 
 | Hold point | Deliverables required |
 |---|---|
-| Control power | D1, D2 (partial — resolver + amplifier + FR-SX nameplates), D3, D5, D15 |
-| DC bus energised | Above + D6 |
+| Control power | D1, D2 (partial — resolver + amplifier + FR-SX nameplates), D3, D15 |
 | Amp enable (S-ON) | Above + D4 (I/O checkout signed), D7, D14 |
 | Z-brake release | Above + D7 (specifically the Z-brake timing row) |
 | Spindle rotation | Above + D12 |
