@@ -31,6 +31,21 @@ desktop.ini
 *.avi
 *.mkv
 
+# Obsidian vault state.
+# The repo doubles as an Obsidian vault, so .obsidian/ is tracked on purpose —
+# that is how appearance, hotkeys, and enabled plugins follow you between the
+# MacBook Pro, the iMac, and the OptiPlex. Only per-machine state and anything
+# that can hold a credential is excluded:
+.obsidian/workspace.json
+.obsidian/workspace-mobile.json
+.obsidian/cache
+.obsidian/.trash/
+# Plugin settings can contain API keys (obsidian-local-rest-api stores one).
+# This repo is public — keep every plugin's data.json local. To sync one you
+# have confirmed holds no secret, add an exception below, e.g.
+#   !.obsidian/plugins/obsidian-importer/data.json
+.obsidian/plugins/*/data.json
+
 # LinuxCNC / Mesa runtime outputs kept locally, not committed
 mesa_readhmid.txt
 mesa_hal_pins.txt
