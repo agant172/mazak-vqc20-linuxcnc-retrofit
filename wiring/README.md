@@ -60,10 +60,6 @@ verification state and cleanup notes.
 
 ## Wiring items to trace in the cabinet
 
-- HR-11F-24 24 V supply: `+S`, `+`, `-`, `-S`, `TOG`, `CNT`, `FG`, plus P24/G24
-  distribution, remote sense, and branch fusing.
-- E-stop, door interlock, ready chain, and servo contactor wiring — record the
-  full hardware safety chain before any control rewiring.
 - X/Y/Z servo drive command, enable, and fault terminal labels.
 - Mitsubishi FR-SX spindle analog/run/direction/alarm terminals.
 - X/Y/Z resolver winding pairs and cabling (see the resolver warning below).

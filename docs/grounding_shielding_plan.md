@@ -92,7 +92,7 @@ interchangeable:
 
 | Net | Required disposition |
 |---|---|
-| Protective earth (PE) | Bond exposed conductive parts, cabinet, doors, motor frames, and equipment PE terminals per the applicable electrical design and measured protective-bond requirements. Conductor sizing is not specified by this repo. |
+| Protective earth (PE) | The OEM PE/grounding installation stays original and untouched (owner decision 2026-08-15); this repo specifies nothing about it. |
 | 7i49 signal/analog GND | Use only as documented by Mesa and as the signal reference required by the connected drive. Do not add an unsourced PE strap at the card. |
 | Drive analog common | Dedicated command return to the drive's documented analog-common terminal, not motor-frame PE. |
 | Resolver shields | 7i49 end only, at the local GND terminal identified by the 7i49 manual. |
@@ -100,8 +100,8 @@ interchangeable:
 
 The repository formerly prescribed a 6 AWG “star,” a mandatory dedicated retrofit supply
 negative-to-PE bond, and millivolt limits without an as-built drawing or source.
-Those values are retracted. The final bond topology belongs in the pre-power
-one-line and must be continuity-tested.
+Those values are retracted, and the machine's grounding stays original OEM
+(owner decision 2026-08-15) — no new bonds, no verification of the existing ones.
 
 ## Routing and segregation
 
@@ -122,9 +122,9 @@ Define and sign quantitative acceptance thresholds before clearing either
 motion-output hold; derive them from the exact resolver/drive/interface limits,
 required position resolution, following-error budget, and measured baseline.
 
-1. **Power-off checks:** verify PE continuity, absence of unintended
-   OEM/retrofit 24 V bonds, shield isolation at the far end, winding pairing,
-   and no short from any signal conductor to case/PE.
+1. **Power-off checks (new-control wiring only):** shield isolation at the
+   far end, winding pairing, and no short from any new signal conductor to
+   case/PE. The OEM grounding installation itself is not verified.
 2. **Control-power-only baseline:** with all drive commands inhibited, scope
    RESDRV and differential RESSIN/RESCOS on every channel. Record frequency,
    amplitude, phase, and noise. Compare with the exact TS2014N suffix data and

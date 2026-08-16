@@ -70,14 +70,6 @@ CAPACITY_DOC = REPO_ROOT / "docs" / "io_capacity_reconciliation.md"
 LEGEND_PATH = REPO_ROOT / "wiring" / "labels" / "7i84u_b_terminal_legend_epson.csv"
 SOURCE_DEST_PATH = REPO_ROOT / "wiring" / "bbia1_source_dest.csv"
 
-POWER_AUTHORITY_STATES = {
-    "PROPOSED", "COMMISSIONING_PENDING", "TRACED",
-    "ELECTRICALLY_VERIFIED", "HAL_VERIFIED", "COMMISSIONED",
-}
-POWER_EVIDENCE_STATES = {
-    "TRACED", "ELECTRICALLY_VERIFIED", "HAL_VERIFIED", "COMMISSIONED",
-}
-
 AUTHORITY_STATES = {
     "PROPOSED",
     "TRACED",

@@ -6,7 +6,7 @@ window.MAZAK_DATA = {
   "machine": "Mazak VQC-20/40",
   "serial": "060231",
   "architecture": "LinuxCNC + Mesa 7i80HDT (Ethernet FPGA host) + 7i44 on P3 (HostMot2 sserial port 0 channels 0/1 to 7i84U-A/B) + 7i49 on P1 (resolver + analog outs); P2 unused/spare (confirmed 2026-08-13 by readhmid)",
-  "generated": "2026-08-16 00:00 UTC",
+  "generated": "2026-08-16 00:22 UTC",
   "source_repo": "mazak-vqc20-linuxcnc-retrofit",
   "authority_file": "mesa/current_pin_authority.csv",
   "epson_ferrule_file": "wiring/labels/bbia1_mesa_end_ferrules_epson.csv",
@@ -92,7 +92,7 @@ window.MAZAK_DATA = {
    "label": "Factory interface — verify at first power",
    "tone": "pending",
    "order": 4,
-   "blurb": "Machine side is OEM Mazak harness landing on the BBIA1 terminal unit — no cabinet wire to trace or land; the only wiring is Mesa <-> BBIA1 at the interface. (Board-power rows are the 24 V supply to TB1.) Commissioning is a first-power functional check at the interface — input senses / output actuates / 24 V present — not field tracing.",
+   "blurb": "Machine side is OEM Mazak harness landing on the BBIA1 terminal unit — no cabinet wire to trace or land; the only wiring is Mesa <-> BBIA1 at the interface. Commissioning is a first-power functional check at the interface — input senses / output actuates — not field tracing.",
    "safe_to_energize": "Not yet commissioned. Confirm function at first power before relying on it."
   },
   "ACCEPTED": {
@@ -3056,7 +3056,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/mazak_vqc_20_40.hal",
-     "line": 316,
+     "line": 318,
      "text": "net spindle-fault        => logic.spindle-fault-not.in-00",
      "commented": false,
      "producers": [],
@@ -3120,7 +3120,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/mazak_vqc_20_40.hal",
-     "lines": "316",
+     "lines": "318",
      "note": "net spindle-fault        => logic.spindle-fault-not.in-00"
     },
     {
@@ -4610,7 +4610,7 @@ window.MAZAK_DATA = {
    "direction_label": "Input (digital)",
    "subsystem": "Machine safety",
    "machine_subsystem": "Machine safety",
-   "status": "PROPOSED",
+   "status": "DEFERRED",
    "field_point": "OEM MAR relay aux contact via interposing relay (Omron G2R-1-SND-DC24 or Phoenix PLC-RSC-24DC/21) driven from EHB bus",
    "dest_connector": "",
    "dest_pin": "",
@@ -4620,14 +4620,14 @@ window.MAZAK_DATA = {
     "RS-C"
    ],
    "primary_source": "front_control_panel_wiring.md §6.5 + open_issues.md §3 (2026-08-03)",
-   "cleanup_notes": "OEM MAR relay aux contact via interposing relay (Omron G2R-1-SND-DC24 or Phoenix PLC-RSC-24DC/21) driven from EHB bus. OEM/new-side boundary: dry contact only, no OEM P24 into 7i84U common. This is the sole software E-stop monitor; OEM hardware chain remains authoritative. | [LOCATED 2026-08-08: EMERGENCY STOP X00 *ESP via EMS/MAR relay, Dwg 4143075407 pg133. Mesa IN29 = status monitor only; keep hardwired, do NOT wire as normal input] | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/estop_ladder_transcription.md]",
+   "cleanup_notes": "OEM MAR relay aux contact via interposing relay (Omron G2R-1-SND-DC24 or Phoenix PLC-RSC-24DC/21) driven from EHB bus. OEM/new-side boundary: dry contact only, no OEM P24 into 7i84U common. This is the sole software E-stop monitor; OEM hardware chain remains authoritative. | [LOCATED 2026-08-08: EMERGENCY STOP X00 *ESP via EMS/MAR relay, Dwg 4143075407 pg133. Mesa IN29 = status monitor only; keep hardwired, do NOT wire as normal input] | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/estop_ladder_transcription.md] | [OWNER DECISION 2026-08-15 (AG): the machine's AC/DC power circuits and the entire E-stop system stay 100% original OEM -- no commissioning, tracing, or verification of any power circuit in this conversion. The interposing monitor relay (coil tap from the OEM EHB bus) is therefore NOT being installed; this row is DEFERRED, not wired. The HAL net stays in place so the control logic remains testable; with the input unwired, estop-monitor reads FALSE and the software chain stays tripped, which fails safe.]",
    "location": "Unknown — trace in cabinet",
    "location_note": "",
    "expected": {
-    "value": "1",
-    "label": "Logic 1 — hardware E-stop chain healthy",
-    "basis": "field_7i84u.hal: estop-monitor raw IN29 feeds estop-latch.ok-in; contact polarity remains field-verification pending",
-    "kind": "proposed"
+    "value": "0",
+    "label": "Logic 0 — DEFERRED, input unwired (owner decision 2026-08-15); software chain stays tripped, fails safe",
+    "basis": "field_7i84u.hal: estop-monitor raw IN29 feeds estop-latch.ok-in; no interposing relay is installed",
+    "kind": "deferred"
    },
    "hal_state": "active",
    "mesa_pins": [
@@ -4640,7 +4640,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/mazak_vqc_20_40.hal",
-     "line": 250,
+     "line": 252,
      "text": "net estop-monitor     => estop-latch.0.ok-in",
      "commented": false,
      "producers": [],
@@ -4671,7 +4671,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/mazak_vqc_20_40.hal",
-     "lines": "250",
+     "lines": "252",
      "note": "net estop-monitor     => estop-latch.0.ok-in"
     },
     {
@@ -4785,7 +4785,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/mazak_vqc_20_40.hal",
-     "line": 323,
+     "line": 325,
      "text": "net servo-ready            => logic.spindle-permit-and.in-05",
      "commented": false,
      "producers": [],
@@ -4841,7 +4841,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/mazak_vqc_20_40.hal",
-     "lines": "323",
+     "lines": "325",
      "note": "net servo-ready            => logic.spindle-permit-and.in-05"
     },
     {

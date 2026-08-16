@@ -45,6 +45,11 @@ This file is the authoritative brief. In addition, consult:
 
 ## Quick non-negotiable rules
 
+- **Power and E-stop are out of scope (owner decision 2026-08-15).** All AC/DC
+  power circuits and the entire E-stop system stay 100% original OEM. Do not
+  propose, document, trace, or verify any power circuit; the only power info
+  kept is what passes through the BBIA-1 board.
+
 Full versions are in the detailed sections below; this is the skim list.
 
 - **Safety is hardware-first.** The OEM hardwired E-stop / contactor chain (MAR/EMS/OTR)
@@ -230,10 +235,10 @@ The OEM hardwired E-stop and contactor chain is the primary E-stop system.
 
 - Preserve OEM wires `57`, `57A`, `57B`, `40`, `40A`, `EHB`, `MAR`, `EMS`, `OTR`,
   `PIOT`, `*ESP` unless I explicitly direct a documented redesign.
-- LinuxCNC monitors machine-enabled state via a `MAR` aux contact or
-  `MAR-MON` interposing relay contact. LinuxCNC is not the only E-stop.
-- Wired pendant E-stop wires in series as NC contact into the OEM chain.
-- Cat-3/dual-channel safety relay is a documented future upgrade only.
+- Machine-enabled monitoring via a `MAR` aux contact is DEFERRED (owner
+  decision 2026-08-15): no interposing relay is installed, the `estop-monitor`
+  input is unwired, reads FALSE, and the software chain fails safe. LinuxCNC
+  is never part of the E-stop function.
 
 Owner-operated commissioning may use reversible temporary bypasses. Do not
 block the project because a bypass is desired. For every bypass document:
@@ -251,7 +256,6 @@ switches; ATC motion, barriers, and tool clamp; OEM relay/solenoid outputs.
 
 Staged commissioning sequence:
 1. Documentation and wiring review.
-2. Power-domain and grounding verification.
 3. I/O power-up with outputs disabled.
 4. Input-state and polarity verification.
 5. Output/relay verification with loads isolated where practical.
@@ -309,7 +313,7 @@ original harness sections with original labels visible.
 
 ## Operating priorities
 
-1. Verified power domains, grounding, E-stop monitoring, contactor behavior.
+1. Verified contactor behavior at the new-control boundary.
 2. Authoritative Mesa firmware, pin allocation, SSerial topology.
 3. Resolver feedback and analog command paths verified without motion.
 4. One axis at a time — conservative velocity, limits, scale/direction check.
@@ -338,7 +342,7 @@ needs the real machine, hardware, OS, or live measurements:
 - Editing and testing HAL/INI on the control PC (`halrun`, watching real pins).
 - Host/NIC/network setup (static IP 192.168.1.121, `hm2_eth`, `enp0s31f6`), package installs,
   systemd services.
-- Resolver/analog scope measurements, safety-chain tracing, continuity checks.
+- Resolver/analog scope measurements and continuity checks.
 - Axis / spindle / ATC bring-up and every commissioning step.
 - Capturing cabinet photos and filing them in Drive per
   `docs/README_photo_sorting.md` (the single scheme). **Raw photos are never

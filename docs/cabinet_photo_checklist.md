@@ -19,11 +19,9 @@ Use this checklist before ordering/flashing Mesa hardware. The goal is to captur
 | High | Axis servo amplifiers | X/Y/Z drive labels, model numbers, terminal strips, command terminals, enable/fault terminals | Confirms analog ±10 V compatibility and drive enable/fault wiring. |
 | High | Axis motor/encoder connectors | Encoder cable connectors, labels, pickup modules, motor nameplates if reachable | Confirms encoder type, supply, and pinout path. |
 | High | Spindle drive | Mitsubishi FR-SX model label, terminal strip, analog input, run/FWD/REV/enable/alarm terminals | Confirms spindle speed command and digital control wiring. |
-| High | 24 VDC supply | HR-11F-24 terminals `+S`, `+`, `-`, `-S`, `TOG`, `CNT`, `FG`, `L`, `N` plus destination wires | Confirms P24/G24 distribution and remote sense/control wiring. |
 | High | P24/G24 terminal strips | P24, G24, +24V, 0V jumpers, wire numbers, fuses | Confirms Mesa field-power and I/O common strategy. |
 | High | Green breakout PCB | Full board, connector names, label `YM VQC-20-40/50`, all circular plugs and D-sub connectors | Decides whether to reuse the board as junction or bypass to terminal blocks. |
 | High | Existing I/O terminal strips | Labels such as `INHRLS`, `DEC2`, `CH4`, limit/home/ATC signals, wire numbers | Lets the workbook map real terminals to Mesa inputs/outputs. |
-| High | E-stop / safety chain hardware | E-stop relays, door interlock wiring, servo contactor, ready chain relays | Determines what stays hardwired and what LinuxCNC only monitors. |
 | Medium | Tool clamp / drawbar valves | Solenoid labels, coil voltage, terminal numbers, PRS-8/PRS-9 wiring | Confirms ATC tool clamp/unclamp I/O. |
 | Medium | Spindle gear shift valves | SOL-12/SOL-13 or related labels, PRS-10/PRS-12 wiring | Confirms high/low gear logic and safe spindle start interlocks. |
 | Medium | Magazine hydraulics | SOL-8A/SOL-8B, PRS-13, PRS-21 through PRS-25, cover switches/solenoids | Confirms magazine rotation and tool-position bit logic. |
@@ -54,7 +52,6 @@ Save photos/video in the Mazak folder using a simple naming pattern:
 - `frsx_spindle_drive_terminals_YYYY-MM-DD.jpg`
 - `p24_g24_terminal_strip_YYYY-MM-DD.jpg`
 - `green_breakout_pcb_YYYY-MM-DD.jpg`
-- `estop_safety_chain_relays_YYYY-MM-DD.jpg`
 
 ## What to send for the next HAL update
 
@@ -63,6 +60,5 @@ The most useful first batch is:
 1. Whole cabinet wide shots.
 2. X/Y/Z servo amplifier model and terminal strips.
 3. FR-SX spindle controller model and terminals.
-4. 24 VDC supply and P24/G24 terminal strips.
 5. Green breakout PCB and connector labels.
 6. E-stop / safety relay / servo contactor area.

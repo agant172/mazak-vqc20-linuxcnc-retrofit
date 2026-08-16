@@ -17,10 +17,10 @@ control to LinuxCNC using Mesa Electronics FPGA hardware.
 > ⚠️ **Safety:** The HAL/INI files in [`linuxcnc/`](linuxcnc/) and the pin authority in
 > [`mesa/current_pin_authority.csv`](mesa/current_pin_authority.csv) are **planning /
 > bring-up skeletons only** — not live-machine-ready. Pin names, resolver scales, analog
-> polarity, and I/O normal states are placeholders. Verify the hardware safety chain,
-> drive polarity, resolver direction/scale, field-I/O normal states, and coil/current
-> ratings before energizing outputs or enabling motion. Do not rely on LinuxCNC/HAL alone
-> for E-stop safety. See [docs/project_status.md](docs/project_status.md#safety-caveats).
+> polarity, and I/O normal states are placeholders. Verify drive polarity, resolver
+> direction/scale, field-I/O normal states, and coil/current ratings before energizing
+> outputs or enabling motion. The OEM hardwired E-stop chain stays 100% original and
+> remains the sole safety function; LinuxCNC/HAL is not part of it. See [docs/project_status.md](docs/project_status.md#safety-caveats).
 
 ## Confirmed architecture (2026-08-13 rev)
 
@@ -54,7 +54,6 @@ Full rationale: [docs/architecture_decision.md](docs/architecture_decision.md).
 | Mesa firmware / photo checklists drafted | ✅ Completed |
 | Order 7i80HDT + 7i44 + 7i84U-B | 🔄 In progress |
 | Collect cabinet photos | 🔄 In progress |
-| Trace safety chain | 🔄 In progress |
 | Live Mesa install | ⬜ Not started |
 | HAL pin replacement from `readhmid` | ⬜ Not started |
 | Resolver / analog measurements (return signal level, pairs) | ⬜ Not started |
@@ -70,7 +69,6 @@ Full rationale: [docs/architecture_decision.md](docs/architecture_decision.md).
 - Confirm 7i80HDT Ethernet setup: static IP 192.168.1.121, `hm2_eth` `board_ip="192.168.1.121"`, and host NIC `enp0s31f6` at 192.168.1.1/24.
 - Capture cabinet photo set ([checklist](docs/cabinet_photo_checklist.md)).
 - Record X/Y/Z servo drive + Mitsubishi FR-SX spindle model/terminal labels.
-- Trace E-stop, door, ready chain, and servo contactor wiring.
 
 **Next**
 - Run the full LinuxCNC latency and hm2_eth test on the exact control PC, NIC,
@@ -87,7 +85,7 @@ Full rationale: [docs/architecture_decision.md](docs/architecture_decision.md).
 - Measure coil voltages/currents to size interposing relays (RLY-5/6/7 required by the current plan for the 100 VAC air/touch/tap loads on 7i84U-B OUT3/4/5).
 
 **Later**
-- Resolver feedback via 7i49 (drives disabled) → one axis at a time (low gain/speed) → homes/limits and hardware E-stop → spindle at low RPM → ATC/hydraulic dry run → decide on any optional future expansion I/O and pendant.
+- Resolver feedback via 7i49 (drives disabled) → one axis at a time (low gain/speed) → homes/limits → spindle at low RPM → ATC/hydraulic dry run → decide on any optional future expansion I/O and pendant.
 
 Full, checkbox-tracked TODO and progress: **[docs/project_status.md](docs/project_status.md)**.
 

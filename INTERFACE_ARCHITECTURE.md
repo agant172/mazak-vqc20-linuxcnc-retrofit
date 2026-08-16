@@ -102,8 +102,9 @@ that is not here must be added here.
    and runs independently of the NC and of Mesa — this is the primary E-stop and was
    never the brain's to control. E-stop *sense* conductors (`EHB`/`EMB`/`EMC` at
    CN2-40, CN2-41, CN3-1, CN5-4) physically appear on BBIA-1 connectors, but they
-   land in the **safety-relay chain, never on a Mesa input**. LinuxCNC only *monitors*
-   machine-enabled state via a `MAR` aux contact / `MAR-MON` interposing relay.
+   land in the **safety-relay chain, never on a Mesa input**. Machine-enabled monitoring via a `MAR` aux
+   contact is DEFERRED (owner decision 2026-08-15; no relay installed, input
+   unwired, fails safe).
    LinuxCNC/HAL is not a safety input. (See `docs/estop_safety_chain.md`.)
 2. **Domain crossings.** Every OEM↔new signal crossing the plane goes through an
    interposing relay (see CLAUDE.md § Electrical architecture).
