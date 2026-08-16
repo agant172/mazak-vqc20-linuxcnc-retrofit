@@ -14,11 +14,26 @@ and still required.
 | X resolver pickup | `RT-5X8-1?` (stamps faded) | BKO-NC6062 (A suffix uncertain) | A7003 | `TS2014N 25 E 8-1?` | 198_ | partial |
 | Y resolver pickup | `RT-5X8-1?` (stamps faded) | BKO-NC6062A | A6986 | `TS2014N 25 E 3-1?` | 198_ | partial |
 | Z tachometer | BRUSHLESS DC GENERATOR `TT-A-11`, 2V/1000 rpm | BKO-NC6075 | 23868 | TS3033N 4 E2 | 1984.5 | good |
+| Z resolver pickup | `PICKUP UNIT`, TS2014N family (plate style N5399, same as X/Y) | **BKO-NC6062A (clearly legible)** | not read | `TS2014N …` — stamped digits illegible; one frame hints `E3…` | 198_ | poor (borescope frames, glare) |
 | Spindle encoder | Tamagawa OPTICAL SHAFT ENCODER, **512 counts/turn, DC ±15 V** | — | A6022 | **TS1526N55** | 1984.6 | good |
 
-**Not yet read:** the **Z resolver pickup** nameplate. The Z photo captured
-the tachometer-generator on the motor, not the resolver. Read it on the next
-cabinet visit before treating the X/Y suffix pattern as machine-wide.
+**Z resolver located and partially read (2026-08-15, second visit).** The
+pickup can sits at the Z screw's non-drive end; borescope frames defeat the
+stamped digits but the printed spec line is clear: **`BKO-NC6062A` — the same
+spec as X and Y**, same TS2014N family and plate layout. All three axes carry
+the same resolver spec. Only the stamped suffix digits remain unread; the
+per-axis ohmmeter record is the stronger confirmation path regardless (same
+one-high/two-matched DCR pattern across axes = electrically identical
+windings).
+
+**Field note — the "Z"-labeled MS connector on the motor stack belongs to the
+TACHO, not the resolver.** The 17-position `MS3102A20-29P` receptacle on the
+grey can under the Z motor is the TT-A-11's connector (its nameplate is on
+that same can). Ohmmeter pairs measured there read open — this is NORMAL: the
+tacho is brushless with internal commutation electronics behind the pins, and
+unpowered semiconductors block a DC ohmmeter. Do not diagnose a fault from
+open readings at that connector, and do not probe it expecting resolver
+windings. The resolver's own connector is on the pickup can at the screw end.
 
 ## What this changes
 
@@ -82,8 +97,12 @@ depends on it.
 
 ## Follow-ups
 
-- [ ] Read the Z resolver pickup nameplate (raking light; it is the unit the
-  Z photo missed).
+- [x] ~~Locate the Z resolver pickup~~ — found at the Z screw's non-drive end,
+  spec `BKO-NC6062A` confirmed same as X/Y (2026-08-15 second visit).
+- [ ] Ohmmeter pair sweep on each pickup's own MS connector (X, Y, Z): find
+  the three winding pairs empirically and record pin letters + DC ohms on the
+  D8 worksheet. The pin letters do NOT map one-to-one to the drawing's wire
+  names (verified on the tacho connector 2026-08-15) — sweep, don't assume.
 - [ ] Re-read the faded type stamps (`RT-…`) and the E-suffix digits on X/Y,
   or obtain the `TS2014N25E…` datasheet from Tamagawa and reconcile.
 - [ ] Until the exact suffix datasheet is in hand, treat excitation level,
