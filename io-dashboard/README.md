@@ -138,6 +138,39 @@ your tailnet ACLs; to keep the dashboard off the shop LAN entirely, bind the
 host's `100.x.y.z` Tailscale IP instead of `0.0.0.0` (see the comment in the
 unit file).
 
+### 4. Share a snapshot with someone outside the tailnet
+
+Everything above needs either the shop LAN or an account on your tailnet, so
+none of it helps you show the workspace to a machinist, a supplier, or anyone
+else off the network — and the repo is private (2026-08-16), so a GitHub link
+will not work either.
+
+```bash
+python3 io-dashboard/tools/build_standalone.py
+# -> io-dashboard/dist/mazak-io-navigator.html   (~475 KB, one file)
+```
+
+That bundles the three stylesheets and five scripts into a single HTML file
+with no external requests, so it can be emailed, put on a USB stick, or
+published as a Claude Artifact and shared by link. `dist/` is git-ignored —
+rebuild it, don't commit it.
+
+**What the snapshot gives up**, all of it deliberate:
+
+- **No live poll.** There is no `serve_live.py` behind it, so the Live button is
+  hidden and the header reads *Static snapshot* instead of *Planning mode*. The
+  Observed column stays empty.
+- **No source links.** `REPO_BLOB` is emptied, because a private-repo blob URL
+  404s for every viewer who is not a collaborator.
+- **Frozen data.** The banner carries the commit and build date; anyone reading
+  it later needs that to know whether it predates the change they are asking
+  about. Rebuild and re-share after any authority change.
+
+**Before you send it, remember what is in it:** the full pin authority, the
+wiring crosswalk, and the commissioning records for the machine. Nothing there
+is a credential, but it is the whole electrical design of your mill — share it
+with people, not with the internet.
+
 ---
 
 ## Using it
