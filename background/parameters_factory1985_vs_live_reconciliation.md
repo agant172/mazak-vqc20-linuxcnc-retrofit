@@ -24,7 +24,7 @@ photos) remains authoritative for the current machine.** This factory sheet is
 useful only as (a) a historical as-shipped baseline and (b) a source of a few
 parameters the live capture is still missing — and even those must be treated as
 **unverified against the current control** until read live per
-`docs/parameter_recovery.md`.
+`parameter_recovery.md` (in this directory).
 
 The divergence is expected: 40 years of service, re-teaching the ATC position,
 backlash re-measurement, and soft-limit edits will all have moved values since

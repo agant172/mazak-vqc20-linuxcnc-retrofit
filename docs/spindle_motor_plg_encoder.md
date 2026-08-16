@@ -36,7 +36,7 @@ inside the motor's terminal box.
 Three consequences:
 
 1. It **corrects** the repo's standing claim that the spindle motor's built-in
-   feedback is a *magnetic* pickup ([§Correction](#correction-to-servo_amp_analysis-15)).
+   feedback is a *magnetic* pickup ([§Correction](#correction-to-servo_amp_analysismd-15)).
 2. It **narrows but does not close** the FR-SX orient-detector question — a PLG
    physically exists, but which detector the drive actually orients from is
    unresolved. Settle it via
