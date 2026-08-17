@@ -34,7 +34,7 @@ This file is the authoritative brief. In addition, consult:
 | Read | Why |
 |---|---|
 | **[Session conventions](#session-conventions)** (below, in this file) | Which machine this session is on and what it may state as verified, the SSH boundary, `git pull` before you start, and what to run before you push. Read first — it governs what the rest of this table entitles you to claim. |
-| **`INTERFACE_ARCHITECTURE.md`** | The single machine-interface plane (BBIA-1) — the root decision governing how the wiring CSV and I/O Navigator are structured. Read before touching the pin authority or wiring crosswalks. |
+| **`INTERFACE_ARCHITECTURE.md`** | The two machine-interface planes — BBIA-1 (discrete I/O) and CNA/SX-IO1 (resolver, analog, spindle command) — the root decision governing how the wiring CSV and I/O Navigator are structured. Read before touching the pin authority or wiring crosswalks. |
 | **`INSTALL_SPINE.md`** | The load-bearing install path in order of use — gates, machine side, the BBIA↔Mesa hop, ladder→HAL, and the validation loop. Pointer-only: it names the short list of files that matter at the cabinet; everything it does not name is background. Start here for any installation or wiring question. |
 | **`docs/project_status.md`** | Current state, TODO priorities, and the D1–D16 pre-power deliverables gating live power. |
 | **`docs/authority_hierarchy.md`** | Which file wins when two disagree, and the script that enforces it. |
@@ -115,24 +115,37 @@ applicable manual, installed firmware, and current pin-authority document.
 
 ---
 
-## The single machine-interface plane (BBIA-1)
+## The two machine-interface planes (BBIA-1 and CNA/SX-IO1)
 
-The original NC talked to the machine through **one board, BBIA-1** — a straight
-pass-through terminal unit that was the NC back panel's breakout. The retrofit
-reproduces this exactly: LinuxCNC → 7i80HDT (Ethernet) → 7i44/7i49 (50-pin IDC) →
-7i84U-A/B (smart-serial) → **Mesa screw terminals** → cut & ferruled **MR cables** →
-**BBIA-1** → unchanged OEM harness → machine.
+The original NC talked to the machine through **two separate interfaces**, not one:
 
-**Single-plane rule:** every control↔machine signal crosses at the BBIA-1 connector
-plane. One physical conductor across that plane = one row in the I/O model, keyed on
-the **factory wire number** printed on the jacket. The machine-internal side is fixed
-OEM reference (`wiring/bbia1_cn_pinouts.csv`) — do not re-derive it; the retrofit owns
-and verifies only the **BBIA↔Mesa hop**. The few things that do *not* cross at BBIA-1
-— the standalone OEM E-stop/contactor chain, the power/return feeds, and the
-still-to-trace analog/resolver and unlocated-limit signals — are enumerated in
-**`INTERFACE_ARCHITECTURE.md`**, which is authoritative for this model and for how the
-wiring CSV and I/O Navigator are structured. Read it before editing the pin authority
-or wiring crosswalks.
+- **Plane A — BBIA-1**, a straight pass-through terminal unit that was the NC back
+  panel's breakout, carrying discrete digital I/O. The retrofit reproduces this
+  exactly: LinuxCNC → 7i80HDT (Ethernet) → 7i44 (50-pin IDC) → 7i84U-A/B
+  (smart-serial) → **Mesa screw terminals** → cut & ferruled **MR cables** →
+  **BBIA-1** → unchanged OEM harness → machine. Documented in
+  `wiring/bbia1_terminal_unit.md` / `wiring/bbia1_cn_pinouts.csv`.
+- **Plane B — the CNA-family servo card-cage connectors** plus the FR-SX spindle
+  drive's **SX-IO1** board, carrying axis resolver feedback, ±10 V axis velocity
+  commands, and the spindle speed command: LinuxCNC → 7i80HDT → 7i49 (P1) →
+  shielded home-run cable → **CNA3(X)/CNA4(Y)/CNA5(Z)** / SX-IO1 → unchanged OEM
+  cabling → TRA servo amps / FR-SX spindle drive. The resolver connectors are
+  mature — pin roles are Mitsubishi-M2-manual-confirmed and bench-measured
+  (`docs/resolver_commissioning.md`, `resolvers.md`); the SX-IO1 board is not yet
+  pinned out (`wiring/connector_crossref.md`). The RC3A relay board, though
+  physically in the same bay, is **not** part of Plane B — its signals
+  cross-reference to BBIA-1's own CN3/CN301A (Plane A).
+
+**Two-plane rule:** every control↔machine signal crosses at exactly one of these two
+planes. One physical conductor across a plane = one row in that plane's I/O model,
+keyed on the **factory wire number** where legible. The machine-internal side of each
+plane is fixed OEM/OEM-manual reference — do not re-derive it; the retrofit owns and
+verifies only each plane's hop to Mesa. The few things that cross at neither plane —
+the standalone OEM E-stop/contactor chain and the still-unlocated over-travel
+limits — are enumerated in **`INTERFACE_ARCHITECTURE.md`**, which is authoritative
+for this model (including the 2026-08-17 amendment that split the single plane into
+two) and for how the wiring CSV and I/O Navigator are structured. Read it before
+editing the pin authority or wiring crosswalks.
 
 ---
 
