@@ -19,10 +19,10 @@ Environment=REPO_DIR=/home/andy/mazak-vqc20-linuxcnc-retrofit
 # silently reduces this to GIT_SSH_COMMAND=ssh.
 Environment="GIT_SSH_COMMAND=ssh -i /home/andy/.ssh/id_ed25519 -o IdentitiesOnly=yes -o BatchMode=yes -o StrictHostKeyChecking=accept-new"
 # Runs the INSTALLED COPY, not scripts/host_status/repo_pull.sh in the working
-# copy — unlike mazak-host-status.service, which execs out of the repo. This
-# script fast-forwards the very working copy it would be read from, and bash
-# reads a script incrementally: a merge that rewrote the file mid-run would
-# resume at a stale byte offset. install_repo_pull.sh keeps the copy in sync.
+# copy. This script fast-forwards the very working copy it would be read from,
+# and bash reads a script incrementally: a merge that rewrote the file mid-run
+# would resume at a stale byte offset. install_repo_pull.sh keeps the copy in
+# sync, so edit the repo version and re-run the installer.
 ExecStart=/usr/local/bin/mazak-repo-pull.sh
 TimeoutStartSec=120
 Nice=10

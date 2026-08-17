@@ -1,96 +1,14 @@
-> This directory holds **two** independent OptiPlex timers. The **host status
-> reporter** (below) pushes machine state *out* to a repo. The **working-copy pull
-> timer** ([jump](#working-copy-pull-timer)) fast-forwards this working copy *in*
-> from origin. They share nothing but a home and an install pattern.
+# OptiPlex host scripts
 
-# LinuxCNC Host Status Reporter
+Systemd timers that run on the LinuxCNC control PC (Dell OptiPlex 7050, Debian 13,
+PREEMPT-RT). One timer lives here today: the **working-copy pull timer**, which
+fast-forwards this repo's checkout on the host from `origin`.
 
-Automated status upload from the LinuxCNC control PC (Dell OptiPlex 7050, Debian 13,
-PREEMPT-RT) into this repo. A systemd timer runs `collect_status.sh` every 5 minutes;
-the script writes `status/host_status.md` and `status/host_status.json` and pushes
-them to `main` when values change.
-
-## What it reports
-
-- **Host** — hostname, OS, kernel, uptime, load, memory, disk.
-- **LinuxCNC** — running state, PIDs, version, latest latency note from the journal.
-- **HAL snapshot** — read-only sample of a small signal list (estop, machine-on,
-  spindle-on, X/Y/Z position feedback). Only sampled while LinuxCNC is up.
-- **Mesa** — configured IP (192.168.1.121 by default), ping reachability, and a short
-  `mesaflash --readhmid` block when LinuxCNC is *not* running (so the two never race
-  for the board).
-- **Repo** — current HEAD short-sha, HEAD message, uncommitted file count.
-
-The collector is **strictly read-only** toward LinuxCNC. It never writes HAL pins,
-never launches `latency-test`, and never issues motion.
-
-## Files
-
-| File | Purpose |
-|---|---|
-| `collect_status.sh` | Gathers data and commits `status/host_status.{md,json}`. |
-| `mazak-host-status.service` | One-shot systemd service that runs the collector. |
-| `mazak-host-status.timer` | Fires the service 2 min after boot, then every 5 min. |
-| `install.sh` | Root installer — copies units, sets user, enables the timer. |
-
-## Install on the LinuxCNC host
-
-```bash
-cd ~/mazak-vqc20-linuxcnc-retrofit
-git pull
-sudo bash scripts/host_status/install.sh
-```
-
-Overrides (optional):
-
-```bash
-sudo MAZAK_USER=andy \
-     MAZAK_MESA_IP=192.168.1.121 \
-     MAZAK_REPO_DIR=/home/andy/mazak-vqc20-linuxcnc-retrofit \
-     bash scripts/host_status/install.sh
-```
-
-The installer:
-
-1. Installs `git`, `jq`, `python3`, `iputils-ping` if missing.
-2. Renders the systemd unit with the correct user + repo path.
-3. Sets a fallback git identity (`LinuxCNC Host <linuxcnc-host@localhost>`).
-4. Enables + starts `mazak-host-status.timer` and kicks off the first run.
-
-## Verify
-
-```bash
-systemctl list-timers mazak-host-status.timer
-journalctl -u mazak-host-status.service -n 50 --no-pager
-cat status/host_status.md
-```
-
-Then check the repo on github.com — you should see a `status: automated host status …`
-commit within about seven minutes of first boot after install.
-
-## Push authentication
-
-The reporter runs as the `andy` user and pushes over whatever remote the working copy
-already uses. The two common options:
-
-- **SSH remote** — recommended. Ensure `~andy/.ssh/id_ed25519` is loaded and
-  `git remote -v` shows `git@github.com:agant172/mazak-vqc20-linuxcnc-retrofit.git`.
-- **HTTPS with `gh auth`** — run `gh auth login` once as `andy`; the `gh`
-  credential helper will supply the token to git.
-
-If pushes fail, the local commit still lands and will push on the next successful run.
-
-## Turn it off
-
-```bash
-sudo systemctl disable --now mazak-host-status.timer
-```
-
-## Tune what's reported
-
-Edit `HAL_SIGNALS` at the top of `collect_status.sh` to sample a different set of HAL
-signals as bring-up progresses. Anything `halcmd -s show sig <name>` can read is fair
-game, and unknown signals will be reported as `unavailable` rather than erroring.
+The directory is named `host_status` for the status reporter that used to live here.
+That reporter was **removed from the OptiPlex on 2026-08-17** (owner decision); its
+scripts and units are archived, unrunning, in [`retired/`](retired/) along with why it
+went and how to bring it back. Nothing in this repo writes `status/` any more, and that
+directory has been removed.
 
 ---
 
@@ -133,11 +51,12 @@ There is no push side and no commit side: this timer only ever fast-forwards.
 | `mazak-repo-pull.timer` | `*:07/15` → :07 :22 :37 :52, plus 3 min after boot. |
 | `install_repo_pull.sh` | Root installer — copies script + units, enables the timer. |
 
-The `:07` offset keeps it off the status collector's `:00/:05/:10` grid so the two
-never contend for the network in the same instant.
+The `:07` offset was chosen to stay off the retired status collector's `:00/:05/:10`
+grid; with that collector gone it no longer avoids anything, and is kept only because
+changing it would buy nothing.
 
-**The service runs `/usr/local/bin/mazak-repo-pull.sh`, a copy** — unlike
-`mazak-host-status.service`, which execs straight out of the working copy. This script
+**The service runs `/usr/local/bin/mazak-repo-pull.sh`, a copy** rather than execing
+straight out of the working copy, as the retired collector's units did. This script
 fast-forwards the very working copy it would otherwise be read from, and bash reads a
 script incrementally: a merge that rewrote the file mid-run would resume at a stale
 byte offset. **Edit `repo_pull.sh` here, then re-run the installer to deploy it.**

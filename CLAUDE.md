@@ -419,10 +419,19 @@ change it here in the same commit.
 - **Desk sessions never push to `main`** — Macs and cloud alike. Work on a feature branch and
   open a **draft PR**; the Authority gate (`.github/workflows/authority-gate.yml`) must pass
   before merge. The OptiPlex commits directly when recording a measurement at the machine.
-- **`main` moves on its own.** The OptiPlex pushes `status/host_status.{md,json}` to `main`
-  every 5 minutes via a systemd timer (`scripts/host_status/collect_status.sh`). Fetch and
-  rebase before pushing rather than assuming your base is current, and don't be alarmed by
-  commits you didn't write in `status/`.
+- **Nothing writes to `main` unattended.** Every commit here is one a person or a session
+  made deliberately. Fetch before pushing anyway — three machines share this repo — but a
+  commit you did not write means another *session* wrote it, not a robot.
+  This corrects a claim that stood in this file until 2026-08-17: that the OptiPlex pushed
+  `status/host_status.{md,json}` to `main` every 5 minutes. It never did. The status
+  collector that ran on the OptiPlex pushed to a **separate** repo,
+  `agant172/mazak-vqc20-status`, and it was **removed on 2026-08-17** (owner decision) —
+  archived at `scripts/host_status/retired/`. The `status/` directory is gone.
+- **The OptiPlex updates its own checkout.** `mazak-repo-pull.timer` fast-forwards the
+  working copy from `origin` every 15 minutes — fetch always, fast-forward only when it
+  cannot lose work, and it skips on a dirty tree, divergence, or a branch with no upstream
+  (`scripts/host_status/README.md`). It is a floor under staleness, not a reason to skip
+  `git pull` when you sit down.
 
 ### The machines
 
@@ -452,8 +461,8 @@ writes `PROPOSED`, not `ELECTRICALLY_VERIFIED`
 
 | Item | Value | Source |
 |---|---|---|
-| OptiPlex user | `andy` | `scripts/host_status/install.sh` |
-| Working copy — **all three machines** | `~/mazak-vqc20-linuxcnc-retrofit` | `scripts/host_status/collect_status.sh` |
+| OptiPlex user | `andy` | `scripts/host_status/install_repo_pull.sh` |
+| Working copy — **all three machines** | `~/mazak-vqc20-linuxcnc-retrofit` | `scripts/host_status/install_repo_pull.sh` |
 | Control NIC | `192.168.1.1/24`; interface name `enp0s31f6` **unverified** — confirm with `ip -o link show` | `linuxcnc/README.md`, `docs/hm2_eth_nic_validation.md` |
 | Mesa 7i80HDT | `192.168.1.121` (static) | same |
 | SSH to the OptiPlex | `ssh linuxcnc` → `andy@linuxcnc.tail2a912f.ts.net`, over Tailscale, **key auth only** | `~/.ssh/config` on each Mac |

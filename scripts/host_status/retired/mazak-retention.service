@@ -1,0 +1,18 @@
+[Unit]
+Description=Roll old Mazak status snapshots into compressed daily archives
+After=network-online.target
+
+[Service]
+Type=oneshot
+User=andy
+Group=andy
+Environment=HOME=/home/andy
+Environment=STATUS_REPO_DIR=/home/andy/mazak-vqc20-status
+# Days kept at full resolution before a day is rolled into one .jsonl.gz.
+Environment=MAZAK_RETENTION_DAYS=14
+ExecStart=/usr/local/bin/mazak-retention
+StandardOutput=append:/home/andy/mazak-vqc20-status/log/retention.out.log
+StandardError=append:/home/andy/mazak-vqc20-status/log/retention.err.log
+TimeoutStartSec=300
+Nice=15
+IOSchedulingClass=idle
