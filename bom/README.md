@@ -39,7 +39,9 @@ control PC) depend on cabinet photos and coil/current measurements still to be t
 - **7i49HV is not currently required** and stays on the contingency list unless a Mesa (PCW) review of the installed `TS2014N 25 E …` suffix (read 2026-08-15 on X/Y; Z unread) says otherwise — PCW's warning that some TS2014 variants are not 7i49-compatible is live for this suffix until its datasheet is obtained. (**W2 on the plain 7i49 does not affect axis channels 0/1/2**, only 3/4/5, so it is not a valid signal-level remedy for X/Y/Z.) Any escalation should follow
   measurements contradict the plain-7i49 plan (return signal far too weak at full drive,
   or a resolver ratio other than 2:1 — itself a 141E26 comparison figure, unconfirmed for
-  the installed 25E suffix until measured or the datasheet is obtained).
+  the installed 25E suffix until measured on the bench — the 25E datasheet does not exist
+  publicly, so measurement is the only route; see
+  [`../docs/resolver_commissioning.md`](../docs/resolver_commissioning.md#power-off-bench-identification-replaces-the-datasheet-gate)).
 - **`MS3108B 20-29P` is a connector shell part number, not a resolver model.**
 - **Unknowns still needing measurement before this is settled:** axis-by-axis resolver
   label, winding pairs (ohmmeter before power), return signal level after 7i49 excitation,
