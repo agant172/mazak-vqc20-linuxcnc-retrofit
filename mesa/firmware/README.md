@@ -69,6 +69,18 @@ commissioning step.
   capture was **not** committed — a second copy of an identical file adds a
   filename, not evidence.
 
+- **2026-08-17** — `--readhmid` and `--sserial` both re-run against the live
+  board from the OptiPlex. Both outputs byte-identical to the 2026-08-13
+  baselines: `readhmid` 159 lines, SHA-256
+  `c80c8f29805c2baccf55fe816b786c6ad8a71bedbee9fffe2334b49a4fbce3c3` (same hash
+  as `readhmid_2026-08-13.txt`); `sserial` still shows only the SSLBP port
+  itself (v1.43, 8 channels, 2.5 MBd) with **no 7i84U remote identity strings**,
+  which remains expected — no 7i84U is powered or cabled to the board yet.
+  Neither capture was committed, per the 2026-08-14 precedent below: a second
+  copy of an identical file adds a filename, not evidence. The same scope note
+  applies — this confirms the FPGA IDROM and connector roles, and upgrades no
+  `authority_status` value.
+
 - **2026-08-15 — the 2026-08-14 Ethernet link drop is explained; closed.**
   The earlier entry recorded a ~3.7 h `e1000e` carrier loss on `enp0s31f6` as
   unexplained and flagged it for resolution before `hm2_eth` runs in realtime.
