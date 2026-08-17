@@ -151,6 +151,13 @@ Four sources are authoritative, in priority order:
    Repo version wins over any external source unless both are revised together.
 
 2. **OEM PDF document set for SN 060231**
+   Canonical set lives in [Google Drive: `Mazak/Manuals_SN060231`](https://drive.google.com/drive/folders/1XWcctFb2gGTSNwGjkBiaufewpDAowJi8)
+   — consolidated PDFs named `VQC20-40_060231_<Electrical_Diagrams|Ladder_Diagrams|
+   Maintenance|Operator|Parameters|Parts_List|M2_Programming>.pdf`, plus
+   `Original Manuals/` (raw page scans, incl. `41434WB <page>.pdf` files, a
+   README, and `docs_index.md`) and `Misc. Documents/` (element list CSV,
+   `servo_amp_analysis.md`, and other working notes). Check `docs_index.md`
+   before re-deriving a signal from scratch.
    - Electrical Diagrams (pub #41434WB, 6/1984) — wiring, terminals,
      connectors, wire numbers, relay coil numbers, safety-chain topology.
    - M-2 Parameter Manual — machine parameters and memory addresses.
