@@ -68,15 +68,22 @@ Full rationale: [docs/architecture_decision.md](docs/architecture_decision.md).
 
 ## Current TODO (top priorities)
 
-**Immediate**
-- ~~Order the 7i80HDT, 7i44, and 7i84U-B~~ — **all interface hardware is on hand
-  as of 2026-08-17** (owner, at the machine): 7i80HDT, 7i49, 7i44, 7i84U-A,
-  7i84U-B, and the 50-pin IDC cables that were the last blocker. Nothing is
-  installed or wired yet; the physical install moves from *blocked* to *next*.
-- Bitfile `7i80hdt_rmsvss6_8.bin` is flashed and its **layout, identity, and upstream source all confirmed**: `readhmid` (2026-08-11, re-checked 2026-08-13; SHA-256 recorded) plus the binary sourced directly from Peter Wallace at Mesa Electronics (`freeby.mesanet.com/7i80hdt_rmsvss6_8.zip`, 2026-08-11) — see [`mesa/mesa_firmware_checklist.md`](mesa/mesa_firmware_checklist.md#bitfile-provenance-verification-procedure).
-- Confirm 7i80HDT Ethernet setup: static IP 192.168.1.121, `hm2_eth` `board_ip="192.168.1.121"`, and host NIC `enp0s31f6` at 192.168.1.1/24.
-- Capture cabinet photo set ([checklist](docs/cabinet_photo_checklist.md)).
+> Resequenced 2026-08-17 around the physical install, now that procurement is
+> closed. Full list with the reasoning: [docs/project_status.md](docs/project_status.md#todo-list).
+
+**Immediate — Phase A: covers-off reads, before the Mazatrol comes out**
+- **Read `PIN11` on the SX-CPU2 card — "A" or "B".** "B" means the orient encoder is powered *from the NC*, so pulling the Mazatrol kills it silently. No power needed; decide before the NC comes out. Record `PIN12`/`PIN13` and `SW2-1/5/6/7` in the same visit.
+- Prove orient standalone with the drive's own **`ST2 ORIENTATION TEST`** toggle — no NC, no LinuxCNC — while the Mazatrol is still there to compare against.
+- Locate the 1024 ppr orient encoder and read its nameplate.
 - Record X/Y/Z servo drive + Mitsubishi FR-SX spindle model/terminal labels.
+- Capture cabinet photo set ([checklist](docs/cabinet_photo_checklist.md)) — the as-found record, before anything is disturbed.
+
+**Immediate — Phase B: seat the cards and enumerate the stack**
+- All interface hardware is on hand as of **2026-08-17** (7i80HDT, 7i49, 7i44, 7i84U-A, 7i84U-B, 50-pin IDC cables). Nothing is seated or wired yet.
+- Confirm the network path (host NIC at 192.168.1.1/24, board at 192.168.1.121) → seat 7i49 on P1 and 7i44 on P3, **P2 stays empty** → bring up 7i84U-A/B on sserial channels 0/1 → re-run `readhmid` → capture `mesa/firmware/hal_pins_YYYY-MM-DD.txt` → replace the placeholder `hm2_7i80.0...` names in HAL.
+- **No field wiring lands on a Mesa terminal until that pin dump exists.** Bitfile `7i80hdt_rmsvss6_8.bin` is already flashed with layout, identity and upstream source confirmed — see [`mesa/mesa_firmware_checklist.md`](mesa/mesa_firmware_checklist.md#bitfile-provenance-verification-procedure).
+
+**Immediate — Phase C: owner decisions** (blocked on a decision, not on work) — five items in [`wiring/authority_conflicts.md`](wiring/authority_conflicts.md) §5: the `57B` preserve-list add, the `SOL-62`→`SOL-15` relabel, the two unfitted blast outputs, `SOL-16`'s missing authority row, and the `LUBE_OK` promotion.
 
 **Next**
 - Run the full LinuxCNC latency and hm2_eth test on the exact control PC, NIC,
