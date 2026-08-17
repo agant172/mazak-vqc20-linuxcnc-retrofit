@@ -6,7 +6,7 @@ window.MAZAK_DATA = {
   "machine": "Mazak VQC-20/40",
   "serial": "060231",
   "architecture": "LinuxCNC + Mesa 7i80HDT (Ethernet FPGA host) + 7i44 on P3 (HostMot2 sserial port 0 channels 0/1 to 7i84U-A/B) + 7i49 on P1 (resolver + analog outs); P2 unused/spare (confirmed 2026-08-13 by readhmid)",
-  "generated": "2026-08-17 17:14 UTC",
+  "generated": "2026-08-17 17:21 UTC",
   "source_repo": "mazak-vqc20-linuxcnc-retrofit",
   "authority_file": "mesa/current_pin_authority.csv",
   "epson_ferrule_file": "wiring/labels/bbia1_mesa_end_ferrules_epson.csv",
@@ -7175,7 +7175,7 @@ window.MAZAK_DATA = {
      "logical_channel": "IN4",
      "physical_pin": "TB3-05",
      "crosswalk_status": "PLANNED_MATCH",
-     "release_status": "HOLD_SOURCE_TRACE",
+     "release_status": "HOLD_DISPUTED_PIN",
      "source_line": 9
     }
    ],
@@ -7203,7 +7203,7 @@ window.MAZAK_DATA = {
     {
      "file": "wiring/labels/bbia1_mesa_end_ferrules_epson.csv",
      "lines": "9",
-     "note": "Epson Mesa-end ferrule B-TB3-05; HOLD_SOURCE_TRACE"
+     "note": "Epson Mesa-end ferrule B-TB3-05; HOLD_DISPUTED_PIN"
     }
    ],
    "conflicts": [],

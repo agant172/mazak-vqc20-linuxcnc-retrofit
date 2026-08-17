@@ -43,21 +43,37 @@ SOURCE_DEST = REPO / "wiring" / "bbia1_source_dest.csv"
 CN_PINOUTS = REPO / "wiring" / "bbia1_cn_pinouts.csv"
 
 NEW_COLS = ["factory_wire"]  # dest_connector / dest_pin already exist in the header
-# Canonical BBIA-1 board connector+pin, e.g. "CN1-3", "CN11-15". Accepts an
-# optional "SSR bd " prefix (stripped) and a "CND" NC-side prefix (normalised to
-# "CN" -- the drawings note CNDx pin == CNx pin, a straight pass-through).
-CN_RE = re.compile(r"^(?:SSR\s+bd\s+)?CND?(\d+)-(\S+)$")
+
+# Canonical BBIA-1 *machine-side* connector+pin, e.g. "CN1-3", "CN11-15".
+# Accepts an optional "SSR bd " prefix (stripped).
+CN_RE = re.compile(r"^(?:SSR\s+bd\s+)?CN(\d+)-(\S+)$")
+
+# An NC-side (top row) coordinate, e.g. "CND3-39". Matched only so it can be
+# refused: BBIA-1 is a pass-through, but the connector INDEX is not preserved
+# across it. bbia1_source_dest.csv proves it -- CND3-39 -> CN6-39, CN8-3 ->
+# CN1-3, CN8-1/2/4 -> CN1-1/2/4. An earlier version of this script normalised
+# "CNDx-n" to "CNx-n" on the stated premise that "CNDx pin == CNx pin"; that
+# premise is false and would silently invent a machine-side coordinate.
+CND_RE = re.compile(r"^(?:SSR\s+bd\s+)?CND(\d+)-(\S+)$")
 
 
 def bbia_coordinate(row: dict) -> tuple[str, str, str] | None:
     """Return (connector, pin, factory_wire) for a source_dest row, or None if
-    the row does not land on a BBIA-1 board connector (an enumerated exception)."""
+    the row does not land on a BBIA-1 machine-side connector (an enumerated
+    exception).
+
+    Only the bottom (machine-side) coordinate defines the plane. The top
+    (NC-side) column is used as a fallback ONLY when it is already a plain
+    "CNx-n"; a "CNDx-n" there is refused rather than translated."""
     wire = (row.get("factory_wire") or "").strip()
     for field in ("bottom_cn_pin", "cnd_source_pin"):
         val = (row.get(field) or "").strip()
         m = CN_RE.match(val)
         if m:
             return f"CN{m.group(1)}", m.group(2), wire
+        if CND_RE.match(val):
+            # NC-side only: the machine-side pin cannot be derived from it.
+            continue
     return None
 
 

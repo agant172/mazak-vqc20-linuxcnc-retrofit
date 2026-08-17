@@ -80,14 +80,26 @@ CN_PINOUTS_PATH = REPO_ROOT / "wiring" / "bbia1_cn_pinouts.csv"
 # applies, so a stale allowlist cannot quietly hide a regression.
 # ----------------------------------------------------------------------
 
-# Factory wire numbers the OEM print itself reuses on unrelated circuits.
-# The plane model wants the wire number to be a unique key; for this
-# machine it is not.  Verified against wiring/bbia1_cn_pinouts.csv, which
-# transcribes the Mazak terminal-unit detail sheets.
+# Factory wire numbers that appear on more than one authority plane row.
+#
+# The plane model wants the wire number to be a unique key; for this machine
+# it is not.  A Mazak wire number names a SEGMENT between two terminations,
+# not a conductor: the print renumbers at each relay stage (+500 at the SSR
+# board, 712 -> 412 at the solenoid), and wiring/bbia1_cn_pinouts.csv carries
+# 26 duplicated Wire_No values over 75 rows -- 147, 381 and 382 each pair two
+# unmistakably unrelated functions.  Uniqueness is therefore a WARN against
+# this allowlist, never an error.
+#
+# Only wires shared by two *authority* rows appear here; the other duplicates
+# sit on pins the retrofit has not claimed yet.  Expect more as the plane
+# fills, and add them with a citation rather than editing data.
 OEM_REUSED_WIRES = {
-    "231": "OEM print reuses 231 on two unrelated circuits: CN4-1 SPINDLE ZERO "
-           "SPEED (spindle sense) and CN11-13 FLOOD COOLANT (PLC output). "
-           "See wiring/authority_conflicts.md sec 7.1.",
+    "231": "231 appears at CN4-1 SPINDLE ZERO SPEED (spindle sense) and CN11-13 "
+           "FLOOD COOLANT (PLC output). The CN11-13 half is corroborated by the "
+           "SSR board's 731 (+500 pattern); the CN4-1 half is CONTESTED -- dwg "
+           "4143075407 pg133 puts zero speed at wire 143 / CN3-4 and the pinout "
+           "carries that row too. OPEN, field trace required: read the jacket at "
+           "CN4-1 and CN3-4. See wiring/authority_conflicts.md sec 7.1.",
 }
 
 # Plane rows whose factory_wire disagrees with the OEM pinout at that

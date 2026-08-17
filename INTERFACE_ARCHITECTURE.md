@@ -80,11 +80,13 @@ Consequences that remove work:
   the new ferrule/label, the Mesa terminal, and the HAL net together. Label with the
   wire number first (see `wiring/bbia1_terminal_unit.md` § "Practical use").
   **Corrected 2026-08-17:** this file previously called it "the stable primary key."
-  It is not unique. The OEM print reuses wire `231` on two unrelated circuits —
-  `CN4-1` SPINDLE ZERO SPEED and `CN11-13` FLOOD COOLANT — so wire numbers are
-  unique within a circuit section, not globally. The join therefore keys on
-  `signal_id`; duplicate wire numbers are a WARN against an explicit allowlist, never
-  an error. See `wiring/authority_conflicts.md` § 7.1.
+  It is not one. A Mazak wire number names a **segment between two terminations**, not
+  a conductor — the print renumbers at every relay stage (`+500` at the SSR board,
+  `712` → `412` at the solenoid) — and `bbia1_cn_pinouts.csv` carries 26 duplicated
+  `Wire_No` values over 75 rows, with `147`, `381` and `382` each pairing two
+  unmistakably unrelated functions. The join therefore keys on `signal_id`; duplicate
+  wire numbers are a WARN against an explicit allowlist, never an error. See
+  `wiring/authority_conflicts.md` § 7.1.
 - **One joined table, not four.** `mesa/current_pin_authority.csv` (124 rows) now
   carries both ends: the Mesa+HAL end it has always owned, plus
   `dest_connector` / `dest_pin` / `factory_wire` describing the BBIA end, populated
@@ -192,10 +194,13 @@ coordinate — rows `source_dest` marks as off-plane stay blank.
 it is the **input**, and it is the only place the `source_provenance` strings live
 ("RESOLVED 2026-08-10: Dwg 4143075409 pg135 …"). Regenerating it from the authority
 would destroy the evidence that justifies the authority. It stays a curated source.
-`bbia1_retrofit_destination_crosswalk.csv` genuinely is superseded — 13 of its 14 data
-rows are redundant with the authority — but the 14th (`CN2-14` → `Z_LIMIT_PLUS`)
-*contradicts* it with a retracted inference, so the file is **retained until the +Z
-over-travel field trace lands** rather than deleted. See `authority_conflicts.md` § 7.3.
+`bbia1_retrofit_destination_crosswalk.csv` is largely redundant — 13 of its 14 data rows
+duplicate the authority — but the 14th (`CN2-14` → `Z_LIMIT_PLUS`) *contradicts* it, and
+the contradiction is **live**: the OEM pinout positively records `CN2-14` = `+LTZ`
+Z-AXIS OVER TRAVEL, while a later sheet leaves +Z unlabelled and a third row hints the
+conductor is a combined +Y/+Z bus. The file is **retained until the +Z over-travel field
+trace lands** rather than deleted — it also feeds the Epson ferrule set, so deleting it
+would silently drop a label. See `authority_conflicts.md` § 7.3.
 
 **Step 5 — as built, and what it found.** `check_plane_schema()` in
 `scripts/validate_authority.py` enforces three things, all WARN-only so that a known-open
