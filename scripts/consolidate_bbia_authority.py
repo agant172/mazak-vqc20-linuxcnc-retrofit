@@ -156,6 +156,13 @@ def main() -> int:
 
     disagreements = oem_disagreements(join)
 
+    # A source_dest signal_id with no authority row contributes nothing and
+    # would otherwise vanish without a word -- which is also exactly how a typo
+    # in a signal_id would present. Name them so a typo is distinguishable from
+    # a deliberate omission.
+    authority_ids = {r["signal_id"] for r in rows}
+    unmatched = sorted(sid for sid in join if sid not in authority_ids)
+
     print(f"source_dest rows landing on BBIA-1:   {len(join)}")
     print(f"authority rows populated with BBIA end: {populated}")
     print(f"rows changed by this run:               {changed}")
@@ -163,6 +170,14 @@ def main() -> int:
         print("\nCONFLICTS (existing CSV value != join value) -- NOT overwritten silently:")
         for c in conflicts:
             print("  " + c)
+
+    if unmatched:
+        print(f"\nUNMATCHED ({len(unmatched)}) -- land on BBIA-1 in "
+              f"{SOURCE_DEST.name} but have no authority row, so the join drops "
+              f"them.\nDeliberate omissions are fine; an unexpected name here is a "
+              f"typo, not an omission:")
+        for sid in unmatched:
+            print(f"  {sid}")
 
     if disagreements:
         print(f"\nOEM PINOUT DISAGREEMENTS ({len(disagreements)}) -- source_dest vs "
@@ -174,12 +189,19 @@ def main() -> int:
 
     if not args.write:
         print("\n(dry run -- pass --write to update mesa/current_pin_authority.csv)")
-        # Preview the populated BBIA ends.
+        # Preview the populated BBIA ends. Gate on the CN test, not merely on
+        # dest_connector being non-empty: the six SSERIAL_PORT0_* rows carry
+        # "<card> RJ45" there and are card-internal smart-serial wiring that
+        # emphatically does not cross the machine-interface plane.
         print("\nBBIA-1 plane (signal_id -> connector/pin [wire]):")
         for row in rows:
-            if (row.get("dest_connector") or "").strip():
-                w = row.get("factory_wire") or ""
-                print(f"  {row['signal_id']:24s} {row['dest_connector']}-{row['dest_pin']:<6} [{w}]")
+            conn = (row.get("dest_connector") or "").strip()
+            if conn.upper().startswith("OEM "):
+                conn = conn[4:].strip()
+            if not re.fullmatch(r"CN\d+", conn.upper()):
+                continue
+            w = row.get("factory_wire") or ""
+            print(f"  {row['signal_id']:24s} {conn}-{row['dest_pin']:<6} [{w}]")
         return 0
 
     with AUTHORITY.open("w", newline="") as fh:

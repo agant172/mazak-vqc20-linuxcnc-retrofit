@@ -125,7 +125,10 @@ reproduces this exactly: LinuxCNC → 7i80HDT (Ethernet) → 7i44/7i49 (50-pin I
 
 **Single-plane rule:** every control↔machine signal crosses at the BBIA-1 connector
 plane. One physical conductor across that plane = one row in the I/O model, keyed on
-the **factory wire number** printed on the jacket. The machine-internal side is fixed
+**`signal_id`**, and labelled with the **factory wire number** printed on the jacket.
+(The wire number is the ferrule text and the lookup key back to the OEM print, but it
+is *not* unique — the print renumbers a conductor at each relay stage, so it names a
+segment, not a conductor. See `wiring/authority_conflicts.md` § 7.1.) The machine-internal side is fixed
 OEM reference (`wiring/bbia1_cn_pinouts.csv`) — do not re-derive it; the retrofit owns
 and verifies only the **BBIA↔Mesa hop**. The few things that do *not* cross at BBIA-1
 — the standalone OEM E-stop/contactor chain, the power/return feeds, and the

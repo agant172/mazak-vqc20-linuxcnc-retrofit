@@ -623,10 +623,10 @@ def check_bbia_plane(rows: list[dict]) -> list[Finding]:
         conn = (row.get("dest_connector") or "").strip()
         pin = (row.get("dest_pin") or "").strip()
         wire = (row.get("factory_wire") or "").strip()
-        # A BBIA-1 plane row is one whose dest_connector is a CN* connector.
-        # dest_connector is also used pre-existingly for non-plane far ends
-        # (TB* field power, RJ45 sserial, "OEM ..."); those are not policed here.
-        has_bbia = bool(conn) and conn.upper().startswith("CN")
+        # A BBIA-1 plane row is one whose dest_connector names a CN connector,
+        # allowing for an "OEM " decoration (see plane_connector). The "<card>
+        # RJ45" values are card-internal sserial and are not policed here.
+        has_bbia = plane_connector(conn) is not None
 
         # Consistency: wire present but no BBIA pin, or a BBIA connector with no pin.
         if wire and not conn:
@@ -660,9 +660,44 @@ def check_bbia_plane(rows: list[dict]) -> list[Finding]:
             f"not recorded in bbia1_source_dest.csv — trace its plane pin or "
             f"record it as an exception (INTERFACE_ARCHITECTURE.md)."))
 
+    # Wording matters here. `accounted` only means "bbia1_source_dest.csv has a
+    # row for this signal_id" -- that row may itself say "NOT LOCATED ... Needs
+    # field trace". Reporting those as 0-still-to-trace would read as though the
+    # traces were closed; four of them are the unlocated over-travel limits of
+    # INTERFACE_ARCHITECTURE.md sec 3b item 4. Separate "unclassified" (nobody
+    # has reasoned about it) from "classified, and some are still open".
+    classified_open = sum(
+        1 for _, row in enumerate(rows, start=2)
+        if plane_connector(row.get("dest_connector", "")) is None
+        and (row.get("mesa_card") or "").startswith("7i84U")
+        and (row.get("direction") or "").strip() in {"IN", "OUT"}
+        and (row.get("authority_status") or "").strip() in {"FACTORY_LINK", "FACTORY_INTERFACE"}
+        and (row.get("signal_id") or "").strip() in accounted
+    )
     print(f"BBIA-1 plane:          {mapped} rows mapped to a connector/pin; "
-          f"{len(untraced)} factory signal(s) still to trace")
+          f"{len(untraced)} unclassified; {classified_open} off-plane factory signal(s) "
+          f"classified in {SOURCE_DEST_PATH.name} (some still need a field trace)")
     return findings
+
+
+def plane_connector(dest_connector: str) -> str | None:
+    """Return the bare BBIA-1 connector name (e.g. 'CN6') for a dest_connector
+    value, or None if the row does not land on the plane.
+
+    dest_connector is free text and has picked up decorations: WORK_LIGHT
+    carries 'OEM CN6', which is a real BBIA-1 pin (bbia1_cn_pinouts.csv records
+    CN6-8 = WL WORK LIGHT) but was invisible to every plane check because the
+    string starts with 'OEM', not 'CN'. Strip that prefix here so one row cannot
+    hide from all of them at once. The '<card> RJ45' values are card-internal
+    smart-serial wiring and genuinely do not cross the plane."""
+    val = (dest_connector or "").strip()
+    if not val:
+        return None
+    if val.upper().startswith("OEM "):
+        val = val[4:].strip()
+    if re.fullmatch(r"CN\d+", val.upper()):
+        return val.upper()
+    return None
 
 
 def load_oem_pinout() -> dict[tuple[str, str], list[tuple[str, str]]]:
@@ -704,25 +739,25 @@ def check_plane_schema(rows: list[dict]) -> list[Finding]:
     findings: list[Finding] = []
     oem = load_oem_pinout()
 
-    plane_rows: list[tuple[int, dict]] = []
+    plane_rows: list[tuple[int, dict, str]] = []
     for lineno, row in enumerate(rows, start=2):
-        conn = (row.get("dest_connector") or "").strip()
-        if conn.upper().startswith("CN"):
-            plane_rows.append((lineno, row))
+        conn = plane_connector(row.get("dest_connector", ""))
+        if conn:
+            plane_rows.append((lineno, row, conn))
 
     # --- 1. every plane row carries a wire number -----------------------
-    for lineno, row in plane_rows:
+    for lineno, row, conn in plane_rows:
         if not (row.get("factory_wire") or "").strip():
             findings.append(Finding(
                 "WARN", f"{CSV_PATH.name}:{lineno}",
                 f"{row['signal_id']} lands at "
-                f"{row['dest_connector']}-{row['dest_pin']} but carries no "
+                f"{conn}-{row['dest_pin']} but carries no "
                 f"factory_wire; the wire number is the ferrule text and the key "
                 f"back to the OEM print."))
 
     # --- 2. wire-number uniqueness --------------------------------------
     by_wire: dict[str, list[dict]] = defaultdict(list)
-    for _, row in plane_rows:
+    for _, row, _conn in plane_rows:
         wire = (row.get("factory_wire") or "").strip()
         if wire:
             by_wire[wire].append(row)
@@ -755,10 +790,9 @@ def check_plane_schema(rows: list[dict]) -> list[Finding]:
             "WARN", CN_PINOUTS_PATH.name,
             "OEM pinout reference not readable; BBIA-end cross-check skipped."))
     else:
-        for lineno, row in plane_rows:
+        for lineno, row, conn in plane_rows:
             sid = (row.get("signal_id") or "").strip()
-            key = ((row.get("dest_connector") or "").strip().upper(),
-                   (row.get("dest_pin") or "").strip())
+            key = (conn, (row.get("dest_pin") or "").strip())
             wire = (row.get("factory_wire") or "").strip()
             if key not in oem:
                 findings.append(Finding(
@@ -802,7 +836,7 @@ def check_plane_schema(rows: list[dict]) -> list[Finding]:
                     if (r.get(field) or "").strip():
                         backed.add((r.get("signal_id") or "").strip())
                         break
-    unbacked = [r["signal_id"] for _, r in plane_rows if r["signal_id"] not in backed]
+    unbacked = [r["signal_id"] for _, r, _c in plane_rows if r["signal_id"] not in backed]
 
     reused = sum(1 for w in OEM_REUSED_WIRES if len(by_wire.get(w, [])) >= 2)
     print(f"Plane key discipline:  {len(plane_rows)} plane rows; "

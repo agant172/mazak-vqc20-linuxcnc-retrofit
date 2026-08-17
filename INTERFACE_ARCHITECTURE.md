@@ -152,8 +152,9 @@ that is not here must be added here.
 ## 4. Rules that follow from the plane
 
 - **Model every crossing signal as one conductor across BBIA-1**, both ends
-  populated, keyed on the factory wire number, unless it is in the Section 3
-  exception list.
+  populated, keyed on **`signal_id`** and labelled with the factory wire number,
+  unless it is in the Section 3 exception list. (This rule said "keyed on the factory
+  wire number" until 2026-08-17; wire numbers are not unique — see § 2.)
 - **Do not re-derive the machine-internal side.** Cite `bbia1_cn_pinouts.csv` / the
   OEM print; the retrofit does not own it.
 - **The retrofit owns and must verify only the BBIA↔Mesa hop**: Mesa card/terminal,
