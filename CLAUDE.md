@@ -589,10 +589,20 @@ so a vault path edited underneath a running instance is silently reverted.
 ### Photos and large media
 
 - **Never commit raw media.** `.gitignore` blocks `*.jpg/.png/.heic/.mp4/…` on purpose.
-- Photos live in
-  [Google Drive](https://drive.google.com/drive/folders/1YYpWPyWiRuoY2z5GACSDw6H3zzSQoVdf?usp=drive_link),
-  in the eight folders `00_Inbox` … `07_Reference`. Originals are also backed up to OneDrive.
-  A second unsorted batch sits at `My Drive/Mazak/Misc. Photos`.
+- **STALE, unverified (2026-08-17):** this doc claims photos live in
+  [Google Drive](https://drive.google.com/drive/folders/1YYpWPyWiRuoY2z5GACSDw6H3zzSQoVdf?usp=drive_link)
+  in eight folders `00_Inbox`…`07_Reference`, backed up to OneDrive, plus an unsorted
+  batch at `My Drive/Mazak/Misc. Photos`. A full search of that Drive account (by folder
+  title and by API) found none of this — that folder ID now contains only
+  `Manuals_SN060231` (see OEM manuals, above). Either this was never executed or the
+  photos moved; don't trust the eight-folder scheme until it's re-verified on Drive
+  directly.
+- **Actually confirmed today:** the real raw photo history (control cabinet interiors,
+  MAZATROL CAM M-2 screens, connector detail — Oct 2024 through present) lives
+  uncurated in the account's default **Google Photos**, not Drive. Collected into a
+  shared album: [Mazak VQC-20 Retrofit — Control Cabinet Photos](https://photos.app.goo.gl/o59yC81mQhwYaVF68)
+  (34 photos/videos, selected via visual search for mazatrol — re-run that search
+  periodically to catch newer shots the album won't auto-include).
 - Any `photos/…` path written in this repo means a **Drive folder**, not a directory on disk.
 - **Cite photos as `YYYY-MM-DD/IMG_nnnn`** — never a bare `IMG_nnnn`, which recurs across
   batches. Full scheme and migration table: `docs/README_photo_sorting.md`.
