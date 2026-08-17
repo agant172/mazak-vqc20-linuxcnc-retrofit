@@ -479,6 +479,13 @@ into `~/.ssh/authorized_keys` at the OptiPlex. Password auth is still enabled, s
 path works. **Record the new key in the table above in the same commit** — that table is the only
 place this is written down.
 
+**Watch the non-interactive `PATH`.** An SSH command shell gets
+`/usr/local/bin:/usr/bin:/bin:/usr/games` — **not** `~/.local/bin`. `which claude`
+therefore reports nothing while `~/.local/bin/claude` exists (this produced a wrong
+"not installed" on 2026-08-17). Test the explicit path or use `bash -lc`.
+**Claude Code is installed on the OptiPlex** (`~/.local/bin/claude`, native install,
+2026-08-17) — a session can run at the machine itself.
+
 **Allowed over SSH, unattended** — read-only inspection that cannot move anything or energize
 an output:
 - `mesaflash --readhmid`, `halcmd show pin|sig|param`, `halcmd -s show` sampling.
