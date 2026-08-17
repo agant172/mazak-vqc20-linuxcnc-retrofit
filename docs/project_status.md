@@ -189,6 +189,12 @@ In this order. Pole count gates scaling, so it comes before any scale is entered
 
 ### Open desk items — no machine access needed
 
+> A dated narrative snapshot of the resolver thread — what is settled, what is
+> merely proposed, the source documents and the traps — is in
+> [`../handoff.md`](../handoff.md). **This file is the authority for the task
+> list**; the handoff is context for a session picking the thread up cold.
+
+
 Both are pure document work and both bear on decisions already in the BOM.
 
 - [ ] **Settle plain 7i49 vs 7i49HV.** `bom/README.md` specifies the plain card and lists HV as "not currently required", resting partly on a reading that the sibling VQC 15/40 runs a plain card. A later pass reported that same machine running a **7i49HV**. Both cannot be true, and it is the same question as the step-up above: whether the SIN/COS returns land inside a plain 7i49's input window. Read `github.com/srdco/MazakVQC1540` directly — its INI/HAL and any BOM notes — and record which card, with a citation. **Nobody has verified either claim against that repo.**
