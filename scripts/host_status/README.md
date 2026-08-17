@@ -1,3 +1,8 @@
+> This directory holds **two** independent OptiPlex timers. The **host status
+> reporter** (below) pushes machine state *out* to a repo. The **working-copy pull
+> timer** ([jump](#working-copy-pull-timer)) fast-forwards this working copy *in*
+> from origin. They share nothing but a home and an install pattern.
+
 # LinuxCNC Host Status Reporter
 
 Automated status upload from the LinuxCNC control PC (Dell OptiPlex 7050, Debian 13,
@@ -86,3 +91,99 @@ sudo systemctl disable --now mazak-host-status.timer
 Edit `HAL_SIGNALS` at the top of `collect_status.sh` to sample a different set of HAL
 signals as bring-up progresses. Anything `halcmd -s show sig <name>` can read is fair
 game, and unknown signals will be reported as `unavailable` rather than erroring.
+
+---
+
+# Working-Copy Pull Timer
+
+Keeps `~/mazak-vqc20-linuxcnc-retrofit` on the OptiPlex current with `origin`, so a
+session that starts at the machine is less likely to act on facts that have already
+been superseded from a desk session. Installed 2026-08-17.
+
+It is **not** a substitute for `git pull` at the start of a session — it declines to
+act in exactly the cases where a human should look (see below), so a stale checkout is
+still possible. Treat it as a floor, not a guarantee.
+
+## What it does
+
+Every 15 minutes it fetches, then fast-forwards the **currently checked-out branch** —
+whatever that is, not just `main` — and only when doing so cannot lose or reorder work.
+It **skips**, never forces, when:
+
+| Condition | Logged as |
+|---|---|
+| Working tree or index dirty (untracked files ignored) | `SKIP fetched; working tree dirty` |
+| Merge, rebase, or bisect in progress | `SKIP fetched; merge/rebase/bisect in progress` |
+| HEAD detached | `SKIP fetched; HEAD is detached` |
+| Branch has no upstream (e.g. a local topic branch not yet pushed) | `SKIP fetched; … has no upstream` |
+| Branch has diverged — not a fast-forward | `SKIP fetched; … has diverged … resolve by hand` |
+
+Everything it skips is left for a human to resolve with a real `git pull`. The fetch
+still happens in every one of those cases, so `origin/*` refs and VS Code's "↓ N"
+indicator stay honest even when the branch itself can't move.
+
+There is no push side and no commit side: this timer only ever fast-forwards.
+
+## Files
+
+| File | Purpose |
+|---|---|
+| `repo_pull.sh` | The logic. Fetch, then fast-forward if provably safe. |
+| `mazak-repo-pull.service` | One-shot systemd service; runs as `andy`. |
+| `mazak-repo-pull.timer` | `*:07/15` → :07 :22 :37 :52, plus 3 min after boot. |
+| `install_repo_pull.sh` | Root installer — copies script + units, enables the timer. |
+
+The `:07` offset keeps it off the status collector's `:00/:05/:10` grid so the two
+never contend for the network in the same instant.
+
+**The service runs `/usr/local/bin/mazak-repo-pull.sh`, a copy** — unlike
+`mazak-host-status.service`, which execs straight out of the working copy. This script
+fast-forwards the very working copy it would otherwise be read from, and bash reads a
+script incrementally: a merge that rewrote the file mid-run would resume at a stale
+byte offset. **Edit `repo_pull.sh` here, then re-run the installer to deploy it.**
+
+## Install
+
+```bash
+cd ~/mazak-vqc20-linuxcnc-retrofit
+sudo bash scripts/host_status/install_repo_pull.sh
+```
+
+Overrides (optional):
+
+```bash
+sudo MAZAK_USER=andy \
+     MAZAK_REPO_DIR=/home/andy/mazak-vqc20-linuxcnc-retrofit \
+     MAZAK_SSH_KEY=/home/andy/.ssh/id_ed25519 \
+     bash scripts/host_status/install_repo_pull.sh
+```
+
+## Fetch authentication
+
+The repo is private (owner decision 2026-08-16), so the fetch needs a key — and a
+timer-launched shell has **no ssh-agent**. The unit therefore names the key explicitly
+via `GIT_SSH_COMMAND`, with `IdentitiesOnly=yes` and `BatchMode=yes` so a failure is a
+clean error instead of a hung prompt. The key must be **passphrase-free**; the
+installer refuses to proceed otherwise rather than leaving you a timer that fails every
+15 minutes with `Permission denied`.
+
+## Verify
+
+```bash
+systemctl list-timers mazak-repo-pull.timer
+journalctl -u mazak-repo-pull -n 20 --no-pager     # one line per run
+```
+
+A healthy log is one line per run, e.g.:
+
+```
+OK    up to date (branch=main upstream=origin/main)
+OK    fast-forwarded main 7e9508e -> df3258d (origin/main)
+SKIP  fetched; branch=docs/7i49hv-correction has no upstream
+```
+
+## Turn it off
+
+```bash
+sudo systemctl disable --now mazak-repo-pull.timer
+```
