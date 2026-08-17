@@ -22,12 +22,15 @@ Complete one row for X, Y, and Z before applying resolver excitation:
 | Cable/shield inspection | | | |
 | Reviewer/date | | | |
 
-DC resistance was measured on all three axes on 2026-08-16. The **windings are
-identified** by that measurement; **which one to excite is not** — see
-[Measured DC resistance, 2026-08-16](#measured-dc-resistance-2026-08-16-cna345-nc-unit-rack)
-and
-[Power-off bench identification](#power-off-bench-identification-replaces-the-datasheet-gate)
-before filling the rows above.
+Winding identity, pin assignment and drive direction are **settled** — see
+[OEM connector reference](#oem-connector-reference--confirmed-against-the-m2-maintenance-manual),
+now confirmed against Mitsubishi's own detector wiring figure, and the
+[measured DC resistance](#measured-dc-resistance-2026-08-16-cna345-nc-unit-rack)
+that corroborates it. What is **not** settled and must come off the bench:
+**pole count**, transformation ratio at 5 kHz, and phase shift — see
+[Power-off bench identification](#power-off-bench-identification-replaces-the-datasheet-gate).
+The rotor/SIN/COS row labels above are the 7i49's vocabulary, not Mitsubishi's;
+fill them per the connector table.
 
 The TS2014N141E26 values elsewhere in the repo are comparison data from a
 **different suffix than the one installed**: the 2026-08-15 nameplate survey
@@ -45,10 +48,10 @@ document, is what this procedure now compares against.
    load a winding. Prove isolation with continuity and voltage checks.
 2. Identify all three winding pairs with an ohmmeter. Record conductor labels
    and resistance; do not infer pairs from inherited names/colors. **Done for
-   X/Y/Z on 2026-08-16** — the matched pair is the 2-phase member, the odd
-   winding the 1-phase member. Resistance settles winding identity and nothing
-   more; excitation direction comes from
-   [Test 2](#test-2--equal-peaks-which-winding-to-excite), not from magnitude.
+   X/Y/Z on 2026-08-16**, and the roles are now confirmed against the M2
+   manual's own figure: 12/13 and 14/15 are the SIN and COS windings (the pair
+   Mitsubishi excited), 16/17 is the third winding (Mitsubishi's output, and the
+   one the 7i49 must excite).
 3. Check every conductor to the resolver case and cable shield. Resolve any
    unintended connection before proceeding.
 4. Wire the verified excitation pair to RESDRV and the two matched output pairs
@@ -57,32 +60,55 @@ document, is what this procedure now compares against.
 5. Confirm the three pair shields terminate at the 7i49 end only and that the
    old control/drive no longer owns any resolver winding.
 
-### OEM connector reference (starting hypothesis — VERIFY, don't trust)
+### OEM connector reference — CONFIRMED against the M2 maintenance manual
 
-From the OEM servo-drive sheet `41434WB` PDF p128 (dwg 4143075404): each axis
-resolver (**RT-5XA-11**, = the Tamagawa TS2014N / BKO-NC6062A pickup) lands on
-connector **CNA3 (X) / CNA4 (Y) / CNA5 (Z)**. The 6 resolver leads (A/B/F/E/H/J)
-map to these pins/labels:
+**Source: Mitsubishi, `MELDAS Series M2 Maintenance Manual` (BNP-A2443A /
+M1243-ES), Figure 14.4-1 "Detector signal connecting method", printed page 250.**
+Obtained 2026-08-16 from the MEAU knowledge base (DocID
+`3E26SJWH3ZZR-24-2354`, sign-in required); see
+[Reading the M2 manual](#reading-the-m2-manual-scanned-source). The figure is
+titled for N/C-side connector **`CNA 3~6`** and detector-side Cannon connector
+**MS3102A20-29P**. That is the same connector plane as the CNA3 (X) / CNA4 (Y) /
+CNA5 (Z) measured on 2026-08-16, and the OEM servo-drive sheet `41434WB` PDF p128
+(dwg 4143075404) names the same pickup (**RT-5XA-11**, = Tamagawa TS2014N /
+BKO-NC6062A).
 
-| OEM label | CNA pin | Resolver leads | Likely 7i49 role | Verify by |
+| CNA pin | **Mitsubishi's own label** | Detector lead | Measured 2026-08-16 | 7i49 role for the retrofit |
 |---|---|---|---|---|
-| **R01 / R02** | 16 / 17 | H / J | **RESDRV** (rotor / excitation, "R0") | odd winding out of three; **measured 35 Ω** — magnitude proves nothing, see [Test 2](#test-2--equal-peaks-which-winding-to-excite) |
-| **RS1 / RS2** | 12 / 13 | A / B | **RESSIN** (sin stator, S1/S3) | half of the matched pair; **measured 105–109 Ω** |
-| **RC1 / RC2** | 14 / 15 | F / E | **RESCOS** (cos stator, S2/S4) | half of the matched pair; **measured 105.5–109.5 Ω** |
-| TG1 / TG2 | 18 / 19 | tacho | **stays with the drive** (2 V/1000 rpm, not read by LinuxCNC) | — |
-| SG / AG / P12 / M12 | 20 / 7,1 / 6 / 2 | shield-gnd / motor armature | not resolver | — |
+| 12 / 13 | **Resolver exciter SIN** | A / B | 105–109 Ω | **RESSIN** (read) |
+| 14 / 15 | **Resolver exciter COS** | F / G | 105.5–109.5 Ω | **RESCOS** (read) |
+| 16 / 17 | **Resolver output** | H / J | 35 Ω | **RESDRV** (excite) |
+| 19 / 18 | Tachogenerator output / output ground | L / K | — | **stays with the drive**, not read by LinuxCNC |
+| 20 | Sealed ground (case ground at detector) | N | 0 Ω to chassis | shield ground |
+| 6 / 1,7 / 2 | +12 V / power source ground / −12 V | P / R / S | 1–7: 0 Ω | tachogenerator supply, not resolver |
 
-**This is a starting hypothesis only.** The `R0=rotor, RS=sin, RC=cos` reading
-matches the labels and the resolver symbol, but the original **Meldas / TRA
-wiring may drive the resolver in a non-7i49 convention** (two-phase excitation
-into the stators, read from the rotor). So step 2 above still governs: confirm
-each pair by **ohmmeter** before wiring the 7i49. Use the OEM labels to speed
-identification and cross-check, not to skip the measurement.
+**The OEM excited two windings and read one — the opposite of the 7i49.** The M2
+is a phase-analog loop (§6.6.1: the command pulse is phase-modulated and the
+"resolver phase shifter" output is phase-discriminated against it), so Mitsubishi
+drove SIN and COS in quadrature and took a single phase-shifted output. The 7i49
+does the reverse: it excites the 1-phase member and reads the 2-phase pair.
 
-**Do not use DC resistance magnitude as the discriminator at all.** The
-2026-08-16 measurement below found the 141E26 ordering inverted on the installed
-pickups, and the 2026-08-16 document search (below) then established that the
-magnitude rule is unsound in principle, not merely inapplicable here:
+**This does not change how we wire the 7i49 — a resolver is reciprocal — and the
+previously proposed wiring stands: excite 16/17, read 12/13 and 14/15.** What
+changes is that it now rests on a Mitsubishi primary source instead of on the
+retired resistance-magnitude argument, and the pin labels mean the opposite of
+what the old `R0=rotor, RS=sin, RC=cos` reading assumed.
+
+**Two independent corroborations that this figure describes the connector we
+measured**, not the servo-drive-side connector of the same name:
+
+- The figure marks **pins 1 and 7 as the same net** (power source ground) —
+  measured 0 Ω between 1 and 7 on all three axes.
+- The figure marks **pin 20 as sealed ground**, bonded to detector case —
+  measured 0 Ω to chassis on X and Y.
+
+**Do not use DC resistance magnitude as the discriminator at all.** It is now
+moot — the winding roles are established by the Mitsubishi figure above — but the
+reasoning is kept because the retired rule is still quoted in older notes, and
+because it explains why the measurement looked wrong. The 2026-08-16 measurement
+found the 141E26 ordering inverted on the installed pickups, and the 2026-08-16
+document search then established that the magnitude rule is unsound in principle,
+not merely inapplicable here:
 
 - For 141E26 — the one suffix where Tamagawa publishes both — the **DC ordering
   is inverted relative to that same part's AC impedance ordering** (DC rotor 121
@@ -96,8 +122,13 @@ magnitude rule is unsound in principle, not merely inapplicable here:
 - The arithmetic coincidence 35/107 ≈ 0.33 ≈ TR 0.3 is numerology. Do not build
   on it.
 
-**Match-vs-odd is the discriminator, and it is enough to identify the windings.**
-See [Winding identity is settled by symmetry](#winding-identity-is-settled-by-symmetry).
+**Match-vs-odd was the right discriminator, and the manual confirms it.** The two
+matched windings are the SIN and COS members and the odd 35 Ω winding is the
+third — exactly as symmetry predicted, and now stated outright by Mitsubishi. The
+reason the magnitudes looked inverted is that on this detector the *matched pair
+is the excited pair*, which is the reverse of a rotor-excited BRX part like the
+141E26. See
+[Winding identity is settled by symmetry](#winding-identity-is-settled-by-symmetry).
 
 ### Measured DC resistance, 2026-08-16 (CNA3/4/5, NC unit rack)
 
@@ -132,13 +163,15 @@ built from the OEM *servo-drive* sheet. These readings were taken on the
 *NC unit rack* side. The two are not confirmed to share a pinout, so the pin
 numbers here may not be the pin numbers there.
 
-**Consequence.** The *windings* are identified (see below); the **drive
-direction is not**, and stays `PROPOSED`. Do not wire RESDRV/RESSIN/RESCOS on
-the strength of this data. The gate is no longer "obtain the datasheet" — that
-document does not exist (see
-[The 25E datasheet is not obtainable](#the-25e-datasheet-is-not-obtainable-searched-2026-08-16)) —
-it is the bench procedure in
+**Consequence.** Winding roles and pin assignments are **resolved** by the
+Mitsubishi figure above, and this measurement is what corroborates it: the
+excited pair reads high, the output winding low. Wire the 7i49 to excite 16/17
+and read 12/13 and 14/15. What is still unmeasured is the **pole count**, the
+transformation ratio at 5 kHz, and the phase shift — see
 [Power-off bench identification](#power-off-bench-identification-replaces-the-datasheet-gate).
+No exact-suffix datasheet exists (see
+[The 25E datasheet is not obtainable](#the-25e-datasheet-is-not-obtainable-searched-2026-08-16)),
+so those three come from the bench, not from paper.
 
 #### Ground and shield pins — same session, same connectors
 
@@ -162,11 +195,38 @@ one forces the assignment:
   member.**
 - **35 Ω odd winding (CNA pins 16/17) — the 1-phase member.**
 
-Note precisely what this does and does not settle. It identifies the *windings*.
-It does **not** say which one the 7i49 should excite — a 1-phase member can be
-either the primary (7i49 convention) or the output (the Meldas two-phase-
-excitation convention). That question is open and is what
-[Test 2](#test-2--equal-peaks-which-winding-to-excite) answers.
+This was written before the M2 manual was obtained, when it was the *only*
+thing that could be said with confidence. Mitsubishi's Figure 14.4-1 now names
+the same three windings outright and adds what symmetry could not: the matched
+pair is the pair the OEM **excited** (SIN and COS), and the odd winding is the
+**output**. Both readings agree; the manual is the citable one.
+
+### Reading the M2 manual (scanned source)
+
+The `MELDAS Series M2 Maintenance Manual` is the authority for the detector
+interface, and it is **a scan with no text layer** — searching it requires OCR,
+and the MEAU site's own preview extracts nothing but the cover.
+
+- **Where:** MEAU knowledge base, DocID `3E26SJWH3ZZR-24-2354`, 22 MB, 297 pages.
+  **Sign-in is required and it is not optional**: logged out, the knowledge base
+  reports *zero* results for `MELDAS`; logged in, it returns **479**, including
+  42 tagged OEM `Mazak`. Anyone concluding "MEAU has nothing this old" was
+  searching logged out.
+- **Also useful there:** `TRS Maintenance Manual` (`-24-3738`) — a different
+  amplifier family, whose resolver senses *magnetic pole position*, so treat its
+  figures as era-context, not as this machine's. It does state resolver
+  excitation of **4.5 kHz** and a 12 Vp-p feedback level for that system.
+- **Page numbering:** printed page = PDF page − 11 (Figure 14.4-1 is printed
+  p. 250 = PDF p. 261).
+- **To re-extract without installing anything on a Mac:** render pages with
+  `pdftoppm -f <first> -l <last> -r 400 -png <pdf> out` and OCR them with a small
+  Swift binary calling Vision's `VNRecognizeTextRequest` (`usesLanguageCorrection
+  = false`, or it "corrects" part numbers and ohm values). Tesseract is not
+  needed. Diagram OCR scrambles reading order — **read figures as images**, not
+  as OCR text; the pin table above was transcribed by eye from the rendered page.
+- The PDF itself is deliberately **not committed** — see the media rule in
+  [`../CLAUDE.md`](../CLAUDE.md). Findings live here; the source is one
+  authenticated download away.
 
 ### The 25E datasheet is not obtainable (searched 2026-08-16)
 
@@ -236,34 +296,43 @@ Drive the 35 Ω winding at ~5 kHz, 3–5 Vrms, through the series resistor. Scop
 one output winding. Rotate the shaft slowly through **one full mechanical
 revolution** by hand and count amplitude nulls.
 
-- **One null pair per turn → 1× (2-pole).** Everything downstream proceeds as
-  currently planned.
-- **Five → the unit is a 5× (10-pole) resolver.** Then: `RESOLVER_SCALE` must
-  reflect **5 electrical revolutions per screw turn**, there is **no unique
-  position within a screw turn**, and **homing must not rely on the resolver
-  null**.
+Count the nulls. **`n` = nulls per mechanical revolution is the pole-pair count**,
+and it is a number this repo does not yet have:
 
-**Why this is a live possibility and not paranoia.** "RT-**5**X" may be a speed
-designation rather than a family letter. Across five observed Mitsubishi/Tamagawa
+- `RESOLVER_SCALE` and `RESOLVER_VELOCITY_SCALE` must reflect **n electrical
+  revolutions per screw turn**.
+- Position is **not unique within a screw turn**; there are n indistinguishable
+  positions.
+- **Homing must not rely on the resolver null** — with n > 1 the null repeats.
+
+**This is not a hypothesis any more: the detector is multi-pole.** The M2
+maintenance manual settles it three times over. Table 14.3-1 classes the **RT**
+model as a *"multi-polar resolver"* used as a *"ball screw tip position detector
+(semi-closed type)"* — that is this machine's detector. §14.2 credits *"multi-polar
+construction (resolver)"* with making a **gearless direct-drive** resolver
+possible. And §6.7.1, describing grid zero-return, states that with resolvers as
+position detectors the machine has grid points *"at each **1/n (n : number of
+poles)** revolution of the resolver"*. So the repo's 1× assumption is **wrong**;
+only the value of n is open.
+
+The name suggests n = 5: "RT-**5**X". Across five observed Mitsubishi/Tamagawa
 pairs the type-name digit tracks the Tamagawa N-group's last digit exactly
 (RT-3XB-11↔N**23**, RT-3XC-11↔N**43**, RT-5XB-11↔N**25**, RT-5XC-11↔N**45**,
-RT-6XC-11↔N**46**), and on other Tamagawa families that digit is documented as
-the speed/X factor (TS2014N**181**E32 = "one speed", TS2014N**182**E32 = "two
-speed"). A 5× resolver on a ballscrew is how a 1984 phase-analog Meldas loop got
-micron resolution from an analog interpolator. Confidence: **moderate** — the
-correlation is 5/5 but the mechanism is inference, and Tamagawa states all
-*catalogue* resolvers are 1×, which is consistent given this is not a catalogue
-part. Five minutes of bench time settles it either way.
+RT-6XC-11↔N**46**), and on other Tamagawa families that digit is the documented
+speed factor (TS2014N**181**E32 = "one speed", **182**E32 = "two speed"). Treat
+5 as the expected answer to check against, not as the answer.
 
 #### Test 2 — equal peaks: which winding to excite
 
-With the 35 Ω winding driven, rotate slowly and watch **both** output windings.
-Correct configuration: the two outputs reach **equal peak amplitudes**, 90° apart
-in shaft angle, clean sinusoidal envelopes, deep nulls. Unequal peaks, a
-distorted envelope, or a shallow null means the drive winding is wrong. Then
-repeat driving the matched pair in the Meldas two-phase manner and compare; the
-difference is unmistakable. This is the test that converts drive direction from
-`PROPOSED` to measured.
+Drive direction is no longer in question — the manual answers it — so this is now
+a **confirmation** step, worth the five minutes because it also proves the cable,
+the connector pinout on *this* machine, and that no winding is damaged.
+
+With the 35 Ω winding (pins 16/17) driven, rotate slowly and watch **both** output
+windings. Correct configuration: the two outputs reach **equal peak amplitudes**,
+90° apart in shaft angle, clean sinusoidal envelopes, deep nulls. Unequal peaks, a
+distorted envelope, or a shallow null means something is wrong with the cable, the
+pinout on this machine, or a winding — stop and find out which before proceeding.
 
 #### Test 3 — transformation ratio, measured both directions
 
@@ -350,6 +419,13 @@ enter [`first_move_plan.md`](first_move_plan.md).
 
 ## Sources
 
+- **`MELDAS Series M2 Maintenance Manual` (BNP-A2443A / M1243-ES)** — Mitsubishi,
+  via MEAU knowledge base DocID `3E26SJWH3ZZR-24-2354` (sign-in required).
+  Figure 14.4-1 p. 250 (detector signal connecting method, `CNA 3~6` pin
+  assignments); Table 14.3-1 p. 249 (RST / RT / TT detector models); §14.2 p. 248
+  (multi-polar, gearless construction); §6.6.1 p. 99 (phase-analog servo loop);
+  §6.7.1 p. 104 (grid zero return at each 1/n revolution, n = number of poles).
+  See [Reading the M2 manual](#reading-the-m2-manual-scanned-source).
 - [Mesa 7i49 manual](https://www.mesanet.com/pdf/motion/7i49man.pdf)
 - [LinuxCNC HostMot2 resolver documentation](https://linuxcnc.org/docs/2.9/html/man/man9/hostmot2.9.html)
 - Exact per-axis Tamagawa suffix: **partially read 2026-08-15** — X/Y pickups

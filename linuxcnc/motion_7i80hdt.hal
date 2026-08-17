@@ -119,6 +119,13 @@
 #      per screw revolution; convert to inches for this inch config).
 #   2. Confirm there is no reduction between screw and resolver (flex coupling
 #      is 1:1; if any belt/pulley or gearbox is present, factor in its ratio).
+#   2b. Count nulls per MECHANICAL revolution -- these detectors are MULTI-POLE.
+#      The M2 maintenance manual classes the RT detector as a "multi-polar
+#      resolver" (Table 14.3-1) and states grid points fall at each 1/n
+#      revolution, n = number of poles (S6.7.1). HostMot2 .scale is per
+#      ELECTRICAL revolution, so machine travel per electrical rev is the screw
+#      lead divided by n. Do NOT assume n = 1. See
+#      docs/resolver_commissioning.md Test 1.
 #   3. Set RESOLVER_SCALE in the INI to signed inches-per-resolver-rev. The
 #      sign selects axis direction: use a NEGATIVE value if the axis counts
 #      backwards vs. the intended machine coordinate system.
@@ -210,8 +217,11 @@ net z-pos-fb        => joint.2.motor-pos-fb
 #   net z-index-enable    joint.2.index-enable <=> hm2_7i80.0.resolver.02.index-enable
 # and set HOME_USE_INDEX = YES in each [JOINT_N] section — but only after
 # reading the HostMot2 caution and confirming the resolver has an appropriate
-# physical index. The single-speed TS2014N does not, and the emulated index
-# from resolver.NN is explicitly not recommended for this use.
+# physical index. This TS2014N does not, and the emulated index from
+# resolver.NN is explicitly not recommended for this use. Note the detector is
+# MULTI-POLE (M2 maintenance manual Table 14.3-1), so the resolver null repeats
+# n times per screw revolution and cannot identify a unique position within a
+# turn -- switch-based homing stays mandatory.
 
 # Spindle feedback — NOT a resolver channel.
 # Confirmed (July 2026 analysis):

@@ -14,7 +14,7 @@ and still required.
 | X resolver pickup | `RT-5X8-1?` (stamps faded) | BKO-NC6062 (A suffix uncertain) | A7003 | `TS2014N 25 E 8-1?` | 198_ | partial |
 | Y resolver pickup | `RT-5X8-1?` (stamps faded) | BKO-NC6062A | A6986 | `TS2014N 25 E 3-1?` | 198_ | partial |
 | Z tachometer | BRUSHLESS DC GENERATOR `TT-A-11`, 2V/1000 rpm | BKO-NC6075 | 23868 | TS3033N 4 E2 | 1984.5 | good |
-| Z resolver pickup | `PICKUP UNIT`, TS2014N family (plate style N5399, same as X/Y) | **BKO-NC6062A (clearly legible)** | not read | `TS2014N …` — stamped digits illegible; one frame hints `E3…` | 198_ | poor (borescope frames, glare) |
+| Z resolver pickup | `PICKUP UNIT`, TS2014N family (plate style N5399, same as X/Y) | **BKO-NC6062A (clearly legible)** | **7028** (read by eye 2026-08-16; ink too faded to photograph) | `TS2014N …` — stamped digits illegible; one frame hints `E3…` | 198_ | poor (borescope frames, glare) |
 | Spindle encoder | Tamagawa OPTICAL SHAFT ENCODER, **512 counts/turn, DC ±15 V** | — | A6022 | **TS1526N55** | 1984.6 | good |
 
 **Z resolver located and partially read (2026-08-15, second visit).** The
@@ -25,6 +25,28 @@ the same resolver spec. Only the stamped suffix digits remain unread; the
 per-axis ohmmeter record is the stronger confirmation path regardless (same
 one-high/two-matched DCR pattern across axes = electrically identical
 windings).
+
+**Serial read 2026-08-16, and the three axes are one batch.** A second borescope
+set (15 frames) still defeated the stamped suffix, but the serial was read
+directly off the plate by eye: **Z = 7028**. With **X = 7003** and **Y = 6986**
+that is a spread of 42 — all three pickups came from the same production run,
+which is the strongest available argument that they are electrically identical
+even though no suffix has been read on any of the three.
+
+**Why the digits keep failing, and how to beat it.** The borescope (`JLDV AC54`,
+1920×1080) has its LED beside the lens, so it throws specular glare straight back
+off a polished plate; the stamped characters sit in pre-printed boxes and blow
+out to blank white. Contrast-stretching the frames recovers nothing — the
+information is not in the file. Light the plate **20–30° off-axis** so the
+stamping casts micro-shadows (diffuse or defeat the on-board LED), wipe the plate
+first, or take a **pencil rubbing**, which picks up shallow stamping that no
+camera angle will.
+
+**This is now a provenance detail, not a gate.** The detector's electrical
+interface is established from Mitsubishi's own figure — see
+[`resolver_commissioning.md`](resolver_commissioning.md#oem-connector-reference--confirmed-against-the-m2-maintenance-manual)
+— and no exact-suffix datasheet exists publicly, so reading the suffix would
+confirm identity without unlocking any specification.
 
 **Field note — the "Z"-labeled MS connector on the motor stack belongs to the
 TACHO, not the resolver.** The 17-position `MS3102A20-29P` receptacle on the
