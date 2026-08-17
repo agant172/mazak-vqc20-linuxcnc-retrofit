@@ -783,6 +783,20 @@ def check_plane_schema(rows: list[dict]) -> list[Finding]:
                 f"OEM_REUSED_WIRES lists '{wire}' but the authority no longer has two "
                 f"rows claiming it — the allowlist entry is stale, remove it."))
 
+    # --- 2b. one conductor, one signal ----------------------------------
+    # Two signals sharing a BBIA connector+pin is physically impossible, so
+    # unlike a shared wire number this has no legitimate OEM explanation and
+    # needs no allowlist. Currently clean; this is a tripwire.
+    by_pin: dict[tuple[str, str], list[str]] = defaultdict(list)
+    for _, row, conn in plane_rows:
+        by_pin[(conn, (row.get("dest_pin") or "").strip())].append(row["signal_id"])
+    for (conn, pin), sids in sorted(by_pin.items()):
+        if len(sids) > 1:
+            findings.append(Finding(
+                "WARN", CSV_PATH.name,
+                f"{conn}-{pin} is claimed by {len(sids)} signals ({', '.join(sids)}). "
+                f"One conductor carries one signal — at most one of these is right."))
+
     # --- 3. agreement with the immutable OEM pinout ---------------------
     conflicts_seen: set[str] = set()
     if not oem:
