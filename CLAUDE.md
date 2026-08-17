@@ -472,9 +472,10 @@ cd ~/mazak-vqc20-linuxcnc-retrofit && python3 scripts/validate_authority.py   # 
 SSH is the form to use: the OptiPlex's 5-minute status timer pushes non-interactively over
 `git@github.com`, and an HTTPS remote would prompt for a password it cannot answer.
 
-As of 2026-08-15 the MacBook Pro is believed to have a clone and the iMac is believed not to —
-**both unconfirmed**. Check with `ls ~/mazak-vqc20-linuxcnc-retrofit` and update this line once
-confirmed.
+The **iMac has a clone at `~/mazak-vqc20-linuxcnc-retrofit`** — confirmed 2026-08-16, and it is
+the machine's only clone (see the two-clones note below). The **MacBook Pro** is believed to have
+one as of 2026-08-15 but is still **unconfirmed**; check with `ls ~/mazak-vqc20-linuxcnc-retrofit`
+from a session on that machine and update this line.
 
 **`~/.claude/CLAUDE.md` does not sync.** It is user-level memory, private to one machine, and no
 other machine or cloud session can see it — that is exactly how the project's startup
@@ -507,10 +508,27 @@ PR like any other change. **Do not install the Obsidian *Git* plugin's auto-comm
 would push editor state straight to `main`, which desk sessions are not allowed to do, and bury
 the engineering history under workspace churn.
 
-**Two clones on one machine is a foot-gun.** As of 2026-08-15 the MacBook Pro has the working
-copy at `~/mazak-vqc20-linuxcnc-retrofit` *and* a vault clone at
-`~/Obsidian/mazak-vqc20-linuxcnc-retrofit`. Notes edited in Obsidian land in the vault clone
-only. Pull both, or point Obsidian at the working copy and keep a single clone.
+**Two clones on one machine is a foot-gun — and it has already cost us data.** A second clone
+under `~/Obsidian/` means notes edited in Obsidian land in the vault clone only, invisible to the
+working copy, to git, and to every other session.
+
+On 2026-08-16 the iMac had exactly that split, and an afternoon of resolver DC-resistance
+measurements sat in an untracked `resolvers.md` in the vault clone while the working copy showed
+only nameplates — the repo had no record of readings that had already been taken at the machine.
+They are now in [`docs/resolver_commissioning.md`](docs/resolver_commissioning.md). The iMac has
+since been consolidated: the vault clone is gone and Obsidian opens the working copy directly, so
+**the iMac now has one clone.** The MacBook Pro is believed to still have both (2026-08-15,
+unconfirmed) — check it and fix it the same way.
+
+If you consolidate another machine, two things are not in git and must be carried across by hand
+before deleting the vault clone, or the vault comes up stripped:
+
+- `.obsidian/plugins/` — the vendored plugin code, ~9 MB. `community-plugins.json` syncs the
+  *list*, not the code. Copy the directory or re-install each plugin from the community store.
+- `.obsidian/workspace.json` — your pane layout.
+
+Quit Obsidian first: it rewrites `~/Library/Application Support/obsidian/obsidian.json` on exit,
+so a vault path edited underneath a running instance is silently reverted.
 
 ### Photos and large media
 
