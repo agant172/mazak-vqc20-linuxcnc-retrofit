@@ -216,23 +216,37 @@ Both are pure document work and both bear on decisions already in the BOM.
   (byte-identical to the Drive copy), filed under its Mazak publication number rather than a
   searchable name. Read visually — it is a pure image scan, 1,552 chars of text layer across
   298 pages.
-  - **Screw part numbers, now recorded:** X and Y share **`14131104600`** "Ball screw (X, Y)";
-    Z is **`14131303340`** "Ball screw (Z)" (§20/§22 and §23).
-  - **The lead is not printed.** The Remarks column is blank for the screw on every axis. The
-    premise that "Mazak screw part numbers usually encode the lead" is not borne out by this
-    document.
+  - **Screw part numbers, now recorded:** Y is **`14131104600`**; Z is **`14131303340`**.
+    **X depends on the variant** — the parts list carries two X drives, A-type §20
+    (`14131104600`) and B-type §21 (**`14131110470`**), and the evidence says this machine is
+    the **B-type** (X travel ≈ 1002 mm vs the A/B spec of 635/1000 mm, and the X motor
+    nameplate reads HD 101-12). Treat X as `14131110470` at a **1.25:1** belt ratio, not the
+    1.667:1 that applies to Y. Confirm by counting teeth.
+  - **The lead is not printed** on any of the four ball-screw entries in the book, and the
+    drawings carry no dimensions at all. The premise that "Mazak screw part numbers usually
+    encode the lead" is not borne out.
   - Full drivetrain readout — motors, pulleys, belts, resolver, coupling, bearings —
     is in [`feed_drive_parts_2026-08-17.md`](feed_drive_parts_2026-08-17.md).
-  - **Fastest route now is the bench measurement**, which needs no power and takes about ten
-    minutes: dial indicator on the table, hand-turn the screw one full revolution, read the
-    travel. 10.000 mm confirms the hypothesis (and n = 5); anything else refutes it and
-    rescales `RESOLVER_SCALE`.
-  - **n = 5 gained independent support 2026-08-17** while reading the sister repo for the
-    7i49 question: it runs `RESOLVER_INDEX_DIVISOR = 5` on all three axes
-    (`MAZAK-VQC1540.ini:199/235/271`, applied at `.hal:168` etc.). That is a *running
-    machine's* pole-pair count, not a derivation, and it matches the expected 5. It does
-    **not** replace finding the lead — same-model-family is an assumption, and index-divisor
-    is set by whoever tuned it — but n = 5 is no longer resting on the undocumented 10 mm lead alone.
+  - **The lead is now BOUNDED, from a resolver-independent source:** `lead ≥ 10.000 mm`, and
+    it must be an integer multiple of 2.000 mm — so **10.000 mm is the floor of the admissible
+    set and the best-supported value**, though *not* proven equal to the floor (12/14/16 remain
+    admissible). The bound comes from motor Nmax and pulley tooth counts hand-lettered on the
+    1982 servo-drive schematic `41434WB.pdf` PDF p. 128, against the factory rapid
+    `RF1–3 = 4724` (12.0 m/min): every axis reaches 1200 screw rpm at its motor's ceiling, so
+    lead ≥ 11,998.96 ÷ 1200 = 9.999. Full write-up — the RT-5XA-11 naming argument, the
+    poles-vs-pole-pairs caveat, what must **not** be cited, and every document confirmed
+    silent: [`ballscrew_lead_2026-08-17.md`](ballscrew_lead_2026-08-17.md).
+  - **Fastest route to close it is still the bench measurement**, no power, about ten minutes:
+    dial indicator reading axial table travel, paint-mark the **screw** (not the motor — the
+    belt reduction sits between them), hand-turn one full revolution, read the travel.
+    10.000 mm confirms the hypothesis and n = 5; anything else refutes it.
+  - **`RESOLVER_SCALE` is not blocked by this** — it follows from the 2.000 mm grid spacing at
+    τ = 2, independent of the lead. What is blocked is `RESOLVER_INDEX_DIVISOR` = n and any
+    velocity/accel limit derived from motor rpm.
+  - **Do NOT cite the sister machine's `RESOLVER_INDEX_DIVISOR = 5` as support for n = 5.**
+    An earlier version of this item did. It is the circular route: the sister value and our
+    n = 5 are the same claim restated, so it cannot corroborate the lead. Note the agreement,
+    never fold it back in as evidence.
 
 #### Two side findings from the 2026-08-17 sister-repo read
 
