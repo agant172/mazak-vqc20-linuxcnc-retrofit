@@ -19,3 +19,10 @@ Optical Shaft encoder
 512 counts turn DC 15V
 Type TS1526N55
 Ser. No. A6022
+
+---
+
+DC resistance readings for these devices (CNA3/4/5, measured 2026-08-16) live in
+[`docs/resolver_commissioning.md`](docs/resolver_commissioning.md#measured-dc-resistance-2026-08-16-cna345-nc-unit-rack),
+with the rotor/stator identification caveats. This file is nameplate
+transcriptions only.
