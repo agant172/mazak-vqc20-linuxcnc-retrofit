@@ -69,7 +69,10 @@ Physical device (all three axes, mounted at the **non-drive end of each ball scr
 Electrical spec (from the Tamagawa **TS2014N141E26** datasheet, [100y.com.tw PDF](https://images.100y.com.tw/pdf_file/79-TAMAGAWA.pdf)).
 ⚠ **Entire table = 141E26 comparison data.** The installed suffix reads `TS2014N 25 E …` on X and Y
 (2026-08-15 survey, [`feedback_nameplate_survey_2026-08-15.md`](feedback_nameplate_survey_2026-08-15.md);
-Z resolver nameplate still unread) — absolutes below are unconfirmed until the 25E datasheet is obtained:
+Z resolver nameplate still unread) — absolutes below are unconfirmed, and **stay unconfirmed until
+measured**: the 25E datasheet does not exist publicly (search 2026-08-16), so the bench procedure in
+[`resolver_commissioning.md`](resolver_commissioning.md#power-off-bench-identification-replaces-the-datasheet-gate)
+is the only route to real values:
 
 | Parameter | Value |
 |---|---|

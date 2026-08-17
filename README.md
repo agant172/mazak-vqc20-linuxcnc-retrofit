@@ -52,7 +52,7 @@ Full rationale: [docs/architecture_decision.md](docs/architecture_decision.md).
 | Repo created & structured | ✅ Completed |
 | **7i80HDT + 7i44 + 7i49 + 7i84U-A + 7i84U-B architecture** | Selected; hardware/bitfile proof pending |
 | 7i49 resolver feedback interface (plain, 5 kHz baseline) | Selected; suffix compatibility and scope proof pending |
-| Tamagawa TS2014N resolver identification | Family identified; X/Y nameplates read `TS2014N 25 E …` (2026-08-15 survey), Z unread; matching 25E datasheet outstanding |
+| Tamagawa TS2014N resolver identification | Windings identified by DC resistance 2026-08-16; part numbers resolved to `TS2014N25E8-1` (X) / `TS2014N25E3-1` (Y); **the 25E datasheet does not exist publicly** — identification is by bench test, see [docs/resolver_commissioning.md](docs/resolver_commissioning.md#power-off-bench-identification-replaces-the-datasheet-gate) |
 | 132-row I/O authority workbooks regenerated from the current CSV | ✅ Completed |
 | HAL/INI bring-up skeleton drafted | ✅ Completed |
 | Pin authority CSV structurally reconciled; field evidence pending | 🔄 In progress |
