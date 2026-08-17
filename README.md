@@ -57,7 +57,7 @@ Full rationale: [docs/architecture_decision.md](docs/architecture_decision.md).
 | HAL/INI bring-up skeleton drafted | ✅ Completed |
 | Pin authority CSV structurally reconciled; field evidence pending | 🔄 In progress |
 | Mesa firmware / photo checklists drafted | ✅ Completed |
-| Order 7i80HDT + 7i44 + 7i84U-B | 🔄 In progress |
+| Order 7i80HDT + 7i44 + 7i84U-B | ✅ Completed — whole stack + 50-pin IDC cables on hand 2026-08-17 |
 | Collect cabinet photos | 🔄 In progress |
 | Live Mesa install | ⬜ Not started |
 | HAL pin replacement from `readhmid` | ⬜ Not started |
@@ -69,7 +69,10 @@ Full rationale: [docs/architecture_decision.md](docs/architecture_decision.md).
 ## Current TODO (top priorities)
 
 **Immediate**
-- Order the 7i80HDT, 7i44, and 7i84U-B (7i49 and 7i84U-A already in hand / buy list).
+- ~~Order the 7i80HDT, 7i44, and 7i84U-B~~ — **all interface hardware is on hand
+  as of 2026-08-17** (owner, at the machine): 7i80HDT, 7i49, 7i44, 7i84U-A,
+  7i84U-B, and the 50-pin IDC cables that were the last blocker. Nothing is
+  installed or wired yet; the physical install moves from *blocked* to *next*.
 - Bitfile `7i80hdt_rmsvss6_8.bin` is flashed and its **layout, identity, and upstream source all confirmed**: `readhmid` (2026-08-11, re-checked 2026-08-13; SHA-256 recorded) plus the binary sourced directly from Peter Wallace at Mesa Electronics (`freeby.mesanet.com/7i80hdt_rmsvss6_8.zip`, 2026-08-11) — see [`mesa/mesa_firmware_checklist.md`](mesa/mesa_firmware_checklist.md#bitfile-provenance-verification-procedure).
 - Confirm 7i80HDT Ethernet setup: static IP 192.168.1.121, `hm2_eth` `board_ip="192.168.1.121"`, and host NIC `enp0s31f6` at 192.168.1.1/24.
 - Capture cabinet photo set ([checklist](docs/cabinet_photo_checklist.md)).

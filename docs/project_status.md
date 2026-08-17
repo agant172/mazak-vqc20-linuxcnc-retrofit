@@ -1,6 +1,6 @@
 # Project Status & TODO — Mazak VQC 20/40 LinuxCNC/Mesa Retrofit
 
-_Last updated: 2026-08-13_
+_Last updated: 2026-08-17_
 
 ## Scope decision — power and E-stop stay original (owner, 2026-08-15)
 
@@ -96,7 +96,7 @@ See [`architecture_decision.md`](architecture_decision.md) for the full rational
   verification remain pending.
 
 ### In progress
-- 7i80HDT is in hand, on the network at 192.168.1.121, and flashed with `7i80hdt_rmsvss6_8.bin`. Purchase list for 7i44 + 7i84U-B still open (7i49 and 7i84U-A already ordered / on hand). Blocked on 50-pin IDC cables to physically seat the daughter cards.
+- **All interface hardware is on hand as of 2026-08-17** (owner, at the machine): 7i80HDT, 7i49, 7i44, 7i84U-A, 7i84U-B, and the 50-pin IDC cables that were the last blocker. The 7i80HDT is on the network at 192.168.1.121 and flashed with `7i80hdt_rmsvss6_8.bin`; the daughter cards and both 7i84U remotes are **not yet seated, wired, or enumerated** — no card other than the 7i80HDT has been proven present by `readhmid` or `halcmd show pin hm2`. Procurement is no longer the gate; the physical install is.
 - Collecting cabinet photos.
 
 ### Not started
@@ -111,7 +111,7 @@ See [`architecture_decision.md`](architecture_decision.md) for the full rational
 
 ### Immediate
 - [x] 7i80HDT is in hand, on the network, and flashed with `7i80hdt_rmsvss6_8.bin`.
-- [ ] Order the 7i44 + 7i84U-B. (7i49 and 7i84U-A are already in the buy list / on hand.) Blocked on 50-pin IDC cables to physically seat the daughter cards once acquired.
+- [x] **Interface hardware is complete and on hand (2026-08-17).** 7i80HDT, 7i49, 7i44, 7i84U-A, 7i84U-B and the 50-pin IDC cables are all at the machine. Nothing is procurement-blocked any more. The next physical step is the bench/cabinet install under **Next** below — seat 7i49 on P1 and 7i44 on P3, leave P2 empty, bring up both 7i84U remotes on sserial channels 0 and 1, then re-run `readhmid` and capture the `hal_pins_YYYY-MM-DD.txt` dump. Do that **before** any field wiring lands on a Mesa terminal.
 - [x] Firmware is flashed (`7i80hdt_rmsvss6_8.bin`, 2026-08-11), its layout/identity confirmed by two independent `readhmid` reads plus a recorded SHA-256, its source cited (Peter Wallace, Mesa Electronics, `freeby.mesanet.com/7i80hdt_rmsvss6_8.zip`, 2026-08-11), the binary itself committed under `mesa/firmware/`, and the recovery procedure documented from the 7I80HD manual (fallback + jumper-W5 dual-flash recovery) now committed at `docs/Mesa Manuals/7i80hdman.pdf`. D3 is complete.
 - [ ] Confirm 7i80HDT Ethernet setup: static IP 192.168.1.121, `hm2_eth` `board_ip="192.168.1.121"`, and host NIC `enp0s31f6` at 192.168.1.1/24.
 - [ ] Capture cabinet photo set using the cabinet photo checklist.
