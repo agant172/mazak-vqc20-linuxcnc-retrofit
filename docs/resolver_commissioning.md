@@ -290,6 +290,58 @@ including a wrong one — the resolver is a passive rotary transformer. Use the
 measured DC resistances (35 Ω, ~107 Ω) as a sanity floor for expected drive
 current; actual AC impedance will be several times higher.
 
+### Pole count and resolver scale, derived from τ
+
+**`RESOLVER_SCALE` is now derivable from this machine's own stored parameters,
+and it does not depend on the ballscrew lead.**
+
+The M2 maintenance manual (printed p. 109) gives grid spacing = `4000 / τ` in
+microns, and §6.7.1 puts grid points at each `1/n` revolution of the resolver —
+i.e. **one grid point per resolver *electrical* revolution**. So grid spacing
+*is* machine travel per electrical revolution, which is exactly what HostMot2's
+`.scale` wants.
+
+τ is stored in **`MC1–MC4`**, packed as `LINEAR ZONE | τ × 8` (parameter manual
+printed p. 6-35; decode in
+[`../background/parameter_recovery.md`](../background/parameter_recovery.md#mc1mc4-carry-the-control-τ-number--decode-them)).
+This machine reads `MC = 784` on X, Y and Z — on the 1985 factory sheet and on
+the 2026-07-28 live CRT alike:
+
+```
+784 = 0x0310  ->  LINEAR ZONE 3 (=16000),  τ × 8 = 16  ->  τ = 2.000
+grid spacing = 4000 / 2 = 2000 µm = 2.000 mm = 0.07874016 in
+```
+
+> **`RESOLVER_SCALE` = 2.000 mm (0.07874016 in) per resolver electrical
+> revolution, X, Y and Z.** Sign selects axis direction; set
+> `RESOLVER_VELOCITY_SCALE` to the same signed value.
+
+**Independent corroboration from a running machine.** The SRDC Mazak VQC 15/40
+retrofit — same generation, original Mitsubishi DC servos and resolvers retained,
+LinuxCNC + Mesa — ships `RESOLVER_SCALE = 0.07874016` and
+`RESOLVER_INDEX_DIVISOR = 5` on all three axes, with `LINEAR_UNITS = inch`
+(`github.com/srdco/MazakVQC1540`, `MAZAK-VQC1540.ini`). 0.07874016 in = **2.0000
+mm exactly**. That machine's value was arrived at empirically, without reference
+to τ, and lands on the same number.
+
+**Pole count follows, but only via the lead.** `n = lead ÷ grid spacing`, so a
+**10 mm lead gives n = 5** — five electrical revolutions per screw turn, i.e. 5
+pole pairs / 10 poles. This agrees with the `RT-5X` type name and with the
+sibling machine's `RESOLVER_INDEX_DIVISOR = 5`. **The lead is still not
+documented anywhere in this repo**, so treat `n = 5` as strongly-corroborated
+inference, and note that *`RESOLVER_SCALE` does not depend on it either way*.
+
+**Homing is unaffected by the residual uncertainty:** n > 1 under every
+candidate lead, so the resolver null repeats within a screw turn and cannot
+identify a unique position. **Switch-based homing stays mandatory**, and the
+sibling machine likewise sets `HOME_USE_INDEX = NO`.
+
+**Evidence state: `PROPOSED`.** This is a documentary derivation plus a
+third-party config, not a measurement on this machine. Test 1 below is now a
+**verification** — it should return 2.000 mm of travel per electrical
+revolution, and 5 nulls per screw revolution. If it does not, the lead
+assumption or the τ decode is wrong, and the measurement wins.
+
 #### Test 1 — nulls per mechanical revolution. Run this FIRST; it gates scaling.
 
 Drive the 35 Ω winding at ~5 kHz, 3–5 Vrms, through the series resistor. Scope
