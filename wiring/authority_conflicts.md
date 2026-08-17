@@ -386,6 +386,126 @@ Treat this as documentary resolution, not commissioning: still meter each switch
 before relying on its state, per the standing rule that no normal-state is
 trusted until field-verified.
 
+## 7. BBIA-1 plane key discipline — found by the § 5 consolidation, 2026-08-17
+
+Consolidating the plane per [`../INTERFACE_ARCHITECTURE.md`](../INTERFACE_ARCHITECTURE.md)
+§ 5 meant, for the first time, cross-checking the authority CSV's BBIA end against the
+**immutable OEM pinout** [`bbia1_cn_pinouts.csv`](bbia1_cn_pinouts.csv) rather than only
+against the curated [`bbia1_source_dest.csv`](bbia1_source_dest.csv). The join had never
+read the OEM reference. Four things fell out. **None is resolved here** — all four are
+documentation-vs-documentation, and this session could not meter anything.
+
+### 7.1 Factory wire numbers are NOT unique — the plane's key premise is wrong
+
+`INTERFACE_ARCHITECTURE.md` § 2 calls the factory wire number "the stable primary key,"
+and § 5 asked the validator to enforce "that wire numbers are unique." **The OEM print
+itself violates that.** `bbia1_cn_pinouts.csv` records wire `231` at two pins on two
+unrelated circuits:
+
+| Connector/pin | Wire | Signal | Function |
+|---|---|---|---|
+| `CN4-1` | `231` | SPINDLE ZERO SPEED | spindle (sense in) |
+| `CN11-13` | `231` | FLOOD COOLANT | PLC output |
+
+Both are independently corroborated: `CN4-1` by the retrofit crosswalk's spindle
+zero-speed name match, and `CN11-13` by § 5 of this register ("CN11 carries wire `231`
+flood coolant"). They are opposite directions in different domains, so they cannot be the
+same conductor.
+
+**Controlling position:** wire numbers are unique *within a circuit section*, not
+globally. `factory_wire` is a good **label and lookup key** and a bad **primary key**.
+The validator therefore treats a duplicate as a WARN with an explicit allowlist
+(`OEM_REUSED_WIRES` in `../scripts/validate_authority.py`), never as an error, and the
+join continues to key on `signal_id`. **Do not "de-duplicate" wire 231 by editing either
+row.** Both are believed correct.
+
+*Residual:* whether this is genuine OEM reuse or a transcription slip in one of the two
+terminal-unit sheets is not provable from the repo. Reading the jacket at both conductors
+settles it and costs nothing once the cabinet is open.
+
+### 7.2 Two "2nd over-travel" limits collide with the terminal-unit pinout
+
+`bbia1_source_dest.csv` places two second-stage over-travel limits on CN3 pins that the
+terminal-unit pinout assigns to entirely different devices:
+
+| Signal | Pin | `source_dest` says (dwg 4143075409 pg135) | `bbia1_cn_pinouts.csv` says |
+|---|---|---|---|
+| `ATC_ZONE_Y` | `CN3-44` | `+LY2`, 2nd +Y OVER TRAVEL, PRS-55 | `SPTD`, **SPINDLE TIMER** |
+| `ATC_ZONE_Z` | `CN3-39` | `-LZ2`, 2nd −Z OVER TRAVEL, PRS-66 | `147`, **OIL TEMP DETECTOR** |
+
+Both `source_dest` entries are marked `RESOLVED 2026-08-10` and cite the drawing
+explicitly, so this is not a low-confidence guess on either side — it is two OEM sources
+disagreeing.
+
+Context that matters: the *first-stage* limits sit two rows away and are undisputed —
+`CN3-37` = `+LY` (+Y over travel) and `CN3-38` = `−LZ` (−Z over travel), which
+`INTERFACE_ARCHITECTURE.md` § 3b item 4 already names as the only two confirmed on the
+plane. Precedent in this repo settles the *easier* version of this question but not this
+one. At `CN2-13` (`MAG_TOOL_AVAILABLE`) the two sources agree on the wire number `381`
+and disagree only on the printed **label** — the board sheet says `LUBE TIMER`, pg135
+says `TOOL DETECTOR (PHS-181)` — and the wire number was trusted over the label
+(`io-dashboard/data.js` provenance, 2026-08-10). `SPINDLE_ZERO_SPEED` likewise resolved
+by trusting the board pinout over pg135 where the two could be reconciled.
+
+**§ 7.2 is harder than either:** here the *wire numbers themselves* disagree, so there is
+no agreed key to fall back on. Nothing in the repo breaks the tie.
+
+Note also the scope limit this exposes: the validator's OEM cross-check compares wire
+numbers only, so a `CN2-13`-style label mismatch passes silently by design. The wire
+number is the key; the printed signal name is known-fallible.
+
+**Hazard if wrong:** landing an over-travel limit input on the spindle timer or the oil
+temp detector conductor. Both rows are inputs, so the failure is a limit that never trips
+rather than an unexpected output — but a limit that never trips is exactly the failure
+you do not want to find by driving into a stop.
+
+**Controlling position: UNRESOLVED.** Both rows keep their `source_dest` values in the
+authority and are registered in `KNOWN_PLANE_CONFLICTS`, so the validator acknowledges
+them instead of warning every run. **Do not land either conductor on a Mesa input until
+the pin is buzzed at CN3.**
+
+*Resolution test:* continuity from CN3-39 and CN3-44 to PRS-66 / PRS-55 respectively;
+if either instead rings out to the oil-temp sender or the spindle timer, the pinout wins
+and the two rows move to the § 3 exception list as unlocated.
+
+### 7.3 The retrofit crosswalk resurrects a retracted +Z landing
+
+[`bbia1_retrofit_destination_crosswalk.csv`](bbia1_retrofit_destination_crosswalk.csv)
+maps `CN2-14` → `Z_LIMIT_PLUS` on a name match to `+LTZ`. Later tracing retracted that:
+`bbia1_source_dest.csv` line 66 records `Z_LIMIT_PLUS` as **NOT INDIVIDUALLY LOCATED**
+(2026-08-10, dwg 4143075410 pg136 — "+Z OVER TRAVEL (`*+LZ`) with NO connector-box label
+on the T.U. row. Needs field trace"), and `INTERFACE_ARCHITECTURE.md` § 3b item 4 lists
++Z among the four unlocated limits. Note the mnemonics differ (`+LTZ` vs `*+LZ`).
+
+**The authority CSV is correct to leave `Z_LIMIT_PLUS`'s BBIA end blank.** The crosswalk
+is the stale artifact — 13 of its 15 rows are now redundant with the authority, one
+(`Z_LIMIT_PLUS`) contradicts it, and the contradiction is a retracted inference.
+
+**Consequence for § 5:** the crosswalk must **not** be folded into the authority
+wholesale, and it is **not** deleted in this pass — deleting it would destroy the only
+record of a claim that is still worth disproving at the cabinet. Retire it once the +Z
+field trace lands.
+
+### 7.4 Two plane rows bypass the curated provenance chain
+
+`AIR_BLAST` (`CN11-6`, wire `215`) and `WORK_AIR_BLAST` (`CN11-7`, wire `216`) carry a
+BBIA end in the authority but appear nowhere in `bbia1_source_dest.csv`, so
+`consolidate_bbia_authority.py` neither maintains nor contradicts them. Both **exactly
+match** the OEM pinout, so the data is corroborated by the higher authority for the
+machine-internal side; only the provenance chain has a hole. They correspond to the
+"Recommended action (owner decision — not applied)" in § 5 of this register having been
+partly reflected into the CSV.
+
+The validator reports these by name each run (`Plane provenance:` line) rather than
+warning. No change is proposed: adding them to `source_dest` would mean writing a
+`source_provenance` string this session cannot honestly source.
+
+*Also noted, benign:* three `source_dest` rows land on BBIA-1 with no authority row —
+`Y_DRIVE_FAULT` and `Z_DRIVE_FAULT` (both merged into the single combined `SER` line at
+`CN6-27` by owner decision 2026-08-11, retained for provenance) and `TOUCH_SENSOR_BLAST`
+(§ 5 recommends `NOT_USED`/`RESERVED`; the device may not exist on this machine). All
+three are deliberate, not dropped rows.
+
 ## Evidence documents
 
 - `connector_crossref.md` — OEM drawing/photo cross-reference.

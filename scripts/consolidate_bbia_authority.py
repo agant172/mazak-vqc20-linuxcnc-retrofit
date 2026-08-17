@@ -40,6 +40,7 @@ from pathlib import Path
 REPO = Path(__file__).resolve().parent.parent
 AUTHORITY = REPO / "mesa" / "current_pin_authority.csv"
 SOURCE_DEST = REPO / "wiring" / "bbia1_source_dest.csv"
+CN_PINOUTS = REPO / "wiring" / "bbia1_cn_pinouts.csv"
 
 NEW_COLS = ["factory_wire"]  # dest_connector / dest_pin already exist in the header
 # Canonical BBIA-1 board connector+pin, e.g. "CN1-3", "CN11-15". Accepts an
@@ -58,6 +59,40 @@ def bbia_coordinate(row: dict) -> tuple[str, str, str] | None:
         if m:
             return f"CN{m.group(1)}", m.group(2), wire
     return None
+
+
+def load_oem_pinout() -> dict[tuple[str, str], list[tuple[str, str]]]:
+    """(connector, pin) -> [(wire_no, signal), ...] from the immutable OEM
+    reference. INTERFACE_ARCHITECTURE.md sec 5 requires the join to read this
+    file: it is the machine-internal side of the plane and the retrofit does
+    not own it. This script only ever READS it."""
+    oem: dict[tuple[str, str], list[tuple[str, str]]] = {}
+    with CN_PINOUTS.open(newline="") as fh:
+        for row in csv.DictReader(fh):
+            key = ((row.get("Connector") or "").strip().upper(),
+                   (row.get("Pin") or "").strip())
+            oem.setdefault(key, []).append(
+                ((row.get("Wire_No") or "").strip(), (row.get("Signal") or "").strip()))
+    return oem
+
+
+def oem_disagreements(join: dict[str, tuple[str, str, str]]) -> list[str]:
+    """Report where the curated source_dest mapping disagrees with the OEM
+    pinout. Never resolves the disagreement -- two OEM documents contradicting
+    each other is a field-trace question, not a merge conflict to auto-fix."""
+    oem = load_oem_pinout()
+    out: list[str] = []
+    for sid, (conn, pin, wire) in sorted(join.items()):
+        key = (conn.upper(), pin)
+        if key not in oem:
+            out.append(f"{sid}: {conn}-{pin} has no row in {CN_PINOUTS.name}")
+            continue
+        wires = [w for w, _ in oem[key]]
+        if wire and wire not in wires:
+            recorded = "; ".join(f"{w} ({s})" for w, s in oem[key])
+            out.append(f"{sid}: {conn}-{pin} source_dest wire={wire!r} "
+                       f"but OEM pinout records {recorded}")
+    return out
 
 
 def load_join() -> dict[str, tuple[str, str, str]]:
@@ -103,6 +138,8 @@ def main() -> int:
         row["dest_connector"], row["dest_pin"], row["factory_wire"] = conn, pin, wire
         populated += 1
 
+    disagreements = oem_disagreements(join)
+
     print(f"source_dest rows landing on BBIA-1:   {len(join)}")
     print(f"authority rows populated with BBIA end: {populated}")
     print(f"rows changed by this run:               {changed}")
@@ -110,6 +147,14 @@ def main() -> int:
         print("\nCONFLICTS (existing CSV value != join value) -- NOT overwritten silently:")
         for c in conflicts:
             print("  " + c)
+
+    if disagreements:
+        print(f"\nOEM PINOUT DISAGREEMENTS ({len(disagreements)}) -- source_dest vs "
+              f"{CN_PINOUTS.name}.\nTwo OEM documents contradict each other; this script "
+              f"does NOT pick a winner. Record each in\nwiring/authority_conflicts.md and "
+              f"register it in validate_authority.py KNOWN_PLANE_CONFLICTS:")
+        for d in disagreements:
+            print("  " + d)
 
     if not args.write:
         print("\n(dry run -- pass --write to update mesa/current_pin_authority.csv)")

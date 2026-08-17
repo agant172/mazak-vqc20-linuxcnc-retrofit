@@ -74,20 +74,26 @@ Consequences that remove work:
   Mazak prints (`41434WB.pdf`) and captured in `wiring/bbia1_cn_pinouts.csv`. Do not
   model it as if it were a design decision. The retrofit **owns and must verify only
   the BBIA↔Mesa hop** (which Mesa terminal, normal state, polarity, scale).
-- **The factory wire number is the join key.** Each conductor carries a wire number
-  printed on its jacket (e.g. `210`), visible at the cut. That number — not the
-  CN/pin, not the signal name — is the stable primary key that ties the OEM print,
-  the BBIA pinout, the new ferrule/label, the Mesa terminal, and the HAL net
-  together. Label with the wire number first (see `wiring/bbia1_terminal_unit.md` §
-  "Practical use").
-- **One joined table, not four.** Today the spine is split across
-  `mesa/current_pin_authority.csv` (Mesa+HAL end, BBIA end blank in 81/132 rows),
-  `wiring/bbia1_source_dest.csv` (both ends, 74 rows), the
-  `wiring/bbia1_retrofit_destination_crosswalk.csv` (15 rows), and the OEM pinout
-  `wiring/bbia1_cn_pinouts.csv` (205 rows) — four different keys for two ends of one
-  cable. The model should express the plane directly: **one row per conductor, both
-  ends populated, keyed on the factory wire number.** See Section 5 for the proposed
-  consolidation (not yet executed).
+- **The factory wire number is the label and the lookup key — but not the primary
+  key.** Each conductor carries a wire number printed on its jacket (e.g. `210`),
+  visible at the cut, and that number is what ties the OEM print, the BBIA pinout,
+  the new ferrule/label, the Mesa terminal, and the HAL net together. Label with the
+  wire number first (see `wiring/bbia1_terminal_unit.md` § "Practical use").
+  **Corrected 2026-08-17:** this file previously called it "the stable primary key."
+  It is not unique. The OEM print reuses wire `231` on two unrelated circuits —
+  `CN4-1` SPINDLE ZERO SPEED and `CN11-13` FLOOD COOLANT — so wire numbers are
+  unique within a circuit section, not globally. The join therefore keys on
+  `signal_id`; duplicate wire numbers are a WARN against an explicit allowlist, never
+  an error. See `wiring/authority_conflicts.md` § 7.1.
+- **One joined table, not four.** `mesa/current_pin_authority.csv` (124 rows) now
+  carries both ends: the Mesa+HAL end it has always owned, plus
+  `dest_connector` / `dest_pin` / `factory_wire` describing the BBIA end, populated
+  for the **44 rows that cross the plane**. `wiring/bbia1_source_dest.csv` (66 rows)
+  remains the curated, provenance-bearing **input** to that join, and
+  `wiring/bbia1_cn_pinouts.csv` (205 rows) remains the immutable OEM reference both
+  are checked against. `wiring/bbia1_retrofit_destination_crosswalk.csv` (14 data
+  rows) is superseded but retained — see § 5. Status of each consolidation step is in
+  Section 5.
 
 ---
 
@@ -159,28 +165,59 @@ that is not here must be added here.
 
 ---
 
-## 5. Proposed consolidation (NOT yet executed — needs owner approval)
+## 5. Consolidation — APPROVED by AG 2026-08-17, executed
 
 The plane implies the four spine files should become **one joined table, one row per
-BBIA-1 conductor**. This is a data-model change, so it is proposed here rather than
-done unilaterally:
+BBIA-1 conductor**. Approved and carried out; per-bullet status below. Most of it had
+already landed in PR #47 (`81d9658`) without this section being updated — the
+"NOT yet executed" heading was stale, which is why approval was being sought for work
+that was largely done.
 
-- Make `mesa/current_pin_authority.csv` express both ends of the plane: populate the
-  existing `dest_connector` / `dest_pin` columns (BBIA end) from
-  `bbia1_source_dest.csv` + `bbia1_cn_pinouts.csv`, joined on the factory wire number,
-  and add a `factory_wire` column as the stable key.
-- Reduce `bbia1_source_dest.csv` and `bbia1_retrofit_destination_crosswalk.csv` to
-  generated views of that single authority (or retire them), so there is one spine,
-  not four.
-- Keep `bbia1_cn_pinouts.csv` as the immutable OEM reference the join reads from.
-- Reshape the I/O Navigator (`io-dashboard/`) to present the plane: for each signal,
-  machine function → BBIA CN/pin + wire # → Mesa terminal → HAL net, with the
-  Section 3 exceptions shown as their own groups.
-- Extend `scripts/validate_authority.py` to check that every non-exception row has a
-  populated BBIA end and a wire number, and that wire numbers are unique.
+| # | Step | Status |
+|---|---|---|
+| 1 | Authority CSV expresses both ends; `factory_wire` column added | **DONE** — 44 plane rows populated |
+| 2 | Reduce/retire `bbia1_source_dest.csv` + the retrofit crosswalk | **REJECTED / DEFERRED** — see below |
+| 3 | `bbia1_cn_pinouts.csv` as the immutable OEM reference the join reads | **DONE 2026-08-17** — it was never actually read until now |
+| 4 | Reshape the I/O Navigator to present the plane | **DONE** — `bbia_class()` in `io-dashboard/tools/generate_data.py` |
+| 5 | Validator: BBIA end + wire number present, wire numbers unique | **DONE 2026-08-17**, with one premise corrected |
 
-**Do not start the consolidation until AG approves the target schema**, because it
-touches the authority CSV that HAL and CI validate against.
+**Step 1 — as built.** The join is `scripts/consolidate_bbia_authority.py`, and it keys
+on **`signal_id`**, not on the factory wire number this section originally specified.
+That is deliberate and now permanent: wire numbers are not unique (§ 2, and
+`wiring/authority_conflicts.md` § 7.1). The script is idempotent and never invents a
+coordinate — rows `source_dest` marks as off-plane stay blank.
+
+**Step 2 — rejected for `source_dest`, deferred for the crosswalk.** Making
+`bbia1_source_dest.csv` a *generated view* of the authority would invert the data flow:
+it is the **input**, and it is the only place the `source_provenance` strings live
+("RESOLVED 2026-08-10: Dwg 4143075409 pg135 …"). Regenerating it from the authority
+would destroy the evidence that justifies the authority. It stays a curated source.
+`bbia1_retrofit_destination_crosswalk.csv` genuinely is superseded — 13 of its 14 data
+rows are redundant with the authority — but the 14th (`CN2-14` → `Z_LIMIT_PLUS`)
+*contradicts* it with a retracted inference, so the file is **retained until the +Z
+over-travel field trace lands** rather than deleted. See `authority_conflicts.md` § 7.3.
+
+**Step 5 — as built, and what it found.** `check_plane_schema()` in
+`scripts/validate_authority.py` enforces three things, all WARN-only so that a known-open
+documentation conflict cannot break CI:
+
+1. every plane row carries a `factory_wire` (it is the ferrule text);
+2. no two rows claim the same wire, except the OEM's own documented reuse
+   (`OEM_REUSED_WIRES`);
+3. every plane row's `(connector, pin)` exists in the OEM pinout and its wire matches
+   the `Wire_No` recorded there, except registered conflicts (`KNOWN_PLANE_CONFLICTS`).
+
+Both allowlists are **staleness-checked**: an entry that no longer describes a real
+condition is reported, so registering a conflict cannot quietly mask its later
+regression. Running check 3 for the first time surfaced two OEM-vs-OEM contradictions
+(`ATC_ZONE_Y` at `CN3-44`, `ATC_ZONE_Z` at `CN3-39`) — both recorded in
+`wiring/authority_conflicts.md` § 7.2, **both unresolved, and neither conductor may be
+landed on a Mesa input until it is buzzed at CN3.**
+
+Scope limit worth knowing: the cross-check compares **wire numbers only**. A pin where
+both sources agree on the wire but disagree on the printed signal name (as at `CN2-13`)
+passes silently, by design — the wire number is the key and the printed label is
+known-fallible.
 
 ---
 
