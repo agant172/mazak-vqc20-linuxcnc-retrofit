@@ -197,8 +197,39 @@ In this order. Pole count gates scaling, so it comes before any scale is entered
 
 Both are pure document work and both bear on decisions already in the BOM.
 
-- [ ] **Settle plain 7i49 vs 7i49HV.** `bom/README.md` specifies the plain card and lists HV as "not currently required", resting partly on a reading that the sibling VQC 15/40 runs a plain card. A later pass reported that same machine running a **7i49HV**. Both cannot be true, and it is the same question as the step-up above: whether the SIN/COS returns land inside a plain 7i49's input window. Read `github.com/srdco/MazakVQC1540` directly — its INI/HAL and any BOM notes — and record which card, with a citation. **Nobody has verified either claim against that repo.**
+- [x] **Settle plain 7i49 vs 7i49HV — DONE 2026-08-17. It is a `7i49HV`.** The sister
+  VQC 15/40's own purchased-parts table lists **`7i49HV`, $184.00** (`vqc-retrofit-wiring-sheet2.ods`,
+  Sheet3 row 4, ticked `x`). The "plain 7i49" reading came from **comments** in
+  `MAZAK-VQC1540.ini:138` / `.hal:28`, which cannot settle it: both cards expose identical
+  `hm2_*.resolver.NN.*` pins, so no HAL/INI can record which card was bought. `bom/` and the
+  stack table are updated; the later pass was right and the original claim was wrong.
+  Full write-up and citations: [`../bom/README.md`](../bom/README.md#which-7i49-the-sister-machine-actually-runs--settled-2026-08-17).
+  - **Also corrected:** that same sentence said the sister runs "at 5 kHz". It runs
+    **2.5 kHz** (`MAZAK-VQC1540.ini:176`, applied live at `.hal:117`). Our plan still says
+    5 kHz "verify on scope" — that is now an unanchored choice, not one the sister corroborates.
+  - **Small follow-up, does not block ordering:** get `7i49man.pdf` into
+    `docs/Mesa Manuals/` to confirm Mesa's "2:1" vs "1:2" direction convention.
+    `freeby.mesanet.com` served an expired certificate on 2026-08-17.
 - [ ] **Find the ballscrew lead.** Never recorded here. `VQC20-40_060231_Parts_List.pdf` (42 MB, Drive folder `Manuals_SN060231`) should name the ballscrew assembly, and Mazak screw part numbers usually encode the lead. Confirms n (= lead ÷ 2.000 mm, expected 5) and cross-checks the whole τ derivation. Alternatively measure it: dial indicator on the table, hand-turn the screw one revolution — no power, ten minutes.
+  - **n = 5 gained independent support 2026-08-17** while reading the sister repo for the
+    7i49 question: it runs `RESOLVER_INDEX_DIVISOR = 5` on all three axes
+    (`MAZAK-VQC1540.ini:199/235/271`, applied at `.hal:168` etc.). That is a *running
+    machine's* pole-pair count, not a derivation, and it matches the expected 5. It does
+    **not** replace finding the lead — same-model-family is an assumption, and index-divisor
+    is set by whoever tuned it — but n = 5 is no longer resting on the undocumented 10 mm lead alone.
+
+#### Two side findings from the 2026-08-17 sister-repo read
+
+Both corroborate `handoff.md` claims from an independent source; neither was the reason for the read.
+
+- **`RESOLVER_SCALE = 0.07874016` is confirmed present**, identical to our proposed value,
+  on all three axes (`MAZAK-VQC1540.ini:197/233/269`). `handoff.md` already cites the sister
+  machine for this; this is the direct line reference it lacked.
+- **Switch homing is corroborated.** All three axes run `HOME_USE_INDEX = NO`
+  (`MAZAK-VQC1540.ini:210/246/282`) despite the config wiring `index-enable` and generating
+  an emulated index. A comparable machine with the same detectors deliberately not homing on
+  index is independent support for the multi-pole finding in `handoff.md` (M2 Table 14.3-1,
+  §14.2, §6.7.1) — reached from a config file rather than from the manual.
 
 ### Two traps that produced false negatives on 2026-08-17
 
