@@ -101,15 +101,40 @@ runs in **inch mode**, so a raw value is meaningless without its increment.
 even in inch mode, while positions are 0.0001″. Do not convert one with the
 other's factor.
 
-### What this manual does NOT contain
+### `MC1–MC4` carry the control τ number — decode them
 
-Searched the full 48-page OCR for `tau`, `grid`, `detector`, `resolver`, `pole`
-and `characteristic`: **no hits.** The Meldas **control τ number** — needed to
-derive resolver grid spacing, and through it the resolver pole count — is *not*
-a parameter. The M2 maintenance manual describes it as a "machine characteristic
-value" read from alarm-diagnosis picture 4 on the CRT. With the NC rack removed,
-it is not recoverable from paper. See
-[`../docs/resolver_commissioning.md`](../docs/resolver_commissioning.md#pole-count-what-the-parameters-do-and-do-not-tell-us).
+**`MC` is a packed 16-bit word, not a scalar.** The manual's `MC1` row (printed
+p. 6-35) draws the bit field explicitly:
+
+```
+F E D C B A 9 8 | 7 6 5 4 3 2 1 0
+└─ LINEAR ZONE ─┘ └───  τ × 8  ──┘
+LINEAR ZONE codes:  0:16000  1:4000   2:8000    3:16000
+                    4:32000  5:64000  6:128000  7:16000
+```
+
+This machine reads **`MC1 = MC2 = MC3 = 784`** on the 1985 factory sheet *and*
+on the 2026-07-28 live CRT — 41 years apart, in agreement:
+
+```
+784 decimal = 0x0310
+  high byte 0x03 -> LINEAR ZONE code 3 = 16000
+  low  byte 0x10 = 16 = τ × 8   ->   τ = 2.000   (X, Y and Z alike)
+```
+
+A hex reading of the displayed digits (`0x784`) would give LINEAR ZONE 7 and
+τ = 16.5 — a non-integer grid, so the decimal reading is the right one.
+
+**τ = 2 gives grid spacing = 4000/τ = 2.000 mm**, which is the resolver scale
+the retrofit needs. See
+[`../docs/resolver_commissioning.md`](../docs/resolver_commissioning.md#pole-count-and-resolver-scale-derived-from-τ).
+
+> **Why a text search misses this, and the lesson.** τ is printed as a Greek
+> letter *inside a figure*. Full-text OCR of all 48 pages renders it as `I` or
+> noise, so grepping the OCR for `tau`/`grid`/`detector`/`resolver`/`pole`
+> returns **zero hits** — and a session did exactly that on 2026-08-17 and
+> reported "τ is not in the parameter book". It is. **In this document set,
+> a grep miss is not evidence of absence: render the page and look at it.**
 
 ## Recovery procedure
 

@@ -119,6 +119,12 @@
 #      per screw revolution; convert to inches for this inch config).
 #   2. Confirm there is no reduction between screw and resolver (flex coupling
 #      is 1:1; if any belt/pulley or gearbox is present, factor in its ratio).
+#   2a. START FROM THE OEM VALUE: the M-2 stored tau (MC1-MC4 = 784 -> tau = 2)
+#      gives grid spacing = 4000/tau = 2.000 mm = 0.07874016 in of travel per
+#      resolver ELECTRICAL revolution, which is exactly what .scale wants. A
+#      sibling VQC 15/40 retrofit runs the same 0.07874016. This is PROPOSED
+#      (documentary, not measured here) -- verify it, do not just adopt it.
+#      Derivation: docs/resolver_commissioning.md.
 #   2b. Count nulls per MECHANICAL revolution -- these detectors are MULTI-POLE.
 #      The M2 maintenance manual classes the RT detector as a "multi-polar
 #      resolver" (Table 14.3-1) and states grid points fall at each 1/n
