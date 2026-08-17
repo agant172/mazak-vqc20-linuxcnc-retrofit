@@ -598,11 +598,14 @@ so a vault path edited underneath a running instance is silently reverted.
   photos moved; don't trust the eight-folder scheme until it's re-verified on Drive
   directly.
 - **Actually confirmed today:** the real raw photo history (control cabinet interiors,
-  MAZATROL CAM M-2 screens, connector detail — Oct 2024 through present) lives
-  uncurated in the account's default **Google Photos**, not Drive. Collected into a
-  shared album: [Mazak VQC-20 Retrofit — Control Cabinet Photos](https://photos.app.goo.gl/o59yC81mQhwYaVF68)
-  (34 photos/videos, selected via visual search for mazatrol — re-run that search
-  periodically to catch newer shots the album won't auto-include).
+  MAZATROL CAM M-2 screens, resolver/encoder detail, terminal blocks — Oct 2024
+  through present) lives uncurated in the account's default **Google Photos**, not
+  Drive. Collected into a shared album:
+  [Mazak VQC-20 Retrofit — Control Cabinet Photos](https://photos.app.goo.gl/o59yC81mQhwYaVF68)
+  (200+ photos/videos, built from visual searches for "mazatrol" and "VQC-20";
+  hand-filtered per date to drop unrelated shop equipment and personal photos that
+  those searches also matched). Not exhaustive and not auto-updating — re-run those
+  searches periodically to catch newer shots and sweep in whatever they still miss.
 - Any `photos/…` path written in this repo means a **Drive folder**, not a directory on disk.
 - **Cite photos as `YYYY-MM-DD/IMG_nnnn`** — never a bare `IMG_nnnn`, which recurs across
   batches. Full scheme and migration table: `docs/README_photo_sorting.md`.
