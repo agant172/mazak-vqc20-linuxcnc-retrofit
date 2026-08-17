@@ -202,6 +202,17 @@ def read_text_exact(path: Path) -> str:
         return handle.read()
 
 
+def write_text_exact(path: Path, text: str) -> None:
+    """Write text with no newline translation.
+
+    The CSVs are rendered with explicit CRLF line endings, so the CRs must
+    survive the write untouched. `Path.write_text(newline="")` only exists on
+    Python 3.10+, and the Macs run the stock 3.9, so open the handle instead.
+    """
+    with path.open("w", encoding="utf-8", newline="") as handle:
+        handle.write(text)
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     mode = parser.add_mutually_exclusive_group(required=True)
@@ -211,7 +222,7 @@ def main() -> int:
     stale: list[str] = []
     for path, expected in expected_texts().items():
         if args.write:
-            path.write_text(expected, encoding="utf-8", newline="")
+            write_text_exact(path, expected)
             print(f"wrote {path.relative_to(REPO_ROOT)}")
         elif not path.exists() or read_text_exact(path) != expected:
             stale.append(str(path.relative_to(REPO_ROOT)))
