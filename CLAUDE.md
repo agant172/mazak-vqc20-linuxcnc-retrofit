@@ -138,7 +138,7 @@ or wiring crosswalks.
 
 ## Sources of truth
 
-Three sources are authoritative, in priority order:
+Four sources are authoritative, in priority order:
 
 1. **GitHub repo `agant172/mazak-vqc20-linuxcnc-retrofit`**
    https://github.com/agant172/mazak-vqc20-linuxcnc-retrofit
@@ -172,10 +172,31 @@ Three sources are authoritative, in priority order:
    Cite: filename, card model, version, page. Committed PDF wins over
    datasheets or forum posts unless a newer version is committed to the repo.
 
+4. **Mitsubishi MEAU knowledge base** — the manuals Mitsubishi still holds for
+   this control, and the source that settled the resolver interface on
+   2026-08-16.
+   `https://us.mitsubishielectric.com/fa/en/support/technical-support/knowledge-base/`
+   **Sign-in is mandatory and the failure mode is silent:** logged out, a search
+   for `MELDAS` returns **zero** results and the site looks like it holds nothing
+   older than the M8 series; logged in (free account), the same search returns
+   **479**, including 42 tagged OEM `Mazak`. Anyone concluding "Mitsubishi has
+   nothing this old" was searching logged out.
+   - `M2 Maintenance Manual` (BNP-A2443A / M1243-ES) — DocID
+     `3E26SJWH3ZZR-24-2354`, 297 pp. Detector wiring, servo adjustment, zero
+     return. **This is the authority for the detector interface**; findings in
+     [`docs/resolver_commissioning.md`](docs/resolver_commissioning.md).
+   - `TRS Maintenance Manual` — DocID `3E26SJWH3ZZR-24-3738`. A *different*
+     amplifier family whose resolver senses magnetic pole position — era context
+     only, not this machine.
+   These are **scans without text layers**, so grep and site preview both find
+   nothing; they must be OCR'd, and figures read as images (OCR scrambles diagram
+   reading order). Not committed — media rule. Cite: manual name, figure or
+   section, **printed** page.
+
 All other sources (LinuxCNC wiki, Perplexity/ChatGPT session notes, Desktop
 Commander notes, third-party retrofit writeups, unverified conversational
 context) are secondary. They may inform understanding but do not override
-the three authorities above.
+the four authorities above.
 
 ---
 
@@ -422,6 +443,8 @@ writes `PROPOSED`, not `ELECTRICALLY_VERIFIED`
 | Working copy — **all three machines** | `~/mazak-vqc20-linuxcnc-retrofit` | `scripts/host_status/collect_status.sh` |
 | Control NIC | `192.168.1.1/24`; interface name `enp0s31f6` **unverified** — confirm with `ip -o link show` | `linuxcnc/README.md`, `docs/hm2_eth_nic_validation.md` |
 | Mesa 7i80HDT | `192.168.1.121` (static) | same |
+| SSH to the OptiPlex | `ssh linuxcnc` → `andy@linuxcnc.tail2a912f.ts.net`, over Tailscale, **key auth only** | `~/.ssh/config` on each Mac |
+| Keys authorized on the OptiPlex | **iMac** `SHA256:tjYw8rTkarNYK8r/uxvQskP78Y4ADFx+8U5fBWKsQag` (`andygant@imac`, added 2026-08-16). **MacBook Pro: unknown — check.** | `andy@linuxcnc:~/.ssh/authorized_keys` |
 
 Work in the git working copy, not in a scratch directory — anything produced outside it is
 lost, and the repo is the memory. LinuxCNC runtime output (`mesa_readhmid.txt`,
@@ -433,6 +456,15 @@ doc rather than committing the dump.
 A Mac session may reach the OptiPlex over SSH. That makes the *machine* reachable from a room
 where **nobody can see it move and nobody can reach the E-stop**, so the boundary is drawn by
 consequence, not by convenience:
+
+**If `ssh linuxcnc` returns `Permission denied (publickey,password)`, that machine's key is not
+installed** — the OptiPlex switched from Tailscale SSH to plain sshd on 2026-08-16 and keys did
+not carry over automatically. Diagnose with `ssh -v` (look for `Offering public key` followed by
+another `Authentications that can continue`: offered and rejected = not in `authorized_keys`).
+Fix from the Mac with `ssh-copy-id -i ~/.ssh/id_ed25519.pub linuxcnc`, or paste the `.pub` line
+into `~/.ssh/authorized_keys` at the OptiPlex. Password auth is still enabled, so the copy-id
+path works. **Record the new key in the table above in the same commit** — that table is the only
+place this is written down.
 
 **Allowed over SSH, unattended** — read-only inspection that cannot move anything or energize
 an output:
