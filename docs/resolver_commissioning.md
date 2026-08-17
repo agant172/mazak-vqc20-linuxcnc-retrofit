@@ -290,6 +290,48 @@ including a wrong one — the resolver is a passive rotary transformer. Use the
 measured DC resistances (35 Ω, ~107 Ω) as a sanity floor for expected drive
 current; actual AC impedance will be several times higher.
 
+### Pole count: what the parameters do and do not tell us
+
+**The paper route to `n` exists in principle and is blocked in practice.** The M2
+maintenance manual gives the mechanism (printed p. 109):
+
+```
+Grid spacing = 4000 / τ          τ = "control τ number" (machine characteristic value)
+```
+
+Grid points fall once per resolver electrical revolution (§6.7.1: at each `1/n`
+revolution, `n` = number of poles), so **grid spacing = screw lead ÷ n**, and:
+
+> **n = (screw lead in µm × τ) ÷ 4000**
+
+**τ is not obtainable from documentation.** It is read from alarm-diagnosis
+picture 4 on the CRT, and the machine's own parameter book — *Parameter List &
+Explanation for M-2*, Pub. #PAREXM2I0E, rev. 1986-02-27, 48 pp, Drive ID
+`1ZSqdppzTx4Xd0q6b4XNqcguX3hgHgJpx` — does **not** contain it (full-text OCR
+searched 2026-08-17 for τ, grid, detector, resolver, pole, characteristic: no
+hits). It is a machine characteristic, not a stored setting. No photograph of
+picture 4 was taken before the NC rack was removed. **The ballscrew lead is also
+unrecorded anywhere in this repo.**
+
+**One bound is derivable, and it is suggestive rather than decisive.** `ZS` is
+the zero-point shift, increment **0.0001 inch**
+([`../background/parameter_recovery.md`](../background/parameter_recovery.md)).
+The factory sheet records `ZS2 = 723` → 0.0723 in → **1.836 mm**. If a zero-point
+shift is bounded by one grid interval, then **grid spacing > 1.836 mm on Y**:
+
+| Lead | n | Grid spacing | Consistent with ZS2? |
+|---|---|---|---|
+| 10 mm | 5 | **2.000 mm** | yes — and equals the 2 mm inductosyn grid the manual quotes |
+| 10 mm | 4 | 2.500 mm | yes |
+| 10 mm | 8 | 1.250 mm | **no** |
+| 8 mm | 5 | 1.600 mm | **no** |
+
+This points at **n = 5**, agreeing with the `RT-5X` naming. **Do not set
+`RESOLVER_SCALE` from it.** Two links in the chain are unverified: that a grid
+shift cannot exceed one grid interval (not stated in either manual), and the
+10 mm lead (assumed, not measured). It is a cross-check to run *against* the
+measured value, not a substitute for measuring.
+
 #### Test 1 — nulls per mechanical revolution. Run this FIRST; it gates scaling.
 
 Drive the 35 Ω winding at ~5 kHz, 3–5 Vrms, through the series resistor. Scope
