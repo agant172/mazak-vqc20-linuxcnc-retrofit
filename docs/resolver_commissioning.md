@@ -336,6 +336,20 @@ candidate lead, so the resolver null repeats within a screw turn and cannot
 identify a unique position. **Switch-based homing stays mandatory**, and the
 sibling machine likewise sets `HOME_USE_INDEX = NO`.
 
+**The 1:1 coupling is confirmed from the parts list, not assumed.** The OEM parts
+list (`VQC20-40_060231_Parts_List.pdf`, X/Y/Z drive assemblies) lists, immediately
+adjacent to each resolver entry:
+
+```
+Coupling   ARM-100-φ9.52-φ9.52   (MIKI PULLEY)
+Resolver   RT-5XA-11 (MITSUBISHI)
+```
+
+Equal bores both ends — a flexible coupling, **no reduction between ballscrew and
+resolver**. That closes the last mechanical assumption in the derived scale. The
+same pages confirm **RT-5XA-11 on all three axis drive assemblies**, which until
+now rested on the electrical diagram and the nameplates.
+
 **Evidence state: `PROPOSED`.** This is a documentary derivation plus a
 third-party config, not a measurement on this machine. Test 1 below is now a
 **verification** — it should return 2.000 mm of travel per electrical
@@ -407,9 +421,17 @@ exactly 5 kHz** — that is the number the 7i49 needs.
 than double Tamagawa's stated ±5% band, and Tamagawa's application note says
 accuracy is affected outside it. This is an **accuracy and calibration issue, not
 a damage risk** — it appears as a phase-shift and amplitude-scale offset to be
-calibrated, not assumed away. A sibling machine (a VQC 15/40 retrofit on a plain
-7i49) runs its original resolvers at 5 kHz successfully. So 5 kHz is a known-good
-compromise; measure the offset.
+calibrated, not assumed away.
+
+**The sibling machine does not validate 5 kHz — it runs 2.5 kHz.** Its committed
+config sets `[AXES] RESOLVER_EXC_FREQ = 2.5` on the same original Tamagawa
+resolvers (verified 2026-08-17; a forum thread cited in `README.md` says 5 kHz,
+and the two disagree). Both are 7i49-selectable, and that machine chose the
+option *below* the 4.5 kHz nominal rather than above it. Whether that was to tame
+hot returns — which the reverse-drive step-up above would predict — or simply
+what they tried first, a config file cannot say. **Treat 2.5 kHz as a live
+alternative to test, not a curiosity**, and measure amplitude and phase at both
+before committing.
 
 ## Excitation and return proof
 

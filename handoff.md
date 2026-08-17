@@ -39,14 +39,20 @@ conclusions and will re-derive things that are now settled.
 1. **Verify the scale on the machine.** Predicted result: 2.000 mm of travel per
    electrical revolution, 5 nulls per screw revolution. If the bench disagrees,
    **the bench wins.**
-2. **Confirm the flex coupling is 1:1.** Any reduction between screw and resolver
-   scales 0.07874016 directly. This is the one mechanical assumption left in the
-   derived number.
+2. ~~Confirm the flex coupling is 1:1.~~ **Closed 2026-08-17** from the OEM parts
+   list: `Coupling ARM-100-φ9.52-φ9.52 (MIKI PULLEY)` sits beside the resolver in
+   each axis drive assembly — equal bores, no reduction.
 3. **Transformation ratio and phase shift at 5 kHz** — measured, not looked up.
    See the warning below.
-4. **Two desk items**, no machine needed — see
-   [`docs/project_status.md`](docs/project_status.md#open-desk-items--no-machine-access-needed):
-   settle plain 7i49 vs 7i49HV, and find the ballscrew lead in the parts list.
+4. **Ballscrew lead — still unknown.** The parts list names the screws
+   (X `14131104600`, Z `14131303340`) but **states no lead**; it is a part-number
+   list, not a spec. Either measure it (dial indicator, hand-turn one revolution)
+   or have a Mazak dealer resolve the part number. Only needed to confirm n, not
+   to set the scale.
+
+**Closed 2026-08-17:** the card question — the sister VQC 15/40 runs a **plain
+7i49**, confirmed from its committed config, and **at 2.5 kHz, not 5 kHz**. See
+[`bom/README.md`](bom/README.md).
 
 ---
 
@@ -92,6 +98,8 @@ Nothing large is committed (media rule). To get back to the primaries:
 | `VQC20-40_060231_Parts_List.pdf` — for the ballscrew lead | same Drive folder |
 | Live `MACH CONSTANT PAR NO.2` CRT photo | Drive file ID `1yTkUJBBNEuA-mmtQIEsrb2WuOz5qpe3N` |
 | All three PDFs, already downloaded | `~/Downloads` on the OptiPlex |
+| **Google Drive, mounted locally on the iMac** — read the manuals directly, no download needed | `~/Library/CloudStorage/GoogleDrive-andy.gant@gmail.com/My Drive/Mazak/Manuals_SN060231/` |
+| Sister-machine configs (card, excitation, resolver scale) | `github.com/srdco/MazakVQC1540`, `MAZAK-VQC1540-20170501/` |
 
 Both Meldas manuals are **scans with no text layer**: page images only. Printed page
 = PDF page − 11 in the M2 maintenance manual. OCR them with `pdftoppm -r 250 -png`

@@ -72,8 +72,21 @@ POWER, pin 50 GND).
   TS2014N-series shaft resolvers** (X/Y nameplates read `TS2014N 25 E …` in the 2026-08-15
   survey, [`../docs/feedback_nameplate_survey_2026-08-15.md`](../docs/feedback_nameplate_survey_2026-08-15.md); Z resolver nameplate still unread), so feedback is resolver,
   not encoder. A **VQC 15/40 sister retrofit** on the **same Mitsubishi TRA drives and
-  HD81-12S motors** runs a plain 7i49 (not HV) at 5 kHz, which anchors this choice.
+  HD81-12S motors** runs a **plain 7i49 (not HV)** — verified 2026-08-17 by reading its
+  committed config: `MAZAK-VQC1540.ini:138` `# BOARD1=7i49`, `MAZAK-VQC1540.hal:28`
+  `# - 7i49 - Resolver/Analog Servo Board`, and no occurrence of "HV" anywhere in that
+  repository. That anchors the card choice. **It does not anchor 5 kHz** — see the
+  frequency note below.
   In the new stack the 7i49 sits on 7i80HDT **P1** (confirmed 2026-08-13 by `readhmid`).
+- **The sister machine runs 2.5 kHz, not 5 kHz.** Its committed config sets
+  `[AXES] RESOLVER_EXC_FREQ = 2.5` (2017-05-01 snapshot) on the same original Tamagawa
+  resolvers. A forum thread cited elsewhere in this repo reports that machine at 5 kHz;
+  the two sources disagree and the thread has not been re-read. Both 2.5 and 5 kHz are
+  7i49-selectable, and they picked the option *below* the 4.5 kHz nominal rather than
+  above it. **Do not cite the sister machine as validation of 5 kHz.** Its resolver
+  settings, for the record: `RESOLVER_SCALE = 0.07874016`,
+  `RESOLVER_VELOCITY_SCALE = 0.003333333`, `RESOLVER_INDEX_DIVISOR = 5`,
+  `HOME_USE_INDEX = NO`, on all three axes.
 - **7i49HV is not currently required** and stays on the contingency list unless a Mesa (PCW) review of the installed `TS2014N 25 E …` suffix (read 2026-08-15 on X/Y; Z unread) says otherwise — PCW's warning that some TS2014 variants are not 7i49-compatible is live for this suffix until its datasheet is obtained. (**W2 on the plain 7i49 does not affect axis channels 0/1/2**, only 3/4/5, so it is not a valid signal-level remedy for X/Y/Z.) Any escalation should follow
   measurements contradict the plain-7i49 plan (return signal far too weak at full drive,
   or a resolver ratio other than 2:1 — itself a 141E26 comparison figure, unconfirmed for
