@@ -218,8 +218,13 @@ Both are pure document work and both bear on decisions already in the BOM.
   - **`RESOLVER_INDEX_DIVISOR = 5`, now entered in the INI** on all three joints (was the
     placeholder `1`, whose comment wrongly expected a single-speed detector). n = lead ÷ grid
     spacing = 10.000 ÷ 2.000, with the confirmed 1:1 resolver coupling. Still rests on the
-    τ = 2 derivation for the 2.000 mm, so it is *determined*, not *measured* — the commissioning
-    rawcounts check confirms both at once: expect **5 electrical cycles per screw revolution**.
+    τ = 2 derivation for the 2.000 mm, so it is *determined*, not *measured*. **The check is a
+    scope reading and needs no Mesa hardware** — Test 1 in
+    [`resolver_commissioning.md`](resolver_commissioning.md#test-1--nulls-per-mechanical-revolution-run-this-first-it-gates-scaling):
+    hand-turn one screw revolution and expect **5 electrical revolutions = 10 amplitude nulls**,
+    a null every 1.000 mm of travel. **Count nulls and halve them** — the envelope shows 2n, and
+    reading it as n is the same doubling trap that produced the 20 mm lead. Test 1 said
+    `n = nulls` until 2026-08-17; that is corrected.
   - **The 1985 factory parameter sheet is corroborated.** `RF1–3 = 4724` = 12.000 m/min ÷
     10 mm = 1200 screw rpm = exactly each motor's rated Nmax. The rapid the machine was built
     to is **12.000 m/min = 472.4 in/min = 7.874 in/s** — a design ceiling, **not** a
