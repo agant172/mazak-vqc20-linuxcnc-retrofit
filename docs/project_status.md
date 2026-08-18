@@ -184,7 +184,7 @@ In this order. Pole count gates scaling, so it comes before any scale is entered
 - [ ] Confirm the 7i49 is the **sole resolver excitation source** — nothing from the old drive/control still driving the windings before energizing.
 - [ ] Scope RESDRV excitation and RESSIN/RESCOS amplitude and phase at rest and under motion. **Do not expect the old ~1 V RMS from ~2 V RMS figure** — that assumed a 2:1 step-DOWN taken from the rotor-excited 141E26. This detector is the other construction: Mitsubishi excited the two-phase windings and read the single one, so driving it the 7i49 way (excite 16/17) runs it **backwards through a ~0.3 ratio, i.e. roughly a 3× step-UP**. Returns may be several volts, not one. Measure before assuming the input range is safe, and see the 7i49-vs-7i49HV question below. **W2 does NOT affect axis channels 0/1/2** (only 3/4/5), so it is not a valid remedy for a hot X/Y/Z return; if the return is far off the ~1 V RMS target, escalate to Mesa (PCW) for review of the specific TS2014N suffix before adding external dividers or a 7i49HV.
 - [ ] **Verify `RESOLVER_SCALE` = 2.000 mm (0.07874016 in) per electrical revolution.** No longer a discovery: τ = 2 is stored in `MC1–MC4` (= 784) and gives grid spacing 4000/τ = 2.000 mm, which *is* travel per resolver electrical revolution — **independent of the ballscrew lead**. A sibling VQC 15/40 retrofit runs the identical 0.07874016. Marked `PROPOSED`; confirm on the machine and let the measurement win if they disagree. Derivation and failure modes: [`resolver_commissioning.md`](resolver_commissioning.md#pole-count-and-resolver-scale-derived-from-τ).
-- [ ] Enter `RESOLVER_SCALE` for X/Y/Z: **confirm the flex coupling is 1:1** (any reduction between screw and resolver scales the derived 0.07874016 in directly), then enter the signed value into each `[JOINT_N]` block — sign per axis direction. Verify by counting `hm2_7i80.0.resolver.NN.rawcounts` against a dial indicator over multiple full ballscrew revolutions and adjust; flip the sign if the axis counts backwards. Set `RESOLVER_VELOCITY_SCALE` to the same signed value so `.velocity` reports in/s. Do NOT leave the 1.0 placeholder in place before running the axis — the HostMot2 doc defines `.scale` as machine units per RESOLVER ELECTRICAL revolution, not per motor rev; internal consistency between the two 1.0 defaults does not prove one inch per revolution.
+- [ ] Enter `RESOLVER_SCALE` for X/Y/Z: ~~confirm the flex coupling is 1:1~~ — **the coupling is confirmed 1:1 from the OEM parts list, 2026-08-17.** All three axes use `L10MN000070`, a **MIKI PULLEY ARM-100 with ⌀9.52 mm bores on both sides**, joining the resolver coaxially to the far end of the ballscrew (drawing `041311AS012`, PDF p. 49 of `413LE02A000.pdf`). Equal bores, a shaft coupling, no ratio — so nothing scales the derived 0.07874016 in. Note the 18:30 timing-belt reduction found in the same section is **motor→screw (1.6667:1)** and sits on the far side of the screw from the resolver: do **not** apply it to `RESOLVER_SCALE`, but it *is* needed for motor-rpm ↔ feedrate arithmetic. Details: [`feed_drive_parts_2026-08-17.md`](feed_drive_parts_2026-08-17.md). Then enter the signed value into each `[JOINT_N]` block — sign per axis direction. Verify by counting `hm2_7i80.0.resolver.NN.rawcounts` against a dial indicator over multiple full ballscrew revolutions and adjust; flip the sign if the axis counts backwards. Set `RESOLVER_VELOCITY_SCALE` to the same signed value so `.velocity` reports in/s. Do NOT leave the 1.0 placeholder in place before running the axis — the HostMot2 doc defines `.scale` as machine units per RESOLVER ELECTRICAL revolution, not per motor rev; internal consistency between the two 1.0 defaults does not prove one inch per revolution.
 - [ ] Verify analog command polarity/scaling for X/Y/Z on 7i49 AOUT0/1/2 before enabling drives.
 
 ### Open desk items — no machine access needed
@@ -197,8 +197,84 @@ In this order. Pole count gates scaling, so it comes before any scale is entered
 
 Both are pure document work and both bear on decisions already in the BOM.
 
-- [ ] **Settle plain 7i49 vs 7i49HV.** `bom/README.md` specifies the plain card and lists HV as "not currently required", resting partly on a reading that the sibling VQC 15/40 runs a plain card. A later pass reported that same machine running a **7i49HV**. Both cannot be true, and it is the same question as the step-up above: whether the SIN/COS returns land inside a plain 7i49's input window. Read `github.com/srdco/MazakVQC1540` directly — its INI/HAL and any BOM notes — and record which card, with a citation. **Nobody has verified either claim against that repo.**
-- [ ] **Find the ballscrew lead.** Never recorded here. `VQC20-40_060231_Parts_List.pdf` (42 MB, Drive folder `Manuals_SN060231`) should name the ballscrew assembly, and Mazak screw part numbers usually encode the lead. Confirms n (= lead ÷ 2.000 mm, expected 5) and cross-checks the whole τ derivation. Alternatively measure it: dial indicator on the table, hand-turn the screw one revolution — no power, ten minutes.
+- [x] **Settle plain 7i49 vs 7i49HV — DONE 2026-08-17. It is a `7i49HV`.** The sister
+  VQC 15/40's own purchased-parts table lists **`7i49HV`, $184.00** (`vqc-retrofit-wiring-sheet2.ods`,
+  Sheet3 row 4, ticked `x`). The "plain 7i49" reading came from **comments** in
+  `MAZAK-VQC1540.ini:138` / `.hal:28`, which cannot settle it: both cards expose identical
+  `hm2_*.resolver.NN.*` pins, so no HAL/INI can record which card was bought. `bom/` and the
+  stack table are updated; the later pass was right and the original claim was wrong.
+  Full write-up and citations: [`../bom/README.md`](../bom/README.md#which-7i49-the-sister-machine-actually-runs--settled-2026-08-17).
+  - **Also corrected:** that same sentence said the sister runs "at 5 kHz". It runs
+    **2.5 kHz** (`MAZAK-VQC1540.ini:176`, applied live at `.hal:117`). Our plan still says
+    5 kHz "verify on scope" — that is now an unanchored choice, not one the sister corroborates.
+  - **Small follow-up, does not block ordering:** get `7i49man.pdf` into
+    `docs/Mesa Manuals/` to confirm Mesa's "2:1" vs "1:2" direction convention.
+    `freeby.mesanet.com` served an expired certificate on 2026-08-17.
+- [x] **Ballscrew lead = 10.000 mm on X, Y and Z — CLOSED BY MEASUREMENT 2026-08-17.** At the
+  machine, unpowered: each **ballscrew itself** (not the motor — the belt reduction sits between
+  them) was hand-turned **one full revolution**, and each axis moved **10 mm**. All three
+  measured, none inferred. That is the floor of the admissible set and refutes 12 / 14 / 16 /
+  20 mm. Consequences, in order of usefulness:
+  - **`RESOLVER_INDEX_DIVISOR = 5`, now entered in the INI** on all three joints (was the
+    placeholder `1`, whose comment wrongly expected a single-speed detector). n = lead ÷ grid
+    spacing = 10.000 ÷ 2.000, with the confirmed 1:1 resolver coupling. Still rests on the
+    τ = 2 derivation for the 2.000 mm, so it is *determined*, not *measured* — the commissioning
+    rawcounts check confirms both at once: expect **5 electrical cycles per screw revolution**.
+  - **The 1985 factory parameter sheet is corroborated.** `RF1–3 = 4724` = 12.000 m/min ÷
+    10 mm = 1200 screw rpm = exactly each motor's rated Nmax. The rapid the machine was built
+    to is **12.000 m/min = 472.4 in/min = 7.874 in/s** — a design ceiling, **not** a
+    commissioning value. Leave `MAX_VELOCITY` at its conservative bring-up clamp.
+  - **The "poles" trap is dead.** Reading M2 printed p. 104 literally (5 pole pairs = 10 poles)
+    predicted a 20 mm lead. The screw says 10. Nobody should double the lead off that sentence.
+  - **`RESOLVER_SCALE` is unchanged** — it never depended on the lead.
+  - Write-up, including which paper arguments survived: [`ballscrew_lead_2026-08-17.md`](ballscrew_lead_2026-08-17.md).
+  - **The same-lead inference is now redundant** — it was right, but every axis has its own
+    measurement. Consequently **the X A-type/B-type question no longer touches the lead**:
+    either screw turns 10 mm per revolution. The variant still governs the belt ratio
+    (1.25:1 vs 1.6667:1) and so the motor-rpm arithmetic — still confirm it by counting teeth.
+
+- [x] **~~Find the ballscrew lead~~ — the paper search, for the record: the parts list is read and does not answer it (2026-08-17).**
+  The parts list was located: it is **already on the OptiPlex** as
+  `~/Documents/obisidian/Machine Shop/Mazak VQC-20-40 Retrofit/Manuals/413LE02A000.pdf`
+  (byte-identical to the Drive copy), filed under its Mazak publication number rather than a
+  searchable name. Read visually — it is a pure image scan, 1,552 chars of text layer across
+  298 pages.
+  - **Screw part numbers, now recorded:** Y is **`14131104600`**; Z is **`14131303340`**.
+    **X depends on the variant** — the parts list carries two X drives, A-type §20
+    (`14131104600`) and B-type §21 (**`14131110470`**), and the evidence says this machine is
+    the **B-type** (X travel ≈ 1002 mm vs the A/B spec of 635/1000 mm, and the X motor
+    nameplate reads HD 101-12). Treat X as `14131110470` at a **1.25:1** belt ratio, not the
+    1.667:1 that applies to Y. Confirm by counting teeth.
+  - **The lead is not printed** on any of the four ball-screw entries in the book, and the
+    drawings carry no dimensions at all. The premise that "Mazak screw part numbers usually
+    encode the lead" is not borne out.
+  - Full drivetrain readout — motors, pulleys, belts, resolver, coupling, bearings —
+    is in [`feed_drive_parts_2026-08-17.md`](feed_drive_parts_2026-08-17.md).
+  - **The lead was BOUNDED from paper, `lead ≥ 10.000 mm`,** from motor Nmax and pulley tooth
+    counts hand-lettered on the 1982 servo-drive schematic `41434WB.pdf` PDF p. 128 against the
+    factory rapid `RF1–3 = 4724` (12.0 m/min): every axis reaches 1200 screw rpm at its motor's
+    ceiling, so lead ≥ 11,998.96 ÷ 1200 = 9.999, and the M2 grid rule forces a multiple of
+    2.000 mm. **The measurement landed on the floor, so the bound was tight.** Full write-up —
+    the RT-5XA-11 naming argument, the poles caveat, what must **not** be cited, and every
+    document confirmed silent: [`ballscrew_lead_2026-08-17.md`](ballscrew_lead_2026-08-17.md).
+  - **Do NOT cite the sister machine's `RESOLVER_INDEX_DIVISOR = 5` as support for n = 5,**
+    and do not now cite the measurement as vindicating it. It is the circular route: the sister
+    value and our n = 5 are the same claim restated. Note the agreement, never fold it in.
+  - **The RT-5XA-11 naming argument turned out right but is still not citable.** No document
+    says the family digit is the pole count. Cite the measured lead instead.
+
+#### Two side findings from the 2026-08-17 sister-repo read
+
+Both corroborate `handoff.md` claims from an independent source; neither was the reason for the read.
+
+- **`RESOLVER_SCALE = 0.07874016` is confirmed present**, identical to our proposed value,
+  on all three axes (`MAZAK-VQC1540.ini:197/233/269`). `handoff.md` already cites the sister
+  machine for this; this is the direct line reference it lacked.
+- **Switch homing is corroborated.** All three axes run `HOME_USE_INDEX = NO`
+  (`MAZAK-VQC1540.ini:210/246/282`) despite the config wiring `index-enable` and generating
+  an emulated index. A comparable machine with the same detectors deliberately not homing on
+  index is independent support for the multi-pole finding in `handoff.md` (M2 Table 14.3-1,
+  §14.2, §6.7.1) — reached from a config file rather than from the manual.
 
 ### Two traps that produced false negatives on 2026-08-17
 
