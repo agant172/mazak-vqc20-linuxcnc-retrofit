@@ -25,28 +25,37 @@ conclusions and will re-derive things that are now settled.
 | Measured DC resistance: 105–109 Ω matched pair, 35 Ω odd winding, all three axes | at the machine, 2026-08-16 |
 | **`τ = 2`**, from `MC1–MC4 = 784` (`LINEAR ZONE \| τ × 8`) | Parameter manual printed p. 6-35; value on both the 1985 sheet and the 2026 CRT |
 | **Grid spacing = 4000/τ = 2.000 mm** = travel per resolver *electrical* revolution | M2 printed p. 109 + §6.7.1 |
+| **Ballscrew lead = 10.000 mm** — Z screw hand-turned one revolution, 10 mm of travel | at the machine, 2026-08-17 ([`docs/ballscrew_lead_2026-08-17.md`](docs/ballscrew_lead_2026-08-17.md)) |
+| **Resolver↔screw coupling is 1:1** — MIKI PULLEY ARM-100, ⌀9.52 mm bores both sides | OEM parts list `413LE02A000.pdf` p. 49, drawing `041311AS012` |
 
 ### Proposed — believed right, not measured here
 
 - **`RESOLVER_SCALE` = 2.000 mm = 0.07874016 in** per electrical revolution, X/Y/Z.
   Corroborated by a sibling VQC 15/40 retrofit running the identical value.
   **Does not depend on the ballscrew lead.**
-- **n = 5** (5 pole pairs / 10 poles). Needs a 10 mm lead, which is undocumented.
-  Nothing downstream needs n — it is a consistency check, not a gate.
+- **n = 5** (5 electrical revolutions per screw revolution). The 10 mm lead it needs is now
+  **measured** (2026-08-17), and the coupling is a confirmed 1:1 — so n = 10.000 ÷ 2.000 is
+  arithmetic on a measured lead plus the τ = 2 derivation, not a guess from a part number.
+  It stays under *Proposed* only because the 2.000 mm grid spacing is itself derived.
+  `RESOLVER_INDEX_DIVISOR = 5` is entered in the INI on that basis.
 
 ### Open — and what would close it
 
 1. **Verify the scale on the machine.** Predicted result: 2.000 mm of travel per
    electrical revolution, 5 nulls per screw revolution. If the bench disagrees,
    **the bench wins.**
-2. **Confirm the flex coupling is 1:1.** Any reduction between screw and resolver
-   scales 0.07874016 directly. This is the one mechanical assumption left in the
-   derived number.
+2. ~~**Confirm the flex coupling is 1:1.**~~ **CLOSED 2026-08-17** — the OEM parts list shows
+   a MIKI PULLEY ARM-100 (`L10MN000070`) with equal ⌀9.52 mm bores on both sides, joining
+   resolver to screw coaxially on all three axes. No reduction, so nothing scales 0.07874016.
+   Note the 18:30 (and 20:25) timing-belt reduction is **motor→screw**, on the far side of the
+   screw from the resolver — do not apply it to `RESOLVER_SCALE`.
 3. **Transformation ratio and phase shift at 5 kHz** — measured, not looked up.
    See the warning below.
-4. **Two desk items**, no machine needed — see
-   [`docs/project_status.md`](docs/project_status.md#open-desk-items--no-machine-access-needed):
-   settle plain 7i49 vs 7i49HV, and find the ballscrew lead in the parts list.
+4. **Desk items** — see
+   [`docs/project_status.md`](docs/project_status.md#open-desk-items--no-machine-access-needed).
+   Both of the two named here are now closed: the P1 card is the **7i49HV**, and the ballscrew
+   lead is **10.000 mm** — settled not by the parts list, which never states it, but by turning
+   the screw.
 
 ---
 

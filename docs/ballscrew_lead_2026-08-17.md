@@ -1,10 +1,14 @@
-# Ballscrew lead — where it stands, 2026-08-17
+# Ballscrew lead — SETTLED BY MEASUREMENT, 2026-08-17
 
-**Short version: the lead is not stated in any document, but it is now bounded.
-`lead ≥ 10.000 mm`, and it must be an integer multiple of 2.000 mm. 10.000 mm is the floor
-of the admissible set and the best-supported value. It is not proven equal to the floor.**
+**Short version: `lead = 10.000 mm`.** Measured at the machine on 2026-08-17: the **Z**
+ballscrew, hand-turned one full revolution, moved the axis **10 mm**. That is the floor of the
+admissible set and the value every paper argument below pointed to. **12 / 14 / 16 / 20 mm are
+refuted.**
 
-A ten-minute bench measurement closes it — see [The measurement](#the-measurement-that-closes-it).
+The lead is no longer an open question. The rest of this file is kept for two reasons: it
+records which of the paper arguments the measurement confirmed and which it killed, and the
+paper chain — not the measurement — is still what carries `RESOLVER_INDEX_DIVISOR`
+(see [What this does and does not settle](#what-this-does-and-does-not-settle)).
 
 Companion: [`feed_drive_parts_2026-08-17.md`](feed_drive_parts_2026-08-17.md) (part numbers,
 ratios, resolver, coupling). `project_status.md` remains the authority for the task list.
@@ -16,7 +20,8 @@ ratios, resolver, coupling). `project_status.md` remains the authority for the t
 | lead = *n* × 2.000 mm, *n* a positive integer | **ESTABLISHED** | M2 grid rule + τ = 2 + the 1:1 resolver coupling |
 | lead ≥ 10.000 mm | **ESTABLISHED** | motor Nmax + pulley teeth + rapid parameter (below) |
 | lead is the same on X, Y and Z | **ESTABLISHED** | all three drivetrains reach 1200 screw rpm at their own motor's ceiling; `RF1 = RF2 = RF3` |
-| lead = exactly 10.000 mm (*n* = 5) | **NOT ESTABLISHED — strongly indicated** | needs either that factory rapid sat at 100 % of motor rating, or that the "5" in RT-**5**XA-11 is the pole-pair count |
+| lead = exactly 10.000 mm | **MEASURED 2026-08-17** | one full revolution of the **Z screw** = 10 mm of axis travel, at the machine ([below](#the-measurement-as-taken)) |
+| *n* = 5 electrical revolutions per screw revolution | **DERIVED, not measured** | 10.000 mm lead ÷ 2.000 mm grid spacing, with the 1:1 resolver coupling. Rests on the τ = 2 derivation, which is still `PROPOSED` |
 
 ## The lower bound — the one genuinely new result
 
@@ -63,8 +68,12 @@ only the CRT-verified **live** `RF = 4212` (421.2 ipm = 10,698.5 mm/min), it wea
 `lead ≥ 10.000 mm` holds either way. The quantisation argument is also immune to the
 poles-vs-pole-pairs ambiguity below, because *n* is an integer on either reading.
 
-This is a **lower** bound, not a determination: 12, 14 and 16 mm remain admissible, and simply
-mean the 1985 rapid ran the motors below rated speed.
+This is a **lower** bound, not a determination: 12, 14 and 16 mm remained admissible and would
+simply have meant the 1985 rapid ran the motors below rated speed. **The measurement landed on
+the floor, so the bound was tight** — which retroactively confirms the other half of the pair:
+the factory rapid `RF = 4724` really did run all three motors at 100 % of their rated Nmax
+(1200 screw rpm × 10.000 mm = 12.000 m/min exactly). The 1985 factory parameter sheet is
+corroborated by a physical measurement.
 
 ## The upper end — the RT-5XA-11 naming argument
 
@@ -88,19 +97,22 @@ speed. Tamagawa's own nomenclature ("*number of pole pairs is normally from 1X �
 then reads 5X = **5 pole pairs** → *n* = 5 → **lead = 10.000 mm**, exactly the floor. If *n*
 were 6 the part would be an RT-6X, and that variant does exist (RT-6X0-11).
 
-**Two weaknesses, both unresolved — do not present this as settled:**
+**The measurement agrees with this argument's conclusion. It does not promote the argument
+into a citable proof** — the reasoning below was and remains an inference from a naming
+scheme, and it was right this time. Two caveats, one now closed:
 
-1. **No document states that the family digit is the pole count.** The nomenclature citation
-   is the manufacturer's general convention and does not mention RT-5XA-11. This is an
-   inference from a naming scheme.
-2. **The M2 manual says "poles", not "pole pairs".** M2 Maintenance Manual, printed p. 104
-   (PDF p. 115), verbatim: *"When resolvers are used as position detectors, on the machine at
-   each 1/n (n : number of poles) revolution of the resolver are grid points of fixed pitch."*
-   Read literally with 5 pole pairs = 10 poles, that gives **lead = 20.000 mm**. Mitsubishi is
-   almost certainly using "poles" loosely for resolver speed (the quantity that equals
-   electrical cycles per mechanical revolution), and 20 mm on this screw at 12 m/min is
-   implausible — **but flag this, so nobody re-reads that sentence in two years and doubles
-   the lead.**
+1. **No document states that the family digit is the pole count.** STILL OPEN. The
+   nomenclature citation is the manufacturer's general convention and does not mention
+   RT-5XA-11. Do not cite "RT-**5**XA-11 ⇒ 5 pole pairs" as established; cite the
+   measurement, which stands on its own.
+2. **The M2 manual says "poles", not "pole pairs".** **CLOSED by the measurement.** M2
+   Maintenance Manual, printed p. 104 (PDF p. 115), verbatim: *"When resolvers are used as
+   position detectors, on the machine at each 1/n (n : number of poles) revolution of the
+   resolver are grid points of fixed pitch."* Read literally with 5 pole pairs = 10 poles,
+   that would give **lead = 20.000 mm**. The screw turns 10 mm per revolution, so the literal
+   reading is **refuted**: Mitsubishi is using "poles" loosely for resolver speed — electrical
+   cycles per mechanical revolution. Anyone who re-reads that sentence in two years and
+   doubles the lead is making a mistake this machine has already disproved.
 
 ## What must NOT be cited as evidence
 
@@ -118,36 +130,65 @@ were 6 the part would be an RT-6X, and that variant does exist (RT-6X0-11).
 - **Bearing journal / pulley seat / screw OD sizes.** General industry practice,
   machine-nonspecific. Context for narrowing, never confirmation.
 
-## The measurement that closes it
+## The measurement, as taken
 
-Ten minutes, no power, no control, no paperwork. Do this before committing the config.
+**Taken at the machine on 2026-08-17 by the owner, with the machine unpowered.** This is a
+**measured mechanical fact** — read off the hardware, not derived from a document. It carries
+no state in the [pin-authority evidence taxonomy](pre_power_deliverables.md#new-evidence-state-taxonomy),
+which grades *signals*; the equivalent standing here is that it outranks every paper argument
+in this file.
 
-1. Machine off and locked out. Get to a screw end or drive pulley (covers off).
-2. Magnetic base and dial indicator (or a long-travel indicator / depth mic) reading **axial
-   table movement** against a fixed point on the saddle.
-3. Paint-mark the **screw** — not the motor. The belt reduction sits between them, so a motor
-   revolution is not a screw revolution.
-4. Hand-turn the screw **one full revolution**, back to the mark, and read the travel.
-
-| Result | Meaning |
+| | |
 |---|---|
-| **10.000 mm** | Confirms the hypothesis and *n* = 5; the whole τ chain stands |
-| 12 / 14 / 16 mm | Refutes it; *n* = 6/7/8 and `RESOLVER_INDEX_DIVISOR` changes to match |
-| 20.000 mm | The literal "poles" reading of M2 p. 104 was right after all |
-| not a multiple of 2.000 mm | Something upstream is wrong — τ, the coupling, or the grid rule |
+| Axis | **Z** |
+| What was turned | the **ballscrew itself**, by hand — *not* the motor, so the 25/20 belt reduction is not in the path |
+| Rotation | one full revolution, back to the mark |
+| Axial travel | **10 mm** |
+| Result | **lead = 10.000 mm** |
 
-Take the reading over several revolutions and divide, to beat down indicator and backlash
-error.
+Ten millimetres against the next admissible value up (12 mm) is a 20 % difference, so the
+reading discriminates the admissible set — 10 / 12 / 14 / 16 / 20 — with an enormous margin.
+Indicator error, backlash and mark-alignment error are all far too small to move the answer to
+a neighbouring candidate.
+
+X and Y were not turned. They do not need to be: *"lead is the same on X, Y and Z"* is
+independently **ESTABLISHED** (all three drivetrains reach 1200 screw rpm at their own motor's
+ceiling, and `RF1 = RF2 = RF3`). If a later measurement on X or Y disagrees, that finding wins
+and this whole family of conclusions reopens.
+
+### What this does and does not settle
+
+**Settled:** the lead, on all three axes. Every velocity and acceleration figure that was
+waiting on motor-rpm ↔ feedrate arithmetic is now computable — screw rpm = mm/min ÷ 10, motor
+rpm = screw rpm × 30/18 (Y, X A-type) or × 25/20 (X B-type, Z). The rapid ceiling the machine
+was built to is **12.000 m/min = 472.4 in/min = 7.874 in/s**; that is the machine's design
+limit, **not** a commissioning value — bring-up stays at the conservative `MAX_VELOCITY`
+clamp in the INI.
+
+**Determined but not yet measured:** `RESOLVER_INDEX_DIVISOR = 5`. The lead is measured and
+the resolver coupling is a confirmed 1:1 shaft coupling, so *n* = lead ÷ grid spacing =
+10.000 ÷ 2.000 = 5 — but the 2.000 mm grid spacing is the τ = 2 derivation, which is still
+`PROPOSED`. The measurement moved *n* from "inferred from a part number" to "arithmetic on a
+measured lead and one derived constant". Both fall out of a single commissioning check:
+
+> Count `hm2_7i80.0.resolver.NN.rawcounts` against a dial indicator over several full
+> **ballscrew** revolutions. Expect exactly **5 electrical cycles per screw revolution** and
+> **2.000 mm (0.07874016 in) of travel per electrical cycle**. If it is 5, τ = 2 is confirmed
+> from the machine and the chain is closed end to end.
+
+**Unaffected:** `RESOLVER_SCALE`. It was never blocked by the lead — it is travel per
+*electrical* revolution, set by the grid spacing.
 
 ## What is and is not blocked by this
 
-**`RESOLVER_SCALE` is NOT blocked.** It is set by the grid spacing — travel per *electrical*
-revolution, 4000/τ µm = **2.000 mm** at τ = 2 — which is already established and does not
-depend on the lead.
+*(Historical — this section described the state before the 2026-08-17 measurement. Nothing is
+blocked by the lead any more; see [What this does and does not settle](#what-this-does-and-does-not-settle).)*
 
-**What is blocked** is `RESOLVER_INDEX_DIVISOR` = *n*, and any velocity or acceleration limit
-derived from motor rpm. So the retrofit is not stalled on this; homing index and the feedrate
-ceilings are.
+**`RESOLVER_SCALE` was never blocked.** It is set by the grid spacing — travel per *electrical*
+revolution, 4000/τ µm = **2.000 mm** at τ = 2 — which does not depend on the lead.
+
+**What was blocked** was `RESOLVER_INDEX_DIVISOR` = *n*, and any velocity or acceleration limit
+derived from motor rpm. Both are now released.
 
 ## Documents swept and confirmed silent — do not re-search these
 

@@ -210,7 +210,27 @@ Both are pure document work and both bear on decisions already in the BOM.
   - **Small follow-up, does not block ordering:** get `7i49man.pdf` into
     `docs/Mesa Manuals/` to confirm Mesa's "2:1" vs "1:2" direction convention.
     `freeby.mesanet.com` served an expired certificate on 2026-08-17.
-- [ ] **Find the ballscrew lead — STILL OPEN, but the parts list is now read and does not answer it (2026-08-17).**
+- [x] **Ballscrew lead = 10.000 mm — CLOSED BY MEASUREMENT 2026-08-17.** At the machine,
+  unpowered: the **Z ballscrew itself** (not the motor — the belt reduction sits between them)
+  was hand-turned **one full revolution** and the axis moved **10 mm**. That is the floor of the
+  admissible set and refutes 12 / 14 / 16 / 20 mm. Consequences, in order of usefulness:
+  - **`RESOLVER_INDEX_DIVISOR = 5`, now entered in the INI** on all three joints (was the
+    placeholder `1`, whose comment wrongly expected a single-speed detector). n = lead ÷ grid
+    spacing = 10.000 ÷ 2.000, with the confirmed 1:1 resolver coupling. Still rests on the
+    τ = 2 derivation for the 2.000 mm, so it is *determined*, not *measured* — the commissioning
+    rawcounts check confirms both at once: expect **5 electrical cycles per screw revolution**.
+  - **The 1985 factory parameter sheet is corroborated.** `RF1–3 = 4724` = 12.000 m/min ÷
+    10 mm = 1200 screw rpm = exactly each motor's rated Nmax. The rapid the machine was built
+    to is **12.000 m/min = 472.4 in/min = 7.874 in/s** — a design ceiling, **not** a
+    commissioning value. Leave `MAX_VELOCITY` at its conservative bring-up clamp.
+  - **The "poles" trap is dead.** Reading M2 printed p. 104 literally (5 pole pairs = 10 poles)
+    predicted a 20 mm lead. The screw says 10. Nobody should double the lead off that sentence.
+  - **`RESOLVER_SCALE` is unchanged** — it never depended on the lead.
+  - Write-up, including which paper arguments survived: [`ballscrew_lead_2026-08-17.md`](ballscrew_lead_2026-08-17.md).
+  - X and Y were not turned; "same lead on all three" is independently established. If a later
+    X/Y measurement disagrees, it wins and this reopens.
+
+- [x] **~~Find the ballscrew lead~~ — the paper search, for the record: the parts list is read and does not answer it (2026-08-17).**
   The parts list was located: it is **already on the OptiPlex** as
   `~/Documents/obisidian/Machine Shop/Mazak VQC-20-40 Retrofit/Manuals/413LE02A000.pdf`
   (byte-identical to the Drive copy), filed under its Mazak publication number rather than a
@@ -227,26 +247,18 @@ Both are pure document work and both bear on decisions already in the BOM.
     encode the lead" is not borne out.
   - Full drivetrain readout — motors, pulleys, belts, resolver, coupling, bearings —
     is in [`feed_drive_parts_2026-08-17.md`](feed_drive_parts_2026-08-17.md).
-  - **The lead is now BOUNDED, from a resolver-independent source:** `lead ≥ 10.000 mm`, and
-    it must be an integer multiple of 2.000 mm — so **10.000 mm is the floor of the admissible
-    set and the best-supported value**, though *not* proven equal to the floor (12/14/16 remain
-    admissible). The bound comes from motor Nmax and pulley tooth counts hand-lettered on the
-    1982 servo-drive schematic `41434WB.pdf` PDF p. 128, against the factory rapid
-    `RF1–3 = 4724` (12.0 m/min): every axis reaches 1200 screw rpm at its motor's ceiling, so
-    lead ≥ 11,998.96 ÷ 1200 = 9.999. Full write-up — the RT-5XA-11 naming argument, the
-    poles-vs-pole-pairs caveat, what must **not** be cited, and every document confirmed
-    silent: [`ballscrew_lead_2026-08-17.md`](ballscrew_lead_2026-08-17.md).
-  - **Fastest route to close it is still the bench measurement**, no power, about ten minutes:
-    dial indicator reading axial table travel, paint-mark the **screw** (not the motor — the
-    belt reduction sits between them), hand-turn one full revolution, read the travel.
-    10.000 mm confirms the hypothesis and n = 5; anything else refutes it.
-  - **`RESOLVER_SCALE` is not blocked by this** — it follows from the 2.000 mm grid spacing at
-    τ = 2, independent of the lead. What is blocked is `RESOLVER_INDEX_DIVISOR` = n and any
-    velocity/accel limit derived from motor rpm.
-  - **Do NOT cite the sister machine's `RESOLVER_INDEX_DIVISOR = 5` as support for n = 5.**
-    An earlier version of this item did. It is the circular route: the sister value and our
-    n = 5 are the same claim restated, so it cannot corroborate the lead. Note the agreement,
-    never fold it back in as evidence.
+  - **The lead was BOUNDED from paper, `lead ≥ 10.000 mm`,** from motor Nmax and pulley tooth
+    counts hand-lettered on the 1982 servo-drive schematic `41434WB.pdf` PDF p. 128 against the
+    factory rapid `RF1–3 = 4724` (12.0 m/min): every axis reaches 1200 screw rpm at its motor's
+    ceiling, so lead ≥ 11,998.96 ÷ 1200 = 9.999, and the M2 grid rule forces a multiple of
+    2.000 mm. **The measurement landed on the floor, so the bound was tight.** Full write-up —
+    the RT-5XA-11 naming argument, the poles caveat, what must **not** be cited, and every
+    document confirmed silent: [`ballscrew_lead_2026-08-17.md`](ballscrew_lead_2026-08-17.md).
+  - **Do NOT cite the sister machine's `RESOLVER_INDEX_DIVISOR = 5` as support for n = 5,**
+    and do not now cite the measurement as vindicating it. It is the circular route: the sister
+    value and our n = 5 are the same claim restated. Note the agreement, never fold it in.
+  - **The RT-5XA-11 naming argument turned out right but is still not citable.** No document
+    says the family digit is the pole count. Cite the measured lead instead.
 
 #### Two side findings from the 2026-08-17 sister-repo read
 
