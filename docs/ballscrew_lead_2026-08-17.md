@@ -179,6 +179,43 @@ measured lead and one derived constant". Both fall out of a single commissioning
 **Unaffected:** `RESOLVER_SCALE`. It was never blocked by the lead — it is travel per
 *electrical* revolution, set by the grid spacing.
 
+## Is 10.000 mm plausible for this machine? Five independent checks
+
+Asked after the measurement, as a sanity check on the result rather than as evidence for it.
+All five agree; **none of them is a source** — the measurement is the source.
+
+1. **Class norm.** 10 mm is the default ballscrew lead for 1980s vertical machining centres
+   of this size and rapid. 8 and 12 mm exist in the era; 16 and 20 mm belong to the 1990s
+   high-speed generation with 24–48 m/min rapids and much larger screws. A 1984 VMC with a
+   12 m/min rapid sitting on 10 mm is the unremarkable middle of the distribution.
+2. **Motor utilisation — the strongest of the five.** At 10 mm, the factory rapid puts all
+   three axes at *exactly* their rated Nmax (1200 screw rpm; 2000 rpm on the HD-81, 1500 rpm
+   on the HD-101). At 12 mm they would top out at 83 % of rating, at 20 mm at 50 %. Nobody
+   specifies 2000 rpm motors, a belt reduction chosen to suit them, and a rapid parameter, and
+   then leaves half the speed on the table. The design is coherent only at the floor.
+3. **Screw speed is comfortable, not strained.** The screw journals ride 30 mm-bore bearings
+   (`7206B` duplex, or `30TAC-62DF` on X B-type), so the screws are nominally ⌀32–40 mm.
+   At 1200 rpm that is a dN of roughly 38,000–48,000 mm·rpm — well inside the ~70,000
+   rule-of-thumb ceiling for a standard ball nut. Critical speed on the longest screw (X,
+   1001 mm of travel, so very roughly 1300 mm between supports, fixed-supported) estimates to
+   ≈2400 rpm, ×0.8 ≈ 1900 rpm usable — above 1200 with margin. *Estimate: the screw diameters
+   and support spans are inferred from bearing bores, not measured.*
+4. **Command resolution lines up.** The M-2 stores travels in 0.0001 in (`LX2 = −394094` =
+   39.4094 in), i.e. a 1 µm-class least increment. With 5 electrical cycles per screw
+   revolution the control interpolates a 2.000 mm grid to get there. Had the lead been 20 mm
+   on the same detector, the same interpolation would yield a 2 µm increment — inconsistent
+   with the parameter format the machine actually uses.
+5. **The resolver runs at a sane rate.** At the 12 m/min design rapid the screw turns 20 rev/s
+   and the detector produces **100 electrical revolutions per second**. Against a 5 kHz
+   excitation that is 50 carrier cycles per electrical revolution; against 2.5 kHz, 25.
+   Both work; 5 kHz is the comfortable one. **This is a new input to the still-open excitation
+   choice** — an inference from the lead, not a verified figure, and it does not by itself
+   overrule the scope measurement that decides carrier frequency.
+
+The one direction none of this runs is backwards: a plausibility check cannot promote itself
+into the determination. If someone later turns X or Y and gets a different number, the
+measurement wins and every item above is re-argued around it.
+
 ## What is and is not blocked by this
 
 *(Historical — this section described the state before the 2026-08-17 measurement. Nothing is
