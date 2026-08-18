@@ -25,7 +25,7 @@ conclusions and will re-derive things that are now settled.
 | Measured DC resistance: 105–109 Ω matched pair, 35 Ω odd winding, all three axes | at the machine, 2026-08-16 |
 | **`τ = 2`**, from `MC1–MC4 = 784` (`LINEAR ZONE \| τ × 8`) | Parameter manual printed p. 6-35; value on both the 1985 sheet and the 2026 CRT |
 | **Grid spacing = 4000/τ = 2.000 mm** = travel per resolver *electrical* revolution | M2 printed p. 109 + §6.7.1 |
-| **Ballscrew lead = 10.000 mm** — Z screw hand-turned one revolution, 10 mm of travel | at the machine, 2026-08-17 ([`docs/ballscrew_lead_2026-08-17.md`](docs/ballscrew_lead_2026-08-17.md)) |
+| **Ballscrew lead = 10.000 mm on X, Y and Z** — each screw hand-turned one revolution, 10 mm of travel on each | at the machine, 2026-08-17 ([`docs/ballscrew_lead_2026-08-17.md`](docs/ballscrew_lead_2026-08-17.md)) |
 | **Resolver↔screw coupling is 1:1** — MIKI PULLEY ARM-100, ⌀9.52 mm bores both sides | OEM parts list `413LE02A000.pdf` p. 49, drawing `041311AS012` |
 
 ### Proposed — believed right, not measured here

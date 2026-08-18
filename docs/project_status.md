@@ -210,10 +210,11 @@ Both are pure document work and both bear on decisions already in the BOM.
   - **Small follow-up, does not block ordering:** get `7i49man.pdf` into
     `docs/Mesa Manuals/` to confirm Mesa's "2:1" vs "1:2" direction convention.
     `freeby.mesanet.com` served an expired certificate on 2026-08-17.
-- [x] **Ballscrew lead = 10.000 mm — CLOSED BY MEASUREMENT 2026-08-17.** At the machine,
-  unpowered: the **Z ballscrew itself** (not the motor — the belt reduction sits between them)
-  was hand-turned **one full revolution** and the axis moved **10 mm**. That is the floor of the
-  admissible set and refutes 12 / 14 / 16 / 20 mm. Consequences, in order of usefulness:
+- [x] **Ballscrew lead = 10.000 mm on X, Y and Z — CLOSED BY MEASUREMENT 2026-08-17.** At the
+  machine, unpowered: each **ballscrew itself** (not the motor — the belt reduction sits between
+  them) was hand-turned **one full revolution**, and each axis moved **10 mm**. All three
+  measured, none inferred. That is the floor of the admissible set and refutes 12 / 14 / 16 /
+  20 mm. Consequences, in order of usefulness:
   - **`RESOLVER_INDEX_DIVISOR = 5`, now entered in the INI** on all three joints (was the
     placeholder `1`, whose comment wrongly expected a single-speed detector). n = lead ÷ grid
     spacing = 10.000 ÷ 2.000, with the confirmed 1:1 resolver coupling. Still rests on the
@@ -227,8 +228,10 @@ Both are pure document work and both bear on decisions already in the BOM.
     predicted a 20 mm lead. The screw says 10. Nobody should double the lead off that sentence.
   - **`RESOLVER_SCALE` is unchanged** — it never depended on the lead.
   - Write-up, including which paper arguments survived: [`ballscrew_lead_2026-08-17.md`](ballscrew_lead_2026-08-17.md).
-  - X and Y were not turned; "same lead on all three" is independently established. If a later
-    X/Y measurement disagrees, it wins and this reopens.
+  - **The same-lead inference is now redundant** — it was right, but every axis has its own
+    measurement. Consequently **the X A-type/B-type question no longer touches the lead**:
+    either screw turns 10 mm per revolution. The variant still governs the belt ratio
+    (1.25:1 vs 1.6667:1) and so the motor-rpm arithmetic — still confirm it by counting teeth.
 
 - [x] **~~Find the ballscrew lead~~ — the paper search, for the record: the parts list is read and does not answer it (2026-08-17).**
   The parts list was located: it is **already on the OptiPlex** as

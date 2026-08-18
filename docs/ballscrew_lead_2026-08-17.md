@@ -1,9 +1,9 @@
 # Ballscrew lead — SETTLED BY MEASUREMENT, 2026-08-17
 
-**Short version: `lead = 10.000 mm`.** Measured at the machine on 2026-08-17: the **Z**
-ballscrew, hand-turned one full revolution, moved the axis **10 mm**. That is the floor of the
-admissible set and the value every paper argument below pointed to. **12 / 14 / 16 / 20 mm are
-refuted.**
+**Short version: `lead = 10.000 mm` on X, Y and Z — each one measured, none inferred.**
+At the machine on 2026-08-17, all three ballscrews were hand-turned one full revolution and
+each axis moved **10 mm**. That is the floor of the admissible set and the value every paper
+argument below pointed to. **12 / 14 / 16 / 20 mm are refuted.**
 
 The lead is no longer an open question. The rest of this file is kept for two reasons: it
 records which of the paper arguments the measurement confirmed and which it killed, and the
@@ -19,8 +19,8 @@ ratios, resolver, coupling). `project_status.md` remains the authority for the t
 |---|---|---|
 | lead = *n* × 2.000 mm, *n* a positive integer | **ESTABLISHED** | M2 grid rule + τ = 2 + the 1:1 resolver coupling |
 | lead ≥ 10.000 mm | **ESTABLISHED** | motor Nmax + pulley teeth + rapid parameter (below) |
-| lead is the same on X, Y and Z | **ESTABLISHED** | all three drivetrains reach 1200 screw rpm at their own motor's ceiling; `RF1 = RF2 = RF3` |
-| lead = exactly 10.000 mm | **MEASURED 2026-08-17** | one full revolution of the **Z screw** = 10 mm of axis travel, at the machine ([below](#the-measurement-as-taken)) |
+| lead is the same on X, Y and Z | **MEASURED on each axis** | all three turned; formerly inferred from all three drivetrains reaching 1200 screw rpm at their own motor's ceiling with `RF1 = RF2 = RF3`, which the measurements now confirm |
+| lead = exactly 10.000 mm | **MEASURED 2026-08-17, all three axes** | one full revolution of each screw = 10 mm of axis travel, at the machine ([below](#the-measurement-as-taken)) |
 | *n* = 5 electrical revolutions per screw revolution | **DERIVED, not measured** | 10.000 mm lead ÷ 2.000 mm grid spacing, with the 1:1 resolver coupling. Rests on the τ = 2 derivation, which is still `PROPOSED` |
 
 ## The lower bound — the one genuinely new result
@@ -138,27 +138,30 @@ no state in the [pin-authority evidence taxonomy](pre_power_deliverables.md#new-
 which grades *signals*; the equivalent standing here is that it outranks every paper argument
 in this file.
 
-| | |
-|---|---|
-| Axis | **Z** |
-| What was turned | the **ballscrew itself**, by hand — *not* the motor, so the 25/20 belt reduction is not in the path |
-| Rotation | one full revolution, back to the mark |
-| Axial travel | **10 mm** |
-| Result | **lead = 10.000 mm** |
+| Axis | Rotation | Axial travel | Result |
+|---|---|---|---|
+| **Z** | one full revolution of the screw | **10 mm** | lead = 10.000 mm |
+| **X** | one full revolution of the screw | **10 mm** | lead = 10.000 mm |
+| **Y** | one full revolution of the screw | **10 mm** | lead = 10.000 mm |
+
+In every case what was turned is the **ballscrew itself**, by hand — *not* the motor, so no
+belt reduction (18/30 on Y, 20/25 on Z and B-type X) is anywhere in the measured path.
 
 Ten millimetres against the next admissible value up (12 mm) is a 20 % difference, so the
 reading discriminates the admissible set — 10 / 12 / 14 / 16 / 20 — with an enormous margin.
 Indicator error, backlash and mark-alignment error are all far too small to move the answer to
 a neighbouring candidate.
 
-X and Y were not turned. They do not need to be: *"lead is the same on X, Y and Z"* is
-independently **ESTABLISHED** (all three drivetrains reach 1200 screw rpm at their own motor's
-ceiling, and `RF1 = RF2 = RF3`). If a later measurement on X or Y disagrees, that finding wins
-and this whole family of conclusions reopens.
+**All three axes were measured, so nothing here rests on the same-lead inference any more.**
+That inference — all three drivetrains reach 1200 screw rpm at their own motor's ceiling, and
+`RF1 = RF2 = RF3` — was correct, and is now redundant. It also means the **X A-type vs B-type
+question no longer touches the lead**: whichever screw is fitted, it turns 10 mm per
+revolution. The variant still matters for the belt ratio (1.25:1 vs 1.6667:1) and therefore
+for motor-rpm arithmetic, and that is still to be confirmed by counting teeth.
 
 ### What this does and does not settle
 
-**Settled:** the lead, on all three axes. Every velocity and acceleration figure that was
+**Settled:** the lead, on all three axes, each by its own measurement. Every velocity and acceleration figure that was
 waiting on motor-rpm ↔ feedrate arithmetic is now computable — screw rpm = mm/min ÷ 10, motor
 rpm = screw rpm × 30/18 (Y, X A-type) or × 25/20 (X B-type, Z). The rapid ceiling the machine
 was built to is **12.000 m/min = 472.4 in/min = 7.874 in/s**; that is the machine's design
@@ -190,7 +193,9 @@ All five agree; **none of them is a source** — the measurement is the source.
    12 m/min rapid sitting on 10 mm is the unremarkable middle of the distribution.
 2. **Motor utilisation — the strongest of the five.** At 10 mm, the factory rapid puts all
    three axes at *exactly* their rated Nmax (1200 screw rpm; 2000 rpm on the HD-81, 1500 rpm
-   on the HD-101). At 12 mm they would top out at 83 % of rating, at 20 mm at 50 %. Nobody
+   on the HD-101) — and with all three leads now measured, that is true of each axis on its
+   own, not just of one axis extrapolated to the others. At 12 mm they would top out at 83 %
+   of rating, at 20 mm at 50 %. Nobody
    specifies 2000 rpm motors, a belt reduction chosen to suit them, and a rapid parameter, and
    then leaves half the speed on the table. The design is coherent only at the floor.
 3. **Screw speed is comfortable, not strained.** The screw journals ride 30 mm-bore bearings
@@ -213,8 +218,8 @@ All five agree; **none of them is a source** — the measurement is the source.
    overrule the scope measurement that decides carrier frequency.
 
 The one direction none of this runs is backwards: a plausibility check cannot promote itself
-into the determination. If someone later turns X or Y and gets a different number, the
-measurement wins and every item above is re-argued around it.
+into the determination. All three screws have now been turned, so there is no remaining axis
+whose measurement could overturn this — only a re-measurement would.
 
 ## What is and is not blocked by this
 
