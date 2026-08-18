@@ -174,10 +174,17 @@ the resolver coupling is a confirmed 1:1 shaft coupling, so *n* = lead ÷ grid s
 `PROPOSED`. The measurement moved *n* from "inferred from a part number" to "arithmetic on a
 measured lead and one derived constant". Both fall out of a single commissioning check:
 
-> Count `hm2_7i80.0.resolver.NN.rawcounts` against a dial indicator over several full
-> **ballscrew** revolutions. Expect exactly **5 electrical cycles per screw revolution** and
-> **2.000 mm (0.07874016 in) of travel per electrical cycle**. If it is 5, τ = 2 is confirmed
-> from the machine and the chain is closed end to end.
+> **On the scope, no Mesa hardware needed — this is the near-term route.** Test 1 of
+> [`resolver_commissioning.md`](resolver_commissioning.md#test-1--nulls-per-mechanical-revolution-run-this-first-it-gates-scaling):
+> drive the 35 Ω winding at 5 kHz, scope an output winding, hand-turn the screw one
+> revolution. Expect **5 electrical revolutions = 10 amplitude nulls**, and — with an
+> indicator on the axis — a null every **1.000 mm** of travel, same-phase nulls every
+> **2.000 mm**. **Count nulls and halve them; the envelope shows 2n, not n.**
+>
+> Later, once the 7i49 is wired, the same thing reads out as
+> `hm2_7i80.0.resolver.NN.rawcounts` against a dial indicator over several full ballscrew
+> revolutions. Either way, 5 electrical cycles per screw revolution confirms τ = 2 and closes
+> the chain end to end.
 
 **Unaffected:** `RESOLVER_SCALE`. It was never blocked by the lead — it is travel per
 *electrical* revolution, set by the grid spacing.
