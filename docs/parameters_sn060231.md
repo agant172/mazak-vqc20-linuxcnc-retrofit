@@ -1,8 +1,26 @@
 # SN 060231 — Live M-2 Parameters (photographed 2026-07-28)
 
 **Source:** 7 photos of the running Mazatrol M-2 CRT, taken 2026-07-28
-(IMG_0308/0309/0373/0374/0375/0376/0377, kept on Andy's Mac —
-`~/Downloads/Photos-1-001 (1)/` — not committed per repo photo policy).
+(IMG_0308/0309/0373/0374/0375/0376/0377), not committed per repo photo policy.
+
+> **Citation repaired 2026-08-17.** This previously pointed at
+> `~/Downloads/Photos-1-001 (1)/` on "Andy's Mac". **That folder does not exist
+> on the iMac** — a local path is not a citation, since it names a location
+> rather than an artifact, and it broke within three weeks. The photos live in
+> Drive; cite by file ID:
+>
+> | Artifact | Drive ID |
+> |---|---|
+> | Machine photo folder (all cabinet/CRT photos) | `1LzXka9G8uSp-UCiJgQ19NPBdOmCBL43c` |
+> | `Photos-1-001` (uploaded copy of the 2026-07 set, IMG_0248–0312) | `16BsiMR9EHcoa-9HeCmYX6CYsjtToYpPN` |
+> | A full **MACH CONSTANT PAR NO.2** capture, verified 2026-08-17 | `1yTkUJBBNEuA-mmtQIEsrb2WuOz5qpe3N` |
+>
+> `IMG_0373`–`0377` were **not** located in Drive under those names. The
+> PAR NO.2 capture above shows the same screen and corroborates the values
+> below, so nothing here is unsupported — but if the original five surface,
+> add their IDs. Note `IMG_nnnn` numbering repeats across batches (searching
+> Drive for `IMG_0373` returns 2015–2018 personal files), which is exactly why
+> [`README_photo_sorting.md`](README_photo_sorting.md) requires `YYYY-MM-DD/IMG_nnn`.
 IMG_0374 and IMG_0377 are clean full captures of **MACH CONSTANT PAR NO.2**;
 every value below was read from those and cross-checked against IMG_0373.
 Values marked ✓✓ were additionally verified from zoomed crops.

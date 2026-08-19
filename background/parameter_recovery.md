@@ -69,6 +69,73 @@ control's battery-backed memory (or must be re-measured).**
 | AT1 | external speed distance before 2nd-zero-point return | remap approach-feed heuristic |
 | DPD/DPE/DPF | DNC timers, machine number | record only |
 
+## Setting increments and ranges (from the same manual, pages 6-33 to 6-35)
+
+OCR'd 2026-08-17. **Units are the thing this table adds** — the mapping above
+says what each address means, not what its counts are worth, and the control
+runs in **inch mode**, so a raw value is meaningless without its increment.
+
+| Address | Setting increment | Range | Description as printed |
+|---|---|---|---|
+| `LX/LY/LZ 1–4` | 0.0001″ / 0.001 mm | — | Soft limit |
+| `ZP1–4` | 0.0001″ / 0.001 mm | — | Machine zero point coordinate (set at zero return) |
+| `RP1–4` | 0.0001″ / 0.001 mm | — | 2nd zero point coordinate |
+| `ZS1–4` | 0.0001″ / 0.001 mm | 0 – 99999 | **Zero point shift value** |
+| `ZC1–4` | 0.1″/min / 1 mm/min | 0 – 500 | Dog-type zero return creep speed (after deceleration) |
+| `ZD1–4` | — | — | Zero return direction |
+| `RF1–4` | 0.1″/min / 1 mm/min | — | Rapid traverse speed |
+| `RT1–4` | 1 msec | 0 – 9999 | Rapid traverse time constant |
+| `SFC` | 0.1″/min / 1 mm/min | 0 – 6000 | Cutting feed clamp speed |
+| `STC` | 1 msec | — | Cutting feed time constant |
+| `BL1–4` | 0.001 mm | 0 – 999 | Backlash compensation (G00) |
+| `MD1–4` | 0.001 mm | 0 – 65535 | Backlash compensation (G01) |
+| `MC1–4` | coded | 0–7 | Servo coefficient / **linear zone**: 0 = 16000, 2 = 8000, 5 = 64000, 6 = 128000 (OCR partially garbled — re-read before use) |
+| `MA1–4` | bitfield | — | Axis type (0 linear / 1 rotary), motor rotating direction, backlash initial direction (0 = −, 1 = +) |
+| `AF1` | — | — | Min. index angle of index table |
+| `AF2` | — | 0 – 999 | Index M code |
+| `AF4` | bitfield | — | Pallet count/state bits; index-on-repeat-angle behaviour |
+| `AT1` | 0.0001″ / 0.001 mm | 0 – 65530 | External speed distance (approach before 2nd zero point return) |
+| `GH/GL`, `SPI`, `SPO`, `GYN`, `EX2` | 1 rpm / 1 step | — | Gear shift speeds, spindle indexing speed, gear-change coefficient, number of gear steps, manual speed step |
+
+**Note the backlash split is also a unit trap:** `BL` and `MD` are **0.001 mm**
+even in inch mode, while positions are 0.0001″. Do not convert one with the
+other's factor.
+
+### `MC1–MC4` carry the control τ number — decode them
+
+**`MC` is a packed 16-bit word, not a scalar.** The manual's `MC1` row (printed
+p. 6-35) draws the bit field explicitly:
+
+```
+F E D C B A 9 8 | 7 6 5 4 3 2 1 0
+└─ LINEAR ZONE ─┘ └───  τ × 8  ──┘
+LINEAR ZONE codes:  0:16000  1:4000   2:8000    3:16000
+                    4:32000  5:64000  6:128000  7:16000
+```
+
+This machine reads **`MC1 = MC2 = MC3 = 784`** on the 1985 factory sheet *and*
+on the 2026-07-28 live CRT — 41 years apart, in agreement:
+
+```
+784 decimal = 0x0310
+  high byte 0x03 -> LINEAR ZONE code 3 = 16000
+  low  byte 0x10 = 16 = τ × 8   ->   τ = 2.000   (X, Y and Z alike)
+```
+
+A hex reading of the displayed digits (`0x784`) would give LINEAR ZONE 7 and
+τ = 16.5 — a non-integer grid, so the decimal reading is the right one.
+
+**τ = 2 gives grid spacing = 4000/τ = 2.000 mm**, which is the resolver scale
+the retrofit needs. See
+[`../docs/resolver_commissioning.md`](../docs/resolver_commissioning.md#pole-count-and-resolver-scale-derived-from-τ).
+
+> **Why a text search misses this, and the lesson.** τ is printed as a Greek
+> letter *inside a figure*. Full-text OCR of all 48 pages renders it as `I` or
+> noise, so grepping the OCR for `tau`/`grid`/`detector`/`resolver`/`pole`
+> returns **zero hits** — and a session did exactly that on 2026-08-17 and
+> reported "τ is not in the parameter book". It is. **In this document set,
+> a grep miss is not evidence of absence: render the page and look at it.**
+
 ## Recovery procedure
 
 **Primary — read the live control.** The M-2 still powers up (plan of record

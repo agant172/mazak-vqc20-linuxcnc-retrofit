@@ -295,14 +295,105 @@ including a wrong one — the resolver is a passive rotary transformer. Use the
 measured DC resistances (35 Ω, ~107 Ω) as a sanity floor for expected drive
 current; actual AC impedance will be several times higher.
 
+### Pole count and resolver scale, derived from τ
+
+**`RESOLVER_SCALE` is now derivable from this machine's own stored parameters,
+and it does not depend on the ballscrew lead.**
+
+The M2 maintenance manual (printed p. 109) gives grid spacing = `4000 / τ` in
+microns, and §6.7.1 puts grid points at each `1/n` revolution of the resolver —
+i.e. **one grid point per resolver *electrical* revolution**. So grid spacing
+*is* machine travel per electrical revolution, which is exactly what HostMot2's
+`.scale` wants.
+
+τ is stored in **`MC1–MC4`**, packed as `LINEAR ZONE | τ × 8` (parameter manual
+printed p. 6-35; decode in
+[`../background/parameter_recovery.md`](../background/parameter_recovery.md#mc1mc4-carry-the-control-τ-number--decode-them)).
+This machine reads `MC = 784` on X, Y and Z — on the 1985 factory sheet and on
+the 2026-07-28 live CRT alike:
+
+```
+784 = 0x0310  ->  LINEAR ZONE 3 (=16000),  τ × 8 = 16  ->  τ = 2.000
+grid spacing = 4000 / 2 = 2000 µm = 2.000 mm = 0.07874016 in
+```
+
+> **`RESOLVER_SCALE` = 2.000 mm (0.07874016 in) per resolver electrical
+> revolution, X, Y and Z.** Sign selects axis direction; set
+> `RESOLVER_VELOCITY_SCALE` to the same signed value.
+
+**Independent corroboration from a running machine.** The SRDC Mazak VQC 15/40
+retrofit — same generation, original Mitsubishi DC servos and resolvers retained,
+LinuxCNC + Mesa — ships `RESOLVER_SCALE = 0.07874016` and
+`RESOLVER_INDEX_DIVISOR = 5` on all three axes, with `LINEAR_UNITS = inch`
+(`github.com/srdco/MazakVQC1540`, `MAZAK-VQC1540.ini`). 0.07874016 in = **2.0000
+mm exactly**. That machine's value was arrived at empirically, without reference
+to τ, and lands on the same number.
+
+**Pole count follows from the lead, and the lead is now MEASURED.** `n = lead ÷
+grid spacing`. On 2026-08-17 all three ballscrews were hand-turned one full
+revolution at the machine and each axis moved **10.000 mm**
+([`ballscrew_lead_2026-08-17.md`](ballscrew_lead_2026-08-17.md)), so
+
+> **n = 10.000 ÷ 2.000 = 5** — five electrical revolutions per screw turn.
+
+This agrees with the `RT-5X` type name and with the sibling machine's
+`RESOLVER_INDEX_DIVISOR = 5` (note the agreement; neither is admissible as
+support — see the lead file). What is left unmeasured is the **2.000 mm**, which
+is the τ decode. So Test 1 below is no longer a hunt for n; it is a **direct test
+of τ**, with a specific number predicted in advance. Note that *`RESOLVER_SCALE`
+does not depend on n either way*.
+
+**Homing is unaffected by the residual uncertainty:** n > 1 under every
+candidate lead, so the resolver null repeats within a screw turn and cannot
+identify a unique position. **Switch-based homing stays mandatory**, and the
+sibling machine likewise sets `HOME_USE_INDEX = NO`.
+
+**Evidence state: `PROPOSED`.** This is a documentary derivation plus a
+third-party config, not a measurement on this machine. Test 1 below is now a
+**verification with a pre-committed prediction**: per full screw revolution,
+**5 electrical revolutions = 10 amplitude nulls on one output winding**, and a
+null every **1.000 mm** of axis travel. The lead is no longer the loose end — if
+Test 1 disagrees, **the τ decode is wrong**, and the measurement wins.
+
 #### Test 1 — nulls per mechanical revolution. Run this FIRST; it gates scaling.
 
 Drive the 35 Ω winding at ~5 kHz, 3–5 Vrms, through the series resistor. Scope
 one output winding. Rotate the shaft slowly through **one full mechanical
 revolution** by hand and count amplitude nulls.
 
-Count the nulls. **`n` = nulls per mechanical revolution is the pole-pair count**,
-and it is a number this repo does not yet have:
+> ### Count nulls, then HALVE them. `n` = nulls ÷ 2.
+>
+> **An earlier version of this test said `n` = nulls per revolution. That is
+> wrong and it is wrong in the dangerous direction — it doubles n, which doubles
+> the inferred lead to 20 mm, which is precisely the poles-vs-pole-pairs trap
+> flagged in [`ballscrew_lead_2026-08-17.md`](ballscrew_lead_2026-08-17.md).**
+>
+> One output winding carries `k·V_exc·sin(θe)` with `θe = n × θ_mech`. Over one
+> mechanical revolution `sin(θe)` crosses zero **2n** times — once at 0° and once
+> at 180° of every electrical revolution. What a scope shows is the *envelope*,
+> `|sin(θe)|`, so every one of those 2n crossings looks like a null; the 180°
+> carrier phase inversion that distinguishes them is invisible unless you view the
+> output against the excitation.
+>
+> **Predicted for this machine, per full screw revolution: 10 nulls, 5 electrical
+> revolutions.** Getting 10 confirms τ = 2. Getting 5 would mean n = 2.5, which is
+> not a thing — recount. Getting 20 means τ = 1 and the grid is 4.000 mm.
+>
+> **Two ways to avoid the ambiguity entirely, either is better than counting
+> envelope collapses:**
+> - Put the excitation on CH1 and the output winding on CH2 and watch the carrier
+>   **invert phase** at alternate nulls. Count inversions-to-inversion: that is one
+>   electrical revolution, and there are **5** per screw revolution.
+> - Scope **both** output windings at once (as Test 2 does anyway). Their nulls
+>   interleave in quadrature; one full SIN-null → COS-null → SIN-null → COS-null
+>   sequence is one electrical revolution.
+>
+> **Cross-check with a dial indicator, which needs no interpretation at all:**
+> nulls should fall every **1.000 mm** of axis travel and same-phase nulls every
+> **2.000 mm**. That measures grid spacing directly, in machine units, and is the
+> single most decisive reading in this procedure.
+
+Then, with `n` in hand:
 
 - `RESOLVER_SCALE` and `RESOLVER_VELOCITY_SCALE` must reflect **n electrical
   revolutions per screw turn**.
@@ -320,7 +411,7 @@ position detectors the machine has grid points *"at each **1/n (n : number of
 poles)** revolution of the resolver"*. So the repo's 1× assumption is **wrong**;
 only the value of n is open.
 
-The name suggests n = 5: "RT-**5**X". Across five observed Mitsubishi/Tamagawa
+The name also suggests n = 5: "RT-**5**X". Across five observed Mitsubishi/Tamagawa
 pairs the type-name digit tracks the Tamagawa N-group's last digit exactly
 (RT-3XB-11↔N**23**, RT-3XC-11↔N**43**, RT-5XB-11↔N**25**, RT-5XC-11↔N**45**,
 RT-6XC-11↔N**46**), and on other Tamagawa families that digit is the documented
