@@ -1,0 +1,15 @@
+{
+  "conductors": 135,
+  "elements": 59,
+  "folios": 15,
+  "generated_by": "scripts/generate_qelectrotech_project.py",
+  "inputs": [
+    "Codex Manual Read/plane_a_bbia1_pin_crosswalk.csv",
+    "Codex Manual Read/plane_b_pin_crosswalk.csv"
+  ],
+  "plane_a_diagrammed_routes": 49,
+  "plane_b_rows": 38,
+  "project": "MESAC_VQC2040_Retrofit.qet",
+  "project_sha256": "b940b3f74fc6e15135be35b5ef26dad8d7902b515202f2fcab93718cd8bbf67b",
+  "qelectrotech_target": "0.100.0"
+}

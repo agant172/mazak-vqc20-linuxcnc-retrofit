@@ -27,9 +27,16 @@ The 19 rectangular connectors on the BBIA-1 are **Honda Tsushin Kogyo (HTK) MR-s
 | CN5 | MR-20RMW | 20 | Relay card / external | External trip, RST, over-run EMG, EMG stop, common rails, EFHD, RCTLS, ISP1/2, 4-axis interlock cancel, OSP1/2, +24V |
 | CN6 | MR-50RMW | 50 | Relay card / CB panel | CYFIN, servo ready, work light, SSET, CTL/OTR, ±LYZ, +24V, TAPC, MMAL, PW1, P24, mag oil-tool det., spindle-head lube, 0G returns, spindle spd/err/servo/ready/orient |
 | CN7 | MR-50RMW | 50 | (2PC pallet changer, ext.) | MF, M-codes M11..M38, ZPX/Y/Z/4, MFA, FHDL, ZPZ2, AUTH, TUCC, FHDP, CSTL/CSTB, PCLCD, ISP3, MRDY, RST, OSP3/4, P1ON/P2ON, EXFIN, EXRST, INTX/Y/Z/4, EXAL, ONLN, ENCOL, EXCST, EXFHD, ERSBK, EMOP1 |
+| CN200 | MR-20RMW | 20 | MMS receiver | MMS ready, sensor ready, MMS skip/start/power-on/start-command, 0G, +24 V; complete pinout on p85. `MMS SKIP` is only a held candidate for the retrofit probe input until physically traced. |
 | CN11 | MR-20RMW (terminal unit) | 20 | SSR board CN11 (pin-for-pin) | **BBIA-1's own connector.** Magazine CW/CCW, tool unclamp, gear-shift hi/lo, spindle/work air blast, mist coolant, tool-measuring-arm extend, air jet, dust inhale, oil hole, flood coolant, magazine cover close, flood-coolant motor starter, **hydraulic pump/head-lube pump** (pin 16), 0G |
 | CN11-SSR | MR-20 (SSR-bd, MR20-AMD/LFH) | 20 | CB panel loads (SSR outputs) | The **SSR board's own** connector (drawing **4143175309**, sheet 78) — mirrors terminal-unit CN11's 20 functions pin-for-pin (magazine CW/CCW, tool unclamp, gear-shift hi/lo, spindle/work blast, mist coolant, arm extend, air jet, dust inhale, oil hole, flood coolant, magazine cover close, flood-coolant motor starter, hydraulic pump/head-lube pump, 0G), wire numbers offset (+500/+600, see `bbia1_cn_pinouts.md`) |
-| CN12 | MR-20 (SSR-bd, MR20-AMD/LFH) | 9 populated | CB panel loads (SSR outputs, 2nd bank) | 2PC/pallet-related outputs; second SSR bank on the same drawing (4143175309, sheet 78); pins/wires transcribed, function-per-pin unconfirmed |
+| CN12 | MR-20RMW (terminal unit) → MR20-AMD/LFH (SSR board) | 9 populated downstream | CB panel loads (SSR outputs, 2nd bank) | 2PC/pallet-related outputs; the downstream SSR pin/wire table is transcribed from 4143175309 p78, but the terminal-unit hop is not independently pin-traced. |
+
+**Layout correction (2026-08-18):** drawing 4143075304 (PDF p74) places
+`CN8` on the NC-facing/top row and `CN200` on the machine-facing/bottom row.
+The earlier inventory used CN8 as the tenth bottom connector and omitted CN200.
+The install-facing Plane A crosswalk now uses the ten physical bottom positions
+shown on that layout and excludes NC-facing CN8.
 
 **Note on CN11 — RESOLVED 2026-08-10, CORRECTED 2026-08-10.** There really are two things called "CN11" in the drawings, now both captured and disambiguated:
 
@@ -40,9 +47,9 @@ The 19 rectangular connectors on the BBIA-1 are **Honda Tsushin Kogyo (HTK) MR-s
 
 There is also a third, separate "CN11" mentioned in `bbia1_cn_pinouts.md` (an alternate 25-way pallet-changer/coolant loom, dwg 03-81581-02) that has never been independently read and isn't reconciled against either of the above — confirm which physical connector you're looking at by counting shell positions before cutting.
 
-## Per-pin details for CN1–CN6 & CN11
+## Per-pin details for CN1–CN7, CN11/CN12, and CN200
 
-**Full per-pin wire-labeling tables are in [`bbia1_cn_pinouts.md`](bbia1_cn_pinouts.md)** and the machine-readable CSV **[`bbia1_cn_pinouts.csv`](bbia1_cn_pinouts.csv)**. Each row lists:
+**Full per-pin wire-labeling tables are in [`bbia1_cn_pinouts.md`](bbia1_cn_pinouts.md)** and the machine-readable CSV **[`bbia1_cn_pinouts.csv`](bbia1_cn_pinouts.csv)**. The generated 320-pin installation join is **[`plane_a_bbia1_pin_crosswalk.csv`](plane_a_bbia1_pin_crosswalk.csv)**. Each source row lists:
 
 - Connector, shell type, pin number
 - Factory wire number (the label printed on the wire jacket — this is the label to reproduce on new ferrules)

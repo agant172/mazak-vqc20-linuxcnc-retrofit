@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<definition version="0.100.0" type="element" link_type="simple" width="350" height="100" hotspot_x="175" hotspot_y="50">
+    <uuid uuid="{9e627bba-c93a-536f-b64d-f1d44093cd92}" />
+    <names>
+        <name lang="en">Required interposing-relay boundary</name>
+    </names>
+    <informations>Generated from the MESAC retrofit crosswalks. PRELIMINARY - NOT RELEASED FOR WIRING.</informations>
+    <description>
+        <rect x="-165.0" y="-40.0" width="330" height="80" rx="0" ry="0" antialias="false" style="line-style:normal;line-weight:normal;filling:none;color:#a85d00" />
+        <line x1="-165.0" y1="-14.0" x2="165.0" y2="-14.0" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:normal;filling:none;color:#a85d00" antialias="false" />
+        <text text="Required interposing-relay boundary" x="-157.0" y="-22.0" rotation="0" font="Liberation Sans,8,-1,5,75,0,0,0,0,0,Bold" color="#a85d00" />
+        <text text="F01 | FIELD | THERMAL_ALARM_CHAIN" x="-157.0" y="5.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+        <terminal uuid="{6176163d-798f-56ef-8dee-99b779025605}" name="F01" x="-165.0" y="2.0" orientation="w" type="Generic" />
+        <text text="M01 | MESA | THERMAL_ALARM_CHAIN" x="4" y="5.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+        <terminal uuid="{abcefbab-dd59-5847-90e4-6209cce16b2e}" name="M01" x="165.0" y="2.0" orientation="e" type="Generic" />
+    </description>
+</definition>

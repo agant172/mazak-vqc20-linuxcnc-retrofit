@@ -158,10 +158,10 @@ analogue (KABEA TS2650N11E78: rotor 51+j90 vs stator 102+j150). **Of the two
 patterns, 141E26 is the unusual one — not this machine's reading.** Stop treating
 121/69 as "the expected ratio."
 
-**Second unknown: which connector was measured.** The hypothesis table above is
-built from the OEM *servo-drive* sheet. These readings were taken on the
-*NC unit rack* side. The two are not confirmed to share a pinout, so the pin
-numbers here may not be the pin numbers there.
+**Connector identity is resolved.** Mitsubishi Figure 14.4-1 explicitly labels the
+N/C-side connector family `CNA 3~6`, and the two continuity corroborations above
+match the measured rack connectors. The older concern that the measurements might
+refer to a different servo-drive-side connector is superseded.
 
 **Consequence.** Winding roles and pin assignments are **resolved** by the
 Mitsubishi figure above, and this measurement is what corroborates it: the
@@ -172,6 +172,11 @@ transformation ratio at 5 kHz, and the phase shift — see
 No exact-suffix datasheet exists (see
 [The 25E datasheet is not obtainable](#the-25e-datasheet-is-not-obtainable-searched-2026-08-16)),
 so those three come from the bench, not from paper.
+
+The conductor-by-conductor proposed polarity and exact 7i49 screw terminals are
+now recorded in `../wiring/plane_b_pin_crosswalk.csv`. The M2 figure identifies
+pairs but not plus/minus polarity, so those assignments remain a commissioning
+convention until the disabled-drive direction and phasing checks pass.
 
 #### Ground and shield pins — same session, same connectors
 

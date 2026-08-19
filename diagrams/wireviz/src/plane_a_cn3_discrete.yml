@@ -1,0 +1,204 @@
+# GENERATED FILE - edit the source CSV or generator, then regenerate.
+metadata:
+  title: Plane A - BBIA-1 CN3 discrete routes
+  description: Machine-facing CN3 conductors through the required isolation boundary to Mesa field I/O.
+  notes: 'PRELIMINARY - NOT RELEASED FOR WIRING. Yellow = defined route requiring field verification; red = HOLD or proposed;
+    gray = retain/retire decision. Input: Codex Manual Read/plane_a_bbia1_pin_crosswalk.csv.'
+options:
+  fontname: Arial
+  bgcolor: WH
+  bgcolor_node: WH
+  color_mode: SHORT
+  mini_bom_mode: false
+connectors:
+  CN3:
+    type: BBIA-1 CN3 machine-facing connector
+    pins:
+    - 14
+    - 15
+    - 37
+    - 38
+    - 39
+    - 44
+    pinlabels:
+    - wire ORI C1 | SPINDLE_ORIENT_CMD | FIELD VERIFY
+    - wire CTL | SPINDLE_ORIENT_LOGEAR | FIELD VERIFY
+    - wire +LY | Y_LIMIT_PLUS | FIELD VERIFY
+    - wire -LZ | Z_LIMIT_MINUS | FIELD VERIFY
+    - wire 147 | ATC_ZONE_Z | HOLD - OEM CONFLICT
+    - wire SPTD | ATC_ZONE_Y | HOLD - OEM CONFLICT
+    pincolors: &id001
+    - YE
+    - YE
+    - YE
+    - YE
+    - RD
+    - RD
+    hide_disconnected_pins: true
+    show_pincount: false
+    bgcolor_title: LB
+    notes: PRELIMINARY - NOT RELEASED FOR WIRING. Only Mesa route and candidate pins are shown; see the 320-row Plane A CSV
+      for complete pin accounting.
+    ignore_in_bom: true
+  IR_BOUNDARY:
+    type: Required interposing-relay boundary
+    pins:
+    - F01
+    - M01
+    - F02
+    - M02
+    - F03
+    - M03
+    - F04
+    - M04
+    - F05
+    - M05
+    - F06
+    - M06
+    pinlabels:
+    - FIELD | SPINDLE_ORIENT_CMD
+    - MESA | SPINDLE_ORIENT_CMD
+    - FIELD | SPINDLE_ORIENT_LOGEAR
+    - MESA | SPINDLE_ORIENT_LOGEAR
+    - FIELD | Y_LIMIT_PLUS
+    - MESA | Y_LIMIT_PLUS
+    - FIELD | Z_LIMIT_MINUS
+    - MESA | Z_LIMIT_MINUS
+    - FIELD | ATC_ZONE_Z
+    - MESA | ATC_ZONE_Z
+    - FIELD | ATC_ZONE_Y
+    - MESA | ATC_ZONE_Y
+    pincolors:
+    - YE
+    - YE
+    - YE
+    - YE
+    - YE
+    - YE
+    - YE
+    - YE
+    - RD
+    - RD
+    - RD
+    - RD
+    hide_disconnected_pins: true
+    show_pincount: false
+    bgcolor_title: YE
+    notes: PRELIMINARY - NOT RELEASED FOR WIRING. Fxx and Mxx are logical boundary identifiers, not purchased relay terminal
+      numbers. Specify coil/contact topology, suppression, voltage domain, and actual terminal IDs before release.
+    ignore_in_bom: true
+  7i84U-A_TB3:
+    type: 7i84U-A TB3
+    pins:
+    - OUT4
+    - OUT5
+    - IN1
+    - IN0
+    pinlabels:
+    - OUT4 | spindle-orient-cmd | FIELD VERIFY
+    - OUT5 | orient-lo-gear | FIELD VERIFY
+    - IN1 | atc-z-zone | HOLD - OEM CONFLICT
+    - IN0 | atc-y-zone | HOLD - OEM CONFLICT
+    pincolors:
+    - YE
+    - YE
+    - RD
+    - RD
+    hide_disconnected_pins: true
+    show_pincount: false
+    bgcolor_title: LB
+    notes: Mesa terminal text is copied from the crosswalk; verify physical terminal numbering against the card manual.
+    ignore_in_bom: true
+  7i84U-B_TB3:
+    type: 7i84U-B TB3
+    pins:
+    - IN2
+    - IN5
+    pinlabels:
+    - IN2 | limit-y-plus | FIELD VERIFY
+    - IN5 | limit-z-minus | FIELD VERIFY
+    pincolors:
+    - YE
+    - YE
+    hide_disconnected_pins: true
+    show_pincount: false
+    bgcolor_title: LB
+    notes: Mesa terminal text is copied from the crosswalk; verify physical terminal numbering against the card manual.
+    ignore_in_bom: true
+cables:
+  OEM_CONDUCTORS:
+    type: Existing OEM conductor segments
+    wirecount: 6
+    wirelabels:
+    - ORI C1 | SPINDLE_ORIENT_CMD
+    - CTL | SPINDLE_ORIENT_LOGEAR
+    - +LY | Y_LIMIT_PLUS
+    - -LZ | Z_LIMIT_MINUS
+    - 147 | ATC_ZONE_Z
+    - SPTD | ATC_ZONE_Y
+    colors: *id001
+    show_wirecount: false
+    notes: Factory jacket identifier shown; length, gauge, and color are not asserted.
+    shield: false
+    ignore_in_bom: true
+  NEW_CONTROL_WIRING:
+    type: New control-side conductors
+    wirecount: 6
+    wirelabels:
+    - SPINDLE_ORIENT_CMD | spindle-orient-cmd
+    - SPINDLE_ORIENT_LOGEAR | orient-lo-gear
+    - Y_LIMIT_PLUS | limit-y-plus
+    - Z_LIMIT_MINUS | limit-z-minus
+    - ATC_ZONE_Z | atc-z-zone
+    - ATC_ZONE_Y | atc-y-zone
+    colors: *id001
+    show_wirecount: false
+    notes: Assign permanent new wire numbers, gauge, color, and ferrules in the relay terminal schedule.
+    shield: false
+    ignore_in_bom: true
+connections:
+- - CN3:
+    - 14
+    - 15
+    - 37
+    - 38
+    - 39
+    - 44
+  - OEM_CONDUCTORS:
+    - 1
+    - 2
+    - 3
+    - 4
+    - 5
+    - 6
+  - IR_BOUNDARY:
+    - F01
+    - F02
+    - F03
+    - F04
+    - F05
+    - F06
+- - IR_BOUNDARY:
+    - M01
+    - M02
+    - M05
+    - M06
+  - NEW_CONTROL_WIRING:
+    - 1
+    - 2
+    - 5
+    - 6
+  - 7i84U-A_TB3:
+    - OUT4
+    - OUT5
+    - IN1
+    - IN0
+- - IR_BOUNDARY:
+    - M03
+    - M04
+  - NEW_CONTROL_WIRING:
+    - 3
+    - 4
+  - 7i84U-B_TB3:
+    - IN2
+    - IN5

@@ -10,8 +10,11 @@ This folder is restricted to hardware in the selected retrofit stack.
   sha256 `4b18ac95c0e332c3992032bb927d63ed6b0a3ed3326f32bfc6ace016910d04e2`)
 - `7i84uman.pdf` - local copy of the Mesa 7i84U manual used for the
   TB1/TB2/TB3 map, field-power limits, watchdog, and smart-serial facts.
+- `7i49man.pdf` - local copy of the Mesa 7i49 manual used for resolver,
+  analog-output, enable, GND, and shield terminal assignments. Retrieved
+  2026-08-18 from <https://www.mesanet.com/pdf/motion/7i49man.pdf> (17 pp,
+  sha256 `fb0de2df2731d4ae3f2f2c19a54b776267e3b73b09535b7ed2c7515bfc84ceb9`).
 - Mesa 7i44 manual: <https://www.mesanet.com/pdf/parallel/7i44man.pdf>
-- Mesa 7i49 manual: <https://www.mesanet.com/pdf/motion/7i49man.pdf>
 - Mesa 7i80HDT product page:
   <https://store.mesanet.com/index.php?product_id=386&route=product/product>
 

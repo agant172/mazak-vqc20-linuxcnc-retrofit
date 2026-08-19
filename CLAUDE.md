@@ -125,14 +125,16 @@ The original NC talked to the machine through **two separate interfaces**, not o
   (smart-serial) → **Mesa screw terminals** → cut & ferruled **MR cables** →
   **BBIA-1** → unchanged OEM harness → machine. Documented in
   `wiring/bbia1_terminal_unit.md` / `wiring/bbia1_cn_pinouts.csv`.
-- **Plane B — the CNA-family servo card-cage connectors** plus the FR-SX spindle
-  drive's **SX-IO1** board, carrying axis resolver feedback, ±10 V axis velocity
-  commands, and the spindle speed command: LinuxCNC → 7i80HDT → 7i49 (P1) →
-  shielded home-run cable → **CNA3(X)/CNA4(Y)/CNA5(Z)** / SX-IO1 → unchanged OEM
-  cabling → TRA servo amps / FR-SX spindle drive. The resolver connectors are
-  mature — pin roles are Mitsubishi-M2-manual-confirmed and bench-measured
-  (`docs/resolver_commissioning.md`, `resolvers.md`); the SX-IO1 board is not yet
-  pinned out (`wiring/connector_crossref.md`). The RC3A relay board, though
+- **Plane B — the CNA-family servo card-cage connectors**, carrying axis resolver
+  feedback and the direct ±10 V axis command pairs: LinuxCNC → 7i80HDT → 7i49
+  (P1) → shielded home-run cable → **CNA3(X)/CNA4(Y)/CNA5(Z)** / the still-untraced
+  axis-command connector pins → retained TRA/DK-427 hardware. Resolver pin roles
+  are Mitsubishi-M2-manual-confirmed and bench-measured
+  (`docs/resolver_commissioning.md`, `resolvers.md`,
+  `wiring/plane_b_pin_crosswalk.csv`). **Correction 2026-08-18:** the FR-SX speed
+  reference crosses Plane A at BBIA-1 CN4-18/-19/-20, not Plane B; the SX-IO1
+  CON1 table in `wiring/connector_crossref.md` is the internal cross-reference.
+  The RC3A relay board, though
   physically in the same bay, is **not** part of Plane B — its signals
   cross-reference to BBIA-1's own CN3/CN301A (Plane A).
 
@@ -188,8 +190,10 @@ Four sources are authoritative, in priority order:
 3. **Mesa manuals committed to `docs/Mesa Manuals/`**
    - `7i84uman.pdf` (7I84U) — 7i84U-A/B I/O registers, SSerial
      addressing, connector pinouts, power requirements.
-   Manuals for the other cards in the stack (7i80HDT, 7i44, 7i49) are not
-   yet committed — download from Mesa and commit before citing. Do NOT cite
+   - `7i80hdtman.pdf` (7I80HDT) — installed host-board connectors and power.
+   - `7i49man.pdf` (7I49) — resolver and analog terminal maps and shield rule.
+   The 7i44 manual remains link-only; commit it before relying on a new 7i44
+   claim not already covered by the current authority. Do NOT cite
    7i97T/7i97 manuals: the 7i97T architecture is RETRACTED
    (`docs/superseded_claims_2026-08-06.md`) and the local 7i97T manual was
    deliberately removed in Rev B.

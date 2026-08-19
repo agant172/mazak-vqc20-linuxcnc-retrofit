@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<definition version="0.100.0" type="element" link_type="simple" width="350" height="172" hotspot_x="175" hotspot_y="86">
+    <uuid uuid="{73dead50-590e-5e47-a8a6-56dd3154f35e}" />
+    <names>
+        <name lang="en">Required interposing-relay boundary</name>
+    </names>
+    <informations>Generated from the MESAC retrofit crosswalks. PRELIMINARY - NOT RELEASED FOR WIRING.</informations>
+    <description>
+        <rect x="-165.0" y="-76.0" width="330" height="152" rx="0" ry="0" antialias="false" style="line-style:normal;line-weight:normal;filling:none;color:#a85d00" />
+        <line x1="-165.0" y1="-50.0" x2="165.0" y2="-50.0" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:normal;filling:none;color:#a85d00" antialias="false" />
+        <text text="Required interposing-relay boundary" x="-157.0" y="-58.0" rotation="0" font="Liberation Sans,8,-1,5,75,0,0,0,0,0,Bold" color="#a85d00" />
+        <text text="F01 | FIELD | SERVO_READY" x="-157.0" y="-31.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+        <terminal uuid="{6c230531-4852-501a-bcab-a698dfcf890e}" name="F01" x="-165.0" y="-34.0" orientation="w" type="Generic" />
+        <text text="M01 | MESA | SERVO_READY" x="4" y="-31.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+        <terminal uuid="{b59cc1b4-bc1e-557c-8703-4cc754444ba5}" name="M01" x="165.0" y="-34.0" orientation="e" type="Generic" />
+        <text text="F02 | FIELD | WORK_LIGHT" x="-157.0" y="-11.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#d00000" />
+        <terminal uuid="{d042cc4c-5a3f-5058-bca0-f1ec4445c5d5}" name="F02" x="-165.0" y="-14.0" orientation="w" type="Generic" />
+        <text text="M02 | MESA | WORK_LIGHT" x="4" y="-11.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#d00000" />
+        <terminal uuid="{2646cdaa-5af0-5da6-bf3e-c26824f8571f}" name="M02" x="165.0" y="-14.0" orientation="e" type="Generic" />
+        <text text="F03 | FIELD | SERVO_FAULT" x="-157.0" y="9.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+        <terminal uuid="{57e06041-28f9-55b7-8967-26cf3d9e2481}" name="F03" x="-165.0" y="6.0" orientation="w" type="Generic" />
+        <text text="M03 | MESA | SERVO_FAULT" x="4" y="9.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+        <terminal uuid="{0f915f72-c75e-5f78-8fd4-d68f30641577}" name="M03" x="165.0" y="6.0" orientation="e" type="Generic" />
+        <text text="F04 | FIELD | LUBE_OK" x="-157.0" y="29.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+        <terminal uuid="{048e1fed-16c8-5a08-9c2f-e93ded5aed85}" name="F04" x="-165.0" y="26.0" orientation="w" type="Generic" />
+        <text text="M04 | MESA | LUBE_OK" x="4" y="29.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+        <terminal uuid="{f2b377d0-7847-5360-9c6e-4226f6dcb889}" name="M04" x="165.0" y="26.0" orientation="e" type="Generic" />
+        <text text="F05 | FIELD | SPINDLE_TOOL_AVAILABLE" x="-157.0" y="49.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+        <terminal uuid="{c1a4d62e-7438-5ac3-be47-81791a84889f}" name="F05" x="-165.0" y="46.0" orientation="w" type="Generic" />
+        <text text="M05 | MESA | SPINDLE_TOOL_AVAILABLE" x="4" y="49.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+        <terminal uuid="{8c71f1d0-8ac7-58e8-8dc1-8f7106ac0f2f}" name="M05" x="165.0" y="46.0" orientation="e" type="Generic" />
+    </description>
+</definition>

@@ -11,15 +11,22 @@ commissioning material; it is safe to ignore while standing at the cabinet._
 
 ## 0. Scope — where this project touches the machine
 
-The conversion physically touches the machine at **one place: the BBIA-1
-terminal unit** (connectors CN1–CN6, CN11), where cut and ferruled MR conductors
-land on Mesa screw terminals. The only other work product is logical: the
-**ladder → HAL translation** that reproduces the M-2's sequencing in LinuxCNC.
+The conversion physically touches the machine at **two named planes**:
+
+- **Plane A:** BBIA-1 terminal unit connectors, where cut and ferruled MR
+  conductors land on 7i84U screw terminals and the FR-SX speed-reference trio
+  reaches 7i49 AOUT3.
+- **Plane B:** CNA3/CNA4/CNA5 resolver connectors and the direct X/Y/Z analog
+  command pairs, home-run to the 7i49. The resolver pins are mapped; the axis
+  command OEM connector pins remain on a continuity-trace hold.
+
+The logical work product is the **ladder → HAL translation** that reproduces the
+M-2's sequencing in LinuxCNC.
 
 - **Power and E-stop are out of scope** (owner decision 2026-08-15, see
   `CLAUDE.md` § Quick non-negotiable rules). All power circuits and the entire
   E-stop system stay 100% original OEM.
-- The single-plane rule and its exceptions live in `INTERFACE_ARCHITECTURE.md`.
+- The two-plane rule and its exceptions live in `INTERFACE_ARCHITECTURE.md`.
 
 Everything below is ordered the way it is used: gates first, then the machine
 side of the plane, then the plane itself, then the computer side, then the
@@ -60,6 +67,8 @@ checks that close the loop.
 | Artifact | Role |
 |---|---|
 | [`wiring/bbia1_source_dest.csv`](wiring/bbia1_source_dest.csv) | Both ends of every traced conductor: signal, factory wire, BBIA CN-pin, Mesa terminal. Until the § 5 consolidation in `INTERFACE_ARCHITECTURE.md` is approved, the authority CSV's BBIA-end columns are only partially populated — cross-reference here, per wire. |
+| [`wiring/plane_b_pin_crosswalk.csv`](wiring/plane_b_pin_crosswalk.csv) | One row per resolver/analog conductor at Plane B, plus the corrected CN4 spindle-reference rows and explicit holds for the untraced axis-command landings. |
+| [`wiring/interface_plane_crosswalk.md`](wiring/interface_plane_crosswalk.md) | Cabinet-facing index explaining which file controls each plane and what remains non-releasable. |
 | [`mesa/current_pin_authority.csv`](mesa/current_pin_authority.csv) | **The gate.** One row per Mesa pin; `authority_status` decides whether a wire may be landed at all. Any `HOLD_*` or `COMMISSIONING_PENDING` row is **not cleared for wiring**. |
 | [`wiring/authority_conflicts.md`](wiring/authority_conflicts.md) | Controlling conflict register: resolved solenoid identities, per-output energize blocks, and open gaps. Check the relevant entry **before landing or energizing any output** it names. |
 | [`mesa/README.md`](mesa/README.md) | The 7i84U terminal-block layout quirk (TB1 = power only, TB3 = IN0–15 + OUT0–7, TB2 = IN16–31 + OUT8–15) and the pin-authority conventions. |

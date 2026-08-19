@@ -276,6 +276,32 @@ Signal name column = the wire number/label printed on the wire.
 | 49 | — | (spare) | — |
 | 50 | 382 | MAGAZINE SPINDLE TOOL DETECTOR | CN12-42 |
 
+# CN200 — MR-20RMW → MMS receiver
+
+This connector was omitted from the earlier machine-side accounting because CN8
+was mistakenly counted as a bottom-row connector. Drawing 4143075304 (PDF p74)
+places **CN200 on the machine-facing/bottom row** and **CN8 on the NC-facing/top
+row**. Drawing 4143075322 (PDF p85) provides the complete CN200 table below.
+
+The original MMS unit is not automatically the same electrical endpoint as the
+retrofit Renishaw MP-3 probe. `MMS SKIP` is therefore a documented candidate for
+`PROBE_SKIP1`, not a released Mesa landing, until continuity and voltage/polarity
+are checked at the machine.
+
+| Pin | Line/Wire No. | Signal name | Inside connector | Outside connector |
+|----:|---------------|-------------|------------------|-------------------|
+| 1 | MMS RDY | MMS READY | CND4-28 | CN200-1 |
+| 2 | SEN RDY | SENSOR READY | CND4-29 | CN200-2 |
+| 3 | MMS SKIP | MMS SKIP | CND2-14 | CN200-3 |
+| 4 | MMS ST | MMS START | CND4-30 | CN200-4 |
+| 5 | MMS PON | MMS POWER ON | CND4-27 | CN200-5 |
+| 6 | — | (unused on print) | — | — |
+| 7 | 0G | DC24V COM (-), NC domain | CND4-1 | CN200-7 |
+| 8–13 | — | (unused on print) | — | — |
+| 14 | MMS STCMD | MMS START (COMMAND) | CND2-29 | CN200-14 |
+| 15–19 | — | (unused on print) | — | — |
+| 20 | +24V | DC24V +COM, NC domain | CND4-33 | CN200-20 |
+
 # CN11-SSR — MR-20 (SSR board's own connector)  → CB-panel loads
 
 **Renamed from "CN11" to `CN11-SSR` 2026-08-10** to disambiguate from the actual
@@ -370,6 +396,91 @@ If a future pass reconciles the 21-33 terminal-strip key to these pins,
 `ATC_BARRIER_SOL` (Y095 TCME.M barrier-expand) and `TAP_COOLANT_BLAST`
 (SOL-61) in `wiring/bbia1_source_dest.csv` are the two open signals waiting on
 it.
+
+---
+
+## CN3 completed, CN7 and CN8 transcribed in full (2026-08-18)
+
+Read from 600 DPI renders of `41434WB.pdf` p84 (dwg 4143075321, CN3) and p86
+(dwg 4143015323, CN7/CN8); all rows appended to `bbia1_cn_pinouts.csv`.
+
+**CN3 is now 50/50 accounted.** The 26 previously-absent pins are confirmed
+**genuinely unused on the print**: pins 5–7, 16–32, 34, and 45–48 are fully
+blank rows, and pin 13 is marked `SPARE` with no wire. Every populated CN3
+pin was already in the CSV — nothing new was allocated, the gap was purely
+"blank vs untranscribed" ambiguity, now closed.
+
+**CN7 (MR-50RMW, 50/50) — the 2PC pallet-changer M-code/handshake connector.**
+Fully populated except pin 48's inside-connector reference and RST (pin 31)'s
+inside reference, which were not cleanly legible. Wires: MF, M11–M38 (M-code
+bits), ZPX/ZPY/ZPZ/ZP4/ZPZ2 (zero-position outputs), MFA, FHDL/FHDPB,
+CSTL/CSTPB, PUCCD/PCLCD (pallet unclamp/clamp commands), ISP3/OSP3/OSP4,
+MRDY, RST, P1ON/P2ON (FMS), EXFIN/EXRST/EXCST/EXFHD/EXSBK/EMOP1 (external
+control), INTX/Y/Z/4 (axis interlocks), EXAL, ONLN, ENCOL, 0G ×2, +24V ×2.
+All outside connections go to `TB6`. Function is out of retrofit scope (2PC,
+owner decision), but every wire is now identified.
+
+**CN8 (MR-50RMW, 50/50) — entirely NC spare I/O, never cabled out.** The
+whole connector is factory-allocated spares: ISP4–ISP22 (19 spare inputs),
+OSP5–OSP30 (26 spare outputs), +24 ×2, 0G ×2, one blank pin (48). **The
+`Outside_Connec` column is blank on every row** — these wires were allocated
+in the NC and terminated at the board but never wired to anything on the
+machine side. This is the single largest block of "allocated but never used"
+NC capacity, now positively accounted for.
+
+**Signal-name divergences found while re-reading CN3 (logged, not applied).**
+The fresh 600 DPI read of dwg 4143075321 disagrees with four existing CSV
+rows' signal names — the CSV rows are left as-is pending a tie-breaker, since
+they came from a different (also OEM) source pass:
+
+| Pin | CSV says | p84 print reads |
+|---|---|---|
+| CN3-15 | ORIENT LOOP CHECK | LOW GEAR SHIFT |
+| CN3-36 | MAGAZINE TIMER | WAY LUBE WARNING TIMER |
+| CN3-39 | OIL TEMP DETECTOR | TOOL DETECTOR |
+| CN3-44 | SPINDLE TIMER | SPINDLE TOOL DETECTOR |
+
+CN3-39/44 feed directly into the `authority_conflicts.md` §7.2 dispute (which
+already bars landing those conductors until buzzed at the board) — this read
+adds a **third** OEM naming for those two pins, reinforcing that only a field
+check settles them. CN3-36's print reading (WAY LUBE WARNING TIMER, outside
+connec `WLWT-14`) is also more consistent with its neighbor CN3-35 (WLAL, way
+lube alarm, `WLWT-5`) than the CSV's "MAGAZINE TIMER".
+
+CN7/CN8's inside-connector references also add ~60 new CND-side coordinates
+(CND1/CND2/CND3/CND4/CND5/CND23), the largest batch of top-row (NC-facing)
+mapping data captured so far — relevant to the CND accounting gap in
+`nc_connector_inventory.md`.
+
+## CN1, CN2, CN4, CN6 completed (2026-08-18, same pass)
+
+All four connectors' absent pins re-read from p84 (CN1/CN2/CN4, dwg
+4143075321) and p85 (CN6, dwg 4143075322):
+
+- **CN1 (20/20):** pins 8–13 and 19 genuinely blank.
+- **CN2 (50/50):** pins 20, 22–33, and 48 genuinely blank.
+- **CN4 (20/20):** pins 11 and 14 blank; **pins 18/19/20 were populated all
+  along** — `SE1`/`SE2`/`SE3` SPEED REFERENCE (10 V max speed) → `CON1-31/-32/-30`,
+  exactly matching the dwg 4143075403 p127 FR-SX read in
+  `connector_crossref.md`. Their inside-connector refs were too faded to read
+  even at 1200 DPI — left blank, not guessed.
+- **CN6 (50/50):** pins 6, 14–16, 22, 31–32, 35–36, 40, 48–49 blank; pins 38
+  and 45 drawn **slashed out** on the print (explicitly not used).
+
+**More CN4 signal-name divergences (logged, not applied)** — same
+different-pass caveat as the CN3 table above:
+
+| Pin | CSV says | p84 print reads |
+|---|---|---|
+| CN4-15 | COM (inside CN3-33) | ORC2 → CON1-26 |
+| CN4-16 | SETA "set A" (outside 1-32) | OBA1 → CON1-22, SPINDLE ORIENT ARRIVAL |
+| CN4-17 | SETB "set B" (outside 1-33) | OBA2 → CON1-23, +COM |
+
+The p84 print reading for 16/17 agrees with `mesa/current_pin_authority.csv`'s
+independent `RECON 2026-08-08 §D` note ("FR-SX OBA1(t22)/OBA2(t23) →
+CN4-16/CN4-17") and with the p127 CON1 table — two independent corroborations
+against the CSV's SETA/SETB, which looks like a mis-association with the
+sheet's CN3 rows. Field-verify before relabeling.
 
 ---
 

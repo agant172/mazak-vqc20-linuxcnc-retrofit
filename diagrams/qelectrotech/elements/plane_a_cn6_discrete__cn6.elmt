@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<definition version="0.100.0" type="element" link_type="simple" width="350" height="172" hotspot_x="175" hotspot_y="86">
+    <uuid uuid="{76d598cb-3dd4-5733-bae3-2ba2450f8759}" />
+    <names>
+        <name lang="en">BBIA-1 CN6 machine-facing connector</name>
+    </names>
+    <informations>Generated from the MESAC retrofit crosswalks. PRELIMINARY - NOT RELEASED FOR WIRING.</informations>
+    <description>
+        <rect x="-165.0" y="-76.0" width="330" height="152" rx="0" ry="0" antialias="false" style="line-style:normal;line-weight:normal;filling:none;color:#0078a8" />
+        <line x1="-165.0" y1="-50.0" x2="165.0" y2="-50.0" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:normal;filling:none;color:#0078a8" antialias="false" />
+        <text text="BBIA-1 CN6 machine-facing connector" x="-157.0" y="-58.0" rotation="0" font="Liberation Sans,8,-1,5,75,0,0,0,0,0,Bold" color="#0078a8" />
+        <text text="7 | wire SA | SERVO_READY | FIELD VERIFY" x="4" y="-31.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+        <terminal uuid="{498c3f42-601a-5a0d-b4be-eea83a1e9b13}" name="7" x="165.0" y="-34.0" orientation="e" type="Generic" />
+        <text text="8 | wire WL | WORK_LIGHT | HOLD - RESERVED" x="4" y="-11.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#d00000" />
+        <terminal uuid="{08c483b8-c3c6-5a02-a9f3-3d3ec83c3d38}" name="8" x="165.0" y="-14.0" orientation="e" type="Generic" />
+        <text text="27 | wire SER | SERVO_FAULT | FIELD VERIFY" x="4" y="9.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+        <terminal uuid="{eb56a764-17a8-5dd1-b9a5-b2eba9dfd1b1}" name="27" x="165.0" y="6.0" orientation="e" type="Generic" />
+        <text text="39 | wire 355 | LUBE_OK | FIELD VERIFY" x="4" y="29.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+        <terminal uuid="{a0f614e3-6aa7-55a7-91af-37343800d338}" name="39" x="165.0" y="26.0" orientation="e" type="Generic" />
+        <text text="50 | wire 382 | SPINDLE_TOOL_AVAILABLE | FIELD VERIFY" x="4" y="49.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+        <terminal uuid="{c9705aa4-ef1c-53e7-b77f-1fc82c936d8d}" name="50" x="165.0" y="46.0" orientation="e" type="Generic" />
+    </description>
+</definition>

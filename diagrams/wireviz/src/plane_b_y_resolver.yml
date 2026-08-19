@@ -1,0 +1,169 @@
+# GENERATED FILE - edit the source CSV or generator, then regenerate.
+metadata:
+  title: Plane B - Y-axis resolver to Mesa 7i49
+  description: CNA4 resolver windings, case-ground disposition, and three-pair drain requirement.
+  notes: 'PRELIMINARY - NOT RELEASED FOR WIRING. Yellow = defined route requiring field verification; red = HOLD or proposed;
+    gray = retain/retire decision. Input: Codex Manual Read/plane_b_pin_crosswalk.csv; OEM 41434WB p128; 7i49 manual.'
+options:
+  fontname: Arial
+  bgcolor: WH
+  bgcolor_node: WH
+  color_mode: SHORT
+  mini_bom_mode: false
+connectors:
+  CNA4:
+    type: OEM / field endpoint CNA4
+    pins:
+    - 12
+    - 13
+    - 14
+    - 15
+    - 16
+    - 17
+    - 20
+    pinlabels:
+    - 12 | Y_RES_SIN_POS | lead/wire A | PROPOSED - PHASE VERIFY
+    - 13 | Y_RES_SIN_NEG | lead/wire B | PROPOSED - PHASE VERIFY
+    - 14 | Y_RES_COS_POS | lead/wire F | PROPOSED - PHASE VERIFY
+    - 15 | Y_RES_COS_NEG | lead/wire G | PROPOSED - PHASE VERIFY
+    - 16 | Y_RES_DRV_POS | lead/wire H | PROPOSED - PHASE VERIFY
+    - 17 | Y_RES_DRV_NEG | lead/wire J | PROPOSED - PHASE VERIFY
+    - 20 | Y_RES_CASE_GND | lead/wire N | HOLD - SHIELD TOPOLOGY
+    pincolors:
+    - RD
+    - RD
+    - RD
+    - RD
+    - RD
+    - RD
+    - RD
+    hide_disconnected_pins: true
+    show_pincount: false
+    bgcolor_title: LB
+    notes: PRELIMINARY - NOT RELEASED FOR WIRING. Source identifiers are copied from the crosswalk; TBD is deliberately unresolved.
+    ignore_in_bom: true
+  NEW_CABLE_SHIELDS:
+    type: New resolver-cable pair drains (three shields)
+    pins:
+    - three pair drains
+    pinlabels:
+    - three pair drains | Y_RES_PAIR_SHIELDS | FIELD PENDING
+    pincolors:
+    - YE
+    hide_disconnected_pins: true
+    show_pincount: false
+    bgcolor_title: LB
+    notes: PRELIMINARY - NOT RELEASED FOR WIRING. Source identifiers are copied from the crosswalk; TBD is deliberately unresolved.
+    ignore_in_bom: true
+  7i49_P4:
+    type: 7i49 P4
+    pins:
+    - 10
+    - 9
+    - 12
+    - 11
+    - 15
+    - 14
+    - 13 or 16
+    pinlabels:
+    - 10 | RESSIN1+ | PROPOSED - PHASE VERIFY
+    - 9 | RESSIN1- | PROPOSED - PHASE VERIFY
+    - 12 | RESCOS1+ | PROPOSED - PHASE VERIFY
+    - 11 | RESCOS1- | PROPOSED - PHASE VERIFY
+    - 15 | RESDRV1+ | PROPOSED - PHASE VERIFY
+    - 14 | RESDRV1- | PROPOSED - PHASE VERIFY
+    - 13 or 16 | GND | FIELD PENDING
+    pincolors:
+    - RD
+    - RD
+    - RD
+    - RD
+    - RD
+    - RD
+    - YE
+    hide_disconnected_pins: true
+    show_pincount: false
+    bgcolor_title: LB
+    notes: Mesa terminal text is copied from the crosswalk; verify physical terminal numbering against the card manual.
+    ignore_in_bom: true
+  HOLD_TERMINATION:
+    type: Termination or electrical role not established
+    pins:
+    - TBD01
+    pinlabels:
+    - TBD01 | Y_RES_CASE_GND | HOLD - SHIELD TOPOLOGY
+    pincolors:
+    - RD
+    hide_disconnected_pins: true
+    show_pincount: false
+    bgcolor_title: RD
+    notes: Do not terminate until the row's required verification is complete.
+    ignore_in_bom: true
+cables:
+  DIRECT_INTERFACE:
+    type: Direct analog / resolver interface conductors
+    wirecount: 8
+    wirelabels:
+    - Y_RES_SIN_POS | PROPOSED - PHASE VERIFY
+    - Y_RES_SIN_NEG | PROPOSED - PHASE VERIFY
+    - Y_RES_COS_POS | PROPOSED - PHASE VERIFY
+    - Y_RES_COS_NEG | PROPOSED - PHASE VERIFY
+    - Y_RES_DRV_POS | PROPOSED - PHASE VERIFY
+    - Y_RES_DRV_NEG | PROPOSED - PHASE VERIFY
+    - Y_RES_CASE_GND | HOLD - SHIELD TOPOLOGY
+    - Y_RES_PAIR_SHIELDS | FIELD PENDING
+    colors:
+    - RD
+    - RD
+    - RD
+    - RD
+    - RD
+    - RD
+    - RD
+    - YE
+    show_wirecount: false
+    notes: PRELIMINARY - NOT RELEASED FOR WIRING. Logical route only. Cable part, gauge, pair assignment, and length are not
+      asserted by this sheet.
+    shield: false
+    ignore_in_bom: true
+connections:
+- - CNA4:
+    - 12
+    - 13
+    - 14
+    - 15
+    - 16
+    - 17
+    - 20
+  - DIRECT_INTERFACE:
+    - 1
+    - 2
+    - 3
+    - 4
+    - 5
+    - 6
+    - 7
+- - NEW_CABLE_SHIELDS:
+    - three pair drains
+  - DIRECT_INTERFACE:
+    - 8
+- - DIRECT_INTERFACE:
+    - 1
+    - 2
+    - 3
+    - 4
+    - 5
+    - 6
+    - 8
+  - 7i49_P4:
+    - 10
+    - 9
+    - 12
+    - 11
+    - 15
+    - 14
+    - 13 or 16
+- - DIRECT_INTERFACE:
+    - 7
+  - HOLD_TERMINATION:
+    - TBD01

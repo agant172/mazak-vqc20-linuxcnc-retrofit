@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<definition version="0.100.0" type="element" link_type="simple" width="350" height="112" hotspot_x="175" hotspot_y="56">
+    <uuid uuid="{0710bd01-4037-5326-9ba3-4b9f181fe228}" />
+    <names>
+        <name lang="en">7i84U-B TB3</name>
+    </names>
+    <informations>Generated from the MESAC retrofit crosswalks. PRELIMINARY - NOT RELEASED FOR WIRING.</informations>
+    <description>
+        <rect x="-165.0" y="-46.0" width="330" height="92" rx="0" ry="0" antialias="false" style="line-style:normal;line-weight:normal;filling:none;color:#0078a8" />
+        <line x1="-165.0" y1="-20.0" x2="165.0" y2="-20.0" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:normal;filling:none;color:#0078a8" antialias="false" />
+        <text text="7i84U-B TB3" x="-157.0" y="-28.0" rotation="0" font="Liberation Sans,8,-1,5,75,0,0,0,0,0,Bold" color="#0078a8" />
+        <text text="IN2 | IN2 | limit-y-plus | FIELD VERIFY" x="-157.0" y="-1.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+        <terminal uuid="{b26795db-918f-5c88-a76d-c2618c9c4e4e}" name="IN2" x="-165.0" y="-4.0" orientation="w" type="Generic" />
+        <text text="IN5 | IN5 | limit-z-minus | FIELD VERIFY" x="-157.0" y="19.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+        <terminal uuid="{fa7198a2-35a9-5794-9c44-cd053067caea}" name="IN5" x="-165.0" y="16.0" orientation="w" type="Generic" />
+    </description>
+</definition>

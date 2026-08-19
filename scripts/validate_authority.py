@@ -129,6 +129,8 @@ AUTHORITY_STATES = {
     "DEFERRED",
     "UNBOUND",  # Legacy alias for DEFERRED.
     "HOLD_CONFLICT",
+    "HOLD_SOURCE_TRACE",
+    "HOLD_ANALOG_ROLE",
     "OPTIONAL_VERIFY",
     "NOT_USED",
 }

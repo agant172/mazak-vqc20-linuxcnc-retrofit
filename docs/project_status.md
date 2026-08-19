@@ -137,6 +137,22 @@ later.
 - [ ] While at the connectors: read the jacket on **`CN11-13`** (the other wire `231`, §7.1). Label read, no meter.
 - [ ] **Buzz `CN2-14`** for continuity to the +Z over-travel limit switch *and* to `CN6-12` — three sources disagree about whether it is `+LTZ` Z-axis over travel, unlabelled, or a **combined +Y/+Z bus** (`+LYZ`) ([`../wiring/authority_conflicts.md`](../wiring/authority_conflicts.md) §7.3). Continuity to both +Y and +Z confirms the combined-bus reading. ⚠️ This pin is already on a printed ferrule (`B-TB3-05`), now released as `HOLD_DISPUTED_PIN` — do not land it until this resolves.
 
+**Connector-accounting punch list (added 2026-08-18, from the tracing-completeness
+audit — full per-connector detail in
+[`../wiring/nc_connector_inventory.md`](../wiring/nc_connector_inventory.md)).**
+Goal: every Honda MR connector that plugged into the NC has a connector ID, per-pin
+wire identification, and every unused pin positively marked unused — many pins were
+factory-allocated but never used, and today absence-from-the-CSV can't distinguish
+"unused" from "never transcribed."
+
+- [ ] **Photograph and label every CND (top-row) connector on BBIA-1** — shell size, board position, cable jacket markings — before the NC hardware moves. These are the connectors that physically plugged into the NC back panel FX30; no per-connector CND pinout exists in the repo and the CND→CN index is not pin-for-pin.
+- [x] **Transcribe CN7 (50 pins, 2PC pallet changer) from the OEM print** — DONE 2026-08-18 from dwg 4143015323 (p86), 50/50 wires identified, all to TB6. Bonus: **CN8 discovered and transcribed on the same sheet** — a tenth bottom-row connector, entirely NC spare I/O (ISP4–22/OSP5–30), never cabled out.
+- [x] **Complete CN3's remaining 26 pins** — DONE 2026-08-18 from dwg 4143075321 (p84): all 26 are genuinely unused on the print (blank, plus pin 13 marked SPARE), so CN3 is 50/50 accounted with nothing new allocated. The §7.2 CN3-39/44 conflict did NOT resolve — the fresh read adds a *third* OEM naming for those pins (39 = TOOL DETECTOR, 44 = SPINDLE TOOL DETECTOR); the buzz-out at the board remains the tie-breaker. Four CN3 signal-name divergences logged in `../wiring/bbia1_cn_pinouts.md`.
+- [x] **Re-read the CN1/CN2/CN4/CN6 source sheets** — DONE 2026-08-18. All four now 50/50 or 20/20 accounted: CN1 (7 blank), CN2 (14 blank), CN6 (12 blank + pins 38/45 slashed out), and CN4's "missing" pins 18–20 confirmed populated (SE1/SE2/SE3 speed reference → CON1-31/-32/-30, matching p127). Three CN4 signal-name divergences (pins 15–17) logged in `../wiring/bbia1_cn_pinouts.md` — the p84+p127+authority-CSV triple agreement favors ORC2/OBA1/OBA2 over the CSV's COM/SETA/SETB.
+- [ ] **Transcribe CNA10** (NC-side spindle load-meter feed, dwg 4143075403 p127) and read its "REF. SHT. 04".
+- [ ] Check the NC rack for a **CNA6** position (M2 manual's detector connector family runs CNA 3–6; only 3/4/5 are accounted).
+- [ ] Identify or rule out the **third "CN11"** (25-way pallet/coolant loom, dwg 03-81581-02, never independently read).
+
 ### Immediate — Phase B: seat the cards and enumerate the stack
 
 **This is the gate on the whole repo.** Every `hm2_7i80.0...` pin name in

@@ -52,13 +52,13 @@ to be modeled as if it were retrofit wiring.
 
 **Amendment 2026-08-17 — a second, named plane for the servo/spindle interface.**
 BBIA-1 was the NC's *back-panel* breakout, but resolver feedback, ±10 V axis
-velocity commands, and the spindle speed/orient interface never routed through the
-back panel — they ran directly between the NC's card cage and the servo/spindle
-drives, on their own connector family (**CNA**-prefixed per axis) and the spindle
-drive's **SX-IO1** board (`CON1`/`CONA`/`CON2`/`CONAA`, dwg 4143075403 p127). With
-the NC removed, this becomes the retrofit's second interface plane, not a BBIA-1
-exception to keep chasing — this resolves the previously-open Section 3b items 3
-and 6 below:
+velocity commands did not all route through the BBIA-1 discrete-I/O breakout. The
+resolver harnesses run directly to the NC card cage on the **CNA** connector family;
+the exact X/Y/Z analog-command landing connectors are still being traced. This direct
+servo interface is Plane B. **Correction 2026-08-18:** the FR-SX speed-reference trio
+does route through BBIA-1 CN4-18/-19/-20 to SX-IO1 CON1-31/-32/-30 (dwg 4143075403
+p127), so it remains Plane A. The earlier statement that all spindle command wiring
+was Plane B was too broad.
 
 ```
                                                     7i49 (P1)
@@ -67,8 +67,8 @@ and 6 below:
                                                     ▼
                                      ┌─────────────────────────────┐
                                      │ CNA3(X)/CNA4(Y)/CNA5(Z)      │  ◀── PLANE B
-                                     │ (servo card cage) + SX-IO1   │      (resolver,
-                                     │ (spindle command/feedback)   │       ±10V, spindle)
+                                     │ + axis command pair landing   │      (resolver and
+                                     │ (connector pins still open)   │       axis ±10 V)
                                      └──────────────┬───────────────┘
                                                     │  (unchanged OEM cabling to
                                                     │   TRA amps / FR-SX drive)
@@ -78,10 +78,9 @@ and 6 below:
 
 **Plane B is deliberately separate from Plane A (BBIA-1)**: different connector
 family, different physical location (servo card cage, not the back-panel terminal
-unit), different signal class (analog/resolver, not discrete digital I/O), and per
-the resolver wiring warning in `wiring/README.md`, deliberately **not** routed
-through a digital terminal unit at all — home-run shielded cable to the 7i49 to
-avoid noise coupling.
+unit), and resolver/axis-analog signal class. Per the resolver wiring warning in
+`wiring/README.md`, resolver cables are home-run shielded cables to the 7i49. The
+FR-SX speed reference is the explicit analog exception: it crosses Plane A at CN4.
 
 **One relay board is explicitly *not* part of Plane B, despite living in the same
 servo/spindle bay:** `wiring/connector_crossref.md` cross-references the RC3A relay
@@ -89,16 +88,21 @@ board's silkscreen labels (`CTL`, `OTR`, `SSET`, `SRV`, `SMR`, `ORC`, `TCME`, et
 against dwg 4143075305 p075 and finds an exact match to signals already present on
 BBIA-1's own `CN3`/`CN301A` tables. RC3A's discrete relay-logic signals are already
 reachable at the documented Plane A connector — they don't need a separate tap
-point. What remains genuinely Plane B and still unmapped at the pin level is the
-SX-IO1 board's own connectors (`CON1`/`CONA`/`CON2`/`CONAA`) — see
-`wiring/connector_crossref.md` § "Other connectors on the spindle/servo bay, not
-yet fully cross-referenced."
+point. The SX-IO1 board's own connectors (`CON1`/`CONA`/`CON2`/`CONAA`, plus
+`CNA1` and the `T.U. CN4` terminal-unit breakout) are now transcribed from pg 127
+(dwg 4143075403) with per-pin CONFIRMED/PLAUSIBLE/UNRESOLVED confidence tags — see
+`wiring/connector_crossref.md` § "SX-IO1 board connectors." This is a documentation
+reconciliation of the OEM print, not electrical verification; several pins remain
+genuinely UNRESOLVED, notably the drive's own "(EMERGENCY STOP)" text label, which
+traces to no confirmed pin on either CON1 or CN4.
 
 The CNA3/4/5 axis resolver connectors are the mature part of Plane B: pin roles are
 now confirmed against Mitsubishi's own `M2 Maintenance Manual` detector-wiring
 figure (not just the 41434WB schematic), and DC resistance was bench-measured
 2026-08-16 on all three axes — see `docs/resolver_commissioning.md` §§ "OEM
 connector reference" and "Measured DC resistance 2026-08-16," and `resolvers.md`.
+The SX-IO1 board's own connectors are transcribed but not bench-verified — see
+`wiring/connector_crossref.md` § "SX-IO1 board connectors."
 Per Section 3b item 5, **spindle position feedback does not cross either plane** —
 that's a settled, separate design decision (LinuxCNC doesn't read spindle
 position); Plane B's spindle-side scope is limited to the analog speed command and
@@ -172,16 +176,15 @@ that is not here must be added here.
    interposing relay (see CLAUDE.md § Electrical architecture).
 
 ### 3b. Open — verify before assuming these cross at BBIA-1
-3. **7i49 analog + resolver path — RESOLVED 2026-08-17, see Section 1 "Plane B."**
-   X/Y/Z resolver feedback, X/Y/Z ±10 V velocity commands to the MELDAS TRA amps,
-   and the FR-SX spindle speed reference **do not cross at BBIA-1**. They form
-   their own plane at the CNA-family servo card-cage connectors and the FR-SX
-   `SX-IO1` board, wired home-run/shielded to the 7i49 — never routed through a
-   digital I/O terminal unit (see the resolver warning in `wiring/README.md`).
-   What remains open is not *which plane* but pin-level completeness: the CNA3/4/5
-   resolver connectors are Mitsubishi-manual-confirmed and bench-measured
-   (`docs/resolver_commissioning.md`); the SX-IO1 board's connectors are not yet
-   pinned out (`wiring/connector_crossref.md` § "not yet fully cross-referenced").
+3. **7i49 analog + resolver path — boundary resolved; pin work remains.** X/Y/Z
+   resolver feedback crosses Plane B at CNA3/4/5. X/Y/Z ±10 V command pairs also
+   bypass the BBIA discrete plane, but their exact OEM connector/pins remain
+   `HOLD_SOURCE_TRACE` in `wiring/plane_b_pin_crosswalk.csv`. The FR-SX speed
+   reference is now confirmed on Plane A at BBIA-1 CN4-18/-19/-20; its SE1/SE2/SE3
+   electrical roles still need drive-manual or disabled-drive verification before
+   AOUT3 is landed. The SX-IO1 connectors are transcribed in
+   `wiring/connector_crossref.md`, and CNA3/4/5 are Mitsubishi-manual-confirmed and
+   bench-measured in `docs/resolver_commissioning.md`.
 4. **Over-travel limits +X, −X, −Y, +Z** — no confirmed BBIA-1 landing pin (found
    2026-08-10, dwg 4143075410). Only +Y (CN3-37) and −Z (CN3-38) are confirmed on the
    plane. The other four may route via a terminal block outside the 19-connector
@@ -299,7 +302,7 @@ known-fallible.
 - BBIA-1 role and pass-through nature (Plane A): `wiring/bbia1_terminal_unit.md`
   (OEM `41434WB.pdf` dwgs 4143075313 / 4143075311; board silkscreen BN624A306H01).
 - Connector/pin reference (Plane A): `wiring/bbia1_cn_pinouts.csv` (205 rows).
-- CNA/SX-IO1 servo-spindle interface (Plane B): `docs/resolver_commissioning.md`
+- CNA resolver/axis-command interface (Plane B): `docs/resolver_commissioning.md`
   (Mitsubishi M2 Maintenance Manual detector figure + 2026-08-16 bench DC-resistance
   measurements), `resolvers.md` (nameplate/serial survey), `wiring/connector_crossref.md`
   (OEM dwg 4143075403 p127 for the SX-IO1 board; RC3A↔BBIA-1 CN3/CN301A cross-reference).
@@ -309,9 +312,16 @@ known-fallible.
 **Verified:** BBIA-1 is a straight pass-through terminal unit and was the NC's sole
 machine interconnect for discrete I/O; the retrofit lands the cut MR conductors on
 Mesa screw terminals. CNA3/4/5 resolver pin roles are Mitsubishi-manual-confirmed
-and bench-measured. **Resolved 2026-08-17:** resolver, ±10 V analog, and spindle
-command do **not** cross at BBIA-1 — they form Plane B at the CNA-family/SX-IO1
-connectors (Section 1), and RC3A's relay logic is reachable via the existing Plane A
-CN3/CN301A rather than needing its own tap. **Open:** the SX-IO1 board's pin-level
-mapping, and the remaining Section 3b items (over-travel limits). This architecture
-governs the data model; it does not by itself commission any circuit.
+and bench-measured. **Corrected 2026-08-18:** resolver and X/Y/Z command pairs form
+Plane B, but the FR-SX speed reference crosses Plane A at CN4-18/-19/-20. The exact
+axis-command OEM connector pins are still held for continuity trace. RC3A's relay
+logic is reachable via Plane A CN3/CN301A rather than needing its own tap.
+**Documentation reconciled 2026-08-17:**
+the SX-IO1 board's pin-level mapping (CON1/CON2/CNA/CNAA/CNA1/T.U. CN4) is transcribed
+from pg 127 with per-pin CONFIRMED/PLAUSIBLE/UNRESOLVED tags — see
+`wiring/connector_crossref.md` § "SX-IO1 board connectors." This is print
+transcription only, not bench or field verification. **Open:** the remaining
+Section 3b items (over-travel limits), and every UNRESOLVED pin flagged in that
+section — notably the drive's own "(EMERGENCY STOP)" label, which traces to no
+confirmed pin. This architecture governs the data model; it does not by itself
+commission any circuit.

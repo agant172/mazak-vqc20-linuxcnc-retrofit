@@ -19,6 +19,16 @@ use Windows CRLF records on checkout.
 - Current pin authority: [`../mesa/current_pin_authority.csv`](../mesa/current_pin_authority.csv)
   — current table for connector, pin/channel, HAL net, status, source basis, and
   cleanup notes.
+- Two-plane installation index: [`interface_plane_crosswalk.md`](interface_plane_crosswalk.md)
+  — controls how BBIA-1 and the CNA/direct-analog plane are joined without
+  reclassifying unresolved pins as verified.
+- Plane A BBIA-1 installation crosswalk: [`plane_a_bbia1_pin_crosswalk.csv`](plane_a_bbia1_pin_crosswalk.csv)
+  — generated 320-row accounting of every machine-facing BBIA pin, including
+  Mesa destination, authority/hold state, verification action, and OEM page.
+  Regenerate with `python3 scripts/generate_interface_crosswalks.py`.
+- Plane B conductor table: [`plane_b_pin_crosswalk.csv`](plane_b_pin_crosswalk.csv)
+  — one row per resolver, axis-command, CNA10, and corrected CN4 spindle-reference
+  conductor, with exact 7i49 terminals and explicit holds.
 - I/O map research notes: [`io_map_research_notes.md`](io_map_research_notes.md) —
   designator research from the OEM maintenance/operating manuals and electrical
   circuit diagram (`41434WB.pdf`), including the pallet-changer (2PC) signal set,
@@ -38,20 +48,22 @@ use Windows CRLF records on checkout.
 - **Spindle-head valve hardware:** [`head_valve_hardware.md`](head_valve_hardware.md) — Nachi/CKD valve inventory, coil wire labels (`410`/`412`/`413`/`415`/`416` + `16` common), 100 VAC coil confirmation, pressure data.
 - **Cabinet as-found survey:** [`cabinet_asfound_survey.md`](cabinet_asfound_survey.md) — terminal strips, motor starters, control gear. Photo inventory only. Carries the safety-chain strip (`57`/`57A`/`57B`/`58`/`59`/`60`/`EMB`/`MAR`) that anchors the D5 trace.
 - **BBIA-1 terminal unit ("Honda" MR-series connectors):** [`bbia1_terminal_unit.md`](bbia1_terminal_unit.md) — board role, connector family (HTK MR-50RMW / MR-20RMW), and connector map (CN1–CN6, CN7, CN11, CN12).
-- **BBIA-1 CN1–CN6 & CN11 detailed pinouts:** [`bbia1_cn_pinouts.md`](bbia1_cn_pinouts.md) and [`bbia1_cn_pinouts.csv`](bbia1_cn_pinouts.csv) — per-pin wire number, signal name, function, and inside/outside connector for the connectors being cut and re-labeled for the Mesa retrofit.
-- **BBIA-1 laminated reference sheet (replaces per-wire CN ferrules, 2026-08-09):** [`bbia1_cn_labels_epson.md`](labels/bbia1_cn_labels_epson.md) and [`bbia1_cn_labels_epson.csv`](labels/bbia1_cn_labels_epson.csv) — 164 rows (`Wire` / `Location` / `Signal`) feeding [`bbia1_wire_reference_sheet.html`](labels/bbia1_wire_reference_sheet.html) via `scripts/generate_wire_reference_sheet.py`; print 8.5"×11", laminate, hang in the cabinet. The factory jacket print identifies each conductor at the cut.
+- **BBIA-1 detailed pinouts:** [`bbia1_cn_pinouts.md`](bbia1_cn_pinouts.md) and [`bbia1_cn_pinouts.csv`](bbia1_cn_pinouts.csv) — per-pin wire number, signal name, function, and inside/outside connector. The 2026-08-18 p74 visual audit corrected CN8 to the NC-facing row and added the previously omitted machine-facing CN200 MMS-receiver connector.
+- **BBIA-1 laminated reference sheet (replaces per-wire CN ferrules, 2026-08-09):** [`bbia1_cn_labels_epson.md`](labels/bbia1_cn_labels_epson.md) and [`bbia1_cn_labels_epson.csv`](labels/bbia1_cn_labels_epson.csv) — 390 rows (`Wire` / `Location` / `Signal`) feeding [`bbia1_wire_reference_sheet.html`](labels/bbia1_wire_reference_sheet.html) via `scripts/generate_wire_reference_sheet.py`; print 8.5"×11", laminate, hang in the cabinet. The factory jacket print identifies each conductor at the cut.
 - **Epson 6 mm Mesa-end ferrule batch:** [`bbia1_mesa_end_ferrules_epson.md`](labels/bbia1_mesa_end_ferrules_epson.md) and [`bbia1_mesa_end_ferrules_epson.csv`](labels/bbia1_mesa_end_ferrules_epson.csv) — conservative direct-to-Mesa subset of the cut BBIA conductors. Only `Label_Text` (for example `B-TB3-07`) is printed; all current rows remain `HOLD_SOURCE_TRACE` pending continuity proof.
 - **Epson LW-PX700 7i84U-B terminal batch:** [`7i84u_b_terminal_legend_epson.md`](labels/7i84u_b_terminal_legend_epson.md) and [`7i84u_b_terminal_legend_epson.csv`](labels/7i84u_b_terminal_legend_epson.csv) — physical terminal position plus logical channel, signal, HAL reference, authority status, and a print-release hold. Regenerate all printer CSVs with `python3 scripts/generate_label_csvs.py --write`.
 
 ## Status
 
 **Logical I/O allocation: documented. Physical BBIA-to-retrofit destination
-crosswalk: incomplete hold.** The authority workbook and
+crosswalk: complete as an accounting artifact, not as a wire-release sheet.** The authority workbook and
 `../mesa/current_pin_authority.csv` record the planned Mesa functions. The
-initial destination crosswalk contains only 14 conservative direct-input
-matches; all remain `HOLD_SOURCE_TRACE`. Relay-contact, hardware-safety,
-power/common, series-net, ambiguous, retired, and remaining field destinations
-must be traced before their ferrules are generated.
+generated Plane A crosswalk accounts for all 320 bottom-row pin positions and
+joins the 45 current authority routes plus four explicit held candidates. Rows
+marked `HOLD_*`, reserved, unallocated, power/common, safety-retained, or spare
+must not be landed as Mesa signals. CN12's terminal-unit hop, the three FR-SX
+speed-reference roles, CN200-3 probe identity, and the registered OEM conflicts
+still require the stated field checks.
 
 Terminal labels, wire numbers, normal states (NO/NC), and drive/encoder pinouts
 still require cabinet verification before any wiring or bring-up. See the
