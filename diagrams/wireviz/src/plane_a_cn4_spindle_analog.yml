@@ -1,0 +1,97 @@
+# GENERATED FILE - edit the source CSV or generator, then regenerate.
+metadata:
+  title: Plane A - CN4 FR-SX spindle analog reference
+  description: CN4 SE1/SE2/SE3 to the 7i49 AOUT3 interface. Every role remains HOLD.
+  notes: 'PRELIMINARY - NOT RELEASED FOR WIRING. Yellow = defined route requiring field verification; red = HOLD or proposed;
+    gray = retain/retire decision. Input: wiring/plane_a_bbia1_pin_crosswalk.csv; OEM 41434WB p127.'
+options:
+  fontname: Arial
+  bgcolor: WH
+  bgcolor_node: WH
+  color_mode: SHORT
+  mini_bom_mode: false
+connectors:
+  CN4:
+    type: OEM / field endpoint CN4
+    pins:
+    - 18
+    - 19
+    - 20
+    pinlabels:
+    - 18 | SPINDLE_SPEED_SE1 | lead/wire SE1 | HOLD - ANALOG ROLE
+    - 19 | SPINDLE_SPEED_SE2 | lead/wire SE2 | HOLD - ANALOG ROLE
+    - 20 | SPINDLE_SPEED_SE3 | lead/wire SE3 | HOLD - SHIELD OR COMMON
+    pincolors:
+    - RD
+    - RD
+    - RD
+    hide_disconnected_pins: true
+    show_pincount: false
+    bgcolor_title: LB
+    notes: PRELIMINARY - NOT RELEASED FOR WIRING. Source identifiers are copied from the crosswalk; TBD is deliberately unresolved.
+    ignore_in_bom: true
+  7i49_P3:
+    type: 7i49 P3
+    pins:
+    - 'TBD: 23/24 (GND3/AOUT3)'
+    - 'TBD: 23/24 (GND3/AOUT3)_2'
+    pinlabels:
+    - 'TBD: 23/24 (GND3/AOUT3) | spindle-speed-cmd | HOLD - ANALOG ROLE'
+    - 'TBD: 23/24 (GND3/AOUT3)_2 | spindle-speed-cmd | HOLD - ANALOG ROLE'
+    pincolors:
+    - RD
+    - RD
+    hide_disconnected_pins: true
+    show_pincount: false
+    bgcolor_title: LB
+    notes: Mesa terminal text is copied from the crosswalk; verify physical terminal numbering against the card manual.
+    ignore_in_bom: true
+  HOLD_TERMINATION:
+    type: Termination or electrical role not established
+    pins:
+    - TBD01
+    pinlabels:
+    - TBD01 | SPINDLE_SPEED_SE3 | HOLD - SHIELD OR COMMON
+    pincolors:
+    - RD
+    hide_disconnected_pins: true
+    show_pincount: false
+    bgcolor_title: RD
+    notes: Do not terminate until the row's required verification is complete.
+    ignore_in_bom: true
+cables:
+  DIRECT_INTERFACE:
+    type: Direct analog / resolver interface conductors
+    wirecount: 3
+    wirelabels:
+    - SPINDLE_SPEED_SE1 | HOLD - ANALOG ROLE
+    - SPINDLE_SPEED_SE2 | HOLD - ANALOG ROLE
+    - SPINDLE_SPEED_SE3 | HOLD - SHIELD OR COMMON
+    colors:
+    - RD
+    - RD
+    - RD
+    show_wirecount: false
+    notes: PRELIMINARY - NOT RELEASED FOR WIRING. Logical route only. Cable part, gauge, pair assignment, and length are not
+      asserted by this sheet.
+    shield: false
+    ignore_in_bom: true
+connections:
+- - CN4:
+    - 18
+    - 19
+    - 20
+  - DIRECT_INTERFACE:
+    - 1
+    - 2
+    - 3
+- - DIRECT_INTERFACE:
+    - 1
+    - 2
+  - 7i49_P3:
+    - 'TBD: 23/24 (GND3/AOUT3)'
+    - 'TBD: 23/24 (GND3/AOUT3)_2'
+- - DIRECT_INTERFACE:
+    - 3
+  - HOLD_TERMINATION:
+    - TBD01

@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<definition version="0.100.0" type="element" link_type="simple" width="350" height="232" hotspot_x="175" hotspot_y="116">
+    <uuid uuid="{a4f08024-58f4-5257-b37f-1c3ddfb5020d}" />
+    <names>
+        <name lang="en">7i84U-A TB2</name>
+    </names>
+    <informations>Generated from the MESAC retrofit crosswalks. PRELIMINARY - NOT RELEASED FOR WIRING.</informations>
+    <description>
+        <rect x="-165.0" y="-106.0" width="330" height="212" rx="0" ry="0" antialias="false" style="line-style:normal;line-weight:normal;filling:none;color:#0078a8" />
+        <line x1="-165.0" y1="-80.0" x2="165.0" y2="-80.0" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:normal;filling:none;color:#0078a8" antialias="false" />
+        <text text="7i84U-A TB2" x="-157.0" y="-88.0" rotation="0" font="Liberation Sans,8,-1,5,75,0,0,0,0,0,Bold" color="#0078a8" />
+        <text text="IN19 | IN19 | mag-bcd-bit0 | FIELD VERIFY" x="-157.0" y="-61.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+        <terminal uuid="{282ff745-8a26-575f-9fdf-99fe2efdae90}" name="IN19" x="-165.0" y="-64.0" orientation="w" type="Generic" />
+        <text text="IN20 | IN20 | mag-bcd-bit1 | FIELD VERIFY" x="-157.0" y="-41.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+        <terminal uuid="{155f0620-9585-559b-a8a2-d08fe74cd39b}" name="IN20" x="-165.0" y="-44.0" orientation="w" type="Generic" />
+        <text text="IN21 | IN21 | mag-bcd-bit2 | FIELD VERIFY" x="-157.0" y="-21.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+        <terminal uuid="{1bf72aeb-fd52-5697-bcce-7752bca4a9f4}" name="IN21" x="-165.0" y="-24.0" orientation="w" type="Generic" />
+        <text text="IN22 | IN22 | mag-bcd-bit3 | FIELD VERIFY" x="-157.0" y="-1.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+        <terminal uuid="{ba85965a-d668-51d9-8885-52501c768daa}" name="IN22" x="-165.0" y="-4.0" orientation="w" type="Generic" />
+        <text text="IN23 | IN23 | mag-bcd-bit4 | FIELD VERIFY" x="-157.0" y="19.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+        <terminal uuid="{8a2f17b5-e34b-5fdb-9802-0dcbf06a8494}" name="IN23" x="-165.0" y="16.0" orientation="w" type="Generic" />
+        <text text="IN28 | IN28 | mag-in-pos | FIELD VERIFY" x="-157.0" y="39.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+        <terminal uuid="{564ac0a7-531b-54b6-a406-532916d003d1}" name="IN28" x="-165.0" y="36.0" orientation="w" type="Generic" />
+        <text text="IN24 | IN24 | door-interlock | FIELD VERIFY" x="-157.0" y="59.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+        <terminal uuid="{d24b3b21-6125-596d-9187-0a8f0b611d68}" name="IN24" x="-165.0" y="56.0" orientation="w" type="Generic" />
+        <text text="IN30 | IN30 | MANUAL_TOOL_CLAMP_PB | HOLD - RESERVED" x="-157.0" y="79.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#d00000" />
+        <terminal uuid="{a2b12c0f-adcd-50ce-b110-b687c41bf234}" name="IN30" x="-165.0" y="76.0" orientation="w" type="Generic" />
+    </description>
+</definition>

@@ -6,7 +6,7 @@ window.MAZAK_DATA = {
   "machine": "Mazak VQC-20/40",
   "serial": "060231",
   "architecture": "LinuxCNC + Mesa 7i80HDT (Ethernet FPGA host) + 7i44 on P3 (HostMot2 sserial port 0 channels 0/1 to 7i84U-A/B) + 7i49 on P1 (resolver + analog outs); P2 unused/spare (confirmed 2026-08-13 by readhmid)",
-  "generated": "2026-08-17 18:42 UTC",
+  "generated": "2026-08-19 16:39 UTC",
   "source_repo": "mazak-vqc20-linuxcnc-retrofit",
   "authority_file": "mesa/current_pin_authority.csv",
   "epson_ferrule_file": "wiring/labels/bbia1_mesa_end_ferrules_epson.csv",
@@ -180,13 +180,13 @@ window.MAZAK_DATA = {
    "machine_subsystem": "Axis feedback",
    "status": "COMMISSIONING_PENDING",
    "field_point": "Tamagawa TS2014N X resolver",
-   "dest_connector": "",
-   "dest_pin": "",
-   "factory_wire": "",
+   "dest_connector": "CNA3",
+   "dest_pin": "12-17;20",
+   "factory_wire": "A/B/F/G/H/J/N",
    "bbia_class": "analog-resolver",
    "designations": [],
    "primary_source": "motion_7i80hdt.hal",
-   "cleanup_notes": "Ohmmeter winding pairs and scope return before power | [FIRST-POWER 2026-08-09: factory resolver wiring lands at BBIA1/7i49 - no cabinet trace. VERIFY feedback direction/counts before closing the loop - wrong sign runs the axis away.] | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/homing_ladder_transcription.md]",
+   "cleanup_notes": "Plane B CNA3 winding roles confirmed by Mitsubishi M2 Fig 14.4-1 and 2026-08-16 resistance checks; exact conductor routes are in wiring/plane_b_pin_crosswalk.csv. Proposed pair polarity must be proven with drive disabled before closing the loop. | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/homing_ladder_transcription.md]",
    "location": "X ball screw, non-drive end — Tamagawa TS2014N shaft resolver on flex coupling",
    "location_note": "BKO-NC6062A; via BBIA-1 CNA1 \"TO RESOLVER MACHINE SIDE\"",
    "expected": {
@@ -330,13 +330,13 @@ window.MAZAK_DATA = {
    "machine_subsystem": "Axis feedback",
    "status": "COMMISSIONING_PENDING",
    "field_point": "Tamagawa TS2014N Y resolver",
-   "dest_connector": "",
-   "dest_pin": "",
-   "factory_wire": "",
+   "dest_connector": "CNA4",
+   "dest_pin": "12-17;20",
+   "factory_wire": "A/B/F/G/H/J/N",
    "bbia_class": "analog-resolver",
    "designations": [],
    "primary_source": "motion_7i80hdt.hal",
-   "cleanup_notes": "Ohmmeter winding pairs and scope return before power | [FIRST-POWER 2026-08-09: factory resolver wiring lands at BBIA1/7i49 - no cabinet trace. VERIFY feedback direction/counts before closing the loop - wrong sign runs the axis away.] | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/homing_ladder_transcription.md]",
+   "cleanup_notes": "Plane B CNA4 winding roles confirmed by Mitsubishi M2 Fig 14.4-1 and 2026-08-16 resistance checks; exact conductor routes are in wiring/plane_b_pin_crosswalk.csv. Proposed pair polarity must be proven with drive disabled before closing the loop. | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/homing_ladder_transcription.md]",
    "location": "Y ball screw, non-drive end — Tamagawa TS2014N shaft resolver on flex coupling",
    "location_note": "BKO-NC6062A; via BBIA-1 CNA1",
    "expected": {
@@ -480,13 +480,13 @@ window.MAZAK_DATA = {
    "machine_subsystem": "Axis feedback",
    "status": "COMMISSIONING_PENDING",
    "field_point": "Tamagawa TS2014N Z resolver",
-   "dest_connector": "",
-   "dest_pin": "",
-   "factory_wire": "",
+   "dest_connector": "CNA5",
+   "dest_pin": "12-17;20",
+   "factory_wire": "A/B/F/G/H/J/N",
    "bbia_class": "analog-resolver",
    "designations": [],
    "primary_source": "motion_7i80hdt.hal",
-   "cleanup_notes": "Ohmmeter winding pairs and scope return before power | [FIRST-POWER 2026-08-09: factory resolver wiring lands at BBIA1/7i49 - no cabinet trace. VERIFY feedback direction/counts before closing the loop - wrong sign runs the axis away.] | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/homing_ladder_transcription.md]",
+   "cleanup_notes": "Plane B CNA5 winding roles confirmed by Mitsubishi M2 Fig 14.4-1 and 2026-08-16 resistance checks; exact conductor routes are in wiring/plane_b_pin_crosswalk.csv. Proposed pair polarity must be proven with drive disabled before closing the loop. | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/homing_ladder_transcription.md]",
    "location": "Z ball screw, non-drive end — Tamagawa TS2014N shaft resolver on flex coupling",
    "location_note": "BKO-NC6062A; Z amp cable CA1 / BBIA-1 CN3",
    "expected": {
@@ -832,15 +832,15 @@ window.MAZAK_DATA = {
    "direction_label": "Output (analog)",
    "subsystem": "Motion",
    "machine_subsystem": "Servo drives",
-   "status": "COMMISSIONING_PENDING",
+   "status": "HOLD_SOURCE_TRACE",
    "field_point": "X servo analog velocity command to MELDAS TRA",
-   "dest_connector": "",
-   "dest_pin": "",
+   "dest_connector": "TBD",
+   "dest_pin": "TBD",
    "factory_wire": "",
    "bbia_class": "analog-resolver",
    "designations": [],
    "primary_source": "motion_7i80hdt.hal",
-   "cleanup_notes": "7i49 pwmgen.00 driven by pid.x.output | [FIRST-POWER 2026-08-09: factory command wiring lands at BBIA1/7i49 - no cabinet trace. VERIFY command polarity against resolver feedback direction BEFORE enabling the drive - wrong sign runs the axis away. Confirm analog scaling.]",
+   "cleanup_notes": "7i49 P4-20 AOUT0 with P4-19 GND0; Plane B OEM connector and DK-427 input polarity are not yet traced. Do not land until the removed NC command pair is continuity-proven. See wiring/plane_b_pin_crosswalk.csv.",
    "location": "Servo bay — X servo amp analog command input",
    "location_note": "Verify velocity vs torque input and polarity before enabling",
    "expected": {
@@ -952,15 +952,15 @@ window.MAZAK_DATA = {
    "direction_label": "Output (analog)",
    "subsystem": "Motion",
    "machine_subsystem": "Servo drives",
-   "status": "COMMISSIONING_PENDING",
+   "status": "HOLD_SOURCE_TRACE",
    "field_point": "Z servo analog velocity command to MELDAS TRA",
-   "dest_connector": "",
-   "dest_pin": "",
+   "dest_connector": "TBD",
+   "dest_pin": "TBD",
    "factory_wire": "",
    "bbia_class": "analog-resolver",
    "designations": [],
    "primary_source": "motion_7i80hdt.hal",
-   "cleanup_notes": "7i49 pwmgen.01 driven by pid.z.output | [FIRST-POWER 2026-08-09: factory command wiring lands at BBIA1/7i49 - no cabinet trace. VERIFY command polarity against resolver feedback direction BEFORE enabling the drive - wrong sign runs the axis away. Confirm analog scaling.]",
+   "cleanup_notes": "7i49 P4-24 AOUT1 with P4-23 GND1; Plane B OEM connector and DK-427 input polarity are not yet traced. Do not land until the removed NC command pair is continuity-proven. See wiring/plane_b_pin_crosswalk.csv.",
    "location": "Servo bay — Z servo amp analog command input",
    "location_note": "Verify velocity vs torque input and polarity before enabling",
    "expected": {
@@ -1072,15 +1072,15 @@ window.MAZAK_DATA = {
    "direction_label": "Output (analog)",
    "subsystem": "Motion",
    "machine_subsystem": "Servo drives",
-   "status": "COMMISSIONING_PENDING",
+   "status": "HOLD_SOURCE_TRACE",
    "field_point": "Y servo analog velocity command to MELDAS TRA",
-   "dest_connector": "",
-   "dest_pin": "",
+   "dest_connector": "TBD",
+   "dest_pin": "TBD",
    "factory_wire": "",
    "bbia_class": "analog-resolver",
    "designations": [],
    "primary_source": "motion_7i80hdt.hal",
-   "cleanup_notes": "7i49 pwmgen.02 driven by pid.y.output | [FIRST-POWER 2026-08-09: factory command wiring lands at BBIA1/7i49 - no cabinet trace. VERIFY command polarity against resolver feedback direction BEFORE enabling the drive - wrong sign runs the axis away. Confirm analog scaling.]",
+   "cleanup_notes": "7i49 P3-20 AOUT2 with P3-19 GND2; Plane B OEM connector and DK-427 input polarity are not yet traced. Do not land until the removed NC command pair is continuity-proven. See wiring/plane_b_pin_crosswalk.csv.",
    "location": "Servo bay — Y servo amp analog command input",
    "location_note": "Verify velocity vs torque input and polarity before enabling",
    "expected": {
@@ -1192,15 +1192,15 @@ window.MAZAK_DATA = {
    "direction_label": "Output (analog)",
    "subsystem": "Spindle",
    "machine_subsystem": "Spindle drive",
-   "status": "COMMISSIONING_PENDING",
-   "field_point": "FR-SX V-IN speed reference",
+   "status": "HOLD_ANALOG_ROLE",
+   "field_point": "FR-SX speed reference",
    "dest_connector": "",
    "dest_pin": "",
    "factory_wire": "",
    "bbia_class": "analog-resolver",
    "designations": [],
    "primary_source": "motion_7i80hdt.hal",
-   "cleanup_notes": "Confirm 0-10V unipolar vs bipolar; pwmgen.03 offset-mode | [RECON 2026-08-08 §D: FR-SX SE1/SE2/SE3 0-10V speed ref (+10V max speed)] | [FIRST-POWER 2026-08-09: factory wiring at BBIA1/7i49 - no cabinet trace. Confirm 0-10V unipolar scaling / offset-mode (see C3); direction is separate SRN/SRI, not command sign.] | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/spindle_run_ladder_transcription.md]",
+   "cleanup_notes": "7i49 P3-24 AOUT3 with P3-23 GND3. OEM drawings confirm Plane A BBIA-1 CN4-18/-19/-20 SE1/SE2/SE3 to SX-IO1 CON1-31/-32/-30; determine command/common/shield roles and 0-10 V scaling before landing. The three conductor rows live in wiring/plane_b_pin_crosswalk.csv because this one-channel authority row cannot represent them individually.",
    "location": "Spindle/servo bay — FR-SX V-IN speed reference terminal",
    "location_note": "FR-SX drawing 4143075403, PDF pg 127 of 41434WB.pdf",
    "expected": {
@@ -2182,7 +2182,21 @@ window.MAZAK_DATA = {
     }
    ],
    "setp_refs": [],
-   "epson_ferrules": [],
+   "epson_ferrules": [
+    {
+     "label_text": "A-TB3-05",
+     "wire": "SETA",
+     "old_location": "CN4-16",
+     "signal": "set A",
+     "mesa_card": "7i84U-A",
+     "connector": "TB3",
+     "logical_channel": "IN4",
+     "physical_pin": "TB3-05",
+     "crosswalk_status": "PLANNED_MATCH",
+     "release_status": "HOLD_SOURCE_TRACE",
+     "source_line": 20
+    }
+   ],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -2203,6 +2217,11 @@ window.MAZAK_DATA = {
      "file": "element_list_crosswalk_2026-07-27",
      "lines": "",
      "note": "primary_source column in the authority table"
+    },
+    {
+     "file": "wiring/labels/bbia1_mesa_end_ferrules_epson.csv",
+     "lines": "20",
+     "note": "Epson Mesa-end ferrule A-TB3-05; HOLD_SOURCE_TRACE"
     }
    ],
    "conflicts": [],
@@ -2299,7 +2318,7 @@ window.MAZAK_DATA = {
      "physical_pin": "TB3-06",
      "crosswalk_status": "PLANNED_MATCH",
      "release_status": "HOLD_SOURCE_TRACE",
-     "source_line": 14
+     "source_line": 16
     }
    ],
    "sources": [
@@ -2330,7 +2349,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "wiring/labels/bbia1_mesa_end_ferrules_epson.csv",
-     "lines": "14",
+     "lines": "16",
      "note": "Epson Mesa-end ferrule A-TB3-06; HOLD_SOURCE_TRACE"
     }
    ],
@@ -3111,7 +3130,21 @@ window.MAZAK_DATA = {
     }
    ],
    "setp_refs": [],
-   "epson_ferrules": [],
+   "epson_ferrules": [
+    {
+     "label_text": "A-TB3-15",
+     "wire": "FA",
+     "old_location": "CN4-3",
+     "signal": "SPINDLE REV ROLLER THERMAL",
+     "mesa_card": "7i84U-A",
+     "connector": "TB3",
+     "logical_channel": "IN14",
+     "physical_pin": "TB3-15",
+     "crosswalk_status": "PLANNED_MATCH",
+     "release_status": "HOLD_SOURCE_TRACE",
+     "source_line": 17
+    }
+   ],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -3147,6 +3180,11 @@ window.MAZAK_DATA = {
      "file": "archived_wiring_map",
      "lines": "",
      "note": "primary_source column in the authority table"
+    },
+    {
+     "file": "wiring/labels/bbia1_mesa_end_ferrules_epson.csv",
+     "lines": "17",
+     "note": "Epson Mesa-end ferrule A-TB3-15; HOLD_SOURCE_TRACE"
     }
    ],
    "conflicts": [],
@@ -4830,7 +4868,7 @@ window.MAZAK_DATA = {
      "physical_pin": "TB2-16",
      "crosswalk_status": "PLANNED_MATCH",
      "release_status": "HOLD_SOURCE_TRACE",
-     "source_line": 15
+     "source_line": 21
     }
    ],
    "sources": [
@@ -4861,7 +4899,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "wiring/labels/bbia1_mesa_end_ferrules_epson.csv",
-     "lines": "15",
+     "lines": "21",
      "note": "Epson Mesa-end ferrule A-TB2-16; HOLD_SOURCE_TRACE"
     }
    ],
@@ -4935,7 +4973,21 @@ window.MAZAK_DATA = {
     }
    ],
    "setp_refs": [],
-   "epson_ferrules": [],
+   "epson_ferrules": [
+    {
+     "label_text": "A-TB3-17",
+     "wire": "SRN",
+     "old_location": "CN4-9",
+     "signal": "SPINDLE FORWARD",
+     "mesa_card": "7i84U-A",
+     "connector": "TB3",
+     "logical_channel": "OUT0",
+     "physical_pin": "TB3-17",
+     "crosswalk_status": "PLANNED_MATCH",
+     "release_status": "HOLD_SOURCE_TRACE",
+     "source_line": 18
+    }
+   ],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -4956,6 +5008,11 @@ window.MAZAK_DATA = {
      "file": "archived_wiring_map",
      "lines": "",
      "note": "primary_source column in the authority table"
+    },
+    {
+     "file": "wiring/labels/bbia1_mesa_end_ferrules_epson.csv",
+     "lines": "18",
+     "note": "Epson Mesa-end ferrule A-TB3-17; HOLD_SOURCE_TRACE"
     }
    ],
    "conflicts": [
@@ -5030,7 +5087,21 @@ window.MAZAK_DATA = {
     }
    ],
    "setp_refs": [],
-   "epson_ferrules": [],
+   "epson_ferrules": [
+    {
+     "label_text": "A-TB3-18",
+     "wire": "SRI",
+     "old_location": "CN4-10",
+     "signal": "SPINDLE REVERSE",
+     "mesa_card": "7i84U-A",
+     "connector": "TB3",
+     "logical_channel": "OUT1",
+     "physical_pin": "TB3-18",
+     "crosswalk_status": "PLANNED_MATCH",
+     "release_status": "HOLD_SOURCE_TRACE",
+     "source_line": 19
+    }
+   ],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -5051,6 +5122,11 @@ window.MAZAK_DATA = {
      "file": "archived_wiring_map",
      "lines": "",
      "note": "primary_source column in the authority table"
+    },
+    {
+     "file": "wiring/labels/bbia1_mesa_end_ferrules_epson.csv",
+     "lines": "19",
+     "note": "Epson Mesa-end ferrule A-TB3-18; HOLD_SOURCE_TRACE"
     }
    ],
    "conflicts": [
@@ -5370,7 +5446,21 @@ window.MAZAK_DATA = {
     }
    ],
    "setp_refs": [],
-   "epson_ferrules": [],
+   "epson_ferrules": [
+    {
+     "label_text": "A-TB3-21",
+     "wire": "ORI C1",
+     "old_location": "CN3-14",
+     "signal": "ORIENT COMMAND",
+     "mesa_card": "7i84U-A",
+     "connector": "TB3",
+     "logical_channel": "OUT4",
+     "physical_pin": "TB3-21",
+     "crosswalk_status": "PLANNED_MATCH",
+     "release_status": "HOLD_SOURCE_TRACE",
+     "source_line": 14
+    }
+   ],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -5391,6 +5481,11 @@ window.MAZAK_DATA = {
      "file": "element_list_crosswalk_2026-07-27",
      "lines": "",
      "note": "primary_source column in the authority table"
+    },
+    {
+     "file": "wiring/labels/bbia1_mesa_end_ferrules_epson.csv",
+     "lines": "14",
+     "note": "Epson Mesa-end ferrule A-TB3-21; HOLD_SOURCE_TRACE"
     }
    ],
    "conflicts": [
@@ -5465,7 +5560,21 @@ window.MAZAK_DATA = {
     }
    ],
    "setp_refs": [],
-   "epson_ferrules": [],
+   "epson_ferrules": [
+    {
+     "label_text": "A-TB3-22",
+     "wire": "CTL",
+     "old_location": "CN3-15",
+     "signal": "ORIENT LOOP CHECK",
+     "mesa_card": "7i84U-A",
+     "connector": "TB3",
+     "logical_channel": "OUT5",
+     "physical_pin": "TB3-22",
+     "crosswalk_status": "PLANNED_MATCH",
+     "release_status": "HOLD_SOURCE_TRACE",
+     "source_line": 15
+    }
+   ],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -5486,6 +5595,11 @@ window.MAZAK_DATA = {
      "file": "element_list_crosswalk_2026-07-27",
      "lines": "",
      "note": "primary_source column in the authority table"
+    },
+    {
+     "file": "wiring/labels/bbia1_mesa_end_ferrules_epson.csv",
+     "lines": "15",
+     "note": "Epson Mesa-end ferrule A-TB3-22; HOLD_SOURCE_TRACE"
     }
    ],
    "conflicts": [],
@@ -7175,7 +7289,7 @@ window.MAZAK_DATA = {
      "logical_channel": "IN4",
      "physical_pin": "TB3-05",
      "crosswalk_status": "PLANNED_MATCH",
-     "release_status": "HOLD_SOURCE_TRACE",
+     "release_status": "HOLD_DISPUTED_PIN",
      "source_line": 9
     }
    ],
@@ -7203,7 +7317,7 @@ window.MAZAK_DATA = {
     {
      "file": "wiring/labels/bbia1_mesa_end_ferrules_epson.csv",
      "lines": "9",
-     "note": "Epson Mesa-end ferrule B-TB3-05; HOLD_SOURCE_TRACE"
+     "note": "Epson Mesa-end ferrule B-TB3-05; HOLD_DISPUTED_PIN"
     }
    ],
    "conflicts": [],
@@ -9785,8 +9899,8 @@ window.MAZAK_DATA = {
    "field_point": "Work light via RLY-8 (interposing relay for 100VAC coil); OEM CN6 pin 8 wire WL (wire no. 3-34)",
    "dest_connector": "OEM CN6",
    "dest_pin": "8",
-   "factory_wire": "",
-   "bbia_class": "spare",
+   "factory_wire": "WL",
+   "bbia_class": "plane",
    "designations": [
     "RLY-8"
    ],

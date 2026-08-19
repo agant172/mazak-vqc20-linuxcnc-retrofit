@@ -125,20 +125,26 @@ The original NC talked to the machine through **two separate interfaces**, not o
   (smart-serial) → **Mesa screw terminals** → cut & ferruled **MR cables** →
   **BBIA-1** → unchanged OEM harness → machine. Documented in
   `wiring/bbia1_terminal_unit.md` / `wiring/bbia1_cn_pinouts.csv`.
-- **Plane B — the CNA-family servo card-cage connectors** plus the FR-SX spindle
-  drive's **SX-IO1** board, carrying axis resolver feedback, ±10 V axis velocity
-  commands, and the spindle speed command: LinuxCNC → 7i80HDT → 7i49 (P1) →
-  shielded home-run cable → **CNA3(X)/CNA4(Y)/CNA5(Z)** / SX-IO1 → unchanged OEM
-  cabling → TRA servo amps / FR-SX spindle drive. The resolver connectors are
-  mature — pin roles are Mitsubishi-M2-manual-confirmed and bench-measured
-  (`docs/resolver_commissioning.md`, `resolvers.md`); the SX-IO1 board is not yet
-  pinned out (`wiring/connector_crossref.md`). The RC3A relay board, though
+- **Plane B — the CNA-family servo card-cage connectors**, carrying axis resolver
+  feedback and the direct ±10 V axis command pairs: LinuxCNC → 7i80HDT → 7i49
+  (P1) → shielded home-run cable → **CNA3(X)/CNA4(Y)/CNA5(Z)** / the still-untraced
+  axis-command connector pins → retained TRA/DK-427 hardware. Resolver pin roles
+  are Mitsubishi-M2-manual-confirmed and bench-measured
+  (`docs/resolver_commissioning.md`, `resolvers.md`,
+  `wiring/plane_b_pin_crosswalk.csv`). **Correction 2026-08-18:** the FR-SX speed
+  reference crosses Plane A at BBIA-1 CN4-18/-19/-20, not Plane B; the SX-IO1
+  CON1 table in `wiring/connector_crossref.md` is the internal cross-reference.
+  The RC3A relay board, though
   physically in the same bay, is **not** part of Plane B — its signals
   cross-reference to BBIA-1's own CN3/CN301A (Plane A).
 
 **Two-plane rule:** every control↔machine signal crosses at exactly one of these two
 planes. One physical conductor across a plane = one row in that plane's I/O model,
-keyed on the **factory wire number** where legible. The machine-internal side of each
+keyed on **`signal_id`** and labelled with the **factory wire number** printed on the
+jacket. (The wire number is the ferrule text and the lookup key back to the OEM print,
+but it is *not* unique — the print renumbers a conductor at each relay stage, so it
+names a segment, not a conductor. See `wiring/authority_conflicts.md` § 7.1.)
+The machine-internal side of each
 plane is fixed OEM/OEM-manual reference — do not re-derive it; the retrofit owns and
 verifies only each plane's hop to Mesa. The few things that cross at neither plane —
 the standalone OEM E-stop/contactor chain and the still-unlocated over-travel
@@ -161,6 +167,13 @@ Four sources are authoritative, in priority order:
    Repo version wins over any external source unless both are revised together.
 
 2. **OEM PDF document set for SN 060231**
+   Canonical set lives in [Google Drive: `Mazak/Manuals_SN060231`](https://drive.google.com/drive/folders/1XWcctFb2gGTSNwGjkBiaufewpDAowJi8)
+   — consolidated PDFs named `VQC20-40_060231_<Electrical_Diagrams|Ladder_Diagrams|
+   Maintenance|Operator|Parameters|Parts_List|M2_Programming>.pdf`, plus
+   `Original Manuals/` (raw page scans, incl. `41434WB <page>.pdf` files, a
+   README, and `docs_index.md`) and `Misc. Documents/` (element list CSV,
+   `servo_amp_analysis.md`, and other working notes). Check `docs_index.md`
+   before re-deriving a signal from scratch.
    - Electrical Diagrams (pub #41434WB, 6/1984) — wiring, terminals,
      connectors, wire numbers, relay coil numbers, safety-chain topology.
    - M-2 Parameter Manual — machine parameters and memory addresses.
@@ -177,8 +190,10 @@ Four sources are authoritative, in priority order:
 3. **Mesa manuals committed to `docs/Mesa Manuals/`**
    - `7i84uman.pdf` (7I84U) — 7i84U-A/B I/O registers, SSerial
      addressing, connector pinouts, power requirements.
-   Manuals for the other cards in the stack (7i80HDT, 7i44, 7i49) are not
-   yet committed — download from Mesa and commit before citing. Do NOT cite
+   - `7i80hdtman.pdf` (7I80HDT) — installed host-board connectors and power.
+   - `7i49man.pdf` (7I49) — resolver and analog terminal maps and shield rule.
+   The 7i44 manual remains link-only; commit it before relying on a new 7i44
+   claim not already covered by the current authority. Do NOT cite
    7i97T/7i97 manuals: the 7i97T architecture is RETRACTED
    (`docs/superseded_claims_2026-08-06.md`) and the local 7i97T manual was
    deliberately removed in Rev B.
@@ -531,10 +546,23 @@ Full details — the tracked/ignored table and the safe consolidation procedure 
 ### Photos and large media
 
 - **Never commit raw media.** `.gitignore` blocks `*.jpg/.png/.heic/.mp4/…` on purpose.
-- Photos live in
-  [Google Drive](https://drive.google.com/drive/folders/1YYpWPyWiRuoY2z5GACSDw6H3zzSQoVdf?usp=drive_link),
-  in the eight folders `00_Inbox` … `07_Reference`. Originals are also backed up to OneDrive.
-  A second unsorted batch sits at `My Drive/Mazak/Misc. Photos`.
+- **STALE, unverified (2026-08-17):** this doc claims photos live in
+  [Google Drive](https://drive.google.com/drive/folders/1YYpWPyWiRuoY2z5GACSDw6H3zzSQoVdf?usp=drive_link)
+  in eight folders `00_Inbox`…`07_Reference`, backed up to OneDrive, plus an unsorted
+  batch at `My Drive/Mazak/Misc. Photos`. A full search of that Drive account (by folder
+  title and by API) found none of this — that folder ID now contains only
+  `Manuals_SN060231` (see OEM manuals, above). Either this was never executed or the
+  photos moved; don't trust the eight-folder scheme until it's re-verified on Drive
+  directly.
+- **Actually confirmed today:** the real raw photo history (control cabinet interiors,
+  MAZATROL CAM M-2 screens, resolver/encoder detail, terminal blocks — Oct 2024
+  through present) lives uncurated in the account's default **Google Photos**, not
+  Drive. Collected into a shared album:
+  [Mazak VQC-20 Retrofit — Control Cabinet Photos](https://photos.app.goo.gl/o59yC81mQhwYaVF68)
+  (200+ photos/videos, built from visual searches for "mazatrol" and "VQC-20";
+  hand-filtered per date to drop unrelated shop equipment and personal photos that
+  those searches also matched). Not exhaustive and not auto-updating — re-run those
+  searches periodically to catch newer shots and sweep in whatever they still miss.
 - Any `photos/…` path written in this repo means a **Drive folder**, not a directory on disk.
 - **Cite photos as `YYYY-MM-DD/IMG_nnnn`** — never a bare `IMG_nnnn`, which recurs across
   batches. Full scheme and migration table: `docs/README_photo_sorting.md`.
@@ -570,3 +598,8 @@ detected and rejected by CI.
   not a schedule — a cloud container is ephemeral, and a desk session that runs out of context
   loses unpushed work just as thoroughly. Prefer appending to the decision/change log, which
   captures *why*, over overwriting history.
+- **Task-list maintenance rule:** if new work, an uncertainty, or a changed dependency is
+  discovered, add a dated checkbox to `docs/project_status.md` during the same session, with
+  an evidence link and closure test or owner decision. If work is completed, check off the
+  original item and record the date and artifact. Handoffs and audit notes may provide detail,
+  but they do not replace the live task list.

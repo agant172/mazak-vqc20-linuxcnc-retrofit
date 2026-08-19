@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<definition version="0.100.0" type="element" link_type="simple" width="350" height="212" hotspot_x="175" hotspot_y="106">
+    <uuid uuid="{4fba75ea-7554-5b12-8c9c-0e922f595426}" />
+    <names>
+        <name lang="en">7i49 P4</name>
+    </names>
+    <informations>Generated from the MESAC retrofit crosswalks. PRELIMINARY - NOT RELEASED FOR WIRING.</informations>
+    <description>
+        <rect x="-165.0" y="-96.0" width="330" height="192" rx="0" ry="0" antialias="false" style="line-style:normal;line-weight:normal;filling:none;color:#0078a8" />
+        <line x1="-165.0" y1="-70.0" x2="165.0" y2="-70.0" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:normal;filling:none;color:#0078a8" antialias="false" />
+        <text text="7i49 P4" x="-157.0" y="-78.0" rotation="0" font="Liberation Sans,8,-1,5,75,0,0,0,0,0,Bold" color="#0078a8" />
+        <text text="10 | 10 | RESSIN1+ | PROPOSED - PHASE VERIFY" x="-157.0" y="-51.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#d00000" />
+        <terminal uuid="{84568b10-53d4-50d1-b73b-e2e97efaab89}" name="10" x="-165.0" y="-54.0" orientation="w" type="Generic" />
+        <text text="9 | 9 | RESSIN1- | PROPOSED - PHASE VERIFY" x="-157.0" y="-31.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#d00000" />
+        <terminal uuid="{95901180-a997-524c-92dc-194be1e2a220}" name="9" x="-165.0" y="-34.0" orientation="w" type="Generic" />
+        <text text="12 | 12 | RESCOS1+ | PROPOSED - PHASE VERIFY" x="-157.0" y="-11.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#d00000" />
+        <terminal uuid="{a968943d-0c7f-54ee-882a-8b18585b1bbf}" name="12" x="-165.0" y="-14.0" orientation="w" type="Generic" />
+        <text text="11 | 11 | RESCOS1- | PROPOSED - PHASE VERIFY" x="-157.0" y="9.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#d00000" />
+        <terminal uuid="{7ea70a23-c123-5312-b1bc-3ed0107b7795}" name="11" x="-165.0" y="6.0" orientation="w" type="Generic" />
+        <text text="15 | 15 | RESDRV1+ | PROPOSED - PHASE VERIFY" x="-157.0" y="29.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#d00000" />
+        <terminal uuid="{408041fd-10fa-5cf4-b881-02a871252f87}" name="15" x="-165.0" y="26.0" orientation="w" type="Generic" />
+        <text text="14 | 14 | RESDRV1- | PROPOSED - PHASE VERIFY" x="-157.0" y="49.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#d00000" />
+        <terminal uuid="{f7cf83c7-e454-5f37-a662-a5d7c9bd9157}" name="14" x="-165.0" y="46.0" orientation="w" type="Generic" />
+        <text text="13 or 16 | 13 or 16 | GND | FIELD PENDING" x="-157.0" y="69.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+        <terminal uuid="{ab551c88-a2e0-58ea-aae7-eb11d1385006}" name="13 or 16" x="-165.0" y="66.0" orientation="w" type="Generic" />
+    </description>
+</definition>

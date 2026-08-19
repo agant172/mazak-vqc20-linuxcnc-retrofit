@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<definition version="0.100.0" type="element" link_type="simple" width="350" height="152" hotspot_x="175" hotspot_y="76">
+    <uuid uuid="{942a44c5-9e7c-51c3-b407-dbbbb5b9d8e5}" />
+    <names>
+        <name lang="en">7i84U-A TB3</name>
+    </names>
+    <informations>Generated from the MESAC retrofit crosswalks. PRELIMINARY - NOT RELEASED FOR WIRING.</informations>
+    <description>
+        <rect x="-165.0" y="-66.0" width="330" height="132" rx="0" ry="0" antialias="false" style="line-style:normal;line-weight:normal;filling:none;color:#0078a8" />
+        <line x1="-165.0" y1="-40.0" x2="165.0" y2="-40.0" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:normal;filling:none;color:#0078a8" antialias="false" />
+        <text text="7i84U-A TB3" x="-157.0" y="-48.0" rotation="0" font="Liberation Sans,8,-1,5,75,0,0,0,0,0,Bold" color="#0078a8" />
+        <text text="OUT4 | OUT4 | spindle-orient-cmd | FIELD VERIFY" x="-157.0" y="-21.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+        <terminal uuid="{1e7a2008-fe1a-5723-85fd-53f4020fa8a0}" name="OUT4" x="-165.0" y="-24.0" orientation="w" type="Generic" />
+        <text text="OUT5 | OUT5 | orient-lo-gear | FIELD VERIFY" x="-157.0" y="-1.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+        <terminal uuid="{660a3de9-8712-5fd4-a6e4-e7845745d369}" name="OUT5" x="-165.0" y="-4.0" orientation="w" type="Generic" />
+        <text text="IN1 | IN1 | atc-z-zone | HOLD - OEM CONFLICT" x="-157.0" y="19.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#d00000" />
+        <terminal uuid="{d3a75895-038f-5214-b088-a9010d9ed3f5}" name="IN1" x="-165.0" y="16.0" orientation="w" type="Generic" />
+        <text text="IN0 | IN0 | atc-y-zone | HOLD - OEM CONFLICT" x="-157.0" y="39.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#d00000" />
+        <terminal uuid="{bcfa4306-8cfa-56c0-bb65-361c6711aa4e}" name="IN0" x="-165.0" y="36.0" orientation="w" type="Generic" />
+    </description>
+</definition>

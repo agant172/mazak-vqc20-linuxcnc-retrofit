@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<definition version="0.100.0" type="element" link_type="simple" width="350" height="192" hotspot_x="175" hotspot_y="96">
+    <uuid uuid="{ac674f37-eae8-54e7-8c02-6e115400d254}" />
+    <names>
+        <name lang="en">OEM / field endpoint TBD</name>
+    </names>
+    <informations>Generated from the MESAC retrofit crosswalks. PRELIMINARY - NOT RELEASED FOR WIRING.</informations>
+    <description>
+        <rect x="-165.0" y="-86.0" width="330" height="172" rx="0" ry="0" antialias="false" style="line-style:normal;line-weight:normal;filling:none;color:#d00000" />
+        <line x1="-165.0" y1="-60.0" x2="165.0" y2="-60.0" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:normal;filling:none;color:#d00000" antialias="false" />
+        <text text="OEM / field endpoint TBD" x="-157.0" y="-68.0" rotation="0" font="Liberation Sans,8,-1,5,75,0,0,0,0,0,Bold" color="#d00000" />
+        <text text="X_AXIS_CMD_POS | X_AXIS_CMD_POS | X_AXIS_CMD_POS | HOLD - SOURCE TRACE" x="4" y="-41.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#d00000" />
+        <terminal uuid="{e24faa9e-5c02-5fc7-be5e-6da999252314}" name="X_AXIS_CMD_POS" x="165.0" y="-44.0" orientation="e" type="Generic" />
+        <text text="X_AXIS_CMD_RETURN | X_AXIS_CMD_RETURN | X_AXIS_CMD_RETURN | HOLD - SOURCE TRACE" x="4" y="-21.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#d00000" />
+        <terminal uuid="{34bdca2f-e687-5cfb-acb4-87472a9f0f08}" name="X_AXIS_CMD_RETURN" x="165.0" y="-24.0" orientation="e" type="Generic" />
+        <text text="Z_AXIS_CMD_POS | Z_AXIS_CMD_POS | Z_AXIS_CMD_POS | HOLD - SOURCE TRACE" x="4" y="-1.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#d00000" />
+        <terminal uuid="{725f0d3f-54fa-5389-9ae4-d17c6864c34c}" name="Z_AXIS_CMD_POS" x="165.0" y="-4.0" orientation="e" type="Generic" />
+        <text text="Z_AXIS_CMD_RETURN | Z_AXIS_CMD_RETURN | Z_AXIS_CMD_RETURN | HOLD - SOURCE TRACE" x="4" y="19.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#d00000" />
+        <terminal uuid="{1cd05e12-0287-5a64-9ad2-072e7f8eb14e}" name="Z_AXIS_CMD_RETURN" x="165.0" y="16.0" orientation="e" type="Generic" />
+        <text text="Y_AXIS_CMD_POS | Y_AXIS_CMD_POS | Y_AXIS_CMD_POS | HOLD - SOURCE TRACE" x="4" y="39.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#d00000" />
+        <terminal uuid="{97a036b3-122b-58b4-8dfa-5f62b2161fc7}" name="Y_AXIS_CMD_POS" x="165.0" y="36.0" orientation="e" type="Generic" />
+        <text text="Y_AXIS_CMD_RETURN | Y_AXIS_CMD_RETURN | Y_AXIS_CMD_RETURN | HOLD - SOURCE TRACE" x="4" y="59.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#d00000" />
+        <terminal uuid="{ade8d928-9163-5294-a84f-7f2b0a0144fb}" name="Y_AXIS_CMD_RETURN" x="165.0" y="56.0" orientation="e" type="Generic" />
+    </description>
+</definition>

@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<definition version="0.100.0" type="element" link_type="simple" width="350" height="132" hotspot_x="175" hotspot_y="66">
+    <uuid uuid="{68a90c96-4446-51e1-af60-3e335c4416d3}" />
+    <names>
+        <name lang="en">7i84U-B TB3</name>
+    </names>
+    <informations>Generated from the MESAC retrofit crosswalks. PRELIMINARY - NOT RELEASED FOR WIRING.</informations>
+    <description>
+        <rect x="-165.0" y="-56.0" width="330" height="112" rx="0" ry="0" antialias="false" style="line-style:normal;line-weight:normal;filling:none;color:#0078a8" />
+        <line x1="-165.0" y1="-30.0" x2="165.0" y2="-30.0" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:normal;filling:none;color:#0078a8" antialias="false" />
+        <text text="7i84U-B TB3" x="-157.0" y="-38.0" rotation="0" font="Liberation Sans,8,-1,5,75,0,0,0,0,0,Bold" color="#0078a8" />
+        <text text="OUT3 | OUT3 | air-blast | FIELD VERIFY" x="-157.0" y="-11.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+        <terminal uuid="{f3a68c1b-1408-51d7-99e7-ffcb3b04a7e8}" name="OUT3" x="-165.0" y="-14.0" orientation="w" type="Generic" />
+        <text text="OUT4 | OUT4 | WORK_AIR_BLAST | HOLD - RESERVED" x="-157.0" y="9.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#d00000" />
+        <terminal uuid="{7a4bd06d-6f42-565d-a956-ee001ac285c2}" name="OUT4" x="-165.0" y="6.0" orientation="w" type="Generic" />
+        <text text="OUT7 | OUT7 | flood-valve | FIELD VERIFY" x="-157.0" y="29.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+        <terminal uuid="{ed07cadb-dada-589c-aeaf-e28938cd1efa}" name="OUT7" x="-165.0" y="26.0" orientation="w" type="Generic" />
+    </description>
+</definition>

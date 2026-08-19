@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<definition version="0.100.0" type="element" link_type="simple" width="350" height="232" hotspot_x="175" hotspot_y="116">
+    <uuid uuid="{a971c51c-a1be-5b30-81fe-b7c574e85820}" />
+    <names>
+        <name lang="en">Required interposing-relay boundary</name>
+    </names>
+    <informations>Generated from the MESAC retrofit crosswalks. PRELIMINARY - NOT RELEASED FOR WIRING.</informations>
+    <description>
+        <rect x="-165.0" y="-106.0" width="330" height="212" rx="0" ry="0" antialias="false" style="line-style:normal;line-weight:normal;filling:none;color:#a85d00" />
+        <line x1="-165.0" y1="-80.0" x2="165.0" y2="-80.0" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:normal;filling:none;color:#a85d00" antialias="false" />
+        <text text="Required interposing-relay boundary" x="-157.0" y="-88.0" rotation="0" font="Liberation Sans,8,-1,5,75,0,0,0,0,0,Bold" color="#a85d00" />
+        <text text="F01 | FIELD | TOOL_UNCLAMP_SOL" x="-157.0" y="-61.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+        <terminal uuid="{b1716e95-84b1-5f96-b0ac-99699ad722b9}" name="F01" x="-165.0" y="-64.0" orientation="w" type="Generic" />
+        <text text="M01 | MESA | TOOL_UNCLAMP_SOL" x="4" y="-61.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+        <terminal uuid="{4bff5c40-45b0-571c-93e1-afc1e691e5a3}" name="M01" x="165.0" y="-64.0" orientation="e" type="Generic" />
+        <text text="F02 | FIELD | GEAR_HI_SOL" x="-157.0" y="-41.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+        <terminal uuid="{506f1e65-0b41-5c06-acce-46f5c06fef26}" name="F02" x="-165.0" y="-44.0" orientation="w" type="Generic" />
+        <text text="M02 | MESA | GEAR_HI_SOL" x="4" y="-41.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+        <terminal uuid="{40ca62ae-f529-5ea1-ac8d-92ac7b60ae04}" name="M02" x="165.0" y="-44.0" orientation="e" type="Generic" />
+        <text text="F03 | FIELD | GEAR_LO_SOL" x="-157.0" y="-21.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+        <terminal uuid="{c43753fd-0a4b-5b4f-bfb9-b2a476fb71a9}" name="F03" x="-165.0" y="-24.0" orientation="w" type="Generic" />
+        <text text="M03 | MESA | GEAR_LO_SOL" x="4" y="-21.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+        <terminal uuid="{f2f3772f-b4f5-5ddc-898c-726b44763afa}" name="M03" x="165.0" y="-24.0" orientation="e" type="Generic" />
+        <text text="F04 | FIELD | AIR_BLAST" x="-157.0" y="-1.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+        <terminal uuid="{5d35d745-8321-5c8f-80de-7d0c7b0fe2b8}" name="F04" x="-165.0" y="-4.0" orientation="w" type="Generic" />
+        <text text="M04 | MESA | AIR_BLAST" x="4" y="-1.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+        <terminal uuid="{47d046d7-5ca4-5b5b-8fbd-bfcb0a720539}" name="M04" x="165.0" y="-4.0" orientation="e" type="Generic" />
+        <text text="F05 | FIELD | WORK_AIR_BLAST" x="-157.0" y="19.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#d00000" />
+        <terminal uuid="{51ca26cf-7006-525e-9ec7-7311247bb901}" name="F05" x="-165.0" y="16.0" orientation="w" type="Generic" />
+        <text text="M05 | MESA | WORK_AIR_BLAST" x="4" y="19.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#d00000" />
+        <terminal uuid="{49ec2ac4-1ad4-548b-b4a5-d1c45437ad50}" name="M05" x="165.0" y="16.0" orientation="e" type="Generic" />
+        <text text="F06 | FIELD | FLOOD_VALVE" x="-157.0" y="39.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+        <terminal uuid="{de2fb67c-adec-5489-a652-713275c51570}" name="F06" x="-165.0" y="36.0" orientation="w" type="Generic" />
+        <text text="M06 | MESA | FLOOD_VALVE" x="4" y="39.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+        <terminal uuid="{417ba5d4-e425-5123-854f-5f0b9b9c310c}" name="M06" x="165.0" y="36.0" orientation="e" type="Generic" />
+        <text text="F07 | FIELD | COOLANT_ON" x="-157.0" y="59.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+        <terminal uuid="{75c7ae29-5cc1-53ac-984a-00bfdc65f515}" name="F07" x="-165.0" y="56.0" orientation="w" type="Generic" />
+        <text text="M07 | MESA | COOLANT_ON" x="4" y="59.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+        <terminal uuid="{ac26664c-9a53-57c6-ac95-2bcc4400503d}" name="M07" x="165.0" y="56.0" orientation="e" type="Generic" />
+        <text text="F08 | FIELD | HYD_PUMP_ON" x="-157.0" y="79.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+        <terminal uuid="{cc2ec8a3-5b1b-51c2-b42a-26b8f936654f}" name="F08" x="-165.0" y="76.0" orientation="w" type="Generic" />
+        <text text="M08 | MESA | HYD_PUMP_ON" x="4" y="79.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+        <terminal uuid="{ab5161da-37e3-51de-aab3-4292b2924d87}" name="M08" x="165.0" y="76.0" orientation="e" type="Generic" />
+    </description>
+</definition>

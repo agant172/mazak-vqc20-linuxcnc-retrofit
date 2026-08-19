@@ -1,0 +1,133 @@
+# GENERATED FILE - edit the source CSV or generator, then regenerate.
+metadata:
+  title: Plane B - X/Y/Z analog velocity commands
+  description: 7i49 AOUT0/AOUT1/AOUT2 endpoints are known; all retained DK-427 source connector pins remain TBD.
+  notes: 'PRELIMINARY - NOT RELEASED FOR WIRING. Yellow = defined route requiring field verification; red = HOLD or proposed;
+    gray = retain/retire decision. Input: wiring/plane_b_pin_crosswalk.csv; OEM command ends require continuity tracing.'
+options:
+  fontname: Arial
+  bgcolor: WH
+  bgcolor_node: WH
+  color_mode: SHORT
+  mini_bom_mode: false
+connectors:
+  TBD:
+    type: OEM / field endpoint TBD
+    pins:
+    - X_AXIS_CMD_POS
+    - X_AXIS_CMD_RETURN
+    - Z_AXIS_CMD_POS
+    - Z_AXIS_CMD_RETURN
+    - Y_AXIS_CMD_POS
+    - Y_AXIS_CMD_RETURN
+    pinlabels:
+    - X_AXIS_CMD_POS | X_AXIS_CMD_POS | HOLD - SOURCE TRACE
+    - X_AXIS_CMD_RETURN | X_AXIS_CMD_RETURN | HOLD - SOURCE TRACE
+    - Z_AXIS_CMD_POS | Z_AXIS_CMD_POS | HOLD - SOURCE TRACE
+    - Z_AXIS_CMD_RETURN | Z_AXIS_CMD_RETURN | HOLD - SOURCE TRACE
+    - Y_AXIS_CMD_POS | Y_AXIS_CMD_POS | HOLD - SOURCE TRACE
+    - Y_AXIS_CMD_RETURN | Y_AXIS_CMD_RETURN | HOLD - SOURCE TRACE
+    pincolors:
+    - RD
+    - RD
+    - RD
+    - RD
+    - RD
+    - RD
+    hide_disconnected_pins: true
+    show_pincount: false
+    bgcolor_title: RD
+    notes: PRELIMINARY - NOT RELEASED FOR WIRING. Source identifiers are copied from the crosswalk; TBD is deliberately unresolved.
+    ignore_in_bom: true
+  7i49_P4:
+    type: 7i49 P4
+    pins:
+    - 20
+    - 19
+    - 24
+    - 23
+    pinlabels:
+    - 20 | AOUT0 | HOLD - SOURCE TRACE
+    - 19 | GND0 | HOLD - SOURCE TRACE
+    - 24 | AOUT1 | HOLD - SOURCE TRACE
+    - 23 | GND1 | HOLD - SOURCE TRACE
+    pincolors:
+    - RD
+    - RD
+    - RD
+    - RD
+    hide_disconnected_pins: true
+    show_pincount: false
+    bgcolor_title: LB
+    notes: Mesa terminal text is copied from the crosswalk; verify physical terminal numbering against the card manual.
+    ignore_in_bom: true
+  7i49_P3:
+    type: 7i49 P3
+    pins:
+    - 20
+    - 19
+    pinlabels:
+    - 20 | AOUT2 | HOLD - SOURCE TRACE
+    - 19 | GND2 | HOLD - SOURCE TRACE
+    pincolors:
+    - RD
+    - RD
+    hide_disconnected_pins: true
+    show_pincount: false
+    bgcolor_title: LB
+    notes: Mesa terminal text is copied from the crosswalk; verify physical terminal numbering against the card manual.
+    ignore_in_bom: true
+cables:
+  DIRECT_INTERFACE:
+    type: Direct analog / resolver interface conductors
+    wirecount: 6
+    wirelabels:
+    - X_AXIS_CMD_POS | HOLD - SOURCE TRACE
+    - X_AXIS_CMD_RETURN | HOLD - SOURCE TRACE
+    - Z_AXIS_CMD_POS | HOLD - SOURCE TRACE
+    - Z_AXIS_CMD_RETURN | HOLD - SOURCE TRACE
+    - Y_AXIS_CMD_POS | HOLD - SOURCE TRACE
+    - Y_AXIS_CMD_RETURN | HOLD - SOURCE TRACE
+    colors:
+    - RD
+    - RD
+    - RD
+    - RD
+    - RD
+    - RD
+    show_wirecount: false
+    notes: PRELIMINARY - NOT RELEASED FOR WIRING. Logical route only. Cable part, gauge, pair assignment, and length are not
+      asserted by this sheet.
+    shield: false
+    ignore_in_bom: true
+connections:
+- - TBD:
+    - X_AXIS_CMD_POS
+    - X_AXIS_CMD_RETURN
+    - Z_AXIS_CMD_POS
+    - Z_AXIS_CMD_RETURN
+    - Y_AXIS_CMD_POS
+    - Y_AXIS_CMD_RETURN
+  - DIRECT_INTERFACE:
+    - 1
+    - 2
+    - 3
+    - 4
+    - 5
+    - 6
+- - DIRECT_INTERFACE:
+    - 1
+    - 2
+    - 3
+    - 4
+  - 7i49_P4:
+    - 20
+    - 19
+    - 24
+    - 23
+- - DIRECT_INTERFACE:
+    - 5
+    - 6
+  - 7i49_P3:
+    - 20
+    - 19

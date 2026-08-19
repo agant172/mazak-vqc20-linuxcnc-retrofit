@@ -1,0 +1,109 @@
+# GENERATED FILE - edit the source CSV or generator, then regenerate.
+metadata:
+  title: Plane B - CNA10 legacy load-display disposition
+  description: Existing spindle/Z load display conductors are documented but have no Mesa allocation.
+  notes: 'PRELIMINARY - NOT RELEASED FOR WIRING. Yellow = defined route requiring field verification; red = HOLD or proposed;
+    gray = retain/retire decision. Input: wiring/plane_b_pin_crosswalk.csv; OEM 41434WB p127.'
+options:
+  fontname: Arial
+  bgcolor: WH
+  bgcolor_node: WH
+  color_mode: SHORT
+  mini_bom_mode: false
+connectors:
+  CNA10:
+    type: OEM / field endpoint CNA10
+    pins:
+    - 4
+    - 8
+    - 11
+    - 17
+    - 20
+    pinlabels:
+    - 4 | CNA10_SPINDLE_LOAD_HI | DECISION
+    - 8 | CNA10_SPINDLE_LOAD_LO | DECISION
+    - 11 | CNA10_Z_LOAD_HI | DECISION
+    - 17 | CNA10_Z_LOAD_LO | DECISION
+    - 20 | CNA10_COMMON | DECISION
+    pincolors:
+    - GY
+    - GY
+    - GY
+    - GY
+    - GY
+    hide_disconnected_pins: true
+    show_pincount: false
+    bgcolor_title: LB
+    notes: PRELIMINARY - NOT RELEASED FOR WIRING. Source identifiers are copied from the crosswalk; TBD is deliberately unresolved.
+    ignore_in_bom: true
+  HOLD_TERMINATION:
+    type: Termination or electrical role not established
+    pins:
+    - TBD01
+    - TBD02
+    - TBD03
+    - TBD04
+    - TBD05
+    pinlabels:
+    - TBD01 | CNA10_SPINDLE_LOAD_HI | DECISION
+    - TBD02 | CNA10_SPINDLE_LOAD_LO | DECISION
+    - TBD03 | CNA10_Z_LOAD_HI | DECISION
+    - TBD04 | CNA10_Z_LOAD_LO | DECISION
+    - TBD05 | CNA10_COMMON | DECISION
+    pincolors:
+    - GY
+    - GY
+    - GY
+    - GY
+    - GY
+    hide_disconnected_pins: true
+    show_pincount: false
+    bgcolor_title: RD
+    notes: Do not terminate until the row's required verification is complete.
+    ignore_in_bom: true
+cables:
+  DIRECT_INTERFACE:
+    type: Direct analog / resolver interface conductors
+    wirecount: 5
+    wirelabels:
+    - CNA10_SPINDLE_LOAD_HI | DECISION
+    - CNA10_SPINDLE_LOAD_LO | DECISION
+    - CNA10_Z_LOAD_HI | DECISION
+    - CNA10_Z_LOAD_LO | DECISION
+    - CNA10_COMMON | DECISION
+    colors:
+    - GY
+    - GY
+    - GY
+    - GY
+    - GY
+    show_wirecount: false
+    notes: PRELIMINARY - NOT RELEASED FOR WIRING. Logical route only. Cable part, gauge, pair assignment, and length are not
+      asserted by this sheet.
+    shield: false
+    ignore_in_bom: true
+connections:
+- - CNA10:
+    - 4
+    - 8
+    - 11
+    - 17
+    - 20
+  - DIRECT_INTERFACE:
+    - 1
+    - 2
+    - 3
+    - 4
+    - 5
+- - DIRECT_INTERFACE:
+    - 1
+    - 2
+    - 3
+    - 4
+    - 5
+  - HOLD_TERMINATION:
+    - TBD01
+    - TBD02
+    - TBD03
+    - TBD04
+    - TBD05
