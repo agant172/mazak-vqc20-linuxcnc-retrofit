@@ -3,7 +3,7 @@ metadata:
   title: Plane A - BBIA-1 CN1 discrete routes
   description: Machine-facing CN1 conductors through the required isolation boundary to Mesa field I/O.
   notes: 'PRELIMINARY - NOT RELEASED FOR WIRING. Yellow = defined route requiring field verification; red = HOLD or proposed;
-    gray = retain/retire decision. Input: Codex Manual Read/plane_a_bbia1_pin_crosswalk.csv.'
+    gray = retain/retire decision. Input: wiring/plane_a_bbia1_pin_crosswalk.csv.'
 options:
   fontname: Arial
   bgcolor: WH

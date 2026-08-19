@@ -3,7 +3,7 @@ metadata:
   title: MESAC VQC-20/40 LinuxCNC retrofit - interface overview
   description: Two-plane logical architecture. Pin-level details are on the companion WireViz sheets.
   notes: 'PRELIMINARY - NOT RELEASED FOR WIRING. Yellow = defined route requiring field verification; red = HOLD or proposed;
-    gray = retain/retire decision. Inputs: Codex Manual Read/plane_a_bbia1_pin_crosswalk.csv and Codex Manual Read/plane_b_pin_crosswalk.csv'
+    gray = retain/retire decision. Inputs: wiring/plane_a_bbia1_pin_crosswalk.csv and wiring/plane_b_pin_crosswalk.csv'
 options:
   fontname: Arial
   bgcolor: WH

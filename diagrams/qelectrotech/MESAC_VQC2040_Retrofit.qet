@@ -125,7 +125,7 @@
             </conductor>
         </conductors>
         <inputs>
-            <input x="45" y="28" text="PRELIMINARY - NOT RELEASED FOR WIRING. Yellow = defined route requiring field verification; red = HOLD or proposed; gray = retain/retire decision. Inputs: Codex Manual Read/plane_a_bbia1_pin_crosswalk.csv and…" rotation="0" font="Liberation Sans,9,-1,5,75,0,0,0,0,0,Bold" color="#b00020" text_width="1600" />
+            <input x="45" y="28" text="PRELIMINARY - NOT RELEASED FOR WIRING. Yellow = defined route requiring field verification; red = HOLD or proposed; gray = retain/retire decision. Inputs: wiring/plane_a_bbia1_pin_crosswalk.csv and wiring/plan…" rotation="0" font="Liberation Sans,9,-1,5,75,0,0,0,0,0,Bold" color="#b00020" text_width="1600" />
         </inputs>
         <shapes>
             <shape z="8" x1="375" y1="363" x2="450" y2="363" type="Line" closed="0" is_movable="0">
@@ -328,7 +328,7 @@
             </conductor>
         </conductors>
         <inputs>
-            <input x="45" y="28" text="PRELIMINARY - NOT RELEASED FOR WIRING. Yellow = defined route requiring field verification; red = HOLD or proposed; gray = retain/retire decision. Input: Codex Manual Read/plane_a_bbia1_pin_crosswalk.csv." rotation="0" font="Liberation Sans,9,-1,5,75,0,0,0,0,0,Bold" color="#b00020" text_width="1600" />
+            <input x="45" y="28" text="PRELIMINARY - NOT RELEASED FOR WIRING. Yellow = defined route requiring field verification; red = HOLD or proposed; gray = retain/retire decision. Input: wiring/plane_a_bbia1_pin_crosswalk.csv." rotation="0" font="Liberation Sans,9,-1,5,75,0,0,0,0,0,Bold" color="#b00020" text_width="1600" />
         </inputs>
         <shapes>
             <shape z="8" x1="375" y1="366" x2="525" y2="366" type="Line" closed="0" is_movable="0">
@@ -687,7 +687,7 @@
             </conductor>
         </conductors>
         <inputs>
-            <input x="45" y="28" text="PRELIMINARY - NOT RELEASED FOR WIRING. Yellow = defined route requiring field verification; red = HOLD or proposed; gray = retain/retire decision. Input: Codex Manual Read/plane_a_bbia1_pin_crosswalk.csv." rotation="0" font="Liberation Sans,9,-1,5,75,0,0,0,0,0,Bold" color="#b00020" text_width="1600" />
+            <input x="45" y="28" text="PRELIMINARY - NOT RELEASED FOR WIRING. Yellow = defined route requiring field verification; red = HOLD or proposed; gray = retain/retire decision. Input: wiring/plane_a_bbia1_pin_crosswalk.csv." rotation="0" font="Liberation Sans,9,-1,5,75,0,0,0,0,0,Bold" color="#b00020" text_width="1600" />
         </inputs>
         <shapes>
             <shape z="8" x1="375" y1="286" x2="525" y2="286" type="Line" closed="0" is_movable="0">
@@ -1051,7 +1051,7 @@
             </conductor>
         </conductors>
         <inputs>
-            <input x="45" y="28" text="PRELIMINARY - NOT RELEASED FOR WIRING. Yellow = defined route requiring field verification; red = HOLD or proposed; gray = retain/retire decision. Input: Codex Manual Read/plane_a_bbia1_pin_crosswalk.csv." rotation="0" font="Liberation Sans,9,-1,5,75,0,0,0,0,0,Bold" color="#b00020" text_width="1600" />
+            <input x="45" y="28" text="PRELIMINARY - NOT RELEASED FOR WIRING. Yellow = defined route requiring field verification; red = HOLD or proposed; gray = retain/retire decision. Input: wiring/plane_a_bbia1_pin_crosswalk.csv." rotation="0" font="Liberation Sans,9,-1,5,75,0,0,0,0,0,Bold" color="#b00020" text_width="1600" />
         </inputs>
         <shapes>
             <shape z="8" x1="375" y1="366" x2="525" y2="366" type="Line" closed="0" is_movable="0">
@@ -1252,7 +1252,7 @@
             </conductor>
         </conductors>
         <inputs>
-            <input x="45" y="28" text="PRELIMINARY - NOT RELEASED FOR WIRING. Yellow = defined route requiring field verification; red = HOLD or proposed; gray = retain/retire decision. Input: Codex Manual Read/plane_a_bbia1_pin_crosswalk.csv." rotation="0" font="Liberation Sans,9,-1,5,75,0,0,0,0,0,Bold" color="#b00020" text_width="1600" />
+            <input x="45" y="28" text="PRELIMINARY - NOT RELEASED FOR WIRING. Yellow = defined route requiring field verification; red = HOLD or proposed; gray = retain/retire decision. Input: wiring/plane_a_bbia1_pin_crosswalk.csv." rotation="0" font="Liberation Sans,9,-1,5,75,0,0,0,0,0,Bold" color="#b00020" text_width="1600" />
         </inputs>
         <shapes>
             <shape z="8" x1="375" y1="376" x2="525" y2="376" type="Line" closed="0" is_movable="0">
@@ -1349,7 +1349,7 @@
             </conductor>
         </conductors>
         <inputs>
-            <input x="45" y="28" text="PRELIMINARY - NOT RELEASED FOR WIRING. Yellow = defined route requiring field verification; red = HOLD or proposed; gray = retain/retire decision. Input: Codex Manual Read/plane_a_bbia1_pin_crosswalk.csv." rotation="0" font="Liberation Sans,9,-1,5,75,0,0,0,0,0,Bold" color="#b00020" text_width="1600" />
+            <input x="45" y="28" text="PRELIMINARY - NOT RELEASED FOR WIRING. Yellow = defined route requiring field verification; red = HOLD or proposed; gray = retain/retire decision. Input: wiring/plane_a_bbia1_pin_crosswalk.csv." rotation="0" font="Liberation Sans,9,-1,5,75,0,0,0,0,0,Bold" color="#b00020" text_width="1600" />
         </inputs>
         <shapes>
             <shape z="8" x1="375" y1="412" x2="525" y2="412" type="Line" closed="0" is_movable="0">
@@ -1494,7 +1494,7 @@
             </conductor>
         </conductors>
         <inputs>
-            <input x="45" y="28" text="PRELIMINARY - NOT RELEASED FOR WIRING. Yellow = defined route requiring field verification; red = HOLD or proposed; gray = retain/retire decision. Input: Codex Manual Read/plane_a_bbia1_pin_crosswalk.csv." rotation="0" font="Liberation Sans,9,-1,5,75,0,0,0,0,0,Bold" color="#b00020" text_width="1600" />
+            <input x="45" y="28" text="PRELIMINARY - NOT RELEASED FOR WIRING. Yellow = defined route requiring field verification; red = HOLD or proposed; gray = retain/retire decision. Input: wiring/plane_a_bbia1_pin_crosswalk.csv." rotation="0" font="Liberation Sans,9,-1,5,75,0,0,0,0,0,Bold" color="#b00020" text_width="1600" />
         </inputs>
         <shapes>
             <shape z="8" x1="375" y1="376" x2="525" y2="376" type="Line" closed="0" is_movable="0">
@@ -1753,7 +1753,7 @@
             </conductor>
         </conductors>
         <inputs>
-            <input x="45" y="28" text="PRELIMINARY - NOT RELEASED FOR WIRING. Yellow = defined route requiring field verification; red = HOLD or proposed; gray = retain/retire decision. Input: Codex Manual Read/plane_a_bbia1_pin_crosswalk.csv." rotation="0" font="Liberation Sans,9,-1,5,75,0,0,0,0,0,Bold" color="#b00020" text_width="1600" />
+            <input x="45" y="28" text="PRELIMINARY - NOT RELEASED FOR WIRING. Yellow = defined route requiring field verification; red = HOLD or proposed; gray = retain/retire decision. Input: wiring/plane_a_bbia1_pin_crosswalk.csv." rotation="0" font="Liberation Sans,9,-1,5,75,0,0,0,0,0,Bold" color="#b00020" text_width="1600" />
         </inputs>
         <shapes>
             <shape z="8" x1="375" y1="346" x2="525" y2="346" type="Line" closed="0" is_movable="0">
@@ -1938,7 +1938,7 @@
             </conductor>
         </conductors>
         <inputs>
-            <input x="45" y="28" text="PRELIMINARY - NOT RELEASED FOR WIRING. Yellow = defined route requiring field verification; red = HOLD or proposed; gray = retain/retire decision. Input: Codex Manual Read/plane_a_bbia1_pin_crosswalk.csv." rotation="0" font="Liberation Sans,9,-1,5,75,0,0,0,0,0,Bold" color="#b00020" text_width="1600" />
+            <input x="45" y="28" text="PRELIMINARY - NOT RELEASED FOR WIRING. Yellow = defined route requiring field verification; red = HOLD or proposed; gray = retain/retire decision. Input: wiring/plane_a_bbia1_pin_crosswalk.csv." rotation="0" font="Liberation Sans,9,-1,5,75,0,0,0,0,0,Bold" color="#b00020" text_width="1600" />
         </inputs>
         <shapes>
             <shape z="8" x1="375" y1="412" x2="525" y2="412" type="Line" closed="0" is_movable="0">
@@ -2015,7 +2015,7 @@
             </conductor>
         </conductors>
         <inputs>
-            <input x="45" y="28" text="PRELIMINARY - NOT RELEASED FOR WIRING. Yellow = defined route requiring field verification; red = HOLD or proposed; gray = retain/retire decision. Input: Codex Manual Read/plane_a_bbia1_pin_crosswalk.csv; OEM…" rotation="0" font="Liberation Sans,9,-1,5,75,0,0,0,0,0,Bold" color="#b00020" text_width="1600" />
+            <input x="45" y="28" text="PRELIMINARY - NOT RELEASED FOR WIRING. Yellow = defined route requiring field verification; red = HOLD or proposed; gray = retain/retire decision. Input: wiring/plane_a_bbia1_pin_crosswalk.csv; OEM 41434WB p12…" rotation="0" font="Liberation Sans,9,-1,5,75,0,0,0,0,0,Bold" color="#b00020" text_width="1600" />
         </inputs>
         <shapes>
             <shape z="8" x1="375" y1="396" x2="690" y2="396" type="Line" closed="0" is_movable="0">
@@ -2159,7 +2159,7 @@
             </conductor>
         </conductors>
         <inputs>
-            <input x="45" y="28" text="PRELIMINARY - NOT RELEASED FOR WIRING. Yellow = defined route requiring field verification; red = HOLD or proposed; gray = retain/retire decision. Input: Codex Manual Read/plane_b_pin_crosswalk.csv; OEM 41434W…" rotation="0" font="Liberation Sans,9,-1,5,75,0,0,0,0,0,Bold" color="#b00020" text_width="1600" />
+            <input x="45" y="28" text="PRELIMINARY - NOT RELEASED FOR WIRING. Yellow = defined route requiring field verification; red = HOLD or proposed; gray = retain/retire decision. Input: wiring/plane_b_pin_crosswalk.csv; OEM 41434WB p128; 7i4…" rotation="0" font="Liberation Sans,9,-1,5,75,0,0,0,0,0,Bold" color="#b00020" text_width="1600" />
         </inputs>
         <shapes>
             <shape z="8" x1="375" y1="307" x2="1005" y2="307" type="Line" closed="0" is_movable="0">
@@ -2315,7 +2315,7 @@
             </conductor>
         </conductors>
         <inputs>
-            <input x="45" y="28" text="PRELIMINARY - NOT RELEASED FOR WIRING. Yellow = defined route requiring field verification; red = HOLD or proposed; gray = retain/retire decision. Input: Codex Manual Read/plane_b_pin_crosswalk.csv; OEM 41434W…" rotation="0" font="Liberation Sans,9,-1,5,75,0,0,0,0,0,Bold" color="#b00020" text_width="1600" />
+            <input x="45" y="28" text="PRELIMINARY - NOT RELEASED FOR WIRING. Yellow = defined route requiring field verification; red = HOLD or proposed; gray = retain/retire decision. Input: wiring/plane_b_pin_crosswalk.csv; OEM 41434WB p128; 7i4…" rotation="0" font="Liberation Sans,9,-1,5,75,0,0,0,0,0,Bold" color="#b00020" text_width="1600" />
         </inputs>
         <shapes>
             <shape z="8" x1="375" y1="307" x2="1005" y2="307" type="Line" closed="0" is_movable="0">
@@ -2471,7 +2471,7 @@
             </conductor>
         </conductors>
         <inputs>
-            <input x="45" y="28" text="PRELIMINARY - NOT RELEASED FOR WIRING. Yellow = defined route requiring field verification; red = HOLD or proposed; gray = retain/retire decision. Input: Codex Manual Read/plane_b_pin_crosswalk.csv; OEM 41434W…" rotation="0" font="Liberation Sans,9,-1,5,75,0,0,0,0,0,Bold" color="#b00020" text_width="1600" />
+            <input x="45" y="28" text="PRELIMINARY - NOT RELEASED FOR WIRING. Yellow = defined route requiring field verification; red = HOLD or proposed; gray = retain/retire decision. Input: wiring/plane_b_pin_crosswalk.csv; OEM 41434WB p128; 7i4…" rotation="0" font="Liberation Sans,9,-1,5,75,0,0,0,0,0,Bold" color="#b00020" text_width="1600" />
         </inputs>
         <shapes>
             <shape z="8" x1="375" y1="307" x2="1005" y2="307" type="Line" closed="0" is_movable="0">
@@ -2612,7 +2612,7 @@
             </conductor>
         </conductors>
         <inputs>
-            <input x="45" y="28" text="PRELIMINARY - NOT RELEASED FOR WIRING. Yellow = defined route requiring field verification; red = HOLD or proposed; gray = retain/retire decision. Input: Codex Manual Read/plane_b_pin_crosswalk.csv; OEM comman…" rotation="0" font="Liberation Sans,9,-1,5,75,0,0,0,0,0,Bold" color="#b00020" text_width="1600" />
+            <input x="45" y="28" text="PRELIMINARY - NOT RELEASED FOR WIRING. Yellow = defined route requiring field verification; red = HOLD or proposed; gray = retain/retire decision. Input: wiring/plane_b_pin_crosswalk.csv; OEM command ends requ…" rotation="0" font="Liberation Sans,9,-1,5,75,0,0,0,0,0,Bold" color="#b00020" text_width="1600" />
         </inputs>
         <shapes>
             <shape z="8" x1="375" y1="366" x2="690" y2="366" type="Line" closed="0" is_movable="0">
@@ -2748,7 +2748,7 @@
             </conductor>
         </conductors>
         <inputs>
-            <input x="45" y="28" text="PRELIMINARY - NOT RELEASED FOR WIRING. Yellow = defined route requiring field verification; red = HOLD or proposed; gray = retain/retire decision. Input: Codex Manual Read/plane_b_pin_crosswalk.csv; OEM 41434W…" rotation="0" font="Liberation Sans,9,-1,5,75,0,0,0,0,0,Bold" color="#b00020" text_width="1600" />
+            <input x="45" y="28" text="PRELIMINARY - NOT RELEASED FOR WIRING. Yellow = defined route requiring field verification; red = HOLD or proposed; gray = retain/retire decision. Input: wiring/plane_b_pin_crosswalk.csv; OEM 41434WB p127." rotation="0" font="Liberation Sans,9,-1,5,75,0,0,0,0,0,Bold" color="#b00020" text_width="1600" />
         </inputs>
         <shapes>
             <shape z="8" x1="375" y1="376" x2="1005" y2="376" type="Line" closed="0" is_movable="0">

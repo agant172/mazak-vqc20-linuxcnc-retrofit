@@ -22,7 +22,7 @@ through three connector groups:
 |---|---|---|---|
 | BBIA-1 bottom (CN) | 10 | 9 complete from terminal-unit tables; CN12 has a complete downstream SSR pin/wire table | CN12 terminal-unit→SSR hop is not independently pin-traced |
 | BBIA-1 top (NC-facing) | 9 physical positions on p74 | partial coordinates only (~190 CND-side refs incl. ~60 new from CN7/CN8) | CND→CN index NOT pin-for-pin; one p74 position is unlabeled and no complete per-top-connector table exists |
-| Plane B (CNA / FR-SX) | 9+ | 7 transcribed, 1 confirmed+measured | CNA10 not transcribed; CN2 amp connectors unchecked |
+| Plane B (CNA / FR-SX) | 9+ | 7 transcribed, 1 confirmed+measured | CNA10 transcribed; retain/retire decision pending; CN2 amp connectors unchecked |
 
 _2026-08-18 update: CN3 completed to 50/50 (its 26 missing pins confirmed
 genuinely unused on the print), CN7 transcribed in full (50/50, 2PC

@@ -3,7 +3,7 @@ metadata:
   title: Plane B - Y-axis resolver to Mesa 7i49
   description: CNA4 resolver windings, case-ground disposition, and three-pair drain requirement.
   notes: 'PRELIMINARY - NOT RELEASED FOR WIRING. Yellow = defined route requiring field verification; red = HOLD or proposed;
-    gray = retain/retire decision. Input: Codex Manual Read/plane_b_pin_crosswalk.csv; OEM 41434WB p128; 7i49 manual.'
+    gray = retain/retire decision. Input: wiring/plane_b_pin_crosswalk.csv; OEM 41434WB p128; 7i49 manual.'
 options:
   fontname: Arial
   bgcolor: WH

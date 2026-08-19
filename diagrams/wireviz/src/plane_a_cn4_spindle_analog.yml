@@ -3,7 +3,7 @@ metadata:
   title: Plane A - CN4 FR-SX spindle analog reference
   description: CN4 SE1/SE2/SE3 to the 7i49 AOUT3 interface. Every role remains HOLD.
   notes: 'PRELIMINARY - NOT RELEASED FOR WIRING. Yellow = defined route requiring field verification; red = HOLD or proposed;
-    gray = retain/retire decision. Input: Codex Manual Read/plane_a_bbia1_pin_crosswalk.csv; OEM 41434WB p127.'
+    gray = retain/retire decision. Input: wiring/plane_a_bbia1_pin_crosswalk.csv; OEM 41434WB p127.'
 options:
   fontname: Arial
   bgcolor: WH

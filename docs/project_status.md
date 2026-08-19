@@ -1,6 +1,6 @@
 # Project Status & TODO — Mazak VQC 20/40 LinuxCNC/Mesa Retrofit
 
-_Last updated: 2026-08-17_
+_Last updated: 2026-08-19_
 
 ## Scope decision — power and E-stop stay original (owner, 2026-08-15)
 
@@ -94,6 +94,14 @@ See [`architecture_decision.md`](architecture_decision.md) for the full rational
 - Pin authority CSV structurally reconciled for the full stack
   (`mesa/current_pin_authority.csv`); physical tracing and electrical/HAL
   verification remain pending.
+- **Two-plane wiring crosswalks completed as accounting artifacts (2026-08-18/19):**
+  Plane A covers all 320 BBIA-1 bottom-row pin positions and Plane B records the
+  CNA resolver/direct-analog routes plus the five CNA10 load-meter pins. The
+  six X/Y/Z direct analog source routes remain explicitly held pending OEM
+  connector/pin continuity tracing; these are not wire-release approvals.
+- **NC circuit landing audit advanced (2026-08-19):** 16 of 37 claimed landings
+  are independently supported; the remaining 21 claims require field/source
+  verification and a synthesized coverage report.
 
 ### In progress
 - **All interface hardware is on hand as of 2026-08-17** (owner, at the machine): 7i80HDT, 7i49, 7i44, 7i84U-A, 7i84U-B, and the 50-pin IDC cables that were the last blocker. The 7i80HDT is on the network at 192.168.1.121 and flashed with `7i80hdt_rmsvss6_8.bin`; the daughter cards and both 7i84U remotes are **not yet seated, wired, or enumerated** — no card other than the 7i80HDT has been proven present by `readhmid` or `halcmd show pin hm2`. Procurement is no longer the gate; the physical install is.
@@ -108,6 +116,15 @@ See [`architecture_decision.md`](architecture_decision.md) for the full rational
 - ATC dry run.
 
 ## TODO list
+
+### Task-list maintenance rule
+
+This file is the live task authority. When a session discovers new work,
+uncertainty, or a changed dependency, record it here in the same session:
+add a dated checkbox under the appropriate phase, link the evidence or source
+file, and state the closure test or owner decision. When work is completed,
+check off the original item and record the date and resulting artifact. Do not
+leave newly discovered work only in a handoff, issue, audit, or conversation.
 
 **Resequenced 2026-08-17 around the physical install.** Procurement closed that
 day (all Mesa hardware on hand), which changed what is actually next: the list
@@ -149,9 +166,36 @@ factory-allocated but never used, and today absence-from-the-CSV can't distingui
 - [x] **Transcribe CN7 (50 pins, 2PC pallet changer) from the OEM print** — DONE 2026-08-18 from dwg 4143015323 (p86), 50/50 wires identified, all to TB6. Bonus: **CN8 discovered and transcribed on the same sheet** — a tenth bottom-row connector, entirely NC spare I/O (ISP4–22/OSP5–30), never cabled out.
 - [x] **Complete CN3's remaining 26 pins** — DONE 2026-08-18 from dwg 4143075321 (p84): all 26 are genuinely unused on the print (blank, plus pin 13 marked SPARE), so CN3 is 50/50 accounted with nothing new allocated. The §7.2 CN3-39/44 conflict did NOT resolve — the fresh read adds a *third* OEM naming for those pins (39 = TOOL DETECTOR, 44 = SPINDLE TOOL DETECTOR); the buzz-out at the board remains the tie-breaker. Four CN3 signal-name divergences logged in `../wiring/bbia1_cn_pinouts.md`.
 - [x] **Re-read the CN1/CN2/CN4/CN6 source sheets** — DONE 2026-08-18. All four now 50/50 or 20/20 accounted: CN1 (7 blank), CN2 (14 blank), CN6 (12 blank + pins 38/45 slashed out), and CN4's "missing" pins 18–20 confirmed populated (SE1/SE2/SE3 speed reference → CON1-31/-32/-30, matching p127). Three CN4 signal-name divergences (pins 15–17) logged in `../wiring/bbia1_cn_pinouts.md` — the p84+p127+authority-CSV triple agreement favors ORC2/OBA1/OBA2 over the CSV's COM/SETA/SETB.
-- [ ] **Transcribe CNA10** (NC-side spindle load-meter feed, dwg 4143075403 p127) and read its "REF. SHT. 04".
+- [x] **Transcribe CNA10** (NC-side spindle load-meter feed, dwg 4143075403 p127) and read its "REF. SHT. 04" — DONE 2026-08-18. The five source pins are documented in [`../wiring/interface_plane_crosswalk.md`](../wiring/interface_plane_crosswalk.md#cna10-disposition); retain/retire and Mesa allocation remain an owner decision.
 - [ ] Check the NC rack for a **CNA6** position (M2 manual's detector connector family runs CNA 3–6; only 3/4/5 are accounted).
 - [ ] Identify or rule out the **third "CN11"** (25-way pallet/coolant loom, dwg 03-81581-02, never independently read).
+
+### Crosswalk closure — next wiring work
+
+These are the next tasks created by the two-plane accounting pass. The CSVs and
+diagrams are planning/accounting artifacts until each held route has physical
+evidence and an authority disposition.
+
+- [x] **NC circuit landing audit COMPLETE (2026-08-19).** All 37 GAP/UNCLEAR
+  claims adversarially verified: 33 confirmed gaps (32 unique conductors — 3
+  reclassified on verification, 1 still unclear at FR-SX CON1-24 CTM). Full
+  coverage report, gap list with per-row closure actions, and a suggested
+  single-cabinet-session work sequence:
+  [`../wiring/nc_circuit_landing_audit.md`](../wiring/nc_circuit_landing_audit.md)
+  (replaces the partial file). Headline items: SET1/SET2 drive-arm handshake
+  is UNBOUND and the spindle will not run until it is landed or retired
+  (gap rows 9–11); the ±LYZ over-travel bus question (rows 1–3) and the
+  231-vs-143 zero-speed conductor (rows 4–5) stay do-not-land until buzzed.
+- [ ] **Continuity-trace the six `HOLD_SOURCE_TRACE` Plane B rows** for the
+  X/Y/Z direct analog command and return pairs from the DK-427/drive side back
+  to the removed NC harness; record the exact OEM connector and pin before
+  clearing any hold in [`../wiring/plane_b_pin_crosswalk.csv`](../wiring/plane_b_pin_crosswalk.csv).
+- [ ] **Decide CNA10 disposition:** retain the spindle/Z load-meter feed and
+  allocate a Mesa measurement path, or retire/cap it with an owner decision;
+  record the result in the Plane B crosswalk and authority CSV.
+- [ ] **Commission the resolver routes:** verify winding polarity/phase,
+  excitation and return levels, and shield termination against the proposed
+  Plane B resolver mappings before releasing the harness for installation.
 
 ### Immediate — Phase B: seat the cards and enumerate the stack
 

@@ -10,7 +10,8 @@ All Epson batch CSVs in this folder target Epson Label Editor on Windows and
 use Windows CRLF records on checkout.
 
 - Consolidated wiring master: [`Mazak_Wiring_Master_7i80HDT_7i44_7i49_7i84U_Current_Authority.xlsx`](Mazak_Wiring_Master_7i80HDT_7i44_7i49_7i84U_Current_Authority.xlsx)
-  — generated 132-row Excel snapshot of the current authority for the 7i80HDT /
+  — **legacy 132-row Excel snapshot; not regenerated for the current 124-row
+  authority or the two-plane conductor crosswalks.** It covers the 7i80HDT /
   7i44 / 7i49 / 7i84U-A / 7i84U-B stack. It includes formula-driven summaries;
   P2 is unused/spare (confirmed 2026-08-13 by `readhmid`) and the Renishaw
   MP-3 probe is on 7i84U-B input-15 (opto-isolated 24 V). The
@@ -36,8 +37,9 @@ use Windows CRLF records on checkout.
   `../mesa/current_pin_authority.csv` before wiring (see its "Reconciliation" and
   "Still to locate" sections).
 - I/O workbook: [`../bom/Mazak_VQC_20-40_Retrofit_IO_Workbook.xlsx`](../bom/Mazak_VQC_20-40_Retrofit_IO_Workbook.xlsx)
-  — second generated 132-row Excel view of the current authority for I/O planning
-  and parts coordination; it is not an independent authority source.
+  — second legacy 132-row Excel snapshot for I/O planning and parts coordination.
+  It is not current authority and does not contain the new Plane A/Plane B
+  conductor tables.
 - Cabinet photo checklist: [`../docs/cabinet_photo_checklist.md`](../docs/cabinet_photo_checklist.md)
   — what to photograph before finalizing wiring.
 - Sister-machine wiring reference: [SRDCO MazakVQC1540 complete 2017 reference package](https://github.com/srdco/MazakVQC1540/tree/master/MAZAK-VQC1540-20170501)

@@ -595,4 +595,8 @@ detected and rejected by CI.
   changed, commit, and push before the session ends — a cloud container is ephemeral and
   unpushed work is lost. Prefer appending to the decision/change log, which captures *why*,
   over overwriting history.
-
+- **Task-list maintenance rule:** if new work, an uncertainty, or a changed dependency is
+  discovered, add a dated checkbox to `docs/project_status.md` during the same session, with
+  an evidence link and closure test or owner decision. If work is completed, check off the
+  original item and record the date and artifact. Handoffs and audit notes may provide detail,
+  but they do not replace the live task list.

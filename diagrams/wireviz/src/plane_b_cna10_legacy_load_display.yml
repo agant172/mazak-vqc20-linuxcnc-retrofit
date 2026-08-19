@@ -3,7 +3,7 @@ metadata:
   title: Plane B - CNA10 legacy load-display disposition
   description: Existing spindle/Z load display conductors are documented but have no Mesa allocation.
   notes: 'PRELIMINARY - NOT RELEASED FOR WIRING. Yellow = defined route requiring field verification; red = HOLD or proposed;
-    gray = retain/retire decision. Input: Codex Manual Read/plane_b_pin_crosswalk.csv; OEM 41434WB p127.'
+    gray = retain/retire decision. Input: wiring/plane_b_pin_crosswalk.csv; OEM 41434WB p127.'
 options:
   fontname: Arial
   bgcolor: WH

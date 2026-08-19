@@ -4,12 +4,12 @@
   "folios": 15,
   "generated_by": "scripts/generate_qelectrotech_project.py",
   "inputs": [
-    "Codex Manual Read/plane_a_bbia1_pin_crosswalk.csv",
-    "Codex Manual Read/plane_b_pin_crosswalk.csv"
+    "wiring/plane_a_bbia1_pin_crosswalk.csv",
+    "wiring/plane_b_pin_crosswalk.csv"
   ],
   "plane_a_diagrammed_routes": 49,
   "plane_b_rows": 38,
   "project": "MESAC_VQC2040_Retrofit.qet",
-  "project_sha256": "b940b3f74fc6e15135be35b5ef26dad8d7902b515202f2fcab93718cd8bbf67b",
+  "project_sha256": "cb08f22197aba9a88c8176060e93e02448389750e6cf4acb60172323a5653547",
   "qelectrotech_target": "0.100.0"
 }
