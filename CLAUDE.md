@@ -563,8 +563,10 @@ detected and rejected by CI.
 - **State which session type you are** when it matters. A cloud session should say plainly that
   it cannot measure, meter, or flash anything.
 - **One topic per PR** where practical, with a commit message that says *why*, not just *what*.
-- **Finish by writing it down.** Update `docs/project_status.md` and any file whose facts
-  changed, commit, and push before the session ends — a cloud container is ephemeral and
-  unpushed work is lost. Prefer appending to the decision/change log, which captures *why*,
-  over overwriting history.
-
+- **Write it down as you go, not at the end.** The moment a unit of work is complete — a
+  measurement recorded, a doc corrected, a script fixed — update `docs/project_status.md` and
+  any file whose facts changed, then commit and push *before starting the next unit*. Do not
+  batch several units into one end-of-session commit: "before the session ends" is a deadline,
+  not a schedule — a cloud container is ephemeral, and a desk session that runs out of context
+  loses unpushed work just as thoroughly. Prefer appending to the decision/change log, which
+  captures *why*, over overwriting history.
