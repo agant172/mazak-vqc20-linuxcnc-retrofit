@@ -154,6 +154,19 @@ later.
 - [ ] While at the connectors: read the jacket on **`CN11-13`** (the other wire `231`, §7.1). Label read, no meter.
 - [ ] **Buzz `CN2-14`** for continuity to the +Z over-travel limit switch *and* to `CN6-12` — three sources disagree about whether it is `+LTZ` Z-axis over travel, unlabelled, or a **combined +Y/+Z bus** (`+LYZ`) ([`../wiring/authority_conflicts.md`](../wiring/authority_conflicts.md) §7.3). Continuity to both +Y and +Z confirms the combined-bus reading. ⚠️ This pin is already on a printed ferrule (`B-TB3-05`), now released as `HOLD_DISPUTED_PIN` — do not land it until this resolves.
 
+**Landing-audit cabinet items (added 2026-08-19; "row N" = gap row in
+[`../wiring/nc_circuit_landing_audit.md`](../wiring/nc_circuit_landing_audit.md)
+§2, which carries the full rationale and closure test per row).** Same
+covers-off cabinet session as the buzz items above — §2.3 of the audit
+sequences all of them into one visit.
+
+- [ ] ⚠️ **Buzz `CN6-12` (+LYZ) and `CN6-13` (−LYZ)** against the ±Y and ±Z limit switches in the same session as the `CN2-14` buzz (rows 2–3). Also ring `CN6-13` against `CN1-5` to kill its provably-wrong Inside_Connec pointer (CN1-5 is the landed coolant-level circuit).
+- [ ] ⚠️ **Buzz `CN3-3` (wire `142`)** — tool-clamp interlock or door-interlock channel 2 (MDINT.M)? If it's the door interlock, one channel of a dual-channel interlock is live and unmonitored (row 8). Owner disposition either way, before power-up.
+- [ ] **Buzz the wire-`362` trio** — `CN2-1` / `CN2-36` / `CN3-36` against each other, the CA4 loom (CA4-W/L), and the RC3A `WLWT` relay terminals: one conductor or OEM segment-renumbering reuse, and which timer function each pin carries (rows 14–15).
+- [ ] **Label-read `CN5-16`** (`1NRAILS` vs `INHRLS` — magazine rear LS or inhibit-read LS?) plus the strip-C INHRLS terminal and ladder p3 X02F to fix the identity (row 25).
+- [ ] **Jacket-read the RC3A M-relay bank wires `3-48`/`3-49`/`3-45`** to fix the CN6-4 transcription slip (pins 4 and 5 both read M45T; pin 4 is almost certainly M44T/Y024) (rows 26–27).
+- [ ] **FR-SX visit** (rows 9–13 + §2.2): (a) ⚠️ establish whether the `SET1`/`SET2` drive-arm handshake is required — **the spindle cannot be armed until this closes**: meter `CON1-7/-8`, confirm FR-SX vs DK-427 termination, check the Mitsubishi manual; (b) identify the `MS`/`OS` node (`CN4-5/6` → TB5) from the FR-SX CON1 terminal definitions — if MS is a speed contact it contradicts the SPINDLE_AT_SPEED "no discrete exists" note; (c) meter `CON1-24` (`CTM`) for a terminated conductor — drawn dashed, not even established as field-wired; (d) confirm the orient command really terminates at `ORC1`/`CON1-25`.
+
 **Connector-accounting punch list (added 2026-08-18, from the tracing-completeness
 audit — full per-connector detail in
 [`../wiring/nc_connector_inventory.md`](../wiring/nc_connector_inventory.md)).**
@@ -225,6 +238,16 @@ See [`../wiring/authority_conflicts.md`](../wiring/authority_conflicts.md) §5 a
 - [ ] `LUBE_OK` (IN25): status promotion now justified — `PS-5` tag, wire `355` and `CN6-39` all physically confirmed together. Contact form and trip pressure still unverified.
 - [ ] Confirm scope: mist coolant, work light, manual tool clamp/unclamp pushbuttons, and cover-motion outputs are deferred or removed per [`io_capacity_reconciliation.md`](io_capacity_reconciliation.md). 2PC pallet changer is out of retrofit scope. 7i84U-A is at 100/100% — any new signal there requires reallocating an existing one to 7i84U-B.
 
+**Landing-audit owner decisions (added 2026-08-19; row numbers per
+[`../wiring/nc_circuit_landing_audit.md`](../wiring/nc_circuit_landing_audit.md)
+§2 — paper-only, no meter needed):**
+
+- [ ] **`CN2-43` (wire `524`, axis-selector switched 24 V feed):** retire the OEM axis selector (pendant/UI replaces it) with a CYCLE_START_PB-style DEFERRED row — then verify dead before capping (row 20).
+- [ ] **`CN2-45` (`CP24`, panel feed-hold latch):** land on a Mesa input netted to `halui.program.pause`, **or** retire the panel latch and uncomment/bind `whb.feed-hold` in `pendant_whb04b.hal` — `first_move_plan.md` requires a working feed hold in the approved-window test, and today neither path exists (row 21).
+- [ ] **`CN5-9` (`EFHD`, external feed hold / remote box):** answer the archived OPTION_VERIFY question — land on a spare input or record DROP and cap at strip B (row 23).
+- [ ] **M-code outputs M43/M44/M45 (`CN6-3/4/5`):** one decision for the family — allocate 7i84U-B outputs + remaps, or record a dated RETIRED with a do-not-restore clause. Ratify the archived "Dropped/deferred" note for M43 (CN6-3) into a current owner decision; CN6-4/5 have no disposition at all (rows 26–27).
+- [ ] **Housekeeping from the audit:** add `CN5-5` (`EMC`, EMG STOP 2nd) to `INTERFACE_ARCHITECTURE.md` §3a's E-stop conductor list, and fix the 4-axis retire note's `CN2`→`CN5` citation.
+
 ### Next — bench and shop work, in parallel with Phase B
 
 None of this needs the cards seated; all of it must be done before anything is
@@ -235,6 +258,23 @@ energized.
 - [ ] Confirm whether `SOL-31` flood coolant and the other three unfitted placard tags exist **elsewhere** on the machine before any row is dropped. "Not on the head" is not "does not exist".
 - [ ] Measure solenoid/contactor coil **current** to size RLY-1…RLY-7 contacts and decide interposing-relay and suppression needs. Coil voltage is confirmed 100 VAC; current is not.
 - [ ] Identify each axis resolver winding pair with an **ohmmeter before power**, at the drive-end CNA connectors. Roles are now settled from the M2 manual's own figure (12/13 SIN, 14/15 COS, 16/17 the winding the 7i49 excites) — confirm them, don't re-derive them. See [`resolver_commissioning.md`](resolver_commissioning.md).
+
+**Landing-audit device traces (added 2026-08-19; row numbers per
+[`../wiring/nc_circuit_landing_audit.md`](../wiring/nc_circuit_landing_audit.md)
+§2). Each is a live conductor with no Mesa landing and no disposition — trace
+to the device, then land (authority row + net) or record an explicit
+retirement:**
+
+- [ ] **`CN2-2` (wire `351`, magazine FWD/REV shifter):** trace CNQ-37 → CN2-2 → CA4-V to the device. NOT the circuit MAG_CW/CCW_SOL supersede — those replace CN11-1/2 (row 16).
+- [ ] **`CN2-34`/`CN2-35` (wires `342`/`345`, tool-measure device timer + switch):** trace CNQ-34/CA4-J to the stand; one decision covers the pair — keep for tool-length routines, or RETIRED/capped (MP-3 + LinuxCNC replaces it) (rows 17–18).
+- [ ] **`CN2-37` (wire `239`, magazine lube pressure switch):** distinct from head-lube `LUBE_OK` (PS-5/355). Trace via CA4-M, confirm fitted, then a 7i84U-B input + net `mag-lube-ok` or explicit deferral (row 19).
+- [ ] **`CN3-35` (`WLAL`, way-lube alarm AL-54):** way lube ≠ head lube; real alarm circuit with no channel. Trace the driving device through TB5-D2; land on a spare DI or defer with the mist/work-light precedent (row 22).
+- [ ] **`CN5-10` (`RCTLS`, recessing-tool LS):** physically verify whether the recessing option is fitted on SN 060231 — NOT_FITTED entry or input allocation (row 24).
+- [ ] **`CN6-24` (wire `241`, power-on/main-lamp interlock cluster):** trace wires 241/240; either a named §3a exception (stays OEM power sequencing) or RETIRED (dies with the Mazatrol, Y090 PWI precedent). Its documented CN2-23 inside routing is provably broken — correct the pinout row (row 29).
+- [ ] **`CN6-34` (`NSFT`, NG TOOL ATC status):** no row, net, crosswalk, or ladder mention anywhere — determine direction/function from the OEM CN6 sheet or at the relay card; field-originated status feeds `mazak_atc.comp` + D13 hazard analysis, NC-driven indication retires (row 30).
+- [ ] **`CN11-11` (wire `235`, SOL-35 dust-inhale):** §5 says it belongs to no current row. Trace 435 from the solenoid bank; fitted-and-wanted ⇒ output + interposing relay, else NOT_USED — and purge the stale RLY-6/SOL-35 wiring instructions elsewhere in this file (row 31).
+- [ ] **`CN11-12` (wire `236`, SOL-36 oil-hole coolant):** trace 736 into the CB panel; record NOT_FITTED/RESERVED or allocate. **Also resolve the wire-236 duplication with the landed COOLANT_ON row (CN11-15)** — its factory_wire depends on it (row 32).
+- [ ] **`TAPC` CN6-18 → CNB-46 trace** (row 28) — already listed above; the audit adds: if it dead-ends, RETIRED/cap/log; if a live device appears, revisit the OUT5/RLY-7 NOT_USED status.
 
 ### Next — qualification, before any drive is enabled
 
@@ -360,6 +400,8 @@ Needs Phase B done (real pin names) and the coil measurements above.
 - [ ] Verify 7i84U-B TB3 limit/home inputs and TB3 drive-enable outputs against cabinet contacts; measure each input path with an ohmmeter before deciding whether to consume `input-NN` (raw) or `input-NN-not` (complement) in HAL — sserial input pins do NOT have an `invert_input` parameter (see [sserial(9)](https://linuxcnc.org/docs/html/man/man9/sserial.9.html)). Verify the probe SKIP1 input on 7i84U-B TB3 IN15 (opto-isolated 24 V) separately.
 - [ ] Wire interposing relays (RLY-5/6/7) for the 100VAC relay-driven loads SOL-35/61/62 on 7i84U-B TB3 OUT4/5/3 as assigned. Do the same for the ATC barrier on TB3 OUT6 (Y095 TCME.M).
 - [ ] Verify ATC prox/solenoid labels and normal states: PRS-8/9, PRS-10/12, PRS-13, PRS-21 through PRS-25, SOL-8A/8B, SOL-10, M15/M16 if present.
+- [ ] **Verify the post-retrofit source of the ±12 V tachogenerator rail** (`CNA3/4/5` pins 6/2) before first servo enable — a dead rail means a TRA drive with no velocity feedback (landing audit §2.4).
+- [ ] **Verify the 2PC loom is physically isolated at TB6 before power-on** — axis-interlock and external cycle-start conductors live there, and the +24V/0G rails stay energized unless the loom is lifted (landing audit §2.4). Positively identify, verify dead, and cap the cabled factory spares (SP16–19, CN2-39/46/47, CN5-11/12/17/18) at teardown.
 
 ### Later — motion, spindle, ATC
 
