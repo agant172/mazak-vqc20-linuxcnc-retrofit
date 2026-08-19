@@ -446,9 +446,16 @@ exactly 5 kHz** — that is the number the 7i49 needs.
 than double Tamagawa's stated ±5% band, and Tamagawa's application note says
 accuracy is affected outside it. This is an **accuracy and calibration issue, not
 a damage risk** — it appears as a phase-shift and amplitude-scale offset to be
-calibrated, not assumed away. A sibling machine (a VQC 15/40 retrofit on a plain
-7i49) runs its original resolvers at 5 kHz successfully. So 5 kHz is a known-good
-compromise; measure the offset.
+calibrated, not assumed away.
+
+**The sibling machine does not validate 5 kHz — it runs 2.5 kHz, on a 7i49HV.**
+Its committed config sets `[AXES] RESOLVER_EXC_FREQ = 2.5`, applied live
+(`MAZAK-VQC1540.ini:176`, `.hal:117`), on the same original Tamagawa resolvers —
+and its purchased-parts table lists a **`7i49HV`**, not the plain card (settled
+2026-08-17, [`../bom/README.md`](../bom/README.md#which-7i49-the-sister-machine-actually-runs--settled-2026-08-17)).
+The forum thread's "plain 7i49 at 5 kHz" description matches neither record. So
+5 kHz is an unanchored choice, not a known-good compromise: treat 2.5 kHz as a
+live alternative, and measure amplitude and phase at both before committing.
 
 ## Excitation and return proof
 
