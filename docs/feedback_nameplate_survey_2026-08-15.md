@@ -137,3 +137,95 @@ depends on it.
   K, and the 5 kHz choice as **assumptions to verify by scope** at the
   excitation-and-return step — which `resolver_commissioning.md` already
   requires regardless.
+
+## Appendix — raw field transcription
+
+Verbatim as typed at the machine, re-entered through an iMac desk session and
+merged 2026-08-16 (PR #75, commit `9c3c530`, originally a root-level
+`resolvers.md`). Kept unedited as the primary record behind the Readings table
+above — spacing, case, and OCR-ambiguous characters are the transcriber's, not
+corrections. **This is a nameplate reading only; no ohmmeter values were taken.**
+
+### First visit — X, Y, Z tacho, spindle encoder (2026-08-15)
+
+```
+Y- RT 5 X 8- 1
+BKO-NC6062A
+A 6986
+TS2014N 25 E 3-1
+
+X-  RT - 5 X
+BKO - NC6062
+A  7003
+TS2014N 25 E 8 1
+
+Z - Brushless DC Generator
+Type TT-A-11
+Spec. No. BKO-NC6075
+Ser NO23868
+Part No. TS3033n 4 E2
+
+Spindle -
+Optical Shaft encoder
+512 counts turn DC 15V
+Type TS1526N55
+Ser. No. A6022
+```
+
+Reconciliation with the Readings table — the raw text agrees on every spec
+number, serial, and part number. Four places where the table is deliberately
+more careful than the raw transcription, and the table governs:
+
+| Raw | Table | Why the table wins |
+|---|---|---|
+| X `BKO - NC6062` | `BKO-NC6062 (A suffix uncertain)` | The `A` is not legible on X. Y and Z both read `BKO-NC6062A` clearly; X is presumed the same but not read. |
+| Z tacho `Ser NO23868` | `23868`, with a re-read suggesting `2386` | The stamp is smudged. Nothing depends on it. |
+| Spindle `DC 15V` | `DC ±15 V` | Bipolar supply — the sign matters, and it is part of why `num_encoders=0` stands (no Mesa input accepts a ±15 V-supplied device without an interface that was never scoped). |
+| `TS3033n`, `TS2014N 25 E 8 1` | `TS3033N`, `TS2014N 25 E 8-1?` | Case normalized; trailing digits flagged as partially legible rather than asserted. |
+
+The load-bearing finding is in the table and in "What this changes" above, not
+here: both readable pickups show **`TS2014N 25 E …`**, so the installed suffix
+is **not** `141E26` and no absolute electrical figure from that variant's
+datasheet is a spec for this machine.
+
+### Second visit — Z resolver pickup (2026-08-16)
+
+**The `TT-A-11` plate in the block above is a tachogenerator, not a resolver.**
+Per Table 14.3-1 of the `MELDAS Series M2 Maintenance Manual` (p. 249),
+Mitsubishi's detector family splits into **RT** (multi-polar resolver, ball-screw
+-tip *position* detector), **TT** (brushless tachogenerator, motor-axis *speed*
+detector) and **RST** (both). `TT-A-11` is therefore the Z-axis **tach**. Z
+carries a resolver *as well*, and its plate is transcribed below.
+
+Photographed at the machine 2026-08-16 with a borescope camera (`JLDV AC54`);
+the serial was read directly off the plate by eye, the ink being too faded to
+photograph. Plate form no. `N5399` — the same plate style as X and Y.
+
+```
+TAMAGAWA SEIKI CO., LTD., JAPAN
+… PICKUP UNIT
+TYPE       □X□-□□        ← boxes not readable
+SPEC. NO.  BKO-NC6062A
+PARTS NO.  TS2014N□□E□-□ ← boxes not readable
+SER. NO.   7028
+DATE       198…
+```
+
+**Z is the same pickup family and spec as X and Y** — `BKO-NC6062A`, identical to
+Y (X is `BKO-NC6062`), part number in the same `TS2014N…E…` series. The serials
+place all three in one batch: **X 7003, Y 6986, Z 7028**, a spread of 42. The
+stamped type and suffix digits remain unread on **all three** axes; legibility
+notes, why the borescope keeps failing on them, and how to reshoot are in the
+Readings section above.
+
+The photographs are **not committed** (media rule, [`../CLAUDE.md`](../CLAUDE.md)).
+They carry **no EXIF timestamp** — the camera writes none — and are numbered
+`IMG_001…015`, which collides with earlier batches, so file them in Drive as
+`2026-08-16/IMG_nnn` per [`README_photo_sorting.md`](README_photo_sorting.md)
+before citing them.
+
+DC resistance readings for these same devices (CNA3/4/5, measured 2026-08-16)
+are **not** here — they live in
+[`resolver_commissioning.md`](resolver_commissioning.md#measured-dc-resistance-2026-08-16-cna345-nc-unit-rack),
+together with the connector pinout confirmed against Mitsubishi's own detector
+wiring figure. This appendix is nameplate transcriptions only.

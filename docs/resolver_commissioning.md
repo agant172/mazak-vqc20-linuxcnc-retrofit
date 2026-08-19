@@ -527,7 +527,7 @@ enter [`first_move_plan.md`](first_move_plan.md).
 - Per-axis DC resistance at CNA3/4/5, measured at the machine **2026-08-16** —
   [Measured DC resistance](#measured-dc-resistance-2026-08-16-cna345-nc-unit-rack)
   above. Nameplate transcriptions for the same devices are in
-  [`../resolvers.md`](../resolvers.md).
+  [`feedback_nameplate_survey_2026-08-15.md`](feedback_nameplate_survey_2026-08-15.md#appendix--raw-field-transcription).
 - **Exact-suffix datasheet: does not exist publicly** (multi-source search
   2026-08-16). Do not re-run the search; see
   [The 25E datasheet is not obtainable](#the-25e-datasheet-is-not-obtainable-searched-2026-08-16)
