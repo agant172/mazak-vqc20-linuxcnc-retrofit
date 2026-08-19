@@ -34,7 +34,7 @@ This file is the authoritative brief. In addition, consult:
 | Read | Why |
 |---|---|
 | **[Session conventions](#session-conventions)** (below, in this file) | Which machine this session is on and what it may state as verified, the SSH boundary, `git pull` before you start, and what to run before you push. Read first — it governs what the rest of this table entitles you to claim. |
-| **`INTERFACE_ARCHITECTURE.md`** | The single machine-interface plane (BBIA-1) — the root decision governing how the wiring CSV and I/O Navigator are structured. Read before touching the pin authority or wiring crosswalks. |
+| **`INTERFACE_ARCHITECTURE.md`** | The two machine-interface planes — BBIA-1 (discrete I/O) and CNA/SX-IO1 (resolver, analog, spindle command) — the root decision governing how the wiring CSV and I/O Navigator are structured. Read before touching the pin authority or wiring crosswalks. |
 | **`INSTALL_SPINE.md`** | The load-bearing install path in order of use — gates, machine side, the BBIA↔Mesa hop, ladder→HAL, and the validation loop. Pointer-only: it names the short list of files that matter at the cabinet; everything it does not name is background. Start here for any installation or wiring question. |
 | **`docs/project_status.md`** | Current state, TODO priorities, and the D1–D16 pre-power deliverables gating live power. |
 | **`docs/authority_hierarchy.md`** | Which file wins when two disagree, and the script that enforces it. |
@@ -115,24 +115,37 @@ applicable manual, installed firmware, and current pin-authority document.
 
 ---
 
-## The single machine-interface plane (BBIA-1)
+## The two machine-interface planes (BBIA-1 and CNA/SX-IO1)
 
-The original NC talked to the machine through **one board, BBIA-1** — a straight
-pass-through terminal unit that was the NC back panel's breakout. The retrofit
-reproduces this exactly: LinuxCNC → 7i80HDT (Ethernet) → 7i44/7i49 (50-pin IDC) →
-7i84U-A/B (smart-serial) → **Mesa screw terminals** → cut & ferruled **MR cables** →
-**BBIA-1** → unchanged OEM harness → machine.
+The original NC talked to the machine through **two separate interfaces**, not one:
 
-**Single-plane rule:** every control↔machine signal crosses at the BBIA-1 connector
-plane. One physical conductor across that plane = one row in the I/O model, keyed on
-the **factory wire number** printed on the jacket. The machine-internal side is fixed
-OEM reference (`wiring/bbia1_cn_pinouts.csv`) — do not re-derive it; the retrofit owns
-and verifies only the **BBIA↔Mesa hop**. The few things that do *not* cross at BBIA-1
-— the standalone OEM E-stop/contactor chain, the power/return feeds, and the
-still-to-trace analog/resolver and unlocated-limit signals — are enumerated in
-**`INTERFACE_ARCHITECTURE.md`**, which is authoritative for this model and for how the
-wiring CSV and I/O Navigator are structured. Read it before editing the pin authority
-or wiring crosswalks.
+- **Plane A — BBIA-1**, a straight pass-through terminal unit that was the NC back
+  panel's breakout, carrying discrete digital I/O. The retrofit reproduces this
+  exactly: LinuxCNC → 7i80HDT (Ethernet) → 7i44 (50-pin IDC) → 7i84U-A/B
+  (smart-serial) → **Mesa screw terminals** → cut & ferruled **MR cables** →
+  **BBIA-1** → unchanged OEM harness → machine. Documented in
+  `wiring/bbia1_terminal_unit.md` / `wiring/bbia1_cn_pinouts.csv`.
+- **Plane B — the CNA-family servo card-cage connectors** plus the FR-SX spindle
+  drive's **SX-IO1** board, carrying axis resolver feedback, ±10 V axis velocity
+  commands, and the spindle speed command: LinuxCNC → 7i80HDT → 7i49 (P1) →
+  shielded home-run cable → **CNA3(X)/CNA4(Y)/CNA5(Z)** / SX-IO1 → unchanged OEM
+  cabling → TRA servo amps / FR-SX spindle drive. The resolver connectors are
+  mature — pin roles are Mitsubishi-M2-manual-confirmed and bench-measured
+  (`docs/resolver_commissioning.md`, `resolvers.md`); the SX-IO1 board is not yet
+  pinned out (`wiring/connector_crossref.md`). The RC3A relay board, though
+  physically in the same bay, is **not** part of Plane B — its signals
+  cross-reference to BBIA-1's own CN3/CN301A (Plane A).
+
+**Two-plane rule:** every control↔machine signal crosses at exactly one of these two
+planes. One physical conductor across a plane = one row in that plane's I/O model,
+keyed on the **factory wire number** where legible. The machine-internal side of each
+plane is fixed OEM/OEM-manual reference — do not re-derive it; the retrofit owns and
+verifies only each plane's hop to Mesa. The few things that cross at neither plane —
+the standalone OEM E-stop/contactor chain and the still-unlocated over-travel
+limits — are enumerated in **`INTERFACE_ARCHITECTURE.md`**, which is authoritative
+for this model (including the 2026-08-17 amendment that split the single plane into
+two) and for how the wiring CSV and I/O Navigator are structured. Read it before
+editing the pin authority or wiring crosswalks.
 
 ---
 
@@ -457,14 +470,12 @@ A Mac session may reach the OptiPlex over SSH. That makes the *machine* reachabl
 where **nobody can see it move and nobody can reach the E-stop**, so the boundary is drawn by
 consequence, not by convenience:
 
-**If `ssh linuxcnc` returns `Permission denied (publickey,password)`, that machine's key is not
-installed** — the OptiPlex switched from Tailscale SSH to plain sshd on 2026-08-16 and keys did
-not carry over automatically. Diagnose with `ssh -v` (look for `Offering public key` followed by
-another `Authentications that can continue`: offered and rejected = not in `authorized_keys`).
-Fix from the Mac with `ssh-copy-id -i ~/.ssh/id_ed25519.pub linuxcnc`, or paste the `.pub` line
-into `~/.ssh/authorized_keys` at the OptiPlex. Password auth is still enabled, so the copy-id
-path works. **Record the new key in the table above in the same commit** — that table is the only
-place this is written down.
+If `ssh linuxcnc` returns `Permission denied (publickey,password)`, that machine's key is not
+installed — the OptiPlex moved from Tailscale SSH to plain sshd on 2026-08-16. That fix, and the
+non-interactive `PATH` gotcha that makes `which claude` wrongly report "not installed", are in the
+`ssh-to-optiplex` skill (`.claude/skills/ssh-to-optiplex/SKILL.md`). **Record any newly installed
+key in the machines table above in the same commit** — that table is the only place it is written
+down.
 
 **Allowed over SSH, unattended** — read-only inspection that cannot move anything or energize
 an output:
@@ -488,26 +499,12 @@ that it was taken at the machine, so a later reader can tell a real reading from
 
 ### Getting a machine onto the shared memory
 
-`CLAUDE.md` travels with the repo, so a machine joins simply by cloning it — there is nothing
-to copy by hand and nothing machine-specific to configure. **The repo is private (owner
-decision 2026-08-16), so the clone needs credentials** — an SSH key on the account, or
-`gh auth login` first. An unauthenticated clone fails with a misleading "repository not
-found":
-
-```bash
-gh auth status || gh auth login          # or have an SSH key on the account
-git clone git@github.com:agant172/mazak-vqc20-linuxcnc-retrofit.git \
-  ~/mazak-vqc20-linuxcnc-retrofit
-cd ~/mazak-vqc20-linuxcnc-retrofit && python3 scripts/validate_authority.py   # expect exit 0
-```
-
-SSH is the form to use: the OptiPlex's 5-minute status timer pushes non-interactively over
-`git@github.com`, and an HTTPS remote would prompt for a password it cannot answer.
-
-The **iMac has a clone at `~/mazak-vqc20-linuxcnc-retrofit`** — confirmed 2026-08-16, and it is
-the machine's only clone (see the two-clones note below). The **MacBook Pro** is believed to have
-one as of 2026-08-15 but is still **unconfirmed**; check with `ls ~/mazak-vqc20-linuxcnc-retrofit`
-from a session on that machine and update this line.
+`CLAUDE.md` travels with the repo, so a machine joins by cloning it — nothing to copy by hand.
+**The repo is private, so the clone needs credentials** (`gh auth login` or an SSH key on the
+account); an unauthenticated clone fails with a misleading "repository not found". Use the SSH
+remote form — the OptiPlex's status timer pushes non-interactively and HTTPS would prompt.
+Step-by-step commands and the per-machine clone inventory are in the `new-machine-setup` skill
+(`.claude/skills/new-machine-setup/SKILL.md`).
 
 **`~/.claude/CLAUDE.md` does not sync.** It is user-level memory, private to one machine, and no
 other machine or cloud session can see it — that is exactly how the project's startup
@@ -520,47 +517,16 @@ stale working copy is now the most likely way to act on facts that are no longer
 
 ### Reading the repo in Obsidian
 
-The repo is also an Obsidian vault — the docs are markdown, so Obsidian reads them directly
-with backlinks and graph view. Open the repo folder as a vault
-(Obsidian → vault switcher → *Open folder as vault*).
+The repo doubles as an Obsidian vault. `.obsidian/` is tracked on purpose so appearance and
+hotkeys follow you between machines, but `.gitignore` holds back workspace state, the vendored
+plugin code, and `plugins/*/data.json` — **plugin settings can hold credentials, and a committed
+secret is in the history permanently.** **Do not install the Obsidian *Git* plugin's auto-commit
+here:** it would push editor state straight to `main`, which desk sessions are not allowed to do.
+**Two clones on one machine (working copy + vault clone) is a foot-gun that has already cost us
+a day of resolver measurements** — the iMac is consolidated; the MacBook Pro is unconfirmed.
 
-`.obsidian/` is **tracked on purpose**, so appearance, hotkeys, and enabled plugins follow you
-between machines instead of being set up three times. What stays local is listed in
-`.gitignore`:
-
-| Not synced | Why |
-|---|---|
-| `.obsidian/workspace.json`, `workspace-mobile.json` | Which panes you had open — per-machine, and conflicts on every pull |
-| `.obsidian/cache`, `.obsidian/.trash/` | Machine-local scratch |
-| `.obsidian/plugins/` (the code) | ~9 MB of vendored JS per plugin set — it would drown every PR diff. `community-plugins.json` **is** tracked, so the *list* of enabled plugins syncs; install them once per machine from the community store. |
-| `.obsidian/plugins/*/data.json` | **Plugin settings can hold credentials** — `obsidian-local-rest-api` stores an API key. The repo went private on 2026-08-16, which does **not** make this safe: a committed secret is in the history permanently, visible to every collaborator and to anything holding a token, and it survives the repo being made public again. Re-enter secrets per machine. |
-
-Settings changes ride the normal workflow — a desk session commits them on a branch and opens a
-PR like any other change. **Do not install the Obsidian *Git* plugin's auto-commit here:** it
-would push editor state straight to `main`, which desk sessions are not allowed to do, and bury
-the engineering history under workspace churn.
-
-**Two clones on one machine is a foot-gun — and it has already cost us data.** A second clone
-under `~/Obsidian/` means notes edited in Obsidian land in the vault clone only, invisible to the
-working copy, to git, and to every other session.
-
-On 2026-08-16 the iMac had exactly that split, and an afternoon of resolver DC-resistance
-measurements sat in an untracked `resolvers.md` in the vault clone while the working copy showed
-only nameplates — the repo had no record of readings that had already been taken at the machine.
-They are now in [`docs/resolver_commissioning.md`](docs/resolver_commissioning.md). The iMac has
-since been consolidated: the vault clone is gone and Obsidian opens the working copy directly, so
-**the iMac now has one clone.** The MacBook Pro is believed to still have both (2026-08-15,
-unconfirmed) — check it and fix it the same way.
-
-If you consolidate another machine, two things are not in git and must be carried across by hand
-before deleting the vault clone, or the vault comes up stripped:
-
-- `.obsidian/plugins/` — the vendored plugin code, ~9 MB. `community-plugins.json` syncs the
-  *list*, not the code. Copy the directory or re-install each plugin from the community store.
-- `.obsidian/workspace.json` — your pane layout.
-
-Quit Obsidian first: it rewrites `~/Library/Application Support/obsidian/obsidian.json` on exit,
-so a vault path edited underneath a running instance is silently reverted.
+Full details — the tracked/ignored table and the safe consolidation procedure — are in the
+`obsidian-vault` skill (`.claude/skills/obsidian-vault/SKILL.md`).
 
 ### Photos and large media
 
@@ -600,19 +566,7 @@ detected and rejected by CI.
 - **Write it down as you go, not at the end.** The moment a unit of work is complete — a
   measurement recorded, a doc corrected, a script fixed — update `docs/project_status.md` and
   any file whose facts changed, then commit and push *before starting the next unit*. Do not
-  batch several units into one end-of-session commit.
-
----
-
-## Validation & housekeeping
-
-- After editing pin bindings or HAL, run the authority checker:
-  `python3 scripts/validate_authority.py` (and `validate_control_logic.py` where relevant).
-  Both must exit 0 — the same gate CI enforces on every PR.
-- When you complete real work, update `docs/project_status.md` and any file whose facts changed,
-  then commit with a clear message. An append-only decision/change log captures *why*, not just *where* —
-  prefer adding to it over overwriting history.
-- **Commit and push per unit of work, not per session.** As soon as a change is complete and its
-  validators pass, commit and push it — do not hold it back for a tidier end-of-session commit.
-  "Before the session ends" is a deadline, not a schedule: a cloud container is ephemeral and a
-  desk session that runs out of context loses unpushed work just as thoroughly.
+  batch several units into one end-of-session commit: "before the session ends" is a deadline,
+  not a schedule — a cloud container is ephemeral, and a desk session that runs out of context
+  loses unpushed work just as thoroughly. Prefer appending to the decision/change log, which
+  captures *why*, over overwriting history.
