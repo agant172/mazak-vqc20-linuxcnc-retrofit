@@ -538,10 +538,10 @@ plugin code, and `plugins/*/data.json` — **plugin settings can hold credential
 secret is in the history permanently.** **Do not install the Obsidian *Git* plugin's auto-commit
 here:** it would push editor state straight to `main`, which desk sessions are not allowed to do.
 **Two clones on one machine (working copy + vault clone) is a foot-gun that has already cost us
-a day of resolver measurements** — both machines are confirmed consolidated (2026-08-20): the
-iMac has a single clone at `~/Projects/obsidian-vault`; the MacBook Pro's only second path,
-`~/copilot-worktrees/obsidian-vault/...`, is a proper `git worktree` of the same repo (shared
-object store), not an independent clone, so it doesn't reproduce the problem.
+a day of resolver measurements** — both machines are confirmed consolidated (2026-08-20), single
+clone each at `~/Projects/obsidian-vault`. The MacBook Pro previously also had a
+`~/copilot-worktrees/obsidian-vault/...` git worktree (already-merged, unpushed branch
+`agant172-compare-obsidian-folders`); it was removed 2026-08-20 once confirmed merged.
 
 Full details — the tracked/ignored table and the safe consolidation procedure — are in the
 `obsidian-vault` skill (`.claude/skills/obsidian-vault/SKILL.md`).
