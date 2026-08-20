@@ -6,11 +6,26 @@
 **The single scheme for this project.** Settled 2026-08-13 (owner). Two earlier
 folder lists are superseded — see [Migration](#migration) to find older material.
 
+**CORRECTED (2026-08-17):** the eight-folder Drive structure below was never
+populated (or moved) — a full search of the Drive account, by folder title and
+by API, found none of it; that Drive folder now holds only `Manuals_SN060231`.
+The actual raw photo history (Oct 2024–present, 200+ items) was tracked down to
+the account's default **Google Photos**, not Drive, collected into a shared
+album:
+[Mazak VQC-20 Retrofit — Control Cabinet Photos](https://photos.app.goo.gl/o59yC81mQhwYaVF68).
+That album isn't exhaustive or auto-updating — it was built from visual
+searches for "mazatrol" and "VQC-20", hand-filtered per date; re-run those
+searches periodically to sweep in newer shots. The citation format (rule 2)
+and folder taxonomy below remain the target scheme for whenever photos get
+sorted — they just don't describe where the photos currently live.
+
 ## Three rules
 
-1. **No raw photos in the repo.** They live in
-   [Google Drive](https://drive.google.com/drive/folders/1YYpWPyWiRuoY2z5GACSDw6H3zzSQoVdf?usp=drive_link).
-   Any `photos/…` path in this repo means a Drive folder.
+1. **No raw photos in the repo.** Current source of raw photos is
+   [Google Photos](https://photos.app.goo.gl/o59yC81mQhwYaVF68) (see correction
+   above), not the [Drive folder](https://drive.google.com/drive/folders/1YYpWPyWiRuoY2z5GACSDw6H3zzSQoVdf?usp=drive_link)
+   this scheme originally targeted. Any `photos/…` path in this repo means an
+   external photo store, not a directory on disk.
 2. **Cite photos as `YYYY-MM-DD/IMG_nnnn`.** Never bare `IMG_nnnn` — `IMG_0373`
    is a Z-axis servo card in one batch and a CRT screen in another
    ([`photo_survey_misc.md`](photo_survey_misc.md)). The date is what makes it unique.
