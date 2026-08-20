@@ -20,11 +20,11 @@ connectors:
     - 10
     - 16
     pinlabels:
-    - wire 231 | SPINDLE_ZERO_SPEED | HOLD - OEM CONFLICT
-    - wire FA | SPINDLE_FAULT | FIELD VERIFY
-    - wire SRN | SPINDLE_FWD | FIELD VERIFY
-    - wire SRI | SPINDLE_REV | FIELD VERIFY
-    - wire SETA | SPINDLE_ORIENT_ARRIVAL | FIELD VERIFY
+    - 231 | SPINDLE_ZERO_SPEED | HOLD
+    - FA | SPINDLE_FAULT | FV
+    - SRN | SPINDLE_FWD | FV
+    - SRI | SPINDLE_REV | FV
+    - SETA | SPINDLE_ORIENT_ARRIVAL | FV
     pincolors: &id001
     - RD
     - YE
@@ -34,8 +34,7 @@ connectors:
     hide_disconnected_pins: true
     show_pincount: false
     bgcolor_title: LB
-    notes: PRELIMINARY - NOT RELEASED FOR WIRING. Only Mesa route and candidate pins are shown; see the 320-row Plane A CSV
-      for complete pin accounting.
+    notes: Verify endpoint numbering against the card manual.
     ignore_in_bom: true
   IR_BOUNDARY:
     type: Required interposing-relay boundary
@@ -51,16 +50,16 @@ connectors:
     - F05
     - M05
     pinlabels:
-    - FIELD | SPINDLE_ZERO_SPEED
-    - MESA | SPINDLE_ZERO_SPEED
-    - FIELD | SPINDLE_FAULT
-    - MESA | SPINDLE_FAULT
-    - FIELD | SPINDLE_FWD
-    - MESA | SPINDLE_FWD
-    - FIELD | SPINDLE_REV
-    - MESA | SPINDLE_REV
-    - FIELD | SPINDLE_ORIENT_ARRIVAL
-    - MESA | SPINDLE_ORIENT_ARRIVAL
+    - F | SPINDLE_ZERO_SPEED
+    - M | SPINDLE_ZERO_SPEED
+    - F | SPINDLE_FAULT
+    - M | SPINDLE_FAULT
+    - F | SPINDLE_FWD
+    - M | SPINDLE_FWD
+    - F | SPINDLE_REV
+    - M | SPINDLE_REV
+    - F | SPINDLE_ORIENT_ARRIVAL
+    - M | SPINDLE_ORIENT_ARRIVAL
     pincolors:
     - RD
     - RD
@@ -75,8 +74,7 @@ connectors:
     hide_disconnected_pins: true
     show_pincount: false
     bgcolor_title: YE
-    notes: PRELIMINARY - NOT RELEASED FOR WIRING. Fxx and Mxx are logical boundary identifiers, not purchased relay terminal
-      numbers. Specify coil/contact topology, suppression, voltage domain, and actual terminal IDs before release.
+    notes: Logical boundary placeholder; see crosswalk.
     ignore_in_bom: true
   7i84U-A_TB3:
     type: 7i84U-A TB3
@@ -87,11 +85,11 @@ connectors:
     - OUT1
     - IN4
     pinlabels:
-    - IN5 | spindle-zero-speed | HOLD - OEM CONFLICT
-    - IN14 | spindle-fault | FIELD VERIFY
-    - OUT0 | spindle-fwd | FIELD VERIFY
-    - OUT1 | spindle-rev | FIELD VERIFY
-    - IN4 | spindle-oriented | FIELD VERIFY
+    - IN5 | spindle-zero-speed | HOLD
+    - IN14 | spindle-fault | FV
+    - OUT0 | spindle-fwd | FV
+    - OUT1 | spindle-rev | FV
+    - IN4 | spindle-oriented | FV
     pincolors:
     - RD
     - YE
@@ -101,7 +99,7 @@ connectors:
     hide_disconnected_pins: true
     show_pincount: false
     bgcolor_title: LB
-    notes: Mesa terminal text is copied from the crosswalk; verify physical terminal numbering against the card manual.
+    notes: Verify endpoint numbering against the card manual.
     ignore_in_bom: true
 cables:
   OEM_CONDUCTORS:
@@ -115,7 +113,7 @@ cables:
     - SETA | SPINDLE_ORIENT_ARRIVAL
     colors: *id001
     show_wirecount: false
-    notes: Factory jacket identifier shown; length, gauge, and color are not asserted.
+    notes: See crosswalk source.
     shield: false
     ignore_in_bom: true
   NEW_CONTROL_WIRING:
@@ -129,7 +127,7 @@ cables:
     - SPINDLE_ORIENT_ARRIVAL | spindle-oriented
     colors: *id001
     show_wirecount: false
-    notes: Assign permanent new wire numbers, gauge, color, and ferrules in the relay terminal schedule.
+    notes: See crosswalk source.
     shield: false
     ignore_in_bom: true
 connections:

@@ -21,12 +21,12 @@ connectors:
     - Y_AXIS_CMD_POS
     - Y_AXIS_CMD_RETURN
     pinlabels:
-    - X_AXIS_CMD_POS | X_AXIS_CMD_POS | HOLD - SOURCE TRACE
-    - X_AXIS_CMD_RETURN | X_AXIS_CMD_RETURN | HOLD - SOURCE TRACE
-    - Z_AXIS_CMD_POS | Z_AXIS_CMD_POS | HOLD - SOURCE TRACE
-    - Z_AXIS_CMD_RETURN | Z_AXIS_CMD_RETURN | HOLD - SOURCE TRACE
-    - Y_AXIS_CMD_POS | Y_AXIS_CMD_POS | HOLD - SOURCE TRACE
-    - Y_AXIS_CMD_RETURN | Y_AXIS_CMD_RETURN | HOLD - SOURCE TRACE
+    - X_AXIS_CMD_POS | X_AXIS_CMD_POS | HOLD
+    - X_AXIS_CMD_RETURN | X_AXIS_CMD_RETURN | HOLD
+    - Z_AXIS_CMD_POS | Z_AXIS_CMD_POS | HOLD
+    - Z_AXIS_CMD_RETURN | Z_AXIS_CMD_RETURN | HOLD
+    - Y_AXIS_CMD_POS | Y_AXIS_CMD_POS | HOLD
+    - Y_AXIS_CMD_RETURN | Y_AXIS_CMD_RETURN | HOLD
     pincolors:
     - RD
     - RD
@@ -37,7 +37,7 @@ connectors:
     hide_disconnected_pins: true
     show_pincount: false
     bgcolor_title: RD
-    notes: PRELIMINARY - NOT RELEASED FOR WIRING. Source identifiers are copied from the crosswalk; TBD is deliberately unresolved.
+    notes: Source identity remains unresolved; see crosswalk.
     ignore_in_bom: true
   7i49_P4:
     type: 7i49 P4
@@ -47,10 +47,10 @@ connectors:
     - 24
     - 23
     pinlabels:
-    - 20 | AOUT0 | HOLD - SOURCE TRACE
-    - 19 | GND0 | HOLD - SOURCE TRACE
-    - 24 | AOUT1 | HOLD - SOURCE TRACE
-    - 23 | GND1 | HOLD - SOURCE TRACE
+    - 20 | AOUT0 | HOLD
+    - 19 | GND0 | HOLD
+    - 24 | AOUT1 | HOLD
+    - 23 | GND1 | HOLD
     pincolors:
     - RD
     - RD
@@ -59,7 +59,7 @@ connectors:
     hide_disconnected_pins: true
     show_pincount: false
     bgcolor_title: LB
-    notes: Mesa terminal text is copied from the crosswalk; verify physical terminal numbering against the card manual.
+    notes: Verify endpoint numbering against the card manual.
     ignore_in_bom: true
   7i49_P3:
     type: 7i49 P3
@@ -67,27 +67,27 @@ connectors:
     - 20
     - 19
     pinlabels:
-    - 20 | AOUT2 | HOLD - SOURCE TRACE
-    - 19 | GND2 | HOLD - SOURCE TRACE
+    - 20 | AOUT2 | HOLD
+    - 19 | GND2 | HOLD
     pincolors:
     - RD
     - RD
     hide_disconnected_pins: true
     show_pincount: false
     bgcolor_title: LB
-    notes: Mesa terminal text is copied from the crosswalk; verify physical terminal numbering against the card manual.
+    notes: Verify endpoint numbering against the card manual.
     ignore_in_bom: true
 cables:
   DIRECT_INTERFACE:
     type: Direct analog / resolver interface conductors
     wirecount: 6
     wirelabels:
-    - X_AXIS_CMD_POS | HOLD - SOURCE TRACE
-    - X_AXIS_CMD_RETURN | HOLD - SOURCE TRACE
-    - Z_AXIS_CMD_POS | HOLD - SOURCE TRACE
-    - Z_AXIS_CMD_RETURN | HOLD - SOURCE TRACE
-    - Y_AXIS_CMD_POS | HOLD - SOURCE TRACE
-    - Y_AXIS_CMD_RETURN | HOLD - SOURCE TRACE
+    - X_AXIS_CMD_POS | HOLD
+    - X_AXIS_CMD_RETURN | HOLD
+    - Z_AXIS_CMD_POS | HOLD
+    - Z_AXIS_CMD_RETURN | HOLD
+    - Y_AXIS_CMD_POS | HOLD
+    - Y_AXIS_CMD_RETURN | HOLD
     colors:
     - RD
     - RD
@@ -96,8 +96,7 @@ cables:
     - RD
     - RD
     show_wirecount: false
-    notes: PRELIMINARY - NOT RELEASED FOR WIRING. Logical route only. Cable part, gauge, pair assignment, and length are not
-      asserted by this sheet.
+    notes: See crosswalk source.
     shield: false
     ignore_in_bom: true
 connections:

@@ -9,6 +9,19 @@
   "plane_b_cross_plane_reference_rows": 3,
   "plane_b_diagrammed_rows": 35,
   "plane_b_rows": 38,
+  "render_profile": {
+    "cellpadding": 1,
+    "layout": "compact_lr",
+    "nodesep": 0.08,
+    "ranksep": 0.35,
+    "status_labels": [
+      "FV",
+      "FP",
+      "PHASE",
+      "HOLD",
+      "DEC"
+    ]
+  },
   "sheets": [
     {
       "routes": 4,

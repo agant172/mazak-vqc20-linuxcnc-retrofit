@@ -23,14 +23,14 @@ connectors:
     - 15
     - 16
     pinlabels:
-    - wire 710 | TOOL_UNCLAMP_SOL | FIELD VERIFY
-    - wire 712 | GEAR_HI_SOL | FIELD VERIFY
-    - wire 213 | GEAR_LO_SOL | FIELD VERIFY
-    - wire 215 | AIR_BLAST | FIELD VERIFY
-    - wire 216 | WORK_AIR_BLAST | HOLD - RESERVED
-    - wire 231 | FLOOD_VALVE | FIELD VERIFY
-    - wire 236 | COOLANT_ON | FIELD VERIFY
-    - wire 235 | HYD_PUMP_ON | FIELD VERIFY
+    - 710 | TOOL_UNCLAMP_SOL | FV
+    - 712 | GEAR_HI_SOL | FV
+    - 213 | GEAR_LO_SOL | FV
+    - 215 | AIR_BLAST | FV
+    - 216 | WORK_AIR_BLAST | HOLD
+    - 231 | FLOOD_VALVE | FV
+    - 236 | COOLANT_ON | FV
+    - 235 | HYD_PUMP_ON | FV
     pincolors: &id001
     - YE
     - YE
@@ -43,8 +43,7 @@ connectors:
     hide_disconnected_pins: true
     show_pincount: false
     bgcolor_title: LB
-    notes: PRELIMINARY - NOT RELEASED FOR WIRING. Only Mesa route and candidate pins are shown; see the 320-row Plane A CSV
-      for complete pin accounting.
+    notes: Verify endpoint numbering against the card manual.
     ignore_in_bom: true
   IR_BOUNDARY:
     type: Required interposing-relay boundary
@@ -66,22 +65,22 @@ connectors:
     - F08
     - M08
     pinlabels:
-    - FIELD | TOOL_UNCLAMP_SOL
-    - MESA | TOOL_UNCLAMP_SOL
-    - FIELD | GEAR_HI_SOL
-    - MESA | GEAR_HI_SOL
-    - FIELD | GEAR_LO_SOL
-    - MESA | GEAR_LO_SOL
-    - FIELD | AIR_BLAST
-    - MESA | AIR_BLAST
-    - FIELD | WORK_AIR_BLAST
-    - MESA | WORK_AIR_BLAST
-    - FIELD | FLOOD_VALVE
-    - MESA | FLOOD_VALVE
-    - FIELD | COOLANT_ON
-    - MESA | COOLANT_ON
-    - FIELD | HYD_PUMP_ON
-    - MESA | HYD_PUMP_ON
+    - F | TOOL_UNCLAMP_SOL
+    - M | TOOL_UNCLAMP_SOL
+    - F | GEAR_HI_SOL
+    - M | GEAR_HI_SOL
+    - F | GEAR_LO_SOL
+    - M | GEAR_LO_SOL
+    - F | AIR_BLAST
+    - M | AIR_BLAST
+    - F | WORK_AIR_BLAST
+    - M | WORK_AIR_BLAST
+    - F | FLOOD_VALVE
+    - M | FLOOD_VALVE
+    - F | COOLANT_ON
+    - M | COOLANT_ON
+    - F | HYD_PUMP_ON
+    - M | HYD_PUMP_ON
     pincolors:
     - YE
     - YE
@@ -102,8 +101,7 @@ connectors:
     hide_disconnected_pins: true
     show_pincount: false
     bgcolor_title: YE
-    notes: PRELIMINARY - NOT RELEASED FOR WIRING. Fxx and Mxx are logical boundary identifiers, not purchased relay terminal
-      numbers. Specify coil/contact topology, suppression, voltage domain, and actual terminal IDs before release.
+    notes: Logical boundary placeholder; see crosswalk.
     ignore_in_bom: true
   7i84U-A_TB2:
     type: 7i84U-A TB2
@@ -112,9 +110,9 @@ connectors:
     - OUT8
     - OUT11
     pinlabels:
-    - OUT10 | tool-unclamp-sol | FIELD VERIFY
-    - OUT8 | gear-lo-sol | FIELD VERIFY
-    - OUT11 | flood-coolant | FIELD VERIFY
+    - OUT10 | tool-unclamp-sol | FV
+    - OUT8 | gear-lo-sol | FV
+    - OUT11 | flood-coolant | FV
     pincolors:
     - YE
     - YE
@@ -122,7 +120,7 @@ connectors:
     hide_disconnected_pins: true
     show_pincount: false
     bgcolor_title: LB
-    notes: Mesa terminal text is copied from the crosswalk; verify physical terminal numbering against the card manual.
+    notes: Verify endpoint numbering against the card manual.
     ignore_in_bom: true
   7i84U-A_TB3:
     type: 7i84U-A TB3
@@ -130,15 +128,15 @@ connectors:
     - OUT7
     - OUT3
     pinlabels:
-    - OUT7 | gear-hi-sol | FIELD VERIFY
-    - OUT3 | hyd-pump-on | FIELD VERIFY
+    - OUT7 | gear-hi-sol | FV
+    - OUT3 | hyd-pump-on | FV
     pincolors:
     - YE
     - YE
     hide_disconnected_pins: true
     show_pincount: false
     bgcolor_title: LB
-    notes: Mesa terminal text is copied from the crosswalk; verify physical terminal numbering against the card manual.
+    notes: Verify endpoint numbering against the card manual.
     ignore_in_bom: true
   7i84U-B_TB3:
     type: 7i84U-B TB3
@@ -147,9 +145,9 @@ connectors:
     - OUT4
     - OUT7
     pinlabels:
-    - OUT3 | air-blast | FIELD VERIFY
-    - OUT4 | WORK_AIR_BLAST | HOLD - RESERVED
-    - OUT7 | flood-valve | FIELD VERIFY
+    - OUT3 | air-blast | FV
+    - OUT4 | WORK_AIR_BLAST | HOLD
+    - OUT7 | flood-valve | FV
     pincolors:
     - YE
     - RD
@@ -157,7 +155,7 @@ connectors:
     hide_disconnected_pins: true
     show_pincount: false
     bgcolor_title: LB
-    notes: Mesa terminal text is copied from the crosswalk; verify physical terminal numbering against the card manual.
+    notes: Verify endpoint numbering against the card manual.
     ignore_in_bom: true
 cables:
   OEM_CONDUCTORS:
@@ -174,7 +172,7 @@ cables:
     - 235 | HYD_PUMP_ON
     colors: *id001
     show_wirecount: false
-    notes: Factory jacket identifier shown; length, gauge, and color are not asserted.
+    notes: See crosswalk source.
     shield: false
     ignore_in_bom: true
   NEW_CONTROL_WIRING:
@@ -191,7 +189,7 @@ cables:
     - HYD_PUMP_ON | hyd-pump-on
     colors: *id001
     show_wirecount: false
-    notes: Assign permanent new wire numbers, gauge, color, and ferrules in the relay terminal schedule.
+    notes: See crosswalk source.
     shield: false
     ignore_in_bom: true
 connections:

@@ -21,12 +21,12 @@ connectors:
     - 39
     - 44
     pinlabels:
-    - wire ORI C1 | SPINDLE_ORIENT_CMD | FIELD VERIFY
-    - wire CTL | SPINDLE_ORIENT_LOGEAR | FIELD VERIFY
-    - wire +LY | Y_LIMIT_PLUS | FIELD VERIFY
-    - wire -LZ | Z_LIMIT_MINUS | FIELD VERIFY
-    - wire 147 | ATC_ZONE_Z | HOLD - OEM CONFLICT
-    - wire SPTD | ATC_ZONE_Y | HOLD - OEM CONFLICT
+    - ORI C1 | SPINDLE_ORIENT_CMD | FV
+    - CTL | SPINDLE_ORIENT_LOGEAR | FV
+    - +LY | Y_LIMIT_PLUS | FV
+    - -LZ | Z_LIMIT_MINUS | FV
+    - 147 | ATC_ZONE_Z | HOLD
+    - SPTD | ATC_ZONE_Y | HOLD
     pincolors: &id001
     - YE
     - YE
@@ -37,8 +37,7 @@ connectors:
     hide_disconnected_pins: true
     show_pincount: false
     bgcolor_title: LB
-    notes: PRELIMINARY - NOT RELEASED FOR WIRING. Only Mesa route and candidate pins are shown; see the 320-row Plane A CSV
-      for complete pin accounting.
+    notes: Verify endpoint numbering against the card manual.
     ignore_in_bom: true
   IR_BOUNDARY:
     type: Required interposing-relay boundary
@@ -56,18 +55,18 @@ connectors:
     - F06
     - M06
     pinlabels:
-    - FIELD | SPINDLE_ORIENT_CMD
-    - MESA | SPINDLE_ORIENT_CMD
-    - FIELD | SPINDLE_ORIENT_LOGEAR
-    - MESA | SPINDLE_ORIENT_LOGEAR
-    - FIELD | Y_LIMIT_PLUS
-    - MESA | Y_LIMIT_PLUS
-    - FIELD | Z_LIMIT_MINUS
-    - MESA | Z_LIMIT_MINUS
-    - FIELD | ATC_ZONE_Z
-    - MESA | ATC_ZONE_Z
-    - FIELD | ATC_ZONE_Y
-    - MESA | ATC_ZONE_Y
+    - F | SPINDLE_ORIENT_CMD
+    - M | SPINDLE_ORIENT_CMD
+    - F | SPINDLE_ORIENT_LOGEAR
+    - M | SPINDLE_ORIENT_LOGEAR
+    - F | Y_LIMIT_PLUS
+    - M | Y_LIMIT_PLUS
+    - F | Z_LIMIT_MINUS
+    - M | Z_LIMIT_MINUS
+    - F | ATC_ZONE_Z
+    - M | ATC_ZONE_Z
+    - F | ATC_ZONE_Y
+    - M | ATC_ZONE_Y
     pincolors:
     - YE
     - YE
@@ -84,8 +83,7 @@ connectors:
     hide_disconnected_pins: true
     show_pincount: false
     bgcolor_title: YE
-    notes: PRELIMINARY - NOT RELEASED FOR WIRING. Fxx and Mxx are logical boundary identifiers, not purchased relay terminal
-      numbers. Specify coil/contact topology, suppression, voltage domain, and actual terminal IDs before release.
+    notes: Logical boundary placeholder; see crosswalk.
     ignore_in_bom: true
   7i84U-A_TB3:
     type: 7i84U-A TB3
@@ -95,10 +93,10 @@ connectors:
     - IN1
     - IN0
     pinlabels:
-    - OUT4 | spindle-orient-cmd | FIELD VERIFY
-    - OUT5 | orient-lo-gear | FIELD VERIFY
-    - IN1 | atc-z-zone | HOLD - OEM CONFLICT
-    - IN0 | atc-y-zone | HOLD - OEM CONFLICT
+    - OUT4 | spindle-orient-cmd | FV
+    - OUT5 | orient-lo-gear | FV
+    - IN1 | atc-z-zone | HOLD
+    - IN0 | atc-y-zone | HOLD
     pincolors:
     - YE
     - YE
@@ -107,7 +105,7 @@ connectors:
     hide_disconnected_pins: true
     show_pincount: false
     bgcolor_title: LB
-    notes: Mesa terminal text is copied from the crosswalk; verify physical terminal numbering against the card manual.
+    notes: Verify endpoint numbering against the card manual.
     ignore_in_bom: true
   7i84U-B_TB3:
     type: 7i84U-B TB3
@@ -115,15 +113,15 @@ connectors:
     - IN2
     - IN5
     pinlabels:
-    - IN2 | limit-y-plus | FIELD VERIFY
-    - IN5 | limit-z-minus | FIELD VERIFY
+    - IN2 | limit-y-plus | FV
+    - IN5 | limit-z-minus | FV
     pincolors:
     - YE
     - YE
     hide_disconnected_pins: true
     show_pincount: false
     bgcolor_title: LB
-    notes: Mesa terminal text is copied from the crosswalk; verify physical terminal numbering against the card manual.
+    notes: Verify endpoint numbering against the card manual.
     ignore_in_bom: true
 cables:
   OEM_CONDUCTORS:
@@ -138,7 +136,7 @@ cables:
     - SPTD | ATC_ZONE_Y
     colors: *id001
     show_wirecount: false
-    notes: Factory jacket identifier shown; length, gauge, and color are not asserted.
+    notes: See crosswalk source.
     shield: false
     ignore_in_bom: true
   NEW_CONTROL_WIRING:
@@ -153,7 +151,7 @@ cables:
     - ATC_ZONE_Y | atc-y-zone
     colors: *id001
     show_wirecount: false
-    notes: Assign permanent new wire numbers, gauge, color, and ferrules in the relay terminal schedule.
+    notes: See crosswalk source.
     shield: false
     ignore_in_bom: true
 connections:

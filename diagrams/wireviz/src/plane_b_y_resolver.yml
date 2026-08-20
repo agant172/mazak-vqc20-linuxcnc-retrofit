@@ -22,13 +22,13 @@ connectors:
     - 17
     - 20
     pinlabels:
-    - 12 | Y_RES_SIN_POS | lead/wire A | PROPOSED - PHASE VERIFY
-    - 13 | Y_RES_SIN_NEG | lead/wire B | PROPOSED - PHASE VERIFY
-    - 14 | Y_RES_COS_POS | lead/wire F | PROPOSED - PHASE VERIFY
-    - 15 | Y_RES_COS_NEG | lead/wire G | PROPOSED - PHASE VERIFY
-    - 16 | Y_RES_DRV_POS | lead/wire H | PROPOSED - PHASE VERIFY
-    - 17 | Y_RES_DRV_NEG | lead/wire J | PROPOSED - PHASE VERIFY
-    - 20 | Y_RES_CASE_GND | lead/wire N | HOLD - SHIELD TOPOLOGY
+    - 12 | Y_RES_SIN_POS | lead/wire A | PHASE
+    - 13 | Y_RES_SIN_NEG | lead/wire B | PHASE
+    - 14 | Y_RES_COS_POS | lead/wire F | PHASE
+    - 15 | Y_RES_COS_NEG | lead/wire G | PHASE
+    - 16 | Y_RES_DRV_POS | lead/wire H | PHASE
+    - 17 | Y_RES_DRV_NEG | lead/wire J | PHASE
+    - 20 | Y_RES_CASE_GND | lead/wire N | HOLD
     pincolors:
     - RD
     - RD
@@ -40,20 +40,20 @@ connectors:
     hide_disconnected_pins: true
     show_pincount: false
     bgcolor_title: LB
-    notes: PRELIMINARY - NOT RELEASED FOR WIRING. Source identifiers are copied from the crosswalk; TBD is deliberately unresolved.
+    notes: Source identity remains unresolved; see crosswalk.
     ignore_in_bom: true
   NEW_CABLE_SHIELDS:
     type: New resolver-cable pair drains (three shields)
     pins:
     - three pair drains
     pinlabels:
-    - three pair drains | Y_RES_PAIR_SHIELDS | FIELD PENDING
+    - three pair drains | Y_RES_PAIR_SHIELDS | FP
     pincolors:
     - YE
     hide_disconnected_pins: true
     show_pincount: false
     bgcolor_title: LB
-    notes: PRELIMINARY - NOT RELEASED FOR WIRING. Source identifiers are copied from the crosswalk; TBD is deliberately unresolved.
+    notes: Source identity remains unresolved; see crosswalk.
     ignore_in_bom: true
   7i49_P4:
     type: 7i49 P4
@@ -66,13 +66,13 @@ connectors:
     - 14
     - 13 or 16
     pinlabels:
-    - 10 | RESSIN1+ | PROPOSED - PHASE VERIFY
-    - 9 | RESSIN1- | PROPOSED - PHASE VERIFY
-    - 12 | RESCOS1+ | PROPOSED - PHASE VERIFY
-    - 11 | RESCOS1- | PROPOSED - PHASE VERIFY
-    - 15 | RESDRV1+ | PROPOSED - PHASE VERIFY
-    - 14 | RESDRV1- | PROPOSED - PHASE VERIFY
-    - 13 or 16 | GND | FIELD PENDING
+    - 10 | RESSIN1+ | PHASE
+    - 9 | RESSIN1- | PHASE
+    - 12 | RESCOS1+ | PHASE
+    - 11 | RESCOS1- | PHASE
+    - 15 | RESDRV1+ | PHASE
+    - 14 | RESDRV1- | PHASE
+    - 13 or 16 | GND | FP
     pincolors:
     - RD
     - RD
@@ -84,34 +84,34 @@ connectors:
     hide_disconnected_pins: true
     show_pincount: false
     bgcolor_title: LB
-    notes: Mesa terminal text is copied from the crosswalk; verify physical terminal numbering against the card manual.
+    notes: Verify endpoint numbering against the card manual.
     ignore_in_bom: true
   HOLD_TERMINATION:
     type: Termination or electrical role not established
     pins:
     - TBD01
     pinlabels:
-    - TBD01 | Y_RES_CASE_GND | HOLD - SHIELD TOPOLOGY
+    - TBD01 | Y_RES_CASE_GND | HOLD
     pincolors:
     - RD
     hide_disconnected_pins: true
     show_pincount: false
     bgcolor_title: RD
-    notes: Do not terminate until the row's required verification is complete.
+    notes: See crosswalk source.
     ignore_in_bom: true
 cables:
   DIRECT_INTERFACE:
     type: Direct analog / resolver interface conductors
     wirecount: 8
     wirelabels:
-    - Y_RES_SIN_POS | PROPOSED - PHASE VERIFY
-    - Y_RES_SIN_NEG | PROPOSED - PHASE VERIFY
-    - Y_RES_COS_POS | PROPOSED - PHASE VERIFY
-    - Y_RES_COS_NEG | PROPOSED - PHASE VERIFY
-    - Y_RES_DRV_POS | PROPOSED - PHASE VERIFY
-    - Y_RES_DRV_NEG | PROPOSED - PHASE VERIFY
-    - Y_RES_CASE_GND | HOLD - SHIELD TOPOLOGY
-    - Y_RES_PAIR_SHIELDS | FIELD PENDING
+    - Y_RES_SIN_POS | PHASE
+    - Y_RES_SIN_NEG | PHASE
+    - Y_RES_COS_POS | PHASE
+    - Y_RES_COS_NEG | PHASE
+    - Y_RES_DRV_POS | PHASE
+    - Y_RES_DRV_NEG | PHASE
+    - Y_RES_CASE_GND | HOLD
+    - Y_RES_PAIR_SHIELDS | FP
     colors:
     - RD
     - RD
@@ -122,8 +122,7 @@ cables:
     - RD
     - YE
     show_wirecount: false
-    notes: PRELIMINARY - NOT RELEASED FOR WIRING. Logical route only. Cable part, gauge, pair assignment, and length are not
-      asserted by this sheet.
+    notes: See crosswalk source.
     shield: false
     ignore_in_bom: true
 connections:

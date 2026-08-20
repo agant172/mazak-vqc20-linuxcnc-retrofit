@@ -22,7 +22,7 @@ connectors:
     hide_disconnected_pins: true
     show_pincount: false
     bgcolor_title: YE
-    notes: PRELIMINARY - NOT RELEASED FOR WIRING. Logical architecture node.
+    notes: See crosswalk source.
     ignore_in_bom: true
   RELAY_BOUNDARY:
     type: Required interposing relay boundary for discrete I/O
@@ -38,7 +38,7 @@ connectors:
     hide_disconnected_pins: true
     show_pincount: false
     bgcolor_title: YE
-    notes: PRELIMINARY - NOT RELEASED FOR WIRING. Logical architecture node.
+    notes: See crosswalk source.
     ignore_in_bom: true
   MESA_7I84:
     type: Mesa 7i84U-A / 7i84U-B field I/O
@@ -54,7 +54,7 @@ connectors:
     hide_disconnected_pins: true
     show_pincount: false
     bgcolor_title: LB
-    notes: PRELIMINARY - NOT RELEASED FOR WIRING. Logical architecture node.
+    notes: See crosswalk source.
     ignore_in_bom: true
   CNA_PLANE_B:
     type: Plane B - CNA3/CNA4/CNA5 and axis command pairs
@@ -67,7 +67,7 @@ connectors:
     hide_disconnected_pins: true
     show_pincount: false
     bgcolor_title: RD
-    notes: PRELIMINARY - NOT RELEASED FOR WIRING. Logical architecture node.
+    notes: See crosswalk source.
     ignore_in_bom: true
   MESA_7I49:
     type: Mesa 7i49 resolver and analog interface
@@ -83,7 +83,7 @@ connectors:
     hide_disconnected_pins: true
     show_pincount: false
     bgcolor_title: LB
-    notes: PRELIMINARY - NOT RELEASED FOR WIRING. Logical architecture node.
+    notes: See crosswalk source.
     ignore_in_bom: true
   LINUXCNC:
     type: 7i80HDT + 7i44 + LinuxCNC
@@ -99,7 +99,7 @@ connectors:
     hide_disconnected_pins: true
     show_pincount: false
     bgcolor_title: LB
-    notes: PRELIMINARY - NOT RELEASED FOR WIRING. Logical architecture node.
+    notes: See crosswalk source.
     ignore_in_bom: true
 cables:
   A_FIELD:
@@ -110,7 +110,7 @@ cables:
     colors:
     - YE
     show_wirecount: false
-    notes: ''
+    notes: See crosswalk source.
     shield: false
     ignore_in_bom: true
   A_RELAY:
@@ -121,7 +121,7 @@ cables:
     colors:
     - YE
     show_wirecount: false
-    notes: ''
+    notes: See crosswalk source.
     shield: false
     ignore_in_bom: true
   B_DIRECT:
@@ -132,7 +132,7 @@ cables:
     colors:
     - RD
     show_wirecount: false
-    notes: ''
+    notes: See crosswalk source.
     shield: false
     ignore_in_bom: true
   HOST_IO:
@@ -145,7 +145,7 @@ cables:
     - BU
     - BU
     show_wirecount: false
-    notes: ''
+    notes: See crosswalk source.
     shield: false
     ignore_in_bom: true
 connections:

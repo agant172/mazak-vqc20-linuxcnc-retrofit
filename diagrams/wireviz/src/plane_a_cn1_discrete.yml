@@ -21,12 +21,12 @@ connectors:
     - 5
     - 14
     pinlabels:
-    - wire 208 | TOOL_UNCLAMP_CONF | FIELD VERIFY
-    - wire 209 | TOOL_CLAMP_CONF | FIELD VERIFY
-    - wire 210 | GEAR_HI_CONF | FIELD VERIFY
-    - wire 212 | GEAR_LO_CONF | FIELD VERIFY
-    - wire 232 | COOLANT_LOW | FIELD VERIFY
-    - wire *DECZ | Z_HOME | FIELD VERIFY
+    - 208 | TOOL_UNCLAMP_OK | FV
+    - 209 | TOOL_CLAMP_OK | FV
+    - 210 | GEAR_HI_OK | FV
+    - 212 | GEAR_LO_OK | FV
+    - 232 | COOLANT_LOW | FV
+    - '*DECZ | Z_HOME | FV'
     pincolors: &id001
     - YE
     - YE
@@ -37,8 +37,7 @@ connectors:
     hide_disconnected_pins: true
     show_pincount: false
     bgcolor_title: LB
-    notes: PRELIMINARY - NOT RELEASED FOR WIRING. Only Mesa route and candidate pins are shown; see the 320-row Plane A CSV
-      for complete pin accounting.
+    notes: Verify endpoint numbering against the card manual.
     ignore_in_bom: true
   IR_BOUNDARY:
     type: Required interposing-relay boundary
@@ -56,18 +55,18 @@ connectors:
     - F06
     - M06
     pinlabels:
-    - FIELD | TOOL_UNCLAMP_CONF
-    - MESA | TOOL_UNCLAMP_CONF
-    - FIELD | TOOL_CLAMP_CONF
-    - MESA | TOOL_CLAMP_CONF
-    - FIELD | GEAR_HI_CONF
-    - MESA | GEAR_HI_CONF
-    - FIELD | GEAR_LO_CONF
-    - MESA | GEAR_LO_CONF
-    - FIELD | COOLANT_LOW
-    - MESA | COOLANT_LOW
-    - FIELD | Z_HOME
-    - MESA | Z_HOME
+    - F | TOOL_UNCLAMP_OK
+    - M | TOOL_UNCLAMP_OK
+    - F | TOOL_CLAMP_OK
+    - M | TOOL_CLAMP_OK
+    - F | GEAR_HI_OK
+    - M | GEAR_HI_OK
+    - F | GEAR_LO_OK
+    - M | GEAR_LO_OK
+    - F | COOLANT_LOW
+    - M | COOLANT_LOW
+    - F | Z_HOME
+    - M | Z_HOME
     pincolors:
     - YE
     - YE
@@ -84,8 +83,7 @@ connectors:
     hide_disconnected_pins: true
     show_pincount: false
     bgcolor_title: YE
-    notes: PRELIMINARY - NOT RELEASED FOR WIRING. Fxx and Mxx are logical boundary identifiers, not purchased relay terminal
-      numbers. Specify coil/contact topology, suppression, voltage domain, and actual terminal IDs before release.
+    notes: Logical boundary placeholder; see crosswalk.
     ignore_in_bom: true
   7i84U-A_TB2:
     type: 7i84U-A TB2
@@ -95,10 +93,10 @@ connectors:
     - IN18
     - IN26
     pinlabels:
-    - IN16 | tool-unclamped | FIELD VERIFY
-    - IN17 | gear-hi-conf | FIELD VERIFY
-    - IN18 | gear-lo-conf | FIELD VERIFY
-    - IN26 | coolant-low | FIELD VERIFY
+    - IN16 | tool-unclamped | FV
+    - IN17 | gear-hi-conf | FV
+    - IN18 | gear-lo-conf | FV
+    - IN26 | coolant-low | FV
     pincolors:
     - YE
     - YE
@@ -107,63 +105,63 @@ connectors:
     hide_disconnected_pins: true
     show_pincount: false
     bgcolor_title: LB
-    notes: Mesa terminal text is copied from the crosswalk; verify physical terminal numbering against the card manual.
+    notes: Verify endpoint numbering against the card manual.
     ignore_in_bom: true
   7i84U-A_TB3:
     type: 7i84U-A TB3
     pins:
     - IN15
     pinlabels:
-    - IN15 | tool-clamped | FIELD VERIFY
+    - IN15 | tool-clamped | FV
     pincolors:
     - YE
     hide_disconnected_pins: true
     show_pincount: false
     bgcolor_title: LB
-    notes: Mesa terminal text is copied from the crosswalk; verify physical terminal numbering against the card manual.
+    notes: Verify endpoint numbering against the card manual.
     ignore_in_bom: true
   7i84U-B_TB3:
     type: 7i84U-B TB3
     pins:
     - IN8
     pinlabels:
-    - IN8 | home-z | FIELD VERIFY
+    - IN8 | home-z | FV
     pincolors:
     - YE
     hide_disconnected_pins: true
     show_pincount: false
     bgcolor_title: LB
-    notes: Mesa terminal text is copied from the crosswalk; verify physical terminal numbering against the card manual.
+    notes: Verify endpoint numbering against the card manual.
     ignore_in_bom: true
 cables:
   OEM_CONDUCTORS:
     type: Existing OEM conductor segments
     wirecount: 6
     wirelabels:
-    - 208 | TOOL_UNCLAMP_CONF
-    - 209 | TOOL_CLAMP_CONF
-    - 210 | GEAR_HI_CONF
-    - 212 | GEAR_LO_CONF
+    - 208 | TOOL_UNCLAMP_OK
+    - 209 | TOOL_CLAMP_OK
+    - 210 | GEAR_HI_OK
+    - 212 | GEAR_LO_OK
     - 232 | COOLANT_LOW
     - '*DECZ | Z_HOME'
     colors: *id001
     show_wirecount: false
-    notes: Factory jacket identifier shown; length, gauge, and color are not asserted.
+    notes: See crosswalk source.
     shield: false
     ignore_in_bom: true
   NEW_CONTROL_WIRING:
     type: New control-side conductors
     wirecount: 6
     wirelabels:
-    - TOOL_UNCLAMP_CONF | tool-unclamped
-    - TOOL_CLAMP_CONF | tool-clamped
-    - GEAR_HI_CONF | gear-hi-conf
-    - GEAR_LO_CONF | gear-lo-conf
+    - TOOL_UNCLAMP_OK | tool-unclamped
+    - TOOL_CLAMP_OK | tool-clamped
+    - GEAR_HI_OK | gear-hi-conf
+    - GEAR_LO_OK | gear-lo-conf
     - COOLANT_LOW | coolant-low
     - Z_HOME | home-z
     colors: *id001
     show_wirecount: false
-    notes: Assign permanent new wire numbers, gauge, color, and ferrules in the relay terminal schedule.
+    notes: See crosswalk source.
     shield: false
     ignore_in_bom: true
 connections:

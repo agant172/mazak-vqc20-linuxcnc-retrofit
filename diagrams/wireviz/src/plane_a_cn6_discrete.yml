@@ -20,11 +20,11 @@ connectors:
     - 39
     - 50
     pinlabels:
-    - wire SA | SERVO_READY | FIELD VERIFY
-    - wire WL | WORK_LIGHT | HOLD - RESERVED
-    - wire SER | SERVO_FAULT | FIELD VERIFY
-    - wire 355 | LUBE_OK | FIELD VERIFY
-    - wire 382 | SPINDLE_TOOL_AVAILABLE | FIELD VERIFY
+    - SA | SERVO_READY | FV
+    - WL | WORK_LIGHT | HOLD
+    - SER | SERVO_FAULT | FV
+    - 355 | LUBE_OK | FV
+    - 382 | SPINDLE_TOOL_AVAILABLE | FV
     pincolors: &id001
     - YE
     - RD
@@ -34,8 +34,7 @@ connectors:
     hide_disconnected_pins: true
     show_pincount: false
     bgcolor_title: LB
-    notes: PRELIMINARY - NOT RELEASED FOR WIRING. Only Mesa route and candidate pins are shown; see the 320-row Plane A CSV
-      for complete pin accounting.
+    notes: Verify endpoint numbering against the card manual.
     ignore_in_bom: true
   IR_BOUNDARY:
     type: Required interposing-relay boundary
@@ -51,16 +50,16 @@ connectors:
     - F05
     - M05
     pinlabels:
-    - FIELD | SERVO_READY
-    - MESA | SERVO_READY
-    - FIELD | WORK_LIGHT
-    - MESA | WORK_LIGHT
-    - FIELD | SERVO_FAULT
-    - MESA | SERVO_FAULT
-    - FIELD | LUBE_OK
-    - MESA | LUBE_OK
-    - FIELD | SPINDLE_TOOL_AVAILABLE
-    - MESA | SPINDLE_TOOL_AVAILABLE
+    - F | SERVO_READY
+    - M | SERVO_READY
+    - F | WORK_LIGHT
+    - M | WORK_LIGHT
+    - F | SERVO_FAULT
+    - M | SERVO_FAULT
+    - F | LUBE_OK
+    - M | LUBE_OK
+    - F | SPINDLE_TOOL_AVAILABLE
+    - M | SPINDLE_TOOL_AVAILABLE
     pincolors:
     - YE
     - YE
@@ -75,8 +74,7 @@ connectors:
     hide_disconnected_pins: true
     show_pincount: false
     bgcolor_title: YE
-    notes: PRELIMINARY - NOT RELEASED FOR WIRING. Fxx and Mxx are logical boundary identifiers, not purchased relay terminal
-      numbers. Specify coil/contact topology, suppression, voltage domain, and actual terminal IDs before release.
+    notes: Logical boundary placeholder; see crosswalk.
     ignore_in_bom: true
   7i84U-A_TB2:
     type: 7i84U-A TB2
@@ -84,28 +82,28 @@ connectors:
     - IN31
     - IN25
     pinlabels:
-    - IN31 | servo-ready | FIELD VERIFY
-    - IN25 | lube-ok | FIELD VERIFY
+    - IN31 | servo-ready | FV
+    - IN25 | lube-ok | FV
     pincolors:
     - YE
     - YE
     hide_disconnected_pins: true
     show_pincount: false
     bgcolor_title: LB
-    notes: Mesa terminal text is copied from the crosswalk; verify physical terminal numbering against the card manual.
+    notes: Verify endpoint numbering against the card manual.
     ignore_in_bom: true
   7i84U-B_TB2:
     type: 7i84U-B TB2
     pins:
     - OUT9
     pinlabels:
-    - OUT9 | WORK_LIGHT | HOLD - RESERVED
+    - OUT9 | WORK_LIGHT | HOLD
     pincolors:
     - RD
     hide_disconnected_pins: true
     show_pincount: false
     bgcolor_title: LB
-    notes: Mesa terminal text is copied from the crosswalk; verify physical terminal numbering against the card manual.
+    notes: Verify endpoint numbering against the card manual.
     ignore_in_bom: true
   7i84U-A_TB3:
     type: 7i84U-A TB3
@@ -113,15 +111,15 @@ connectors:
     - IN10
     - IN3
     pinlabels:
-    - IN10 | servo-fault | FIELD VERIFY
-    - IN3 | spindle-tool-avail | FIELD VERIFY
+    - IN10 | servo-fault | FV
+    - IN3 | spindle-tool-avail | FV
     pincolors:
     - YE
     - YE
     hide_disconnected_pins: true
     show_pincount: false
     bgcolor_title: LB
-    notes: Mesa terminal text is copied from the crosswalk; verify physical terminal numbering against the card manual.
+    notes: Verify endpoint numbering against the card manual.
     ignore_in_bom: true
 cables:
   OEM_CONDUCTORS:
@@ -135,7 +133,7 @@ cables:
     - 382 | SPINDLE_TOOL_AVAILABLE
     colors: *id001
     show_wirecount: false
-    notes: Factory jacket identifier shown; length, gauge, and color are not asserted.
+    notes: See crosswalk source.
     shield: false
     ignore_in_bom: true
   NEW_CONTROL_WIRING:
@@ -149,7 +147,7 @@ cables:
     - SPINDLE_TOOL_AVAILABLE | spindle-tool-avail
     colors: *id001
     show_wirecount: false
-    notes: Assign permanent new wire numbers, gauge, color, and ferrules in the relay terminal schedule.
+    notes: See crosswalk source.
     shield: false
     ignore_in_bom: true
 connections:

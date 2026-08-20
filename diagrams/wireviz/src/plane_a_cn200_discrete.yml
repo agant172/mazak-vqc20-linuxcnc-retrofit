@@ -16,14 +16,13 @@ connectors:
     pins:
     - 3
     pinlabels:
-    - wire MMS SKIP | PROBE_SKIP1_CANDIDATE | HOLD - SOURCE TRACE
+    - MMS SKIP | PROBE_SKIP1_CAND | HOLD
     pincolors: &id001
     - RD
     hide_disconnected_pins: true
     show_pincount: false
     bgcolor_title: LB
-    notes: PRELIMINARY - NOT RELEASED FOR WIRING. Only Mesa route and candidate pins are shown; see the 320-row Plane A CSV
-      for complete pin accounting.
+    notes: Verify endpoint numbering against the card manual.
     ignore_in_bom: true
   IR_BOUNDARY:
     type: Required interposing-relay boundary
@@ -31,49 +30,48 @@ connectors:
     - F01
     - M01
     pinlabels:
-    - FIELD | PROBE_SKIP1_CANDIDATE
-    - MESA | PROBE_SKIP1_CANDIDATE
+    - F | PROBE_SKIP1_CAND
+    - M | PROBE_SKIP1_CAND
     pincolors:
     - RD
     - RD
     hide_disconnected_pins: true
     show_pincount: false
     bgcolor_title: YE
-    notes: PRELIMINARY - NOT RELEASED FOR WIRING. Fxx and Mxx are logical boundary identifiers, not purchased relay terminal
-      numbers. Specify coil/contact topology, suppression, voltage domain, and actual terminal IDs before release.
+    notes: Logical boundary placeholder; see crosswalk.
     ignore_in_bom: true
   7i84U-B_TB3:
     type: 7i84U-B TB3
     pins:
     - IN15
     pinlabels:
-    - IN15 | probe-in | HOLD - SOURCE TRACE
+    - IN15 | probe-in | HOLD
     pincolors:
     - RD
     hide_disconnected_pins: true
     show_pincount: false
     bgcolor_title: LB
-    notes: Mesa terminal text is copied from the crosswalk; verify physical terminal numbering against the card manual.
+    notes: Verify endpoint numbering against the card manual.
     ignore_in_bom: true
 cables:
   OEM_CONDUCTORS:
     type: Existing OEM conductor segments
     wirecount: 1
     wirelabels:
-    - MMS SKIP | PROBE_SKIP1_CANDIDATE
+    - MMS SKIP | PROBE_SKIP1_CAND
     colors: *id001
     show_wirecount: false
-    notes: Factory jacket identifier shown; length, gauge, and color are not asserted.
+    notes: See crosswalk source.
     shield: false
     ignore_in_bom: true
   NEW_CONTROL_WIRING:
     type: New control-side conductors
     wirecount: 1
     wirelabels:
-    - PROBE_SKIP1_CANDIDATE | probe-in
+    - PROBE_SKIP1_CAND | probe-in
     colors: *id001
     show_wirecount: false
-    notes: Assign permanent new wire numbers, gauge, color, and ferrules in the relay terminal schedule.
+    notes: See crosswalk source.
     shield: false
     ignore_in_bom: true
 connections:

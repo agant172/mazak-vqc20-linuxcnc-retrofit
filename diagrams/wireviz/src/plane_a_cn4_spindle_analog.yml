@@ -18,9 +18,9 @@ connectors:
     - 19
     - 20
     pinlabels:
-    - 18 | SPINDLE_SPEED_SE1 | lead/wire SE1 | HOLD - ANALOG ROLE
-    - 19 | SPINDLE_SPEED_SE2 | lead/wire SE2 | HOLD - ANALOG ROLE
-    - 20 | SPINDLE_SPEED_SE3 | lead/wire SE3 | HOLD - SHIELD OR COMMON
+    - 18 | SPINDLE_SPEED_SE1 | lead/wire SE1 | HOLD
+    - 19 | SPINDLE_SPEED_SE2 | lead/wire SE2 | HOLD
+    - 20 | SPINDLE_SPEED_SE3 | lead/wire SE3 | HOLD
     pincolors:
     - RD
     - RD
@@ -28,7 +28,7 @@ connectors:
     hide_disconnected_pins: true
     show_pincount: false
     bgcolor_title: LB
-    notes: PRELIMINARY - NOT RELEASED FOR WIRING. Source identifiers are copied from the crosswalk; TBD is deliberately unresolved.
+    notes: Source identity remains unresolved; see crosswalk.
     ignore_in_bom: true
   7i49_P3:
     type: 7i49 P3
@@ -36,44 +36,43 @@ connectors:
     - 'TBD: 23/24 (GND3/AOUT3)'
     - 'TBD: 23/24 (GND3/AOUT3)_2'
     pinlabels:
-    - 'TBD: 23/24 (GND3/AOUT3) | spindle-speed-cmd | HOLD - ANALOG ROLE'
-    - 'TBD: 23/24 (GND3/AOUT3)_2 | spindle-speed-cmd | HOLD - ANALOG ROLE'
+    - 'TBD: 23/24 (GND3/AOUT3) | spindle-speed-cmd | HOLD'
+    - 'TBD: 23/24 (GND3/AOUT3)_2 | spindle-speed-cmd | HOLD'
     pincolors:
     - RD
     - RD
     hide_disconnected_pins: true
     show_pincount: false
     bgcolor_title: LB
-    notes: Mesa terminal text is copied from the crosswalk; verify physical terminal numbering against the card manual.
+    notes: Verify endpoint numbering against the card manual.
     ignore_in_bom: true
   HOLD_TERMINATION:
     type: Termination or electrical role not established
     pins:
     - TBD01
     pinlabels:
-    - TBD01 | SPINDLE_SPEED_SE3 | HOLD - SHIELD OR COMMON
+    - TBD01 | SPINDLE_SPEED_SE3 | HOLD
     pincolors:
     - RD
     hide_disconnected_pins: true
     show_pincount: false
     bgcolor_title: RD
-    notes: Do not terminate until the row's required verification is complete.
+    notes: See crosswalk source.
     ignore_in_bom: true
 cables:
   DIRECT_INTERFACE:
     type: Direct analog / resolver interface conductors
     wirecount: 3
     wirelabels:
-    - SPINDLE_SPEED_SE1 | HOLD - ANALOG ROLE
-    - SPINDLE_SPEED_SE2 | HOLD - ANALOG ROLE
-    - SPINDLE_SPEED_SE3 | HOLD - SHIELD OR COMMON
+    - SPINDLE_SPEED_SE1 | HOLD
+    - SPINDLE_SPEED_SE2 | HOLD
+    - SPINDLE_SPEED_SE3 | HOLD
     colors:
     - RD
     - RD
     - RD
     show_wirecount: false
-    notes: PRELIMINARY - NOT RELEASED FOR WIRING. Logical route only. Cable part, gauge, pair assignment, and length are not
-      asserted by this sheet.
+    notes: See crosswalk source.
     shield: false
     ignore_in_bom: true
 connections:

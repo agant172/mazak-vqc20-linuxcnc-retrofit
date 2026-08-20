@@ -20,11 +20,11 @@ connectors:
     - 17
     - 20
     pinlabels:
-    - 4 | CNA10_SPINDLE_LOAD_HI | DECISION
-    - 8 | CNA10_SPINDLE_LOAD_LO | DECISION
-    - 11 | CNA10_Z_LOAD_HI | DECISION
-    - 17 | CNA10_Z_LOAD_LO | DECISION
-    - 20 | CNA10_COMMON | DECISION
+    - 4 | CNA10_SPINDLE_LOAD_HI | DEC
+    - 8 | CNA10_SPINDLE_LOAD_LO | DEC
+    - 11 | CNA10_Z_LOAD_HI | DEC
+    - 17 | CNA10_Z_LOAD_LO | DEC
+    - 20 | CNA10_COMMON | DEC
     pincolors:
     - GY
     - GY
@@ -34,7 +34,7 @@ connectors:
     hide_disconnected_pins: true
     show_pincount: false
     bgcolor_title: LB
-    notes: PRELIMINARY - NOT RELEASED FOR WIRING. Source identifiers are copied from the crosswalk; TBD is deliberately unresolved.
+    notes: Source identity remains unresolved; see crosswalk.
     ignore_in_bom: true
   HOLD_TERMINATION:
     type: Termination or electrical role not established
@@ -45,11 +45,11 @@ connectors:
     - TBD04
     - TBD05
     pinlabels:
-    - TBD01 | CNA10_SPINDLE_LOAD_HI | DECISION
-    - TBD02 | CNA10_SPINDLE_LOAD_LO | DECISION
-    - TBD03 | CNA10_Z_LOAD_HI | DECISION
-    - TBD04 | CNA10_Z_LOAD_LO | DECISION
-    - TBD05 | CNA10_COMMON | DECISION
+    - TBD01 | CNA10_SPINDLE_LOAD_HI | DEC
+    - TBD02 | CNA10_SPINDLE_LOAD_LO | DEC
+    - TBD03 | CNA10_Z_LOAD_HI | DEC
+    - TBD04 | CNA10_Z_LOAD_LO | DEC
+    - TBD05 | CNA10_COMMON | DEC
     pincolors:
     - GY
     - GY
@@ -59,18 +59,18 @@ connectors:
     hide_disconnected_pins: true
     show_pincount: false
     bgcolor_title: RD
-    notes: Do not terminate until the row's required verification is complete.
+    notes: See crosswalk source.
     ignore_in_bom: true
 cables:
   DIRECT_INTERFACE:
     type: Direct analog / resolver interface conductors
     wirecount: 5
     wirelabels:
-    - CNA10_SPINDLE_LOAD_HI | DECISION
-    - CNA10_SPINDLE_LOAD_LO | DECISION
-    - CNA10_Z_LOAD_HI | DECISION
-    - CNA10_Z_LOAD_LO | DECISION
-    - CNA10_COMMON | DECISION
+    - CNA10_SPINDLE_LOAD_HI | DEC
+    - CNA10_SPINDLE_LOAD_LO | DEC
+    - CNA10_Z_LOAD_HI | DEC
+    - CNA10_Z_LOAD_LO | DEC
+    - CNA10_COMMON | DEC
     colors:
     - GY
     - GY
@@ -78,8 +78,7 @@ cables:
     - GY
     - GY
     show_wirecount: false
-    notes: PRELIMINARY - NOT RELEASED FOR WIRING. Logical route only. Cable part, gauge, pair assignment, and length are not
-      asserted by this sheet.
+    notes: See crosswalk source.
     shield: false
     ignore_in_bom: true
 connections:

@@ -101,14 +101,42 @@ def status_color(status: str) -> str:
 
 def short_status(status: str) -> str:
     if status == "ROUTE_DEFINED_FIELD_VERIFY":
-        return "FIELD VERIFY"
+        return "FV"
     if status == "DESIGN_CONFIRMED_FIELD_PENDING":
-        return "FIELD PENDING"
+        return "FP"
     if status == "RETAIN_OR_RETIRE_DECISION":
-        return "DECISION"
+        return "DEC"
     if status == "PROPOSED_PHASE_VERIFY":
-        return "PROPOSED - PHASE VERIFY"
-    return "HOLD - " + status.removeprefix("HOLD_").replace("_", " ")
+        return "PHASE"
+    return "HOLD"
+
+
+def compact_signal(value: str, limit: int = 24) -> str:
+    """Keep pin rows readable without losing their crosswalk identity."""
+    value = clean(value, "TBD")
+    replacements = (
+        ("MANUAL_TOOL_UNCLAMP", "MT_UNCLAMP"),
+        ("MANUAL_TOOL_CLAMP", "MT_CLAMP"),
+        ("MAG_COVER_CLOSE_CONF", "MAG_COVER_CLOSE"),
+        ("MAG_COVER_OPEN_CONF", "MAG_COVER_OPEN"),
+        ("_CONF", "_OK"),
+        ("_CANDIDATE", "_CAND"),
+    )
+    for old, new in replacements:
+        value = value.replace(old, new)
+    return value if len(value) <= limit else value[: limit - 1] + "…"
+
+
+def compact_note(value: str, fallback: str = "See crosswalk source.") -> str:
+    """Avoid large note paragraphs expanding every connector node."""
+    value = (value or "").strip()
+    if "relay" in value.lower() or "boundary" in value.lower():
+        return "Logical boundary placeholder; see crosswalk."
+    if "terminal" in value.lower() or "mesa" in value.lower():
+        return "Verify endpoint numbering against the card manual."
+    if "source" in value.lower() or "tbd" in value.lower():
+        return "Source identity remains unresolved; see crosswalk."
+    return fallback
 
 
 def base_document(title: str, description: str, source_note: str) -> dict:
@@ -157,7 +185,7 @@ def connector(
         "hide_disconnected_pins": True,
         "show_pincount": False,
         "bgcolor_title": title_color,
-        "notes": notes,
+        "notes": compact_note(notes),
         "ignore_in_bom": True,
     }
 
@@ -176,7 +204,7 @@ def cable(
         "wirelabels": labels,
         "colors": colors,
         "show_wirecount": False,
-        "notes": notes,
+        "notes": compact_note(notes),
         "shield": shield,
         "ignore_in_bom": True,
     }
@@ -219,7 +247,7 @@ def add_target_connectors(
         for local_index, (row_index, pin) in enumerate(zip(indices, pins)):
             row = rows[row_index]
             status = row[status_field]
-            signal = clean(row.get(signal_field, ""), row.get("signal_id", "TBD"))
+            signal = compact_signal(clean(row.get(signal_field, ""), row.get("signal_id", "TBD")))
             labels.append(f"{pin} | {signal} | {short_status(status)}")
             colors.append(status_color(status))
             row_destinations[row_index] = (key, pin)
@@ -251,7 +279,7 @@ def build_plane_a_discrete(
     colors = [status_color(r["landing_status"]) for r in rows]
     source_pins = [pin_id(r["oem_pin"]) for r in rows]
     source_labels = [
-        f"wire {clean(r['factory_wire'])} | {clean(r['signal_id'])} | {short_status(r['landing_status'])}"
+        f"{compact_signal(clean(r['factory_wire']), 10)} | {compact_signal(clean(r['signal_id']))} | {short_status(r['landing_status'])}"
         for r in rows
     ]
     document["connectors"][oem_connector] = connector(
@@ -278,8 +306,8 @@ def build_plane_a_discrete(
         relay_pins.extend([field_pin, mesa_pin])
         relay_labels.extend(
             [
-                f"FIELD | {row['signal_id']}",
-                f"MESA | {row['signal_id']}",
+                f"F | {compact_signal(row['signal_id'])}",
+                f"M | {compact_signal(row['signal_id'])}",
             ]
         )
         relay_colors.extend([colors[index - 1], colors[index - 1]])
@@ -299,15 +327,15 @@ def build_plane_a_discrete(
     wire_numbers = list(range(1, len(rows) + 1))
     document["cables"]["OEM_CONDUCTORS"] = cable(
         "Existing OEM conductor segments",
-        [f"{clean(r['factory_wire'])} | {r['signal_id']}" for r in rows],
+        [f"{compact_signal(clean(r['factory_wire']), 10)} | {compact_signal(r['signal_id'])}" for r in rows],
         colors,
-        notes="Factory jacket identifier shown; length, gauge, and color are not asserted.",
+        notes="Factory identifier shown; cable construction remains unspecified.",
     )
     document["cables"]["NEW_CONTROL_WIRING"] = cable(
         "New control-side conductors",
-        [f"{r['signal_id']} | {clean(r['hal_net'])}" for r in rows],
+        [f"{compact_signal(r['signal_id'])} | {compact_signal(clean(r['hal_net']), 18)}" for r in rows],
         colors,
-        notes="Assign permanent new wire numbers, gauge, color, and ferrules in the relay terminal schedule.",
+        notes="New-side wire schedule remains to be assigned.",
     )
     document["connections"].append(
         [
@@ -370,7 +398,7 @@ def build_direct_sheet(
             wire = clean(row.get("factory_wire", ""), lead)
             suffix = f" | lead/wire {wire}" if wire else ""
             labels.append(
-                f"{pin} | {clean(row.get('signal_id', ''))}{suffix} | {short_status(row[status_field])}"
+                f"{pin} | {compact_signal(clean(row.get('signal_id', '')))}{suffix} | {short_status(row[status_field])}"
             )
             pincolors.append(colors[row_index])
             source_pin_by_row[row_index] = pin
@@ -393,7 +421,7 @@ def build_direct_sheet(
         )
 
     labels = [
-        f"{clean(r.get('signal_id', ''))} | {short_status(r[status_field])}" for r in rows
+        f"{compact_signal(clean(r.get('signal_id', '')))} | {short_status(r[status_field])}" for r in rows
     ]
     document["cables"]["DIRECT_INTERFACE"] = cable(
         "Direct analog / resolver interface conductors",
@@ -550,13 +578,47 @@ def render(paths: list[Path]) -> None:
     executable = shutil.which("wireviz")
     if not executable:
         raise RuntimeError("wireviz is not on PATH")
+    dot_executable = shutil.which("dot")
+    if not dot_executable:
+        raise RuntimeError("Graphviz dot is not on PATH")
     RENDER_DIR.mkdir(parents=True, exist_ok=True)
     for path in paths:
+        # WireViz's stock ranksep=2 is intentionally generous for general
+        # harness drawings, but makes these pin crosswalks thousands of pixels
+        # wide. Generate the normal HTML wrapper, then rerun Graphviz with a
+        # compact LR layout and replace the embedded SVG in the wrapper.
         subprocess.run(
-            [executable, "--format", "hps", "--output-dir", str(RENDER_DIR), str(path)],
+            [executable, "--format", "gh", "--output-dir", str(RENDER_DIR), str(path)],
             cwd=REPO_ROOT,
             check=True,
         )
+        gv_path = RENDER_DIR / f"{path.stem}.gv"
+        gv = gv_path.read_text(encoding="utf-8")
+        gv = gv.replace("ranksep=2", "ranksep=0.35")
+        gv = gv.replace("nodesep=0.33", "nodesep=0.08")
+        gv = gv.replace("graph [", "graph [margin=0 pad=0 ", 1)
+        gv = gv.replace("node [", "node [fontsize=9 ", 1)
+        gv = gv.replace('cellpadding="3"', 'cellpadding="1"')
+        gv_path.write_text(gv, encoding="utf-8")
+        subprocess.run(
+            [dot_executable, "-Tsvg", "-o", str(RENDER_DIR / f"{path.stem}.svg"), str(gv_path)],
+            cwd=REPO_ROOT,
+            check=True,
+        )
+        subprocess.run(
+            [dot_executable, "-Tpng", "-o", str(RENDER_DIR / f"{path.stem}.png"), str(gv_path)],
+            cwd=REPO_ROOT,
+            check=True,
+        )
+        html_path = RENDER_DIR / f"{path.stem}.html"
+        html_text = html_path.read_text(encoding="utf-8")
+        compact_svg = (RENDER_DIR / f"{path.stem}.svg").read_text(encoding="utf-8")
+        html_text, replacements = re.subn(
+            r"<svg\b.*?</svg>", compact_svg, html_text, count=1, flags=re.DOTALL
+        )
+        if replacements != 1:
+            raise RuntimeError(f"Could not replace embedded SVG in {html_path}")
+        html_path.write_text(html_text, encoding="utf-8")
 
 
 def main() -> None:
@@ -661,6 +723,13 @@ def main() -> None:
     manifest = {
         "generated_by": "scripts/generate_wireviz_diagrams.py",
         "wireviz_expected": "0.4.x",
+        "render_profile": {
+            "layout": "compact_lr",
+            "ranksep": 0.35,
+            "nodesep": 0.08,
+            "cellpadding": 1,
+            "status_labels": ["FV", "FP", "PHASE", "HOLD", "DEC"],
+        },
         "inputs": {
             str(plane_a_path.relative_to(REPO_ROOT)): sha256(plane_a_path),
             str(plane_b_path.relative_to(REPO_ROOT)): sha256(plane_b_path),

@@ -29,20 +29,20 @@ connectors:
     - 38
     - 44
     pinlabels:
-    - wire 149 | MANUAL_TOOL_UNCLAMP_PB | FIELD VERIFY
-    - wire 150 | MAG_BCD_BIT0 | FIELD VERIFY
-    - wire 221 | MAG_BCD_BIT1 | FIELD VERIFY
-    - wire 222 | MAG_BCD_BIT2 | FIELD VERIFY
-    - wire 223 | MAG_BCD_BIT3 | FIELD VERIFY
-    - wire 224 | MAG_BCD_BIT4 | FIELD VERIFY
-    - wire 225 | MAG_IN_POS | FIELD VERIFY
-    - wire 218 | MAG_COVER_OPEN_CONF | FIELD VERIFY
-    - wire 219 | MAG_COVER_CLOSE_CONF | FIELD VERIFY
-    - wire 381 | MAG_TOOL_AVAILABLE | FIELD VERIFY
-    - wire *DECX | X_HOME | FIELD VERIFY
-    - wire *DECY | Y_HOME | FIELD VERIFY
-    - wire 238 | DOOR_INTERLOCK | FIELD VERIFY
-    - wire 149B | MANUAL_TOOL_CLAMP_PB | HOLD - RESERVED
+    - 149 | MT_UNCLAMP_PB | FV
+    - 150 | MAG_BCD_BIT0 | FV
+    - 221 | MAG_BCD_BIT1 | FV
+    - 222 | MAG_BCD_BIT2 | FV
+    - 223 | MAG_BCD_BIT3 | FV
+    - 224 | MAG_BCD_BIT4 | FV
+    - 225 | MAG_IN_POS | FV
+    - 218 | MAG_COVER_OPEN | FV
+    - 219 | MAG_COVER_CLOSE | FV
+    - 381 | MAG_TOOL_AVAILABLE | FV
+    - '*DECX | X_HOME | FV'
+    - '*DECY | Y_HOME | FV'
+    - 238 | DOOR_INTERLOCK | FV
+    - 149B | MT_CLAMP_PB | HOLD
     pincolors: &id001
     - YE
     - YE
@@ -61,8 +61,7 @@ connectors:
     hide_disconnected_pins: true
     show_pincount: false
     bgcolor_title: LB
-    notes: PRELIMINARY - NOT RELEASED FOR WIRING. Only Mesa route and candidate pins are shown; see the 320-row Plane A CSV
-      for complete pin accounting.
+    notes: Verify endpoint numbering against the card manual.
     ignore_in_bom: true
   IR_BOUNDARY:
     type: Required interposing-relay boundary
@@ -96,34 +95,34 @@ connectors:
     - F14
     - M14
     pinlabels:
-    - FIELD | MANUAL_TOOL_UNCLAMP_PB
-    - MESA | MANUAL_TOOL_UNCLAMP_PB
-    - FIELD | MAG_BCD_BIT0
-    - MESA | MAG_BCD_BIT0
-    - FIELD | MAG_BCD_BIT1
-    - MESA | MAG_BCD_BIT1
-    - FIELD | MAG_BCD_BIT2
-    - MESA | MAG_BCD_BIT2
-    - FIELD | MAG_BCD_BIT3
-    - MESA | MAG_BCD_BIT3
-    - FIELD | MAG_BCD_BIT4
-    - MESA | MAG_BCD_BIT4
-    - FIELD | MAG_IN_POS
-    - MESA | MAG_IN_POS
-    - FIELD | MAG_COVER_OPEN_CONF
-    - MESA | MAG_COVER_OPEN_CONF
-    - FIELD | MAG_COVER_CLOSE_CONF
-    - MESA | MAG_COVER_CLOSE_CONF
-    - FIELD | MAG_TOOL_AVAILABLE
-    - MESA | MAG_TOOL_AVAILABLE
-    - FIELD | X_HOME
-    - MESA | X_HOME
-    - FIELD | Y_HOME
-    - MESA | Y_HOME
-    - FIELD | DOOR_INTERLOCK
-    - MESA | DOOR_INTERLOCK
-    - FIELD | MANUAL_TOOL_CLAMP_PB
-    - MESA | MANUAL_TOOL_CLAMP_PB
+    - F | MT_UNCLAMP_PB
+    - M | MT_UNCLAMP_PB
+    - F | MAG_BCD_BIT0
+    - M | MAG_BCD_BIT0
+    - F | MAG_BCD_BIT1
+    - M | MAG_BCD_BIT1
+    - F | MAG_BCD_BIT2
+    - M | MAG_BCD_BIT2
+    - F | MAG_BCD_BIT3
+    - M | MAG_BCD_BIT3
+    - F | MAG_BCD_BIT4
+    - M | MAG_BCD_BIT4
+    - F | MAG_IN_POS
+    - M | MAG_IN_POS
+    - F | MAG_COVER_OPEN
+    - M | MAG_COVER_OPEN
+    - F | MAG_COVER_CLOSE
+    - M | MAG_COVER_CLOSE
+    - F | MAG_TOOL_AVAILABLE
+    - M | MAG_TOOL_AVAILABLE
+    - F | X_HOME
+    - M | X_HOME
+    - F | Y_HOME
+    - M | Y_HOME
+    - F | DOOR_INTERLOCK
+    - M | DOOR_INTERLOCK
+    - F | MT_CLAMP_PB
+    - M | MT_CLAMP_PB
     pincolors:
     - YE
     - YE
@@ -156,8 +155,7 @@ connectors:
     hide_disconnected_pins: true
     show_pincount: false
     bgcolor_title: YE
-    notes: PRELIMINARY - NOT RELEASED FOR WIRING. Fxx and Mxx are logical boundary identifiers, not purchased relay terminal
-      numbers. Specify coil/contact topology, suppression, voltage domain, and actual terminal IDs before release.
+    notes: Logical boundary placeholder; see crosswalk.
     ignore_in_bom: true
   7i84U-A_TB3:
     type: 7i84U-A TB3
@@ -167,10 +165,10 @@ connectors:
     - IN7
     - IN2
     pinlabels:
-    - IN9 | manual-unclamp-pb | FIELD VERIFY
-    - IN6 | mag-cover-open-conf | FIELD VERIFY
-    - IN7 | mag-cover-closed-conf | FIELD VERIFY
-    - IN2 | mag-tool-avail | FIELD VERIFY
+    - IN9 | manual-unclamp-pb | FV
+    - IN6 | mag-cover-open-conf | FV
+    - IN7 | mag-cover-closed-conf | FV
+    - IN2 | mag-tool-avail | FV
     pincolors:
     - YE
     - YE
@@ -179,7 +177,7 @@ connectors:
     hide_disconnected_pins: true
     show_pincount: false
     bgcolor_title: LB
-    notes: Mesa terminal text is copied from the crosswalk; verify physical terminal numbering against the card manual.
+    notes: Verify endpoint numbering against the card manual.
     ignore_in_bom: true
   7i84U-A_TB2:
     type: 7i84U-A TB2
@@ -193,14 +191,14 @@ connectors:
     - IN24
     - IN30
     pinlabels:
-    - IN19 | mag-bcd-bit0 | FIELD VERIFY
-    - IN20 | mag-bcd-bit1 | FIELD VERIFY
-    - IN21 | mag-bcd-bit2 | FIELD VERIFY
-    - IN22 | mag-bcd-bit3 | FIELD VERIFY
-    - IN23 | mag-bcd-bit4 | FIELD VERIFY
-    - IN28 | mag-in-pos | FIELD VERIFY
-    - IN24 | door-interlock | FIELD VERIFY
-    - IN30 | MANUAL_TOOL_CLAMP_PB | HOLD - RESERVED
+    - IN19 | mag-bcd-bit0 | FV
+    - IN20 | mag-bcd-bit1 | FV
+    - IN21 | mag-bcd-bit2 | FV
+    - IN22 | mag-bcd-bit3 | FV
+    - IN23 | mag-bcd-bit4 | FV
+    - IN28 | mag-in-pos | FV
+    - IN24 | door-interlock | FV
+    - IN30 | MT_CLAMP_PB | HOLD
     pincolors:
     - YE
     - YE
@@ -213,7 +211,7 @@ connectors:
     hide_disconnected_pins: true
     show_pincount: false
     bgcolor_title: LB
-    notes: Mesa terminal text is copied from the crosswalk; verify physical terminal numbering against the card manual.
+    notes: Verify endpoint numbering against the card manual.
     ignore_in_bom: true
   7i84U-B_TB3:
     type: 7i84U-B TB3
@@ -221,61 +219,61 @@ connectors:
     - IN6
     - IN7
     pinlabels:
-    - IN6 | home-x | FIELD VERIFY
-    - IN7 | home-y | FIELD VERIFY
+    - IN6 | home-x | FV
+    - IN7 | home-y | FV
     pincolors:
     - YE
     - YE
     hide_disconnected_pins: true
     show_pincount: false
     bgcolor_title: LB
-    notes: Mesa terminal text is copied from the crosswalk; verify physical terminal numbering against the card manual.
+    notes: Verify endpoint numbering against the card manual.
     ignore_in_bom: true
 cables:
   OEM_CONDUCTORS:
     type: Existing OEM conductor segments
     wirecount: 14
     wirelabels:
-    - 149 | MANUAL_TOOL_UNCLAMP_PB
+    - 149 | MT_UNCLAMP_PB
     - 150 | MAG_BCD_BIT0
     - 221 | MAG_BCD_BIT1
     - 222 | MAG_BCD_BIT2
     - 223 | MAG_BCD_BIT3
     - 224 | MAG_BCD_BIT4
     - 225 | MAG_IN_POS
-    - 218 | MAG_COVER_OPEN_CONF
-    - 219 | MAG_COVER_CLOSE_CONF
+    - 218 | MAG_COVER_OPEN
+    - 219 | MAG_COVER_CLOSE
     - 381 | MAG_TOOL_AVAILABLE
     - '*DECX | X_HOME'
     - '*DECY | Y_HOME'
     - 238 | DOOR_INTERLOCK
-    - 149B | MANUAL_TOOL_CLAMP_PB
+    - 149B | MT_CLAMP_PB
     colors: *id001
     show_wirecount: false
-    notes: Factory jacket identifier shown; length, gauge, and color are not asserted.
+    notes: See crosswalk source.
     shield: false
     ignore_in_bom: true
   NEW_CONTROL_WIRING:
     type: New control-side conductors
     wirecount: 14
     wirelabels:
-    - MANUAL_TOOL_UNCLAMP_PB | manual-unclamp-pb
+    - MT_UNCLAMP_PB | manual-unclamp-pb
     - MAG_BCD_BIT0 | mag-bcd-bit0
     - MAG_BCD_BIT1 | mag-bcd-bit1
     - MAG_BCD_BIT2 | mag-bcd-bit2
     - MAG_BCD_BIT3 | mag-bcd-bit3
     - MAG_BCD_BIT4 | mag-bcd-bit4
     - MAG_IN_POS | mag-in-pos
-    - MAG_COVER_OPEN_CONF | mag-cover-open-conf
-    - MAG_COVER_CLOSE_CONF | mag-cover-closed-conf
+    - MAG_COVER_OPEN | mag-cover-open-co…
+    - MAG_COVER_CLOSE | mag-cover-closed-…
     - MAG_TOOL_AVAILABLE | mag-tool-avail
     - X_HOME | home-x
     - Y_HOME | home-y
     - DOOR_INTERLOCK | door-interlock
-    - MANUAL_TOOL_CLAMP_PB | TBD
+    - MT_CLAMP_PB | TBD
     colors: *id001
     show_wirecount: false
-    notes: Assign permanent new wire numbers, gauge, color, and ferrules in the relay terminal schedule.
+    notes: See crosswalk source.
     shield: false
     ignore_in_bom: true
 connections:

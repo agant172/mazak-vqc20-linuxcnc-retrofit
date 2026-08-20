@@ -16,14 +16,13 @@ connectors:
     pins:
     - 1
     pinlabels:
-    - wire 144 | THERMAL_ALARM_CHAIN | FIELD VERIFY
+    - 144 | THERMAL_ALARM_CHAIN | FV
     pincolors: &id001
     - YE
     hide_disconnected_pins: true
     show_pincount: false
     bgcolor_title: LB
-    notes: PRELIMINARY - NOT RELEASED FOR WIRING. Only Mesa route and candidate pins are shown; see the 320-row Plane A CSV
-      for complete pin accounting.
+    notes: Verify endpoint numbering against the card manual.
     ignore_in_bom: true
   IR_BOUNDARY:
     type: Required interposing-relay boundary
@@ -31,29 +30,28 @@ connectors:
     - F01
     - M01
     pinlabels:
-    - FIELD | THERMAL_ALARM_CHAIN
-    - MESA | THERMAL_ALARM_CHAIN
+    - F | THERMAL_ALARM_CHAIN
+    - M | THERMAL_ALARM_CHAIN
     pincolors:
     - YE
     - YE
     hide_disconnected_pins: true
     show_pincount: false
     bgcolor_title: YE
-    notes: PRELIMINARY - NOT RELEASED FOR WIRING. Fxx and Mxx are logical boundary identifiers, not purchased relay terminal
-      numbers. Specify coil/contact topology, suppression, voltage domain, and actual terminal IDs before release.
+    notes: Logical boundary placeholder; see crosswalk.
     ignore_in_bom: true
   7i84U-A_TB3:
     type: 7i84U-A TB3
     pins:
     - IN8
     pinlabels:
-    - IN8 | thermal-alarm | FIELD VERIFY
+    - IN8 | thermal-alarm | FV
     pincolors:
     - YE
     hide_disconnected_pins: true
     show_pincount: false
     bgcolor_title: LB
-    notes: Mesa terminal text is copied from the crosswalk; verify physical terminal numbering against the card manual.
+    notes: Verify endpoint numbering against the card manual.
     ignore_in_bom: true
 cables:
   OEM_CONDUCTORS:
@@ -63,7 +61,7 @@ cables:
     - 144 | THERMAL_ALARM_CHAIN
     colors: *id001
     show_wirecount: false
-    notes: Factory jacket identifier shown; length, gauge, and color are not asserted.
+    notes: See crosswalk source.
     shield: false
     ignore_in_bom: true
   NEW_CONTROL_WIRING:
@@ -73,7 +71,7 @@ cables:
     - THERMAL_ALARM_CHAIN | thermal-alarm
     colors: *id001
     show_wirecount: false
-    notes: Assign permanent new wire numbers, gauge, color, and ferrules in the relay terminal schedule.
+    notes: See crosswalk source.
     shield: false
     ignore_in_bom: true
 connections:
