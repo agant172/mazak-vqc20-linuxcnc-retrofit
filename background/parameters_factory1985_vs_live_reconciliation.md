@@ -11,15 +11,15 @@
 with the machine-specific values filled in by hand over the printed template.
 Rendered at 300 DPI from PDF pages 11-15 (printed pages 10-14).
 **Live source:** `docs/parameters_sn060231.md` — values photographed off the
-running M-2 CRT on 2026-07-28 (the ✓✓ values were zoom-verified).
+running M-2 CRT on 2025-08-28 (the ✓✓ values were zoom-verified).
 
 ---
 
 ## BLUF — do NOT use the factory sheet as current values
 
-The 1985 factory sheet **materially disagrees with the live 2026 machine** on
+The 1985 factory sheet **materially disagrees with the live machine** on
 ~18 of the Machine Constant No.2 parameters, including several that are
-safety- or motion-relevant. **`docs/parameters_sn060231.md` (the live 2026-07-28
+safety- or motion-relevant. **`docs/parameters_sn060231.md` (the live 2025-08-28
 photos) remains authoritative for the current machine.** This factory sheet is
 useful only as (a) a historical as-shipped baseline and (b) a source of a few
 parameters the live capture is still missing — and even those must be treated as
@@ -39,7 +39,7 @@ notes). "✗" marks a real disagreement.
 
 ### Soft limits (two boxes: main = corners 1/2, ATC area = corners 3/4)
 
-| Param | Factory 1985 | Live 2026-07-28 | |
+| Param | Factory 1985 | Live 2025-08-28 | |
 |---|---|---|---|
 | LX1 | 394 | 394 | ✓ |
 | LY1 | 394 | 394 | ✓ |
@@ -56,7 +56,7 @@ notes). "✗" marks a real disagreement.
 
 ### ATC 2nd zero point (RP)
 
-| Param | Factory 1985 | Live 2026-07-28 | |
+| Param | Factory 1985 | Live 2025-08-28 | |
 |---|---|---|---|
 | RP1 (X) | 0 | 0 | ✓ |
 | **RP2 (Y)** | **94488 (+9.4488 in)** | **95000 (+9.5000 in)** | ✗ 0.0512 in — ATC Y position |
@@ -65,7 +65,7 @@ notes). "✗" marks a real disagreement.
 
 ### Zero return / homing
 
-| Param | Factory 1985 | Live 2026-07-28 | |
+| Param | Factory 1985 | Live 2025-08-28 | |
 |---|---|---|---|
 | ZS1 | 148 | 0 | ✗ grid shift X |
 | ZS2 | 723 | 0 | ✗ grid shift Y |
@@ -79,7 +79,7 @@ notes). "✗" marks a real disagreement.
 
 ### Rapids, feeds, time constants
 
-| Param | Factory 1985 | Live 2026-07-28 | |
+| Param | Factory 1985 | Live 2025-08-28 | |
 |---|---|---|---|
 | **RF1 / RF2 / RF3** | **4724** | **4212** | ✗ rapid speed X/Y/Z |
 | RF4 | 0 | 4212 | ✗ (4th axis — likely n/a) |
@@ -94,7 +94,7 @@ notes). "✗" marks a real disagreement.
 
 ### Spindle gears + orient
 
-| Param | Factory 1985 | Live 2026-07-28 | |
+| Param | Factory 1985 | Live 2025-08-28 | |
 |---|---|---|---|
 | **GH4** (high-gear max rpm) | **4000** | **3488** | ✗ |
 | **GH3** (gear crossover rpm) | **946** | **434** | ✗ **HAL `gear-range.in1` uses 434 (live) — factory 946 would be wrong** |
@@ -110,7 +110,7 @@ notes). "✗" marks a real disagreement.
 
 ### Backlash + servo coefficient
 
-| Param | Factory 1985 | Live 2026-07-28 | |
+| Param | Factory 1985 | Live 2025-08-28 | |
 |---|---|---|---|
 | BL1 (G00 X) | 0 | 0 | ✓ |
 | **BL2 (G00 Y)** | **4** | **10** | ✗ |
@@ -167,7 +167,7 @@ Pitch Error Compensation (printed pages 12-14, one screen per axis X/Y/Z), each:
 
 ## Recommendation
 
-1. **Keep `docs/parameters_sn060231.md` (live 2026-07-28) as the sole source of
+1. **Keep `docs/parameters_sn060231.md` (live 2025-08-28) as the sole source of
    current Machine Constant No.2 values.** Do not overwrite any of it from this
    factory sheet.
 2. To close out the still-missing parameters (pitch comp, thermal, MP8–MPB,
