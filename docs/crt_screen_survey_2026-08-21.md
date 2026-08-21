@@ -32,8 +32,10 @@ whether the 2026-08-21 consolidation surfaced them — it did not.
 
 > **They can no longer be captured.** The M-2 NC computer is out of the machine as
 > of 2026-08-21, so those pages exist only in media already shot. The remaining
-> hunt is through **video**, not a machine visit — and the `Mazak` folder on
-> `/Volumes/USB Video Drive` is still unsearched.
+> hunt is through **video**, not a machine visit. `/Volumes/USB Video Drive` was
+> searched 2026-08-21 and **does not hold them** — see
+> [`usb_video_drive_search_2026-08-21.md`](usb_video_drive_search_2026-08-21.md).
+> The iPhone camera roll is the only place left.
 
 Also absent:
 
