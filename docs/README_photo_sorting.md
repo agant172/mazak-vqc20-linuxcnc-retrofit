@@ -6,29 +6,38 @@
 **The single scheme for this project.** Settled 2026-08-13 (owner). Two earlier
 folder lists are superseded — see [Migration](#migration) to find older material.
 
-**CORRECTED (2026-08-17):** the eight-folder Drive structure below was never
-populated (or moved) — a full search of the Drive account, by folder title and
-by API, found none of it; that Drive folder now holds only `Manuals_SN060231`.
-The actual raw photo history (Oct 2024–present, 200+ items) was tracked down to
-the account's default **Google Photos**, not Drive, collected into a shared
-album:
-[Mazak VQC-20 Retrofit — Control Cabinet Photos](https://photos.app.goo.gl/o59yC81mQhwYaVF68).
-That album isn't exhaustive or auto-updating — it was built from visual
-searches for "mazatrol" and "VQC-20", hand-filtered per date; re-run those
-searches periodically to sweep in newer shots. The citation format (rule 2)
-and folder taxonomy below remain the target scheme for whenever photos get
-sorted — they just don't describe where the photos currently live.
+**RESOLVED (2026-08-21):** the scheme below is now **real**. Drive
+`My Drive/Mazak` holds all 723 files in the eight-folder structure, sorted;
+`00_Inbox` is empty. Current layout, the `__dup2` collision convention and the
+UTC date caveat: [`photo_drive_layout_2026-08-21.md`](photo_drive_layout_2026-08-21.md).
+
+> **Superseded — CORRECTED (2026-08-17):** *"the eight-folder Drive structure
+> below was never populated (or moved) — a full search of the Drive account, by
+> folder title and by API, found none of it; that Drive folder now holds only
+> `Manuals_SN060231`. The actual raw photo history was tracked down to the
+> account's default Google Photos, not Drive."* True when written. The photos
+> were consolidated from the Photos library and OneDrive into Drive on
+> 2026-08-21, so the taxonomy now does describe where the photos live.
+
+**The Google Photos albums were folded into Drive and unshared on 2026-08-21.**
+Two existed — *Mazak VQC-20 Retrofit — Control Cabinet Photos* (256 items) and an
+undocumented second album *Mazak Cabinet* (64 items). Everything they held that was
+not already in Drive has been filed into the scheme; both are now private, so the
+old `photos.app.goo.gl` share link is dead. Drive is the sole authority. Details:
+[`photo_drive_layout_2026-08-21.md`](photo_drive_layout_2026-08-21.md).
 
 ## Three rules
 
-1. **No raw photos in the repo.** Current source of raw photos is
-   [Google Photos](https://photos.app.goo.gl/o59yC81mQhwYaVF68) (see correction
-   above), not the [Drive folder](https://drive.google.com/drive/folders/1YYpWPyWiRuoY2z5GACSDw6H3zzSQoVdf?usp=drive_link)
-   this scheme originally targeted. Any `photos/…` path in this repo means an
-   external photo store, not a directory on disk.
-2. **Cite photos as `YYYY-MM-DD/IMG_nnnn`.** Never bare `IMG_nnnn` — `IMG_0373`
+1. **No raw photos in the repo.** Raw photos live in the
+   [Drive folder](https://drive.google.com/drive/folders/1YYpWPyWiRuoY2z5GACSDw6H3zzSQoVdf?usp=drive_link)
+   this scheme targets, sorted as of 2026-08-21. Any `photos/…` path in this repo
+   means a Drive folder, not a directory on disk.
+2. **Cite photos as `YYYY-MM-DD/IMG_nnnn`, using the LOCAL date.** Never bare `IMG_nnnn` — `IMG_0373`
    is a Z-axis servo card in one batch and a CRT screen in another
-   ([`photo_survey_misc.md`](photo_survey_misc.md)). The date is what makes it unique.
+   ([`photo_survey_misc.md`](photo_survey_misc.md)). The date is what makes it unique —
+   but EXIF on this camera is **UTC**, and evening sessions cross UTC midnight, so a
+   raw EXIF date can name the wrong day. See
+   [`photo_drive_layout_2026-08-21.md`](photo_drive_layout_2026-08-21.md).
 3. **Keep the original filename.** Rename to
    `IMG_2065_spindle_motor_nameplate_2026-08-13.jpg` if you like, but don't drop
    the `IMG_nnnn`.
@@ -53,7 +62,12 @@ habit has repeatedly been the difference between a readable label and a guess.
 
 ## Migration
 
-Both older lists fold in as follows. Existing files stay findable until moved.
+> **Executed 2026-08-21.** All 723 files now live in the scheme below; `00_Inbox`
+> is empty. `Misc. Photos` never existed in Drive — that batch was in OneDrive, which
+> has since been cleared. Current layout, the `__dup2` collision convention and the
+> date caveat: [`photo_drive_layout_2026-08-21.md`](photo_drive_layout_2026-08-21.md).
+
+Both older lists folded in as follows.
 
 | Old folder | → |
 |---|---|
@@ -70,8 +84,11 @@ filename — update the citation in the same pass if you rename anything.
 
 ## Outstanding
 
-35 photo-ID rows are unfilled, so those documents' conclusions can't yet be
-checked against their sources:
+> **Backfilled 2026-08-21** — all 35 rows now carry camera IDs; see
+> [`photo_gap_mining_2026-08-21.md`](photo_gap_mining_2026-08-21.md). IDs marked
+> *(candidate)* match by subject and session but were not individually confirmed.
+
+The rows were:
 
 | Document | Rows |
 |---|---|

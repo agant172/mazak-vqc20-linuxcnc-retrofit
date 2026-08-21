@@ -485,36 +485,36 @@ physical device.
 
 | # | Subject | Camera ID |
 |---|---|---|
-| 1 | Terminal box open, `SU`/`SV`/`SW` splices held clear, encoder visible | _pending_ |
-| 2 | Wiring plate `889515-01` (P.L.G. pin table, OHS warning) | _pending_ |
-| 3 | Encoder nameplate close-up (`TS1526N55`, 512 c/t, ±15 V) | _pending_ |
-| 4 | `OHS1`/`OHS2` splices + Mitsubishi cap `No. A6022` | _pending_ |
-| 5 | Wide shot of the whole terminal box | _pending_ |
+| 1 | Terminal box open, `SU`/`SV`/`SW` splices held clear, encoder visible | `2026-08-12/IMG_0602__dup2` *(candidate)* |
+| 2 | Wiring plate `889515-01` (P.L.G. pin table, OHS warning) | `2026-08-12/IMG_0607__dup2` |
+| 3 | Encoder nameplate close-up (`TS1526N55`, 512 c/t, ±15 V) | `2026-08-12/IMG_0600__dup2` |
+| 4 | `OHS1`/`OHS2` splices + Mitsubishi cap `No. A6022` | `2026-08-12/IMG_0604__dup2` |
+| 5 | Wide shot of the whole terminal box | `2026-08-12/IMG_0603__dup2` *(candidate)* |
 
 **Batch 2 — motor in situ on the head (2026-08-12):**
 
 | # | Subject | Camera ID |
 |---|---|---|
-| 6 | Whole motor on the head: terminal box → blower → motor body → drive end | _pending_ |
-| 7 | Same view closer; motor nameplate incl. `CONTROLLER TYPE FR-SX` | _pending_ |
-| 8 | Looking down into the terminal box from above, encoder centred | _pending_ |
-| 9 | Wider context — head, lube manifold, ATC area | _pending_ |
+| 6 | Whole motor on the head: terminal box → blower → motor body → drive end | `2026-08-12/IMG_0610__dup2` *(candidate)* |
+| 7 | Same view closer; motor nameplate incl. `CONTROLLER TYPE FR-SX` | `2026-08-12/IMG_0615__dup2` |
+| 8 | Looking down into the terminal box from above, encoder centred | `2026-08-12/IMG_0611__dup2` *(candidate)* |
+| 9 | Wider context — head, lube manifold, ATC area | `2026-08-12/IMG_0612__dup2` *(candidate)* |
 
 **Batch 3 — wide context + legible nameplate (2026-08-12):**
 
 | # | Subject | Camera ID |
 |---|---|---|
-| 10 | Head from the front, splash-guard open; device legend placard visible | _pending_ |
-| 11 | Same view closer — hydraulics, lube pump, gearbox casting, placard | _pending_ |
-| 12 | **Motor nameplate, sharp and fully legible** (`SE-EV-FV`, ratings, Klixon, blower) | _pending_ |
-| 13 | Motor nameplate in context below the blower | _pending_ |
-| 14 | Wiring plate `889515-01` re-shot, sharper than batch 1 | _pending_ |
+| 10 | Head from the front, splash-guard open; device legend placard visible | `2026-08-12/IMG_0617__dup2` *(candidate)* |
+| 11 | Same view closer — hydraulics, lube pump, gearbox casting, placard | `2026-08-12/IMG_0619__dup2` *(candidate)* |
+| 12 | **Motor nameplate, sharp and fully legible** (`SE-EV-FV`, ratings, Klixon, blower) | `2026-08-12/IMG_0616__dup2` |
+| 13 | Motor nameplate in context below the blower | `2026-08-12/IMG_0615__dup2` |
+| 14 | Wiring plate `889515-01` re-shot, sharper than batch 1 | `2026-08-12/IMG_0614__dup2` |
 
 **Batch 4 — device placard close-up (2026-08-12):**
 
 | # | Subject | Camera ID |
 |---|---|---|
-| 15 | **Head device placard, sharp** — dwg `24136209710`; transcribed in [`../wiring/head_device_placard.md`](../wiring/head_device_placard.md) | _pending_ |
+| 15 | **Head device placard, sharp** — dwg `24136209710`; transcribed in [`../wiring/head_device_placard.md`](../wiring/head_device_placard.md) | `2026-08-12/IMG_0631` |
 
 ---
 
