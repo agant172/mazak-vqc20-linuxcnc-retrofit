@@ -28,7 +28,14 @@ frame's page-title line and reading them in bulk. Every screen is now identified
 **`MACH CONSTANT PAR NO.1` and `PAR NO.3` do not exist anywhere in the photo set.**
 This confirms the "Not yet captured" list in
 [`parameters_sn060231.md`](parameters_sn060231.md) and settles the question of
-whether the 2026-08-21 consolidation surfaced them — it did not. Also absent:
+whether the 2026-08-21 consolidation surfaced them — it did not.
+
+> **They can no longer be captured.** The M-2 NC computer is out of the machine as
+> of 2026-08-21, so those pages exist only in media already shot. The remaining
+> hunt is through **video**, not a machine visit — and the `Mazak` folder on
+> `/Volumes/USB Video Drive` is still unsearched.
+
+Also absent:
 
 - any FR-SX drive parameter page,
 - any gear-ratio parameter,
@@ -74,14 +81,20 @@ ratios, and only the high-gear factory figure lands on a clean number. Treat the
 
 ## The cheap test that would settle it
 
+> **The M-2 NC computer has been removed from the machine (2026-08-21).** No screen
+> can be re-shot, and nothing can be commanded from the control. Any test has to be
+> mechanical or drive-side. See `m2-nc-computer-removed` in the memory store.
+
 The PLG is **512 counts/turn on the motor shaft**
-(`2026-08-12/IMG_0600__dup2`, `TS1526N55`).
+(`2026-08-12/IMG_0600__dup2`, `TS1526N55`) and is independent of the NC.
 
-> Command a known spindle rpm in high gear, read motor rpm off the PLG, divide.
+> **Rotate the spindle by hand through one full revolution and count PLG edges.**
+> Edges ÷ 512 = motor turns per spindle turn = the gear ratio, per gear range.
 
-The ratio falls out directly, non-invasively, from hardware already identified and
-wired — cheaper than a tooth count or an FR-SX parameter dump, and it yields the
-spindle scaling factor the retrofit needs.
+This needs no control, no drive command and no power beyond whatever reads the
+encoder — a scope or a counter on the PLG output is enough. It settles the ratio,
+and therefore the spindle scaling factor, directly. Do it once in each gear range
+to get both ratios and confirm the ~8:1 spread implied by `GH3`/`GH4`.
 
 ## Incidental
 

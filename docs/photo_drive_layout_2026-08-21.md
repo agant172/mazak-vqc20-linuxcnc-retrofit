@@ -61,15 +61,22 @@ the plain-named file of the same number is an unrelated older frame.
 ### 2. Dates are LOCAL. EXIF is UTC, and sessions cross midnight
 
 `README_photo_sorting.md` rule 2 says "the date is what makes it unique". That is
-not currently safe. This camera stamps EXIF in **UTC**, and the 2026-08-12 evening
-session straddles UTC midnight:
+not currently safe — but the reason is the *reader*, not the camera.
 
-| File | EXIF (UTC) | Local (MDT) |
+EXIF `DateTimeOriginal` is **local time** and is correct. macOS Spotlight
+(`mdls -name kMDItemContentCreationDate`) normalises to **UTC**, and the 2026-08-12
+evening session straddles UTC midnight, so any tool reading the Spotlight value
+reports the wrong day for the later frames:
+
+| File | Spotlight (UTC) | EXIF `DateTimeOriginal` (local, authoritative) |
 |---|---|---|
 | `IMG_0616__dup2` | 2026-08-12 23:38 | 2026-08-12 17:38 |
 | `IMG_0631` | 2026-08-12 23:58 | 2026-08-12 17:58 |
 | `IMG_0632` | 2026-08-13 00:15 | **2026-08-12** 18:15 |
 | `IMG_0645` | 2026-08-13 00:30 | **2026-08-12** 18:30 |
+
+**Read EXIF, not Spotlight.** All dates in the 2026-08-21 survey documents were
+verified against EXIF `DateTimeOriginal`.
 
 One continuous session therefore reads as two dates depending on timezone. This is
 why [`../wiring/head_valve_hardware.md`](../wiring/head_valve_hardware.md) says

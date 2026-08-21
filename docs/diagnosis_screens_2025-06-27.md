@@ -96,15 +96,26 @@ VERSION
   `IMG_0017` read `200:D` and `ENG1E`; the two clean frames both show **`200:B`** and
   **`ENG:F`**, which supersede that.
 
-## Suggested follow-up
+## Follow-up — no longer possible at the machine
 
-If the control still boots, one visit captures what these frames do not:
+> **The M-2 NC computer was removed from the machine on 2026-08-21.** The CRT cannot
+> be powered up again, so none of the below can be re-shot. Recorded here as what
+> was lost, and as the shopping list for any surviving footage.
 
-1. On the DIAGNOSIS page, step `ADDR +` through the I/O CHECK range and photograph
-   each populated screen — that is the live input/output map.
-2. Capture the servo pane with the axes energised (`DROOP`/`GRID`/`GAIN`/`PHASE`
-   per axis).
-3. While there, `PREVIOUS/NEXT PAGE` to **MACH CONSTANT PAR NO.1 and NO.3** — still
-   absent from the entire photo set, and the only remaining source for the
-   pitch-error, thermal-comp and `MP8`–`MPB` linear-scale gains (the last of which
-   would settle the Y-axis Magnescale question).
+What a live control would have given, and now cannot:
+
+1. The **live I/O map** — stepping `ADDR +` through the I/O CHECK range. These four
+   frames show the empty template only.
+2. The **servo pane** with axes energised (`DROOP`/`GRID`/`GAIN`/`PHASE`). `GRID` is
+   the reference-mark/grid-shift figure that governs homing repeatability on the
+   retrofit; all sixteen cells here are blank.
+3. **MACH CONSTANT PAR NO.1 and NO.3** — the only source for pitch-error, thermal
+   comp and the `MP8`–`MPB` linear-scale gains, the last of which would settle the
+   Y-axis Magnescale question.
+
+**Where to look instead.** Andy recalls filming all the M-2 parameter screens as a
+record. That video has not been found on either Mac, in Drive, in OneDrive or in
+the Photos libraries. Still unsearched: the `Mazak` folder on
+`/Volumes/USB Video Drive` (~48 clips, 2025-10-16 → 2026-01-27) and the iPhone
+camera roll. The M-2 CRT session window is **2025-06-28 → 2025-10-17**, so any such
+video dates from there.
