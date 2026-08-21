@@ -72,9 +72,17 @@ records `RT-5X8-1?` read **by eye at the machine** on both X and Y, with the sta
 described as faded and "ink too faded to photograph". The boxes photographing as
 clean-empty is consistent with that description — faded stamps, not blank plates.
 
+**Settled 2026-08-21 (owner).** The stamps are not recoverable at all: **coolant
+has faded the ink used to populate the boxes**, and magnification has been tried to
+exhaustion both on the machine and on these photographs. So the boxes really are
+empty *as imaged* — my observation was sound, my inference from it was not. The
+cause is lost ink, not an unstamped plate, and the practical consequence is the
+same either way: **no further photography will recover the TYPE suffix.** The
+re-shoot item is closed; the Tamagawa datasheet is the only remaining route.
+
 What the photographs *do* corroborate: the faint `…6?86` in the SER NO. box of
 `2026-08-15/IMG_0671` matches the survey's `A6986`, identifying that frame as the
-**Y** pickup. The re-shoot item in that document's checklist stands.
+**Y** pickup.
 
 ---
 

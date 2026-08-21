@@ -131,8 +131,15 @@ depends on it.
   failed on the tacho connector 2026-08-15). The Z pickup's own MS connector
   is inaccessible without pulling the spindle — do NOT pull the spindle for
   this; the CNA5 end is electrically equivalent.
-- [ ] Re-read the faded type stamps (`RT-…`) and the E-suffix digits on X/Y,
-  or obtain the `TS2014N25E…` datasheet from Tamagawa and reconcile.
+- [x] ~~Re-read the faded type stamps (`RT-…`) and the E-suffix digits on X/Y~~
+  **Closed 2026-08-21 (owner).** The stamps are **not recoverable**: coolant has
+  faded the ink used to populate the boxes. Magnification and contrast work have
+  both been tried, on the machine and on the 2026-08-15 photographs — the boxes
+  photograph clean-empty because the ink is gone, not because the plates were
+  left blank. **Do not re-shoot these plates.** The devices are identified by
+  the printed spec number `BKO-NC6062A`, which is crisp.
+- [ ] Obtain the `TS2014N25E…` datasheet from Tamagawa and reconcile — now the
+  **only** remaining route to the exact suffix.
 - [ ] Until the exact suffix datasheet is in hand, treat excitation level,
   K, and the 5 kHz choice as **assumptions to verify by scope** at the
   excitation-and-return step — which `resolver_commissioning.md` already

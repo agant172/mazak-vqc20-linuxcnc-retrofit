@@ -19,10 +19,12 @@ UTC date caveat: [`photo_drive_layout_2026-08-21.md`](photo_drive_layout_2026-08
 > were consolidated from the Photos library and OneDrive into Drive on
 > 2026-08-21, so the taxonomy now does describe where the photos live.
 
-The Google Photos album
-[Mazak VQC-20 Retrofit — Control Cabinet Photos](https://photos.app.goo.gl/o59yC81mQhwYaVF68)
-still exists and is neither exhaustive nor auto-updating. Drive is now the
-authority; treat the album as a convenience view only.
+**The Google Photos albums were folded into Drive and unshared on 2026-08-21.**
+Two existed — *Mazak VQC-20 Retrofit — Control Cabinet Photos* (256 items) and an
+undocumented second album *Mazak Cabinet* (64 items). Everything they held that was
+not already in Drive has been filed into the scheme; both are now private, so the
+old `photos.app.goo.gl` share link is dead. Drive is the sole authority. Details:
+[`photo_drive_layout_2026-08-21.md`](photo_drive_layout_2026-08-21.md).
 
 ## Three rules
 
