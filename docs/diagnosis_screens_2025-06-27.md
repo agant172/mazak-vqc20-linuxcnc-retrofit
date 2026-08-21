@@ -115,7 +115,11 @@ What a live control would have given, and now cannot:
 
 **Where to look instead.** Andy recalls filming all the M-2 parameter screens as a
 record. That video has not been found on either Mac, in Drive, in OneDrive or in
-the Photos libraries. Still unsearched: the `Mazak` folder on
-`/Volumes/USB Video Drive` (~48 clips, 2025-10-16 → 2026-01-27) and the iPhone
-camera roll. The M-2 CRT session window is **2025-06-28 → 2025-10-17**, so any such
-video dates from there.
+the Photos libraries. `/Volumes/USB Video Drive` was searched 2026-08-21 and
+**does not hold it either** — of 49 clips in `Equipment & Machine Tools/Mazak`,
+48 are ~2-second Live Photo motion components and the only real video is a
+27-second borescope clip. See
+[`usb_video_drive_search_2026-08-21.md`](usb_video_drive_search_2026-08-21.md).
+
+**The iPhone camera roll is the only place left.** The M-2 CRT session window is
+**2025-06-28 → 2025-10-17**, so any such video dates from there.
