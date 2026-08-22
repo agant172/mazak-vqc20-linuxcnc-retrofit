@@ -1,0 +1,61 @@
+#!/usr/bin/env bash
+# mazak-watchdog — turn Mesa reachability probing on and off.
+#
+# The Mesa host is a desktop that gets powered down deliberately. With the
+# watchdog on, an intentional shutdown looks identical to a hardware fault:
+# 100% packet loss every 5 minutes, forever. Turning it off records the
+# machine as "not watched" (ping_ok: null) rather than "unreachable".
+#
+#   mazak-watchdog off      stop probing (machine is off / not in use)
+#   mazak-watchdog on       resume probing
+#   mazak-watchdog status   show current state, exit 0 if on, 1 if off
+#
+# Works by touching a flag file, so it needs no root and no daemon-reload,
+# and it takes effect on the collector's next run (within 5 minutes).
+# The flag file lives outside the repo checkout on purpose — the collector
+# runs `git add -A`, and a flag inside the repo would be committed and then
+# propagated to every other checkout.
+
+set -euo pipefail
+
+FLAG="${MESA_WATCHDOG_FLAG:-${XDG_CONFIG_HOME:-$HOME/.config}/mazak-status/watchdog-off}"
+
+usage() {
+  sed -n '2,18p' "$0" | sed 's/^# \{0,1\}//'
+  exit "${1:-0}"
+}
+
+case "${1:-status}" in
+  off|disable|stop)
+    mkdir -p "$(dirname "$FLAG")"
+    printf '%s disabled via mazak-watchdog by %s\n' \
+      "$(date -Is)" "${USER:-$(id -un)}" > "$FLAG"
+    echo "watchdog OFF — Mesa probing paused (flag: $FLAG)"
+    echo "collector picks this up on its next run, within 5 minutes."
+    ;;
+  on|enable|start)
+    rm -f "$FLAG"
+    echo "watchdog ON — Mesa probing resumed."
+    echo "collector picks this up on its next run, within 5 minutes."
+    ;;
+  status)
+    if [ -e "$FLAG" ]; then
+      echo "watchdog OFF"
+      echo "  flag:   $FLAG"
+      echo "  set:    $(cat "$FLAG" 2>/dev/null || echo unknown)"
+      exit 1
+    fi
+    echo "watchdog ON"
+    echo "  no flag file at $FLAG"
+    if [ -n "${MESA_WATCHDOG:-}" ]; then
+      echo "  note: MESA_WATCHDOG=${MESA_WATCHDOG} is set in this shell;"
+      echo "        the collector reads it from the systemd unit, not from here."
+    fi
+    exit 0
+    ;;
+  -h|--help|help) usage 0 ;;
+  *)
+    echo "unknown argument: $1" >&2
+    usage 1 >&2
+    ;;
+esac

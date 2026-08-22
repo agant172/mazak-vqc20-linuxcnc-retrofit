@@ -1,0 +1,15 @@
+[Unit]
+Description=Fast-forward the Mazak retrofit working copy every 15 minutes
+
+[Timer]
+# Fixed wall-clock grid, offset from the :00/:05/:10 status-collector grid so
+# the two never contend for the network at the same instant: :07 :22 :37 :52.
+OnCalendar=*:07/15
+# Catch up once after a boot or a long power-off instead of waiting for the
+# next grid slot.
+OnBootSec=3min
+Persistent=true
+AccuracySec=30s
+
+[Install]
+WantedBy=timers.target

@@ -1,0 +1,33 @@
+[Unit]
+Description=Run Mazak status collector every 5 minutes
+
+[Timer]
+# Fire on a fixed wall-clock grid: :00, :05, :10, ... every hour.
+#
+# This replaces OnUnitActiveSec=5min, which schedules relative to the unit's
+# own activation rather than the clock, so each cycle became
+# 5min + however long the collector took to run. Measured over 2355 intervals
+# of real data: mean 309.9s, with 2295 of them at exactly 310s. That cost
+# ~9 samples a day (279 instead of 288) and walked the sample times steadily
+# across the clock — the first snapshot of each day drifted 00:00 -> 00:04
+# and wrapped.
+#
+# OnCalendar is absolute, so the drift cannot accumulate no matter how long
+# a run takes.
+OnCalendar=*:0/5
+
+# Still take one sample shortly after boot rather than waiting for the grid.
+OnBootSec=90s
+
+# 15s of slack lets systemd batch wakeups, which matters on an RT host.
+# Well inside the 5-minute grid, and the snapshot path is minute-resolution,
+# so this cannot collide two runs into one filename.
+AccuracySec=15s
+
+# Catch up a run missed while the machine was powered down.
+Persistent=true
+
+Unit=mazak-status.service
+
+[Install]
+WantedBy=timers.target

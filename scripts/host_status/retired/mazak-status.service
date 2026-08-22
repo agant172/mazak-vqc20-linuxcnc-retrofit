@@ -1,0 +1,27 @@
+[Unit]
+Description=Mazak VQC 20/40 LinuxCNC status collector
+Wants=network-online.target
+After=network-online.target NetworkManager.service tailscaled.service
+
+[Service]
+Type=oneshot
+User=andy
+Group=andy
+Environment=HOME=/home/andy
+Environment=STATUS_REPO_DIR=/home/andy/mazak-vqc20-status
+Environment=MESA_IP=192.168.1.121
+Environment=DASH_PORT=8765
+Environment=CFG_DIR=/home/andy/linuxcnc/configs/mazak-vqc20-linuxcnc-retrofit/linuxcnc
+# Mesa reachability probing. Leave this on; pause it at runtime with
+#   mazak-watchdog off     (creates the flag file below, no reload needed)
+# The flag file wins over this setting, so the switch works without editing
+# the unit. With the watchdog off, snapshots record ping_ok: null — "not
+# watched" — instead of reporting an intentional shutdown as a hard fault.
+Environment=MESA_WATCHDOG=on
+Environment=MESA_WATCHDOG_FLAG=/home/andy/.config/mazak-status/watchdog-off
+Environment=GIT_SSH_COMMAND=ssh -i /home/andy/.ssh/mazak_status_deploy -o IdentitiesOnly=yes -o StrictHostKeyChecking=accept-new
+ExecStart=/usr/local/bin/mazak-status.sh
+StandardOutput=append:/home/andy/mazak-vqc20-status/log/collector.out.log
+StandardError=append:/home/andy/mazak-vqc20-status/log/collector.err.log
+TimeoutStartSec=90
+Nice=10
