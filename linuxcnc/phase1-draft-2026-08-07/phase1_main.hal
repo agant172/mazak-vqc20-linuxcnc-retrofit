@@ -1,0 +1,148 @@
+# ============================================================================
+# Mazak VQC 20/40 - PHASE 1 main HAL  (motion + analog + E-stop)
+# ----------------------------------------------------------------------------
+# PLACEHOLDER PIN NAMES: every hm2_7i80.0.* name is unverified. After the first
+# hm2_eth load, run `halcmd show pin hm2` and replace names that differ.
+# Loads ONLY what's needed to jog X/Y/Z safely. Spindle/ATC/coolant are NOT here.
+# ============================================================================
+
+loadrt trivkins coordinates=XYZ
+loadrt [EMCMOT]EMCMOT base_period_nsec=0 servo_period_nsec=[EMCMOT]SERVO_PERIOD num_joints=[KINS]JOINTS
+
+loadrt hostmot2
+# 3 resolvers (X/Y/Z on 7i49 RES0/1/2), 3 analog outs (X/Z/Y on AOUT0/1/2),
+# 2 sserial remotes (7i84U-A ch0 + 7i84U-B ch1). No encoders/stepgens in Phase 1.
+loadrt hm2_eth board_ip="192.168.1.121" config="num_encoders=0 num_resolvers=3 num_pwmgens=3 num_stepgens=0 sserial_port_0=00xxxxxx"
+
+loadrt pid names=pid.x,pid.y,pid.z
+loadrt estop-latch
+
+addf hm2_7i80.0.read        servo-thread
+addf motion-command-handler servo-thread
+addf motion-controller      servo-thread
+addf pid.x.do-pid-calcs     servo-thread
+addf pid.y.do-pid-calcs     servo-thread
+addf pid.z.do-pid-calcs     servo-thread
+addf estop-latch.0          servo-thread
+addf hm2_7i80.0.write       servo-thread
+
+# ---------------------------------------------------------------------------
+# Resolver feedback (7i49).  excitation-khz is GLOBAL (one setting for all).
+# ---------------------------------------------------------------------------
+setp hm2_7i80.0.resolver.excitation-khz 5
+setp hm2_7i80.0.resolver.00.scale 1
+setp hm2_7i80.0.resolver.01.scale 1
+setp hm2_7i80.0.resolver.02.scale 1
+
+net x-pos-fb <= hm2_7i80.0.resolver.00.position
+net x-pos-fb => joint.0.motor-pos-fb
+net y-pos-fb <= hm2_7i80.0.resolver.01.position
+net y-pos-fb => joint.1.motor-pos-fb
+net z-pos-fb <= hm2_7i80.0.resolver.02.position
+net z-pos-fb => joint.2.motor-pos-fb
+
+# ---------------------------------------------------------------------------
+# Analog velocity commands (7i49 AOUT via pwmgen).  X=AOUT0, Z=AOUT1, Y=AOUT2.
+# output-type 2 = Up/Down DAC mode (required by 7i49).  scale = OUTPUT_SCALE.
+# POLARITY IS UNVERIFIED - a reversed command = runaway. Verify with the drive
+# disabled before you let an axis move (see the first-move check).
+# ---------------------------------------------------------------------------
+setp hm2_7i80.0.pwmgen.pwm_frequency 20000
+setp hm2_7i80.0.pwmgen.00.output-type 2
+setp hm2_7i80.0.pwmgen.00.scale [JOINT_0]OUTPUT_SCALE
+setp hm2_7i80.0.pwmgen.01.output-type 2
+setp hm2_7i80.0.pwmgen.01.scale [JOINT_2]OUTPUT_SCALE
+setp hm2_7i80.0.pwmgen.02.output-type 2
+setp hm2_7i80.0.pwmgen.02.scale [JOINT_1]OUTPUT_SCALE
+
+# X (pwmgen.00)
+net x-pos-cmd <= joint.0.motor-pos-cmd
+net x-pos-cmd => pid.x.command
+net x-pos-fb  => pid.x.feedback
+net x-vel-cmd <= pid.x.output
+net x-vel-cmd => hm2_7i80.0.pwmgen.00.value
+# Y (pwmgen.02)
+net y-pos-cmd <= joint.1.motor-pos-cmd
+net y-pos-cmd => pid.y.command
+net y-pos-fb  => pid.y.feedback
+net y-vel-cmd <= pid.y.output
+net y-vel-cmd => hm2_7i80.0.pwmgen.02.value
+# Z (pwmgen.01)
+net z-pos-cmd <= joint.2.motor-pos-cmd
+net z-pos-cmd => pid.z.command
+net z-pos-fb  => pid.z.feedback
+net z-vel-cmd <= pid.z.output
+net z-vel-cmd => hm2_7i80.0.pwmgen.01.value
+
+# ---------------------------------------------------------------------------
+# Drive enables - follow machine-on/estop via joint.N.amp-enable-out.
+# Same net enables the analog channel AND the physical S-ON output (in field HAL).
+# ---------------------------------------------------------------------------
+net x-enable <= joint.0.amp-enable-out
+net x-enable => hm2_7i80.0.pwmgen.00.enable
+net y-enable <= joint.1.amp-enable-out
+net y-enable => hm2_7i80.0.pwmgen.02.enable
+net z-enable <= joint.2.amp-enable-out
+net z-enable => hm2_7i80.0.pwmgen.01.enable
+
+# ---------------------------------------------------------------------------
+# PID gains from the INI (all 0 = axis holds until you tune - intentional).
+# ---------------------------------------------------------------------------
+setp pid.x.maxoutput [JOINT_0]MAX_OUTPUT
+setp pid.x.maxerror  [JOINT_0]MAX_ERROR
+setp pid.x.error-previous-target true
+setp pid.x.P [JOINT_0]P
+setp pid.x.I [JOINT_0]I
+setp pid.x.D [JOINT_0]D
+setp pid.x.FF0 [JOINT_0]FF0
+setp pid.x.FF1 [JOINT_0]FF1
+setp pid.x.FF2 [JOINT_0]FF2
+setp pid.y.maxoutput [JOINT_1]MAX_OUTPUT
+setp pid.y.maxerror  [JOINT_1]MAX_ERROR
+setp pid.y.error-previous-target true
+setp pid.y.P [JOINT_1]P
+setp pid.y.I [JOINT_1]I
+setp pid.y.D [JOINT_1]D
+setp pid.y.FF0 [JOINT_1]FF0
+setp pid.y.FF1 [JOINT_1]FF1
+setp pid.y.FF2 [JOINT_1]FF2
+setp pid.z.maxoutput [JOINT_2]MAX_OUTPUT
+setp pid.z.maxerror  [JOINT_2]MAX_ERROR
+setp pid.z.error-previous-target true
+setp pid.z.P [JOINT_2]P
+setp pid.z.I [JOINT_2]I
+setp pid.z.D [JOINT_2]D
+setp pid.z.FF0 [JOINT_2]FF0
+setp pid.z.FF1 [JOINT_2]FF1
+setp pid.z.FF2 [JOINT_2]FF2
+
+# ---------------------------------------------------------------------------
+# E-stop chain (software MONITOR of the real hardware chain).
+#   ok-in    <- OEM E-stop chain healthy (7i84U-A IN29, in field HAL)
+#   fault-in <- HostMot2 Ethernet watchdog bite  (link lost -> estop)
+#   reset    <- machine-on / reset button
+#   ok-out   -> iocontrol enable
+# The HARDWARE chain must still drop drive power independently. This is monitor
+# only - it does not replace the physical E-stop.
+# ---------------------------------------------------------------------------
+net estop-reset <= iocontrol.0.user-request-enable
+net estop-reset => estop-latch.0.reset
+net estop-ok    <= estop-latch.0.ok-out
+net estop-ok    => iocontrol.0.emc-enable-in
+net wd-fault    <= hm2_7i80.0.watchdog.has_bit
+net wd-fault    => estop-latch.0.fault-in
+# (estop-latch.0.ok-in is wired from the field E-stop monitor in phase1_field.hal)
+
+# ---------------------------------------------------------------------------
+# Tool change loopback - manual tool swaps; keeps M6 from hanging.
+# ---------------------------------------------------------------------------
+net tool-prep-loop   iocontrol.0.tool-prepare => iocontrol.0.tool-prepared
+net tool-change-loop iocontrol.0.tool-change  => iocontrol.0.tool-changed
+
+# ===========================================================================
+# PHASE 2 (add later, one block at a time - none of this is needed to jog):
+#   * Spindle:  add pid.s / a 4th pwmgen (AOUT3) + spindle.0.speed-out, FWD/REV
+#   * Field I/O: coolant, air, magazine, gear shift  -> more 7i84U output nets
+#   * ATC:      load atc_orient.hal + the M6 remap in the INI
+# Each is a few lines. The machine cuts metal long before you need any of them.
+# ===========================================================================
