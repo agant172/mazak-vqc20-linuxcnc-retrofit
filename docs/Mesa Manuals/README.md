@@ -14,7 +14,11 @@ This folder is restricted to hardware in the selected retrofit stack.
   analog-output, enable, GND, and shield terminal assignments. Retrieved
   2026-08-18 from <https://www.mesanet.com/pdf/motion/7i49man.pdf> (17 pp,
   sha256 `fb0de2df2731d4ae3f2f2c19a54b776267e3b73b09535b7ed2c7515bfc84ceb9`).
-- Mesa 7i44 manual: <https://www.mesanet.com/pdf/parallel/7i44man.pdf>
+- `7i44man.pdf` - local copy of the Mesa 7i44 manual used for the RJ45
+  smart-serial pinout, the W1 cable/aux 5V power selection, and the PTC
+  limits on RJ45 5V supplied to remote devices. Retrieved 2026-08-21 from
+  <http://www.mesanet.com/pdf/parallel/7i44man.pdf> (11 pp, V1.1,
+  sha256 `bb65503e38e2b0627e5d1cde07f318e4480d5d1b0bfeb7dfdd3567c85f01b7a3`).
 - Mesa 7i80HDT product page:
   <https://store.mesanet.com/index.php?product_id=386&route=product/product>
 
