@@ -7,6 +7,10 @@ Thumbs.db
 # iMac, and the OptiPlex, and the paths and toolchains differ on each.
 .vscode/
 
+# Per-machine Claude Code settings (permissions, model, etc). .claude/skills/
+# is tracked on purpose — only local settings.json is excluded.
+.claude/settings.json
+
 # Python bytecode (io-dashboard/tools)
 __pycache__/
 *.pyc
