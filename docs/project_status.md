@@ -302,16 +302,20 @@ In this order. Pole count gates scaling, so it comes before any scale is entered
 
 Both are pure document work and both bear on decisions already in the BOM.
 
-- [x] **Settle plain 7i49 vs 7i49HV — DONE 2026-08-17. It is a `7i49HV`.** The sister
-  VQC 15/40's own purchased-parts table lists **`7i49HV`, $184.00** (`vqc-retrofit-wiring-sheet2.ods`,
-  Sheet3 row 4, ticked `x`). The "plain 7i49" reading came from **comments** in
-  `MAZAK-VQC1540.ini:138` / `.hal:28`, which cannot settle it: both cards expose identical
-  `hm2_*.resolver.NN.*` pins, so no HAL/INI can record which card was bought. `bom/` and the
-  stack table are updated; the later pass was right and the original claim was wrong.
-  Full write-up and citations: [`../bom/README.md`](../bom/README.md#which-7i49-the-sister-machine-actually-runs--settled-2026-08-17).
-  - **Also corrected:** that same sentence said the sister runs "at 5 kHz". It runs
-    **2.5 kHz** (`MAZAK-VQC1540.ini:176`, applied live at `.hal:117`). Our plan still says
-    5 kHz "verify on scope" — that is now an unanchored choice, not one the sister corroborates.
+- [x] **Settle plain 7i49 vs 7i49HV — DONE 2026-08-22 (owner). It is a plain `7i49`.**
+  The sister VQC 15/40's committed config names `7i49` in both INI and HAL
+  (`MAZAK-VQC1540.ini:138`, `.hal:28`) with no "HV" anywhere in that repository. A
+  purchased-parts spreadsheet in the same repo (`vqc-retrofit-wiring-sheet2.ods`,
+  Sheet3 row 4) had briefly been read as `7i49HV` on 2026-08-17, on the theory that
+  HAL/INI comments can't settle it since both cards expose identical
+  `hm2_*.resolver.NN.*` pins. Owner confirmation on 2026-08-22 settles it the other
+  way: the config comments were right, and the `.ods` row was either misread or does
+  not reflect what was actually installed. `bom/` and the stack table are updated.
+  Full write-up: [`../bom/README.md`](../bom/README.md#which-7i49-the-sister-machine-actually-runs--settled-2026-08-22-owner-superseding-2026-08-17).
+  - **Also corrected on 2026-08-17, still stands:** the sister runs
+    **2.5 kHz, not 5 kHz** (`MAZAK-VQC1540.ini:176`, applied live at `.hal:117`). Our
+    plan still says 5 kHz "verify on scope" — that is an unanchored choice, not one the
+    sister corroborates.
   - **Small follow-up, does not block ordering:** get `7i49man.pdf` into
     `docs/Mesa Manuals/` to confirm Mesa's "2:1" vs "1:2" direction convention.
     `freeby.mesanet.com` served an expired certificate on 2026-08-17.

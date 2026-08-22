@@ -348,6 +348,20 @@ candidate lead, so the resolver null repeats within a screw turn and cannot
 identify a unique position. **Switch-based homing stays mandatory**, and the
 sibling machine likewise sets `HOME_USE_INDEX = NO`.
 
+**The 1:1 coupling is confirmed from the parts list, not assumed.** The OEM parts
+list (`VQC20-40_060231_Parts_List.pdf`, X/Y/Z drive assemblies) lists, immediately
+adjacent to each resolver entry:
+
+```
+Coupling   ARM-100-φ9.52-φ9.52   (MIKI PULLEY)
+Resolver   RT-5XA-11 (MITSUBISHI)
+```
+
+Equal bores both ends — a flexible coupling, **no reduction between ballscrew and
+resolver**. That closes the last mechanical assumption in the derived scale. The
+same pages confirm **RT-5XA-11 on all three axis drive assemblies**, which until
+now rested on the electrical diagram and the nameplates.
+
 **Evidence state: `PROPOSED`.** This is a documentary derivation plus a
 third-party config, not a measurement on this machine. Test 1 below is now a
 **verification with a pre-committed prediction**: per full screw revolution,
@@ -453,14 +467,17 @@ accuracy is affected outside it. This is an **accuracy and calibration issue, no
 a damage risk** — it appears as a phase-shift and amplitude-scale offset to be
 calibrated, not assumed away.
 
-**The sibling machine does not validate 5 kHz — it runs 2.5 kHz, on a 7i49HV.**
+**The sibling machine does not validate 5 kHz — it runs 2.5 kHz, on a plain 7i49.**
 Its committed config sets `[AXES] RESOLVER_EXC_FREQ = 2.5`, applied live
-(`MAZAK-VQC1540.ini:176`, `.hal:117`), on the same original Tamagawa resolvers —
-and its purchased-parts table lists a **`7i49HV`**, not the plain card (settled
-2026-08-17, [`../bom/README.md`](../bom/README.md#which-7i49-the-sister-machine-actually-runs--settled-2026-08-17)).
-The forum thread's "plain 7i49 at 5 kHz" description matches neither record. So
-5 kHz is an unanchored choice, not a known-good compromise: treat 2.5 kHz as a
-live alternative, and measure amplitude and phase at both before committing.
+(`MAZAK-VQC1540.ini:176`, `.hal:117`), on the same original Tamagawa resolvers, and
+its own INI/HAL comments name a plain `7i49` with no "HV" anywhere in that
+repository — confirmed by owner 2026-08-22 after a purchased-parts spreadsheet had
+briefly been read as `7i49HV` on 2026-08-17
+([`../bom/README.md`](../bom/README.md#which-7i49-the-sister-machine-actually-runs--settled-2026-08-22-owner-superseding-2026-08-17)).
+The forum thread's "plain 7i49 at 5 kHz" description gets the card right and the
+frequency wrong. So 5 kHz is an unanchored choice, not a known-good compromise:
+treat 2.5 kHz as a live alternative, and measure amplitude and phase at both
+before committing.
 
 ## Excitation and return proof
 
