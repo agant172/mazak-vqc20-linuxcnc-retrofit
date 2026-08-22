@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<definition version="0.100.0" type="element" link_type="simple" width="350" height="100" hotspot_x="175" hotspot_y="50">
+    <uuid uuid="{370bec4f-c617-5d03-a1c0-7818be5bba87}" />
+    <names>
+        <name lang="en">Termination or electrical role not established</name>
+    </names>
+    <informations>Generated from the MESAC retrofit crosswalks. PRELIMINARY - NOT RELEASED FOR WIRING.</informations>
+    <description>
+        <rect x="-165.0" y="-40.0" width="330" height="80" rx="0" ry="0" antialias="false" style="line-style:normal;line-weight:normal;filling:none;color:#d00000" />
+        <line x1="-165.0" y1="-14.0" x2="165.0" y2="-14.0" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:normal;filling:none;color:#d00000" antialias="false" />
+        <text text="Termination or electrical role not established" x="-157.0" y="-22.0" rotation="0" font="Liberation Sans,8,-1,5,75,0,0,0,0,0,Bold" color="#d00000" />
+        <text text="TBD01 | TBD01 | Y_RES_CASE_GND | HOLD - SHIELD TOPOLOGY" x="-157.0" y="5.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#d00000" />
+        <terminal uuid="{acc4c696-2458-5e86-81fc-e2c663a43112}" name="TBD01" x="-165.0" y="2.0" orientation="w" type="Generic" />
+    </description>
+</definition>

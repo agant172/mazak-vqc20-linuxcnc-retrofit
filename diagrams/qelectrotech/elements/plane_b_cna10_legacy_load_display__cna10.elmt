@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<definition version="0.100.0" type="element" link_type="simple" width="350" height="172" hotspot_x="175" hotspot_y="86">
+    <uuid uuid="{b039984d-59a5-5c6f-84ef-875acca2f404}" />
+    <names>
+        <name lang="en">OEM / field endpoint CNA10</name>
+    </names>
+    <informations>Generated from the MESAC retrofit crosswalks. PRELIMINARY - NOT RELEASED FOR WIRING.</informations>
+    <description>
+        <rect x="-165.0" y="-76.0" width="330" height="152" rx="0" ry="0" antialias="false" style="line-style:normal;line-weight:normal;filling:none;color:#0078a8" />
+        <line x1="-165.0" y1="-50.0" x2="165.0" y2="-50.0" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:normal;filling:none;color:#0078a8" antialias="false" />
+        <text text="OEM / field endpoint CNA10" x="-157.0" y="-58.0" rotation="0" font="Liberation Sans,8,-1,5,75,0,0,0,0,0,Bold" color="#0078a8" />
+        <text text="4 | 4 | CNA10_SPINDLE_LOAD_HI | DECISION" x="4" y="-31.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#505050" />
+        <terminal uuid="{06c386e9-6e3a-54f5-b770-122dcc0c3206}" name="4" x="165.0" y="-34.0" orientation="e" type="Generic" />
+        <text text="8 | 8 | CNA10_SPINDLE_LOAD_LO | DECISION" x="4" y="-11.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#505050" />
+        <terminal uuid="{d44ab8f5-b22f-572e-980d-2c9e5a08cdc6}" name="8" x="165.0" y="-14.0" orientation="e" type="Generic" />
+        <text text="11 | 11 | CNA10_Z_LOAD_HI | DECISION" x="4" y="9.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#505050" />
+        <terminal uuid="{1008517c-897d-53b0-ade8-e0850abfba97}" name="11" x="165.0" y="6.0" orientation="e" type="Generic" />
+        <text text="17 | 17 | CNA10_Z_LOAD_LO | DECISION" x="4" y="29.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#505050" />
+        <terminal uuid="{7737b8d9-a92b-5770-86be-b25edf761a4a}" name="17" x="165.0" y="26.0" orientation="e" type="Generic" />
+        <text text="20 | 20 | CNA10_COMMON | DECISION" x="4" y="49.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#505050" />
+        <terminal uuid="{ddf75ef8-fee5-5419-98c7-26963067f584}" name="20" x="165.0" y="46.0" orientation="e" type="Generic" />
+    </description>
+</definition>

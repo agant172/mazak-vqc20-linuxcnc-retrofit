@@ -234,18 +234,18 @@ rebound, or re-statused on the strength of it.
 
 | # | Subject | Camera ID |
 |---|---|---|
-| 1 | Starter panel — four `S-A12` contactors, overloads, `MB30-CB` breakers | _pending_ |
-| 2 | Control gear — `SRE` voltage relay, `CP-B` protectors, OMRON relays, receptacle | _pending_ |
-| 3 | Strip A close-up with meter probe — `16` rail and the `G` earth bond | _pending_ |
-| 4 | Strip B — `P24`/`G24`, `RST`, `EFHD`, `RCTLS`, `ISP`/`OSP`, `4xx`/`1xx` | _pending_ |
-| 5 | Strip C — safety chain `57`/`57A`/`57B`/`58`/`59`/`60`, `EMB`, `MAR` | _pending_ |
+| 1 | Starter panel — four `S-A12` contactors, overloads, `MB30-CB` breakers | `2026-08-12/IMG_0657` *(candidate)* |
+| 2 | Control gear — `SRE` voltage relay, `CP-B` protectors, OMRON relays, receptacle | `2026-08-12/IMG_0656` *(candidate)* |
+| 3 | Strip A close-up with meter probe — `16` rail and the `G` earth bond | `2026-08-12/IMG_0655` |
+| 4 | Strip B — `P24`/`G24`, `RST`, `EFHD`, `RCTLS`, `ISP`/`OSP`, `4xx`/`1xx` | `2026-08-12/IMG_0654` |
+| 5 | Strip C — safety chain `57`/`57A`/`57B`/`58`/`59`/`60`, `EMB`, `MAR` | `2026-08-12/IMG_0653` |
 
 **Batch 2 — sharp close-ups (2026-08-13):**
 
 | # | Subject | Camera ID |
 |---|---|---|
-| 6 | Strip C close — `*DEC4`, `152`/`151`, `146`/`144`, `+24V`, `0G` | _pending_ |
-| 7 | **Strip C safety block** — `58`, **`57B`**, `57A`, `57`, `60`, `EMB` legible | _pending_ |
-| 8 | Strip A upper — `410`…`34`, `21A`/`21`/`26`/`25`, top of `16` block | _pending_ |
-| 9 | **Strip A `16` block with the `G` earth conductor** and meter probe | _pending_ |
-| 10 | Strip A lower — `15`, `XB`, `XA1`, `16`, `10`, `XA`, `R12`/`S12`/`T12` | _pending_ |
+| 6 | Strip C close — `*DEC4`, `152`/`151`, `146`/`144`, `+24V`, `0G` | `2026-08-12/IMG_0661` |
+| 7 | **Strip C safety block** — `58`, **`57B`**, `57A`, `57`, `60`, `EMB` legible | `2026-08-12/IMG_0662` |
+| 8 | Strip A upper — `410`…`34`, `21A`/`21`/`26`/`25`, top of `16` block | `2026-08-12/IMG_0660` |
+| 9 | **Strip A `16` block with the `G` earth conductor** and meter probe | `2026-08-12/IMG_0659` |
+| 10 | Strip A lower — `15`, `XB`, `XA1`, `16`, `10`, `XA`, `R12`/`S12`/`T12` | `2026-08-12/IMG_0658` |

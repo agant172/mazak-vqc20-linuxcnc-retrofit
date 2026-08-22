@@ -1,0 +1,31 @@
+[Unit]
+Description=Fast-forward the Mazak retrofit working copy from origin
+Documentation=file:/home/andy/mazak-vqc20-linuxcnc-retrofit/scripts/host_status/README.md
+Documentation=man:git-pull(1)
+Wants=network-online.target
+After=network-online.target NetworkManager.service
+
+[Service]
+Type=oneshot
+User=andy
+Group=andy
+Environment=HOME=/home/andy
+Environment=REPO_DIR=/home/andy/mazak-vqc20-linuxcnc-retrofit
+# Explicit key: a timer-launched shell has no ssh-agent, and the repo is
+# private, so the default identity has to be named or the fetch prompts and
+# fails. BatchMode keeps it from ever waiting on a prompt.
+# Quoted: systemd splits an unquoted Environment= value on whitespace and then
+# rejects each fragment ("Invalid environment assignment, ignoring: -o"), which
+# silently reduces this to GIT_SSH_COMMAND=ssh.
+Environment="GIT_SSH_COMMAND=ssh -i /home/andy/.ssh/id_ed25519 -o IdentitiesOnly=yes -o BatchMode=yes -o StrictHostKeyChecking=accept-new"
+# Runs the INSTALLED COPY, not scripts/host_status/repo_pull.sh in the working
+# copy. This script fast-forwards the very working copy it would be read from,
+# and bash reads a script incrementally: a merge that rewrote the file mid-run
+# would resume at a stale byte offset. install_repo_pull.sh keeps the copy in
+# sync, so edit the repo version and re-run the installer.
+ExecStart=/usr/local/bin/mazak-repo-pull.sh
+TimeoutStartSec=120
+Nice=10
+
+[Install]
+WantedBy=multi-user.target

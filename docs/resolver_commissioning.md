@@ -158,10 +158,10 @@ analogue (KABEA TS2650N11E78: rotor 51+j90 vs stator 102+j150). **Of the two
 patterns, 141E26 is the unusual one — not this machine's reading.** Stop treating
 121/69 as "the expected ratio."
 
-**Second unknown: which connector was measured.** The hypothesis table above is
-built from the OEM *servo-drive* sheet. These readings were taken on the
-*NC unit rack* side. The two are not confirmed to share a pinout, so the pin
-numbers here may not be the pin numbers there.
+**Connector identity is resolved.** Mitsubishi Figure 14.4-1 explicitly labels the
+N/C-side connector family `CNA 3~6`, and the two continuity corroborations above
+match the measured rack connectors. The older concern that the measurements might
+refer to a different servo-drive-side connector is superseded.
 
 **Consequence.** Winding roles and pin assignments are **resolved** by the
 Mitsubishi figure above, and this measurement is what corroborates it: the
@@ -172,6 +172,11 @@ transformation ratio at 5 kHz, and the phase shift — see
 No exact-suffix datasheet exists (see
 [The 25E datasheet is not obtainable](#the-25e-datasheet-is-not-obtainable-searched-2026-08-16)),
 so those three come from the bench, not from paper.
+
+The conductor-by-conductor proposed polarity and exact 7i49 screw terminals are
+now recorded in `../wiring/plane_b_pin_crosswalk.csv`. The M2 figure identifies
+pairs but not plus/minus polarity, so those assignments remain a commissioning
+convention until the disabled-drive direction and phasing checks pass.
 
 #### Ground and shield pins — same session, same connectors
 
@@ -305,7 +310,7 @@ i.e. **one grid point per resolver *electrical* revolution**. So grid spacing
 printed p. 6-35; decode in
 [`../background/parameter_recovery.md`](../background/parameter_recovery.md#mc1mc4-carry-the-control-τ-number--decode-them)).
 This machine reads `MC = 784` on X, Y and Z — on the 1985 factory sheet and on
-the 2026-07-28 live CRT alike:
+the 2025-08-28 live CRT alike:
 
 ```
 784 = 0x0310  ->  LINEAR ZONE 3 (=16000),  τ × 8 = 16  ->  τ = 2.000
@@ -324,12 +329,19 @@ LinuxCNC + Mesa — ships `RESOLVER_SCALE = 0.07874016` and
 mm exactly**. That machine's value was arrived at empirically, without reference
 to τ, and lands on the same number.
 
-**Pole count follows, but only via the lead.** `n = lead ÷ grid spacing`, so a
-**10 mm lead gives n = 5** — five electrical revolutions per screw turn, i.e. 5
-pole pairs / 10 poles. This agrees with the `RT-5X` type name and with the
-sibling machine's `RESOLVER_INDEX_DIVISOR = 5`. **The lead is still not
-documented anywhere in this repo**, so treat `n = 5` as strongly-corroborated
-inference, and note that *`RESOLVER_SCALE` does not depend on it either way*.
+**Pole count follows from the lead, and the lead is now MEASURED.** `n = lead ÷
+grid spacing`. On 2026-08-17 all three ballscrews were hand-turned one full
+revolution at the machine and each axis moved **10.000 mm**
+([`ballscrew_lead_2026-08-17.md`](ballscrew_lead_2026-08-17.md)), so
+
+> **n = 10.000 ÷ 2.000 = 5** — five electrical revolutions per screw turn.
+
+This agrees with the `RT-5X` type name and with the sibling machine's
+`RESOLVER_INDEX_DIVISOR = 5` (note the agreement; neither is admissible as
+support — see the lead file). What is left unmeasured is the **2.000 mm**, which
+is the τ decode. So Test 1 below is no longer a hunt for n; it is a **direct test
+of τ**, with a specific number predicted in advance. Note that *`RESOLVER_SCALE`
+does not depend on n either way*.
 
 **Homing is unaffected by the residual uncertainty:** n > 1 under every
 candidate lead, so the resolver null repeats within a screw turn and cannot
@@ -352,9 +364,10 @@ now rested on the electrical diagram and the nameplates.
 
 **Evidence state: `PROPOSED`.** This is a documentary derivation plus a
 third-party config, not a measurement on this machine. Test 1 below is now a
-**verification** — it should return 2.000 mm of travel per electrical
-revolution, and 5 nulls per screw revolution. If it does not, the lead
-assumption or the τ decode is wrong, and the measurement wins.
+**verification with a pre-committed prediction**: per full screw revolution,
+**5 electrical revolutions = 10 amplitude nulls on one output winding**, and a
+null every **1.000 mm** of axis travel. The lead is no longer the loose end — if
+Test 1 disagrees, **the τ decode is wrong**, and the measurement wins.
 
 #### Test 1 — nulls per mechanical revolution. Run this FIRST; it gates scaling.
 
@@ -362,8 +375,39 @@ Drive the 35 Ω winding at ~5 kHz, 3–5 Vrms, through the series resistor. Scop
 one output winding. Rotate the shaft slowly through **one full mechanical
 revolution** by hand and count amplitude nulls.
 
-Count the nulls. **`n` = nulls per mechanical revolution is the pole-pair count**,
-and it is a number this repo does not yet have:
+> ### Count nulls, then HALVE them. `n` = nulls ÷ 2.
+>
+> **An earlier version of this test said `n` = nulls per revolution. That is
+> wrong and it is wrong in the dangerous direction — it doubles n, which doubles
+> the inferred lead to 20 mm, which is precisely the poles-vs-pole-pairs trap
+> flagged in [`ballscrew_lead_2026-08-17.md`](ballscrew_lead_2026-08-17.md).**
+>
+> One output winding carries `k·V_exc·sin(θe)` with `θe = n × θ_mech`. Over one
+> mechanical revolution `sin(θe)` crosses zero **2n** times — once at 0° and once
+> at 180° of every electrical revolution. What a scope shows is the *envelope*,
+> `|sin(θe)|`, so every one of those 2n crossings looks like a null; the 180°
+> carrier phase inversion that distinguishes them is invisible unless you view the
+> output against the excitation.
+>
+> **Predicted for this machine, per full screw revolution: 10 nulls, 5 electrical
+> revolutions.** Getting 10 confirms τ = 2. Getting 5 would mean n = 2.5, which is
+> not a thing — recount. Getting 20 means τ = 1 and the grid is 4.000 mm.
+>
+> **Two ways to avoid the ambiguity entirely, either is better than counting
+> envelope collapses:**
+> - Put the excitation on CH1 and the output winding on CH2 and watch the carrier
+>   **invert phase** at alternate nulls. Count inversions-to-inversion: that is one
+>   electrical revolution, and there are **5** per screw revolution.
+> - Scope **both** output windings at once (as Test 2 does anyway). Their nulls
+>   interleave in quadrature; one full SIN-null → COS-null → SIN-null → COS-null
+>   sequence is one electrical revolution.
+>
+> **Cross-check with a dial indicator, which needs no interpretation at all:**
+> nulls should fall every **1.000 mm** of axis travel and same-phase nulls every
+> **2.000 mm**. That measures grid spacing directly, in machine units, and is the
+> single most decisive reading in this procedure.
+
+Then, with `n` in hand:
 
 - `RESOLVER_SCALE` and `RESOLVER_VELOCITY_SCALE` must reflect **n electrical
   revolutions per screw turn**.
@@ -381,7 +425,7 @@ position detectors the machine has grid points *"at each **1/n (n : number of
 poles)** revolution of the resolver"*. So the repo's 1× assumption is **wrong**;
 only the value of n is open.
 
-The name suggests n = 5: "RT-**5**X". Across five observed Mitsubishi/Tamagawa
+The name also suggests n = 5: "RT-**5**X". Across five observed Mitsubishi/Tamagawa
 pairs the type-name digit tracks the Tamagawa N-group's last digit exactly
 (RT-3XB-11↔N**23**, RT-3XC-11↔N**43**, RT-5XB-11↔N**25**, RT-5XC-11↔N**45**,
 RT-6XC-11↔N**46**), and on other Tamagawa families that digit is the documented
@@ -423,14 +467,16 @@ accuracy is affected outside it. This is an **accuracy and calibration issue, no
 a damage risk** — it appears as a phase-shift and amplitude-scale offset to be
 calibrated, not assumed away.
 
-**The sibling machine does not validate 5 kHz — it runs 2.5 kHz.** Its committed
-config sets `[AXES] RESOLVER_EXC_FREQ = 2.5` on the same original Tamagawa
-resolvers (verified 2026-08-17; a forum thread cited in `README.md` says 5 kHz,
-and the two disagree). Both are 7i49-selectable, and that machine chose the
-option *below* the 4.5 kHz nominal rather than above it. Whether that was to tame
-hot returns — which the reverse-drive step-up above would predict — or simply
-what they tried first, a config file cannot say. **Treat 2.5 kHz as a live
-alternative to test, not a curiosity**, and measure amplitude and phase at both
+**The sibling machine does not validate 5 kHz — it runs 2.5 kHz, on a plain 7i49.**
+Its committed config sets `[AXES] RESOLVER_EXC_FREQ = 2.5`, applied live
+(`MAZAK-VQC1540.ini:176`, `.hal:117`), on the same original Tamagawa resolvers, and
+its own INI/HAL comments name a plain `7i49` with no "HV" anywhere in that
+repository — confirmed by owner 2026-08-22 after a purchased-parts spreadsheet had
+briefly been read as `7i49HV` on 2026-08-17
+([`../bom/README.md`](../bom/README.md#which-7i49-the-sister-machine-actually-runs--settled-2026-08-22-owner-superseding-2026-08-17)).
+The forum thread's "plain 7i49 at 5 kHz" description gets the card right and the
+frequency wrong. So 5 kHz is an unanchored choice, not a known-good compromise:
+treat 2.5 kHz as a live alternative, and measure amplitude and phase at both
 before committing.
 
 ## Excitation and return proof
@@ -510,7 +556,7 @@ enter [`first_move_plan.md`](first_move_plan.md).
 - Per-axis DC resistance at CNA3/4/5, measured at the machine **2026-08-16** —
   [Measured DC resistance](#measured-dc-resistance-2026-08-16-cna345-nc-unit-rack)
   above. Nameplate transcriptions for the same devices are in
-  [`../resolvers.md`](../resolvers.md).
+  [`feedback_nameplate_survey_2026-08-15.md`](feedback_nameplate_survey_2026-08-15.md#appendix--raw-field-transcription).
 - **Exact-suffix datasheet: does not exist publicly** (multi-source search
   2026-08-16). Do not re-run the search; see
   [The 25E datasheet is not obtainable](#the-25e-datasheet-is-not-obtainable-searched-2026-08-16)

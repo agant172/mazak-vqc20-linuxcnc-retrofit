@@ -69,6 +69,50 @@ HAL_DIR = REPO_ROOT / "linuxcnc"
 CAPACITY_DOC = REPO_ROOT / "docs" / "io_capacity_reconciliation.md"
 LEGEND_PATH = REPO_ROOT / "wiring" / "labels" / "7i84u_b_terminal_legend_epson.csv"
 SOURCE_DEST_PATH = REPO_ROOT / "wiring" / "bbia1_source_dest.csv"
+CN_PINOUTS_PATH = REPO_ROOT / "wiring" / "bbia1_cn_pinouts.csv"
+
+# ----------------------------------------------------------------------
+# BBIA-1 plane registries (INTERFACE_ARCHITECTURE.md sec 5).
+#
+# These two allowlists exist because the machine's own documentation
+# contradicts the tidy model.  Each entry must cite the register section
+# that reasons about it; the validator reports an entry that no longer
+# applies, so a stale allowlist cannot quietly hide a regression.
+# ----------------------------------------------------------------------
+
+# Factory wire numbers that appear on more than one authority plane row.
+#
+# The plane model wants the wire number to be a unique key; for this machine
+# it is not.  A Mazak wire number names a SEGMENT between two terminations,
+# not a conductor: the print renumbers at each relay stage (+500 at the SSR
+# board, 712 -> 412 at the solenoid), and wiring/bbia1_cn_pinouts.csv carries
+# 26 duplicated Wire_No values over 75 rows -- 147, 381 and 382 each pair two
+# unmistakably unrelated functions.  Uniqueness is therefore a WARN against
+# this allowlist, never an error.
+#
+# Only wires shared by two *authority* rows appear here; the other duplicates
+# sit on pins the retrofit has not claimed yet.  Expect more as the plane
+# fills, and add them with a citation rather than editing data.
+OEM_REUSED_WIRES = {
+    "231": "231 appears at CN4-1 SPINDLE ZERO SPEED (spindle sense) and CN11-13 "
+           "FLOOD COOLANT (PLC output). The CN11-13 half is corroborated by the "
+           "SSR board's 731 (+500 pattern); the CN4-1 half is CONTESTED -- dwg "
+           "4143075407 pg133 puts zero speed at wire 143 / CN3-4 and the pinout "
+           "carries that row too. OPEN, field trace required: read the jacket at "
+           "CN4-1 and CN3-4. See wiring/authority_conflicts.md sec 7.1.",
+}
+
+# Plane rows whose factory_wire disagrees with the OEM pinout at that
+# connector/pin, where the disagreement is a known documentation-vs-
+# documentation conflict awaiting a field trace -- not a data-entry bug.
+KNOWN_PLANE_CONFLICTS = {
+    "ATC_ZONE_Y": "dwg 4143075409 pg135 puts +LY2 (2nd +Y over travel, PRS-55) "
+                  "at CN3-44; the terminal-unit pinout puts SPTD SPINDLE TIMER "
+                  "there. See wiring/authority_conflicts.md sec 7.2.",
+    "ATC_ZONE_Z": "dwg 4143075409 pg135 puts -LZ2 (2nd -Z over travel, PRS-66) "
+                  "at CN3-39; the terminal-unit pinout puts 147 OIL TEMP "
+                  "DETECTOR there. See wiring/authority_conflicts.md sec 7.2.",
+}
 
 AUTHORITY_STATES = {
     "PROPOSED",
@@ -85,6 +129,8 @@ AUTHORITY_STATES = {
     "DEFERRED",
     "UNBOUND",  # Legacy alias for DEFERRED.
     "HOLD_CONFLICT",
+    "HOLD_SOURCE_TRACE",
+    "HOLD_ANALOG_ROLE",
     "OPTIONAL_VERIFY",
     "NOT_USED",
 }
@@ -579,10 +625,10 @@ def check_bbia_plane(rows: list[dict]) -> list[Finding]:
         conn = (row.get("dest_connector") or "").strip()
         pin = (row.get("dest_pin") or "").strip()
         wire = (row.get("factory_wire") or "").strip()
-        # A BBIA-1 plane row is one whose dest_connector is a CN* connector.
-        # dest_connector is also used pre-existingly for non-plane far ends
-        # (TB* field power, RJ45 sserial, "OEM ..."); those are not policed here.
-        has_bbia = bool(conn) and conn.upper().startswith("CN")
+        # A BBIA-1 plane row is one whose dest_connector names a CN connector,
+        # allowing for an "OEM " decoration (see plane_connector). The "<card>
+        # RJ45" values are card-internal sserial and are not policed here.
+        has_bbia = plane_connector(conn) is not None
 
         # Consistency: wire present but no BBIA pin, or a BBIA connector with no pin.
         if wire and not conn:
@@ -616,8 +662,205 @@ def check_bbia_plane(rows: list[dict]) -> list[Finding]:
             f"not recorded in bbia1_source_dest.csv — trace its plane pin or "
             f"record it as an exception (INTERFACE_ARCHITECTURE.md)."))
 
+    # Wording matters here. `accounted` only means "bbia1_source_dest.csv has a
+    # row for this signal_id" -- that row may itself say "NOT LOCATED ... Needs
+    # field trace". Reporting those as 0-still-to-trace would read as though the
+    # traces were closed; four of them are the unlocated over-travel limits of
+    # INTERFACE_ARCHITECTURE.md sec 3b item 4. Separate "unclassified" (nobody
+    # has reasoned about it) from "classified, and some are still open".
+    classified_open = sum(
+        1 for _, row in enumerate(rows, start=2)
+        if plane_connector(row.get("dest_connector", "")) is None
+        and (row.get("mesa_card") or "").startswith("7i84U")
+        and (row.get("direction") or "").strip() in {"IN", "OUT"}
+        and (row.get("authority_status") or "").strip() in {"FACTORY_LINK", "FACTORY_INTERFACE"}
+        and (row.get("signal_id") or "").strip() in accounted
+    )
     print(f"BBIA-1 plane:          {mapped} rows mapped to a connector/pin; "
-          f"{len(untraced)} factory signal(s) still to trace")
+          f"{len(untraced)} unclassified; {classified_open} off-plane factory signal(s) "
+          f"classified in {SOURCE_DEST_PATH.name} (some still need a field trace)")
+    return findings
+
+
+def plane_connector(dest_connector: str) -> str | None:
+    """Return the bare BBIA-1 connector name (e.g. 'CN6') for a dest_connector
+    value, or None if the row does not land on the plane.
+
+    dest_connector is free text and has picked up decorations: WORK_LIGHT
+    carries 'OEM CN6', which is a real BBIA-1 pin (bbia1_cn_pinouts.csv records
+    CN6-8 = WL WORK LIGHT) but was invisible to every plane check because the
+    string starts with 'OEM', not 'CN'. Strip that prefix here so one row cannot
+    hide from all of them at once. The '<card> RJ45' values are card-internal
+    smart-serial wiring and genuinely do not cross the plane."""
+    val = (dest_connector or "").strip()
+    if not val:
+        return None
+    if val.upper().startswith("OEM "):
+        val = val[4:].strip()
+    if re.fullmatch(r"CN\d+", val.upper()):
+        return val.upper()
+    return None
+
+
+def load_oem_pinout() -> dict[tuple[str, str], list[tuple[str, str]]]:
+    """(connector, pin) -> [(wire_no, signal), ...] from the immutable OEM
+    reference wiring/bbia1_cn_pinouts.csv (transcribed from 41434WB.pdf
+    terminal-unit detail sheets). The retrofit never writes this file."""
+    oem: dict[tuple[str, str], list[tuple[str, str]]] = defaultdict(list)
+    if not CN_PINOUTS_PATH.exists():
+        return oem
+    with CN_PINOUTS_PATH.open(newline="") as fh:
+        for row in csv.DictReader(fh):
+            key = ((row.get("Connector") or "").strip().upper(),
+                   (row.get("Pin") or "").strip())
+            oem[key].append(((row.get("Wire_No") or "").strip(),
+                             (row.get("Signal") or "").strip()))
+    return oem
+
+
+def check_plane_schema(rows: list[dict]) -> list[Finding]:
+    """Enforce the plane's key discipline (INTERFACE_ARCHITECTURE.md sec 5).
+
+    Three checks, all WARN-only so a known-open documentation conflict cannot
+    break CI:
+
+      1. Wire completeness -- a row that landed on a BBIA connector/pin must
+         also carry the factory wire number, since that is the number printed
+         on the jacket and stamped on the ferrule.
+      2. Wire uniqueness -- two rows must not claim the same factory wire,
+         EXCEPT where the OEM print itself reuses the number (OEM_REUSED_WIRES).
+      3. OEM agreement -- the (connector, pin) a row claims must exist in the
+         OEM pinout, and the factory_wire must match the Wire_No the OEM
+         records at that pin, EXCEPT for registered conflicts
+         (KNOWN_PLANE_CONFLICTS).
+
+    Both allowlists are checked for staleness: an entry that no longer
+    describes a real condition is reported, so the registry cannot silently
+    mask a regression after the underlying data is fixed.
+    """
+    findings: list[Finding] = []
+    oem = load_oem_pinout()
+
+    plane_rows: list[tuple[int, dict, str]] = []
+    for lineno, row in enumerate(rows, start=2):
+        conn = plane_connector(row.get("dest_connector", ""))
+        if conn:
+            plane_rows.append((lineno, row, conn))
+
+    # --- 1. every plane row carries a wire number -----------------------
+    for lineno, row, conn in plane_rows:
+        if not (row.get("factory_wire") or "").strip():
+            findings.append(Finding(
+                "WARN", f"{CSV_PATH.name}:{lineno}",
+                f"{row['signal_id']} lands at "
+                f"{conn}-{row['dest_pin']} but carries no "
+                f"factory_wire; the wire number is the ferrule text and the key "
+                f"back to the OEM print."))
+
+    # --- 2. wire-number uniqueness --------------------------------------
+    by_wire: dict[str, list[dict]] = defaultdict(list)
+    for _, row, _conn in plane_rows:
+        wire = (row.get("factory_wire") or "").strip()
+        if wire:
+            by_wire[wire].append(row)
+
+    for wire, sharing in sorted(by_wire.items()):
+        if len(sharing) < 2:
+            continue
+        where = ", ".join(
+            f"{r['signal_id']} at {r['dest_connector']}-{r['dest_pin']}" for r in sharing)
+        if wire in OEM_REUSED_WIRES:
+            continue  # documented OEM reuse; reported in the summary line below.
+        findings.append(Finding(
+            "WARN", CSV_PATH.name,
+            f"factory_wire '{wire}' claimed by {len(sharing)} rows ({where}). A wire "
+            f"number identifies one physical conductor. If the OEM print genuinely "
+            f"reuses it, add it to OEM_REUSED_WIRES with a register citation; "
+            f"otherwise one of these rows is wrong."))
+
+    for wire in sorted(OEM_REUSED_WIRES):
+        if len(by_wire.get(wire, [])) < 2:
+            findings.append(Finding(
+                "WARN", "scripts/validate_authority.py",
+                f"OEM_REUSED_WIRES lists '{wire}' but the authority no longer has two "
+                f"rows claiming it — the allowlist entry is stale, remove it."))
+
+    # --- 2b. one conductor, one signal ----------------------------------
+    # Two signals sharing a BBIA connector+pin is physically impossible, so
+    # unlike a shared wire number this has no legitimate OEM explanation and
+    # needs no allowlist. Currently clean; this is a tripwire.
+    by_pin: dict[tuple[str, str], list[str]] = defaultdict(list)
+    for _, row, conn in plane_rows:
+        by_pin[(conn, (row.get("dest_pin") or "").strip())].append(row["signal_id"])
+    for (conn, pin), sids in sorted(by_pin.items()):
+        if len(sids) > 1:
+            findings.append(Finding(
+                "WARN", CSV_PATH.name,
+                f"{conn}-{pin} is claimed by {len(sids)} signals ({', '.join(sids)}). "
+                f"One conductor carries one signal — at most one of these is right."))
+
+    # --- 3. agreement with the immutable OEM pinout ---------------------
+    conflicts_seen: set[str] = set()
+    if not oem:
+        findings.append(Finding(
+            "WARN", CN_PINOUTS_PATH.name,
+            "OEM pinout reference not readable; BBIA-end cross-check skipped."))
+    else:
+        for lineno, row, conn in plane_rows:
+            sid = (row.get("signal_id") or "").strip()
+            key = (conn, (row.get("dest_pin") or "").strip())
+            wire = (row.get("factory_wire") or "").strip()
+            if key not in oem:
+                findings.append(Finding(
+                    "WARN", f"{CSV_PATH.name}:{lineno}",
+                    f"{sid} claims {key[0]}-{key[1]}, which has no row in "
+                    f"{CN_PINOUTS_PATH.name}. The plane's machine-internal side is OEM "
+                    f"reference — a pin that is not in it is unverified."))
+                continue
+            oem_wires = [w for w, _ in oem[key]]
+            if wire and wire not in oem_wires:
+                oem_sig = "; ".join(f"{w} ({s})" for w, s in oem[key])
+                if sid in KNOWN_PLANE_CONFLICTS:
+                    conflicts_seen.add(sid)
+                    continue
+                findings.append(Finding(
+                    "WARN", f"{CSV_PATH.name}:{lineno}",
+                    f"{sid} carries factory_wire '{wire}' at {key[0]}-{key[1]}, but the "
+                    f"OEM pinout records {oem_sig} there. Two OEM sources disagree — "
+                    f"record it in wiring/authority_conflicts.md and add it to "
+                    f"KNOWN_PLANE_CONFLICTS, or correct the row. Do not guess: field "
+                    f"trace settles it."))
+
+        for sid in sorted(KNOWN_PLANE_CONFLICTS):
+            if sid not in conflicts_seen:
+                findings.append(Finding(
+                    "WARN", "scripts/validate_authority.py",
+                    f"KNOWN_PLANE_CONFLICTS lists '{sid}' but it no longer disagrees "
+                    f"with the OEM pinout — the conflict is resolved, remove the entry "
+                    f"and close its section in wiring/authority_conflicts.md."))
+
+    # --- provenance: which plane rows the curated mapping actually backs ---
+    # A BBIA end not present in bbia1_source_dest.csv is not maintained by
+    # scripts/consolidate_bbia_authority.py -- re-running it will neither
+    # refresh nor contradict the row. Such a row is only as good as its
+    # agreement with the OEM pinout, which check 3 above has already tested.
+    backed: set[str] = set()
+    if SOURCE_DEST_PATH.exists():
+        with SOURCE_DEST_PATH.open(newline="") as fh:
+            for r in csv.DictReader(fh):
+                for field in ("bottom_cn_pin", "cnd_source_pin"):
+                    if (r.get(field) or "").strip():
+                        backed.add((r.get("signal_id") or "").strip())
+                        break
+    unbacked = [r["signal_id"] for _, r, _c in plane_rows if r["signal_id"] not in backed]
+
+    reused = sum(1 for w in OEM_REUSED_WIRES if len(by_wire.get(w, [])) >= 2)
+    print(f"Plane key discipline:  {len(plane_rows)} plane rows; "
+          f"{len(by_wire)} distinct wire numbers; "
+          f"{reused} documented OEM reuse, {len(conflicts_seen)} registered OEM conflict(s)")
+    print(f"Plane provenance:      {len(plane_rows) - len(unbacked)}/{len(plane_rows)} "
+          f"backed by {SOURCE_DEST_PATH.name}"
+          + (f"; OEM-corroborated only: {', '.join(sorted(unbacked))}" if unbacked else ""))
     return findings
 
 
@@ -633,6 +876,7 @@ def main() -> int:
         + check_capacity_and_legend(all_rows)
         + check_generated_label_csvs()
         + check_bbia_plane(all_rows)
+        + check_plane_schema(all_rows)
     )
 
     errors = [f for f in findings if f.level == "ERROR"]

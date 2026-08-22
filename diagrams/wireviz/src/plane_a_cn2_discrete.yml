@@ -1,0 +1,375 @@
+# GENERATED FILE - edit the source CSV or generator, then regenerate.
+metadata:
+  title: Plane A - BBIA-1 CN2 discrete routes
+  description: Machine-facing CN2 conductors through the required isolation boundary to Mesa field I/O.
+  notes: 'PRELIMINARY - NOT RELEASED FOR WIRING. Yellow = defined route requiring field verification; red = HOLD or proposed;
+    gray = retain/retire decision. Input: wiring/plane_a_bbia1_pin_crosswalk.csv.'
+options:
+  fontname: Arial
+  bgcolor: WH
+  bgcolor_node: WH
+  color_mode: SHORT
+  mini_bom_mode: false
+connectors:
+  CN2:
+    type: BBIA-1 CN2 machine-facing connector
+    pins:
+    - 3
+    - 4
+    - 5
+    - 6
+    - 7
+    - 8
+    - 9
+    - 11
+    - 12
+    - 13
+    - 15
+    - 16
+    - 38
+    - 44
+    pinlabels:
+    - 149 | MT_UNCLAMP_PB | FV
+    - 150 | MAG_BCD_BIT0 | FV
+    - 221 | MAG_BCD_BIT1 | FV
+    - 222 | MAG_BCD_BIT2 | FV
+    - 223 | MAG_BCD_BIT3 | FV
+    - 224 | MAG_BCD_BIT4 | FV
+    - 225 | MAG_IN_POS | FV
+    - 218 | MAG_COVER_OPEN | FV
+    - 219 | MAG_COVER_CLOSE | FV
+    - 381 | MAG_TOOL_AVAILABLE | FV
+    - '*DECX | X_HOME | FV'
+    - '*DECY | Y_HOME | FV'
+    - 238 | DOOR_INTERLOCK | FV
+    - 149B | MT_CLAMP_PB | HOLD
+    pincolors: &id001
+    - YE
+    - YE
+    - YE
+    - YE
+    - YE
+    - YE
+    - YE
+    - YE
+    - YE
+    - YE
+    - YE
+    - YE
+    - YE
+    - RD
+    hide_disconnected_pins: true
+    show_pincount: false
+    bgcolor_title: LB
+    notes: Verify endpoint numbering against the card manual.
+    ignore_in_bom: true
+  IR_BOUNDARY:
+    type: Required interposing-relay boundary
+    pins:
+    - F01
+    - M01
+    - F02
+    - M02
+    - F03
+    - M03
+    - F04
+    - M04
+    - F05
+    - M05
+    - F06
+    - M06
+    - F07
+    - M07
+    - F08
+    - M08
+    - F09
+    - M09
+    - F10
+    - M10
+    - F11
+    - M11
+    - F12
+    - M12
+    - F13
+    - M13
+    - F14
+    - M14
+    pinlabels:
+    - F | MT_UNCLAMP_PB
+    - M | MT_UNCLAMP_PB
+    - F | MAG_BCD_BIT0
+    - M | MAG_BCD_BIT0
+    - F | MAG_BCD_BIT1
+    - M | MAG_BCD_BIT1
+    - F | MAG_BCD_BIT2
+    - M | MAG_BCD_BIT2
+    - F | MAG_BCD_BIT3
+    - M | MAG_BCD_BIT3
+    - F | MAG_BCD_BIT4
+    - M | MAG_BCD_BIT4
+    - F | MAG_IN_POS
+    - M | MAG_IN_POS
+    - F | MAG_COVER_OPEN
+    - M | MAG_COVER_OPEN
+    - F | MAG_COVER_CLOSE
+    - M | MAG_COVER_CLOSE
+    - F | MAG_TOOL_AVAILABLE
+    - M | MAG_TOOL_AVAILABLE
+    - F | X_HOME
+    - M | X_HOME
+    - F | Y_HOME
+    - M | Y_HOME
+    - F | DOOR_INTERLOCK
+    - M | DOOR_INTERLOCK
+    - F | MT_CLAMP_PB
+    - M | MT_CLAMP_PB
+    pincolors:
+    - YE
+    - YE
+    - YE
+    - YE
+    - YE
+    - YE
+    - YE
+    - YE
+    - YE
+    - YE
+    - YE
+    - YE
+    - YE
+    - YE
+    - YE
+    - YE
+    - YE
+    - YE
+    - YE
+    - YE
+    - YE
+    - YE
+    - YE
+    - YE
+    - YE
+    - YE
+    - RD
+    - RD
+    hide_disconnected_pins: true
+    show_pincount: false
+    bgcolor_title: YE
+    notes: Logical boundary placeholder; see crosswalk.
+    ignore_in_bom: true
+  7i84U-A_TB3:
+    type: 7i84U-A TB3
+    pins:
+    - IN9
+    - IN6
+    - IN7
+    - IN2
+    pinlabels:
+    - IN9 | manual-unclamp-pb | FV
+    - IN6 | mag-cover-open-conf | FV
+    - IN7 | mag-cover-closed-conf | FV
+    - IN2 | mag-tool-avail | FV
+    pincolors:
+    - YE
+    - YE
+    - YE
+    - YE
+    hide_disconnected_pins: true
+    show_pincount: false
+    bgcolor_title: LB
+    notes: Verify endpoint numbering against the card manual.
+    ignore_in_bom: true
+  7i84U-A_TB2:
+    type: 7i84U-A TB2
+    pins:
+    - IN19
+    - IN20
+    - IN21
+    - IN22
+    - IN23
+    - IN28
+    - IN24
+    - IN30
+    pinlabels:
+    - IN19 | mag-bcd-bit0 | FV
+    - IN20 | mag-bcd-bit1 | FV
+    - IN21 | mag-bcd-bit2 | FV
+    - IN22 | mag-bcd-bit3 | FV
+    - IN23 | mag-bcd-bit4 | FV
+    - IN28 | mag-in-pos | FV
+    - IN24 | door-interlock | FV
+    - IN30 | MT_CLAMP_PB | HOLD
+    pincolors:
+    - YE
+    - YE
+    - YE
+    - YE
+    - YE
+    - YE
+    - YE
+    - RD
+    hide_disconnected_pins: true
+    show_pincount: false
+    bgcolor_title: LB
+    notes: Verify endpoint numbering against the card manual.
+    ignore_in_bom: true
+  7i84U-B_TB3:
+    type: 7i84U-B TB3
+    pins:
+    - IN6
+    - IN7
+    pinlabels:
+    - IN6 | home-x | FV
+    - IN7 | home-y | FV
+    pincolors:
+    - YE
+    - YE
+    hide_disconnected_pins: true
+    show_pincount: false
+    bgcolor_title: LB
+    notes: Verify endpoint numbering against the card manual.
+    ignore_in_bom: true
+cables:
+  OEM_CONDUCTORS:
+    type: Existing OEM conductor segments
+    wirecount: 14
+    wirelabels:
+    - 149 | MT_UNCLAMP_PB
+    - 150 | MAG_BCD_BIT0
+    - 221 | MAG_BCD_BIT1
+    - 222 | MAG_BCD_BIT2
+    - 223 | MAG_BCD_BIT3
+    - 224 | MAG_BCD_BIT4
+    - 225 | MAG_IN_POS
+    - 218 | MAG_COVER_OPEN
+    - 219 | MAG_COVER_CLOSE
+    - 381 | MAG_TOOL_AVAILABLE
+    - '*DECX | X_HOME'
+    - '*DECY | Y_HOME'
+    - 238 | DOOR_INTERLOCK
+    - 149B | MT_CLAMP_PB
+    colors: *id001
+    show_wirecount: false
+    notes: See crosswalk source.
+    shield: false
+    ignore_in_bom: true
+  NEW_CONTROL_WIRING:
+    type: New control-side conductors
+    wirecount: 14
+    wirelabels:
+    - MT_UNCLAMP_PB | manual-unclamp-pb
+    - MAG_BCD_BIT0 | mag-bcd-bit0
+    - MAG_BCD_BIT1 | mag-bcd-bit1
+    - MAG_BCD_BIT2 | mag-bcd-bit2
+    - MAG_BCD_BIT3 | mag-bcd-bit3
+    - MAG_BCD_BIT4 | mag-bcd-bit4
+    - MAG_IN_POS | mag-in-pos
+    - MAG_COVER_OPEN | mag-cover-open-co…
+    - MAG_COVER_CLOSE | mag-cover-closed-…
+    - MAG_TOOL_AVAILABLE | mag-tool-avail
+    - X_HOME | home-x
+    - Y_HOME | home-y
+    - DOOR_INTERLOCK | door-interlock
+    - MT_CLAMP_PB | TBD
+    colors: *id001
+    show_wirecount: false
+    notes: See crosswalk source.
+    shield: false
+    ignore_in_bom: true
+connections:
+- - CN2:
+    - 3
+    - 4
+    - 5
+    - 6
+    - 7
+    - 8
+    - 9
+    - 11
+    - 12
+    - 13
+    - 15
+    - 16
+    - 38
+    - 44
+  - OEM_CONDUCTORS:
+    - 1
+    - 2
+    - 3
+    - 4
+    - 5
+    - 6
+    - 7
+    - 8
+    - 9
+    - 10
+    - 11
+    - 12
+    - 13
+    - 14
+  - IR_BOUNDARY:
+    - F01
+    - F02
+    - F03
+    - F04
+    - F05
+    - F06
+    - F07
+    - F08
+    - F09
+    - F10
+    - F11
+    - F12
+    - F13
+    - F14
+- - IR_BOUNDARY:
+    - M01
+    - M08
+    - M09
+    - M10
+  - NEW_CONTROL_WIRING:
+    - 1
+    - 8
+    - 9
+    - 10
+  - 7i84U-A_TB3:
+    - IN9
+    - IN6
+    - IN7
+    - IN2
+- - IR_BOUNDARY:
+    - M02
+    - M03
+    - M04
+    - M05
+    - M06
+    - M07
+    - M13
+    - M14
+  - NEW_CONTROL_WIRING:
+    - 2
+    - 3
+    - 4
+    - 5
+    - 6
+    - 7
+    - 13
+    - 14
+  - 7i84U-A_TB2:
+    - IN19
+    - IN20
+    - IN21
+    - IN22
+    - IN23
+    - IN28
+    - IN24
+    - IN30
+- - IR_BOUNDARY:
+    - M11
+    - M12
+  - NEW_CONTROL_WIRING:
+    - 11
+    - 12
+  - 7i84U-B_TB3:
+    - IN6
+    - IN7

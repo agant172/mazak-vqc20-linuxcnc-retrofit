@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<definition version="0.100.0" type="element" link_type="simple" width="350" height="112" hotspot_x="175" hotspot_y="56">
+    <uuid uuid="{8d80cdba-9f7c-56da-8173-387ad2a58b72}" />
+    <names>
+        <name lang="en">7i49 P3</name>
+    </names>
+    <informations>Generated from the MESAC retrofit crosswalks. PRELIMINARY - NOT RELEASED FOR WIRING.</informations>
+    <description>
+        <rect x="-165.0" y="-46.0" width="330" height="92" rx="0" ry="0" antialias="false" style="line-style:normal;line-weight:normal;filling:none;color:#0078a8" />
+        <line x1="-165.0" y1="-20.0" x2="165.0" y2="-20.0" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:normal;filling:none;color:#0078a8" antialias="false" />
+        <text text="7i49 P3" x="-157.0" y="-28.0" rotation="0" font="Liberation Sans,8,-1,5,75,0,0,0,0,0,Bold" color="#0078a8" />
+        <text text="TBD: 23/24 (GND3/AOUT3) | TBD: 23/24 (GND3/AOUT3) | spindle-speed-cmd | HOLD -…" x="-157.0" y="-1.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#d00000" />
+        <terminal uuid="{e3a40b8d-958b-5956-a197-8202aed5591c}" name="TBD: 23/24 (GND3/AOUT3)" x="-165.0" y="-4.0" orientation="w" type="Generic" />
+        <text text="TBD: 23/24 (GND3/AOUT3)_2 | TBD: 23/24 (GND3/AOUT3)_2 | spindle-speed-cmd | HOL…" x="-157.0" y="19.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#d00000" />
+        <terminal uuid="{6c06b060-a56b-5024-a44d-299700601cf7}" name="TBD: 23/24 (GND3/AOUT3)_2" x="-165.0" y="16.0" orientation="w" type="Generic" />
+    </description>
+</definition>

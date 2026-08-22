@@ -6,7 +6,7 @@ window.MAZAK_DATA = {
   "machine": "Mazak VQC-20/40",
   "serial": "060231",
   "architecture": "LinuxCNC + Mesa 7i80HDT (Ethernet FPGA host) + 7i44 on P3 (HostMot2 sserial port 0 channels 0/1 to 7i84U-A/B) + 7i49 on P1 (resolver + analog outs); P2 unused/spare (confirmed 2026-08-13 by readhmid)",
-  "generated": "2026-08-17 18:42 UTC",
+  "generated": "2026-08-22 04:04 UTC",
   "source_repo": "mazak-vqc20-linuxcnc-retrofit",
   "authority_file": "mesa/current_pin_authority.csv",
   "epson_ferrule_file": "wiring/labels/bbia1_mesa_end_ferrules_epson.csv",
@@ -180,13 +180,13 @@ window.MAZAK_DATA = {
    "machine_subsystem": "Axis feedback",
    "status": "COMMISSIONING_PENDING",
    "field_point": "Tamagawa TS2014N X resolver",
-   "dest_connector": "",
-   "dest_pin": "",
-   "factory_wire": "",
+   "dest_connector": "CNA3",
+   "dest_pin": "12-17;20",
+   "factory_wire": "A/B/F/G/H/J/N",
    "bbia_class": "analog-resolver",
    "designations": [],
    "primary_source": "motion_7i80hdt.hal",
-   "cleanup_notes": "Ohmmeter winding pairs and scope return before power | [FIRST-POWER 2026-08-09: factory resolver wiring lands at BBIA1/7i49 - no cabinet trace. VERIFY feedback direction/counts before closing the loop - wrong sign runs the axis away.] | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/homing_ladder_transcription.md]",
+   "cleanup_notes": "Plane B CNA3 winding roles confirmed by Mitsubishi M2 Fig 14.4-1 and 2026-08-16 resistance checks; exact conductor routes are in wiring/plane_b_pin_crosswalk.csv. Proposed pair polarity must be proven with drive disabled before closing the loop. | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/homing_ladder_transcription.md]",
    "location": "X ball screw, non-drive end — Tamagawa TS2014N shaft resolver on flex coupling",
    "location_note": "BKO-NC6062A; via BBIA-1 CNA1 \"TO RESOLVER MACHINE SIDE\"",
    "expected": {
@@ -330,13 +330,13 @@ window.MAZAK_DATA = {
    "machine_subsystem": "Axis feedback",
    "status": "COMMISSIONING_PENDING",
    "field_point": "Tamagawa TS2014N Y resolver",
-   "dest_connector": "",
-   "dest_pin": "",
-   "factory_wire": "",
+   "dest_connector": "CNA4",
+   "dest_pin": "12-17;20",
+   "factory_wire": "A/B/F/G/H/J/N",
    "bbia_class": "analog-resolver",
    "designations": [],
    "primary_source": "motion_7i80hdt.hal",
-   "cleanup_notes": "Ohmmeter winding pairs and scope return before power | [FIRST-POWER 2026-08-09: factory resolver wiring lands at BBIA1/7i49 - no cabinet trace. VERIFY feedback direction/counts before closing the loop - wrong sign runs the axis away.] | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/homing_ladder_transcription.md]",
+   "cleanup_notes": "Plane B CNA4 winding roles confirmed by Mitsubishi M2 Fig 14.4-1 and 2026-08-16 resistance checks; exact conductor routes are in wiring/plane_b_pin_crosswalk.csv. Proposed pair polarity must be proven with drive disabled before closing the loop. | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/homing_ladder_transcription.md]",
    "location": "Y ball screw, non-drive end — Tamagawa TS2014N shaft resolver on flex coupling",
    "location_note": "BKO-NC6062A; via BBIA-1 CNA1",
    "expected": {
@@ -480,13 +480,13 @@ window.MAZAK_DATA = {
    "machine_subsystem": "Axis feedback",
    "status": "COMMISSIONING_PENDING",
    "field_point": "Tamagawa TS2014N Z resolver",
-   "dest_connector": "",
-   "dest_pin": "",
-   "factory_wire": "",
+   "dest_connector": "CNA5",
+   "dest_pin": "12-17;20",
+   "factory_wire": "A/B/F/G/H/J/N",
    "bbia_class": "analog-resolver",
    "designations": [],
    "primary_source": "motion_7i80hdt.hal",
-   "cleanup_notes": "Ohmmeter winding pairs and scope return before power | [FIRST-POWER 2026-08-09: factory resolver wiring lands at BBIA1/7i49 - no cabinet trace. VERIFY feedback direction/counts before closing the loop - wrong sign runs the axis away.] | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/homing_ladder_transcription.md]",
+   "cleanup_notes": "Plane B CNA5 winding roles confirmed by Mitsubishi M2 Fig 14.4-1 and 2026-08-16 resistance checks; exact conductor routes are in wiring/plane_b_pin_crosswalk.csv. Proposed pair polarity must be proven with drive disabled before closing the loop. | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/homing_ladder_transcription.md]",
    "location": "Z ball screw, non-drive end — Tamagawa TS2014N shaft resolver on flex coupling",
    "location_note": "BKO-NC6062A; Z amp cable CA1 / BBIA-1 CN3",
    "expected": {
@@ -832,15 +832,15 @@ window.MAZAK_DATA = {
    "direction_label": "Output (analog)",
    "subsystem": "Motion",
    "machine_subsystem": "Servo drives",
-   "status": "COMMISSIONING_PENDING",
+   "status": "HOLD_SOURCE_TRACE",
    "field_point": "X servo analog velocity command to MELDAS TRA",
-   "dest_connector": "",
-   "dest_pin": "",
+   "dest_connector": "TBD",
+   "dest_pin": "TBD",
    "factory_wire": "",
    "bbia_class": "analog-resolver",
    "designations": [],
    "primary_source": "motion_7i80hdt.hal",
-   "cleanup_notes": "7i49 pwmgen.00 driven by pid.x.output | [FIRST-POWER 2026-08-09: factory command wiring lands at BBIA1/7i49 - no cabinet trace. VERIFY command polarity against resolver feedback direction BEFORE enabling the drive - wrong sign runs the axis away. Confirm analog scaling.]",
+   "cleanup_notes": "7i49 P4-20 AOUT0 with P4-19 GND0; Plane B OEM connector and DK-427 input polarity are not yet traced. Do not land until the removed NC command pair is continuity-proven. See wiring/plane_b_pin_crosswalk.csv.",
    "location": "Servo bay — X servo amp analog command input",
    "location_note": "Verify velocity vs torque input and polarity before enabling",
    "expected": {
@@ -952,15 +952,15 @@ window.MAZAK_DATA = {
    "direction_label": "Output (analog)",
    "subsystem": "Motion",
    "machine_subsystem": "Servo drives",
-   "status": "COMMISSIONING_PENDING",
+   "status": "HOLD_SOURCE_TRACE",
    "field_point": "Z servo analog velocity command to MELDAS TRA",
-   "dest_connector": "",
-   "dest_pin": "",
+   "dest_connector": "TBD",
+   "dest_pin": "TBD",
    "factory_wire": "",
    "bbia_class": "analog-resolver",
    "designations": [],
    "primary_source": "motion_7i80hdt.hal",
-   "cleanup_notes": "7i49 pwmgen.01 driven by pid.z.output | [FIRST-POWER 2026-08-09: factory command wiring lands at BBIA1/7i49 - no cabinet trace. VERIFY command polarity against resolver feedback direction BEFORE enabling the drive - wrong sign runs the axis away. Confirm analog scaling.]",
+   "cleanup_notes": "7i49 P4-24 AOUT1 with P4-23 GND1; Plane B OEM connector and DK-427 input polarity are not yet traced. Do not land until the removed NC command pair is continuity-proven. See wiring/plane_b_pin_crosswalk.csv.",
    "location": "Servo bay — Z servo amp analog command input",
    "location_note": "Verify velocity vs torque input and polarity before enabling",
    "expected": {
@@ -1072,15 +1072,15 @@ window.MAZAK_DATA = {
    "direction_label": "Output (analog)",
    "subsystem": "Motion",
    "machine_subsystem": "Servo drives",
-   "status": "COMMISSIONING_PENDING",
+   "status": "HOLD_SOURCE_TRACE",
    "field_point": "Y servo analog velocity command to MELDAS TRA",
-   "dest_connector": "",
-   "dest_pin": "",
+   "dest_connector": "TBD",
+   "dest_pin": "TBD",
    "factory_wire": "",
    "bbia_class": "analog-resolver",
    "designations": [],
    "primary_source": "motion_7i80hdt.hal",
-   "cleanup_notes": "7i49 pwmgen.02 driven by pid.y.output | [FIRST-POWER 2026-08-09: factory command wiring lands at BBIA1/7i49 - no cabinet trace. VERIFY command polarity against resolver feedback direction BEFORE enabling the drive - wrong sign runs the axis away. Confirm analog scaling.]",
+   "cleanup_notes": "7i49 P3-20 AOUT2 with P3-19 GND2; Plane B OEM connector and DK-427 input polarity are not yet traced. Do not land until the removed NC command pair is continuity-proven. See wiring/plane_b_pin_crosswalk.csv.",
    "location": "Servo bay — Y servo amp analog command input",
    "location_note": "Verify velocity vs torque input and polarity before enabling",
    "expected": {
@@ -1192,15 +1192,15 @@ window.MAZAK_DATA = {
    "direction_label": "Output (analog)",
    "subsystem": "Spindle",
    "machine_subsystem": "Spindle drive",
-   "status": "COMMISSIONING_PENDING",
-   "field_point": "FR-SX V-IN speed reference",
+   "status": "HOLD_ANALOG_ROLE",
+   "field_point": "FR-SX speed reference",
    "dest_connector": "",
    "dest_pin": "",
    "factory_wire": "",
    "bbia_class": "analog-resolver",
    "designations": [],
    "primary_source": "motion_7i80hdt.hal",
-   "cleanup_notes": "Confirm 0-10V unipolar vs bipolar; pwmgen.03 offset-mode | [RECON 2026-08-08 §D: FR-SX SE1/SE2/SE3 0-10V speed ref (+10V max speed)] | [FIRST-POWER 2026-08-09: factory wiring at BBIA1/7i49 - no cabinet trace. Confirm 0-10V unipolar scaling / offset-mode (see C3); direction is separate SRN/SRI, not command sign.] | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/spindle_run_ladder_transcription.md]",
+   "cleanup_notes": "7i49 P3-24 AOUT3 with P3-23 GND3. OEM drawings confirm Plane A BBIA-1 CN4-18/-19/-20 SE1/SE2/SE3 to SX-IO1 CON1-31/-32/-30; determine command/common/shield roles and 0-10 V scaling before landing. The three conductor rows live in wiring/plane_b_pin_crosswalk.csv because this one-channel authority row cannot represent them individually.",
    "location": "Spindle/servo bay — FR-SX V-IN speed reference terminal",
    "location_note": "FR-SX drawing 4143075403, PDF pg 127 of 41434WB.pdf",
    "expected": {
@@ -1437,7 +1437,7 @@ window.MAZAK_DATA = {
    "bbia_class": "power-internal",
    "designations": [],
    "primary_source": "mesa_firmware_checklist.md",
-   "cleanup_notes": "7i44 channel 0 to 7i84U-A CN0 under HostMot2 port 0; RS-422 differential pair | [MESA-CONFIRMED 2026-08-08: matches 7i84U J1 RJ-45 pinout (7i84uman.pdf: p1 RXA/p2 RXB/p3 TXA/p6 TXB/p4-5 GND/p7-8 +5V, 568B colors); straight CAT5 to 7i44; plug-in cable, no continuity trace needed] | [READY 2026-08-09: factory-link acceptance applies to two distinct plug-in segments: Mesa 50-pin IDC from 7i80HDT P1 to 7i44, then CAT5 smart-serial from 7i44 to the identified 7i84U channel. Inspect assembly identity, keying/orientation, seating, strain relief, and visible condition; verify expected smart-serial enumeration without communication or watchdog faults. Do not continuity-audit or re-terminate individual conductors.]",
+   "cleanup_notes": "7i44 channel 0 to 7i84U-A CN0 under HostMot2 port 0; RS-422 differential pair | [MESA-CONFIRMED 2026-08-08: matches 7i84U J1 RJ-45 pinout (7i84uman.pdf: p1 RXA/p2 RXB/p3 TXA/p6 TXB/p4-5 GND/p7-8 +5V, 568B colors); straight CAT5 to 7i44; plug-in cable, no continuity trace needed] | [READY 2026-08-09: factory-link acceptance applies to two distinct plug-in segments: Mesa 50-pin IDC from 7i80HDT P3 to 7i44, then CAT5 smart-serial from 7i44 to the identified 7i84U channel. Inspect assembly identity, keying/orientation, seating, strain relief, and visible condition; verify expected smart-serial enumeration without communication or watchdog faults. Do not continuity-audit or re-terminate individual conductors.]",
    "location": "Control cabinet — 7i80HDT P3 to 7i44 by Mesa 50-pin IDC; 7i44 channel 0 to 7i84U-A CN0/RJ45 by CAT5 smart-serial",
    "location_note": "Factory plug-in link: inspect identity, keying/orientation, seating, strain relief, and visible condition; verify clean smart-serial enumeration. Do not continuity-audit or re-terminate individual conductors.",
    "expected": {
@@ -1488,7 +1488,7 @@ window.MAZAK_DATA = {
    "bbia_class": "power-internal",
    "designations": [],
    "primary_source": "mesa_firmware_checklist.md",
-   "cleanup_notes": "RS-422 differential pair | [MESA-CONFIRMED 2026-08-08: matches 7i84U J1 RJ-45 pinout (7i84uman.pdf: p1 RXA/p2 RXB/p3 TXA/p6 TXB/p4-5 GND/p7-8 +5V, 568B colors); straight CAT5 to 7i44; plug-in cable, no continuity trace needed] | [READY 2026-08-09: factory-link acceptance applies to two distinct plug-in segments: Mesa 50-pin IDC from 7i80HDT P1 to 7i44, then CAT5 smart-serial from 7i44 to the identified 7i84U channel. Inspect assembly identity, keying/orientation, seating, strain relief, and visible condition; verify expected smart-serial enumeration without communication or watchdog faults. Do not continuity-audit or re-terminate individual conductors.]",
+   "cleanup_notes": "RS-422 differential pair | [MESA-CONFIRMED 2026-08-08: matches 7i84U J1 RJ-45 pinout (7i84uman.pdf: p1 RXA/p2 RXB/p3 TXA/p6 TXB/p4-5 GND/p7-8 +5V, 568B colors); straight CAT5 to 7i44; plug-in cable, no continuity trace needed] | [READY 2026-08-09: factory-link acceptance applies to two distinct plug-in segments: Mesa 50-pin IDC from 7i80HDT P3 to 7i44, then CAT5 smart-serial from 7i44 to the identified 7i84U channel. Inspect assembly identity, keying/orientation, seating, strain relief, and visible condition; verify expected smart-serial enumeration without communication or watchdog faults. Do not continuity-audit or re-terminate individual conductors.]",
    "location": "Control cabinet — 7i80HDT P3 to 7i44 by Mesa 50-pin IDC; 7i44 channel 0 to 7i84U-A CN0/RJ45 by CAT5 smart-serial",
    "location_note": "Factory plug-in link: inspect identity, keying/orientation, seating, strain relief, and visible condition; verify clean smart-serial enumeration. Do not continuity-audit or re-terminate individual conductors.",
    "expected": {
@@ -1539,7 +1539,7 @@ window.MAZAK_DATA = {
    "bbia_class": "power-internal",
    "designations": [],
    "primary_source": "mesa_firmware_checklist.md",
-   "cleanup_notes": "RS-422 differential pair | [MESA-CONFIRMED 2026-08-08: matches 7i84U J1 RJ-45 pinout (7i84uman.pdf: p1 RXA/p2 RXB/p3 TXA/p6 TXB/p4-5 GND/p7-8 +5V, 568B colors); straight CAT5 to 7i44; plug-in cable, no continuity trace needed] | [READY 2026-08-09: factory-link acceptance applies to two distinct plug-in segments: Mesa 50-pin IDC from 7i80HDT P1 to 7i44, then CAT5 smart-serial from 7i44 to the identified 7i84U channel. Inspect assembly identity, keying/orientation, seating, strain relief, and visible condition; verify expected smart-serial enumeration without communication or watchdog faults. Do not continuity-audit or re-terminate individual conductors.]",
+   "cleanup_notes": "RS-422 differential pair | [MESA-CONFIRMED 2026-08-08: matches 7i84U J1 RJ-45 pinout (7i84uman.pdf: p1 RXA/p2 RXB/p3 TXA/p6 TXB/p4-5 GND/p7-8 +5V, 568B colors); straight CAT5 to 7i44; plug-in cable, no continuity trace needed] | [READY 2026-08-09: factory-link acceptance applies to two distinct plug-in segments: Mesa 50-pin IDC from 7i80HDT P3 to 7i44, then CAT5 smart-serial from 7i44 to the identified 7i84U channel. Inspect assembly identity, keying/orientation, seating, strain relief, and visible condition; verify expected smart-serial enumeration without communication or watchdog faults. Do not continuity-audit or re-terminate individual conductors.]",
    "location": "Control cabinet — 7i80HDT P3 to 7i44 by Mesa 50-pin IDC; 7i44 channel 0 to 7i84U-A CN0/RJ45 by CAT5 smart-serial",
    "location_note": "Factory plug-in link: inspect identity, keying/orientation, seating, strain relief, and visible condition; verify clean smart-serial enumeration. Do not continuity-audit or re-terminate individual conductors.",
    "expected": {
@@ -1590,7 +1590,7 @@ window.MAZAK_DATA = {
    "bbia_class": "power-internal",
    "designations": [],
    "primary_source": "mesa_firmware_checklist.md",
-   "cleanup_notes": "RS-422 differential pair | [MESA-CONFIRMED 2026-08-08: matches 7i84U J1 RJ-45 pinout (7i84uman.pdf: p1 RXA/p2 RXB/p3 TXA/p6 TXB/p4-5 GND/p7-8 +5V, 568B colors); straight CAT5 to 7i44; plug-in cable, no continuity trace needed] | [READY 2026-08-09: factory-link acceptance applies to two distinct plug-in segments: Mesa 50-pin IDC from 7i80HDT P1 to 7i44, then CAT5 smart-serial from 7i44 to the identified 7i84U channel. Inspect assembly identity, keying/orientation, seating, strain relief, and visible condition; verify expected smart-serial enumeration without communication or watchdog faults. Do not continuity-audit or re-terminate individual conductors.]",
+   "cleanup_notes": "RS-422 differential pair | [MESA-CONFIRMED 2026-08-08: matches 7i84U J1 RJ-45 pinout (7i84uman.pdf: p1 RXA/p2 RXB/p3 TXA/p6 TXB/p4-5 GND/p7-8 +5V, 568B colors); straight CAT5 to 7i44; plug-in cable, no continuity trace needed] | [READY 2026-08-09: factory-link acceptance applies to two distinct plug-in segments: Mesa 50-pin IDC from 7i80HDT P3 to 7i44, then CAT5 smart-serial from 7i44 to the identified 7i84U channel. Inspect assembly identity, keying/orientation, seating, strain relief, and visible condition; verify expected smart-serial enumeration without communication or watchdog faults. Do not continuity-audit or re-terminate individual conductors.]",
    "location": "Control cabinet — 7i80HDT P3 to 7i44 by Mesa 50-pin IDC; 7i44 channel 0 to 7i84U-A CN0/RJ45 by CAT5 smart-serial",
    "location_note": "Factory plug-in link: inspect identity, keying/orientation, seating, strain relief, and visible condition; verify clean smart-serial enumeration. Do not continuity-audit or re-terminate individual conductors.",
    "expected": {
@@ -1641,7 +1641,7 @@ window.MAZAK_DATA = {
    "bbia_class": "power-internal",
    "designations": [],
    "primary_source": "mesa_firmware_checklist.md",
-   "cleanup_notes": "Factory-link signal ground; cable construction is not field-modified | [MESA-CONFIRMED 2026-08-08: matches 7i84U J1 RJ-45 pinout (7i84uman.pdf: p1 RXA/p2 RXB/p3 TXA/p6 TXB/p4-5 GND/p7-8 +5V, 568B colors); straight CAT5 to 7i44] | [READY 2026-08-09: two distinct plug-in segments: Mesa 50-pin IDC from 7i80HDT P1 to 7i44, then CAT5 smart-serial from 7i44 channel 0 to 7i84U-A. Inspect assembly identity, keying/orientation, seating, strain relief, and visible condition; verify expected smart-serial enumeration without communication or watchdog faults. Do not continuity-audit or re-terminate individual conductors.]",
+   "cleanup_notes": "Factory-link signal ground; cable construction is not field-modified | [MESA-CONFIRMED 2026-08-08: matches 7i84U J1 RJ-45 pinout (7i84uman.pdf: p1 RXA/p2 RXB/p3 TXA/p6 TXB/p4-5 GND/p7-8 +5V, 568B colors); straight CAT5 to 7i44] | [READY 2026-08-09: two distinct plug-in segments: Mesa 50-pin IDC from 7i80HDT P3 to 7i44, then CAT5 smart-serial from 7i44 channel 0 to 7i84U-A. Inspect assembly identity, keying/orientation, seating, strain relief, and visible condition; verify expected smart-serial enumeration without communication or watchdog faults. Do not continuity-audit or re-terminate individual conductors.]",
    "location": "Control cabinet — 7i80HDT P3 to 7i44 by Mesa 50-pin IDC; 7i44 channel 0 to 7i84U-A CN0/RJ45 by CAT5 smart-serial",
    "location_note": "Factory plug-in link: inspect identity, keying/orientation, seating, strain relief, and visible condition; verify clean smart-serial enumeration. Do not continuity-audit or re-terminate individual conductors.",
    "expected": {
@@ -1692,7 +1692,7 @@ window.MAZAK_DATA = {
    "bbia_class": "power-internal",
    "designations": [],
    "primary_source": "mesa_firmware_checklist.md",
-   "cleanup_notes": "Serial power for 7i84U-A logic | [MESA-CONFIRMED 2026-08-08: matches 7i84U J1 RJ-45 pinout (7i84uman.pdf: p1 RXA/p2 RXB/p3 TXA/p6 TXB/p4-5 GND/p7-8 +5V, 568B colors); straight CAT5 to 7i44; plug-in cable, no continuity trace needed] | [READY 2026-08-09: factory-link acceptance applies to two distinct plug-in segments: Mesa 50-pin IDC from 7i80HDT P1 to 7i44, then CAT5 smart-serial from 7i44 to the identified 7i84U channel. Inspect assembly identity, keying/orientation, seating, strain relief, and visible condition; verify expected smart-serial enumeration without communication or watchdog faults. Do not continuity-audit or re-terminate individual conductors.]",
+   "cleanup_notes": "Serial power for 7i84U-A logic | [MESA-CONFIRMED 2026-08-08: matches 7i84U J1 RJ-45 pinout (7i84uman.pdf: p1 RXA/p2 RXB/p3 TXA/p6 TXB/p4-5 GND/p7-8 +5V, 568B colors); straight CAT5 to 7i44; plug-in cable, no continuity trace needed] | [READY 2026-08-09: factory-link acceptance applies to two distinct plug-in segments: Mesa 50-pin IDC from 7i80HDT P3 to 7i44, then CAT5 smart-serial from 7i44 to the identified 7i84U channel. Inspect assembly identity, keying/orientation, seating, strain relief, and visible condition; verify expected smart-serial enumeration without communication or watchdog faults. Do not continuity-audit or re-terminate individual conductors.]",
    "location": "Control cabinet — 7i80HDT P3 to 7i44 by Mesa 50-pin IDC; 7i44 channel 0 to 7i84U-A CN0/RJ45 by CAT5 smart-serial",
    "location_note": "Factory plug-in link: inspect identity, keying/orientation, seating, strain relief, and visible condition; verify clean smart-serial enumeration. Do not continuity-audit or re-terminate individual conductors.",
    "expected": {
@@ -2182,7 +2182,21 @@ window.MAZAK_DATA = {
     }
    ],
    "setp_refs": [],
-   "epson_ferrules": [],
+   "epson_ferrules": [
+    {
+     "label_text": "A-TB3-05",
+     "wire": "SETA",
+     "old_location": "CN4-16",
+     "signal": "set A",
+     "mesa_card": "7i84U-A",
+     "connector": "TB3",
+     "logical_channel": "IN4",
+     "physical_pin": "TB3-05",
+     "crosswalk_status": "PLANNED_MATCH",
+     "release_status": "HOLD_SOURCE_TRACE",
+     "source_line": 20
+    }
+   ],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -2203,6 +2217,11 @@ window.MAZAK_DATA = {
      "file": "element_list_crosswalk_2026-07-27",
      "lines": "",
      "note": "primary_source column in the authority table"
+    },
+    {
+     "file": "wiring/labels/bbia1_mesa_end_ferrules_epson.csv",
+     "lines": "20",
+     "note": "Epson Mesa-end ferrule A-TB3-05; HOLD_SOURCE_TRACE"
     }
    ],
    "conflicts": [],
@@ -2299,7 +2318,7 @@ window.MAZAK_DATA = {
      "physical_pin": "TB3-06",
      "crosswalk_status": "PLANNED_MATCH",
      "release_status": "HOLD_SOURCE_TRACE",
-     "source_line": 14
+     "source_line": 16
     }
    ],
    "sources": [
@@ -2330,7 +2349,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "wiring/labels/bbia1_mesa_end_ferrules_epson.csv",
-     "lines": "14",
+     "lines": "16",
      "note": "Epson Mesa-end ferrule A-TB3-06; HOLD_SOURCE_TRACE"
     }
    ],
@@ -3111,7 +3130,21 @@ window.MAZAK_DATA = {
     }
    ],
    "setp_refs": [],
-   "epson_ferrules": [],
+   "epson_ferrules": [
+    {
+     "label_text": "A-TB3-15",
+     "wire": "FA",
+     "old_location": "CN4-3",
+     "signal": "SPINDLE REV ROLLER THERMAL",
+     "mesa_card": "7i84U-A",
+     "connector": "TB3",
+     "logical_channel": "IN14",
+     "physical_pin": "TB3-15",
+     "crosswalk_status": "PLANNED_MATCH",
+     "release_status": "HOLD_SOURCE_TRACE",
+     "source_line": 17
+    }
+   ],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -3147,6 +3180,11 @@ window.MAZAK_DATA = {
      "file": "archived_wiring_map",
      "lines": "",
      "note": "primary_source column in the authority table"
+    },
+    {
+     "file": "wiring/labels/bbia1_mesa_end_ferrules_epson.csv",
+     "lines": "17",
+     "note": "Epson Mesa-end ferrule A-TB3-15; HOLD_SOURCE_TRACE"
     }
    ],
    "conflicts": [],
@@ -4830,7 +4868,7 @@ window.MAZAK_DATA = {
      "physical_pin": "TB2-16",
      "crosswalk_status": "PLANNED_MATCH",
      "release_status": "HOLD_SOURCE_TRACE",
-     "source_line": 15
+     "source_line": 21
     }
    ],
    "sources": [
@@ -4861,7 +4899,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "wiring/labels/bbia1_mesa_end_ferrules_epson.csv",
-     "lines": "15",
+     "lines": "21",
      "note": "Epson Mesa-end ferrule A-TB2-16; HOLD_SOURCE_TRACE"
     }
    ],
@@ -4935,7 +4973,21 @@ window.MAZAK_DATA = {
     }
    ],
    "setp_refs": [],
-   "epson_ferrules": [],
+   "epson_ferrules": [
+    {
+     "label_text": "A-TB3-17",
+     "wire": "SRN",
+     "old_location": "CN4-9",
+     "signal": "SPINDLE FORWARD",
+     "mesa_card": "7i84U-A",
+     "connector": "TB3",
+     "logical_channel": "OUT0",
+     "physical_pin": "TB3-17",
+     "crosswalk_status": "PLANNED_MATCH",
+     "release_status": "HOLD_SOURCE_TRACE",
+     "source_line": 18
+    }
+   ],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -4956,6 +5008,11 @@ window.MAZAK_DATA = {
      "file": "archived_wiring_map",
      "lines": "",
      "note": "primary_source column in the authority table"
+    },
+    {
+     "file": "wiring/labels/bbia1_mesa_end_ferrules_epson.csv",
+     "lines": "18",
+     "note": "Epson Mesa-end ferrule A-TB3-17; HOLD_SOURCE_TRACE"
     }
    ],
    "conflicts": [
@@ -5030,7 +5087,21 @@ window.MAZAK_DATA = {
     }
    ],
    "setp_refs": [],
-   "epson_ferrules": [],
+   "epson_ferrules": [
+    {
+     "label_text": "A-TB3-18",
+     "wire": "SRI",
+     "old_location": "CN4-10",
+     "signal": "SPINDLE REVERSE",
+     "mesa_card": "7i84U-A",
+     "connector": "TB3",
+     "logical_channel": "OUT1",
+     "physical_pin": "TB3-18",
+     "crosswalk_status": "PLANNED_MATCH",
+     "release_status": "HOLD_SOURCE_TRACE",
+     "source_line": 19
+    }
+   ],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -5051,6 +5122,11 @@ window.MAZAK_DATA = {
      "file": "archived_wiring_map",
      "lines": "",
      "note": "primary_source column in the authority table"
+    },
+    {
+     "file": "wiring/labels/bbia1_mesa_end_ferrules_epson.csv",
+     "lines": "19",
+     "note": "Epson Mesa-end ferrule A-TB3-18; HOLD_SOURCE_TRACE"
     }
    ],
    "conflicts": [
@@ -5370,7 +5446,21 @@ window.MAZAK_DATA = {
     }
    ],
    "setp_refs": [],
-   "epson_ferrules": [],
+   "epson_ferrules": [
+    {
+     "label_text": "A-TB3-21",
+     "wire": "ORI C1",
+     "old_location": "CN3-14",
+     "signal": "ORIENT COMMAND",
+     "mesa_card": "7i84U-A",
+     "connector": "TB3",
+     "logical_channel": "OUT4",
+     "physical_pin": "TB3-21",
+     "crosswalk_status": "PLANNED_MATCH",
+     "release_status": "HOLD_SOURCE_TRACE",
+     "source_line": 14
+    }
+   ],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -5391,6 +5481,11 @@ window.MAZAK_DATA = {
      "file": "element_list_crosswalk_2026-07-27",
      "lines": "",
      "note": "primary_source column in the authority table"
+    },
+    {
+     "file": "wiring/labels/bbia1_mesa_end_ferrules_epson.csv",
+     "lines": "14",
+     "note": "Epson Mesa-end ferrule A-TB3-21; HOLD_SOURCE_TRACE"
     }
    ],
    "conflicts": [
@@ -5465,7 +5560,21 @@ window.MAZAK_DATA = {
     }
    ],
    "setp_refs": [],
-   "epson_ferrules": [],
+   "epson_ferrules": [
+    {
+     "label_text": "A-TB3-22",
+     "wire": "CTL",
+     "old_location": "CN3-15",
+     "signal": "ORIENT LOOP CHECK",
+     "mesa_card": "7i84U-A",
+     "connector": "TB3",
+     "logical_channel": "OUT5",
+     "physical_pin": "TB3-22",
+     "crosswalk_status": "PLANNED_MATCH",
+     "release_status": "HOLD_SOURCE_TRACE",
+     "source_line": 15
+    }
+   ],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -5486,6 +5595,11 @@ window.MAZAK_DATA = {
      "file": "element_list_crosswalk_2026-07-27",
      "lines": "",
      "note": "primary_source column in the authority table"
+    },
+    {
+     "file": "wiring/labels/bbia1_mesa_end_ferrules_epson.csv",
+     "lines": "15",
+     "note": "Epson Mesa-end ferrule A-TB3-22; HOLD_SOURCE_TRACE"
     }
    ],
    "conflicts": [],
@@ -6399,7 +6513,7 @@ window.MAZAK_DATA = {
    "bbia_class": "power-internal",
    "designations": [],
    "primary_source": "mesa_firmware_checklist.md",
-   "cleanup_notes": "7i44 channel 1 to 7i84U-B CN0 under HostMot2 port 0; RS-422 differential pair | [MESA-CONFIRMED 2026-08-08: matches 7i84U J1 RJ-45 pinout (7i84uman.pdf: p1 RXA/p2 RXB/p3 TXA/p6 TXB/p4-5 GND/p7-8 +5V, 568B colors); straight CAT5 to 7i44; plug-in cable, no continuity trace needed] | [READY 2026-08-09: factory-link acceptance applies to two distinct plug-in segments: Mesa 50-pin IDC from 7i80HDT P1 to 7i44, then CAT5 smart-serial from 7i44 to the identified 7i84U channel. Inspect assembly identity, keying/orientation, seating, strain relief, and visible condition; verify expected smart-serial enumeration without communication or watchdog faults. Do not continuity-audit or re-terminate individual conductors.]",
+   "cleanup_notes": "7i44 channel 1 to 7i84U-B CN0 under HostMot2 port 0; RS-422 differential pair | [MESA-CONFIRMED 2026-08-08: matches 7i84U J1 RJ-45 pinout (7i84uman.pdf: p1 RXA/p2 RXB/p3 TXA/p6 TXB/p4-5 GND/p7-8 +5V, 568B colors); straight CAT5 to 7i44; plug-in cable, no continuity trace needed] | [READY 2026-08-09: factory-link acceptance applies to two distinct plug-in segments: Mesa 50-pin IDC from 7i80HDT P3 to 7i44, then CAT5 smart-serial from 7i44 to the identified 7i84U channel. Inspect assembly identity, keying/orientation, seating, strain relief, and visible condition; verify expected smart-serial enumeration without communication or watchdog faults. Do not continuity-audit or re-terminate individual conductors.]",
    "location": "Control cabinet — 7i80HDT P3 to 7i44 by Mesa 50-pin IDC; 7i44 channel 1 to 7i84U-B CN0/RJ45 by CAT5 smart-serial",
    "location_note": "Factory plug-in link: inspect identity, keying/orientation, seating, strain relief, and visible condition; verify clean smart-serial enumeration. Do not continuity-audit or re-terminate individual conductors.",
    "expected": {
@@ -6450,7 +6564,7 @@ window.MAZAK_DATA = {
    "bbia_class": "power-internal",
    "designations": [],
    "primary_source": "mesa_firmware_checklist.md",
-   "cleanup_notes": "RS-422 differential pair | [MESA-CONFIRMED 2026-08-08: matches 7i84U J1 RJ-45 pinout (7i84uman.pdf: p1 RXA/p2 RXB/p3 TXA/p6 TXB/p4-5 GND/p7-8 +5V, 568B colors); straight CAT5 to 7i44; plug-in cable, no continuity trace needed] | [READY 2026-08-09: factory-link acceptance applies to two distinct plug-in segments: Mesa 50-pin IDC from 7i80HDT P1 to 7i44, then CAT5 smart-serial from 7i44 to the identified 7i84U channel. Inspect assembly identity, keying/orientation, seating, strain relief, and visible condition; verify expected smart-serial enumeration without communication or watchdog faults. Do not continuity-audit or re-terminate individual conductors.]",
+   "cleanup_notes": "RS-422 differential pair | [MESA-CONFIRMED 2026-08-08: matches 7i84U J1 RJ-45 pinout (7i84uman.pdf: p1 RXA/p2 RXB/p3 TXA/p6 TXB/p4-5 GND/p7-8 +5V, 568B colors); straight CAT5 to 7i44; plug-in cable, no continuity trace needed] | [READY 2026-08-09: factory-link acceptance applies to two distinct plug-in segments: Mesa 50-pin IDC from 7i80HDT P3 to 7i44, then CAT5 smart-serial from 7i44 to the identified 7i84U channel. Inspect assembly identity, keying/orientation, seating, strain relief, and visible condition; verify expected smart-serial enumeration without communication or watchdog faults. Do not continuity-audit or re-terminate individual conductors.]",
    "location": "Control cabinet — 7i80HDT P3 to 7i44 by Mesa 50-pin IDC; 7i44 channel 1 to 7i84U-B CN0/RJ45 by CAT5 smart-serial",
    "location_note": "Factory plug-in link: inspect identity, keying/orientation, seating, strain relief, and visible condition; verify clean smart-serial enumeration. Do not continuity-audit or re-terminate individual conductors.",
    "expected": {
@@ -6501,7 +6615,7 @@ window.MAZAK_DATA = {
    "bbia_class": "power-internal",
    "designations": [],
    "primary_source": "mesa_firmware_checklist.md",
-   "cleanup_notes": "RS-422 differential pair | [MESA-CONFIRMED 2026-08-08: matches 7i84U J1 RJ-45 pinout (7i84uman.pdf: p1 RXA/p2 RXB/p3 TXA/p6 TXB/p4-5 GND/p7-8 +5V, 568B colors); straight CAT5 to 7i44; plug-in cable, no continuity trace needed] | [READY 2026-08-09: factory-link acceptance applies to two distinct plug-in segments: Mesa 50-pin IDC from 7i80HDT P1 to 7i44, then CAT5 smart-serial from 7i44 to the identified 7i84U channel. Inspect assembly identity, keying/orientation, seating, strain relief, and visible condition; verify expected smart-serial enumeration without communication or watchdog faults. Do not continuity-audit or re-terminate individual conductors.]",
+   "cleanup_notes": "RS-422 differential pair | [MESA-CONFIRMED 2026-08-08: matches 7i84U J1 RJ-45 pinout (7i84uman.pdf: p1 RXA/p2 RXB/p3 TXA/p6 TXB/p4-5 GND/p7-8 +5V, 568B colors); straight CAT5 to 7i44; plug-in cable, no continuity trace needed] | [READY 2026-08-09: factory-link acceptance applies to two distinct plug-in segments: Mesa 50-pin IDC from 7i80HDT P3 to 7i44, then CAT5 smart-serial from 7i44 to the identified 7i84U channel. Inspect assembly identity, keying/orientation, seating, strain relief, and visible condition; verify expected smart-serial enumeration without communication or watchdog faults. Do not continuity-audit or re-terminate individual conductors.]",
    "location": "Control cabinet — 7i80HDT P3 to 7i44 by Mesa 50-pin IDC; 7i44 channel 1 to 7i84U-B CN0/RJ45 by CAT5 smart-serial",
    "location_note": "Factory plug-in link: inspect identity, keying/orientation, seating, strain relief, and visible condition; verify clean smart-serial enumeration. Do not continuity-audit or re-terminate individual conductors.",
    "expected": {
@@ -6552,7 +6666,7 @@ window.MAZAK_DATA = {
    "bbia_class": "power-internal",
    "designations": [],
    "primary_source": "mesa_firmware_checklist.md",
-   "cleanup_notes": "RS-422 differential pair | [MESA-CONFIRMED 2026-08-08: matches 7i84U J1 RJ-45 pinout (7i84uman.pdf: p1 RXA/p2 RXB/p3 TXA/p6 TXB/p4-5 GND/p7-8 +5V, 568B colors); straight CAT5 to 7i44; plug-in cable, no continuity trace needed] | [READY 2026-08-09: factory-link acceptance applies to two distinct plug-in segments: Mesa 50-pin IDC from 7i80HDT P1 to 7i44, then CAT5 smart-serial from 7i44 to the identified 7i84U channel. Inspect assembly identity, keying/orientation, seating, strain relief, and visible condition; verify expected smart-serial enumeration without communication or watchdog faults. Do not continuity-audit or re-terminate individual conductors.]",
+   "cleanup_notes": "RS-422 differential pair | [MESA-CONFIRMED 2026-08-08: matches 7i84U J1 RJ-45 pinout (7i84uman.pdf: p1 RXA/p2 RXB/p3 TXA/p6 TXB/p4-5 GND/p7-8 +5V, 568B colors); straight CAT5 to 7i44; plug-in cable, no continuity trace needed] | [READY 2026-08-09: factory-link acceptance applies to two distinct plug-in segments: Mesa 50-pin IDC from 7i80HDT P3 to 7i44, then CAT5 smart-serial from 7i44 to the identified 7i84U channel. Inspect assembly identity, keying/orientation, seating, strain relief, and visible condition; verify expected smart-serial enumeration without communication or watchdog faults. Do not continuity-audit or re-terminate individual conductors.]",
    "location": "Control cabinet — 7i80HDT P3 to 7i44 by Mesa 50-pin IDC; 7i44 channel 1 to 7i84U-B CN0/RJ45 by CAT5 smart-serial",
    "location_note": "Factory plug-in link: inspect identity, keying/orientation, seating, strain relief, and visible condition; verify clean smart-serial enumeration. Do not continuity-audit or re-terminate individual conductors.",
    "expected": {
@@ -6603,7 +6717,7 @@ window.MAZAK_DATA = {
    "bbia_class": "power-internal",
    "designations": [],
    "primary_source": "mesa_firmware_checklist.md",
-   "cleanup_notes": "Factory-link signal ground; cable construction is not field-modified | [MESA-CONFIRMED 2026-08-08: matches 7i84U J1 RJ-45 pinout (7i84uman.pdf: p1 RXA/p2 RXB/p3 TXA/p6 TXB/p4-5 GND/p7-8 +5V, 568B colors); straight CAT5 to 7i44] | [READY 2026-08-09: two distinct plug-in segments: Mesa 50-pin IDC from 7i80HDT P1 to 7i44, then CAT5 smart-serial from 7i44 channel 1 to 7i84U-B. Inspect assembly identity, keying/orientation, seating, strain relief, and visible condition; verify expected smart-serial enumeration without communication or watchdog faults. Do not continuity-audit or re-terminate individual conductors.]",
+   "cleanup_notes": "Factory-link signal ground; cable construction is not field-modified | [MESA-CONFIRMED 2026-08-08: matches 7i84U J1 RJ-45 pinout (7i84uman.pdf: p1 RXA/p2 RXB/p3 TXA/p6 TXB/p4-5 GND/p7-8 +5V, 568B colors); straight CAT5 to 7i44] | [READY 2026-08-09: two distinct plug-in segments: Mesa 50-pin IDC from 7i80HDT P3 to 7i44, then CAT5 smart-serial from 7i44 channel 1 to 7i84U-B. Inspect assembly identity, keying/orientation, seating, strain relief, and visible condition; verify expected smart-serial enumeration without communication or watchdog faults. Do not continuity-audit or re-terminate individual conductors.]",
    "location": "Control cabinet — 7i80HDT P3 to 7i44 by Mesa 50-pin IDC; 7i44 channel 1 to 7i84U-B CN0/RJ45 by CAT5 smart-serial",
    "location_note": "Factory plug-in link: inspect identity, keying/orientation, seating, strain relief, and visible condition; verify clean smart-serial enumeration. Do not continuity-audit or re-terminate individual conductors.",
    "expected": {
@@ -6654,7 +6768,7 @@ window.MAZAK_DATA = {
    "bbia_class": "power-internal",
    "designations": [],
    "primary_source": "mesa_firmware_checklist.md",
-   "cleanup_notes": "Serial power for 7i84U-B logic | [MESA-CONFIRMED 2026-08-08: matches 7i84U J1 RJ-45 pinout (7i84uman.pdf: p1 RXA/p2 RXB/p3 TXA/p6 TXB/p4-5 GND/p7-8 +5V, 568B colors); straight CAT5 to 7i44; plug-in cable, no continuity trace needed] | [READY 2026-08-09: factory-link acceptance applies to two distinct plug-in segments: Mesa 50-pin IDC from 7i80HDT P1 to 7i44, then CAT5 smart-serial from 7i44 to the identified 7i84U channel. Inspect assembly identity, keying/orientation, seating, strain relief, and visible condition; verify expected smart-serial enumeration without communication or watchdog faults. Do not continuity-audit or re-terminate individual conductors.]",
+   "cleanup_notes": "Serial power for 7i84U-B logic | [MESA-CONFIRMED 2026-08-08: matches 7i84U J1 RJ-45 pinout (7i84uman.pdf: p1 RXA/p2 RXB/p3 TXA/p6 TXB/p4-5 GND/p7-8 +5V, 568B colors); straight CAT5 to 7i44; plug-in cable, no continuity trace needed] | [READY 2026-08-09: factory-link acceptance applies to two distinct plug-in segments: Mesa 50-pin IDC from 7i80HDT P3 to 7i44, then CAT5 smart-serial from 7i44 to the identified 7i84U channel. Inspect assembly identity, keying/orientation, seating, strain relief, and visible condition; verify expected smart-serial enumeration without communication or watchdog faults. Do not continuity-audit or re-terminate individual conductors.]",
    "location": "Control cabinet — 7i80HDT P3 to 7i44 by Mesa 50-pin IDC; 7i44 channel 1 to 7i84U-B CN0/RJ45 by CAT5 smart-serial",
    "location_note": "Factory plug-in link: inspect identity, keying/orientation, seating, strain relief, and visible condition; verify clean smart-serial enumeration. Do not continuity-audit or re-terminate individual conductors.",
    "expected": {
@@ -7175,7 +7289,7 @@ window.MAZAK_DATA = {
      "logical_channel": "IN4",
      "physical_pin": "TB3-05",
      "crosswalk_status": "PLANNED_MATCH",
-     "release_status": "HOLD_SOURCE_TRACE",
+     "release_status": "HOLD_DISPUTED_PIN",
      "source_line": 9
     }
    ],
@@ -7203,7 +7317,7 @@ window.MAZAK_DATA = {
     {
      "file": "wiring/labels/bbia1_mesa_end_ferrules_epson.csv",
      "lines": "9",
-     "note": "Epson Mesa-end ferrule B-TB3-05; HOLD_SOURCE_TRACE"
+     "note": "Epson Mesa-end ferrule B-TB3-05; HOLD_DISPUTED_PIN"
     }
    ],
    "conflicts": [],
@@ -8021,20 +8135,20 @@ window.MAZAK_DATA = {
    "board": "7i84U-B",
    "connector": "TB3",
    "channel": "IN15",
-   "hal_net": "probe-in",
+   "hal_net": "",
    "direction": "IN",
    "direction_label": "Input (digital)",
    "subsystem": "Motion",
    "machine_subsystem": "Motion",
-   "status": "PROPOSED",
+   "status": "RESERVED",
    "field_point": "Renishaw MP-3 probe SKIP1 (PLC X03F SKIP1.M)",
    "dest_connector": "",
    "dest_pin": "",
    "factory_wire": "",
-   "bbia_class": "exception",
+   "bbia_class": "spare",
    "designations": [],
    "primary_source": "field_7i84u.hal",
-   "cleanup_notes": "Moved from bare P3 gpio.042 to opto-isolated 7i84U-B input-15. MP-3 is believed NC so HAL consumes input-15-not; verify physical polarity fail-open response and measured probing latency before use. | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/probe_mms_ladder_transcription.md]",
+   "cleanup_notes": "Moved from bare P3 gpio.042 to opto-isolated 7i84U-B input-15. MP-3 is believed NC so HAL consumes input-15-not; verify physical polarity fail-open response and measured probing latency before use. | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/probe_mms_ladder_transcription.md] | [RESERVED 2026-08-21 (owner decision AG): probe is out of scope; hal_net set to none. HAL nets commented out in field_7i84u.hal; motion.probe-input left undriven reads FALSE so G38.x errors out rather than misfiring. TB3 IN15 is now spare. Re-enable by uncommenting both nets and restoring PROPOSED]",
    "location": "Unknown — trace in cabinet",
    "location_note": "",
    "expected": {
@@ -8043,38 +8157,11 @@ window.MAZAK_DATA = {
     "basis": "No explicit normal-state evidence in the repo for this signal.",
     "kind": "unknown"
    },
-   "hal_state": "active",
-   "mesa_pins": [
-    "hm2_7i80.0.7i84.0.1.input-15-not"
-   ],
+   "hal_state": "absent",
+   "mesa_pins": [],
    "producers": [],
-   "consumers": [
-    "motion.probe-input"
-   ],
-   "hal_refs": [
-    {
-     "file": "linuxcnc/field_7i84u.hal",
-     "line": 267,
-     "text": "net probe-in <= hm2_7i80.0.7i84.0.1.input-15-not",
-     "commented": false,
-     "producers": [
-      "hm2_7i80.0.7i84.0.1.input-15-not"
-     ],
-     "consumers": [],
-     "bidir": []
-    },
-    {
-     "file": "linuxcnc/field_7i84u.hal",
-     "line": 268,
-     "text": "net probe-in => motion.probe-input",
-     "commented": false,
-     "producers": [],
-     "consumers": [
-      "motion.probe-input"
-     ],
-     "bidir": []
-    }
-   ],
+   "consumers": [],
+   "hal_refs": [],
    "setp_refs": [],
    "epson_ferrules": [],
    "sources": [
@@ -8082,16 +8169,6 @@ window.MAZAK_DATA = {
      "file": "mesa/current_pin_authority.csv",
      "lines": "92",
      "note": "Current wiring authority row"
-    },
-    {
-     "file": "linuxcnc/field_7i84u.hal",
-     "lines": "267",
-     "note": "net probe-in <= hm2_7i80.0.7i84.0.1.input-15-not"
-    },
-    {
-     "file": "linuxcnc/field_7i84u.hal",
-     "lines": "268",
-     "note": "net probe-in => motion.probe-input"
     },
     {
      "file": "field_7i84u.hal",
@@ -8983,7 +9060,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 304,
+     "line": 311,
      "text": "net x-enable     <= and2.0.out",
      "commented": false,
      "producers": [
@@ -8994,7 +9071,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 305,
+     "line": 312,
      "text": "net x-enable     => hm2_7i80.0.7i84.0.1.output-00   # X servo S-ON to MELDAS DK-427",
      "commented": false,
      "producers": [],
@@ -9041,12 +9118,12 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "304",
+     "lines": "311",
      "note": "net x-enable     <= and2.0.out"
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "305",
+     "lines": "312",
      "note": "net x-enable     => hm2_7i80.0.7i84.0.1.output-00   # X servo S-ON to MELDAS DK-427"
     },
     {
@@ -9138,7 +9215,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 310,
+     "line": 317,
      "text": "net y-enable     <= and2.1.out",
      "commented": false,
      "producers": [
@@ -9149,7 +9226,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 311,
+     "line": 318,
      "text": "net y-enable     => hm2_7i80.0.7i84.0.1.output-01   # Y servo S-ON to MELDAS DK-427",
      "commented": false,
      "producers": [],
@@ -9196,12 +9273,12 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "310",
+     "lines": "317",
      "note": "net y-enable     <= and2.1.out"
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "311",
+     "lines": "318",
      "note": "net y-enable     => hm2_7i80.0.7i84.0.1.output-01   # Y servo S-ON to MELDAS DK-427"
     },
     {
@@ -9268,7 +9345,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 318,
+     "line": 325,
      "text": "net z-enable     <= z-drive-drop-delay.out",
      "commented": false,
      "producers": [
@@ -9279,7 +9356,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 319,
+     "line": 326,
      "text": "net z-enable     => hm2_7i80.0.7i84.0.1.output-02   # Z servo S-ON to MELDAS DK-427",
      "commented": false,
      "producers": [],
@@ -9299,12 +9376,12 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "318",
+     "lines": "325",
      "note": "net z-enable     <= z-drive-drop-delay.out"
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "319",
+     "lines": "326",
      "note": "net z-enable     => hm2_7i80.0.7i84.0.1.output-02   # Z servo S-ON to MELDAS DK-427"
     },
     {
@@ -9362,7 +9439,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 325,
+     "line": 332,
      "text": "net air-blast          => hm2_7i80.0.7i84.0.1.output-03  # SOL-15 spindle air blast via RLY-5",
      "commented": false,
      "producers": [],
@@ -9382,7 +9459,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "325",
+     "lines": "332",
      "note": "net air-blast          => hm2_7i80.0.7i84.0.1.output-03  # SOL-15 spindle air blast via RLY-5"
     },
     {
@@ -9644,7 +9721,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 338,
+     "line": 345,
      "text": "net flood-valve        => hm2_7i80.0.7i84.0.1.output-07  # PLC Y011 FCL (SOL-31); driver TBD - candidate: follow flood-coolant net with pump",
      "commented": false,
      "producers": [],
@@ -9664,7 +9741,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "338",
+     "lines": "345",
      "note": "net flood-valve        => hm2_7i80.0.7i84.0.1.output-07  # PLC Y011 FCL (SOL-31); driver TBD - candidate: follow flood-coolant net with pump"
     },
     {
@@ -9785,8 +9862,8 @@ window.MAZAK_DATA = {
    "field_point": "Work light via RLY-8 (interposing relay for 100VAC coil); OEM CN6 pin 8 wire WL (wire no. 3-34)",
    "dest_connector": "OEM CN6",
    "dest_pin": "8",
-   "factory_wire": "",
-   "bbia_class": "spare",
+   "factory_wire": "WL",
+   "bbia_class": "plane",
    "designations": [
     "RLY-8"
    ],
@@ -10179,6 +10256,81 @@ window.MAZAK_DATA = {
    "conflicts": [],
    "bb_source": null,
    "authority_line": 125
+  },
+  {
+   "id": "NET_PROBE_IN",
+   "name": "probe-in",
+   "board": "7i84U-B",
+   "connector": "TB3",
+   "channel": "IN15-NOT",
+   "hal_net": "probe-in",
+   "direction": "IN",
+   "direction_label": "Input (digital)",
+   "subsystem": "Unmapped",
+   "machine_subsystem": "Unmapped",
+   "status": "CONFIG_ONLY",
+   "field_point": "Not in the wiring authority",
+   "designations": [],
+   "primary_source": "HAL config only",
+   "cleanup_notes": "No row in current_pin_authority.csv. Commented out in HAL.",
+   "location": "Unknown — no authority row, trace in cabinet",
+   "location_note": "",
+   "expected": {
+    "value": "Unknown",
+    "label": "Unknown — measure/verify",
+    "basis": "No authority row and no normal-state evidence.",
+    "kind": "unknown"
+   },
+   "hal_state": "commented",
+   "mesa_pins": [
+    "hm2_7i80.0.7i84.0.1.input-15-not"
+   ],
+   "producers": [],
+   "consumers": [
+    "motion.probe-input"
+   ],
+   "hal_refs": [
+    {
+     "file": "linuxcnc/field_7i84u.hal",
+     "line": 274,
+     "text": "# net probe-in <= hm2_7i80.0.7i84.0.1.input-15-not",
+     "commented": true,
+     "producers": [
+      "hm2_7i80.0.7i84.0.1.input-15-not"
+     ],
+     "consumers": [],
+     "bidir": []
+    },
+    {
+     "file": "linuxcnc/field_7i84u.hal",
+     "line": 275,
+     "text": "# net probe-in => motion.probe-input",
+     "commented": true,
+     "producers": [],
+     "consumers": [
+      "motion.probe-input"
+     ],
+     "bidir": []
+    }
+   ],
+   "setp_refs": [],
+   "epson_ferrules": [],
+   "sources": [
+    {
+     "file": "linuxcnc/field_7i84u.hal",
+     "lines": "274",
+     "note": "commented out — # net probe-in <= hm2_7i80.0.7i84.0.1.input-15-not"
+    },
+    {
+     "file": "linuxcnc/field_7i84u.hal",
+     "lines": "275",
+     "note": "commented out — # net probe-in => motion.probe-input"
+    }
+   ],
+   "conflicts": [
+    "C1"
+   ],
+   "authority_line": null
   }
  ],
  "conflicts": [
@@ -10291,6 +10443,7 @@ window.MAZAK_DATA = {
   "Spindle",
   "Spindle gear",
   "Spindle safety",
+  "Unmapped",
   "Utility"
  ],
  "connectors": [
@@ -10305,6 +10458,28 @@ window.MAZAK_DATA = {
   "UNASSIGNED",
   "none"
  ],
- "orphan_nets": [],
+ "orphan_nets": [
+  {
+   "net": "probe-in",
+   "mesa_pins": [
+    "hm2_7i80.0.7i84.0.1.input-15-not"
+   ],
+   "refs": [
+    {
+     "file": "linuxcnc/field_7i84u.hal",
+     "line": 274,
+     "commented": true,
+     "text": "# net probe-in <= hm2_7i80.0.7i84.0.1.input-15-not"
+    },
+    {
+     "file": "linuxcnc/field_7i84u.hal",
+     "line": 275,
+     "commented": true,
+     "text": "# net probe-in => motion.probe-input"
+    }
+   ],
+   "active": false
+  }
+ ],
  "missing_from_hal": []
 };

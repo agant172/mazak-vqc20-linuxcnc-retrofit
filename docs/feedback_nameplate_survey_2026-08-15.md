@@ -17,6 +17,13 @@ and still required.
 | Z resolver pickup | `PICKUP UNIT`, TS2014N family (plate style N5399, same as X/Y) | **BKO-NC6062A (clearly legible)** | **7028** (read by eye 2026-08-16; ink too faded to photograph) | `TS2014N …` — stamped digits illegible; one frame hints `E3…` | 198_ | poor (borescope frames, glare) |
 | Spindle encoder | Tamagawa OPTICAL SHAFT ENCODER, **512 counts/turn, DC ±15 V** | — | A6022 | **TS1526N55** | 1984.6 | good |
 
+> **Which borescope frames?** The fifteen borescope stills in Drive
+> (`03_Motors_Feedback/IMG_001`–`IMG_015`, with `VID_001.AVI`) are **2018-05-09**
+> material, not from this 2026-08-15 visit — owner-confirmed 2026-08-17 and
+> recorded in `~/.claude/shop-projects.md`. Cite them as `2018-05-09/IMG_001`.
+> If the Z row below rests on those frames it rests on eight-year-old imagery.
+> Details: [`usb_video_drive_search_2026-08-21.md`](usb_video_drive_search_2026-08-21.md).
+
 **Z resolver located and partially read (2026-08-15, second visit).** The
 pickup can sits at the Z screw's non-drive end; borescope frames defeat the
 stamped digits but the printed spec line is clear: **`BKO-NC6062A` — the same
@@ -131,9 +138,119 @@ depends on it.
   failed on the tacho connector 2026-08-15). The Z pickup's own MS connector
   is inaccessible without pulling the spindle — do NOT pull the spindle for
   this; the CNA5 end is electrically equivalent.
-- [ ] Re-read the faded type stamps (`RT-…`) and the E-suffix digits on X/Y,
-  or obtain the `TS2014N25E…` datasheet from Tamagawa and reconcile.
+- [x] ~~Re-read the faded type stamps (`RT-…`) and the E-suffix digits on X/Y~~
+  **Closed 2026-08-21 (owner).** The stamps are **not recoverable**: coolant has
+  faded the ink used to populate the boxes.
+
+  > **Corroborated photographically 2026-08-21.** A previously undocumented
+  > session — **`2026-07-17/IMG_0190`–`IMG_0207`**, found by a full Photos-library
+  > sweep and now in `03_Motors_Feedback` — is the sharpest plate imagery in the
+  > project. At full resolution `2026-07-17/IMG_0191` shows the `RT-☐X☐-☐☐` and
+  > `TS2014N☐☐E☐-☐` boxes carrying **faint ghost impressions with no ink in them**,
+  > while `BKO-NC6062A` beside them is crisp. That is lost ink, not an unstamped
+  > plate and not a photographic failure — which is why magnification cannot help.
+  > The same frame reads SER NO. **`A6986`** (so it is the **Y** pickup) and plate
+  > style **`N5399`**, both matching the table above.
+  > See [`photo_reindex_2026-08-21.md`](photo_reindex_2026-08-21.md). Magnification and contrast work have
+  both been tried, on the machine and on the 2026-08-15 photographs — the boxes
+  photograph clean-empty because the ink is gone, not because the plates were
+  left blank. **Do not re-shoot these plates.** The devices are identified by
+  the printed spec number `BKO-NC6062A`, which is crisp.
+- [ ] Obtain the `TS2014N25E…` datasheet from Tamagawa and reconcile — now the
+  **only** remaining route to the exact suffix.
 - [ ] Until the exact suffix datasheet is in hand, treat excitation level,
   K, and the 5 kHz choice as **assumptions to verify by scope** at the
   excitation-and-return step — which `resolver_commissioning.md` already
   requires regardless.
+
+## Appendix — raw field transcription
+
+Verbatim as typed at the machine, re-entered through an iMac desk session and
+merged 2026-08-16 (PR #75, commit `9c3c530`, originally a root-level
+`resolvers.md`). Kept unedited as the primary record behind the Readings table
+above — spacing, case, and OCR-ambiguous characters are the transcriber's, not
+corrections. **This is a nameplate reading only; no ohmmeter values were taken.**
+
+### First visit — X, Y, Z tacho, spindle encoder (2026-08-15)
+
+```
+Y- RT 5 X 8- 1
+BKO-NC6062A
+A 6986
+TS2014N 25 E 3-1
+
+X-  RT - 5 X
+BKO - NC6062
+A  7003
+TS2014N 25 E 8 1
+
+Z - Brushless DC Generator
+Type TT-A-11
+Spec. No. BKO-NC6075
+Ser NO23868
+Part No. TS3033n 4 E2
+
+Spindle -
+Optical Shaft encoder
+512 counts turn DC 15V
+Type TS1526N55
+Ser. No. A6022
+```
+
+Reconciliation with the Readings table — the raw text agrees on every spec
+number, serial, and part number. Four places where the table is deliberately
+more careful than the raw transcription, and the table governs:
+
+| Raw | Table | Why the table wins |
+|---|---|---|
+| X `BKO - NC6062` | `BKO-NC6062 (A suffix uncertain)` | The `A` is not legible on X. Y and Z both read `BKO-NC6062A` clearly; X is presumed the same but not read. |
+| Z tacho `Ser NO23868` | `23868`, with a re-read suggesting `2386` | The stamp is smudged. Nothing depends on it. |
+| Spindle `DC 15V` | `DC ±15 V` | Bipolar supply — the sign matters, and it is part of why `num_encoders=0` stands (no Mesa input accepts a ±15 V-supplied device without an interface that was never scoped). |
+| `TS3033n`, `TS2014N 25 E 8 1` | `TS3033N`, `TS2014N 25 E 8-1?` | Case normalized; trailing digits flagged as partially legible rather than asserted. |
+
+The load-bearing finding is in the table and in "What this changes" above, not
+here: both readable pickups show **`TS2014N 25 E …`**, so the installed suffix
+is **not** `141E26` and no absolute electrical figure from that variant's
+datasheet is a spec for this machine.
+
+### Second visit — Z resolver pickup (2026-08-16)
+
+**The `TT-A-11` plate in the block above is a tachogenerator, not a resolver.**
+Per Table 14.3-1 of the `MELDAS Series M2 Maintenance Manual` (p. 249),
+Mitsubishi's detector family splits into **RT** (multi-polar resolver, ball-screw
+-tip *position* detector), **TT** (brushless tachogenerator, motor-axis *speed*
+detector) and **RST** (both). `TT-A-11` is therefore the Z-axis **tach**. Z
+carries a resolver *as well*, and its plate is transcribed below.
+
+Photographed at the machine 2026-08-16 with a borescope camera (`JLDV AC54`);
+the serial was read directly off the plate by eye, the ink being too faded to
+photograph. Plate form no. `N5399` — the same plate style as X and Y.
+
+```
+TAMAGAWA SEIKI CO., LTD., JAPAN
+… PICKUP UNIT
+TYPE       □X□-□□        ← boxes not readable
+SPEC. NO.  BKO-NC6062A
+PARTS NO.  TS2014N□□E□-□ ← boxes not readable
+SER. NO.   7028
+DATE       198…
+```
+
+**Z is the same pickup family and spec as X and Y** — `BKO-NC6062A`, identical to
+Y (X is `BKO-NC6062`), part number in the same `TS2014N…E…` series. The serials
+place all three in one batch: **X 7003, Y 6986, Z 7028**, a spread of 42. The
+stamped type and suffix digits remain unread on **all three** axes; legibility
+notes, why the borescope keeps failing on them, and how to reshoot are in the
+Readings section above.
+
+The photographs are **not committed** (media rule, [`../CLAUDE.md`](../CLAUDE.md)).
+They carry **no EXIF timestamp** — the camera writes none — and are numbered
+`IMG_001…015`, which collides with earlier batches, so file them in Drive as
+`2026-08-16/IMG_nnn` per [`README_photo_sorting.md`](README_photo_sorting.md)
+before citing them.
+
+DC resistance readings for these same devices (CNA3/4/5, measured 2026-08-16)
+are **not** here — they live in
+[`resolver_commissioning.md`](resolver_commissioning.md#measured-dc-resistance-2026-08-16-cna345-nc-unit-rack),
+together with the connector pinout confirmed against Mitsubishi's own detector
+wiring figure. This appendix is nameplate transcriptions only.

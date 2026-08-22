@@ -4,8 +4,10 @@
 [Google Drive](https://drive.google.com/drive/folders/1YYpWPyWiRuoY2z5GACSDw6H3zzSQoVdf?usp=drive_link).
 This directory is a pointer.
 
-📁 **Scheme, naming, and migration:
-[`../docs/README_photo_sorting.md`](../docs/README_photo_sorting.md)**
+📁 **Scheme and naming:**
+[`../docs/README_photo_sorting.md`](../docs/README_photo_sorting.md)
+📁 **Current layout, collisions, date caveat:**
+[`../docs/photo_drive_layout_2026-08-21.md`](../docs/photo_drive_layout_2026-08-21.md)
 
 Two things worth knowing before you cite a photo:
 
@@ -13,6 +15,9 @@ Two things worth knowing before you cite a photo:
 - Cite as **`YYYY-MM-DD/IMG_nnnn`**. A bare `IMG_nnnn` is ambiguous — the same
   camera numbers recur across batches.
 
-A second, unsorted batch sits at `My Drive/Mazak/Misc. Photos`, surveyed in
-[`../docs/photo_survey_misc.md`](../docs/photo_survey_misc.md). Originals are
-also backed up to OneDrive.
+The `Misc. Photos` batch surveyed in
+[`../docs/photo_survey_misc.md`](../docs/photo_survey_misc.md) was **never in
+Drive** — it lived in OneDrive, and was folded into the scheme on 2026-08-21.
+
+**OneDrive is no longer a backup.** It was cleared on 2026-08-21 after byte-level
+verification; only three large videos remain there. Drive is now the sole copy.

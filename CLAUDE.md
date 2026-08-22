@@ -125,20 +125,26 @@ The original NC talked to the machine through **two separate interfaces**, not o
   (smart-serial) → **Mesa screw terminals** → cut & ferruled **MR cables** →
   **BBIA-1** → unchanged OEM harness → machine. Documented in
   `wiring/bbia1_terminal_unit.md` / `wiring/bbia1_cn_pinouts.csv`.
-- **Plane B — the CNA-family servo card-cage connectors** plus the FR-SX spindle
-  drive's **SX-IO1** board, carrying axis resolver feedback, ±10 V axis velocity
-  commands, and the spindle speed command: LinuxCNC → 7i80HDT → 7i49 (P1) →
-  shielded home-run cable → **CNA3(X)/CNA4(Y)/CNA5(Z)** / SX-IO1 → unchanged OEM
-  cabling → TRA servo amps / FR-SX spindle drive. The resolver connectors are
-  mature — pin roles are Mitsubishi-M2-manual-confirmed and bench-measured
-  (`docs/resolver_commissioning.md`, `resolvers.md`); the SX-IO1 board is not yet
-  pinned out (`wiring/connector_crossref.md`). The RC3A relay board, though
+- **Plane B — the CNA-family servo card-cage connectors**, carrying axis resolver
+  feedback and the direct ±10 V axis command pairs: LinuxCNC → 7i80HDT → 7i49
+  (P1) → shielded home-run cable → **CNA3(X)/CNA4(Y)/CNA5(Z)** / the still-untraced
+  axis-command connector pins → retained TRA/DK-427 hardware. Resolver pin roles
+  are Mitsubishi-M2-manual-confirmed and bench-measured
+  (`docs/resolver_commissioning.md`, `resolvers.md`,
+  `wiring/plane_b_pin_crosswalk.csv`). **Correction 2026-08-18:** the FR-SX speed
+  reference crosses Plane A at BBIA-1 CN4-18/-19/-20, not Plane B; the SX-IO1
+  CON1 table in `wiring/connector_crossref.md` is the internal cross-reference.
+  The RC3A relay board, though
   physically in the same bay, is **not** part of Plane B — its signals
   cross-reference to BBIA-1's own CN3/CN301A (Plane A).
 
 **Two-plane rule:** every control↔machine signal crosses at exactly one of these two
 planes. One physical conductor across a plane = one row in that plane's I/O model,
-keyed on the **factory wire number** where legible. The machine-internal side of each
+keyed on **`signal_id`** and labelled with the **factory wire number** printed on the
+jacket. (The wire number is the ferrule text and the lookup key back to the OEM print,
+but it is *not* unique — the print renumbers a conductor at each relay stage, so it
+names a segment, not a conductor. See `wiring/authority_conflicts.md` § 7.1.)
+The machine-internal side of each
 plane is fixed OEM/OEM-manual reference — do not re-derive it; the retrofit owns and
 verifies only each plane's hop to Mesa. The few things that cross at neither plane —
 the standalone OEM E-stop/contactor chain and the still-unlocated over-travel
@@ -161,6 +167,13 @@ Four sources are authoritative, in priority order:
    Repo version wins over any external source unless both are revised together.
 
 2. **OEM PDF document set for SN 060231**
+   Canonical set lives in [Google Drive: `Mazak/Manuals_SN060231`](https://drive.google.com/drive/folders/1XWcctFb2gGTSNwGjkBiaufewpDAowJi8)
+   — consolidated PDFs named `VQC20-40_060231_<Electrical_Diagrams|Ladder_Diagrams|
+   Maintenance|Operator|Parameters|Parts_List|M2_Programming>.pdf`, plus
+   `Original Manuals/` (raw page scans, incl. `41434WB <page>.pdf` files, a
+   README, and `docs_index.md`) and `Misc. Documents/` (element list CSV,
+   `servo_amp_analysis.md`, and other working notes). Check `docs_index.md`
+   before re-deriving a signal from scratch.
    - Electrical Diagrams (pub #41434WB, 6/1984) — wiring, terminals,
      connectors, wire numbers, relay coil numbers, safety-chain topology.
    - M-2 Parameter Manual — machine parameters and memory addresses.
@@ -177,8 +190,10 @@ Four sources are authoritative, in priority order:
 3. **Mesa manuals committed to `docs/Mesa Manuals/`**
    - `7i84uman.pdf` (7I84U) — 7i84U-A/B I/O registers, SSerial
      addressing, connector pinouts, power requirements.
-   Manuals for the other cards in the stack (7i80HDT, 7i44, 7i49) are not
-   yet committed — download from Mesa and commit before citing. Do NOT cite
+   - `7i80hdtman.pdf` (7I80HDT) — installed host-board connectors and power.
+   - `7i49man.pdf` (7I49) — resolver and analog terminal maps and shield rule.
+   The 7i44 manual remains link-only; commit it before relying on a new 7i44
+   claim not already covered by the current authority. Do NOT cite
    7i97T/7i97 manuals: the 7i97T architecture is RETRACTED
    (`docs/superseded_claims_2026-08-06.md`) and the local 7i97T manual was
    deliberately removed in Rev B.
@@ -419,10 +434,19 @@ change it here in the same commit.
 - **Desk sessions never push to `main`** — Macs and cloud alike. Work on a feature branch and
   open a **draft PR**; the Authority gate (`.github/workflows/authority-gate.yml`) must pass
   before merge. The OptiPlex commits directly when recording a measurement at the machine.
-- **`main` moves on its own.** The OptiPlex pushes `status/host_status.{md,json}` to `main`
-  every 5 minutes via a systemd timer (`scripts/host_status/collect_status.sh`). Fetch and
-  rebase before pushing rather than assuming your base is current, and don't be alarmed by
-  commits you didn't write in `status/`.
+- **Nothing writes to `main` unattended.** Every commit here is one a person or a session
+  made deliberately. Fetch before pushing anyway — three machines share this repo — but a
+  commit you did not write means another *session* wrote it, not a robot.
+  This corrects a claim that stood in this file until 2026-08-17: that the OptiPlex pushed
+  `status/host_status.{md,json}` to `main` every 5 minutes. It never did. The status
+  collector that ran on the OptiPlex pushed to a **separate** repo,
+  `agant172/mazak-vqc20-status`, and it was **removed on 2026-08-17** (owner decision) —
+  archived at `scripts/host_status/retired/`. The `status/` directory is gone.
+- **The OptiPlex updates its own checkout.** `mazak-repo-pull.timer` fast-forwards the
+  working copy from `origin` every 15 minutes — fetch always, fast-forward only when it
+  cannot lose work, and it skips on a dirty tree, divergence, or a branch with no upstream
+  (`scripts/host_status/README.md`). It is a floor under staleness, not a reason to skip
+  `git pull` when you sit down.
 
 ### The machines
 
@@ -452,8 +476,8 @@ writes `PROPOSED`, not `ELECTRICALLY_VERIFIED`
 
 | Item | Value | Source |
 |---|---|---|
-| OptiPlex user | `andy` | `scripts/host_status/install.sh` |
-| Working copy — **all three machines** | `~/mazak-vqc20-linuxcnc-retrofit` | `scripts/host_status/collect_status.sh` |
+| OptiPlex user | `andy` | `scripts/host_status/install_repo_pull.sh` |
+| Working copy — **all three machines** | `~/mazak-vqc20-linuxcnc-retrofit` | `scripts/host_status/install_repo_pull.sh` |
 | Control NIC | `192.168.1.1/24`; interface name `enp0s31f6` **unverified** — confirm with `ip -o link show` | `linuxcnc/README.md`, `docs/hm2_eth_nic_validation.md` |
 | Mesa 7i80HDT | `192.168.1.121` (static) | same |
 | SSH to the OptiPlex | `ssh linuxcnc` → `andy@linuxcnc.tail2a912f.ts.net`, over Tailscale, **key auth only** | `~/.ssh/config` on each Mac |
@@ -470,21 +494,12 @@ A Mac session may reach the OptiPlex over SSH. That makes the *machine* reachabl
 where **nobody can see it move and nobody can reach the E-stop**, so the boundary is drawn by
 consequence, not by convenience:
 
-**If `ssh linuxcnc` returns `Permission denied (publickey,password)`, that machine's key is not
-installed** — the OptiPlex switched from Tailscale SSH to plain sshd on 2026-08-16 and keys did
-not carry over automatically. Diagnose with `ssh -v` (look for `Offering public key` followed by
-another `Authentications that can continue`: offered and rejected = not in `authorized_keys`).
-Fix from the Mac with `ssh-copy-id -i ~/.ssh/id_ed25519.pub linuxcnc`, or paste the `.pub` line
-into `~/.ssh/authorized_keys` at the OptiPlex. Password auth is still enabled, so the copy-id
-path works. **Record the new key in the table above in the same commit** — that table is the only
-place this is written down.
-
-**Watch the non-interactive `PATH`.** An SSH command shell gets
-`/usr/local/bin:/usr/bin:/bin:/usr/games` — **not** `~/.local/bin`. `which claude`
-therefore reports nothing while `~/.local/bin/claude` exists (this produced a wrong
-"not installed" on 2026-08-17). Test the explicit path or use `bash -lc`.
-**Claude Code is installed on the OptiPlex** (`~/.local/bin/claude`, native install,
-2026-08-17) — a session can run at the machine itself.
+If `ssh linuxcnc` returns `Permission denied (publickey,password)`, that machine's key is not
+installed — the OptiPlex moved from Tailscale SSH to plain sshd on 2026-08-16. That fix, and the
+non-interactive `PATH` gotcha that makes `which claude` wrongly report "not installed", are in the
+`ssh-to-optiplex` skill (`.claude/skills/ssh-to-optiplex/SKILL.md`). **Record any newly installed
+key in the machines table above in the same commit** — that table is the only place it is written
+down.
 
 **Allowed over SSH, unattended** — read-only inspection that cannot move anything or energize
 an output:
@@ -508,26 +523,12 @@ that it was taken at the machine, so a later reader can tell a real reading from
 
 ### Getting a machine onto the shared memory
 
-`CLAUDE.md` travels with the repo, so a machine joins simply by cloning it — there is nothing
-to copy by hand and nothing machine-specific to configure. **The repo is private (owner
-decision 2026-08-16), so the clone needs credentials** — an SSH key on the account, or
-`gh auth login` first. An unauthenticated clone fails with a misleading "repository not
-found":
-
-```bash
-gh auth status || gh auth login          # or have an SSH key on the account
-git clone git@github.com:agant172/mazak-vqc20-linuxcnc-retrofit.git \
-  ~/mazak-vqc20-linuxcnc-retrofit
-cd ~/mazak-vqc20-linuxcnc-retrofit && python3 scripts/validate_authority.py   # expect exit 0
-```
-
-SSH is the form to use: the OptiPlex's 5-minute status timer pushes non-interactively over
-`git@github.com`, and an HTTPS remote would prompt for a password it cannot answer.
-
-The **iMac has a clone at `~/mazak-vqc20-linuxcnc-retrofit`** — confirmed 2026-08-16, and it is
-the machine's only clone (see the two-clones note below). The **MacBook Pro** is believed to have
-one as of 2026-08-15 but is still **unconfirmed**; check with `ls ~/mazak-vqc20-linuxcnc-retrofit`
-from a session on that machine and update this line.
+`CLAUDE.md` travels with the repo, so a machine joins by cloning it — nothing to copy by hand.
+**The repo is private, so the clone needs credentials** (`gh auth login` or an SSH key on the
+account); an unauthenticated clone fails with a misleading "repository not found". Use the SSH
+remote form — the OptiPlex's status timer pushes non-interactively and HTTPS would prompt.
+Step-by-step commands and the per-machine clone inventory are in the `new-machine-setup` skill
+(`.claude/skills/new-machine-setup/SKILL.md`).
 
 **`~/.claude/CLAUDE.md` does not sync.** It is user-level memory, private to one machine, and no
 other machine or cloud session can see it — that is exactly how the project's startup
@@ -540,55 +541,41 @@ stale working copy is now the most likely way to act on facts that are no longer
 
 ### Reading the repo in Obsidian
 
-The repo is also an Obsidian vault — the docs are markdown, so Obsidian reads them directly
-with backlinks and graph view. Open the repo folder as a vault
-(Obsidian → vault switcher → *Open folder as vault*).
+The repo doubles as an Obsidian vault. `.obsidian/` is tracked on purpose so appearance and
+hotkeys follow you between machines, but `.gitignore` holds back workspace state, the vendored
+plugin code, and `plugins/*/data.json` — **plugin settings can hold credentials, and a committed
+secret is in the history permanently.** **Do not install the Obsidian *Git* plugin's auto-commit
+here:** it would push editor state straight to `main`, which desk sessions are not allowed to do.
+**Two clones on one machine (working copy + vault clone) is a foot-gun that has already cost us
+a day of resolver measurements** — both machines are confirmed consolidated (2026-08-20), single
+clone each at `~/Projects/obsidian-vault`. The MacBook Pro previously also had a
+`~/copilot-worktrees/obsidian-vault/...` git worktree (already-merged, unpushed branch
+`agant172-compare-obsidian-folders`); it was removed 2026-08-20 once confirmed merged.
 
-`.obsidian/` is **tracked on purpose**, so appearance, hotkeys, and enabled plugins follow you
-between machines instead of being set up three times. What stays local is listed in
-`.gitignore`:
-
-| Not synced | Why |
-|---|---|
-| `.obsidian/workspace.json`, `workspace-mobile.json` | Which panes you had open — per-machine, and conflicts on every pull |
-| `.obsidian/cache`, `.obsidian/.trash/` | Machine-local scratch |
-| `.obsidian/plugins/` (the code) | ~9 MB of vendored JS per plugin set — it would drown every PR diff. `community-plugins.json` **is** tracked, so the *list* of enabled plugins syncs; install them once per machine from the community store. |
-| `.obsidian/plugins/*/data.json` | **Plugin settings can hold credentials** — `obsidian-local-rest-api` stores an API key. The repo went private on 2026-08-16, which does **not** make this safe: a committed secret is in the history permanently, visible to every collaborator and to anything holding a token, and it survives the repo being made public again. Re-enter secrets per machine. |
-
-Settings changes ride the normal workflow — a desk session commits them on a branch and opens a
-PR like any other change. **Do not install the Obsidian *Git* plugin's auto-commit here:** it
-would push editor state straight to `main`, which desk sessions are not allowed to do, and bury
-the engineering history under workspace churn.
-
-**Two clones on one machine is a foot-gun — and it has already cost us data.** A second clone
-under `~/Obsidian/` means notes edited in Obsidian land in the vault clone only, invisible to the
-working copy, to git, and to every other session.
-
-On 2026-08-16 the iMac had exactly that split, and an afternoon of resolver DC-resistance
-measurements sat in an untracked `resolvers.md` in the vault clone while the working copy showed
-only nameplates — the repo had no record of readings that had already been taken at the machine.
-They are now in [`docs/resolver_commissioning.md`](docs/resolver_commissioning.md). The iMac has
-since been consolidated: the vault clone is gone and Obsidian opens the working copy directly, so
-**the iMac now has one clone.** The MacBook Pro is believed to still have both (2026-08-15,
-unconfirmed) — check it and fix it the same way.
-
-If you consolidate another machine, two things are not in git and must be carried across by hand
-before deleting the vault clone, or the vault comes up stripped:
-
-- `.obsidian/plugins/` — the vendored plugin code, ~9 MB. `community-plugins.json` syncs the
-  *list*, not the code. Copy the directory or re-install each plugin from the community store.
-- `.obsidian/workspace.json` — your pane layout.
-
-Quit Obsidian first: it rewrites `~/Library/Application Support/obsidian/obsidian.json` on exit,
-so a vault path edited underneath a running instance is silently reverted.
+Full details — the tracked/ignored table and the safe consolidation procedure — are in the
+`obsidian-vault` skill (`.claude/skills/obsidian-vault/SKILL.md`).
 
 ### Photos and large media
 
 - **Never commit raw media.** `.gitignore` blocks `*.jpg/.png/.heic/.mp4/…` on purpose.
-- Photos live in
-  [Google Drive](https://drive.google.com/drive/folders/1YYpWPyWiRuoY2z5GACSDw6H3zzSQoVdf?usp=drive_link),
-  in the eight folders `00_Inbox` … `07_Reference`. Originals are also backed up to OneDrive.
-  A second unsorted batch sits at `My Drive/Mazak/Misc. Photos`.
+- **RESOLVED (2026-08-21).** The eight-folder scheme is now real. All photos are
+  consolidated in
+  [Google Drive](https://drive.google.com/drive/folders/1YYpWPyWiRuoY2z5GACSDw6H3zzSQoVdf?usp=drive_link)
+  `My Drive/Mazak` under `00_Inbox`…`07_Reference` (plus `Videos`,
+  `Live Photo Motion`, `Manuals_SN060231`), sorted; `00_Inbox` is empty. **844 files.**
+  Sources folded in: the OneDrive store, the Apple Photos "Mazak" album, and both
+  Google Photos albums. Layout, the `__dup2` collision convention and the UTC date
+  caveat: `docs/photo_drive_layout_2026-08-21.md`.
+- **OneDrive is no longer a backup** — cleared 2026-08-21 after SHA-256 verification;
+  only three large videos remain there. **Drive is the sole copy.**
+- **The Google Photos albums are gone as a source.** Two existed — *Mazak VQC-20
+  Retrofit — Control Cabinet Photos* (256) and *Mazak Cabinet* (64, previously
+  undocumented). Both were folded into Drive and **unshared on 2026-08-21**, so the
+  old `photos.app.goo.gl` link is dead. Photos still live in the account's Google
+  Photos library, but Drive is the authority — do not re-derive the set from
+  visual searches.
+- `My Drive/Mazak/Misc. Photos`, cited in `docs/photo_survey_misc.md`, **never existed
+  in Drive** — that batch was in OneDrive. Treat that path as historical.
 - Any `photos/…` path written in this repo means a **Drive folder**, not a directory on disk.
 - **Cite photos as `YYYY-MM-DD/IMG_nnnn`** — never a bare `IMG_nnnn`, which recurs across
   batches. Full scheme and migration table: `docs/README_photo_sorting.md`.
@@ -617,17 +604,15 @@ detected and rejected by CI.
 - **State which session type you are** when it matters. A cloud session should say plainly that
   it cannot measure, meter, or flash anything.
 - **One topic per PR** where practical, with a commit message that says *why*, not just *what*.
-- **Finish by writing it down.** Update `docs/project_status.md` and any file whose facts
-  changed, commit, and push before the session ends.
-
----
-
-## Validation & housekeeping
-
-- After editing pin bindings or HAL, run the authority checker:
-  `python3 scripts/validate_authority.py` (and `validate_control_logic.py` where relevant).
-  Both must exit 0 — the same gate CI enforces on every PR.
-- When you complete real work, update `docs/project_status.md` and any file whose facts changed,
-  then commit with a clear message. An append-only decision/change log captures *why*, not just *where* —
-  prefer adding to it over overwriting history.
-- Commit and push before a session ends; a cloud container is ephemeral and unpushed work is lost.
+- **Write it down as you go, not at the end.** The moment a unit of work is complete — a
+  measurement recorded, a doc corrected, a script fixed — update `docs/project_status.md` and
+  any file whose facts changed, then commit and push *before starting the next unit*. Do not
+  batch several units into one end-of-session commit: "before the session ends" is a deadline,
+  not a schedule — a cloud container is ephemeral, and a desk session that runs out of context
+  loses unpushed work just as thoroughly. Prefer appending to the decision/change log, which
+  captures *why*, over overwriting history.
+- **Task-list maintenance rule:** if new work, an uncertainty, or a changed dependency is
+  discovered, add a dated checkbox to `docs/project_status.md` during the same session, with
+  an evidence link and closure test or owner decision. If work is completed, check off the
+  original item and record the date and artifact. Handoffs and audit notes may provide detail,
+  but they do not replace the live task list.

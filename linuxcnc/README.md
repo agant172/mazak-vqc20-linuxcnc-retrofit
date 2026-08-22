@@ -92,3 +92,13 @@ The confirmed retrofit architecture is:
 - Keep resolver and analog wiring shielded and physically separated from contactor, solenoid, spindle, and motor power wiring; terminate resolver cable shields at the 7i49 end only, per [`../docs/grounding_shielding_plan.md`](../docs/grounding_shielding_plan.md). That document is the authoritative cable schedule, segregation table, and noise-survey acceptance plan.
 - Resolver wiring may follow the original Meldas M2 / TRA scheme (two-phase excitation into the stator, phase read from the rotor), which is the opposite of the 7i49's single-excitation / sin-cos-amplitude reading. Identify winding pairs with an ohmmeter before power; do not assume wire names. **The W2 jumper does not help the X/Y/Z axis channels** — per the 7i49 manual, W2 down halves reference drive on channels 3/4/5 only, and X/Y/Z live on channels 0/1/2. If the axis-channel return is far off the ~1 V RMS target, escalate to Mesa (PCW) for review of the specific TS2014N suffix rather than adding dividers or 7i49HV hardware.
 - Every OEM-to-retrofit digital crossing (including the OEM E-stop chain monitor) uses an interposing relay dry contact.
+
+## `phase1-draft-2026-08-07/`
+
+A **superseded** Phase 1 commissioning draft (minimal motion + safety), recovered
+2026-08-21 from the retired `~/Projects/Mazak-Local` tree. **Historical only — do
+not load.** Its `hm2_7i80.0.*` pin names are placeholders by its own admission, and
+it predates the live config here by ten days. It sits in a subdirectory so
+`scripts/validate_authority.py`, which globs `linuxcnc/*.hal`, does not check it —
+correct for placeholder pins, and the reason it must not be promoted as-is.
+See [`phase1-draft-2026-08-07/README.md`](phase1-draft-2026-08-07/README.md).

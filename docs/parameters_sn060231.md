@@ -1,7 +1,16 @@
-# SN 060231 — Live M-2 Parameters (photographed 2026-07-28)
+# SN 060231 — Live M-2 Parameters (photographed 2025-06-27 → 2025-08-28)
 
-**Source:** 7 photos of the running Mazatrol M-2 CRT, taken 2026-07-28
-(IMG_0308/0309/0373/0374/0375/0376/0377), not committed per repo photo policy.
+**Source:** 7 photos of the running Mazatrol M-2 CRT, not committed per repo
+photo policy. They come from **three sessions in 2025**, not one in 2026:
+
+| Photos | Captured (EXIF `DateTimeOriginal`, local) | Screen |
+|---|---|---|
+| `IMG_0014`, `IMG_0015` | **2025-06-27** 20:32, 20:39 | PARAMETER 3-D, EIA/ISO |
+| `IMG_0308`, `IMG_0309` | **2025-08-10** 18:31 | MACH CONSTANT PAR NO.2 |
+| `IMG_0373`–`IMG_0377` | **2025-08-28** 14:06–14:19 | MACH CONSTANT PAR NO.2 |
+
+Cite them as `2025-08-28/IMG_0374` and so on. All now live in Drive under
+`My Drive/Mazak/07_Reference`.
 
 > **Citation repaired 2026-08-17.** This previously pointed at
 > `~/Downloads/Photos-1-001 (1)/` on "Andy's Mac". **That folder does not exist
@@ -15,12 +24,18 @@
 > | `Photos-1-001` (uploaded copy of the 2026-07 set, IMG_0248–0312) | `16BsiMR9EHcoa-9HeCmYX6CYsjtToYpPN` |
 > | A full **MACH CONSTANT PAR NO.2** capture, verified 2026-08-17 | `1yTkUJBBNEuA-mmtQIEsrb2WuOz5qpe3N` |
 >
-> `IMG_0373`–`0377` were **not** located in Drive under those names. The
-> PAR NO.2 capture above shows the same screen and corroborates the values
-> below, so nothing here is unsupported — but if the original five surface,
-> add their IDs. Note `IMG_nnnn` numbering repeats across batches (searching
-> Drive for `IMG_0373` returns 2015–2018 personal files), which is exactly why
-> [`README_photo_sorting.md`](README_photo_sorting.md) requires `YYYY-MM-DD/IMG_nnn`.
+> **Resolved 2026-08-21.** `IMG_0373`–`0377` are in Drive after the photo
+> consolidation, at `My Drive/Mazak/07_Reference`, EXIF-dated **2025-08-28**.
+> The earlier search failed for exactly the reason it suspected: `IMG_nnnn`
+> repeats across batches. Files with these same numbers also sit in
+> `02_Drives`, dated **2026-07-27** — those are **MELDAS servo cards, not CRT
+> screens**, and are a different photograph entirely. That collision is what
+> put the wrong date on this document; see
+> [`photo_drive_layout_2026-08-21.md`](photo_drive_layout_2026-08-21.md) for the
+> `__dup2` convention now used to keep both frames.
+>
+> This is the case [`README_photo_sorting.md`](README_photo_sorting.md) requires
+> `YYYY-MM-DD/IMG_nnnn` for. Always carry the date.
 IMG_0374 and IMG_0377 are clean full captures of **MACH CONSTANT PAR NO.2**;
 every value below was read from those and cross-checked against IMG_0373.
 Values marked ✓✓ were additionally verified from zoomed crops.
@@ -124,9 +139,11 @@ LinuxCNC has one `BACKLASH` per joint — start from the G01 set
 (X 0.0005, Y 0.0010, Z 0.0020 in) and verify with an indicator; the G00/G01
 split is an M-2 nicety that servo tuning on the Mesa stack should absorb.
 
-## PARAMETER 3-D, EIA/ISO screen (captured 2026-07-28, IMG_0014/0015)
+## PARAMETER 3-D, EIA/ISO screen (captured 2025-06-27, IMG_0014/0015)
 
-Second capture session, same evening. Dictionary reference: manual pages
+A separate, earlier session — 2025-06-27, the same evening as the DIAGNOSIS
+frames `IMG_0016`–`IMG_0019` ([`diagnosis_screens_2025-06-27.md`](diagnosis_screens_2025-06-27.md)),
+not the same evening as the PAR NO.2 captures above. Dictionary reference: manual pages
 6-22 to 6-24. Live values:
 
 | Address | Live | Dictionary meaning |

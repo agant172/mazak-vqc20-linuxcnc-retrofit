@@ -3,6 +3,9 @@
 Thumbs.db
 *~
 *.swp
+# Per-machine VS Code settings. The repo is worked from the MacBook Pro, the
+# iMac, and the OptiPlex, and the paths and toolchains differ on each.
+.vscode/
 
 # Python bytecode (io-dashboard/tools)
 __pycache__/

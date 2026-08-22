@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<definition version="0.100.0" type="element" link_type="simple" width="350" height="112" hotspot_x="175" hotspot_y="56">
+    <uuid uuid="{0dae0bbb-49e2-5d58-8731-cfbd8b5bc4c7}" />
+    <names>
+        <name lang="en">7i49 P3</name>
+    </names>
+    <informations>Generated from the MESAC retrofit crosswalks. PRELIMINARY - NOT RELEASED FOR WIRING.</informations>
+    <description>
+        <rect x="-165.0" y="-46.0" width="330" height="92" rx="0" ry="0" antialias="false" style="line-style:normal;line-weight:normal;filling:none;color:#0078a8" />
+        <line x1="-165.0" y1="-20.0" x2="165.0" y2="-20.0" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:normal;filling:none;color:#0078a8" antialias="false" />
+        <text text="7i49 P3" x="-157.0" y="-28.0" rotation="0" font="Liberation Sans,8,-1,5,75,0,0,0,0,0,Bold" color="#0078a8" />
+        <text text="20 | 20 | AOUT2 | HOLD - SOURCE TRACE" x="-157.0" y="-1.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#d00000" />
+        <terminal uuid="{ce039531-d569-58b7-9e02-67b4aac8a372}" name="20" x="-165.0" y="-4.0" orientation="w" type="Generic" />
+        <text text="19 | 19 | GND2 | HOLD - SOURCE TRACE" x="-157.0" y="19.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#d00000" />
+        <terminal uuid="{13395477-e83d-5647-9eb8-f4626a3b1989}" name="19" x="-165.0" y="16.0" orientation="w" type="Generic" />
+    </description>
+</definition>

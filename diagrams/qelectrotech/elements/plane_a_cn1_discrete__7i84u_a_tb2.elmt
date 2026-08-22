@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<definition version="0.100.0" type="element" link_type="simple" width="350" height="152" hotspot_x="175" hotspot_y="76">
+    <uuid uuid="{582c899b-8b9a-5235-af0e-00b1862d05b9}" />
+    <names>
+        <name lang="en">7i84U-A TB2</name>
+    </names>
+    <informations>Generated from the MESAC retrofit crosswalks. PRELIMINARY - NOT RELEASED FOR WIRING.</informations>
+    <description>
+        <rect x="-165.0" y="-66.0" width="330" height="132" rx="0" ry="0" antialias="false" style="line-style:normal;line-weight:normal;filling:none;color:#0078a8" />
+        <line x1="-165.0" y1="-40.0" x2="165.0" y2="-40.0" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:normal;filling:none;color:#0078a8" antialias="false" />
+        <text text="7i84U-A TB2" x="-157.0" y="-48.0" rotation="0" font="Liberation Sans,8,-1,5,75,0,0,0,0,0,Bold" color="#0078a8" />
+        <text text="IN16 | IN16 | tool-unclamped | FIELD VERIFY" x="-157.0" y="-21.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+        <terminal uuid="{d46a2a8c-bf2b-5631-bfab-2fa9845586e2}" name="IN16" x="-165.0" y="-24.0" orientation="w" type="Generic" />
+        <text text="IN17 | IN17 | gear-hi-conf | FIELD VERIFY" x="-157.0" y="-1.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+        <terminal uuid="{41d051e7-587a-58ab-a3ee-16c75c320668}" name="IN17" x="-165.0" y="-4.0" orientation="w" type="Generic" />
+        <text text="IN18 | IN18 | gear-lo-conf | FIELD VERIFY" x="-157.0" y="19.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+        <terminal uuid="{444bc9df-8303-5c53-96c1-c6e4ce97fa25}" name="IN18" x="-165.0" y="16.0" orientation="w" type="Generic" />
+        <text text="IN26 | IN26 | coolant-low | FIELD VERIFY" x="-157.0" y="39.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+        <terminal uuid="{0441cb45-c1c5-58d1-97d0-77f84403b316}" name="IN26" x="-165.0" y="36.0" orientation="w" type="Generic" />
+    </description>
+</definition>

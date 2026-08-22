@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<definition version="0.100.0" type="element" link_type="simple" width="350" height="132" hotspot_x="175" hotspot_y="66">
+    <uuid uuid="{d428005f-7f30-5f5b-bde4-364a4a360cfc}" />
+    <names>
+        <name lang="en">7i84U-A TB2</name>
+    </names>
+    <informations>Generated from the MESAC retrofit crosswalks. PRELIMINARY - NOT RELEASED FOR WIRING.</informations>
+    <description>
+        <rect x="-165.0" y="-56.0" width="330" height="112" rx="0" ry="0" antialias="false" style="line-style:normal;line-weight:normal;filling:none;color:#0078a8" />
+        <line x1="-165.0" y1="-30.0" x2="165.0" y2="-30.0" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:normal;filling:none;color:#0078a8" antialias="false" />
+        <text text="7i84U-A TB2" x="-157.0" y="-38.0" rotation="0" font="Liberation Sans,8,-1,5,75,0,0,0,0,0,Bold" color="#0078a8" />
+        <text text="OUT10 | OUT10 | tool-unclamp-sol | FIELD VERIFY" x="-157.0" y="-11.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+        <terminal uuid="{d556d596-689c-5abc-9dfc-b016dae8926a}" name="OUT10" x="-165.0" y="-14.0" orientation="w" type="Generic" />
+        <text text="OUT8 | OUT8 | gear-lo-sol | FIELD VERIFY" x="-157.0" y="9.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+        <terminal uuid="{83c0fd8e-dcf1-500f-9643-7cc1dd1bde6b}" name="OUT8" x="-165.0" y="6.0" orientation="w" type="Generic" />
+        <text text="OUT11 | OUT11 | flood-coolant | FIELD VERIFY" x="-157.0" y="29.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+        <terminal uuid="{009b50a4-65db-517e-b747-4d57cad13f99}" name="OUT11" x="-165.0" y="26.0" orientation="w" type="Generic" />
+    </description>
+</definition>

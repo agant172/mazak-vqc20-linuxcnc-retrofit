@@ -1,0 +1,215 @@
+# GENERATED FILE - edit the source CSV or generator, then regenerate.
+metadata:
+  title: Plane A - BBIA-1 CN1 discrete routes
+  description: Machine-facing CN1 conductors through the required isolation boundary to Mesa field I/O.
+  notes: 'PRELIMINARY - NOT RELEASED FOR WIRING. Yellow = defined route requiring field verification; red = HOLD or proposed;
+    gray = retain/retire decision. Input: wiring/plane_a_bbia1_pin_crosswalk.csv.'
+options:
+  fontname: Arial
+  bgcolor: WH
+  bgcolor_node: WH
+  color_mode: SHORT
+  mini_bom_mode: false
+connectors:
+  CN1:
+    type: BBIA-1 CN1 machine-facing connector
+    pins:
+    - 1
+    - 2
+    - 3
+    - 4
+    - 5
+    - 14
+    pinlabels:
+    - 208 | TOOL_UNCLAMP_OK | FV
+    - 209 | TOOL_CLAMP_OK | FV
+    - 210 | GEAR_HI_OK | FV
+    - 212 | GEAR_LO_OK | FV
+    - 232 | COOLANT_LOW | FV
+    - '*DECZ | Z_HOME | FV'
+    pincolors: &id001
+    - YE
+    - YE
+    - YE
+    - YE
+    - YE
+    - YE
+    hide_disconnected_pins: true
+    show_pincount: false
+    bgcolor_title: LB
+    notes: Verify endpoint numbering against the card manual.
+    ignore_in_bom: true
+  IR_BOUNDARY:
+    type: Required interposing-relay boundary
+    pins:
+    - F01
+    - M01
+    - F02
+    - M02
+    - F03
+    - M03
+    - F04
+    - M04
+    - F05
+    - M05
+    - F06
+    - M06
+    pinlabels:
+    - F | TOOL_UNCLAMP_OK
+    - M | TOOL_UNCLAMP_OK
+    - F | TOOL_CLAMP_OK
+    - M | TOOL_CLAMP_OK
+    - F | GEAR_HI_OK
+    - M | GEAR_HI_OK
+    - F | GEAR_LO_OK
+    - M | GEAR_LO_OK
+    - F | COOLANT_LOW
+    - M | COOLANT_LOW
+    - F | Z_HOME
+    - M | Z_HOME
+    pincolors:
+    - YE
+    - YE
+    - YE
+    - YE
+    - YE
+    - YE
+    - YE
+    - YE
+    - YE
+    - YE
+    - YE
+    - YE
+    hide_disconnected_pins: true
+    show_pincount: false
+    bgcolor_title: YE
+    notes: Logical boundary placeholder; see crosswalk.
+    ignore_in_bom: true
+  7i84U-A_TB2:
+    type: 7i84U-A TB2
+    pins:
+    - IN16
+    - IN17
+    - IN18
+    - IN26
+    pinlabels:
+    - IN16 | tool-unclamped | FV
+    - IN17 | gear-hi-conf | FV
+    - IN18 | gear-lo-conf | FV
+    - IN26 | coolant-low | FV
+    pincolors:
+    - YE
+    - YE
+    - YE
+    - YE
+    hide_disconnected_pins: true
+    show_pincount: false
+    bgcolor_title: LB
+    notes: Verify endpoint numbering against the card manual.
+    ignore_in_bom: true
+  7i84U-A_TB3:
+    type: 7i84U-A TB3
+    pins:
+    - IN15
+    pinlabels:
+    - IN15 | tool-clamped | FV
+    pincolors:
+    - YE
+    hide_disconnected_pins: true
+    show_pincount: false
+    bgcolor_title: LB
+    notes: Verify endpoint numbering against the card manual.
+    ignore_in_bom: true
+  7i84U-B_TB3:
+    type: 7i84U-B TB3
+    pins:
+    - IN8
+    pinlabels:
+    - IN8 | home-z | FV
+    pincolors:
+    - YE
+    hide_disconnected_pins: true
+    show_pincount: false
+    bgcolor_title: LB
+    notes: Verify endpoint numbering against the card manual.
+    ignore_in_bom: true
+cables:
+  OEM_CONDUCTORS:
+    type: Existing OEM conductor segments
+    wirecount: 6
+    wirelabels:
+    - 208 | TOOL_UNCLAMP_OK
+    - 209 | TOOL_CLAMP_OK
+    - 210 | GEAR_HI_OK
+    - 212 | GEAR_LO_OK
+    - 232 | COOLANT_LOW
+    - '*DECZ | Z_HOME'
+    colors: *id001
+    show_wirecount: false
+    notes: See crosswalk source.
+    shield: false
+    ignore_in_bom: true
+  NEW_CONTROL_WIRING:
+    type: New control-side conductors
+    wirecount: 6
+    wirelabels:
+    - TOOL_UNCLAMP_OK | tool-unclamped
+    - TOOL_CLAMP_OK | tool-clamped
+    - GEAR_HI_OK | gear-hi-conf
+    - GEAR_LO_OK | gear-lo-conf
+    - COOLANT_LOW | coolant-low
+    - Z_HOME | home-z
+    colors: *id001
+    show_wirecount: false
+    notes: See crosswalk source.
+    shield: false
+    ignore_in_bom: true
+connections:
+- - CN1:
+    - 1
+    - 2
+    - 3
+    - 4
+    - 5
+    - 14
+  - OEM_CONDUCTORS:
+    - 1
+    - 2
+    - 3
+    - 4
+    - 5
+    - 6
+  - IR_BOUNDARY:
+    - F01
+    - F02
+    - F03
+    - F04
+    - F05
+    - F06
+- - IR_BOUNDARY:
+    - M01
+    - M03
+    - M04
+    - M05
+  - NEW_CONTROL_WIRING:
+    - 1
+    - 3
+    - 4
+    - 5
+  - 7i84U-A_TB2:
+    - IN16
+    - IN17
+    - IN18
+    - IN26
+- - IR_BOUNDARY:
+    - M02
+  - NEW_CONTROL_WIRING:
+    - 2
+  - 7i84U-A_TB3:
+    - IN15
+- - IR_BOUNDARY:
+    - M06
+  - NEW_CONTROL_WIRING:
+    - 6
+  - 7i84U-B_TB3:
+    - IN8
