@@ -549,23 +549,24 @@ Full details — the tracked/ignored table and the safe consolidation procedure 
 ### Photos and large media
 
 - **Never commit raw media.** `.gitignore` blocks `*.jpg/.png/.heic/.mp4/…` on purpose.
-- **STALE, unverified (2026-08-17):** this doc claims photos live in
+- **RESOLVED (2026-08-21).** The eight-folder scheme is now real. All photos are
+  consolidated in
   [Google Drive](https://drive.google.com/drive/folders/1YYpWPyWiRuoY2z5GACSDw6H3zzSQoVdf?usp=drive_link)
-  in eight folders `00_Inbox`…`07_Reference`, backed up to OneDrive, plus an unsorted
-  batch at `My Drive/Mazak/Misc. Photos`. A full search of that Drive account (by folder
-  title and by API) found none of this — that folder ID now contains only
-  `Manuals_SN060231` (see OEM manuals, above). Either this was never executed or the
-  photos moved; don't trust the eight-folder scheme until it's re-verified on Drive
-  directly.
-- **Actually confirmed today:** the real raw photo history (control cabinet interiors,
-  MAZATROL CAM M-2 screens, resolver/encoder detail, terminal blocks — Oct 2024
-  through present) lives uncurated in the account's default **Google Photos**, not
-  Drive. Collected into a shared album:
-  [Mazak VQC-20 Retrofit — Control Cabinet Photos](https://photos.app.goo.gl/o59yC81mQhwYaVF68)
-  (200+ photos/videos, built from visual searches for "mazatrol" and "VQC-20";
-  hand-filtered per date to drop unrelated shop equipment and personal photos that
-  those searches also matched). Not exhaustive and not auto-updating — re-run those
-  searches periodically to catch newer shots and sweep in whatever they still miss.
+  `My Drive/Mazak` under `00_Inbox`…`07_Reference` (plus `Videos`,
+  `Live Photo Motion`, `Manuals_SN060231`), sorted; `00_Inbox` is empty. **844 files.**
+  Sources folded in: the OneDrive store, the Apple Photos "Mazak" album, and both
+  Google Photos albums. Layout, the `__dup2` collision convention and the UTC date
+  caveat: `docs/photo_drive_layout_2026-08-21.md`.
+- **OneDrive is no longer a backup** — cleared 2026-08-21 after SHA-256 verification;
+  only three large videos remain there. **Drive is the sole copy.**
+- **The Google Photos albums are gone as a source.** Two existed — *Mazak VQC-20
+  Retrofit — Control Cabinet Photos* (256) and *Mazak Cabinet* (64, previously
+  undocumented). Both were folded into Drive and **unshared on 2026-08-21**, so the
+  old `photos.app.goo.gl` link is dead. Photos still live in the account's Google
+  Photos library, but Drive is the authority — do not re-derive the set from
+  visual searches.
+- `My Drive/Mazak/Misc. Photos`, cited in `docs/photo_survey_misc.md`, **never existed
+  in Drive** — that batch was in OneDrive. Treat that path as historical.
 - Any `photos/…` path written in this repo means a **Drive folder**, not a directory on disk.
 - **Cite photos as `YYYY-MM-DD/IMG_nnnn`** — never a bare `IMG_nnnn`, which recurs across
   batches. Full scheme and migration table: `docs/README_photo_sorting.md`.

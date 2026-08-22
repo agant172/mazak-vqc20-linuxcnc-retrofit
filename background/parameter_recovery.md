@@ -4,8 +4,8 @@
 
 
 **Machine:** Mazak VQC 20/40, SN 060231 (Mazatrol M-2)
-**Status:** PARTIALLY RECOVERED 2026-07-28 — MACH CONSTANT PAR NO.2 photographed
-live and transcribed to `docs/parameters_sn060231.md` (RP/soft limits/gears/
+**Status:** PARTIALLY RECOVERED — MACH CONSTANT PAR NO.2 photographed live
+**2025-08-28** and transcribed 2026-07-28 to `docs/parameters_sn060231.md` (RP/soft limits/gears/
 backlash all captured). Still wanted: PAR NO.1 and NO.3 screens (pitch comp,
 thermal comp, scale gains MP8–MPB, drum points, TCZ, DP timers).
 **Source reviewed:** `VQC20-40_060231_Parameters.pdf` — "Parameter List & Explanation
@@ -114,7 +114,7 @@ LINEAR ZONE codes:  0:16000  1:4000   2:8000    3:16000
 ```
 
 This machine reads **`MC1 = MC2 = MC3 = 784`** on the 1985 factory sheet *and*
-on the 2026-07-28 live CRT — 41 years apart, in agreement:
+on the 2025-08-28 live CRT — 40 years apart, in agreement:
 
 ```
 784 decimal = 0x0310

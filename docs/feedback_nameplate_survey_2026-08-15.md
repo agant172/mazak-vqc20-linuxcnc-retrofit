@@ -17,6 +17,13 @@ and still required.
 | Z resolver pickup | `PICKUP UNIT`, TS2014N family (plate style N5399, same as X/Y) | **BKO-NC6062A (clearly legible)** | **7028** (read by eye 2026-08-16; ink too faded to photograph) | `TS2014N …` — stamped digits illegible; one frame hints `E3…` | 198_ | poor (borescope frames, glare) |
 | Spindle encoder | Tamagawa OPTICAL SHAFT ENCODER, **512 counts/turn, DC ±15 V** | — | A6022 | **TS1526N55** | 1984.6 | good |
 
+> **Which borescope frames?** The fifteen borescope stills in Drive
+> (`03_Motors_Feedback/IMG_001`–`IMG_015`, with `VID_001.AVI`) are **2018-05-09**
+> material, not from this 2026-08-15 visit — owner-confirmed 2026-08-17 and
+> recorded in `~/.claude/shop-projects.md`. Cite them as `2018-05-09/IMG_001`.
+> If the Z row below rests on those frames it rests on eight-year-old imagery.
+> Details: [`usb_video_drive_search_2026-08-21.md`](usb_video_drive_search_2026-08-21.md).
+
 **Z resolver located and partially read (2026-08-15, second visit).** The
 pickup can sits at the Z screw's non-drive end; borescope frames defeat the
 stamped digits but the printed spec line is clear: **`BKO-NC6062A` — the same
@@ -131,8 +138,15 @@ depends on it.
   failed on the tacho connector 2026-08-15). The Z pickup's own MS connector
   is inaccessible without pulling the spindle — do NOT pull the spindle for
   this; the CNA5 end is electrically equivalent.
-- [ ] Re-read the faded type stamps (`RT-…`) and the E-suffix digits on X/Y,
-  or obtain the `TS2014N25E…` datasheet from Tamagawa and reconcile.
+- [x] ~~Re-read the faded type stamps (`RT-…`) and the E-suffix digits on X/Y~~
+  **Closed 2026-08-21 (owner).** The stamps are **not recoverable**: coolant has
+  faded the ink used to populate the boxes. Magnification and contrast work have
+  both been tried, on the machine and on the 2026-08-15 photographs — the boxes
+  photograph clean-empty because the ink is gone, not because the plates were
+  left blank. **Do not re-shoot these plates.** The devices are identified by
+  the printed spec number `BKO-NC6062A`, which is crisp.
+- [ ] Obtain the `TS2014N25E…` datasheet from Tamagawa and reconcile — now the
+  **only** remaining route to the exact suffix.
 - [ ] Until the exact suffix datasheet is in hand, treat excitation level,
   K, and the 5 kHz choice as **assumptions to verify by scope** at the
   excitation-and-return step — which `resolver_commissioning.md` already

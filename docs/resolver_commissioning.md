@@ -310,7 +310,7 @@ i.e. **one grid point per resolver *electrical* revolution**. So grid spacing
 printed p. 6-35; decode in
 [`../background/parameter_recovery.md`](../background/parameter_recovery.md#mc1mc4-carry-the-control-τ-number--decode-them)).
 This machine reads `MC = 784` on X, Y and Z — on the 1985 factory sheet and on
-the 2026-07-28 live CRT alike:
+the 2025-08-28 live CRT alike:
 
 ```
 784 = 0x0310  ->  LINEAR ZONE 3 (=16000),  τ × 8 = 16  ->  τ = 2.000

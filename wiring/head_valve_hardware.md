@@ -353,18 +353,18 @@ Finding them is part of closing §5.
 
 | # | Subject | Camera ID |
 |---|---|---|
-| 1 | Wide — placard on the guard wall, head stack at right | _pending_ |
-| 2 | Head stack closer — Nachi valves, CKD manifold, speed controllers | _pending_ |
-| 3 | **Two CKD solenoid nameplates, close** — `100V 110V 50/60` coils | _pending_ |
-| 4 | CKD manifold + speed controllers | _pending_ |
-| 5 | **Nachi valve stack** — `SA-G01-E3X-C1-31`, gauge, `OIL PRESSURE` tag | _pending_ |
+| 1 | Wide — placard on the guard wall, head stack at right | `2026-08-12/IMG_0632` *(candidate)* |
+| 2 | Head stack closer — Nachi valves, CKD manifold, speed controllers | `2026-08-12/IMG_0633` *(candidate)* |
+| 3 | **Two CKD solenoid nameplates, close** — `100V 110V 50/60` coils | `2026-08-12/IMG_0637` |
+| 4 | CKD manifold + speed controllers | `2026-08-12/IMG_0636` *(candidate)* |
+| 5 | **Nachi valve stack** — `SA-G01-E3X-C1-31`, gauge, `OIL PRESSURE` tag | `2026-08-12/IMG_0644` *(candidate)* |
 
 **Batch 2 — close-ups (2026-08-13):**
 
 | # | Subject | Camera ID |
 |---|---|---|
-| 6 | **Nachi `MODULAR VALVE` nameplate** — `OY-G01-T-11`, MFG.NO. `510` | _pending_ |
-| 7 | Valve stack from the side — coils, DIN connectors, subplates | _pending_ |
-| 8 | Valve stack closer — `OIL PRESSURE` tag `85 kgf/cm²` / `1200 PSI` | _pending_ |
-| 9 | **Gauge face straight on** — OSAKA, needle at **zero** | _pending_ |
-| 10 | **`PS 5` tag with wire `355` and `G24`** — confirms the `LUBE_OK` row | _pending_ |
+| 6 | **Nachi `MODULAR VALVE` nameplate** — `OY-G01-T-11`, MFG.NO. `510` | `2026-08-12/IMG_0645` *(candidate)* |
+| 7 | Valve stack from the side — coils, DIN connectors, subplates | `2026-08-12/IMG_0648` *(candidate)* |
+| 8 | Valve stack closer — `OIL PRESSURE` tag `85 kgf/cm²` / `1200 PSI` | `2026-08-12/IMG_0649` *(candidate)* |
+| 9 | **Gauge face straight on** — OSAKA, needle at **zero** | `2026-08-12/IMG_0642` |
+| 10 | **`PS 5` tag with wire `355` and `G24`** — confirms the `LUBE_OK` row | `2026-08-12/IMG_0641` *(candidate)* |
