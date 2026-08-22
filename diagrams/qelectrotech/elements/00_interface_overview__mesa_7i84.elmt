@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<definition version="0.100.0" type="element" link_type="simple" width="350" height="112" hotspot_x="175" hotspot_y="56">
+    <uuid uuid="{0f85d876-1019-54ca-b17f-59c966ecc71c}" />
+    <names>
+        <name lang="en">Mesa 7i84U-A / 7i84U-B field I/O</name>
+    </names>
+    <informations>Generated from the MESAC retrofit crosswalks. PRELIMINARY - NOT RELEASED FOR WIRING.</informations>
+    <description>
+        <rect x="-165.0" y="-46.0" width="330" height="92" rx="0" ry="0" antialias="false" style="line-style:normal;line-weight:normal;filling:none;color:#0078a8" />
+        <line x1="-165.0" y1="-20.0" x2="165.0" y2="-20.0" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:normal;filling:none;color:#0078a8" antialias="false" />
+        <text text="Mesa 7i84U-A / 7i84U-B field I/O" x="-157.0" y="-28.0" rotation="0" font="Liberation Sans,8,-1,5,75,0,0,0,0,0,Bold" color="#0078a8" />
+        <text text="1 | Mesa 7i84U-A / 7i84U-B field I/O" x="-157.0" y="-1.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#0078a8" />
+        <terminal uuid="{b7a9bec0-e230-5f23-af8a-58f9e9abd693}" name="1" x="-165.0" y="-4.0" orientation="w" type="Generic" />
+        <text text="2 | Mesa 7i84U-A / 7i84U-B field I/O" x="4" y="19.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#0078a8" />
+        <terminal uuid="{17d576ab-df25-5500-a1d6-8719af490a04}" name="2" x="165.0" y="16.0" orientation="e" type="Generic" />
+    </description>
+</definition>

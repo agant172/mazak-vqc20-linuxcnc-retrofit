@@ -15,8 +15,13 @@ only. It provides the following terminal map:
 | Axis / channel | Connector | RESSIN | RESCOS | RESDRV | Local shield/GND |
 |---|---|---|---|---|---|
 | X / 0 | P4 | pins 1/2 | pins 3/4 | pins 6/7 | pin 5 or 8 |
-| Z / 1 | P4 | pins 9/10 | pins 11/12 | pins 14/15 | pin 13 or 16 |
-| Y / 2 | P3 | pins 1/2 | pins 3/4 | pins 6/7 | pin 5 or 8 |
+| Y / 1 | P4 | pins 9/10 | pins 11/12 | pins 14/15 | pin 13 or 16 |
+| Z / 2 | P3 | pins 1/2 | pins 3/4 | pins 6/7 | pin 5 or 8 |
+
+This X/Y/Z resolver order follows the current pin authority and HAL
+(`resolver.00/.01/.02`). It intentionally differs from the X/Z/Y order of analog
+outputs AOUT0/AOUT1/AOUT2; do not assume resolver channel N and AOUT channel N
+belong to the same axis.
 
 No source presently in the repository establishes a universal cable-length,
 capacitance, pigtail-length, noise-voltage, or separation-distance limit for

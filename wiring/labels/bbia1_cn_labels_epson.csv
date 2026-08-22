@@ -203,3 +203,189 @@ NSFT,CN6-34,NG TOOL
 ,CN12-18,(not used)
 ,CN12-19,(blank on source table)
 ,CN12-20,(blank on source table)
+,CN3-5,(not used - blank on source table)
+,CN3-6,(not used - blank on source table)
+,CN3-7,(not used - blank on source table)
+,CN3-13,SPARE
+,CN3-16,(not used - blank on source table)
+,CN3-17,(not used - blank on source table)
+,CN3-18,(not used - blank on source table)
+,CN3-19,(not used - blank on source table)
+,CN3-20,(not used - blank on source table)
+,CN3-21,(not used - blank on source table)
+,CN3-22,(not used - blank on source table)
+,CN3-23,(not used - blank on source table)
+,CN3-24,(not used - blank on source table)
+,CN3-25,(not used - blank on source table)
+,CN3-26,(not used - blank on source table)
+,CN3-27,(not used - blank on source table)
+,CN3-28,(not used - blank on source table)
+,CN3-29,(not used - blank on source table)
+,CN3-30,(not used - blank on source table)
+,CN3-31,(not used - blank on source table)
+,CN3-32,(not used - blank on source table)
+,CN3-34,(not used - blank on source table)
+,CN3-45,(not used - blank on source table)
+,CN3-46,(not used - blank on source table)
+,CN3-47,(not used - blank on source table)
+,CN3-48,(not used - blank on source table)
+MF,CN7-1,M FUNCTION
+M11,CN7-2,M CODE 11
+M12,CN7-3,M CODE 12
+M14,CN7-4,M CODE 14
+M18,CN7-5,M CODE 18
+M21,CN7-6,M CODE 21
+M22,CN7-7,M CODE 22
+M24,CN7-8,M CODE 24
+M28,CN7-9,M CODE 28
+M31,CN7-10,M CODE 31
+M32,CN7-11,M CODE 32
+M34,CN7-12,M CODE 34
+M38,CN7-13,M CODE 38
+ZPX,CN7-14,ZERO POS. X AXIS
+ZPY,CN7-15,ZERO POS. Y AXIS
+ZPZ,CN7-16,ZERO POS. Z AXIS
+0G,CN7-17,DC24V COM (-)
+0G,CN7-18,DC24V COM (-)
+ZP4,CN7-19,ZERO POS. 4 AXIS
+MFA,CN7-20,M FUNCTION A
+FHDL,CN7-21,FEED HOLD LED
+ZPZ2,CN7-22,2nd ZERO POS. Z AXIS
+AUTM,CN7-23,AUTO MODE
+PUCCD,CN7-24,PALLET UNCLAMP COMMAND
+FHDPB,CN7-25,FEED HOLD P.B.
+CSTL,CN7-26,CYCLE START LED
+CSTPB,CN7-27,CYCLE START P.B.
+PCLCD,CN7-28,PALLET CLAMP COMMAND
+ISP3,CN7-29,INPUT SPARE 3
+MRDY,CN7-30,MACHINE READY
+RST,CN7-31,RESET OUT
+OSP4,CN7-32,OUTPUT SPARE 4
+OSP3,CN7-33,OUTPUT SPARE 3
+P1ON,CN7-34,PALLET NO.1 ON (FMS)
+P2ON,CN7-35,PALLET NO.2 ON (FMS)
+EXFIN,CN7-36,EXT. FINISH SIGNAL
+EXRST,CN7-37,EXT. RESET
+INTX,CN7-38,X AXIS INTERLOCK
+INTY,CN7-39,Y AXIS INTERLOCK
+INTZ,CN7-40,Z AXIS INTERLOCK
+INT4,CN7-41,4 AXIS INTERLOCK
+EXAL,CN7-42,EXTERNAL ALARM
+ONLN,CN7-43,ON LINE
+ENCOL,CN7-44,ENABLE COOLANT
+EXCST,CN7-45,EXTERNAL CYCLE START
+EXFHD,CN7-46,EXTERNAL FEED HOLD
+EXSBK,CN7-47,EXTERNAL SINGLE BLOCK
+EMOP1,CN7-48,EXTERNAL MISS OPERATION 1
++24V,CN7-49,DC24V +COM
++24V,CN7-50,DC24V +COM
+ISP4,CN8-1,INPUT SPARE 4
+ISP5,CN8-2,INPUT SPARE 5
+ISP6,CN8-3,INPUT SPARE 6
+ISP7,CN8-4,INPUT SPARE 7
+ISP8,CN8-5,INPUT SPARE 8
+ISP9,CN8-6,INPUT SPARE 9
+ISP10,CN8-7,INPUT SPARE 10
+ISP11,CN8-8,INPUT SPARE 11
+ISP12,CN8-9,INPUT SPARE 12
+ISP13,CN8-10,INPUT SPARE 13
+OSP5,CN8-11,OUTPUT SPARE 5
+OSP6,CN8-12,OUTPUT SPARE 6
+OSP7,CN8-13,OUTPUT SPARE 7
+OSP8,CN8-14,OUTPUT SPARE 8
+OSP9,CN8-15,OUTPUT SPARE 9
+OSP10,CN8-16,OUTPUT SPARE 10
+OSP11,CN8-17,OUTPUT SPARE 11
+OSP12,CN8-18,OUTPUT SPARE 12
+OSP13,CN8-19,OUTPUT SPARE 13
+OSP14,CN8-20,OUTPUT SPARE 14
++24,CN8-21,DC24V +COM
++24,CN8-22,DC24V +COM
+ISP14,CN8-23,INPUT SPARE 14
+ISP15,CN8-24,INPUT SPARE 15
+ISP16,CN8-25,INPUT SPARE 16
+ISP17,CN8-26,INPUT SPARE 17
+ISP18,CN8-27,INPUT SPARE 18
+ISP19,CN8-28,INPUT SPARE 19
+ISP20,CN8-29,INPUT SPARE 20
+ISP21,CN8-30,INPUT SPARE 21
+ISP22,CN8-31,INPUT SPARE 22
+OSP15,CN8-32,OUTPUT SPARE 15
+OSP16,CN8-33,OUTPUT SPARE 16
+OSP17,CN8-34,OUTPUT SPARE 17
+OSP18,CN8-35,OUTPUT SPARE 18
+OSP19,CN8-36,OUTPUT SPARE 19
+OSP20,CN8-37,OUTPUT SPARE 20
+OSP21,CN8-38,OUTPUT SPARE 21
+OSP22,CN8-39,OUTPUT SPARE 22
+OSP23,CN8-40,OUTPUT SPARE 23
+OSP24,CN8-41,OUTPUT SPARE 24
+OSP25,CN8-42,OUTPUT SPARE 25
+OSP26,CN8-43,OUTPUT SPARE 26
+OSP27,CN8-44,OUTPUT SPARE 27
+OSP28,CN8-45,OUTPUT SPARE 28
+OSP29,CN8-46,OUTPUT SPARE 29
+OSP30,CN8-47,OUTPUT SPARE 30
+,CN8-48,(not used - blank on source table)
+0G,CN8-49,DC24V COM (-)
+0G,CN8-50,DC24V COM (-)
+,CN1-8,(not used - blank on source table)
+,CN1-9,(not used - blank on source table)
+,CN1-10,(not used - blank on source table)
+,CN1-11,(not used - blank on source table)
+,CN1-12,(not used - blank on source table)
+,CN1-13,(not used - blank on source table)
+,CN1-19,(not used - blank on source table)
+,CN2-20,(not used - blank on source table)
+,CN2-22,(not used - blank on source table)
+,CN2-23,(not used - blank on source table)
+,CN2-24,(not used - blank on source table)
+,CN2-25,(not used - blank on source table)
+,CN2-26,(not used - blank on source table)
+,CN2-27,(not used - blank on source table)
+,CN2-28,(not used - blank on source table)
+,CN2-29,(not used - blank on source table)
+,CN2-30,(not used - blank on source table)
+,CN2-31,(not used - blank on source table)
+,CN2-32,(not used - blank on source table)
+,CN2-33,(not used - blank on source table)
+,CN2-48,(not used - blank on source table)
+,CN4-11,(not used - blank on source table)
+,CN4-14,(not used - blank on source table)
+SE1,CN4-18,SPEED REFERENCE 1
+SE2,CN4-19,SPEED REFERENCE 2
+SE3,CN4-20,SPEED REFERENCE 3 (10V MAX SPEED)
+,CN6-6,(not used - blank on source table)
+,CN6-14,(not used - blank on source table)
+,CN6-15,(not used - blank on source table)
+,CN6-16,(not used - blank on source table)
+,CN6-22,(not used - blank on source table)
+,CN6-31,(not used - blank on source table)
+,CN6-32,(not used - blank on source table)
+,CN6-35,(not used - blank on source table)
+,CN6-36,(not used - blank on source table)
+,CN6-38,(not used - row slashed out on source table)
+,CN6-40,(not used - blank on source table)
+,CN6-45,(not used - row slashed out on source table)
+,CN6-48,(not used - blank on source table)
+,CN6-49,(not used - blank on source table)
+MMS RDY,CN200-1,MMS READY
+SEN RDY,CN200-2,SENSOR READY
+MMS SKIP,CN200-3,MMS SKIP
+MMS ST,CN200-4,MMS START
+MMS PON,CN200-5,MMS POWER ON
+,CN200-6,(not used - blank on source table)
+0G,CN200-7,DC24V COM (-) NC
+,CN200-8,(not used - blank on source table)
+,CN200-9,(not used - blank on source table)
+,CN200-10,(not used - blank on source table)
+,CN200-11,(not used - blank on source table)
+,CN200-12,(not used - blank on source table)
+,CN200-13,(not used - blank on source table)
+MMS STCMD,CN200-14,MMS START (COMMAND)
+,CN200-15,(not used - blank on source table)
+,CN200-16,(not used - blank on source table)
+,CN200-17,(not used - blank on source table)
+,CN200-18,(not used - blank on source table)
+,CN200-19,(not used - blank on source table)
++24V,CN200-20,DC24V +COM (NC)

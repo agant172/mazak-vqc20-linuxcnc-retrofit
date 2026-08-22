@@ -176,7 +176,13 @@ def bbia_class(r):
     everything else is an enumerated exception. Buckets are deliberately coarse
     and derived only from robust columns, so nothing is mislabelled."""
     conn = (r.get("dest_connector") or "").strip().upper()
-    if conn.startswith("CN"):
+    # Tolerate an "OEM " decoration: WORK_LIGHT carries "OEM CN6", a real
+    # BBIA-1 pin (bbia1_cn_pinouts.csv: CN6-8 = WL WORK LIGHT). Without this
+    # the RESERVED branch below labelled it "spare", i.e. the Navigator
+    # asserted it does not cross the plane, which the OEM pinout contradicts.
+    if conn.startswith("OEM "):
+        conn = conn[4:].strip()
+    if re.fullmatch(r"CN\d+", conn):
         return "plane"
     sid = (r.get("signal_id") or "").strip()
     board = (r.get("mesa_card") or "").strip()

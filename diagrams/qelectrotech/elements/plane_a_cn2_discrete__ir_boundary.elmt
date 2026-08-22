@@ -1,0 +1,69 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<definition version="0.100.0" type="element" link_type="simple" width="350" height="352" hotspot_x="175" hotspot_y="176">
+    <uuid uuid="{065d9ab0-caee-511e-868b-3cdb6ce7d201}" />
+    <names>
+        <name lang="en">Required interposing-relay boundary</name>
+    </names>
+    <informations>Generated from the MESAC retrofit crosswalks. PRELIMINARY - NOT RELEASED FOR WIRING.</informations>
+    <description>
+        <rect x="-165.0" y="-166.0" width="330" height="332" rx="0" ry="0" antialias="false" style="line-style:normal;line-weight:normal;filling:none;color:#a85d00" />
+        <line x1="-165.0" y1="-140.0" x2="165.0" y2="-140.0" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:normal;filling:none;color:#a85d00" antialias="false" />
+        <text text="Required interposing-relay boundary" x="-157.0" y="-148.0" rotation="0" font="Liberation Sans,8,-1,5,75,0,0,0,0,0,Bold" color="#a85d00" />
+        <text text="F01 | FIELD | MANUAL_TOOL_UNCLAMP_PB" x="-157.0" y="-121.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+        <terminal uuid="{acaef58f-9bc0-58f6-bd3e-106515c7de8e}" name="F01" x="-165.0" y="-124.0" orientation="w" type="Generic" />
+        <text text="M01 | MESA | MANUAL_TOOL_UNCLAMP_PB" x="4" y="-121.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+        <terminal uuid="{097f9fa6-a296-580a-8ba5-7f0c3a663b4c}" name="M01" x="165.0" y="-124.0" orientation="e" type="Generic" />
+        <text text="F02 | FIELD | MAG_BCD_BIT0" x="-157.0" y="-101.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+        <terminal uuid="{c8f38af4-9ecd-5f59-b45f-8b3bec30d176}" name="F02" x="-165.0" y="-104.0" orientation="w" type="Generic" />
+        <text text="M02 | MESA | MAG_BCD_BIT0" x="4" y="-101.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+        <terminal uuid="{94b23a28-3f21-5c48-9a0e-106ea74d0307}" name="M02" x="165.0" y="-104.0" orientation="e" type="Generic" />
+        <text text="F03 | FIELD | MAG_BCD_BIT1" x="-157.0" y="-81.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+        <terminal uuid="{848e58b2-6875-5f7d-8fd5-b97fec34d900}" name="F03" x="-165.0" y="-84.0" orientation="w" type="Generic" />
+        <text text="M03 | MESA | MAG_BCD_BIT1" x="4" y="-81.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+        <terminal uuid="{049e3fa0-35e0-5de4-b984-14adb51c613f}" name="M03" x="165.0" y="-84.0" orientation="e" type="Generic" />
+        <text text="F04 | FIELD | MAG_BCD_BIT2" x="-157.0" y="-61.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+        <terminal uuid="{04d22363-0c14-5bd9-a65e-0058fdd3db6b}" name="F04" x="-165.0" y="-64.0" orientation="w" type="Generic" />
+        <text text="M04 | MESA | MAG_BCD_BIT2" x="4" y="-61.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+        <terminal uuid="{04f530de-191f-5f38-834b-8622e79cdb9e}" name="M04" x="165.0" y="-64.0" orientation="e" type="Generic" />
+        <text text="F05 | FIELD | MAG_BCD_BIT3" x="-157.0" y="-41.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+        <terminal uuid="{cf4a841c-8e16-5128-8342-084b02985802}" name="F05" x="-165.0" y="-44.0" orientation="w" type="Generic" />
+        <text text="M05 | MESA | MAG_BCD_BIT3" x="4" y="-41.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+        <terminal uuid="{d463722a-e588-5062-8ce0-1b24fd208174}" name="M05" x="165.0" y="-44.0" orientation="e" type="Generic" />
+        <text text="F06 | FIELD | MAG_BCD_BIT4" x="-157.0" y="-21.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+        <terminal uuid="{a8c40064-66e6-56c2-baad-43f181df2437}" name="F06" x="-165.0" y="-24.0" orientation="w" type="Generic" />
+        <text text="M06 | MESA | MAG_BCD_BIT4" x="4" y="-21.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+        <terminal uuid="{546411d8-4f43-5d31-a67e-b3e70af0437b}" name="M06" x="165.0" y="-24.0" orientation="e" type="Generic" />
+        <text text="F07 | FIELD | MAG_IN_POS" x="-157.0" y="-1.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+        <terminal uuid="{f226b1a8-f238-54a5-8efd-cfd96445f620}" name="F07" x="-165.0" y="-4.0" orientation="w" type="Generic" />
+        <text text="M07 | MESA | MAG_IN_POS" x="4" y="-1.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+        <terminal uuid="{f1bd6ffc-b6fb-5156-bbdc-c5e19bd6a813}" name="M07" x="165.0" y="-4.0" orientation="e" type="Generic" />
+        <text text="F08 | FIELD | MAG_COVER_OPEN_CONF" x="-157.0" y="19.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+        <terminal uuid="{ba4ae075-c6e0-58f0-9b8a-f7f3b2052b7b}" name="F08" x="-165.0" y="16.0" orientation="w" type="Generic" />
+        <text text="M08 | MESA | MAG_COVER_OPEN_CONF" x="4" y="19.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+        <terminal uuid="{96785050-4576-5cf1-8a38-4fa22870f0ee}" name="M08" x="165.0" y="16.0" orientation="e" type="Generic" />
+        <text text="F09 | FIELD | MAG_COVER_CLOSE_CONF" x="-157.0" y="39.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+        <terminal uuid="{e17f7ea9-4388-5e85-a400-e4f2fd57243e}" name="F09" x="-165.0" y="36.0" orientation="w" type="Generic" />
+        <text text="M09 | MESA | MAG_COVER_CLOSE_CONF" x="4" y="39.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+        <terminal uuid="{f4f59645-b9eb-5b50-ab6b-df32796b6c8f}" name="M09" x="165.0" y="36.0" orientation="e" type="Generic" />
+        <text text="F10 | FIELD | MAG_TOOL_AVAILABLE" x="-157.0" y="59.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+        <terminal uuid="{763b80eb-1e6a-5f78-a4c6-be7ca8459373}" name="F10" x="-165.0" y="56.0" orientation="w" type="Generic" />
+        <text text="M10 | MESA | MAG_TOOL_AVAILABLE" x="4" y="59.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+        <terminal uuid="{20728ec9-3878-510f-b6ec-cdf2fcd0fd1b}" name="M10" x="165.0" y="56.0" orientation="e" type="Generic" />
+        <text text="F11 | FIELD | X_HOME" x="-157.0" y="79.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+        <terminal uuid="{7eb3f0c2-92af-5f79-8c55-67ecb84521d2}" name="F11" x="-165.0" y="76.0" orientation="w" type="Generic" />
+        <text text="M11 | MESA | X_HOME" x="4" y="79.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+        <terminal uuid="{c34e2bde-132a-511e-b809-d9ec5232d40c}" name="M11" x="165.0" y="76.0" orientation="e" type="Generic" />
+        <text text="F12 | FIELD | Y_HOME" x="-157.0" y="99.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+        <terminal uuid="{396d1a3d-1d85-5c35-8c6d-edeaa326c45a}" name="F12" x="-165.0" y="96.0" orientation="w" type="Generic" />
+        <text text="M12 | MESA | Y_HOME" x="4" y="99.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+        <terminal uuid="{8a4bb353-14bc-5104-8612-17ec395e7129}" name="M12" x="165.0" y="96.0" orientation="e" type="Generic" />
+        <text text="F13 | FIELD | DOOR_INTERLOCK" x="-157.0" y="119.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+        <terminal uuid="{85b5bfa0-c47e-57df-8a17-e5b588b1a585}" name="F13" x="-165.0" y="116.0" orientation="w" type="Generic" />
+        <text text="M13 | MESA | DOOR_INTERLOCK" x="4" y="119.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+        <terminal uuid="{c6c1a20d-846f-5f7a-89cd-35c77f44278b}" name="M13" x="165.0" y="116.0" orientation="e" type="Generic" />
+        <text text="F14 | FIELD | MANUAL_TOOL_CLAMP_PB" x="-157.0" y="139.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#d00000" />
+        <terminal uuid="{0d557bff-f813-5028-a85a-93d49f24f804}" name="F14" x="-165.0" y="136.0" orientation="w" type="Generic" />
+        <text text="M14 | MESA | MANUAL_TOOL_CLAMP_PB" x="4" y="139.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#d00000" />
+        <terminal uuid="{64c0860c-6134-5eb4-b443-8103070d900a}" name="M14" x="165.0" y="136.0" orientation="e" type="Generic" />
+    </description>
+</definition>

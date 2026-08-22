@@ -49,6 +49,47 @@ the isolated 7i84U-B probe path, and LinuxCNC HAL pin names.
   configuration: ResolverMod (1) + PWM (6) on P1, SSerial (8ch, port 0) on P3,
   P2 bare GPIO, no Encoder module present (spindle encoder path stays unassigned).
 
+## Power requirements (card-level)
+
+Card-level supply and jumper requirements for the installed stack, taken from the
+local Mesa manuals in [`../docs/Mesa Manuals/`](../docs/Mesa%20Manuals/). This
+section records **what the cards require**, not how the supplies are built: per the
+project scope decision, all AC/DC power distribution and the E-stop system stay
+original OEM, and the 24 V bus is designed outside this repo. The 5 V source for the
+7i80HDT and the 24 V source for 7i84U VIN/field power are therefore out of scope here.
+
+| Card | Supply input | Requirement | Jumper |
+|---|---|---|---|
+| 7i80HDT | **P5** 3.5 mm plug-in screw terminal: pin 1 `+5V` (top, square pad), pin 2 `GND` (bottom, round pad) | 4.5-5.5 V. Draw depends on FPGA configuration and external load. Each I/O connector is PTC-limited to **1000 mA** of 5 V out. | **W5/W6/W7 UP** (5 V daughtercard + pullup power for P1/P2/P3). DOWN selects 3.3 V. All current Mesa daughtercards use 5 V, so all three stay UP. |
+| 7i49 (P1) | Ribbon 5 V, **or** external 5 V on the 7i49 aux header (pin 1 `5V`, pin 2 `GND`) | Single 5 V supply. Cable power is sanctioned only for 1-2 resolvers under test; this build runs three (X/Y/Z). **Use external 5 V.** | **W1 LEFT** = external 5 V required. RIGHT = cable 5 V. |
+| 7i44 (P3) | Ribbon 5 V, **or** external 5 V via its P1/TB2 | Supplies 5 V out on the RJ45 jacks, PTC-limited. Two 7i84U remotes draw 30 mA each from the serial cable (60 mA total), well inside the low-power case. **Cable power is adequate.** | **W1 TOP** = cable 5 V (default). BOTTOM = external 5 V. |
+| 7i84U-A/B | **TB1**: pins 1/2 `VFIELDB` field power 5-32 V for TB2 I/O; pins 3/4 `VFIELDA` field power 5-32 V for TB3 I/O; pin 5 `VIN` **logic power 8-32 V**; pin 6 `GROUND` | Local logic runs from a switching supply fed by VIN or field power. Outputs are 5-28 VDC sourcing/sinking/push-pull, 500 mA maximum per output. | **W1 LEFT** ties VIN to field power B (one supply for logic and outputs). RIGHT takes a separate VIN supply. |
+
+Four traps worth reading before applying power:
+
+- **A 7i84U will not enumerate without VIN.** The CAT5 smart-serial link carries 5 V
+  for the RS-422 transceivers only, 30 mA maximum. It does not run the board. An empty
+  `mesaflash --device 7i80hdt --addr 192.168.1.121 --sserial` scan with cables
+  connected is a **power symptom first**, not a cabling or firmware symptom.
+- **The 7i49 aux "P1" is not the 7i80HDT P1.** The 7i49 manual calls its own 2-pin
+  auxiliary 5 V header P1; the 50-pin ribbon lands on the 7i80HDT connector also named
+  P1. Two different connectors on two different cards.
+- **Ribbon 5 V still has to be present even when the 7i49 runs on external power.** Per
+  the 7i49 manual, the card only connects to aux power if the cable 5 V is present, so
+  the ribbon 5 V acts as an enable. 7i80HDT W5 stays UP regardless.
+- **VIN needs at least 8 V while field power goes down to 5 V.** If 7i84U W1 is in the
+  LEFT position tying VIN to field power B, that field supply must be 8 V or above.
+  24 V satisfies both.
+
+Jumper positions are named differently per card and are not interchangeable: the 7i44
+uses TOP/BOTTOM, the 7i49 uses RIGHT/LEFT. Verify against the board silkscreen. Note
+also that 7i80HDT W4 (5 V I/O tolerance, default UP) and W2/W3 (IP address selection)
+are not power-source jumpers and should not be disturbed while setting W5/W6/W7.
+
+Unrelated to supply selection but on the same card, 7i49 **W2** sets resolver drive
+level for channels 3/4/5 only (UP = full, DOWN = half scale). It does not affect the
+X/Y/Z axis channels 0/1/2.
+
 ## Information to record
 
 | Group | Item to record | Expected / current plan | Why it matters |

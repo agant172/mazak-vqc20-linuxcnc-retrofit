@@ -1,0 +1,69 @@
+plane,section,signal,oem_pin,wire_lead,mesa,status,notes
+B,Resolvers,X SIN+,CNA3-12,A,P4-2 RESSIN0+,PROPOSED_PHASE_VERIFY,Confirm polarity open-loop, drives disabled
+B,Resolvers,X SIN-,CNA3-13,B,P4-1 RESSIN0-,PROPOSED_PHASE_VERIFY,
+B,Resolvers,X COS+,CNA3-14,F,P4-4 RESCOS0+,PROPOSED_PHASE_VERIFY,Scope phase
+B,Resolvers,X COS-,CNA3-15,G,P4-3 RESCOS0-,PROPOSED_PHASE_VERIFY,
+B,Resolvers,X DRV+,CNA3-16,H,P4-7 RESDRV0+,PROPOSED_PHASE_VERIFY,7i49 sole excitation source
+B,Resolvers,X DRV-,CNA3-17,J,P4-6 RESDRV0-,PROPOSED_PHASE_VERIFY,
+B,Resolvers,Y pair,CNA4 (same pins),,RES1,PROPOSED_PHASE_VERIFY,Same mapping as X
+B,Resolvers,Z pair,CNA5 (same pins),,RES2,PROPOSED_PHASE_VERIFY,Same mapping as X
+B,Axis velocity commands,X_AXIS_CMD,TBD (old NC harness),,AOUT0,HOLD_SOURCE_TRACE,Ring out removed NC command pair to DK-427 X input
+B,Axis velocity commands,Y_AXIS_CMD,TBD,,AOUT2,HOLD_SOURCE_TRACE,Same for Y
+B,Axis velocity commands,Z_AXIS_CMD,TBD,,AOUT1,HOLD_SOURCE_TRACE,Same for Z
+A,Homes and limits,X_HOME,CN2-15,*DECX,TB3 IN6,MESA_ROUTE,
+A,Homes and limits,Y_HOME,CN2-16,*DECY,TB3 IN7,MESA_ROUTE,
+A,Homes and limits,Z_HOME,CN1-14,*DECZ,TB3 IN8,MESA_ROUTE,
+A,Homes and limits,Y_LIMIT_PLUS,CN3-37,+LY,TB3 IN2,MESA_ROUTE,
+A,Homes and limits,Z_LIMIT_MINUS,CN3-38,-LZ,TB3 IN5,MESA_ROUTE,
+A,Homes and limits,X_LIMIT_PLUS,,,TB3 IN0,FIELD_TRACE,No connector-box label on this sheet
+A,Homes and limits,X_LIMIT_MINUS,,,TB3 IN1,FIELD_TRACE,No connector-box label on this sheet
+A,Homes and limits,Y_LIMIT_MINUS,,,TB3 IN3,FIELD_TRACE,No connector-box label on this sheet
+A,Homes and limits,Z_LIMIT_PLUS,,,TB3 IN4,FIELD_TRACE,No connector-box label on this sheet
+A,ATC/Magazine/Tool,ATC_ZONE_Y,CN3-44,+LY2,7i84U-A TB3 IN0,MESA_ROUTE,
+A,ATC/Magazine/Tool,ATC_ZONE_Z,CN3-39,-LZ2,7i84U-A TB3 IN1,MESA_ROUTE,
+A,ATC/Magazine/Tool,MAG_TOOL_AVAILABLE,CN2-13,381,7i84U-A TB3 IN2,MESA_ROUTE,
+A,ATC/Magazine/Tool,SPINDLE_TOOL_AVAILABLE,CN6-50,382,7i84U-A TB3 IN3,MESA_ROUTE,
+A,ATC/Magazine/Tool,MAG_COVER_OPEN_CONF,CN2-11,218,7i84U-A TB3 IN6,MESA_ROUTE,
+A,ATC/Magazine/Tool,MAG_COVER_CLOSE_CONF,CN2-12,219,7i84U-A TB3 IN7,MESA_ROUTE,
+A,ATC/Magazine/Tool,MAG_BCD_BIT0,CN2-4,150,7i84U-A TB2 IN19,MESA_ROUTE,
+A,ATC/Magazine/Tool,MAG_BCD_BIT1,CN2-5,221,7i84U-A TB2 IN20,MESA_ROUTE,
+A,ATC/Magazine/Tool,MAG_BCD_BIT2,CN2-6,222,7i84U-A TB2 IN21,MESA_ROUTE,
+A,ATC/Magazine/Tool,MAG_BCD_BIT3,CN2-7,223,7i84U-A TB2 IN22,MESA_ROUTE,
+A,ATC/Magazine/Tool,MAG_BCD_BIT4,CN2-8,224,7i84U-A TB2 IN23,MESA_ROUTE,
+A,ATC/Magazine/Tool,MAG_IN_POS,CN2-9,225,7i84U-A TB2 IN28,MESA_ROUTE,
+A,ATC/Magazine/Tool,TOOL_CLAMP_CONF,CN1-2,209,7i84U-A TB3 IN15,MESA_ROUTE,
+A,ATC/Magazine/Tool,TOOL_UNCLAMP_CONF,CN1-1,208,7i84U-A TB2 IN16,MESA_ROUTE,
+A,ATC/Magazine/Tool,TOOL_UNCLAMP_SOL,CN11-3,710,7i84U-A TB2 OUT10,MESA_ROUTE,
+A,ATC/Magazine/Tool,MANUAL_TOOL_UNCLAMP_PB,CN2-3,149,7i84U-A TB3 IN9,MESA_ROUTE,
+A,ATC/Magazine/Tool,MANUAL_TOOL_CLAMP_PB,CN2-44,149B,7i84U-A TB2 IN30,MESA_ROUTE,
+A,Spindle discrete/analog,SPINDLE_ZERO_SPEED,CN4-1,231,7i84U-A TB3 IN5,MESA_ROUTE,
+A,Spindle discrete/analog,SPINDLE_FAULT,CN4-3,FA,7i84U-A TB3 IN14,MESA_ROUTE,
+A,Spindle discrete/analog,SPINDLE_FWD,CN4-9,SRN,7i84U-A TB3 OUT0,MESA_ROUTE,Parallel CN3-11
+A,Spindle discrete/analog,SPINDLE_REV,CN4-10,SRI,7i84U-A TB3 OUT1,MESA_ROUTE,Parallel CN3-12
+A,Spindle discrete/analog,SPINDLE_ORIENT_CMD,CN3-14,ORI C1,7i84U-A TB3 OUT4,MESA_ROUTE,
+A,Spindle discrete/analog,SPINDLE_ORIENT_LOGEAR,CN3-15,CTL,7i84U-A TB3 OUT5,MESA_ROUTE,
+A,Spindle discrete/analog,SPINDLE_ORIENT_ARRIVAL,CN4-16,SETA,7i84U-A TB3 IN4,MESA_ROUTE,Verify ORA1 polarity
+A,Spindle discrete/analog,SPINDLE_SPEED_SE1,CN4-18,SE1,7i49 AOUT3/GND3,HOLD_ANALOG_ROLE,Determine command vs common
+A,Spindle discrete/analog,SPINDLE_SPEED_SE2,CN4-19,SE2,7i49 AOUT3/GND3,HOLD_ANALOG_ROLE,
+A,Spindle discrete/analog,SPINDLE_SPEED_SE3,CN4-20,SE3,TBD,HOLD,Possibly shield/common
+A,Gear/Coolant/Hydraulic/Safety,GEAR_HI_CONF,CN1-3,210,7i84U-A TB2 IN17,MESA_ROUTE,
+A,Gear/Coolant/Hydraulic/Safety,GEAR_LO_CONF,CN1-4,212,7i84U-A TB2 IN18,MESA_ROUTE,
+A,Gear/Coolant/Hydraulic/Safety,GEAR_HI_SOL,CN11-4,712,7i84U-A TB3 OUT7,MESA_ROUTE,
+A,Gear/Coolant/Hydraulic/Safety,GEAR_LO_SOL,CN11-5,213,7i84U-A TB2 OUT8,MESA_ROUTE,
+A,Gear/Coolant/Hydraulic/Safety,HYD_PUMP_ON,CN11-16,235,7i84U-A TB3 OUT3,MESA_ROUTE,
+A,Gear/Coolant/Hydraulic/Safety,COOLANT_ON,CN11-15,236,7i84U-A TB2 OUT11,MESA_ROUTE,
+A,Gear/Coolant/Hydraulic/Safety,FLOOD_VALVE,CN11-13,231,7i84U-B TB3 OUT7,MESA_ROUTE,
+A,Gear/Coolant/Hydraulic/Safety,AIR_BLAST,CN11-6,215,7i84U-B TB3 OUT3,MESA_ROUTE,
+A,Gear/Coolant/Hydraulic/Safety,WORK_AIR_BLAST,CN11-7,216,7i84U-B TB3 OUT4,MESA_ROUTE,
+A,Gear/Coolant/Hydraulic/Safety,LUBE_OK,CN6-39,355,7i84U-A TB2 IN25,MESA_ROUTE,
+A,Gear/Coolant/Hydraulic/Safety,COOLANT_LOW,CN1-5,232,7i84U-A TB2 IN26,MESA_ROUTE,
+A,Gear/Coolant/Hydraulic/Safety,DOOR_INTERLOCK,CN2-38,238,7i84U-A TB2 IN24,MESA_ROUTE,
+A,Gear/Coolant/Hydraulic/Safety,THERMAL_ALARM_CHAIN,CN5-1,144,7i84U-A TB3 IN8,MESA_ROUTE,
+A,Gear/Coolant/Hydraulic/Safety,SERVO_READY,CN6-7,SA,7i84U-A TB2 IN31,MESA_ROUTE,
+A,Gear/Coolant/Hydraulic/Safety,SERVO_FAULT,CN6-27,SER,7i84U-A TB3 IN10,MESA_ROUTE,
+A,Gear/Coolant/Hydraulic/Safety,WORK_LIGHT,CN6-8,WL,7i84U-B TB2 OUT9,MESA_ROUTE,
+A,Gear/Coolant/Hydraulic/Safety,PROBE (Renishaw),CN200-3,MMS SKIP,7i84U-B TB3 IN15,CANDIDATE,
+A,New signals (not original BBIA pass-through),X_DRIVE_ENABLE,,,7i84U-B TB3 OUT0,NEW,Interposing relay to DK-427 ENA
+A,New signals (not original BBIA pass-through),Y_DRIVE_ENABLE,,,7i84U-B TB3 OUT1,NEW,Interposing relay to DK-427 ENA
+A,New signals (not original BBIA pass-through),Z_DRIVE_ENABLE,,,7i84U-B TB3 OUT2,NEW,Interposing relay to DK-427 ENA
+A,New signals (not original BBIA pass-through),SPINDLE_ENABLE,,,HAL logical,NEW,Combined gate not a physical wire

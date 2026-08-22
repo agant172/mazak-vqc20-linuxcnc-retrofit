@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<definition version="0.100.0" type="element" link_type="simple" width="350" height="100" hotspot_x="175" hotspot_y="50">
+    <uuid uuid="{bac71a3d-c741-5bec-b8ef-ca505047b946}" />
+    <names>
+        <name lang="en">BBIA-1 CN200 machine-facing connector</name>
+    </names>
+    <informations>Generated from the MESAC retrofit crosswalks. PRELIMINARY - NOT RELEASED FOR WIRING.</informations>
+    <description>
+        <rect x="-165.0" y="-40.0" width="330" height="80" rx="0" ry="0" antialias="false" style="line-style:normal;line-weight:normal;filling:none;color:#0078a8" />
+        <line x1="-165.0" y1="-14.0" x2="165.0" y2="-14.0" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:normal;filling:none;color:#0078a8" antialias="false" />
+        <text text="BBIA-1 CN200 machine-facing connector" x="-157.0" y="-22.0" rotation="0" font="Liberation Sans,8,-1,5,75,0,0,0,0,0,Bold" color="#0078a8" />
+        <text text="3 | wire MMS SKIP | PROBE_SKIP1_CANDIDATE | HOLD - SOURCE TRACE" x="4" y="5.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#d00000" />
+        <terminal uuid="{2e543d6b-676b-588b-b7e3-7d1be62dd5c2}" name="3" x="165.0" y="2.0" orientation="e" type="Generic" />
+    </description>
+</definition>

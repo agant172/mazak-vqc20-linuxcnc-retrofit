@@ -1,0 +1,168 @@
+# GENERATED FILE - edit the source CSV or generator, then regenerate.
+metadata:
+  title: Plane B - Z-axis resolver to Mesa 7i49
+  description: CNA5 resolver windings, case-ground disposition, and three-pair drain requirement.
+  notes: 'PRELIMINARY - NOT RELEASED FOR WIRING. Yellow = defined route requiring field verification; red = HOLD or proposed;
+    gray = retain/retire decision. Input: wiring/plane_b_pin_crosswalk.csv; OEM 41434WB p128; 7i49 manual.'
+options:
+  fontname: Arial
+  bgcolor: WH
+  bgcolor_node: WH
+  color_mode: SHORT
+  mini_bom_mode: false
+connectors:
+  CNA5:
+    type: OEM / field endpoint CNA5
+    pins:
+    - 12
+    - 13
+    - 14
+    - 15
+    - 16
+    - 17
+    - 20
+    pinlabels:
+    - 12 | Z_RES_SIN_POS | lead/wire A | PHASE
+    - 13 | Z_RES_SIN_NEG | lead/wire B | PHASE
+    - 14 | Z_RES_COS_POS | lead/wire F | PHASE
+    - 15 | Z_RES_COS_NEG | lead/wire G | PHASE
+    - 16 | Z_RES_DRV_POS | lead/wire H | PHASE
+    - 17 | Z_RES_DRV_NEG | lead/wire J | PHASE
+    - 20 | Z_RES_CASE_GND | lead/wire N | HOLD
+    pincolors:
+    - RD
+    - RD
+    - RD
+    - RD
+    - RD
+    - RD
+    - RD
+    hide_disconnected_pins: true
+    show_pincount: false
+    bgcolor_title: LB
+    notes: Source identity remains unresolved; see crosswalk.
+    ignore_in_bom: true
+  NEW_CABLE_SHIELDS:
+    type: New resolver-cable pair drains (three shields)
+    pins:
+    - three pair drains
+    pinlabels:
+    - three pair drains | Z_RES_PAIR_SHIELDS | FP
+    pincolors:
+    - YE
+    hide_disconnected_pins: true
+    show_pincount: false
+    bgcolor_title: LB
+    notes: Source identity remains unresolved; see crosswalk.
+    ignore_in_bom: true
+  7i49_P3:
+    type: 7i49 P3
+    pins:
+    - 2
+    - 1
+    - 4
+    - 3
+    - 7
+    - 6
+    - 5 or 8
+    pinlabels:
+    - 2 | RESSIN2+ | PHASE
+    - 1 | RESSIN2- | PHASE
+    - 4 | RESCOS2+ | PHASE
+    - 3 | RESCOS2- | PHASE
+    - 7 | RESDRV2+ | PHASE
+    - 6 | RESDRV2- | PHASE
+    - 5 or 8 | GND | FP
+    pincolors:
+    - RD
+    - RD
+    - RD
+    - RD
+    - RD
+    - RD
+    - YE
+    hide_disconnected_pins: true
+    show_pincount: false
+    bgcolor_title: LB
+    notes: Verify endpoint numbering against the card manual.
+    ignore_in_bom: true
+  HOLD_TERMINATION:
+    type: Termination or electrical role not established
+    pins:
+    - TBD01
+    pinlabels:
+    - TBD01 | Z_RES_CASE_GND | HOLD
+    pincolors:
+    - RD
+    hide_disconnected_pins: true
+    show_pincount: false
+    bgcolor_title: RD
+    notes: See crosswalk source.
+    ignore_in_bom: true
+cables:
+  DIRECT_INTERFACE:
+    type: Direct analog / resolver interface conductors
+    wirecount: 8
+    wirelabels:
+    - Z_RES_SIN_POS | PHASE
+    - Z_RES_SIN_NEG | PHASE
+    - Z_RES_COS_POS | PHASE
+    - Z_RES_COS_NEG | PHASE
+    - Z_RES_DRV_POS | PHASE
+    - Z_RES_DRV_NEG | PHASE
+    - Z_RES_CASE_GND | HOLD
+    - Z_RES_PAIR_SHIELDS | FP
+    colors:
+    - RD
+    - RD
+    - RD
+    - RD
+    - RD
+    - RD
+    - RD
+    - YE
+    show_wirecount: false
+    notes: See crosswalk source.
+    shield: false
+    ignore_in_bom: true
+connections:
+- - CNA5:
+    - 12
+    - 13
+    - 14
+    - 15
+    - 16
+    - 17
+    - 20
+  - DIRECT_INTERFACE:
+    - 1
+    - 2
+    - 3
+    - 4
+    - 5
+    - 6
+    - 7
+- - NEW_CABLE_SHIELDS:
+    - three pair drains
+  - DIRECT_INTERFACE:
+    - 8
+- - DIRECT_INTERFACE:
+    - 1
+    - 2
+    - 3
+    - 4
+    - 5
+    - 6
+    - 8
+  - 7i49_P3:
+    - 2
+    - 1
+    - 4
+    - 3
+    - 7
+    - 6
+    - 5 or 8
+- - DIRECT_INTERFACE:
+    - 7
+  - HOLD_TERMINATION:
+    - TBD01

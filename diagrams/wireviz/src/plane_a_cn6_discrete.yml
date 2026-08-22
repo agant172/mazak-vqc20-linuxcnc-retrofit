@@ -1,0 +1,195 @@
+# GENERATED FILE - edit the source CSV or generator, then regenerate.
+metadata:
+  title: Plane A - BBIA-1 CN6 discrete routes
+  description: Machine-facing CN6 conductors through the required isolation boundary to Mesa field I/O.
+  notes: 'PRELIMINARY - NOT RELEASED FOR WIRING. Yellow = defined route requiring field verification; red = HOLD or proposed;
+    gray = retain/retire decision. Input: wiring/plane_a_bbia1_pin_crosswalk.csv.'
+options:
+  fontname: Arial
+  bgcolor: WH
+  bgcolor_node: WH
+  color_mode: SHORT
+  mini_bom_mode: false
+connectors:
+  CN6:
+    type: BBIA-1 CN6 machine-facing connector
+    pins:
+    - 7
+    - 8
+    - 27
+    - 39
+    - 50
+    pinlabels:
+    - SA | SERVO_READY | FV
+    - WL | WORK_LIGHT | HOLD
+    - SER | SERVO_FAULT | FV
+    - 355 | LUBE_OK | FV
+    - 382 | SPINDLE_TOOL_AVAILABLE | FV
+    pincolors: &id001
+    - YE
+    - RD
+    - YE
+    - YE
+    - YE
+    hide_disconnected_pins: true
+    show_pincount: false
+    bgcolor_title: LB
+    notes: Verify endpoint numbering against the card manual.
+    ignore_in_bom: true
+  IR_BOUNDARY:
+    type: Required interposing-relay boundary
+    pins:
+    - F01
+    - M01
+    - F02
+    - M02
+    - F03
+    - M03
+    - F04
+    - M04
+    - F05
+    - M05
+    pinlabels:
+    - F | SERVO_READY
+    - M | SERVO_READY
+    - F | WORK_LIGHT
+    - M | WORK_LIGHT
+    - F | SERVO_FAULT
+    - M | SERVO_FAULT
+    - F | LUBE_OK
+    - M | LUBE_OK
+    - F | SPINDLE_TOOL_AVAILABLE
+    - M | SPINDLE_TOOL_AVAILABLE
+    pincolors:
+    - YE
+    - YE
+    - RD
+    - RD
+    - YE
+    - YE
+    - YE
+    - YE
+    - YE
+    - YE
+    hide_disconnected_pins: true
+    show_pincount: false
+    bgcolor_title: YE
+    notes: Logical boundary placeholder; see crosswalk.
+    ignore_in_bom: true
+  7i84U-A_TB2:
+    type: 7i84U-A TB2
+    pins:
+    - IN31
+    - IN25
+    pinlabels:
+    - IN31 | servo-ready | FV
+    - IN25 | lube-ok | FV
+    pincolors:
+    - YE
+    - YE
+    hide_disconnected_pins: true
+    show_pincount: false
+    bgcolor_title: LB
+    notes: Verify endpoint numbering against the card manual.
+    ignore_in_bom: true
+  7i84U-B_TB2:
+    type: 7i84U-B TB2
+    pins:
+    - OUT9
+    pinlabels:
+    - OUT9 | WORK_LIGHT | HOLD
+    pincolors:
+    - RD
+    hide_disconnected_pins: true
+    show_pincount: false
+    bgcolor_title: LB
+    notes: Verify endpoint numbering against the card manual.
+    ignore_in_bom: true
+  7i84U-A_TB3:
+    type: 7i84U-A TB3
+    pins:
+    - IN10
+    - IN3
+    pinlabels:
+    - IN10 | servo-fault | FV
+    - IN3 | spindle-tool-avail | FV
+    pincolors:
+    - YE
+    - YE
+    hide_disconnected_pins: true
+    show_pincount: false
+    bgcolor_title: LB
+    notes: Verify endpoint numbering against the card manual.
+    ignore_in_bom: true
+cables:
+  OEM_CONDUCTORS:
+    type: Existing OEM conductor segments
+    wirecount: 5
+    wirelabels:
+    - SA | SERVO_READY
+    - WL | WORK_LIGHT
+    - SER | SERVO_FAULT
+    - 355 | LUBE_OK
+    - 382 | SPINDLE_TOOL_AVAILABLE
+    colors: *id001
+    show_wirecount: false
+    notes: See crosswalk source.
+    shield: false
+    ignore_in_bom: true
+  NEW_CONTROL_WIRING:
+    type: New control-side conductors
+    wirecount: 5
+    wirelabels:
+    - SERVO_READY | servo-ready
+    - WORK_LIGHT | TBD
+    - SERVO_FAULT | servo-fault
+    - LUBE_OK | lube-ok
+    - SPINDLE_TOOL_AVAILABLE | spindle-tool-avail
+    colors: *id001
+    show_wirecount: false
+    notes: See crosswalk source.
+    shield: false
+    ignore_in_bom: true
+connections:
+- - CN6:
+    - 7
+    - 8
+    - 27
+    - 39
+    - 50
+  - OEM_CONDUCTORS:
+    - 1
+    - 2
+    - 3
+    - 4
+    - 5
+  - IR_BOUNDARY:
+    - F01
+    - F02
+    - F03
+    - F04
+    - F05
+- - IR_BOUNDARY:
+    - M01
+    - M04
+  - NEW_CONTROL_WIRING:
+    - 1
+    - 4
+  - 7i84U-A_TB2:
+    - IN31
+    - IN25
+- - IR_BOUNDARY:
+    - M02
+  - NEW_CONTROL_WIRING:
+    - 2
+  - 7i84U-B_TB2:
+    - OUT9
+- - IR_BOUNDARY:
+    - M03
+    - M05
+  - NEW_CONTROL_WIRING:
+    - 3
+    - 5
+  - 7i84U-A_TB3:
+    - IN10
+    - IN3

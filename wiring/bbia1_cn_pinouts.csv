@@ -203,3 +203,189 @@ CN12,MR-20 (AMD/LFH),17,,(not used),spare,,
 CN12,MR-20 (AMD/LFH),18,,(not used),spare,,
 CN12,MR-20 (AMD/LFH),19,,(blank on source table),spare,,
 CN12,MR-20 (AMD/LFH),20,,(blank on source table),spare,,
+CN3,MR-50RMW,5,,(not used - blank on source table),spare,,
+CN3,MR-50RMW,6,,(not used - blank on source table),spare,,
+CN3,MR-50RMW,7,,(not used - blank on source table),spare,,
+CN3,MR-50RMW,13,,SPARE,spare,,
+CN3,MR-50RMW,16,,(not used - blank on source table),spare,,
+CN3,MR-50RMW,17,,(not used - blank on source table),spare,,
+CN3,MR-50RMW,18,,(not used - blank on source table),spare,,
+CN3,MR-50RMW,19,,(not used - blank on source table),spare,,
+CN3,MR-50RMW,20,,(not used - blank on source table),spare,,
+CN3,MR-50RMW,21,,(not used - blank on source table),spare,,
+CN3,MR-50RMW,22,,(not used - blank on source table),spare,,
+CN3,MR-50RMW,23,,(not used - blank on source table),spare,,
+CN3,MR-50RMW,24,,(not used - blank on source table),spare,,
+CN3,MR-50RMW,25,,(not used - blank on source table),spare,,
+CN3,MR-50RMW,26,,(not used - blank on source table),spare,,
+CN3,MR-50RMW,27,,(not used - blank on source table),spare,,
+CN3,MR-50RMW,28,,(not used - blank on source table),spare,,
+CN3,MR-50RMW,29,,(not used - blank on source table),spare,,
+CN3,MR-50RMW,30,,(not used - blank on source table),spare,,
+CN3,MR-50RMW,31,,(not used - blank on source table),spare,,
+CN3,MR-50RMW,32,,(not used - blank on source table),spare,,
+CN3,MR-50RMW,34,,(not used - blank on source table),spare,,
+CN3,MR-50RMW,45,,(not used - blank on source table),spare,,
+CN3,MR-50RMW,46,,(not used - blank on source table),spare,,
+CN3,MR-50RMW,47,,(not used - blank on source table),spare,,
+CN3,MR-50RMW,48,,(not used - blank on source table),spare,,
+CN7,MR-50RMW,1,MF,M FUNCTION,2PC pallet,CND23-38,TB6-MF
+CN7,MR-50RMW,2,M11,M CODE 11,2PC pallet,CND5-8,TB6-M11
+CN7,MR-50RMW,3,M12,M CODE 12,2PC pallet,CND5-9,TB6-M12
+CN7,MR-50RMW,4,M14,M CODE 14,2PC pallet,CND5-10,TB6-M14
+CN7,MR-50RMW,5,M18,M CODE 18,2PC pallet,CND5-11,TB6-M18
+CN7,MR-50RMW,6,M21,M CODE 21,2PC pallet,CND5-12,TB6-M21
+CN7,MR-50RMW,7,M22,M CODE 22,2PC pallet,CND5-13,TB6-M22
+CN7,MR-50RMW,8,M24,M CODE 24,2PC pallet,CND5-14,TB6-M24
+CN7,MR-50RMW,9,M28,M CODE 28,2PC pallet,CND5-15,TB6-M28
+CN7,MR-50RMW,10,M31,M CODE 31,2PC pallet,CND5-16,TB6-M31
+CN7,MR-50RMW,11,M32,M CODE 32,2PC pallet,CND5-17,TB6-M32
+CN7,MR-50RMW,12,M34,M CODE 34,2PC pallet,CND5-18,TB6-M34
+CN7,MR-50RMW,13,M38,M CODE 38,2PC pallet,CND5-19,TB6-M38
+CN7,MR-50RMW,14,ZPX,ZERO POS. X AXIS,2PC pallet,CND23-8,TB6-ZPX
+CN7,MR-50RMW,15,ZPY,ZERO POS. Y AXIS,2PC pallet,CND23-9,TB6-ZPY
+CN7,MR-50RMW,16,ZPZ,ZERO POS. Z AXIS,2PC pallet,CND23-10,TB6-ZPZ
+CN7,MR-50RMW,17,0G,DC24V COM (-),common,,TB6-0G
+CN7,MR-50RMW,18,0G,DC24V COM (-),common,,TB6-0G
+CN7,MR-50RMW,19,ZP4,ZERO POS. 4 AXIS,2PC pallet,CND23-11,TB6-ZP4
+CN7,MR-50RMW,20,MFA,M FUNCTION A,2PC pallet,CND23-12,TB6-MFA
+CN7,MR-50RMW,21,FHDL,FEED HOLD LED,2PC pallet,CND23-44,TB6-FHDL
+CN7,MR-50RMW,22,ZPZ2,2nd ZERO POS. Z AXIS,2PC pallet,CND23-46,TB6-ZPZ2
+CN7,MR-50RMW,23,AUTM,AUTO MODE,2PC pallet,CND23-42,TB6-AUTM
+CN7,MR-50RMW,24,PUCCD,PALLET UNCLAMP COMMAND,2PC pallet,CND23-47,TB6-PUCCD
+CN7,MR-50RMW,25,FHDPB,FEED HOLD P.B.,2PC pallet,CND23-25,TB6-FHDPB
+CN7,MR-50RMW,26,CSTL,CYCLE START LED,2PC pallet,CND23-31,TB6-CSTL
+CN7,MR-50RMW,27,CSTPB,CYCLE START P.B.,2PC pallet,CND23-7,TB6-CSTPB
+CN7,MR-50RMW,28,PCLCD,PALLET CLAMP COMMAND,2PC pallet,CND23-27,TB6-PCLCD
+CN7,MR-50RMW,29,ISP3,INPUT SPARE 3,spare,CND2-9,TB6-ISP3
+CN7,MR-50RMW,30,MRDY,MACHINE READY,2PC pallet,CND23-14,TB6-MRDY
+CN7,MR-50RMW,31,RST,RESET OUT,2PC pallet,,TB6-RST
+CN7,MR-50RMW,32,OSP4,OUTPUT SPARE 4,spare,CND2-43,TB6-OSP4
+CN7,MR-50RMW,33,OSP3,OUTPUT SPARE 3,spare,CND2-30,TB6-OSP3
+CN7,MR-50RMW,34,P1ON,PALLET NO.1 ON (FMS),2PC pallet,CND4-2,TB6-P1ON
+CN7,MR-50RMW,35,P2ON,PALLET NO.2 ON (FMS),2PC pallet,CND4-36,TB6-P2ON
+CN7,MR-50RMW,36,EXFIN,EXT. FINISH SIGNAL,2PC pallet,CND1-13,TB6-EXFIN
+CN7,MR-50RMW,37,EXRST,EXT. RESET,2PC pallet,CND1-25,TB6-EXRST
+CN7,MR-50RMW,38,INTX,X AXIS INTERLOCK,2PC pallet,CND2-1,TB6-INTX
+CN7,MR-50RMW,39,INTY,Y AXIS INTERLOCK,2PC pallet,CND2-19,TB6-INTY
+CN7,MR-50RMW,40,INTZ,Z AXIS INTERLOCK,2PC pallet,CND2-2,TB6-INTZ
+CN7,MR-50RMW,41,INT4,4 AXIS INTERLOCK,2PC pallet,CND2-3,TB6-INT4
+CN7,MR-50RMW,42,EXAL,EXTERNAL ALARM,2PC pallet,CND2-36,TB6-EXAL
+CN7,MR-50RMW,43,ONLN,ON LINE,2PC pallet,CND2-35,TB6-ONLN
+CN7,MR-50RMW,44,ENCOL,ENABLE COOLANT,2PC pallet,CND2-22,TB6-ENCOL
+CN7,MR-50RMW,45,EXCST,EXTERNAL CYCLE START,2PC pallet,CND2-4,TB6-EXCST
+CN7,MR-50RMW,46,EXFHD,EXTERNAL FEED HOLD,2PC pallet,CND2-5,TB6-EXFHD
+CN7,MR-50RMW,47,EXSBK,EXTERNAL SINGLE BLOCK,2PC pallet,CND2-6,TB6-EXSBK
+CN7,MR-50RMW,48,EMOP1,EXTERNAL MISS OPERATION 1,2PC pallet,,TB6-EMOP1
+CN7,MR-50RMW,49,+24V,DC24V +COM,power,,TB6-+24V
+CN7,MR-50RMW,50,+24V,DC24V +COM,power,,TB6-+24V
+CN8,MR-50RMW,1,ISP4,INPUT SPARE 4,spare,CND1-5,
+CN8,MR-50RMW,2,ISP5,INPUT SPARE 5,spare,CND1-14,
+CN8,MR-50RMW,3,ISP6,INPUT SPARE 6,spare,CND1-34,
+CN8,MR-50RMW,4,ISP7,INPUT SPARE 7,spare,CND1-35,
+CN8,MR-50RMW,5,ISP8,INPUT SPARE 8,spare,CND1-36,
+CN8,MR-50RMW,6,ISP9,INPUT SPARE 9,spare,CND1-42,
+CN8,MR-50RMW,7,ISP10,INPUT SPARE 10,spare,CND1-43,
+CN8,MR-50RMW,8,ISP11,INPUT SPARE 11,spare,CND1-44,
+CN8,MR-50RMW,9,ISP12,INPUT SPARE 12,spare,CND1-11,
+CN8,MR-50RMW,10,ISP13,INPUT SPARE 13,spare,CND1-12,
+CN8,MR-50RMW,11,OSP5,OUTPUT SPARE 5,spare,CND3-5,
+CN8,MR-50RMW,12,OSP6,OUTPUT SPARE 6,spare,CND3-33,
+CN8,MR-50RMW,13,OSP7,OUTPUT SPARE 7,spare,CND3-35,
+CN8,MR-50RMW,14,OSP8,OUTPUT SPARE 8,spare,CND3-20,
+CN8,MR-50RMW,15,OSP9,OUTPUT SPARE 9,spare,CND3-36,
+CN8,MR-50RMW,16,OSP10,OUTPUT SPARE 10,spare,CND3-41,
+CN8,MR-50RMW,17,OSP11,OUTPUT SPARE 11,spare,CND3-26,
+CN8,MR-50RMW,18,OSP12,OUTPUT SPARE 12,spare,CND3-17,
+CN8,MR-50RMW,19,OSP13,OUTPUT SPARE 13,spare,CND3-32,
+CN8,MR-50RMW,20,OSP14,OUTPUT SPARE 14,spare,CND3-43,
+CN8,MR-50RMW,21,+24,DC24V +COM,power,,
+CN8,MR-50RMW,22,+24,DC24V +COM,power,,
+CN8,MR-50RMW,23,ISP14,INPUT SPARE 14,spare,CND1-28,
+CN8,MR-50RMW,24,ISP15,INPUT SPARE 15,spare,CND1-29,
+CN8,MR-50RMW,25,ISP16,INPUT SPARE 16,spare,CND1-26,
+CN8,MR-50RMW,26,ISP17,INPUT SPARE 17,spare,CND2-21,
+CN8,MR-50RMW,27,ISP18,INPUT SPARE 18,spare,CND2-8,
+CN8,MR-50RMW,28,ISP19,INPUT SPARE 19,spare,CND2-39,
+CN8,MR-50RMW,29,ISP20,INPUT SPARE 20,spare,CND2-40,
+CN8,MR-50RMW,30,ISP21,INPUT SPARE 21,spare,CND4-35,
+CN8,MR-50RMW,31,ISP22,INPUT SPARE 22,spare,CND4-21,
+CN8,MR-50RMW,32,OSP15,OUTPUT SPARE 15,spare,CND3-21,
+CN8,MR-50RMW,33,OSP16,OUTPUT SPARE 16,spare,CND3-22,
+CN8,MR-50RMW,34,OSP17,OUTPUT SPARE 17,spare,CND3-38,
+CN8,MR-50RMW,35,OSP18,OUTPUT SPARE 18,spare,CND3-39,
+CN8,MR-50RMW,36,OSP19,OUTPUT SPARE 19,spare,CND3-40,
+CN8,MR-50RMW,37,OSP20,OUTPUT SPARE 20,spare,CND2-42,
+CN8,MR-50RMW,38,OSP21,OUTPUT SPARE 21,spare,CND2-15,
+CN8,MR-50RMW,39,OSP22,OUTPUT SPARE 22,spare,CND2-47,
+CN8,MR-50RMW,40,OSP23,OUTPUT SPARE 23,spare,CND2-17,
+CN8,MR-50RMW,41,OSP24,OUTPUT SPARE 24,spare,CND2-31,
+CN8,MR-50RMW,42,OSP25,OUTPUT SPARE 25,spare,CND2-49,
+CN8,MR-50RMW,43,OSP26,OUTPUT SPARE 26,spare,CND2-46,
+CN8,MR-50RMW,44,OSP27,OUTPUT SPARE 27,spare,CND2-26,
+CN8,MR-50RMW,45,OSP28,OUTPUT SPARE 28,spare,CND2-41,
+CN8,MR-50RMW,46,OSP29,OUTPUT SPARE 29,spare,CND2-24,
+CN8,MR-50RMW,47,OSP30,OUTPUT SPARE 30,spare,CND2-23,
+CN8,MR-50RMW,48,,(not used - blank on source table),spare,,
+CN8,MR-50RMW,49,0G,DC24V COM (-),common,,
+CN8,MR-50RMW,50,0G,DC24V COM (-),common,,
+CN1,MR-20RMW,8,,(not used - blank on source table),spare,,
+CN1,MR-20RMW,9,,(not used - blank on source table),spare,,
+CN1,MR-20RMW,10,,(not used - blank on source table),spare,,
+CN1,MR-20RMW,11,,(not used - blank on source table),spare,,
+CN1,MR-20RMW,12,,(not used - blank on source table),spare,,
+CN1,MR-20RMW,13,,(not used - blank on source table),spare,,
+CN1,MR-20RMW,19,,(not used - blank on source table),spare,,
+CN2,MR-50RMW,20,,(not used - blank on source table),spare,,
+CN2,MR-50RMW,22,,(not used - blank on source table),spare,,
+CN2,MR-50RMW,23,,(not used - blank on source table),spare,,
+CN2,MR-50RMW,24,,(not used - blank on source table),spare,,
+CN2,MR-50RMW,25,,(not used - blank on source table),spare,,
+CN2,MR-50RMW,26,,(not used - blank on source table),spare,,
+CN2,MR-50RMW,27,,(not used - blank on source table),spare,,
+CN2,MR-50RMW,28,,(not used - blank on source table),spare,,
+CN2,MR-50RMW,29,,(not used - blank on source table),spare,,
+CN2,MR-50RMW,30,,(not used - blank on source table),spare,,
+CN2,MR-50RMW,31,,(not used - blank on source table),spare,,
+CN2,MR-50RMW,32,,(not used - blank on source table),spare,,
+CN2,MR-50RMW,33,,(not used - blank on source table),spare,,
+CN2,MR-50RMW,48,,(not used - blank on source table),spare,,
+CN4,MR-20RMW,11,,(not used - blank on source table),spare,,
+CN4,MR-20RMW,14,,(not used - blank on source table),spare,,
+CN4,MR-20RMW,18,SE1,SPEED REFERENCE 1,spindle,,CON1-31
+CN4,MR-20RMW,19,SE2,SPEED REFERENCE 2,spindle,,CON1-32
+CN4,MR-20RMW,20,SE3,SPEED REFERENCE 3 (10V MAX SPEED),spindle,,CON1-30
+CN6,MR-50RMW,6,,(not used - blank on source table),spare,,
+CN6,MR-50RMW,14,,(not used - blank on source table),spare,,
+CN6,MR-50RMW,15,,(not used - blank on source table),spare,,
+CN6,MR-50RMW,16,,(not used - blank on source table),spare,,
+CN6,MR-50RMW,22,,(not used - blank on source table),spare,,
+CN6,MR-50RMW,31,,(not used - blank on source table),spare,,
+CN6,MR-50RMW,32,,(not used - blank on source table),spare,,
+CN6,MR-50RMW,35,,(not used - blank on source table),spare,,
+CN6,MR-50RMW,36,,(not used - blank on source table),spare,,
+CN6,MR-50RMW,38,,(not used - row slashed out on source table),spare,,
+CN6,MR-50RMW,40,,(not used - blank on source table),spare,,
+CN6,MR-50RMW,45,,(not used - row slashed out on source table),spare,,
+CN6,MR-50RMW,48,,(not used - blank on source table),spare,,
+CN6,MR-50RMW,49,,(not used - blank on source table),spare,,
+CN200,MR-20RMW,1,MMS RDY,MMS READY,MMS receiver,CND4-28,CN200-1
+CN200,MR-20RMW,2,SEN RDY,SENSOR READY,MMS receiver,CND4-29,CN200-2
+CN200,MR-20RMW,3,MMS SKIP,MMS SKIP,MMS receiver,CND2-14,CN200-3
+CN200,MR-20RMW,4,MMS ST,MMS START,MMS receiver,CND4-30,CN200-4
+CN200,MR-20RMW,5,MMS PON,MMS POWER ON,MMS receiver,CND4-27,CN200-5
+CN200,MR-20RMW,6,,(not used - blank on source table),spare,,
+CN200,MR-20RMW,7,0G,DC24V COM (-) NC,common,CND4-1,CN200-7
+CN200,MR-20RMW,8,,(not used - blank on source table),spare,,
+CN200,MR-20RMW,9,,(not used - blank on source table),spare,,
+CN200,MR-20RMW,10,,(not used - blank on source table),spare,,
+CN200,MR-20RMW,11,,(not used - blank on source table),spare,,
+CN200,MR-20RMW,12,,(not used - blank on source table),spare,,
+CN200,MR-20RMW,13,,(not used - blank on source table),spare,,
+CN200,MR-20RMW,14,MMS STCMD,MMS START (COMMAND),MMS receiver,CND2-29,CN200-14
+CN200,MR-20RMW,15,,(not used - blank on source table),spare,,
+CN200,MR-20RMW,16,,(not used - blank on source table),spare,,
+CN200,MR-20RMW,17,,(not used - blank on source table),spare,,
+CN200,MR-20RMW,18,,(not used - blank on source table),spare,,
+CN200,MR-20RMW,19,,(not used - blank on source table),spare,,
+CN200,MR-20RMW,20,+24V,DC24V +COM (NC),power,CND4-33,CN200-20

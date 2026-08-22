@@ -13,6 +13,19 @@ REPO_ROOT = SCRIPT_DIR.parent
 AUTHORITY = REPO_ROOT / "mesa" / "current_pin_authority.csv"
 BBIA_SOURCE = REPO_ROOT / "wiring" / "bbia1_cn_pinouts.csv"
 DESTINATION_CROSSWALK = REPO_ROOT / "wiring" / "bbia1_retrofit_destination_crosswalk.csv"
+
+# Crosswalk pins where two OEM sources disagree about what is on the conductor.
+# Every crosswalk row already carries the blanket HOLD_SOURCE_TRACE, which makes
+# a disputed pin indistinguishable from a corroborated one on the printed
+# ferrule -- and these end up on a physical label at the cabinet. Rows listed
+# here are released as HOLD_DISPUTED_PIN instead, so the dispute survives onto
+# the label. Keyed by Old_Location; cite the register section.
+DISPUTED_CROSSWALK_PINS = {
+    "CN2-14": "wiring/authority_conflicts.md sec 7.3 — the pinout calls CN2-14 "
+              "'+LTZ Z-AXIS OVER TRAVEL', but dwg 4143075410 pg136 leaves +Z "
+              "unlabelled on the T.U. row, and CN6-12 '+LYZ +YZ OVER TRAVEL' "
+              "back-references CN2-14 as a COMBINED +Y/+Z bus. Field trace.",
+}
 LEGEND_OUT = REPO_ROOT / "wiring" / "labels" / "7i84u_b_terminal_legend_epson.csv"
 BBIA_OUT = REPO_ROOT / "wiring" / "labels" / "bbia1_cn_labels_epson.csv"
 MESA_FERRULE_OUT = REPO_ROOT / "wiring" / "labels" / "bbia1_mesa_end_ferrules_epson.csv"
@@ -159,7 +172,15 @@ def mesa_ferrule_rows() -> list[dict[str, str]]:
         crosswalk_status = crosswalk["Crosswalk_Status"]
         if crosswalk_status not in {"PLANNED_MATCH", "TRACED"}:
             raise ValueError(f"unsupported crosswalk status {crosswalk_status} at {location}")
-        final_release = "HOLD_SOURCE_TRACE" if crosswalk_status != "TRACED" else release_status(target["authority_status"])
+        if location in DISPUTED_CROSSWALK_PINS:
+            # A disputed pin is never released, even if it is later marked
+            # TRACED -- the trace is what resolves the dispute, and until the
+            # register section is closed the label must say so.
+            final_release = "HOLD_DISPUTED_PIN"
+        elif crosswalk_status != "TRACED":
+            final_release = "HOLD_SOURCE_TRACE"
+        else:
+            final_release = release_status(target["authority_status"])
         rows.append({
             "Label_Text": label,
             "Wire": source["Wire"],

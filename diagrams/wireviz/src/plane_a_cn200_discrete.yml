@@ -1,0 +1,89 @@
+# GENERATED FILE - edit the source CSV or generator, then regenerate.
+metadata:
+  title: Plane A - BBIA-1 CN200 discrete routes
+  description: Machine-facing CN200 conductors through the required isolation boundary to Mesa field I/O.
+  notes: 'PRELIMINARY - NOT RELEASED FOR WIRING. Yellow = defined route requiring field verification; red = HOLD or proposed;
+    gray = retain/retire decision. Input: wiring/plane_a_bbia1_pin_crosswalk.csv.'
+options:
+  fontname: Arial
+  bgcolor: WH
+  bgcolor_node: WH
+  color_mode: SHORT
+  mini_bom_mode: false
+connectors:
+  CN200:
+    type: BBIA-1 CN200 machine-facing connector
+    pins:
+    - 3
+    pinlabels:
+    - MMS SKIP | PROBE_SKIP1_CAND | HOLD
+    pincolors: &id001
+    - RD
+    hide_disconnected_pins: true
+    show_pincount: false
+    bgcolor_title: LB
+    notes: Verify endpoint numbering against the card manual.
+    ignore_in_bom: true
+  IR_BOUNDARY:
+    type: Required interposing-relay boundary
+    pins:
+    - F01
+    - M01
+    pinlabels:
+    - F | PROBE_SKIP1_CAND
+    - M | PROBE_SKIP1_CAND
+    pincolors:
+    - RD
+    - RD
+    hide_disconnected_pins: true
+    show_pincount: false
+    bgcolor_title: YE
+    notes: Logical boundary placeholder; see crosswalk.
+    ignore_in_bom: true
+  7i84U-B_TB3:
+    type: 7i84U-B TB3
+    pins:
+    - IN15
+    pinlabels:
+    - IN15 | probe-in | HOLD
+    pincolors:
+    - RD
+    hide_disconnected_pins: true
+    show_pincount: false
+    bgcolor_title: LB
+    notes: Verify endpoint numbering against the card manual.
+    ignore_in_bom: true
+cables:
+  OEM_CONDUCTORS:
+    type: Existing OEM conductor segments
+    wirecount: 1
+    wirelabels:
+    - MMS SKIP | PROBE_SKIP1_CAND
+    colors: *id001
+    show_wirecount: false
+    notes: See crosswalk source.
+    shield: false
+    ignore_in_bom: true
+  NEW_CONTROL_WIRING:
+    type: New control-side conductors
+    wirecount: 1
+    wirelabels:
+    - PROBE_SKIP1_CAND | probe-in
+    colors: *id001
+    show_wirecount: false
+    notes: See crosswalk source.
+    shield: false
+    ignore_in_bom: true
+connections:
+- - CN200:
+    - 3
+  - OEM_CONDUCTORS:
+    - 1
+  - IR_BOUNDARY:
+    - F01
+- - IR_BOUNDARY:
+    - M01
+  - NEW_CONTROL_WIRING:
+    - 1
+  - 7i84U-B_TB3:
+    - IN15

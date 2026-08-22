@@ -1,6 +1,6 @@
 # Project Status & TODO — Mazak VQC 20/40 LinuxCNC/Mesa Retrofit
 
-_Last updated: 2026-08-17_
+_Last updated: 2026-08-19_
 
 ## Scope decision — power and E-stop stay original (owner, 2026-08-15)
 
@@ -94,6 +94,14 @@ See [`architecture_decision.md`](architecture_decision.md) for the full rational
 - Pin authority CSV structurally reconciled for the full stack
   (`mesa/current_pin_authority.csv`); physical tracing and electrical/HAL
   verification remain pending.
+- **Two-plane wiring crosswalks completed as accounting artifacts (2026-08-18/19):**
+  Plane A covers all 320 BBIA-1 bottom-row pin positions and Plane B records the
+  CNA resolver/direct-analog routes plus the five CNA10 load-meter pins. The
+  six X/Y/Z direct analog source routes remain explicitly held pending OEM
+  connector/pin continuity tracing; these are not wire-release approvals.
+- **NC circuit landing audit advanced (2026-08-19):** 16 of 37 claimed landings
+  are independently supported; the remaining 21 claims require field/source
+  verification and a synthesized coverage report.
 
 ### In progress
 - **All interface hardware is on hand as of 2026-08-17** (owner, at the machine): 7i80HDT, 7i49, 7i44, 7i84U-A, 7i84U-B, and the 50-pin IDC cables that were the last blocker. The 7i80HDT is on the network at 192.168.1.121 and flashed with `7i80hdt_rmsvss6_8.bin`; the daughter cards and both 7i84U remotes are **not yet seated, wired, or enumerated** — no card other than the 7i80HDT has been proven present by `readhmid` or `halcmd show pin hm2`. Procurement is no longer the gate; the physical install is.
@@ -108,6 +116,15 @@ See [`architecture_decision.md`](architecture_decision.md) for the full rational
 - ATC dry run.
 
 ## TODO list
+
+### Task-list maintenance rule
+
+This file is the live task authority. When a session discovers new work,
+uncertainty, or a changed dependency, record it here in the same session:
+add a dated checkbox under the appropriate phase, link the evidence or source
+file, and state the closure test or owner decision. When work is completed,
+check off the original item and record the date and resulting artifact. Do not
+leave newly discovered work only in a handoff, issue, audit, or conversation.
 
 **Resequenced 2026-08-17 around the physical install.** Procurement closed that
 day (all Mesa hardware on hand), which changed what is actually next: the list
@@ -131,6 +148,67 @@ later.
 - [ ] Capture/record Mitsubishi FR-SX spindle drive model and analog/run/direction/alarm terminals.
 - [ ] Capture cabinet photo set using the [cabinet photo checklist](cabinet_photo_checklist.md) — the as-found record, before anything is disturbed.
 - [ ] Re-read dwg **4143175310 p079** (spindle-tacho legend, [`../wiring/authority_conflicts.md`](../wiring/authority_conflicts.md) §4) and **4143075301 p090** (`MS3108B` — same device as the motor PLG, or a second one?).
+- [ ] **Look for `PRS-55` and `PRS-66` on the machine first** — the ATC tool-change-zone prox switches. `enrichment.py` flags both as possibly not fitted. If they are absent, the whole `CN3-39`/`CN3-44` paper conflict below is moot and both rows become `NOT_USED`.
+- [ ] **Then buzz `CN3-39` and `CN3-44` at the BBIA-1 board** — two OEM sources disagree about what is on them ([`../wiring/authority_conflicts.md`](../wiring/authority_conflicts.md) §7.2). Dwg 4143075409 pg135 calls them the 2nd −Z / 2nd +Y limits (`PRS-66` / `PRS-55`); the terminal-unit pinout calls them `147` OIL TEMP DETECTOR and `SPTD` SPINDLE TIMER. Note only 24 of CN3's 50 pins are transcribed and the CND→CN index is **not** preserved across the pass-through, so both sources may be right about *different* pins. ⚠️ **Neither conductor may be landed on a Mesa input until this is settled.**
+- [ ] **Read the jacket at `CN4-1` and `CN3-4`** — which is the spindle zero-speed conductor, wire `231` or wire `143`? Dwg 4143075407 pg133 says `143`/`CN3-4`; a 2026-08-09 *paper* reconciliation superseded that with `231`/`CN4-1` and was never traced, and the pinout still carries both rows ([`../wiring/authority_conflicts.md`](../wiring/authority_conflicts.md) §7.1). `SPINDLE_ZERO_SPEED` is the gear-shift interlock, so this one matters.
+- [ ] While at the connectors: read the jacket on **`CN11-13`** (the other wire `231`, §7.1). Label read, no meter.
+- [ ] **Buzz `CN2-14`** for continuity to the +Z over-travel limit switch *and* to `CN6-12` — three sources disagree about whether it is `+LTZ` Z-axis over travel, unlabelled, or a **combined +Y/+Z bus** (`+LYZ`) ([`../wiring/authority_conflicts.md`](../wiring/authority_conflicts.md) §7.3). Continuity to both +Y and +Z confirms the combined-bus reading. ⚠️ This pin is already on a printed ferrule (`B-TB3-05`), now released as `HOLD_DISPUTED_PIN` — do not land it until this resolves.
+
+**Landing-audit cabinet items (added 2026-08-19; "row N" = gap row in
+[`../wiring/nc_circuit_landing_audit.md`](../wiring/nc_circuit_landing_audit.md)
+§2, which carries the full rationale and closure test per row).** Same
+covers-off cabinet session as the buzz items above — §2.3 of the audit
+sequences all of them into one visit.
+
+- [ ] ⚠️ **Buzz `CN6-12` (+LYZ) and `CN6-13` (−LYZ)** against the ±Y and ±Z limit switches in the same session as the `CN2-14` buzz (rows 2–3). Also ring `CN6-13` against `CN1-5` to kill its provably-wrong Inside_Connec pointer (CN1-5 is the landed coolant-level circuit).
+- [ ] ⚠️ **Buzz `CN3-3` (wire `142`)** — tool-clamp interlock or door-interlock channel 2 (MDINT.M)? If it's the door interlock, one channel of a dual-channel interlock is live and unmonitored (row 8). Owner disposition either way, before power-up.
+- [ ] **Buzz the wire-`362` trio** — `CN2-1` / `CN2-36` / `CN3-36` against each other, the CA4 loom (CA4-W/L), and the RC3A `WLWT` relay terminals: one conductor or OEM segment-renumbering reuse, and which timer function each pin carries (rows 14–15).
+- [ ] **Label-read `CN5-16`** (`1NRAILS` vs `INHRLS` — magazine rear LS or inhibit-read LS?) plus the strip-C INHRLS terminal and ladder p3 X02F to fix the identity (row 25).
+- [ ] **Jacket-read the RC3A M-relay bank wires `3-48`/`3-49`/`3-45`** to fix the CN6-4 transcription slip (pins 4 and 5 both read M45T; pin 4 is almost certainly M44T/Y024) (rows 26–27).
+- [ ] **FR-SX visit** (rows 9–13 + §2.2): (a) ⚠️ establish whether the `SET1`/`SET2` drive-arm handshake is required — **the spindle cannot be armed until this closes**: meter `CON1-7/-8`, confirm FR-SX vs DK-427 termination, check the Mitsubishi manual; (b) identify the `MS`/`OS` node (`CN4-5/6` → TB5) from the FR-SX CON1 terminal definitions — if MS is a speed contact it contradicts the SPINDLE_AT_SPEED "no discrete exists" note; (c) meter `CON1-24` (`CTM`) for a terminated conductor — drawn dashed, not even established as field-wired; (d) confirm the orient command really terminates at `ORC1`/`CON1-25`.
+
+**Connector-accounting punch list (added 2026-08-18, from the tracing-completeness
+audit — full per-connector detail in
+[`../wiring/nc_connector_inventory.md`](../wiring/nc_connector_inventory.md)).**
+Goal: every Honda MR connector that plugged into the NC has a connector ID, per-pin
+wire identification, and every unused pin positively marked unused — many pins were
+factory-allocated but never used, and today absence-from-the-CSV can't distinguish
+"unused" from "never transcribed."
+
+- [ ] **Photograph and label every CND (top-row) connector on BBIA-1** — shell size, board position, cable jacket markings — before the NC hardware moves. These are the connectors that physically plugged into the NC back panel FX30; no per-connector CND pinout exists in the repo and the CND→CN index is not pin-for-pin.
+- [x] **Transcribe CN7 (50 pins, 2PC pallet changer) from the OEM print** — DONE 2026-08-18 from dwg 4143015323 (p86), 50/50 wires identified, all to TB6. Bonus: **CN8 discovered and transcribed on the same sheet** — a tenth bottom-row connector, entirely NC spare I/O (ISP4–22/OSP5–30), never cabled out.
+- [x] **Complete CN3's remaining 26 pins** — DONE 2026-08-18 from dwg 4143075321 (p84): all 26 are genuinely unused on the print (blank, plus pin 13 marked SPARE), so CN3 is 50/50 accounted with nothing new allocated. The §7.2 CN3-39/44 conflict did NOT resolve — the fresh read adds a *third* OEM naming for those pins (39 = TOOL DETECTOR, 44 = SPINDLE TOOL DETECTOR); the buzz-out at the board remains the tie-breaker. Four CN3 signal-name divergences logged in `../wiring/bbia1_cn_pinouts.md`.
+- [x] **Re-read the CN1/CN2/CN4/CN6 source sheets** — DONE 2026-08-18. All four now 50/50 or 20/20 accounted: CN1 (7 blank), CN2 (14 blank), CN6 (12 blank + pins 38/45 slashed out), and CN4's "missing" pins 18–20 confirmed populated (SE1/SE2/SE3 speed reference → CON1-31/-32/-30, matching p127). Three CN4 signal-name divergences (pins 15–17) logged in `../wiring/bbia1_cn_pinouts.md` — the p84+p127+authority-CSV triple agreement favors ORC2/OBA1/OBA2 over the CSV's COM/SETA/SETB.
+- [x] **Transcribe CNA10** (NC-side spindle load-meter feed, dwg 4143075403 p127) and read its "REF. SHT. 04" — DONE 2026-08-18. The five source pins are documented in [`../wiring/interface_plane_crosswalk.md`](../wiring/interface_plane_crosswalk.md#cna10-disposition); retain/retire and Mesa allocation remain an owner decision.
+- [ ] Check the NC rack for a **CNA6** position (M2 manual's detector connector family runs CNA 3–6; only 3/4/5 are accounted).
+- [ ] Identify or rule out the **third "CN11"** (25-way pallet/coolant loom, dwg 03-81581-02, never independently read).
+
+### Crosswalk closure — next wiring work
+
+These are the next tasks created by the two-plane accounting pass. The CSVs and
+diagrams are planning/accounting artifacts until each held route has physical
+evidence and an authority disposition.
+
+- [x] **NC circuit landing audit COMPLETE (2026-08-19).** All 37 GAP/UNCLEAR
+  claims adversarially verified: 33 confirmed gaps (32 unique conductors — 3
+  reclassified on verification, 1 still unclear at FR-SX CON1-24 CTM). Full
+  coverage report, gap list with per-row closure actions, and a suggested
+  single-cabinet-session work sequence:
+  [`../wiring/nc_circuit_landing_audit.md`](../wiring/nc_circuit_landing_audit.md)
+  (replaces the partial file). Headline items: SET1/SET2 drive-arm handshake
+  is UNBOUND and the spindle will not run until it is landed or retired
+  (gap rows 9–11); the ±LYZ over-travel bus question (rows 1–3) and the
+  231-vs-143 zero-speed conductor (rows 4–5) stay do-not-land until buzzed.
+- [ ] **Continuity-trace the six `HOLD_SOURCE_TRACE` Plane B rows** for the
+  X/Y/Z direct analog command and return pairs from the DK-427/drive side back
+  to the removed NC harness; record the exact OEM connector and pin before
+  clearing any hold in [`../wiring/plane_b_pin_crosswalk.csv`](../wiring/plane_b_pin_crosswalk.csv).
+- [ ] **Decide CNA10 disposition:** retain the spindle/Z load-meter feed and
+  allocate a Mesa measurement path, or retire/cap it with an owner decision;
+  record the result in the Plane B crosswalk and authority CSV.
+- [ ] **Commission the resolver routes:** verify winding polarity/phase,
+  excitation and return levels, and shield termination against the proposed
+  Plane B resolver mappings before releasing the harness for installation.
 
 ### Immediate — Phase B: seat the cards and enumerate the stack
 
@@ -160,6 +238,16 @@ See [`../wiring/authority_conflicts.md`](../wiring/authority_conflicts.md) §5 a
 - [ ] `LUBE_OK` (IN25): status promotion now justified — `PS-5` tag, wire `355` and `CN6-39` all physically confirmed together. Contact form and trip pressure still unverified.
 - [ ] Confirm scope: mist coolant, work light, manual tool clamp/unclamp pushbuttons, and cover-motion outputs are deferred or removed per [`io_capacity_reconciliation.md`](io_capacity_reconciliation.md). 2PC pallet changer is out of retrofit scope. 7i84U-A is at 100/100% — any new signal there requires reallocating an existing one to 7i84U-B.
 
+**Landing-audit owner decisions (added 2026-08-19; row numbers per
+[`../wiring/nc_circuit_landing_audit.md`](../wiring/nc_circuit_landing_audit.md)
+§2 — paper-only, no meter needed):**
+
+- [ ] **`CN2-43` (wire `524`, axis-selector switched 24 V feed):** retire the OEM axis selector (pendant/UI replaces it) with a CYCLE_START_PB-style DEFERRED row — then verify dead before capping (row 20).
+- [ ] **`CN2-45` (`CP24`, panel feed-hold latch):** land on a Mesa input netted to `halui.program.pause`, **or** retire the panel latch and uncomment/bind `whb.feed-hold` in `pendant_whb04b.hal` — `first_move_plan.md` requires a working feed hold in the approved-window test, and today neither path exists (row 21).
+- [ ] **`CN5-9` (`EFHD`, external feed hold / remote box):** answer the archived OPTION_VERIFY question — land on a spare input or record DROP and cap at strip B (row 23).
+- [ ] **M-code outputs M43/M44/M45 (`CN6-3/4/5`):** one decision for the family — allocate 7i84U-B outputs + remaps, or record a dated RETIRED with a do-not-restore clause. Ratify the archived "Dropped/deferred" note for M43 (CN6-3) into a current owner decision; CN6-4/5 have no disposition at all (rows 26–27).
+- [ ] **Housekeeping from the audit:** add `CN5-5` (`EMC`, EMG STOP 2nd) to `INTERFACE_ARCHITECTURE.md` §3a's E-stop conductor list, and fix the 4-axis retire note's `CN2`→`CN5` citation.
+
 ### Next — bench and shop work, in parallel with Phase B
 
 None of this needs the cards seated; all of it must be done before anything is
@@ -170,6 +258,23 @@ energized.
 - [ ] Confirm whether `SOL-31` flood coolant and the other three unfitted placard tags exist **elsewhere** on the machine before any row is dropped. "Not on the head" is not "does not exist".
 - [ ] Measure solenoid/contactor coil **current** to size RLY-1…RLY-7 contacts and decide interposing-relay and suppression needs. Coil voltage is confirmed 100 VAC; current is not.
 - [ ] Identify each axis resolver winding pair with an **ohmmeter before power**, at the drive-end CNA connectors. Roles are now settled from the M2 manual's own figure (12/13 SIN, 14/15 COS, 16/17 the winding the 7i49 excites) — confirm them, don't re-derive them. See [`resolver_commissioning.md`](resolver_commissioning.md).
+
+**Landing-audit device traces (added 2026-08-19; row numbers per
+[`../wiring/nc_circuit_landing_audit.md`](../wiring/nc_circuit_landing_audit.md)
+§2). Each is a live conductor with no Mesa landing and no disposition — trace
+to the device, then land (authority row + net) or record an explicit
+retirement:**
+
+- [ ] **`CN2-2` (wire `351`, magazine FWD/REV shifter):** trace CNQ-37 → CN2-2 → CA4-V to the device. NOT the circuit MAG_CW/CCW_SOL supersede — those replace CN11-1/2 (row 16).
+- [ ] **`CN2-34`/`CN2-35` (wires `342`/`345`, tool-measure device timer + switch):** trace CNQ-34/CA4-J to the stand; one decision covers the pair — keep for tool-length routines, or RETIRED/capped (MP-3 + LinuxCNC replaces it) (rows 17–18).
+- [ ] **`CN2-37` (wire `239`, magazine lube pressure switch):** distinct from head-lube `LUBE_OK` (PS-5/355). Trace via CA4-M, confirm fitted, then a 7i84U-B input + net `mag-lube-ok` or explicit deferral (row 19).
+- [ ] **`CN3-35` (`WLAL`, way-lube alarm AL-54):** way lube ≠ head lube; real alarm circuit with no channel. Trace the driving device through TB5-D2; land on a spare DI or defer with the mist/work-light precedent (row 22).
+- [ ] **`CN5-10` (`RCTLS`, recessing-tool LS):** physically verify whether the recessing option is fitted on SN 060231 — NOT_FITTED entry or input allocation (row 24).
+- [ ] **`CN6-24` (wire `241`, power-on/main-lamp interlock cluster):** trace wires 241/240; either a named §3a exception (stays OEM power sequencing) or RETIRED (dies with the Mazatrol, Y090 PWI precedent). Its documented CN2-23 inside routing is provably broken — correct the pinout row (row 29).
+- [ ] **`CN6-34` (`NSFT`, NG TOOL ATC status):** no row, net, crosswalk, or ladder mention anywhere — determine direction/function from the OEM CN6 sheet or at the relay card; field-originated status feeds `mazak_atc.comp` + D13 hazard analysis, NC-driven indication retires (row 30).
+- [ ] **`CN11-11` (wire `235`, SOL-35 dust-inhale):** §5 says it belongs to no current row. Trace 435 from the solenoid bank; fitted-and-wanted ⇒ output + interposing relay, else NOT_USED — and purge the stale RLY-6/SOL-35 wiring instructions elsewhere in this file (row 31).
+- [ ] **`CN11-12` (wire `236`, SOL-36 oil-hole coolant):** trace 736 into the CB panel; record NOT_FITTED/RESERVED or allocate. **Also resolve the wire-236 duplication with the landed COOLANT_ON row (CN11-15)** — its factory_wire depends on it (row 32).
+- [ ] **`TAPC` CN6-18 → CNB-46 trace** (row 28) — already listed above; the audit adds: if it dead-ends, RETIRED/cap/log; if a live device appears, revisit the OUT5/RLY-7 NOT_USED status.
 
 ### Next — qualification, before any drive is enabled
 
@@ -184,7 +289,7 @@ In this order. Pole count gates scaling, so it comes before any scale is entered
 - [ ] Confirm the 7i49 is the **sole resolver excitation source** — nothing from the old drive/control still driving the windings before energizing.
 - [ ] Scope RESDRV excitation and RESSIN/RESCOS amplitude and phase at rest and under motion. **Do not expect the old ~1 V RMS from ~2 V RMS figure** — that assumed a 2:1 step-DOWN taken from the rotor-excited 141E26. This detector is the other construction: Mitsubishi excited the two-phase windings and read the single one, so driving it the 7i49 way (excite 16/17) runs it **backwards through a ~0.3 ratio, i.e. roughly a 3× step-UP**. Returns may be several volts, not one. Measure before assuming the input range is safe, and see the 7i49-vs-7i49HV question below. **W2 does NOT affect axis channels 0/1/2** (only 3/4/5), so it is not a valid remedy for a hot X/Y/Z return; if the return is far off the ~1 V RMS target, escalate to Mesa (PCW) for review of the specific TS2014N suffix before adding external dividers or a 7i49HV.
 - [ ] **Verify `RESOLVER_SCALE` = 2.000 mm (0.07874016 in) per electrical revolution.** No longer a discovery: τ = 2 is stored in `MC1–MC4` (= 784) and gives grid spacing 4000/τ = 2.000 mm, which *is* travel per resolver electrical revolution — **independent of the ballscrew lead**. A sibling VQC 15/40 retrofit runs the identical 0.07874016. Marked `PROPOSED`; confirm on the machine and let the measurement win if they disagree. Derivation and failure modes: [`resolver_commissioning.md`](resolver_commissioning.md#pole-count-and-resolver-scale-derived-from-τ).
-- [ ] Enter `RESOLVER_SCALE` for X/Y/Z: **confirm the flex coupling is 1:1** (any reduction between screw and resolver scales the derived 0.07874016 in directly), then enter the signed value into each `[JOINT_N]` block — sign per axis direction. Verify by counting `hm2_7i80.0.resolver.NN.rawcounts` against a dial indicator over multiple full ballscrew revolutions and adjust; flip the sign if the axis counts backwards. Set `RESOLVER_VELOCITY_SCALE` to the same signed value so `.velocity` reports in/s. Do NOT leave the 1.0 placeholder in place before running the axis — the HostMot2 doc defines `.scale` as machine units per RESOLVER ELECTRICAL revolution, not per motor rev; internal consistency between the two 1.0 defaults does not prove one inch per revolution.
+- [ ] Enter `RESOLVER_SCALE` for X/Y/Z: ~~confirm the flex coupling is 1:1~~ — **the coupling is confirmed 1:1 from the OEM parts list, 2026-08-17.** All three axes use `L10MN000070`, a **MIKI PULLEY ARM-100 with ⌀9.52 mm bores on both sides**, joining the resolver coaxially to the far end of the ballscrew (drawing `041311AS012`, PDF p. 49 of `413LE02A000.pdf`). Equal bores, a shaft coupling, no ratio — so nothing scales the derived 0.07874016 in. Note the 18:30 timing-belt reduction found in the same section is **motor→screw (1.6667:1)** and sits on the far side of the screw from the resolver: do **not** apply it to `RESOLVER_SCALE`, but it *is* needed for motor-rpm ↔ feedrate arithmetic. Details: [`feed_drive_parts_2026-08-17.md`](feed_drive_parts_2026-08-17.md). Then enter the signed value into each `[JOINT_N]` block — sign per axis direction. Verify by counting `hm2_7i80.0.resolver.NN.rawcounts` against a dial indicator over multiple full ballscrew revolutions and adjust; flip the sign if the axis counts backwards. Set `RESOLVER_VELOCITY_SCALE` to the same signed value so `.velocity` reports in/s. Do NOT leave the 1.0 placeholder in place before running the axis — the HostMot2 doc defines `.scale` as machine units per RESOLVER ELECTRICAL revolution, not per motor rev; internal consistency between the two 1.0 defaults does not prove one inch per revolution.
 - [ ] Verify analog command polarity/scaling for X/Y/Z on 7i49 AOUT0/1/2 before enabling drives.
 
 ### Open desk items — no machine access needed
@@ -197,8 +302,89 @@ In this order. Pole count gates scaling, so it comes before any scale is entered
 
 Both are pure document work and both bear on decisions already in the BOM.
 
-- [ ] **Settle plain 7i49 vs 7i49HV.** `bom/README.md` specifies the plain card and lists HV as "not currently required", resting partly on a reading that the sibling VQC 15/40 runs a plain card. A later pass reported that same machine running a **7i49HV**. Both cannot be true, and it is the same question as the step-up above: whether the SIN/COS returns land inside a plain 7i49's input window. Read `github.com/srdco/MazakVQC1540` directly — its INI/HAL and any BOM notes — and record which card, with a citation. **Nobody has verified either claim against that repo.**
-- [ ] **Find the ballscrew lead.** Never recorded here. `VQC20-40_060231_Parts_List.pdf` (42 MB, Drive folder `Manuals_SN060231`) should name the ballscrew assembly, and Mazak screw part numbers usually encode the lead. Confirms n (= lead ÷ 2.000 mm, expected 5) and cross-checks the whole τ derivation. Alternatively measure it: dial indicator on the table, hand-turn the screw one revolution — no power, ten minutes.
+- [x] **Settle plain 7i49 vs 7i49HV — DONE 2026-08-17. It is a `7i49HV`.** The sister
+  VQC 15/40's own purchased-parts table lists **`7i49HV`, $184.00** (`vqc-retrofit-wiring-sheet2.ods`,
+  Sheet3 row 4, ticked `x`). The "plain 7i49" reading came from **comments** in
+  `MAZAK-VQC1540.ini:138` / `.hal:28`, which cannot settle it: both cards expose identical
+  `hm2_*.resolver.NN.*` pins, so no HAL/INI can record which card was bought. `bom/` and the
+  stack table are updated; the later pass was right and the original claim was wrong.
+  Full write-up and citations: [`../bom/README.md`](../bom/README.md#which-7i49-the-sister-machine-actually-runs--settled-2026-08-17).
+  - **Also corrected:** that same sentence said the sister runs "at 5 kHz". It runs
+    **2.5 kHz** (`MAZAK-VQC1540.ini:176`, applied live at `.hal:117`). Our plan still says
+    5 kHz "verify on scope" — that is now an unanchored choice, not one the sister corroborates.
+  - **Small follow-up, does not block ordering:** get `7i49man.pdf` into
+    `docs/Mesa Manuals/` to confirm Mesa's "2:1" vs "1:2" direction convention.
+    `freeby.mesanet.com` served an expired certificate on 2026-08-17.
+- [x] **Ballscrew lead = 10.000 mm on X, Y and Z — CLOSED BY MEASUREMENT 2026-08-17.** At the
+  machine, unpowered: each **ballscrew itself** (not the motor — the belt reduction sits between
+  them) was hand-turned **one full revolution**, and each axis moved **10 mm**. All three
+  measured, none inferred. That is the floor of the admissible set and refutes 12 / 14 / 16 /
+  20 mm. Consequences, in order of usefulness:
+  - **`RESOLVER_INDEX_DIVISOR = 5`, now entered in the INI** on all three joints (was the
+    placeholder `1`, whose comment wrongly expected a single-speed detector). n = lead ÷ grid
+    spacing = 10.000 ÷ 2.000, with the confirmed 1:1 resolver coupling. Still rests on the
+    τ = 2 derivation for the 2.000 mm, so it is *determined*, not *measured*. **The check is a
+    scope reading and needs no Mesa hardware** — Test 1 in
+    [`resolver_commissioning.md`](resolver_commissioning.md#test-1--nulls-per-mechanical-revolution-run-this-first-it-gates-scaling):
+    hand-turn one screw revolution and expect **5 electrical revolutions = 10 amplitude nulls**,
+    a null every 1.000 mm of travel. **Count nulls and halve them** — the envelope shows 2n, and
+    reading it as n is the same doubling trap that produced the 20 mm lead. Test 1 said
+    `n = nulls` until 2026-08-17; that is corrected.
+  - **The 1985 factory parameter sheet is corroborated.** `RF1–3 = 4724` = 12.000 m/min ÷
+    10 mm = 1200 screw rpm = exactly each motor's rated Nmax. The rapid the machine was built
+    to is **12.000 m/min = 472.4 in/min = 7.874 in/s** — a design ceiling, **not** a
+    commissioning value. Leave `MAX_VELOCITY` at its conservative bring-up clamp.
+  - **The "poles" trap is dead.** Reading M2 printed p. 104 literally (5 pole pairs = 10 poles)
+    predicted a 20 mm lead. The screw says 10. Nobody should double the lead off that sentence.
+  - **`RESOLVER_SCALE` is unchanged** — it never depended on the lead.
+  - Write-up, including which paper arguments survived: [`ballscrew_lead_2026-08-17.md`](ballscrew_lead_2026-08-17.md).
+  - **The same-lead inference is now redundant** — it was right, but every axis has its own
+    measurement. Consequently **the X A-type/B-type question no longer touches the lead**:
+    either screw turns 10 mm per revolution. The variant still governs the belt ratio
+    (1.25:1 vs 1.6667:1) and so the motor-rpm arithmetic — still confirm it by counting teeth.
+
+- [x] **~~Find the ballscrew lead~~ — the paper search, for the record: the parts list is read and does not answer it (2026-08-17).**
+  The parts list was located: it is **already on the OptiPlex** as
+  `~/Documents/obisidian/Machine Shop/Mazak VQC-20-40 Retrofit/Manuals/413LE02A000.pdf`
+  (byte-identical to the Drive copy), filed under its Mazak publication number rather than a
+  searchable name. Read visually — it is a pure image scan, 1,552 chars of text layer across
+  298 pages.
+  - **Screw part numbers, now recorded:** Y is **`14131104600`**; Z is **`14131303340`**.
+    **X depends on the variant** — the parts list carries two X drives, A-type §20
+    (`14131104600`) and B-type §21 (**`14131110470`**), and the evidence says this machine is
+    the **B-type** (X travel ≈ 1002 mm vs the A/B spec of 635/1000 mm, and the X motor
+    nameplate reads HD 101-12). Treat X as `14131110470` at a **1.25:1** belt ratio, not the
+    1.667:1 that applies to Y. Confirm by counting teeth.
+  - **The lead is not printed** on any of the four ball-screw entries in the book, and the
+    drawings carry no dimensions at all. The premise that "Mazak screw part numbers usually
+    encode the lead" is not borne out.
+  - Full drivetrain readout — motors, pulleys, belts, resolver, coupling, bearings —
+    is in [`feed_drive_parts_2026-08-17.md`](feed_drive_parts_2026-08-17.md).
+  - **The lead was BOUNDED from paper, `lead ≥ 10.000 mm`,** from motor Nmax and pulley tooth
+    counts hand-lettered on the 1982 servo-drive schematic `41434WB.pdf` PDF p. 128 against the
+    factory rapid `RF1–3 = 4724` (12.0 m/min): every axis reaches 1200 screw rpm at its motor's
+    ceiling, so lead ≥ 11,998.96 ÷ 1200 = 9.999, and the M2 grid rule forces a multiple of
+    2.000 mm. **The measurement landed on the floor, so the bound was tight.** Full write-up —
+    the RT-5XA-11 naming argument, the poles caveat, what must **not** be cited, and every
+    document confirmed silent: [`ballscrew_lead_2026-08-17.md`](ballscrew_lead_2026-08-17.md).
+  - **Do NOT cite the sister machine's `RESOLVER_INDEX_DIVISOR = 5` as support for n = 5,**
+    and do not now cite the measurement as vindicating it. It is the circular route: the sister
+    value and our n = 5 are the same claim restated. Note the agreement, never fold it in.
+  - **The RT-5XA-11 naming argument turned out right but is still not citable.** No document
+    says the family digit is the pole count. Cite the measured lead instead.
+
+#### Two side findings from the 2026-08-17 sister-repo read
+
+Both corroborate `handoff.md` claims from an independent source; neither was the reason for the read.
+
+- **`RESOLVER_SCALE = 0.07874016` is confirmed present**, identical to our proposed value,
+  on all three axes (`MAZAK-VQC1540.ini:197/233/269`). `handoff.md` already cites the sister
+  machine for this; this is the direct line reference it lacked.
+- **Switch homing is corroborated.** All three axes run `HOME_USE_INDEX = NO`
+  (`MAZAK-VQC1540.ini:210/246/282`) despite the config wiring `index-enable` and generating
+  an emulated index. A comparable machine with the same detectors deliberately not homing on
+  index is independent support for the multi-pole finding in `handoff.md` (M2 Table 14.3-1,
+  §14.2, §6.7.1) — reached from a config file rather than from the manual.
 
 ### Two traps that produced false negatives on 2026-08-17
 
@@ -214,6 +400,8 @@ Needs Phase B done (real pin names) and the coil measurements above.
 - [ ] Verify 7i84U-B TB3 limit/home inputs and TB3 drive-enable outputs against cabinet contacts; measure each input path with an ohmmeter before deciding whether to consume `input-NN` (raw) or `input-NN-not` (complement) in HAL — sserial input pins do NOT have an `invert_input` parameter (see [sserial(9)](https://linuxcnc.org/docs/html/man/man9/sserial.9.html)). Verify the probe SKIP1 input on 7i84U-B TB3 IN15 (opto-isolated 24 V) separately.
 - [ ] Wire interposing relays (RLY-5/6/7) for the 100VAC relay-driven loads SOL-35/61/62 on 7i84U-B TB3 OUT4/5/3 as assigned. Do the same for the ATC barrier on TB3 OUT6 (Y095 TCME.M).
 - [ ] Verify ATC prox/solenoid labels and normal states: PRS-8/9, PRS-10/12, PRS-13, PRS-21 through PRS-25, SOL-8A/8B, SOL-10, M15/M16 if present.
+- [ ] **Verify the post-retrofit source of the ±12 V tachogenerator rail** (`CNA3/4/5` pins 6/2) before first servo enable — a dead rail means a TRA drive with no velocity feedback (landing audit §2.4).
+- [ ] **Verify the 2PC loom is physically isolated at TB6 before power-on** — axis-interlock and external cycle-start conductors live there, and the +24V/0G rails stay energized unless the loom is lifted (landing audit §2.4). Positively identify, verify dead, and cap the cabled factory spares (SP16–19, CN2-39/46/47, CN5-11/12/17/18) at teardown.
 
 ### Later — motion, spindle, ATC
 

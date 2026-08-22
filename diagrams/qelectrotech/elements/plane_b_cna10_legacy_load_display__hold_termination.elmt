@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<definition version="0.100.0" type="element" link_type="simple" width="350" height="172" hotspot_x="175" hotspot_y="86">
+    <uuid uuid="{3f19fd38-6cd4-5139-897e-83988059bb7c}" />
+    <names>
+        <name lang="en">Termination or electrical role not established</name>
+    </names>
+    <informations>Generated from the MESAC retrofit crosswalks. PRELIMINARY - NOT RELEASED FOR WIRING.</informations>
+    <description>
+        <rect x="-165.0" y="-76.0" width="330" height="152" rx="0" ry="0" antialias="false" style="line-style:normal;line-weight:normal;filling:none;color:#d00000" />
+        <line x1="-165.0" y1="-50.0" x2="165.0" y2="-50.0" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:normal;filling:none;color:#d00000" antialias="false" />
+        <text text="Termination or electrical role not established" x="-157.0" y="-58.0" rotation="0" font="Liberation Sans,8,-1,5,75,0,0,0,0,0,Bold" color="#d00000" />
+        <text text="TBD01 | TBD01 | CNA10_SPINDLE_LOAD_HI | DECISION" x="-157.0" y="-31.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#505050" />
+        <terminal uuid="{f34bd157-81f8-576a-9963-53dbbefd9f73}" name="TBD01" x="-165.0" y="-34.0" orientation="w" type="Generic" />
+        <text text="TBD02 | TBD02 | CNA10_SPINDLE_LOAD_LO | DECISION" x="-157.0" y="-11.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#505050" />
+        <terminal uuid="{511f90a5-2816-58bc-abef-31567f720197}" name="TBD02" x="-165.0" y="-14.0" orientation="w" type="Generic" />
+        <text text="TBD03 | TBD03 | CNA10_Z_LOAD_HI | DECISION" x="-157.0" y="9.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#505050" />
+        <terminal uuid="{12b19ff2-8197-5c17-8aa3-87d4908e133d}" name="TBD03" x="-165.0" y="6.0" orientation="w" type="Generic" />
+        <text text="TBD04 | TBD04 | CNA10_Z_LOAD_LO | DECISION" x="-157.0" y="29.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#505050" />
+        <terminal uuid="{d49f65da-0750-54b0-9ecf-19e6e1488da6}" name="TBD04" x="-165.0" y="26.0" orientation="w" type="Generic" />
+        <text text="TBD05 | TBD05 | CNA10_COMMON | DECISION" x="-157.0" y="49.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#505050" />
+        <terminal uuid="{ff1b1b16-d543-5bfd-833c-008c37da05c6}" name="TBD05" x="-165.0" y="46.0" orientation="w" type="Generic" />
+    </description>
+</definition>

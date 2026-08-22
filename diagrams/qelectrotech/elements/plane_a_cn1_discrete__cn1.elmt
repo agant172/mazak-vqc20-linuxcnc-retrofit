@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<definition version="0.100.0" type="element" link_type="simple" width="350" height="192" hotspot_x="175" hotspot_y="96">
+    <uuid uuid="{0a5bbb01-dfd9-56b5-86bf-5ff333787827}" />
+    <names>
+        <name lang="en">BBIA-1 CN1 machine-facing connector</name>
+    </names>
+    <informations>Generated from the MESAC retrofit crosswalks. PRELIMINARY - NOT RELEASED FOR WIRING.</informations>
+    <description>
+        <rect x="-165.0" y="-86.0" width="330" height="172" rx="0" ry="0" antialias="false" style="line-style:normal;line-weight:normal;filling:none;color:#0078a8" />
+        <line x1="-165.0" y1="-60.0" x2="165.0" y2="-60.0" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:normal;filling:none;color:#0078a8" antialias="false" />
+        <text text="BBIA-1 CN1 machine-facing connector" x="-157.0" y="-68.0" rotation="0" font="Liberation Sans,8,-1,5,75,0,0,0,0,0,Bold" color="#0078a8" />
+        <text text="1 | wire 208 | TOOL_UNCLAMP_CONF | FIELD VERIFY" x="4" y="-41.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+        <terminal uuid="{9cb0c892-29ae-5a59-aec5-7883cbdda709}" name="1" x="165.0" y="-44.0" orientation="e" type="Generic" />
+        <text text="2 | wire 209 | TOOL_CLAMP_CONF | FIELD VERIFY" x="4" y="-21.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+        <terminal uuid="{ca4df426-5f3e-5101-974c-0fbac0c64590}" name="2" x="165.0" y="-24.0" orientation="e" type="Generic" />
+        <text text="3 | wire 210 | GEAR_HI_CONF | FIELD VERIFY" x="4" y="-1.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+        <terminal uuid="{05535ba4-c66f-5bbe-9e51-28c6a1696166}" name="3" x="165.0" y="-4.0" orientation="e" type="Generic" />
+        <text text="4 | wire 212 | GEAR_LO_CONF | FIELD VERIFY" x="4" y="19.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+        <terminal uuid="{bc8ccb39-c82e-5c28-9eae-ab594ab06dc0}" name="4" x="165.0" y="16.0" orientation="e" type="Generic" />
+        <text text="5 | wire 232 | COOLANT_LOW | FIELD VERIFY" x="4" y="39.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+        <terminal uuid="{2af77a94-2dcf-5654-a234-443f12266d3d}" name="5" x="165.0" y="36.0" orientation="e" type="Generic" />
+        <text text="14 | wire *DECZ | Z_HOME | FIELD VERIFY" x="4" y="59.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+        <terminal uuid="{004c799a-0d4f-598d-8271-b56040f92560}" name="14" x="165.0" y="56.0" orientation="e" type="Generic" />
+    </description>
+</definition>

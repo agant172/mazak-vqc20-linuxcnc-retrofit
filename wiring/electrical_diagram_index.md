@@ -42,15 +42,16 @@ Built from printed title blocks actually read; these are reliable anchors.
 | p017 | (index) | Electrical Diagram Set index / Elementary Diagram List | set metadata above |
 | p030 | 4143175108 | Solenoid Table (2) | SOL 71–140 (pallet/drum/2PC — mostly out of scope) |
 | p060 | 4143075160 | Timer (T), Counter (C) | PLC T.C.0–127; T.C.0 = ESPT |
-| p074 | 4143075304 | Terminal Unit Layout | BBIA1 board (mined → `bbia1_terminal_unit.md`) |
+| p074 | 4143075304 | Terminal Unit Layout | BBIA1 board (mined → `bbia1_terminal_unit.md`); visual audit places CN8 on the NC-facing row and CN200 on the machine-facing row |
 | p078 | 4143175309 | SSR Board (D2W102F-33QB) | drives spindle air blast, gear-shift hi/lo, coolant, ATC outputs; CN11/CN12 MR20 |
 | p079 | 4143175310 | Cable Connection Diagram — Components | cabinet interconnect overview; **Spindle Controller** block (CON4/CON5, CDN1/CDN2, TB3); feedback-device legend (spindle tacho gen, rotary encoder, per-axis resolvers). ⚠️ **The "spindle tacho gen" entry is DISPUTED** — this transcription is the only evidence such a device exists, and it is contradicted by the axis attribution of the TGF-3D and by owner observation. Re-read this legend at 300 DPI before citing it; see [`authority_conflicts.md`](authority_conflicts.md) §4. |
 | p082 | 4143075313 | Servo/drive topology (X/Y/Z amps, FR-SX, rectifier) | per `servo_amp_analysis.md` |
 | p083 | 4143175314 | Terminal Blocks TB6/TB7 layout | per `servo_amp_analysis.md` |
-| p085 | 4143075322 | Terminal Unit Connection detail (MR connectors) | per `servo_amp_analysis.md` |
+| p085 | 4143075322 | Terminal Unit Connection detail (MR connectors) | CN200 MMS-receiver pinout mined into `bbia1_cn_pinouts.md`; handshake lines per `servo_amp_analysis.md` |
 | p087 | 4143075324 | Detail Diagram — MS Connector Connection | CA1–CA7 pinouts; EMB/EMC on CA4 a/b |
 | p088 | 4143075329 | Details of MS Connector Mount Board | connector mechanical layout |
 | p090 | 4143075301 | Front Side View Components Layout (2) | device/wire map; E-stop PB-3B; spindle enc MS3108B 20-29P |
+| p127 | 4143075403 | Spindle Drive (Mitsubishi FR-SX), sheet 3 | SX-IO1 CON1/CON2/CONA/CNAA; BBIA T.U. CN4 speed reference; CNA10 spindle/Z load-meter pins. Pin transcription: `connector_crossref.md`; plane correction and conductor routes: `interface_plane_crosswalk.md` / `plane_b_pin_crosswalk.csv`. |
 | p128 | 4143075404 | Servo Drive (sheet 1/3) | **axis resolver wiring**: RT-5XA-11 windings RS1/RS2/RC1/RC2/R01/R02 + tacho TG1/TG2 (2V/1000rpm) on CNA3(X)/CNA4(Y)/CNA5(Z) → TRA-31/41 amps. Key for `resolver_commissioning.md`. **X-axis lists BOTH build options — A-type `HD-81-123-TTA`, B-type `HD-101-12-TTA`; this machine is the B-type (HD-101) per photos, so the schematic CONFIRMS `servo_amp_analysis` (X=HD-101, Y=HD-81-12S, Z=HD-101). No conflict.** |
 | p130 | 4143075404A | Servo & Magnescale Connection (OP, sheet 3/3) | Z-axis servo + **Magnescale option (SR-721RH) — NOT fitted** (confirms servo_amp_analysis) |
 | p131 | 4143075405 | Motor Control | aux-motor starters: hydraulic pump (HPMS), head-oil/flood-coolant/chip-conveyor, cabinet fans, way-lube, tap-coolant, main-transformer OHT; 100 VAC + SSR loads |

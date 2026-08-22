@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<definition version="0.100.0" type="element" link_type="simple" width="350" height="152" hotspot_x="175" hotspot_y="76">
+    <uuid uuid="{6c673e4b-528e-55e1-8ff9-aa6e4796f828}" />
+    <names>
+        <name lang="en">7i84U-A TB3</name>
+    </names>
+    <informations>Generated from the MESAC retrofit crosswalks. PRELIMINARY - NOT RELEASED FOR WIRING.</informations>
+    <description>
+        <rect x="-165.0" y="-66.0" width="330" height="132" rx="0" ry="0" antialias="false" style="line-style:normal;line-weight:normal;filling:none;color:#0078a8" />
+        <line x1="-165.0" y1="-40.0" x2="165.0" y2="-40.0" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:normal;filling:none;color:#0078a8" antialias="false" />
+        <text text="7i84U-A TB3" x="-157.0" y="-48.0" rotation="0" font="Liberation Sans,8,-1,5,75,0,0,0,0,0,Bold" color="#0078a8" />
+        <text text="IN9 | IN9 | manual-unclamp-pb | FIELD VERIFY" x="-157.0" y="-21.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+        <terminal uuid="{03e9f942-a5c8-552f-ada2-6236c4fc39ad}" name="IN9" x="-165.0" y="-24.0" orientation="w" type="Generic" />
+        <text text="IN6 | IN6 | mag-cover-open-conf | FIELD VERIFY" x="-157.0" y="-1.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+        <terminal uuid="{dfba3942-45a6-508c-b4d7-9766844af646}" name="IN6" x="-165.0" y="-4.0" orientation="w" type="Generic" />
+        <text text="IN7 | IN7 | mag-cover-closed-conf | FIELD VERIFY" x="-157.0" y="19.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+        <terminal uuid="{16bb6644-23ad-5ef9-85ed-b466143556e1}" name="IN7" x="-165.0" y="16.0" orientation="w" type="Generic" />
+        <text text="IN2 | IN2 | mag-tool-avail | FIELD VERIFY" x="-157.0" y="39.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+        <terminal uuid="{42a7bec3-8464-5ff5-915b-f7490b80cc2c}" name="IN2" x="-165.0" y="36.0" orientation="w" type="Generic" />
+    </description>
+</definition>

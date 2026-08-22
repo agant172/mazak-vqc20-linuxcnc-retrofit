@@ -1,0 +1,171 @@
+{
+  "generated_by": "scripts/generate_wireviz_diagrams.py",
+  "inputs": {
+    "wiring/plane_a_bbia1_pin_crosswalk.csv": "145f01452c9817ae550ce63f324253667255e2f73463e5158e1c17e99ad0fef4",
+    "wiring/plane_b_pin_crosswalk.csv": "94bc1337dc0ec7cb8773fc4b9957df362e256c530ba62028d145be1baf40a5fe"
+  },
+  "plane_a_accounted_pins": 320,
+  "plane_a_diagrammed_routes": 49,
+  "plane_b_cross_plane_reference_rows": 3,
+  "plane_b_diagrammed_rows": 35,
+  "plane_b_rows": 38,
+  "render_profile": {
+    "cellpadding": 1,
+    "layout": "compact_lr",
+    "nodesep": 0.08,
+    "ranksep": 0.35,
+    "status_labels": [
+      "FV",
+      "FP",
+      "PHASE",
+      "HOLD",
+      "DEC"
+    ]
+  },
+  "sheets": [
+    {
+      "routes": 4,
+      "sheet": "Interface overview",
+      "source_file": "src/00_interface_overview.yml"
+    },
+    {
+      "routes": 6,
+      "sheet": "Plane A - BBIA-1 CN1 discrete routes",
+      "source": "wiring/plane_a_bbia1_pin_crosswalk.csv",
+      "source_file": "src/plane_a_cn1_discrete.yml",
+      "statuses": {
+        "ROUTE_DEFINED_FIELD_VERIFY": 6
+      }
+    },
+    {
+      "routes": 14,
+      "sheet": "Plane A - BBIA-1 CN2 discrete routes",
+      "source": "wiring/plane_a_bbia1_pin_crosswalk.csv",
+      "source_file": "src/plane_a_cn2_discrete.yml",
+      "statuses": {
+        "HOLD_RESERVED": 1,
+        "ROUTE_DEFINED_FIELD_VERIFY": 13
+      }
+    },
+    {
+      "routes": 6,
+      "sheet": "Plane A - BBIA-1 CN3 discrete routes",
+      "source": "wiring/plane_a_bbia1_pin_crosswalk.csv",
+      "source_file": "src/plane_a_cn3_discrete.yml",
+      "statuses": {
+        "HOLD_OEM_CONFLICT": 2,
+        "ROUTE_DEFINED_FIELD_VERIFY": 4
+      }
+    },
+    {
+      "routes": 5,
+      "sheet": "Plane A - BBIA-1 CN4 discrete routes",
+      "source": "wiring/plane_a_bbia1_pin_crosswalk.csv",
+      "source_file": "src/plane_a_cn4_discrete.yml",
+      "statuses": {
+        "HOLD_OEM_CONFLICT": 1,
+        "ROUTE_DEFINED_FIELD_VERIFY": 4
+      }
+    },
+    {
+      "routes": 1,
+      "sheet": "Plane A - BBIA-1 CN5 discrete routes",
+      "source": "wiring/plane_a_bbia1_pin_crosswalk.csv",
+      "source_file": "src/plane_a_cn5_discrete.yml",
+      "statuses": {
+        "ROUTE_DEFINED_FIELD_VERIFY": 1
+      }
+    },
+    {
+      "routes": 5,
+      "sheet": "Plane A - BBIA-1 CN6 discrete routes",
+      "source": "wiring/plane_a_bbia1_pin_crosswalk.csv",
+      "source_file": "src/plane_a_cn6_discrete.yml",
+      "statuses": {
+        "HOLD_RESERVED": 1,
+        "ROUTE_DEFINED_FIELD_VERIFY": 4
+      }
+    },
+    {
+      "routes": 8,
+      "sheet": "Plane A - BBIA-1 CN11 discrete routes",
+      "source": "wiring/plane_a_bbia1_pin_crosswalk.csv",
+      "source_file": "src/plane_a_cn11_discrete.yml",
+      "statuses": {
+        "HOLD_RESERVED": 1,
+        "ROUTE_DEFINED_FIELD_VERIFY": 7
+      }
+    },
+    {
+      "routes": 1,
+      "sheet": "Plane A - BBIA-1 CN200 discrete routes",
+      "source": "wiring/plane_a_bbia1_pin_crosswalk.csv",
+      "source_file": "src/plane_a_cn200_discrete.yml",
+      "statuses": {
+        "HOLD_SOURCE_TRACE": 1
+      }
+    },
+    {
+      "routes": 3,
+      "sheet": "Plane A - CN4 FR-SX spindle analog reference",
+      "source": "Input: wiring/plane_a_bbia1_pin_crosswalk.csv; OEM 41434WB p127.",
+      "source_file": "src/plane_a_cn4_spindle_analog.yml",
+      "statuses": {
+        "HOLD_ANALOG_ROLE": 2,
+        "HOLD_SHIELD_OR_COMMON": 1
+      }
+    },
+    {
+      "routes": 8,
+      "sheet": "Plane B - X-axis resolver to Mesa 7i49",
+      "source": "Input: wiring/plane_b_pin_crosswalk.csv; OEM 41434WB p128; 7i49 manual.",
+      "source_file": "src/plane_b_x_resolver.yml",
+      "statuses": {
+        "DESIGN_CONFIRMED_FIELD_PENDING": 1,
+        "HOLD_SHIELD_TOPOLOGY": 1,
+        "PROPOSED_PHASE_VERIFY": 6
+      }
+    },
+    {
+      "routes": 8,
+      "sheet": "Plane B - Y-axis resolver to Mesa 7i49",
+      "source": "Input: wiring/plane_b_pin_crosswalk.csv; OEM 41434WB p128; 7i49 manual.",
+      "source_file": "src/plane_b_y_resolver.yml",
+      "statuses": {
+        "DESIGN_CONFIRMED_FIELD_PENDING": 1,
+        "HOLD_SHIELD_TOPOLOGY": 1,
+        "PROPOSED_PHASE_VERIFY": 6
+      }
+    },
+    {
+      "routes": 8,
+      "sheet": "Plane B - Z-axis resolver to Mesa 7i49",
+      "source": "Input: wiring/plane_b_pin_crosswalk.csv; OEM 41434WB p128; 7i49 manual.",
+      "source_file": "src/plane_b_z_resolver.yml",
+      "statuses": {
+        "DESIGN_CONFIRMED_FIELD_PENDING": 1,
+        "HOLD_SHIELD_TOPOLOGY": 1,
+        "PROPOSED_PHASE_VERIFY": 6
+      }
+    },
+    {
+      "routes": 6,
+      "sheet": "Plane B - X/Y/Z analog velocity commands",
+      "source": "Input: wiring/plane_b_pin_crosswalk.csv; OEM command ends require continuity tracing.",
+      "source_file": "src/plane_b_axis_velocity_commands.yml",
+      "statuses": {
+        "HOLD_SOURCE_TRACE": 6
+      }
+    },
+    {
+      "routes": 5,
+      "sheet": "Plane B - CNA10 legacy load-display disposition",
+      "source": "Input: wiring/plane_b_pin_crosswalk.csv; OEM 41434WB p127.",
+      "source_file": "src/plane_b_cna10_legacy_load_display.yml",
+      "statuses": {
+        "RETAIN_OR_RETIRE_DECISION": 5
+      }
+    }
+  ],
+  "wireviz_expected": "0.4.x"
+}

@@ -1,0 +1,67 @@
+# ============================================================================
+# Mazak VQC 20/40 - PHASE 1 field HAL  (limits, homes, drive-enables, E-stop mon)
+# ----------------------------------------------------------------------------
+# Only the field I/O needed for safe motion. 7i84U-B = channel 1 (limits/homes/
+# enables); 7i84U-A = channel 0 (E-stop monitor + drive faults). Everything else
+# on both cards is left unwired until Phase 2.
+#
+# PLACEHOLDER PIN NAMES - confirm with `halcmd show pin hm2`. POLARITY (which
+# pin vs its -not twin) is UNVERIFIED: measure each contact's normal state and
+# flip input vs input-NN-not accordingly before trusting it.
+# ============================================================================
+
+# ---------------------------------------------------------------------------
+# Overtravel limits - NC contacts on 7i84U-B (channel 1) IN0-5.
+# NC = consume the inverted "-not" pin so OPEN/tripped reads as logic TRUE.
+# ---------------------------------------------------------------------------
+net limit-x-plus  <= hm2_7i80.0.7i84.0.1.input-00-not
+net limit-x-plus  => joint.0.pos-lim-sw-in
+net limit-x-minus <= hm2_7i80.0.7i84.0.1.input-01-not
+net limit-x-minus => joint.0.neg-lim-sw-in
+net limit-y-plus  <= hm2_7i80.0.7i84.0.1.input-02-not
+net limit-y-plus  => joint.1.pos-lim-sw-in
+net limit-y-minus <= hm2_7i80.0.7i84.0.1.input-03-not
+net limit-y-minus => joint.1.neg-lim-sw-in
+net limit-z-plus  <= hm2_7i80.0.7i84.0.1.input-04-not
+net limit-z-plus  => joint.2.pos-lim-sw-in
+net limit-z-minus <= hm2_7i80.0.7i84.0.1.input-05-not
+net limit-z-minus => joint.2.neg-lim-sw-in
+
+# ---------------------------------------------------------------------------
+# Home switches - NO contacts on 7i84U-B IN6-8 (use the plain pin).
+# ---------------------------------------------------------------------------
+net home-x <= hm2_7i80.0.7i84.0.1.input-06
+net home-x => joint.0.home-sw-in
+net home-y <= hm2_7i80.0.7i84.0.1.input-07
+net home-y => joint.1.home-sw-in
+net home-z <= hm2_7i80.0.7i84.0.1.input-08
+net home-z => joint.2.home-sw-in
+
+# ---------------------------------------------------------------------------
+# Drive S-ON enables - 7i84U-B OUT0-2, via interposing relay to the DK-427.
+# Driven by x/y/z-enable (joint.N.amp-enable-out, from phase1_main.hal).
+# ---------------------------------------------------------------------------
+net x-enable => hm2_7i80.0.7i84.0.1.output-00
+net y-enable => hm2_7i80.0.7i84.0.1.output-01
+net z-enable => hm2_7i80.0.7i84.0.1.output-02
+
+# ---------------------------------------------------------------------------
+# E-stop monitor - OEM MAR relay aux via interposing relay on 7i84U-A (ch0) IN29.
+# Feeds estop-latch.0.ok-in (component loaded in phase1_main.hal).
+# Verify polarity: chain HEALTHY must make ok-in TRUE. If the contact is NC,
+# swap to input-29-not.
+# ---------------------------------------------------------------------------
+net estop-ext <= hm2_7i80.0.7i84.0.0.input-29
+net estop-ext => estop-latch.0.ok-in
+
+# ---------------------------------------------------------------------------
+# Drive fault inputs - 7i84U-A (ch0) IN10-12. Mitsubishi ALM is active-low
+# (fault = low/open), so consume the "-not" pin -> amp-fault TRUE on fault.
+# A fault immediately aborts motion.
+# ---------------------------------------------------------------------------
+net x-drive-fault <= hm2_7i80.0.7i84.0.0.input-10-not
+net x-drive-fault => joint.0.amp-fault-in
+net y-drive-fault <= hm2_7i80.0.7i84.0.0.input-11-not
+net y-drive-fault => joint.1.amp-fault-in
+net z-drive-fault <= hm2_7i80.0.7i84.0.0.input-12-not
+net z-drive-fault => joint.2.amp-fault-in
