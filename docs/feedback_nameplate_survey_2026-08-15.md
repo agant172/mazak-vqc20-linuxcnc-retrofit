@@ -140,7 +140,18 @@ depends on it.
   this; the CNA5 end is electrically equivalent.
 - [x] ~~Re-read the faded type stamps (`RT-…`) and the E-suffix digits on X/Y~~
   **Closed 2026-08-21 (owner).** The stamps are **not recoverable**: coolant has
-  faded the ink used to populate the boxes. Magnification and contrast work have
+  faded the ink used to populate the boxes.
+
+  > **Corroborated photographically 2026-08-21.** A previously undocumented
+  > session — **`2026-07-17/IMG_0190`–`IMG_0207`**, found by a full Photos-library
+  > sweep and now in `03_Motors_Feedback` — is the sharpest plate imagery in the
+  > project. At full resolution `2026-07-17/IMG_0191` shows the `RT-☐X☐-☐☐` and
+  > `TS2014N☐☐E☐-☐` boxes carrying **faint ghost impressions with no ink in them**,
+  > while `BKO-NC6062A` beside them is crisp. That is lost ink, not an unstamped
+  > plate and not a photographic failure — which is why magnification cannot help.
+  > The same frame reads SER NO. **`A6986`** (so it is the **Y** pickup) and plate
+  > style **`N5399`**, both matching the table above.
+  > See [`photo_reindex_2026-08-21.md`](photo_reindex_2026-08-21.md). Magnification and contrast work have
   both been tried, on the machine and on the 2026-08-15 photographs — the boxes
   photograph clean-empty because the ink is gone, not because the plates were
   left blank. **Do not re-shoot these plates.** The devices are identified by
