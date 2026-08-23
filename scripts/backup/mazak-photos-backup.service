@@ -1,0 +1,25 @@
+[Unit]
+Description=Mirror the Mazak photo archive from Google Drive to the media SSD
+Documentation=file:/home/andy/mazak-vqc20-linuxcnc-retrofit/scripts/backup/README.md
+Wants=network-online.target
+After=network-online.target
+# The mount is the whole point; the script re-checks with mountpoint(1) anyway.
+RequiresMountsFor=/mnt/media
+
+[Service]
+Type=oneshot
+User=andy
+Group=andy
+Environment=HOME=/home/andy
+Environment=REMOTE_PATH=gdrive:Mazak
+Environment=DEST_MOUNT=/mnt/media
+Environment=DEST=/mnt/media/mazak-photos
+Environment=HISTORY=/mnt/media/mazak-photos-history
+ExecStart=/usr/local/bin/mazak-photos-backup.sh
+# A cold first run moves 7.4 GB; later runs move almost nothing.
+TimeoutStartSec=7200
+Nice=19
+IOSchedulingClass=idle
+
+[Install]
+WantedBy=multi-user.target

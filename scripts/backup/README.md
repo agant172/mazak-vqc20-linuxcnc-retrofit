@@ -152,6 +152,47 @@ a config file compared byte-for-byte against the live one. 1179 files.
   `10.10.10.0/24`), so a LAN address would work now too once both machines share
   a network — but the hostname is still the better choice.
 
+## Tier 3 — the Mazak photo archive from Google Drive
+
+Different source, same problem. **Google Drive was the sole copy** of the
+retrofit's technical photos: OneDrive was cleared 2026-08-21 after verification
+and both Google Photos albums were folded in and unshared, so nothing else held
+them. These are photos of a machine being taken apart — many are unrepeatable.
+
+| | |
+|---|---|
+| Unit | `mazak-photos-backup.timer`, daily 04:10 |
+| Source | `gdrive:Mazak` (rclone, **read-only scope**) |
+| Destination | `/mnt/media/mazak-photos/` |
+| First run | 2026-08-23 — **1142 files / 7.5 GB, zero errors** |
+
+**Neither Mac was usable as the source.** Both mount Drive via Drive-for-Desktop,
+which *streams*: on 2026-08-23 the iMac held 4.1 GB of the 7.4 GB on disk and the
+MacBook only 490 MB, the rest online-only placeholders. Copying from a Mac would
+have silently backed up a partial set. Pulling from Drive directly also ran at
+~19 MiB/s versus ~1.6 MB/s over the tailnet.
+
+**Read-only by construction.** The rclone remote is authorized `scope=drive.readonly`,
+so this job cannot alter or delete anything in Drive however wrong it goes — the
+right property when the source is the only copy. `install_photos_backup.sh`
+*refuses to install* if the remote ever has a broader scope.
+
+**Credentials live outside this repo** at `~/.config/rclone/rclone.conf`, mode
+600. It holds a Google refresh token and this repo is public.
+
+Same `--backup-dir` safety net as tier 1: anything a sync would delete or
+overwrite lands in `mazak-photos-history/<timestamp>/` first, kept 180 days. And
+the job refuses to sync at all if Drive reports fewer than `MIN_FILES` (500)
+objects, so a failed listing or an auth problem can never be mistaken for "the
+user deleted everything" and mirrored.
+
+### Count drift
+
+Drive is authoritative. On 2026-08-23 it reported **1142 objects**, while the
+iMac enumerated 1143, the MacBook 938, and `CLAUDE.md` recorded 844 — four
+different numbers for one folder. The script logs `drive=` and `local=` every
+run and warns if the local copy falls more than 10 files short.
+
 ## What this is NOT
 
 Two copies, one of them offsite, both derived from the same source by the same

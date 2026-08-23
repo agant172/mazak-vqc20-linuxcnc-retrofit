@@ -267,8 +267,11 @@ def read_authority() -> list[dict[str, str]]:
         "pin_channel", "hal_net", "field_point_or_load", "authority_status",
         "primary_source", "cleanup_notes",
     }
-    if set(rows[0]) != required:
-        raise ValueError(f"Unexpected authority schema: {set(rows[0])}")
+    missing = required - set(rows[0])
+    if missing:
+        raise ValueError(
+            f"Authority CSV is missing required column(s): {sorted(missing)}"
+        )
     return rows
 
 
