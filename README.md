@@ -35,7 +35,7 @@ control to LinuxCNC using Mesa Electronics FPGA hardware.
 > [`mesa/mesa_firmware_checklist.md`](mesa/mesa_firmware_checklist.md#bitfile-provenance-verification-procedure)).
 > Trust this section, not older docs/notes still describing P1=7i44/P2=7i49/P3=unused.
 
-- **LinuxCNC control PC** (Debian 13 / LinuxCNC 2.9.10) driving a **Mesa 7i80HDT** Ethernet FPGA host as the primary control board (`hm2_eth`, static IP 192.168.1.121).
+- **LinuxCNC control PC** (Debian 13 / LinuxCNC 2.9.10) driving a **Mesa 7i80HDT** Ethernet FPGA host as the primary control board (`hm2_eth`, static IP 10.10.10.121).
 - **P1 → 7i49** (plain 7i49) — X/Y/Z resolver feedback on RES0/1/2 plus X/Z/Y servo velocity and FR-SX spindle velocity commands on AOUT0..AOUT3. AOUT4/AOUT5 are spare; FR-SX orient uses discrete ORCM1.
 - **P2 → unused/spare** — no daughter card fitted. All bare FPGA GPIO. Not safe for 24 V field wiring (probe stays on 7i84U-B for opto-isolation).
 - **P3 → 7i44** — RS-422 smart-serial breakout. Physical channel 0 carries **7i84U-A** near the existing green breakout PCB; channel 1 carries **7i84U-B** for limit/home monitoring and relay-driven loads; channels 2-7 are spare. Both remotes are under HostMot2 smart-serial port 0.
@@ -80,7 +80,7 @@ Full rationale: [docs/architecture_decision.md](docs/architecture_decision.md).
 
 **Immediate — Phase B: seat the cards and enumerate the stack**
 - All interface hardware is on hand as of **2026-08-17** (7i80HDT, 7i49, 7i44, 7i84U-A, 7i84U-B, 50-pin IDC cables). Nothing is seated or wired yet.
-- Confirm the network path (host NIC at 192.168.1.1/24, board at 192.168.1.121) → seat 7i49 on P1 and 7i44 on P3, **P2 stays empty** → bring up 7i84U-A/B on sserial channels 0/1 → re-run `readhmid` → capture `mesa/firmware/hal_pins_YYYY-MM-DD.txt` → replace the placeholder `hm2_7i80.0...` names in HAL.
+- Confirm the network path (host NIC at 10.10.10.1/24, board at 10.10.10.121) → seat 7i49 on P1 and 7i44 on P3, **P2 stays empty** → bring up 7i84U-A/B on sserial channels 0/1 → re-run `readhmid` → capture `mesa/firmware/hal_pins_YYYY-MM-DD.txt` → replace the placeholder `hm2_7i80.0...` names in HAL.
 - **No field wiring lands on a Mesa terminal until that pin dump exists.** Bitfile `7i80hdt_rmsvss6_8.bin` is already flashed with layout, identity and upstream source confirmed — see [`mesa/mesa_firmware_checklist.md`](mesa/mesa_firmware_checklist.md#bitfile-provenance-verification-procedure).
 
 **Immediate — Phase C: owner decisions** (blocked on a decision, not on work) — five items in [`wiring/authority_conflicts.md`](wiring/authority_conflicts.md) §5: the `57B` preserve-list add, the `SOL-62`→`SOL-15` relabel, the two unfitted blast outputs, `SOL-16`'s missing authority row, and the `LUBE_OK` promotion.

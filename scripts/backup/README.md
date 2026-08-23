@@ -145,11 +145,12 @@ a config file compared byte-for-byte against the live one. 1179 files.
 - **The iMac must be awake.** A sleeping Mac means the run fails and retries
   tomorrow; `Persistent=true` also catches up after a boot. Repeated failures
   show in `journalctl -u mazak-gcode-backup-remote`.
-- ⚠️ **Do not switch this to the iMac's LAN address** (`192.168.1.19`) until the
-  Mesa control subnet is renumbered — this box routes all of `192.168.1.0/24`
-  out the Mesa NIC, into a dead end. See `docs/ssd_firmware_plan.md` and
-  `scripts/health/switch_mesa_subnet.sh`. The hostname goes over Tailscale and
-  is unaffected.
+- **The destination is a hostname, resolved over Tailscale**, not a LAN address,
+  and that is deliberate — it works from anywhere and survives either machine
+  moving networks. The Mesa subnet collision that used to make `192.168.1.19`
+  unreachable from this box was fixed on 2026-08-23 (Mesa moved to
+  `10.10.10.0/24`), so a LAN address would work now too once both machines share
+  a network — but the hostname is still the better choice.
 
 ## What this is NOT
 

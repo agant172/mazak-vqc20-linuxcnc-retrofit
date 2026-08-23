@@ -3,6 +3,9 @@
 # No 7i84U-B. No machine attached. Not a substitute for linuxcnc/mazak_vqc_20_40.hal.
 
 loadrt hostmot2
+# NOTE 2026-08-23: the board moved to 10.10.10.121 (subnet renumbered off the
+# workshop LAN). This dated file records what was actually run at the time —
+# left as-is on purpose. Use 10.10.10.121 for any new run.
 loadrt hm2_eth board_ip="192.168.1.121" config="num_encoders=0 num_resolvers=3 num_pwmgens=4 num_stepgens=0 sserial_port_0=0xxxxxxx"
 
 loadrt threads name1=servo-thread period1=1000000

@@ -12,6 +12,9 @@ loadrt [EMCMOT]EMCMOT base_period_nsec=0 servo_period_nsec=[EMCMOT]SERVO_PERIOD 
 loadrt hostmot2
 # 3 resolvers (X/Y/Z on 7i49 RES0/1/2), 3 analog outs (X/Z/Y on AOUT0/1/2),
 # 2 sserial remotes (7i84U-A ch0 + 7i84U-B ch1). No encoders/stepgens in Phase 1.
+# NOTE 2026-08-23: the board moved to 10.10.10.121 (subnet renumbered off the
+# workshop LAN). This dated file records what was actually run at the time —
+# left as-is on purpose. Use 10.10.10.121 for any new run.
 loadrt hm2_eth board_ip="192.168.1.121" config="num_encoders=0 num_resolvers=3 num_pwmgens=3 num_stepgens=0 sserial_port_0=00xxxxxx"
 
 loadrt pid names=pid.x,pid.y,pid.z

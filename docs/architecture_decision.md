@@ -39,7 +39,7 @@ control board, with two daughter cards populated on its 50-pin connectors:
 - **P1: Mesa 7i49** — plain 7i49 resolver-to-digital interface with 6 resolver channels and 6× ±10V analog outputs. Carries X/Y/Z resolver feedback (RES0/1/2) and X/Z/Y servo velocity plus FR-SX spindle velocity on AOUT0..AOUT3. AOUT4/AOUT5 are spare; orient is discrete ORCM1.
 - **P2: unused/spare.** No daughter card is fitted and no bare-FPGA GPIO pin is bound to a 24 V field signal. Earlier drafts placed the Renishaw MP-3 probe SKIP1 on `hm2_7i80.0.gpio.042` for latency reasons; that direct-GPIO path was RETRACTED — the 7i80HDT P2 GPIO pins are 3.3 V logic without opto-isolation and would be destroyed by 24 V input. The probe now lands on **7i84U-B TB3 IN15** with proper 24 V opto-isolation. See [`docs/superseded_claims_2026-08-06.md`](superseded_claims_2026-08-06.md) row 15. All remaining P2 pins are held as spare.
 
-The 7i80HDT connects to the control PC over Ethernet using the `hm2_eth` driver at static IP **192.168.1.121** (NIC `enp0s31f6` at 192.168.1.1/24). The machine keeps its original Tamagawa TS2014N resolvers, so feedback is resolver-based (plain 7i49 on P1, 5 kHz excitation baseline) rather than quadrature-encoder.
+The 7i80HDT connects to the control PC over Ethernet using the `hm2_eth` driver at static IP **10.10.10.121** (NIC `enp0s31f6` at 10.10.10.1/24). The machine keeps its original Tamagawa TS2014N resolvers, so feedback is resolver-based (plain 7i49 on P1, 5 kHz excitation baseline) rather than quadrature-encoder.
 
 ### Why no P2 field breakout (7i37TA or similar)?
 
@@ -123,7 +123,7 @@ The original **Meldas M2 / TRA** resolver wiring may run the resolver "backwards
 - Confirm both 7i84Us are detected on 7i44 physical channels 0 and 1 after firmware load (`sserial_port_0=00xxxxxx`: two channels of one HostMot2 smart-serial port). Record both device serial numbers and physical cable destinations during commissioning.
 - Confirm 7i49 on P1 host connection and firmware `num_resolvers=3` config. Set excitation to **5 kHz**.
 - Identify resolver winding pairs per axis with an ohmmeter before power; scope RESDRV excitation and RESSIN/RESCOS amplitude and phase at rest and under motion on all three axis channels (0/1/2). **W2 is not a valid remedy on the axis channels** — it only affects channels 3/4/5. Any 7i49HV / divider escalation must go through Mesa (PCW) review of the specific TS2014N suffix rather than a unilateral hardware swap.
-- Confirm 7i80HDT Ethernet setup: static IP 192.168.1.121, `hm2_eth` `board_ip="192.168.1.121"`, and host NIC `enp0s31f6` at 192.168.1.1/24.
+- Confirm 7i80HDT Ethernet setup: static IP 10.10.10.121, `hm2_eth` `board_ip="10.10.10.121"`, and host NIC `enp0s31f6` at 10.10.10.1/24.
 - Run LinuxCNC latency testing on the actual control PC (already validated on the current hardware).
 - Confirm X/Y/Z drive command polarity and scaling on 7i49 AOUT0/1/2.
 - Confirm per-axis resolver label, winding pairs, transformation ratio, and return signal level.

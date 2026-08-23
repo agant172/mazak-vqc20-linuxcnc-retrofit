@@ -29,9 +29,21 @@ BOARD_IP="${MESA_BOARD_IP:-10.10.10.121}"
 echo "Mesa link: moving '$CONN' to $HOST_IP, expecting board at $BOARD_IP"
 echo
 
-if pgrep -x linuxcnc >/dev/null || lsmod 2>/dev/null | grep -q hm2; then
-    echo "REFUSING: LinuxCNC is running or hm2 is loaded. Stop it first." >&2
+# Refuse only if something actually HOLDS the board. `pgrep linuxcnc` alone is
+# too broad: /usr/bin/linuxcnc is a shell wrapper that also sits in the process
+# table while the config-picker dialog is open with nothing loaded, which holds
+# no hardware. What matters is a loaded hm2 module or a live realtime session.
+if lsmod 2>/dev/null | grep -qE '^hm2_|^hostmot2'; then
+    echo "REFUSING: an hm2 module is loaded — the board is in use. Stop LinuxCNC first." >&2
     exit 1
+fi
+if pgrep -x rtapi_app >/dev/null || pgrep -x milltask >/dev/null; then
+    echo "REFUSING: a LinuxCNC realtime session is running. Stop it first." >&2
+    exit 1
+fi
+if pgrep -x linuxcnc >/dev/null; then
+    echo "NOTE: the LinuxCNC launcher is running (config picker open, nothing loaded)." >&2
+    echo "      Do not select a config until this finishes." >&2
 fi
 
 old="$(nmcli -g ipv4.addresses connection show "$CONN" 2>/dev/null)"

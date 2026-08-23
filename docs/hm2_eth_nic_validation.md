@@ -30,7 +30,7 @@ is the authority. Verbatim points that drive this plan:
   Wireless and USB network interfaces are not suitable." —
   [hm2_eth(9)](https://linuxcnc.org/docs/2.9/html/man/man9/hm2_eth.9.html)
 - **Static interface configuration** goes in `/etc/network/interfaces`
-  with `iface eth1 inet static`, `address 192.168.1.1`, and
+  with `iface eth1 inet static`, `address 10.10.10.1`, and
   `hardware-irq-coalesce-rx-usecs 0`. — [hm2_eth(9)](https://linuxcnc.org/docs/2.9/html/man/man9/hm2_eth.9.html)
 - **Marvell caveat.** "'hardware-irq-coalesce-rx-usecs' decreases
   time waiting to receive a packet on most systems, but on at least
@@ -170,7 +170,7 @@ configuration. HAL addresses the board by IP, not by Linux interface name.
 # LinuxCNC control link to Mesa 7i80HDT
 auto lcnc0
 iface lcnc0 inet static
-    address 192.168.1.1
+    address 10.10.10.1
     netmask 255.255.255.0
     # No gateway. This is a point-to-point control link.
     hardware-irq-coalesce-rx-usecs 0

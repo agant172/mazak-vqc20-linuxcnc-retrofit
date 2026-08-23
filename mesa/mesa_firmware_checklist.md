@@ -17,7 +17,7 @@ the isolated 7i84U-B probe path, and LinuxCNC HAL pin names.
 > repo, trust this section and `mesa/current_pin_authority.csv`, not older prose.
 
 - LinuxCNC control PC connected to the Mesa 7i80HDT over Ethernet (`hm2_eth`, static IP
-  192.168.1.121, host NIC enp0s31f6 at 192.168.1.1/24).
+  10.10.10.121, host NIC enp0s31f6 at 10.10.10.1/24).
 - Mesa 7i80HDT Ethernet FPGA host as the primary control board. Three 50-pin daughter
   connectors P1/P2/P3, 72 IO total, 5V-tolerant. The 7i80HDT carries no field terminals
   itself — all field wiring lands on the P1/P2/P3 daughter cards.
@@ -69,7 +69,7 @@ Four traps worth reading before applying power:
 
 - **A 7i84U will not enumerate without VIN.** The CAT5 smart-serial link carries 5 V
   for the RS-422 transceivers only, 30 mA maximum. It does not run the board. An empty
-  `mesaflash --device 7i80hdt --addr 192.168.1.121 --sserial` scan with cables
+  `mesaflash --device 7i80hdt --addr 10.10.10.121 --sserial` scan with cables
   connected is a **power symptom first**, not a cabling or firmware symptom.
 - **The 7i49 aux "P1" is not the 7i80HDT P1.** The 7i49 manual calls its own 2-pin
   auxiliary 5 V header P1; the 50-pin ribbon lands on the 7i80HDT connector also named
@@ -95,7 +95,7 @@ X/Y/Z axis channels 0/1/2.
 | Group | Item to record | Expected / current plan | Why it matters |
 |---|---|---|---|
 | Host board | Exact Mesa board model/revision | 7i80HDT | Determines firmware target and HAL device name (expect `hm2_7i80` — confirm via readhmid). |
-| Ethernet | 7i80HDT IP address / host NIC | 192.168.1.121 / enp0s31f6 (192.168.1.1/24) | Confirms the control PC can reach the board deterministically. |
+| Ethernet | 7i80HDT IP address / host NIC | 10.10.10.121 / enp0s31f6 (10.10.10.1/24) | Confirms the control PC can reach the board deterministically. |
 | Ethernet | `hm2_eth` config string | `num_encoders=0 num_resolvers=3 num_pwmgens=4 num_stepgens=0 sserial_port_0=00xxxxxx` | Exposes X/Y/Z resolver, analog, and two smart-serial channels. `num_encoders=0` is a **settled design decision** (2026-08-12), not a temporary hold — LinuxCNC does not read spindle position; see [`../docs/spindle_motor_plg_encoder.md`](../docs/spindle_motor_plg_encoder.md#design-decision--linuxcnc-does-not-read-spindle-position). |
 | P1 (7i49) | Analog output count/scaling | 6× ±10 V hardware; active `num_pwmgens=4` maps X/Z/Y/spindle to AOUT0/1/2/3; AOUT4/5 spare | Required before safe first motion. Four requested PWM generators create instances 00-03 only. |
 | P1 (7i49) | Resolver interface present | Plain 7i49 (not 7i49HV) | Axis feedback is resolver, not encoder; firmware must expose resolver channels. |
@@ -117,22 +117,22 @@ X/Y/Z axis channels 0/1/2.
 
 ## Commands to run on the LinuxCNC control PC
 
-Confirm the board is reachable over Ethernet (host NIC must be on 192.168.1.1/24):
+Confirm the board is reachable over Ethernet (host NIC must be on 10.10.10.1/24):
 
 ```bash
-ping 192.168.1.121
+ping 10.10.10.121
 ```
 
 Read the Mesa hardware/firmware ID:
 
 ```bash
-mesaflash --device 7i80hdt --addr 192.168.1.121 --readhmid > mesa/firmware/readhmid_$(date +%Y-%m-%d).txt
+mesaflash --device 7i80hdt --addr 10.10.10.121 --readhmid > mesa/firmware/readhmid_$(date +%Y-%m-%d).txt
 ```
 
 List available firmware options if needed:
 
 ```bash
-mesaflash --device 7i80hdt --addr 192.168.1.121 --list
+mesaflash --device 7i80hdt --addr 10.10.10.121 --list
 ```
 
 Cross-check the SHA-256 before running the write command — do this even though
@@ -141,8 +141,8 @@ HAL pin cross-check) is still open (see below):
 
 ```bash
 sha256sum --check mesa/firmware/SHA256SUMS
-sudo mesaflash --device 7i80hdt --addr 192.168.1.121 --write mesa/firmware/7i80hdt_rmsvss6_8.bin
-sudo mesaflash --device 7i80hdt --addr 192.168.1.121 --reload
+sudo mesaflash --device 7i80hdt --addr 10.10.10.121 --write mesa/firmware/7i80hdt_rmsvss6_8.bin
+sudo mesaflash --device 7i80hdt --addr 10.10.10.121 --reload
 ```
 
 ## Bitfile provenance (verification procedure)
@@ -220,7 +220,7 @@ mechanisms:
    for recovery.
 
 Related, from the same manual section: **jumpers W1/W2 select the board's IP
-address mode** (DOWN/DOWN = fixed `192.168.1.121` — this project's target
+address mode** (DOWN/DOWN = fixed `10.10.10.121` — this project's target
 static IP is the jumper *default*; DOWN/UP = fixed from EEPROM; UP/DOWN =
 BOOTP; UP/UP = invalid). **W3** enables/disables weak I/O pull-ups at
 power-up/reset (UP = enabled, the suggested default). Confirm actual jumper
@@ -230,8 +230,8 @@ photo pass — see [`../docs/cabinet_photo_checklist.md`](../docs/cabinet_photo_
 To re-verify at any time:
 
 ```bash
-mesaflash --device 7i80hdt --addr 192.168.1.121 --readhmid > mesa/firmware/readhmid_$(date +%Y-%m-%d).txt
-mesaflash --device 7i80hdt --addr 192.168.1.121 --sserial > mesa/firmware/sserial_$(date +%Y-%m-%d).txt
+mesaflash --device 7i80hdt --addr 10.10.10.121 --readhmid > mesa/firmware/readhmid_$(date +%Y-%m-%d).txt
+mesaflash --device 7i80hdt --addr 10.10.10.121 --sserial > mesa/firmware/sserial_$(date +%Y-%m-%d).txt
 diff mesa/firmware/readhmid_2026-08-13.txt mesa/firmware/readhmid_$(date +%Y-%m-%d).txt   # should be empty
 ```
 
@@ -244,7 +244,7 @@ After the firmware and smart-serial config are close, dump HAL pins:
 ```bash
 halrun
 loadrt hostmot2
-loadrt hm2_eth board_ip="192.168.1.121" config="num_encoders=0 num_resolvers=3 num_pwmgens=4 num_stepgens=0 sserial_port_0=00xxxxxx"
+loadrt hm2_eth board_ip="10.10.10.121" config="num_encoders=0 num_resolvers=3 num_pwmgens=4 num_stepgens=0 sserial_port_0=00xxxxxx"
 show pin hm2 > mesa/firmware/hal_pins_$(date +%Y-%m-%d).txt
 exit
 ```

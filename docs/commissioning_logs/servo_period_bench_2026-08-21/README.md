@@ -1,5 +1,7 @@
 # hm2_eth servo-thread timing bench — run record, 2026-08-21
 
+> **Address note (2026-08-23):** the Mesa control subnet moved from `192.168.1.0/24` to `10.10.10.0/24` (host `10.10.10.1`, board `10.10.10.121`) because the old range collided with the workshop LAN. Addresses below are kept as-recorded and are correct for the date shown.
+
 > **ROLE: BENCH TEST (PC + Mesa stack only)** — measures `servo-thread` timing
 > against the real 7i80HDT/7i49/7i44/one-7i84U stack (see
 > [`../../../README.md`](../../../README.md) confirmed architecture). **No

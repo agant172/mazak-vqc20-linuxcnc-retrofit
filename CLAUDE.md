@@ -390,7 +390,7 @@ machine is which.
 needs the real machine, hardware, OS, or live measurements:
 - Live Mesa install, `mesaflash`/`readhmid`, bitfile flashing, IDROM/pin-dump capture.
 - Editing and testing HAL/INI on the control PC (`halrun`, watching real pins).
-- Host/NIC/network setup (static IP 192.168.1.121, `hm2_eth`, `enp0s31f6`), package installs,
+- Host/NIC/network setup (static IP 10.10.10.121, `hm2_eth`, `enp0s31f6`), package installs,
   systemd services.
 - Resolver/analog scope measurements and continuity checks.
 - Axis / spindle / ATC bring-up and every commissioning step.
@@ -485,8 +485,8 @@ writes `PROPOSED`, not `ELECTRICALLY_VERIFIED`
 |---|---|---|
 | OptiPlex user | `andy` | `scripts/host_status/install_repo_pull.sh` |
 | Working copy — **all three machines** | `~/mazak-vqc20-linuxcnc-retrofit` | `scripts/host_status/install_repo_pull.sh` |
-| Control NIC | `192.168.1.1/24`; interface name `enp0s31f6` **unverified** — confirm with `ip -o link show` | `linuxcnc/README.md`, `docs/hm2_eth_nic_validation.md` |
-| Mesa 7i80HDT | `192.168.1.121` (static) | same |
+| Control NIC | `10.10.10.1/24`; interface name `enp0s31f6` **unverified** — confirm with `ip -o link show` | `linuxcnc/README.md`, `docs/hm2_eth_nic_validation.md` |
+| Mesa 7i80HDT | `10.10.10.121` (static) | same |
 | SSH to the OptiPlex | `ssh linuxcnc` → `andy@linuxcnc.tail2a912f.ts.net`, over Tailscale, **key auth only** | `~/.ssh/config` on each Mac |
 | Keys authorized on the OptiPlex (inbound: Mac → OptiPlex) | **iMac** `SHA256:tjYw8rTkarNYK8r/uxvQskP78Y4ADFx+8U5fBWKsQag` (`andygant@imac`, added 2026-08-16). **MacBook Pro: unknown — check.** | `andy@linuxcnc:~/.ssh/authorized_keys` |
 | OptiPlex key on the Macs (outbound: OptiPlex → Mac) | `andy@LinuxCNC` is authorized on **both** — MacBook 2026-08-21, **iMac 2026-08-22**. The Mac accounts are `andygant@`, not `andy@`. | each Mac's `~/.ssh/authorized_keys` |
@@ -521,7 +521,7 @@ before it reaches the password and macOS sshd cuts the session off first.
 an output:
 - `mesaflash --readhmid`, `halcmd show pin|sig|param`, `halcmd -s show` sampling.
 - Reading logs: `journalctl -u linuxcnc`, dmesg, latency notes, `systemctl status`.
-- `ip -o link show`, `ping 192.168.1.121`, package queries, editing files, git operations.
+- `ip -o link show`, `ping 10.10.10.121`, package queries, editing files, git operations.
 
 **Requires a human physically at the machine, with the E-stop in reach** — anything that can
 move an axis, turn the spindle, actuate a solenoid, energize a coil, or change what the drives

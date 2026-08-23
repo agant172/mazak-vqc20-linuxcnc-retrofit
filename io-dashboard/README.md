@@ -114,7 +114,7 @@ LinuxCNC host, not on the app — it is just a web page on port `8765`.
 Wi-Fi, where the router routes between them): no extra setup. Make sure the
 bridge is bound to `0.0.0.0` (the systemd unit already is; or run
 `python3 serve_live.py --host 0.0.0.0`), find the host's shop-LAN address with
-`ip -4 addr` on the host (its *LAN* IP, not the `192.168.1.121` Mesa-NIC
+`ip -4 addr` on the host (its *LAN* IP, not the `10.10.10.121` Mesa-NIC
 address), and browse to `http://<host-LAN-IP>:8765/`.
 
 **Isolated subnet or off-site** (guest Wi-Fi, a separate VLAN with no
