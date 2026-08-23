@@ -42,3 +42,8 @@ jobs:
           python3 io-dashboard/tools/generate_data.py
           # Ignore the volatile "generated" timestamp line when comparing.
           git diff -I '"generated":' --exit-code -- io-dashboard/data.js
+
+      - name: Manual set still builds (catches authority-CSV schema drift)
+        run: |
+          pip install --quiet reportlab pypdf
+          python3 scripts/build_manual_set.py --output "$RUNNER_TEMP/manual-set"
