@@ -426,11 +426,18 @@ change it here in the same commit.
 - **One repo only:** `agant172/mazak-vqc20-linuxcnc-retrofit`. Default branch `main`.
   There is no second repo, no private sibling, no gist. If work seems to need another
   repository, ask before adding one.
-- **The repo is PRIVATE** (owner decision 2026-08-16 — all of the owner's repos were made
-  private). Every clone, fetch, and push needs credentials; anything that assumed anonymous
-  read no longer works. This is not a licence to commit secrets — see the `.obsidian` table
-  below. Do not link repo paths from anywhere expecting them to resolve for a reader who is
-  not signed in.
+- **The repo is PUBLIC** (owner decision 2026-08-22). This **supersedes, for this repo only,**
+  the 2026-08-16 "all of the owner's repos were made private" decision, which stood in this
+  file until now — the other repos are unaffected. Anyone can read, clone, and link to it
+  with no credentials; only **pushing** needs write access. Repo paths cited anywhere resolve
+  for any reader, signed in or not.
+  **Nothing secret may ever be committed.** On a public repo a secret is world-readable the
+  instant it lands, and deleting it later does not remove it from history. That makes the
+  `.gitignore` entry on `.obsidian/plugins/*/data.json` (plugin settings can hold an API key)
+  load-bearing rather than housekeeping. The media rule is unchanged — raw photos are never
+  committed — and note that the Google Drive folder links in this file and in
+  `docs/README_photo_sorting.md` are now readable by anyone who reads the repo: if those
+  folders are shared "anyone with the link", they are effectively public too.
 - **Desk sessions never push to `main`** — Macs and cloud alike. Work on a feature branch and
   open a **draft PR**; the Authority gate (`.github/workflows/authority-gate.yml`) must pass
   before merge. The OptiPlex commits directly when recording a measurement at the machine.
@@ -524,9 +531,10 @@ that it was taken at the machine, so a later reader can tell a real reading from
 ### Getting a machine onto the shared memory
 
 `CLAUDE.md` travels with the repo, so a machine joins by cloning it — nothing to copy by hand.
-**The repo is private, so the clone needs credentials** (`gh auth login` or an SSH key on the
-account); an unauthenticated clone fails with a misleading "repository not found". Use the SSH
-remote form — the OptiPlex's status timer pushes non-interactively and HTTPS would prompt.
+**The repo is public, so an unauthenticated clone works** — no credentials needed to read it.
+You still need an SSH key on the account (or `gh auth login`) to **push**. Use the SSH remote
+form anyway: the OptiPlex's pull timer fetches non-interactively with a named key, and an HTTPS
+remote would prompt for a password it cannot answer.
 Step-by-step commands and the per-machine clone inventory are in the `new-machine-setup` skill
 (`.claude/skills/new-machine-setup/SKILL.md`).
 
