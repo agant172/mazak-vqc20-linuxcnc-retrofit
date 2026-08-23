@@ -217,7 +217,7 @@ evidence and an authority disposition.
 dump exists. Do the steps in order; **no field wiring lands on a Mesa terminal
 until step 6 is done.**
 
-- [ ] 1. Confirm the host/network path first, since everything below depends on it: host NIC `enp0s31f6` (**name unverified** — check `ip -o link show`) at 10.10.10.1/24, board static 10.10.10.121, `ping 10.10.10.121`, and `hm2_eth` `board_ip="192.168.1.121"`.
+- [ ] 1. Confirm the host/network path first, since everything below depends on it: host NIC `enp0s31f6` (**name unverified** — check `ip -o link show`) at 10.10.10.1/24, board static 10.10.10.121, `ping 10.10.10.121`, and `hm2_eth` `board_ip="10.10.10.121"`.
 - [ ] 2. Seat **7i49 on P1** and **7i44 on P3** with the 50-pin IDC cables. **P2 stays empty — no exceptions**: it is bare 3.3 V FPGA GPIO and must never see 24 V field wiring.
 - [ ] 3. Bring up **7i84U-A on 7i44 channel 0** and **7i84U-B on channel 1**, both under HostMot2 smart-serial port 0. Preserve the A/B identities — do not let them swap silently.
 - [ ] 4. Re-run `mesaflash --readhmid` **after** the cards are seated and diff it against [`../mesa/firmware/readhmid_2026-08-13.txt`](../mesa/firmware/readhmid_2026-08-13.txt) (bench read, host only). Confirm the daughter cards now enumerate.
