@@ -22,8 +22,8 @@ LinuxCNC + Mesa stack for the NC brain:
 
 ```
   ┌────────────┐  Ethernet   ┌──────────┐  50-pin IDC   ┌──────┐
-  │ LinuxCNC   │────────────▶│ 7i80HDT  │──── P1 ──────▶│ 7i44 │─┐ smart-serial
-  │ control PC │  hm2_eth    │  (FPGA)  │──── P2 ──┐    └──────┘ │ (RS-422)
+  │ LinuxCNC   │────────────▶│ 7i80HDT  │──── P3 ──────▶│ 7i44 │─┐ smart-serial
+  │ control PC │  hm2_eth    │  (FPGA)  │──── P1 ──┐    └──────┘ │ (RS-422)
   └────────────┘             └──────────┘          │             ├─▶ 7i84U-A (ch0)
                                                     ▼             └─▶ 7i84U-B (ch1)
                                                ┌──────┐
@@ -189,7 +189,7 @@ that is not here must be added here.
    2026-08-10, dwg 4143075410). Only +Y (CN3-37) and −Z (CN3-38) are confirmed on the
    plane. The other four may route via a terminal block outside the 19-connector
    Honda family, or be bussed upstream. **Field trace required; do not assume a pin.**
-5. **Spindle encoder** — `UNBOUND`, P3 empty, and **settled that way**
+5. **Spindle encoder** — `UNBOUND`, P2 empty, and **settled that way**
    (decided 2026-08-12): LinuxCNC does not read spindle position, so no spindle
    feedback conductor crosses any plane. Orient is FR-SX internal and speed
    supervision is discrete. The spindle *motor's* built-in PLG (Tamagawa

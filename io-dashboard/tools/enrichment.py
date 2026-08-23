@@ -34,7 +34,7 @@ STATUS = {
         "tone": "verified",
         "order": 0,
         "blurb": "Final factory-built Mesa link with two distinct plug-in segments: a Mesa "
-                 "50-pin IDC cable from 7i80HDT P1 to 7i44, then CAT5 smart-serial from "
+                 "50-pin IDC cable from 7i80HDT P3 to 7i44, then CAT5 smart-serial from "
                  "7i44 to 7i84U. Inspect identity, keying, seating, strain relief, and visible "
                  "condition; do not continuity-audit individual conductors. Verify by clean "
                  "smart-serial enumeration at LinuxCNC startup.",

@@ -51,7 +51,7 @@ Three consequences:
 
 ## Design decision — LinuxCNC does not read spindle position
 
-**Decided 2026-08-12 (owner).** `num_encoders=0`, P3 empty, and
+**Decided 2026-08-12 (owner).** `num_encoders=0`, P2 empty, and
 `SPINDLE_ENCODER` `UNBOUND` are the **settled design**, not a holding pattern
 awaiting a device. Nothing in the retrofit requires LinuxCNC to know spindle
 angle or spindle count.

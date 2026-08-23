@@ -156,7 +156,7 @@ reproduce or consciously drop.
 ## What this does *not* change
 
 **The LinuxCNC spindle-position decision stands.** Orient remains the drive's
-job — discrete command in, completion signal out. `num_encoders=0`, P3 empty,
+job — discrete command in, completion signal out. `num_encoders=0`, P2 empty,
 `SPINDLE_ENCODER` `UNBOUND` are unaffected. The orient encoder belongs to the
 FR-SX, exactly as the motor PLG does.
 

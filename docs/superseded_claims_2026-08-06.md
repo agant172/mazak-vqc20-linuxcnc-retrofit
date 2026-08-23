@@ -5,6 +5,18 @@
 **Companion audit:** [`claim_audit_2026-08-07.md`](claim_audit_2026-08-07.md)
 **Authority reference:** [`authority_hierarchy.md`](authority_hierarchy.md)
 
+> **Connector-numbering note (2026-08-23):** rows below were written on
+> 2026-08-06, when the plan assumed **P1 = 7i44, P2 = 7i49, P3 = unused**.
+> Flashing the board and reading `readhmid` on 2026-08-13 showed the real
+> layout is the opposite: **P1 = 7i49** (ResolverMod + PWM), **P2 = empty**
+> (bare GPIO `gpio.024`-`gpio.047`), **P3 = 7i44** (SSerial). See
+> [`architecture_decision.md`](architecture_decision.md) and
+> [`../mesa/firmware/readhmid_2026-08-13.txt`](../mesa/firmware/readhmid_2026-08-13.txt).
+> Rows are left as-written on purpose — read every bare `P1`/`P2`/`P3` below
+> as the **old** numbering. In particular, `gpio.042` in row 15 is a **P2**
+> pin under the current numbering, not P3; the safety point is unchanged
+> (bare 3.3 V FPGA GPIO must never carry 24 V field wiring).
+
 ## Purpose
 
 Prior revisions of this repo carried claims that were fabricated (never in
