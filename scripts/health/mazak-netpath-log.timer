@@ -1,0 +1,11 @@
+[Unit]
+Description=Sample network path latency every 5 minutes
+
+[Timer]
+OnCalendar=*:0/5
+OnBootSec=3min
+Persistent=false
+AccuracySec=30s
+
+[Install]
+WantedBy=timers.target

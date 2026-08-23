@@ -72,6 +72,56 @@ non-zero but the drive still self-assesses as PASSED — currently true of
 `/dev/sda`, which has 4 SATA CRC errors (a cable issue, see
 `docs/ssd_firmware_plan.md`).
 
+## Network path history (PingPlotter-style)
+
+`mazak-netpath-log.timer`, every 5 minutes, runs `mtr` against four targets and
+appends per-hop results to `/var/lib/mazak-health/netpath.jsonl`, then
+regenerates a standalone HTML report at `/var/lib/mazak-health/netpath.html`.
+
+| target | why |
+|---|---|
+| `drive.google.com` | the path the 585 GB cloud backup uses |
+| `1.1.1.1` | neutral internet reference |
+| `100.82.222.120` | the workshop iMac over Tailscale |
+| `10.10.10.121` | the Mesa card — a **control**, and the one that must stay clean |
+
+The Mesa row is the useful one for this project: it rides a dedicated NIC and
+should be unaffected by anything happening on the house network. On 2026-08-23,
+with a 28 MiB/s upload saturating the WAN link, Mesa measured **0.158 ms average
+with 0.003 ms jitter** while every internet target was in the hundreds. If that
+row ever moves, something has gone wrong with the control link itself.
+
+### Why history rather than a one-shot traceroute
+
+A single run cannot tell you whether 400 ms is normal, and the interesting
+failures — a flapping ISP hop, jitter that only appears under load — are
+invisible without a baseline.
+
+Worked example, 2026-08-23. Heavy jitter to Google, and `mtr` put it at **hop 1,
+the house's own router**, with zero packet loss anywhere:
+
+| hop 1 (Orbi RBR760) | upload running | upload paused |
+|---|---|---|
+| average | 113.3 ms | 3.5 ms |
+| worst | 691.9 ms | 7.5 ms |
+| **jitter (StDev)** | **141.2 ms** | **1.3 ms** |
+
+Zero loss plus jitter starting at hop 1 is **bufferbloat**, not a fault: the
+upload fills the router's transmit queue and everything else waits behind it.
+Jitter that first appears at hop 1 is yours; jitter that first appears at hop 2+
+is the ISP's. That distinction is the whole reason the per-hop table highlights
+where jitter *jumps* rather than where it is largest.
+
+### Reading it
+
+```bash
+mazak-netpath-report.py --hours 24        # regenerate on demand
+xdg-open /var/lib/mazak-health/netpath.html
+```
+
+The shaded band spans best–worst per sample and the line is the mean: **a wide
+band under a flat mean is queueing delay, not a slow link.**
+
 ## Vendor quirks deliberately handled
 
 Raw SMART values are not portable, and naive monitoring cries wolf:

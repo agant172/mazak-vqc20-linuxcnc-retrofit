@@ -76,6 +76,23 @@ else
     echo "  smartd.conf already wired to mazak-smart-alert.sh"
 fi
 
+# --- per-hop network latency history (PingPlotter-style) --------------------
+if command -v mtr >/dev/null 2>&1; then
+    bash -n "$SCRIPT_DIR/netpath_log.sh"
+    python3 -c "import ast,sys; ast.parse(open(sys.argv[1]).read())" "$SCRIPT_DIR/netpath_report.py"
+    install -m 0755 -o root -g root "$SCRIPT_DIR/netpath_log.sh"    /usr/local/bin/mazak-netpath-log.sh
+    install -m 0755 -o root -g root "$SCRIPT_DIR/netpath_report.py" /usr/local/bin/mazak-netpath-report.py
+    sed -e "s|/home/andy/mazak-vqc20-linuxcnc-retrofit|$REPO_ROOT|g" \
+        "$SCRIPT_DIR/mazak-netpath-log.service" > "$UNIT_DIR/mazak-netpath-log.service"
+    cp "$SCRIPT_DIR/mazak-netpath-log.timer" "$UNIT_DIR/mazak-netpath-log.timer"
+    chmod 0644 "$UNIT_DIR"/mazak-netpath-log.{service,timer}
+    systemctl daemon-reload
+    systemctl enable --now mazak-netpath-log.timer
+    echo "  netpath history enabled (every 5 min)"
+else
+    echo "  netpath history SKIPPED: mtr not installed (apt-get install mtr)" >&2
+fi
+
 systemctl daemon-reload
 systemctl enable --now mazak-smart-collect.timer
 systemctl restart smartmontools
