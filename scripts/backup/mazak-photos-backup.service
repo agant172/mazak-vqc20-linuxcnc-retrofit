@@ -6,6 +6,11 @@ After=network-online.target
 # The mount is the whole point; the script re-checks with mountpoint(1) anyway.
 RequiresMountsFor=/mnt/media
 
+# Push a notification when this fails. systemd's notion of failure is broader
+# than the script's: it also catches timeouts, kills, OOM, and never starting --
+# the cases a script cannot report because it is no longer running.
+OnFailure=mazak-notify-failure@%n.service
+
 [Service]
 Type=oneshot
 User=andy

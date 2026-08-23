@@ -2,6 +2,11 @@
 Description=Snapshot SMART health for every disk to /var/lib/mazak-health/smart.json
 Documentation=file:/home/andy/mazak-vqc20-linuxcnc-retrofit/scripts/health/README.md
 
+# Push a notification when this fails. systemd's notion of failure is broader
+# than the script's: it also catches timeouts, kills, OOM, and never starting --
+# the cases a script cannot report because it is no longer running.
+OnFailure=mazak-notify-failure@%n.service
+
 [Service]
 Type=oneshot
 # Root: smartctl needs raw SG_IO access to the disks.

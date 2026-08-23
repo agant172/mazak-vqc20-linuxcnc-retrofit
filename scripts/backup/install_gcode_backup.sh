@@ -116,6 +116,32 @@ if [[ -n "${BACKUP_REMOTE:-andygant@andys-imac}" ]]; then
     fi
 fi
 
+# --- video project files off the USB Video Drive ----------------------------
+# ~15 MB of Premiere projects and auto-save history: every cut and sequence
+# Andy has made. Skipped, not failed, when the Mac or the drive is unavailable.
+VIDEO_REMOTE="${VIDEO_REMOTE:-andygant@andys-macbook-pro-16}"
+VIDEO_VOLUME="${VIDEO_VOLUME:-/Volumes/USB Video Drive}"
+if sudo -u "$MAZAK_USER" ssh -o BatchMode=yes -o ConnectTimeout=10 "$VIDEO_REMOTE" \
+       "test -d '$VIDEO_VOLUME'" 2>/dev/null; then
+    bash -n "$SCRIPT_DIR/video_projects_backup.sh"
+    install -m 0755 -o root -g root "$SCRIPT_DIR/video_projects_backup.sh" \
+        /usr/local/bin/mazak-video-projects-backup.sh
+    sed -e "s|/home/andy/mazak-vqc20-linuxcnc-retrofit|$REPO_ROOT|g" \
+        -e "s|^User=.*|User=$MAZAK_USER|" \
+        -e "s|^Group=.*|Group=$MAZAK_USER|" \
+        -e "s|^Environment=HOME=.*|Environment=HOME=$USER_HOME|" \
+        -e "s|^Environment=REMOTE=.*|Environment=REMOTE=$VIDEO_REMOTE|" \
+        "$SCRIPT_DIR/mazak-video-projects-backup.service" \
+        > "$UNIT_DIR/mazak-video-projects-backup.service"
+    cp "$SCRIPT_DIR/mazak-video-projects-backup.timer" "$UNIT_DIR/mazak-video-projects-backup.timer"
+    chmod 0644 "$UNIT_DIR"/mazak-video-projects-backup.{service,timer}
+    systemctl daemon-reload
+    systemctl enable --now mazak-video-projects-backup.timer
+    echo "  video project tier enabled -> $VIDEO_REMOTE:$VIDEO_VOLUME"
+else
+    echo "  video project tier SKIPPED: $VIDEO_VOLUME not reachable on $VIDEO_REMOTE" >&2
+fi
+
 systemctl daemon-reload
 systemctl enable --now mazak-gcode-backup.timer
 echo

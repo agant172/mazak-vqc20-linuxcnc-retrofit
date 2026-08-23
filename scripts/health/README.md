@@ -72,6 +72,51 @@ non-zero but the drive still self-assesses as PASSED — currently true of
 `/dev/sda`, which has 4 SATA CRC errors (a cable issue, see
 `docs/ssd_firmware_plan.md`).
 
+## Failure notifications
+
+A backup nobody is told about failing is a backup you find out about on the day
+you need it. Two mechanisms, because "failure" has two shapes.
+
+**A job ran and failed** — `OnFailure=mazak-notify-failure@%n.service` on every
+backup and health unit. Wired at the systemd level rather than into each
+script's exit paths on purpose: systemd's notion of failure is strictly broader.
+It also catches a timeout, a kill, an OOM, and a unit that never started — the
+cases a script cannot report, because it is no longer running.
+
+**A job stopped running at all** — `mazak-backup-watch.timer`, daily 09:00.
+Nothing fails, nothing logs, and the backup silently ages out. A masked unit, a
+disabled timer, a laptop asleep every night for a week all look identical to
+"everything is fine". For each unit it asks systemd two questions: did the last
+run succeed, and how long ago was it.
+
+| unit | stale after |
+|---|---|
+| `mazak-gcode-backup` | 6 h |
+| `mazak-smart-collect` | 6 h |
+| `mazak-gcode-backup-remote` | 72 h |
+| `mazak-photos-backup` | 72 h |
+| `mazak-video-projects-backup` | 72 h |
+
+Thresholds are generous deliberately: the daily jobs that reach another machine
+legitimately miss a night when a Mac is asleep. Three days means something is
+actually wrong rather than someone shut a lid. Notifications dedupe to one per
+unit per 24 h, so a Mac that stays asleep produces one message, not a nightly
+nag.
+
+Drilled 2026-08-23: a deliberately failing unit produced a phone notification
+within seconds, carrying the unit name, exit status and the last log lines.
+
+### What this caught immediately
+
+On the first real run the watcher flagged `mazak-video-projects-backup` as
+failing, and the reason was a genuine bug: the unit had
+`Environment=VOLUME=/Volumes/USB Video Drive` **unquoted**. systemd splits an
+unquoted `Environment=` on whitespace, so the job received
+`VOLUME=/Volumes/USB` and failed with "not mounted" every run while the drive
+was plugged in the whole time. It is the same trap already documented on
+`GIT_SSH_COMMAND` in `mazak-repo-pull.service`. **Quote any `Environment=` value
+containing a space.**
+
 ## Network path history (PingPlotter-style)
 
 `mazak-netpath-log.timer`, every 5 minutes, runs `mtr` against four targets and

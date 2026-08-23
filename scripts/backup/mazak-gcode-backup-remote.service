@@ -4,6 +4,11 @@ Documentation=file:/home/andy/mazak-vqc20-linuxcnc-retrofit/scripts/backup/READM
 Wants=network-online.target
 After=network-online.target tailscaled.service
 
+# Push a notification when this fails. systemd's notion of failure is broader
+# than the script's: it also catches timeouts, kills, OOM, and never starting --
+# the cases a script cannot report because it is no longer running.
+OnFailure=mazak-notify-failure@%n.service
+
 [Service]
 Type=oneshot
 User=andy

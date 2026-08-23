@@ -1,0 +1,11 @@
+[Unit]
+Description=Push a notification about the failure of %i
+# Never let a failing notifier recurse into itself.
+OnFailure=
+
+[Service]
+Type=oneshot
+User=root
+ExecStart=/usr/local/bin/mazak-notify-failure.sh %i
+TimeoutStartSec=60
+Nice=19

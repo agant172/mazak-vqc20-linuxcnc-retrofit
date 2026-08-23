@@ -1,0 +1,14 @@
+[Unit]
+Description=Daily snapshot of the video project files
+
+[Timer]
+# 04:40 — after the 04:10 photo mirror, so the two never overlap.
+OnCalendar=*-*-* 04:40:00
+# The MacBook is often asleep at 04:40; catch up on the next wake rather than
+# silently losing a day of edit history.
+Persistent=true
+RandomizedDelaySec=15m
+AccuracySec=5m
+
+[Install]
+WantedBy=timers.target

@@ -1,0 +1,15 @@
+[Unit]
+Description=Warn if a backup job has stopped running
+Documentation=file:/home/andy/mazak-vqc20-linuxcnc-retrofit/scripts/health/README.md
+
+[Service]
+Type=oneshot
+User=root
+Environment=MAZAK_HEALTH_DIR=/var/lib/mazak-health
+Environment=DEDUP_HOURS=24
+ExecStart=/usr/local/bin/mazak-backup-watch.py
+TimeoutStartSec=180
+Nice=19
+
+[Install]
+WantedBy=multi-user.target

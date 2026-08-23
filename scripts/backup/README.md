@@ -193,6 +193,60 @@ iMac enumerated 1143, the MacBook 938, and `CLAUDE.md` recorded 844 — four
 different numbers for one folder. The script logs `drive=` and `local=` every
 run and warns if the local copy falls more than 10 files short.
 
+## Tier 4 — video project files off the USB Video Drive
+
+The USB Video Drive holds ~603 GB, of which **~463 GB is irreplaceable footage
+with exactly one copy**. That is a second-drive problem, not a
+back-it-up-over-the-network problem, and a second drive is on order (2026-08-23).
+
+This job takes the ~15 MB worth far more than its size: the Premiere project
+files, the auto-save history, and the `Projects/` tree — every cut and sequence,
+work measured in evenings rather than gigabytes. Footage can at worst be
+re-shot; a lost `.prproj` means redoing the edit by hand.
+
+| | |
+|---|---|
+| Unit | `mazak-video-projects-backup.timer`, daily 04:40 |
+| Source | `andygant@andys-macbook-pro-16:/Volumes/USB Video Drive` |
+| Destination | `/mnt/media/video-projects/` |
+| First run | 2026-08-23 — 33 files, 15 MB |
+| Retention | 60 dated snapshots |
+
+`Shop & Property` (11 MB of roof video) rides along because it is small, real
+footage that would otherwise sit in the 463 GB single-copy pile. Deliberately
+skipped: `Videos/` is an empty macOS TV Library scaffold and `Captures/` holds
+one stray `desktop.ini`.
+
+**Three guards, because an empty snapshot is worse than none** — it would prune
+a good one to make room for itself:
+
+1. `/mnt/media` must be a real mount point.
+2. The **USB volume must be present on the Mac.** Unplugged or dock down means
+   the file list comes back empty; the job refuses rather than snapshotting
+   nothing.
+3. Fewer than `MIN_FILES` (20) files, or a tarball under 10 KB, fails the run.
+
+Every snapshot is SHA-256 verified **after** landing, and then `tar -tzf`-tested
+to prove the archive is readable rather than merely intact bytes.
+
+**File lists are NUL-delimited throughout** (`find -print0` / `tar --null -T -`).
+These paths contain spaces, ampersands and unicode; a newline-delimited list
+would corrupt them.
+
+### Restoring
+
+```bash
+ls -1t /mnt/media/video-projects/
+cd /mnt/media/video-projects && sha256sum -c video-projects-2026-08-23.tar.gz.sha256
+tar -xzf video-projects-2026-08-23.tar.gz -C /tmp/restore
+```
+
+Drilled 2026-08-23: a restored `.prproj` decompressed to valid Premiere XML with
+its sequences and clip names intact. (`.prproj` files are gzipped XML, so
+`gunzip -c` is a quick validity check.) Expect `tar: Ignoring unknown extended
+header keyword` warnings — macOS extended attributes GNU tar does not recognise,
+harmless.
+
 ## Off-machine: the shop media cloud upload
 
 Not run from this box, but recorded here because it shares the rclone
