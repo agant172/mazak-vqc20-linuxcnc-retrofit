@@ -1,0 +1,16 @@
+[Unit]
+Description=Snapshot SMART health for every disk to /var/lib/mazak-health/smart.json
+Documentation=file:/home/andy/mazak-vqc20-linuxcnc-retrofit/scripts/health/README.md
+
+[Service]
+Type=oneshot
+# Root: smartctl needs raw SG_IO access to the disks.
+User=root
+Environment=MAZAK_HEALTH_DIR=/var/lib/mazak-health
+ExecStart=/usr/local/bin/mazak-smart-collect.py
+TimeoutStartSec=180
+Nice=19
+IOSchedulingClass=idle
+
+[Install]
+WantedBy=multi-user.target

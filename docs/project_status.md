@@ -282,6 +282,19 @@ retirement:**
 - [ ] Measure smart-serial input/output latency and probing jitter end-to-end; fault-inject 7i44 and hm2_eth link loss and confirm both hardware watchdog safe states plus the software latch. Do not add DPLL or `SSERIAL_TIMER` settings for resolver/sserial without a primary source that documents those interfaces. See [`smart_serial_latency.md`](smart_serial_latency.md).
 - [ ] Confirm the Renishaw MP-3 probe SKIP1 lands on 7i84U-B TB3 IN15 (opto-isolated 24 V input). Do NOT wire the probe to bare P2 GPIO — that path is RETRACTED (see [`superseded_claims_2026-08-06.md`](superseded_claims_2026-08-06.md) row 15). All P2 pins remain unused/spare.
 
+### Control PC — host hardware, before commissioning
+
+The OptiPlex is now the only thing standing between a running program and a
+storage fault, so its own hardware gets qualified like any other part of the
+machine.
+
+- [ ] **Flash both SSDs to current firmware — 2026-08-23, owner decision: before commissioning.** Root disk (Crucial MX500) is on `M3CR010`, the 2017 launch firmware, 36 revisions behind `M3CR046`, whose release notes name "a hang condition occurring under corner-case workloads" — a storage hang on the disk running LinuxCNC presents as the control freezing mid-program, not as a disk problem. Backup disk (SanDisk X400 `SD8SN8U`) is on `X4120006` vs Dell's `X4152012`, which fixes "drive lost during cold boot" — a backup drive that intermittently fails to appear is a backup that silently stops. Full procedure, ordering, and the root-image safety net: [`ssd_firmware_plan.md`](ssd_firmware_plan.md). **Closure test:** `smartctl -i` reports `M3CR046` / `X4152012`, LinuxCNC starts, `mazak-gcode-backup.service` runs clean.
+- [ ] **Resolve how the SanDisk X400 gets flashed without Windows** — Dell package `hv8f3` is a Windows executable and Windows was removed from this box 2026-08-23. Either find a bootable/DUP form, or move the M.2 drive to a Windows machine to flash and return it. Blocks the item above. See [`ssd_firmware_plan.md`](ssd_firmware_plan.md) step 3.
+- [ ] **Reseat both ends of the `/dev/sda` SATA cable** while the case is open for the firmware work. `UDMA_CRC_Error_Count = 4` with zero reallocated sectors and zero uncorrectable errors — that is the SATA link dropping frames, i.e. a cable or connector, not the flash. **Closure test:** counter stops climbing; if it does not, replace the cable. Visible on the `netwatch` disk line.
+- [x] **Second copy of the G-code exists — DONE 2026-08-23.** The box's unused second SSD (was a never-used Windows install) is now a 232 GB ext4 volume at `/mnt/media`, and `mazak-gcode-backup.timer` mirrors `~/linuxcnc` to it hourly with a `mountpoint` guard, a deletion-history safety net, and `nofail` so a dead backup disk can never stop the machine booting. Recovery drill passed end to end. See [`../scripts/backup/README.md`](../scripts/backup/README.md).
+- [x] **Disk health is monitored and reaches a human — DONE 2026-08-23.** `smartmontools` installed, baseline captured (both drives PASSED, short self-tests clean), hourly SMART snapshot to `/var/lib/mazak-health/smart.json`, rendered per-drive on `netwatch`. Stock Debian smartd mailed local root on a box with no MTA — every warning it would ever produce went nowhere; replaced with a journal + flag-file + optional-push alert path. See [`../scripts/health/README.md`](../scripts/health/README.md).
+- [ ] **Configure the push channel** for SMART alerts — `/etc/mazak-health/notify.conf`, deliberately outside this public repo. Until then alerts reach the journal, the flag file, and `netwatch`, but nothing off the machine.
+
 ### Next — resolver and analog path, drives inhibited
 
 In this order. Pole count gates scaling, so it comes before any scale is entered.

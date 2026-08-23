@@ -1,0 +1,13 @@
+[Unit]
+Description=Snapshot disk SMART health hourly
+
+[Timer]
+# :25 — clear of mazak-repo-pull (:07/15) and mazak-gcode-backup (:40), so the
+# three never wake together on a box whose spare cycles belong to motion.
+OnCalendar=*:25
+OnBootSec=2min
+Persistent=true
+AccuracySec=1m
+
+[Install]
+WantedBy=timers.target
