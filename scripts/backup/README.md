@@ -11,6 +11,7 @@ disk.
 | Source | `/home/andy/linuxcnc` (~23 MB, ~1050 files) |
 | Destination | `/mnt/media/linuxcnc-backup/` on `/dev/sdb1` |
 | Schedule | hourly at `:40`, plus 5 min after boot |
+| Second tier | daily 03:15 to the iMac — see below |
 
 The G-code in `nc_files/` is the headline, but it is backed up together with
 `configs/` — the tool tables, `.var` files, and HAL/INI the machine actually
@@ -90,9 +91,70 @@ systemctl start mazak-gcode-backup.service            # run once on demand
 sudo systemctl disable --now mazak-gcode-backup.timer # turn it off
 ```
 
+## Tier 2 — daily verified snapshot to the iMac
+
+Added 2026-08-23, because tier 1 lives in the same chassis as the thing it
+protects. It survives a dead root disk; it does not survive theft, fire, or a
+power event that takes both drives.
+
+| | |
+|---|---|
+| Unit | `mazak-gcode-backup-remote.timer`, daily 03:15 (+ up to 10 min jitter) |
+| Destination | `andygant@andys-imac:Backups/mazak-linuxcnc/` |
+| Form | dated `linuxcnc-YYYY-MM-DD.tar.gz`, ~9 MB compressed |
+| Retention | newest 30 (`KEEP`) |
+
+**Why a tarball instead of rsync.** The iMac ships **openrsync** — it reports
+"rsync version 2.6.9 compatible" — not GNU rsync, and `--backup-dir` plus
+several other flags this project wants are unreliable there. At 23 MB a dated
+tarball is cheap, sidesteps the whole compatibility question, and buys something
+a mirror cannot: real point-in-time snapshots. A mirror of a mistake is still a
+mistake.
+
+**Why daily, not hourly.** The tailnet path measured **1.57 MB/s** on
+2026-08-23 (relayed). Fine for ~9 MB; not something to do 24 times a day. Tier 1
+is the fine-grained tier; this is the "the shop burned down" tier. It should get
+substantially faster once both machines share a LAN and Tailscale goes direct —
+see the subnet caveat below.
+
+**Every transfer is verified.** SHA-256 is computed on both ends and compared;
+a mismatch deletes the bad copy and fails loudly. An unverified backup is a
+rumour, and silent truncation is precisely the failure a backup must not have.
+
+`BatchMode=yes` throughout, so a missing key fails fast instead of hanging on a
+prompt no timer can answer. The install script *skips* this tier rather than
+failing if the hop does not work — the local backup must never be blocked by a
+network problem.
+
+### Restoring from it
+
+```bash
+ssh andygant@andys-imac 'ls -1t Backups/mazak-linuxcnc/'
+ssh andygant@andys-imac 'cat Backups/mazak-linuxcnc/linuxcnc-2026-08-23.tar.gz' \
+    > /tmp/restore.tar.gz
+tar -xzf /tmp/restore.tar.gz -C /tmp        # extracts a linuxcnc/ tree
+```
+
+Verified end to end on 2026-08-23: the snapshot was pulled back, extracted, and
+a config file compared byte-for-byte against the live one. 1179 files.
+
+### Caveats
+
+- **The iMac has 41 GB free (80% full).** 30 snapshots is ~280 MB, which is
+  fine, but this destination is not a candidate for bulk media.
+- **The iMac must be awake.** A sleeping Mac means the run fails and retries
+  tomorrow; `Persistent=true` also catches up after a boot. Repeated failures
+  show in `journalctl -u mazak-gcode-backup-remote`.
+- ⚠️ **Do not switch this to the iMac's LAN address** (`192.168.1.19`) until the
+  Mesa control subnet is renumbered — this box routes all of `192.168.1.0/24`
+  out the Mesa NIC, into a dead end. See `docs/ssd_firmware_plan.md` and
+  `scripts/health/switch_mesa_subnet.sh`. The hostname goes over Tailscale and
+  is unaffected.
+
 ## What this is NOT
 
-A single copy on a second drive **in the same chassis**. It survives a dead root
-disk; it does not survive theft, fire, or a power event that takes both drives.
-The media SSD is also a reconditioned SanDisk SD8SN8U with no SMART baseline
-captured yet. Treat this as the first tier, not the only one.
+Two copies, one of them offsite, both derived from the same source by the same
+automation. That is a real improvement over one copy, and it is still not an
+archive: if a corruption goes unnoticed for 30 days it reaches every tier. The
+`history/` directory in tier 1 and the dated snapshots in tier 2 are what buy
+you time to notice.

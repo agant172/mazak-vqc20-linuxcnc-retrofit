@@ -89,6 +89,33 @@ chmod 0644 "$UNIT_DIR/mazak-gcode-backup.service" "$UNIT_DIR/mazak-gcode-backup.
 install -d -o "$MAZAK_USER" -g "$MAZAK_USER" -m 0755 "$BACKUP_DEST"
 
 # 5. Enable + start.
+# --- optional second tier: verified daily snapshot to the iMac --------------
+# Skipped rather than failed when the hop is not usable: the local backup is
+# the one that must never be blocked by a network problem.
+if [[ -n "${BACKUP_REMOTE:-andygant@andys-imac}" ]]; then
+    REMOTE="${BACKUP_REMOTE:-andygant@andys-imac}"
+    if sudo -u "$MAZAK_USER" ssh -o BatchMode=yes -o ConnectTimeout=10 "$REMOTE" true 2>/dev/null; then
+        bash -n "$SCRIPT_DIR/gcode_backup_remote.sh"
+        install -m 0755 -o root -g root "$SCRIPT_DIR/gcode_backup_remote.sh" \
+            /usr/local/bin/mazak-gcode-backup-remote.sh
+        sed -e "s|/home/andy/mazak-vqc20-linuxcnc-retrofit|$REPO_ROOT|g" \
+            -e "s|^User=.*|User=$MAZAK_USER|" \
+            -e "s|^Group=.*|Group=$MAZAK_USER|" \
+            -e "s|^Environment=HOME=.*|Environment=HOME=$USER_HOME|" \
+            -e "s|^Environment=SRC=.*|Environment=SRC=$BACKUP_SRC|" \
+            -e "s|^Environment=REMOTE=.*|Environment=REMOTE=$REMOTE|" \
+            "$SCRIPT_DIR/mazak-gcode-backup-remote.service" \
+            > "$UNIT_DIR/mazak-gcode-backup-remote.service"
+        cp "$SCRIPT_DIR/mazak-gcode-backup-remote.timer" "$UNIT_DIR/mazak-gcode-backup-remote.timer"
+        chmod 0644 "$UNIT_DIR"/mazak-gcode-backup-remote.{service,timer}
+        systemctl daemon-reload
+        systemctl enable --now mazak-gcode-backup-remote.timer
+        echo "  offsite tier enabled -> $REMOTE"
+    else
+        echo "  offsite tier SKIPPED: cannot ssh to $REMOTE with key auth" >&2
+    fi
+fi
+
 systemctl daemon-reload
 systemctl enable --now mazak-gcode-backup.timer
 echo
