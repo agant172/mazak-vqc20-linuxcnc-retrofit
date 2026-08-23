@@ -6,7 +6,7 @@ window.MAZAK_DATA = {
   "machine": "Mazak VQC-20/40",
   "serial": "060231",
   "architecture": "LinuxCNC + Mesa 7i80HDT (Ethernet FPGA host) + 7i44 on P3 (HostMot2 sserial port 0 channels 0/1 to 7i84U-A/B) + 7i49 on P1 (resolver + analog outs); P2 unused/spare (confirmed 2026-08-13 by readhmid)",
-  "generated": "2026-08-22 04:04 UTC",
+  "generated": "2026-08-23 16:56 UTC",
   "source_repo": "mazak-vqc20-linuxcnc-retrofit",
   "authority_file": "mesa/current_pin_authority.csv",
   "epson_ferrule_file": "wiring/labels/bbia1_mesa_end_ferrules_epson.csv",
@@ -16,7 +16,7 @@ window.MAZAK_DATA = {
    "field_7i84u.hal",
    "atc_orient.hal"
   ],
-  "board_ip": "192.168.1.121",
+  "board_ip": "10.10.10.121",
   "rules": [
    "mesa/current_pin_authority.csv is the wiring authority.",
    "7i49 AOUT axis order is X=AOUT0, Z=AOUT1, Y=AOUT2.",
@@ -33,7 +33,7 @@ window.MAZAK_DATA = {
    "name": "Mesa 7i80HDT",
    "role": "Ethernet FPGA host (hm2_eth)",
    "detail": "Primary control board. P1 = 7i49 resolvers + analog outs, P3 = 7i44 sserial breakout; P2 is unused/spare (confirmed 2026-08-13 by readhmid); the probe is on 7i84U-B IN15.",
-   "address": "board_ip 192.168.1.121 (host NIC enp0s31f6 at 192.168.1.1/24)"
+   "address": "board_ip 10.10.10.121 (host NIC enp0s31f6 at 10.10.10.1/24)"
   },
   "7i44": {
    "name": "Mesa 7i44",
@@ -3075,7 +3075,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/mazak_vqc_20_40.hal",
-     "line": 318,
+     "line": 323,
      "text": "net spindle-fault        => logic.spindle-fault-not.in-00",
      "commented": false,
      "producers": [],
@@ -3153,7 +3153,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/mazak_vqc_20_40.hal",
-     "lines": "318",
+     "lines": "323",
      "note": "net spindle-fault        => logic.spindle-fault-not.in-00"
     },
     {
@@ -4678,7 +4678,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/mazak_vqc_20_40.hal",
-     "line": 252,
+     "line": 257,
      "text": "net estop-monitor     => estop-latch.0.ok-in",
      "commented": false,
      "producers": [],
@@ -4709,7 +4709,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/mazak_vqc_20_40.hal",
-     "lines": "252",
+     "lines": "257",
      "note": "net estop-monitor     => estop-latch.0.ok-in"
     },
     {
@@ -4823,7 +4823,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/mazak_vqc_20_40.hal",
-     "line": 325,
+     "line": 330,
      "text": "net servo-ready            => logic.spindle-permit-and.in-05",
      "commented": false,
      "producers": [],
@@ -4879,7 +4879,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/mazak_vqc_20_40.hal",
-     "lines": "325",
+     "lines": "330",
      "note": "net servo-ready            => logic.spindle-permit-and.in-05"
     },
     {
@@ -10370,7 +10370,7 @@ window.MAZAK_DATA = {
     "motion_7i80hdt.hal:116 — pwmgen instance to axis mapping unconfirmed",
     "field_7i84u.hal:3-6 — \"Every hm2_7i80.*.7i84.* name below is an UNVERIFIED PLACEHOLDER\"",
     "mazak_vqc_20_40.hal:4-7 — board name, IP, firmware, resolver scales, drive polarity, normal states and safety wiring all unverified",
-    "mazak_vqc_20_40.hal:25-26 — board_ip and config string still TODO despite 192.168.1.121 being set on line 31"
+    "mazak_vqc_20_40.hal:48 — TODO says board_ip and config string are unset, but line 55 already sets board_ip 10.10.10.121"
    ],
    "action": "At bring-up: run readhmid and halcmd show pin hm2 against the real firmware, then regenerate the HAL pin names. Treat every gpio.NNN in this dashboard as a label, not a landing point. (Per-signal holds cleared 2026-08-11; signals list emptied then.)",
    "signals": [],

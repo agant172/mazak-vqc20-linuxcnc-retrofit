@@ -503,7 +503,7 @@ def volume0(rows: list[dict[str, str]], source_ref: str) -> list[Flowable]:
     ))
     changes = [
         ["Area", "Rev B consolidated position"],
-        ["Host", "Mesa 7i80HDT over hm2_eth at 192.168.1.121"],
+        ["Host", "Mesa 7i80HDT over hm2_eth at 10.10.10.121"],
         ["P1", "7i44; physical channels 0/1 to 7i84U-A/B"],
         ["P2", "Plain 7i49; RES0/1/2 and AOUT0/1/2/3"],
         ["P3", "Empty; no bare 3.3 V GPIO field wiring"],
@@ -743,7 +743,7 @@ def volume3(rows: list[dict[str, str]], source_ref: str) -> list[Flowable]:
     ], [38 * mm, 60 * mm, 62 * mm], font_size=7.1))
     add_section(story, "2. Host and Ethernet setup", items=[
         "Use a dedicated wired NIC directly connected to the 7i80HDT; no wireless or USB Ethernet.",
-        "Board address is planned as 192.168.1.121; host control NIC is planned as 192.168.1.1/24 with no gateway. Verify the actual interface and MAC.",
+        "Board address is 10.10.10.121 (static, set in EEPROM 2026-08-23); host control NIC is 10.10.10.1/24 with no gateway. Verify the actual interface and MAC.",
         "Record NIC chipset, driver, firmware, negotiated 100 Mbit/s full duplex, IRQ, offload/coalescing state, and LinuxCNC startup diagnostics.",
         "Treat hardware-irq-coalesce-rx-usecs 0 as an A/B experiment; remove it if harmful on the installed NIC, especially affected Marvell hardware.",
         "Run at least 15 minutes idle latency, 4 hours worst-load latency, 2 hours with the real config and drives disabled, then cable-yank fault injection.",
