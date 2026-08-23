@@ -5,6 +5,11 @@ Writes STATE_DIR/smart.json, which netwatch reads so drive health shows up on
 the shop dashboard alongside everything else. Read-only: it runs smartctl and
 writes one file. It never starts a self-test and never touches a disk.
 
+Runs on both Linux (ATA attribute table) and macOS (Apple Silicon internal
+NVMe reports a named SMART/Health log instead of numbered attributes, so it
+gets its own parser branch in parse_disk()) -- installed on all three shop
+machines, not just the LinuxCNC box the filename suggests.
+
 Why a snapshot file at all, when smartd is already running? smartd only speaks
 up when something goes WRONG, and its stock Debian config mails local root on a
 box with no MTA — so silence is indistinguishable from "nobody is looking."
@@ -75,6 +80,16 @@ def run(args: list[str]) -> tuple[int, str]:
 
 
 def list_disks() -> list[str]:
+    if sys.platform == "darwin":
+        # smartctl --scan reports macOS NVMe as a long IOService path, which
+        # is both ugly on the dashboard and just as addressable via the short
+        # /dev/diskN smartctl already accepts. diskutil gives us that mapping.
+        # Internal only: USB bridges almost never pass SMART commands through
+        # (confirmed against a Samsung T9 here -- "Operation not supported by
+        # device"), so scanning external disks just produces noise and spins
+        # up drives for nothing.
+        rc, out = run(["diskutil", "list", "physical"])
+        return re.findall(r"^(/dev/disk\d+)\s+\(internal, physical\)", out, re.M)
     rc, out = run(["smartctl", "--scan"])
     disks = []
     for line in out.splitlines():
@@ -84,15 +99,28 @@ def list_disks() -> list[str]:
     return disks
 
 
+def _num(text: str, pat: str, cast=int):
+    """Grab the first captured group matching pat, stripping thousands commas."""
+    m = re.search(pat, text)
+    if not m:
+        return None
+    try:
+        return cast(m.group(1).replace(",", ""))
+    except ValueError:
+        return None
+
+
 def parse_disk(dev: str) -> dict:
     d: dict = {"device": dev}
 
     rc, info = run(["smartctl", "-i", "-H", dev])
+    is_nvme = "NVMe Version:" in info
+    model_pat = r"Model Number:\s+(.+)" if is_nvme else r"Device Model:\s+(.+)"
     for key, pat in (
-        ("model", r"Device Model:\s+(.+)"),
+        ("model", model_pat),
         ("serial", r"Serial Number:\s+(.+)"),
         ("firmware", r"Firmware Version:\s+(.+)"),
-        ("capacity", r"User Capacity:.*\[(.+?)\]"),
+        ("capacity", r"(?:User Capacity|Total NVM Capacity):.*\[(.+?)\]"),
     ):
         m = re.search(pat, info)
         if m:
@@ -101,28 +129,57 @@ def parse_disk(dev: str) -> dict:
     m = re.search(r"SMART overall-health self-assessment test result:\s+(\S+)", info)
     d["health"] = m.group(1) if m else "UNKNOWN"
 
-    # Attributes
+    # Attributes. NVMe has no numbered attribute table -- it's a fixed set of
+    # named fields in the SMART/Health log, so it gets its own parser instead
+    # of trying to force it through the ATA attribute-ID regex below.
     rc, attrs = run(["smartctl", "-A", dev])
     crit, meta = {}, {}
-    for line in attrs.splitlines():
-        m = re.match(r"\s*(\d+)\s+(\S+)\s+0x\S+\s+(\d+)\s+(\d+)\s+(\S+)\s+\S+\s+\S+\s+(\S+)\s+(.*)$", line)
-        if not m:
-            continue
-        aid, _name, value, _worst, _thresh, when_failed, raw = m.groups()
-        aid = int(aid)
-        raw_first = raw.strip().split()[0] if raw.strip() else "0"
-        try:
-            raw_val = int(raw_first)
-        except ValueError:
-            continue
-        if aid in CRITICAL:
-            crit[CRITICAL[aid]] = raw_val
-        if aid in INFO:
-            meta[INFO[aid]] = raw_val
-        if aid in NORMALIZED:
-            meta[NORMALIZED[aid]] = int(value)
-        if when_failed not in ("-", ""):
-            d.setdefault("failing_attributes", []).append(_name)
+    if is_nvme:
+        crit_warning = _num(attrs, r"Critical Warning:\s+0x(\w+)", lambda s: int(s, 16))
+        media_errors = _num(attrs, r"Media and Data Integrity Errors:\s+([\d,]+)")
+        avail_spare = _num(attrs, r"Available Spare:\s+(\d+)%")
+        avail_spare_thresh = _num(attrs, r"Available Spare Threshold:\s+(\d+)%")
+        if crit_warning:
+            crit["nvme_critical_warning"] = crit_warning
+        if media_errors:
+            crit["media_integrity_errors"] = media_errors
+        if avail_spare is not None and avail_spare_thresh is not None \
+                and avail_spare <= avail_spare_thresh:
+            crit["available_spare_low"] = avail_spare
+
+        pct_used = _num(attrs, r"Percentage Used:\s+(\d+)%")
+        if pct_used is not None:
+            meta["percent_lifetime_used"] = pct_used
+        temp_c = _num(attrs, r"Temperature:\s+(\d+)\s*Celsius")
+        if temp_c is not None:
+            meta["temperature_c"] = temp_c
+        for label, key in (("Power On Hours", "power_on_hours"),
+                           ("Power Cycles", "power_cycles"),
+                           ("Unsafe Shutdowns", "unsafe_shutdowns"),
+                           ("Error Information Log Entries", "error_log_entries")):
+            v = _num(attrs, rf"{label}:\s+([\d,]+)")
+            if v is not None:
+                meta[key] = v
+    else:
+        for line in attrs.splitlines():
+            m = re.match(r"\s*(\d+)\s+(\S+)\s+0x\S+\s+(\d+)\s+(\d+)\s+(\S+)\s+\S+\s+\S+\s+(\S+)\s+(.*)$", line)
+            if not m:
+                continue
+            aid, _name, value, _worst, _thresh, when_failed, raw = m.groups()
+            aid = int(aid)
+            raw_first = raw.strip().split()[0] if raw.strip() else "0"
+            try:
+                raw_val = int(raw_first)
+            except ValueError:
+                continue
+            if aid in CRITICAL:
+                crit[CRITICAL[aid]] = raw_val
+            if aid in INFO:
+                meta[INFO[aid]] = raw_val
+            if aid in NORMALIZED:
+                meta[NORMALIZED[aid]] = int(value)
+            if when_failed not in ("-", ""):
+                d.setdefault("failing_attributes", []).append(_name)
 
     d["critical"] = crit
     d["info"] = meta
@@ -134,6 +191,8 @@ def parse_disk(dev: str) -> dict:
         d["last_self_test"] = {"type": m.group(1), "status": m.group(2)}
     elif "No self-tests have been logged" in st:
         d["last_self_test"] = {"type": None, "status": "never run"}
+    elif "not supported" in st.lower():
+        d["last_self_test"] = {"type": None, "status": "not supported"}
 
     # Verdict: PASSED plus every critical counter at zero, or say why not.
     problems = [k for k, v in crit.items() if v]
