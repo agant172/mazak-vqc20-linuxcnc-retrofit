@@ -193,6 +193,22 @@ iMac enumerated 1143, the MacBook 938, and `CLAUDE.md` recorded 844 — four
 different numbers for one folder. The script logs `drive=` and `local=` every
 run and warns if the local copy falls more than 10 files short.
 
+## Off-machine: the shop media cloud upload
+
+Not run from this box, but recorded here because it shares the rclone
+credentials and the same failure mode.
+
+The USB Video Drive's ~546 GiB of irreplaceable footage uploads to Google Drive
+from **the MacBook**, where the drive is attached to the Thunderbolt dock —
+`~/bin/shop-cloud-backup`, nightly at 23:30 via launchd. It uses `rclone copy`,
+never `sync`, so a local deletion cannot erase the cloud copy, and the remote is
+scoped **`drive.file`**: verified 2026-08-23 that `rclone lsd gdrive-backup:`
+sees only its own `ShopBackup` folder and cannot see the Mazak photos at all.
+
+⚠️ **Both rclone remotes use rclone's shared Google client ID, which rclone warns
+is being retired during 2026.** When it lapses, the Mazak photo backup here
+fails too. Tracked in `docs/project_status.md`.
+
 ## What this is NOT
 
 Two copies, one of them offsite, both derived from the same source by the same
