@@ -488,7 +488,8 @@ writes `PROPOSED`, not `ELECTRICALLY_VERIFIED`
 | Control NIC | `192.168.1.1/24`; interface name `enp0s31f6` **unverified** — confirm with `ip -o link show` | `linuxcnc/README.md`, `docs/hm2_eth_nic_validation.md` |
 | Mesa 7i80HDT | `192.168.1.121` (static) | same |
 | SSH to the OptiPlex | `ssh linuxcnc` → `andy@linuxcnc.tail2a912f.ts.net`, over Tailscale, **key auth only** | `~/.ssh/config` on each Mac |
-| Keys authorized on the OptiPlex | **iMac** `SHA256:tjYw8rTkarNYK8r/uxvQskP78Y4ADFx+8U5fBWKsQag` (`andygant@imac`, added 2026-08-16). **MacBook Pro: unknown — check.** | `andy@linuxcnc:~/.ssh/authorized_keys` |
+| Keys authorized on the OptiPlex (inbound: Mac → OptiPlex) | **iMac** `SHA256:tjYw8rTkarNYK8r/uxvQskP78Y4ADFx+8U5fBWKsQag` (`andygant@imac`, added 2026-08-16). **MacBook Pro: unknown — check.** | `andy@linuxcnc:~/.ssh/authorized_keys` |
+| OptiPlex key on the Macs (outbound: OptiPlex → Mac) | `andy@LinuxCNC` is authorized on **both** — MacBook 2026-08-21, **iMac 2026-08-22**. The Mac accounts are `andygant@`, not `andy@`. | each Mac's `~/.ssh/authorized_keys` |
 
 Work in the git working copy, not in a scratch directory — anything produced outside it is
 lost, and the repo is the memory. LinuxCNC runtime output (`mesa_readhmid.txt`,
@@ -507,6 +508,14 @@ non-interactive `PATH` gotcha that makes `which claude` wrongly report "not inst
 `ssh-to-optiplex` skill (`.claude/skills/ssh-to-optiplex/SKILL.md`). **Record any newly installed
 key in the machines table above in the same commit** — that table is the only place it is written
 down.
+
+The two directions are independent files on independent machines, and being able to SSH *from*
+a Mac says nothing about whether the OptiPlex can SSH *to* it. Anything that collects from the
+Macs — `netwatch`, for one — needs the outbound direction. Install it from the Mac, which needs
+no password because the inbound direction already works:
+`ssh linuxcnc 'cat ~/.ssh/id_ed25519.pub' >> ~/.ssh/authorized_keys`. Running `ssh-copy-id` from
+the OptiPlex instead hits `Too many authentication failures`, because this box offers two keys
+before it reaches the password and macOS sshd cuts the session off first.
 
 **Allowed over SSH, unattended** — read-only inspection that cannot move anything or energize
 an output:
