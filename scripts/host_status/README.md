@@ -119,7 +119,7 @@ to keep a clone of the personal Obsidian vault current on this host:
 | File | Value |
 |---|---|
 | Units | `/etc/systemd/system/obsidian-vault-pull.{service,timer}` (not in this repo — they are not retrofit artifacts) |
-| Working copy | `/home/andy/Projects/obsidian-vault` (same path as both Macs) |
+| Working copy | `/home/andy/Documents/obisidian` — **the registered Obsidian vault path on this host**; the transposed letters are deliberate and load-bearing (renaming it breaks Obsidian's vault registration and the `obsidian-launch` wrapper). The Macs use `~/Projects/obsidian-vault`; this host does not. |
 | Remote | `git@github.com:agant172/obsidian-vault.git`, private, **Git LFS** |
 | Schedule | `*:12/15` → :12 :27 :42 :57, offset 5 min off this repo's `:07/15` grid |
 | Timeout | 600 s, not 120 s — the vault carries ~380 MB of LFS objects, two of them ~123 MB |
@@ -136,9 +136,23 @@ Two extra `Environment=` lines that this repo's unit does not need:
 - The same explicit-key `GIT_SSH_COMMAND` — `git-lfs` honours it too, which it needs for
   `git-lfs-authenticate` over SSH.
 
-**Divergence risk to know about:** the vault has the Obsidian Git plugin's auto-commit
-enabled on at least one other machine (`omarchy`), so commits arrive there without a
-human pushing. This host only ever fast-forwards and skips on a dirty tree, so it cannot
-lose that work — but do not start hand-editing the vault on the OptiPlex, or the timer
-will silently stop advancing it. The prohibition on auto-commit **in this repo**
-(`CLAUDE.md`, Obsidian section) is unchanged and unaffected.
+**One clone, not two.** This host already had the vault; a second clone at
+`~/Projects/obsidian-vault` was created and removed again on 2026-08-22 before it could
+diverge. Do not add one — the two-clone split has already cost this project an afternoon
+of resolver measurements once.
+
+**How it interacts with obsidian-git.** The Obsidian Git plugin auto-commits every 10
+minutes and auto-pulls on boot — on this host *and* on `omarchy` — but only while
+Obsidian is actually running. This timer is what covers the rest of the time, which on a
+control PC that mostly runs headless is most of it. Two consequences:
+
+- While Obsidian is open with an unpushed auto-commit, the branch is *ahead* of origin,
+  so `repo_pull.sh` reports `SKIP fetched; main has diverged from origin/main`. That
+  message overstates it — being ahead is not divergence, and the plugin's next push
+  clears it. Nothing is lost either way: the script only ever fast-forwards.
+- Do not hand-edit the vault on the OptiPlex outside Obsidian. A dirty tree makes the
+  timer skip silently, and staleness is exactly what it exists to prevent.
+
+The prohibition on auto-commit **in this repo** (`CLAUDE.md`, Obsidian section) is
+unchanged and unaffected — it applies to the retrofit working copy, not the personal
+vault.
