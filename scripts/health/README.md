@@ -117,6 +117,47 @@ was plugged in the whole time. It is the same trap already documented on
 `GIT_SSH_COMMAND` in `mazak-repo-pull.service`. **Quote any `Environment=` value
 containing a space.**
 
+## Repo guard — did the work actually survive?
+
+`mazak-repo-guard.timer`, hourly at `:50`. Checks the opposite of what
+`git status` checks: **a clean tree says nothing about whether your commits
+survived**, and neither does a `git push` that exits 0.
+
+1. **Ahead of origin** — unpushed work sitting on this machine only.
+2. **Diverged** — history was rewritten underneath us.
+3. **A live `index.lock` or in-progress rebase** — a second session is operating
+   in this clone right now, which is the root cause below.
+4. **Unreviewed dangling commits** from the last 7 days.
+
+### Why it exists
+
+On 2026-08-23 commit `e1e23c3` was made on `main` here, and later was not an
+ancestor of `main` — while `9017ef4`, committed *after* it, still was. GitHub
+had no record of the SHA at all and no force-push had occurred: it never left
+the machine. The reflog showed a second session working in the **same clone**,
+doing checkouts and a rebase between 11:03 and 11:41 while this one committed at
+11:32. Git's `HEAD`, index and branch refs are single-threaded state.
+
+It was invisible because the installed systemd units kept running from
+`/usr/local/bin`, so the backup job worked perfectly while its source had
+disappeared from the repo.
+
+### The acknowledged-orphans list
+
+Most dangling commits are benign — amends and rebases leave the pre-rewrite
+commit behind, stashes dangle by design, Obsidian autosaves churn. Reporting all
+of them trains you to ignore the alert, which is worse than not checking. So
+each is reviewed once and recorded in `orphans_acknowledged.txt` with a reason;
+only unlisted ones are reported.
+
+The 2026-08-23 review compared `git patch-id --stable` of each orphan against
+every commit in `HEAD` — an identical patch-id means the change is already in
+`main` under a different SHA. Of 13 orphans, 10 were routine, one
+(`ba5e4aa`, the 24 V supply work) was deliberately abandoned by owner decision,
+one (`e1e23c3`) was a genuine loss and was recovered, and one (`c5fe3e4`) is
+still awaiting an owner decision and is deliberately left unlisted so the guard
+keeps raising it.
+
 ## Network path history (PingPlotter-style)
 
 `mazak-netpath-log.timer`, every 5 minutes, runs `mtr` against four targets and

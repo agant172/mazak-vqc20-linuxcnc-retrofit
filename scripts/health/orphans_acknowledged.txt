@@ -1,0 +1,43 @@
+# Dangling commits reviewed and confirmed safe to ignore.
+# Format: <short-sha>  <reason>
+#
+# repo_guard.sh reports any dangling commit from the last 7 days that is NOT
+# listed here. Review each before adding it: a genuinely lost commit can only
+# stand out if the routine leftovers are cleared away first.
+#
+# Method used for the 2026-08-23 review: compare `git patch-id --stable` of each
+# orphan against every commit in HEAD. An identical patch-id means the change is
+# already in main under a different SHA (rebase/amend), which is normal.
+#
+# ---- reviewed 2026-08-23 ----
+
+a5e25ff  earlier iteration of the resolvers.md fold; final version eb123c9 is in main via PR #80
+7ee4ac1  identical patch-id to a commit already in main (PR #80)
+1787db9  earlier iteration; equivalent 3052d0a is in main
+6ca9a3e  earlier iteration; equivalent 6001ca6 is in main
+8a66b05  orphaned git stash ("WIP on docs/bbia1-plane-consolidation")
+9ad30e1  identical patch-id to a commit already in main
+f473b47  identical patch-id to a commit already in main
+5977fb6  identical patch-id to a commit already in main
+f827a2f  Obsidian autosave commit from the MacBook
+e90ab91  auto-sync artifact
+
+e1e23c3  GENUINELY LOST, RECOVERED 2026-08-23. Orphaned by a second session
+         operating concurrently in this same clone while this one committed to
+         main. Cherry-picked back in d81174a. Kept as the worked example of
+         exactly what this guard exists to catch.
+
+ba5e4aa  DELIBERATELY ABANDONED, not lost. "Correct retrofit 24 V supply:
+         DR-240-24 -> Mean Well RQ-125D", 2026-08-16. The whole 24 V retrofit
+         bus was removed from this repo by owner decision (PRs #69/#70); it is
+         designed outside the repo now. Do not resurrect.
+
+# ---- NEEDS AN OWNER DECISION ----
+# c5fe3e4  "Stop maintaining this repo as an Obsidian vault", 2026-08-23,
+#          9 files / 160 deletions. Made today on branch
+#          chore/remove-obsidian-vault, which no longer exists; no open PR
+#          carries it and nothing equivalent is in main. Either it was
+#          abandoned on purpose or it was lost the same way e1e23c3 was.
+#          Left OFF the acknowledged list on purpose so the guard keeps
+#          raising it until someone decides. Recover with:
+#              git cherry-pick -n c5fe3e4

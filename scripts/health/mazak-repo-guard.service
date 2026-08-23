@@ -1,0 +1,21 @@
+[Unit]
+Description=Check that local repo work has actually reached origin
+Documentation=file:/home/andy/mazak-vqc20-linuxcnc-retrofit/scripts/health/README.md
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=oneshot
+# andy, not root: this fetches, and the ssh key lives in andy's home.
+User=andy
+Group=andy
+Environment=HOME=/home/andy
+Environment=REPO_DIR=/home/andy/mazak-vqc20-linuxcnc-retrofit
+Environment="GIT_SSH_COMMAND=ssh -i /home/andy/.ssh/id_ed25519 -o IdentitiesOnly=yes -o BatchMode=yes -o StrictHostKeyChecking=accept-new"
+ExecStart=/usr/local/bin/mazak-repo-guard.sh
+OnFailure=mazak-notify-failure@%n.service
+TimeoutStartSec=180
+Nice=19
+
+[Install]
+WantedBy=multi-user.target

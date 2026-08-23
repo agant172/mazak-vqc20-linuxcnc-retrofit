@@ -553,6 +553,25 @@ conventions went missing until 2026-08-15. Anything that should be true on every
 *this* file, in the repo. Keep per-machine user memory empty, or limited to genuinely local
 facts (an SSH alias, a printer).
 
+**⚠️ One session per working copy at a time.** On 2026-08-23 a commit made on `main`
+in the OptiPlex's clone was orphaned before it ever reached GitHub — no force-push, no
+merge strategy, nothing on the remote to see. A second session was operating in the
+*same clone* concurrently, doing checkouts and a rebase while this one committed to
+`main`; git's `HEAD`, index and branch refs are single-threaded state, and the reflog
+shows one interleaved history. The loss was invisible because the installed systemd
+units kept running from `/usr/local/bin`, so the job worked while its source had
+vanished. It surfaced only during an unrelated bug hunt.
+
+This is the same family of foot-gun as the two-clones-on-one-machine trap below. If a
+session needs a branch while another is working here, use **`git worktree add`** so the
+branch gets its own directory and never touches the shared `HEAD` — never `git checkout
+-b` in a clone someone else is using.
+
+`mazak-repo-guard.timer` now checks hourly that local commits actually reached origin
+and that no unreviewed orphan is sitting in the object store, and pushes a notification
+if either is wrong (`scripts/health/README.md`). **A clean `git status` says nothing
+about whether your commits survived** — and neither does a `git push` that exits 0.
+
 **Start every session with `git pull`.** With three machines and an automated status push, a
 stale working copy is now the most likely way to act on facts that are no longer true.
 
