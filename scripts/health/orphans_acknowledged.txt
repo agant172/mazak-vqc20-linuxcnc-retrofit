@@ -32,12 +32,8 @@ ba5e4aa  DELIBERATELY ABANDONED, not lost. "Correct retrofit 24 V supply:
          bus was removed from this repo by owner decision (PRs #69/#70); it is
          designed outside the repo now. Do not resurrect.
 
-# ---- NEEDS AN OWNER DECISION ----
-# c5fe3e4  "Stop maintaining this repo as an Obsidian vault", 2026-08-23,
-#          9 files / 160 deletions. Made today on branch
-#          chore/remove-obsidian-vault, which no longer exists; no open PR
-#          carries it and nothing equivalent is in main. Either it was
-#          abandoned on purpose or it was lost the same way e1e23c3 was.
-#          Left OFF the acknowledged list on purpose so the guard keeps
-#          raising it until someone decides. Recover with:
-#              git cherry-pick -n c5fe3e4
+c5fe3e4  CORRECT AND WANTED — confirmed by owner 2026-08-23, applied to main.
+         "Stop maintaining this repo as an Obsidian vault". The owner uses
+         Obsidian's own cloud sync; the git plugin's auto-commit was pushing
+         editor state into main and breaking things. Orphaned the same way
+         e1e23c3 was, then recovered on the owner's confirmation.
