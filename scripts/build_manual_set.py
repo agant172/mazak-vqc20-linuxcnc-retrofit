@@ -417,9 +417,9 @@ def architecture_diagram() -> Drawing:
     arrow(d, 420, 137, 445, 102)
     arrow(d, 420, 128, 445, 57)
     d.add(String(132, 207, "100BaseT", fontName="Helvetica", fontSize=7, fillColor=BLUE))
-    d.add(String(280, 215, "P1 ribbon", fontName="Helvetica", fontSize=7, fillColor=TEXT))
-    d.add(String(278, 152, "P2 ribbon", fontName="Helvetica", fontSize=7, fillColor=TEXT))
-    d.add(String(15, 20, "Only the 7i49 carries motion feedback and analog commands. Field I/O is isolated through two 7i84Us. P3 has no field wiring.", fontName="Helvetica-Bold", fontSize=7.2, fillColor=DARK_RED))
+    d.add(String(280, 215, "P3 ribbon", fontName="Helvetica", fontSize=7, fillColor=TEXT))
+    d.add(String(278, 152, "P1 ribbon", fontName="Helvetica", fontSize=7, fillColor=TEXT))
+    d.add(String(15, 20, "Only the 7i49 carries motion feedback and analog commands. Field I/O is isolated through two 7i84Us. P2 has no field wiring.", fontName="Helvetica-Bold", fontSize=7.2, fillColor=DARK_RED))
     return d
 
 
@@ -821,7 +821,7 @@ def volume3(rows: list[dict[str, str]], source_ref: str) -> list[Flowable]:
         ["Item", "Disposition"],
         ["Mesa 7i97T", "Retracted; not part of this analog-velocity/resolver stack"],
         ["Mesa 7i80HD / 7i80HD-16", "Different FPGA generation; never use its bitfile on a 7i80HDT"],
-        ["Mesa 7i37TA on P3", "Retracted; duplicates field I/O and is not in the selected plan"],
+        ["Mesa 7i37TA on the spare connector", "Retracted; duplicates field I/O and is not in the selected plan"],
         ["Probe on gpio.042 (bare GPIO, P2)", "Retracted; unsafe 24 V on bare 3.3 V GPIO. Probe is 7i84U-B IN15"],
         ["Analog orient reference on AOUT4", "Retracted; ORCM1 is discrete and AOUT4 is spare"],
         ["Quadrature axis encoders", "Not selected; X/Y/Z feedback is resolver through 7i49"],
@@ -885,7 +885,7 @@ def volume4(rows: list[dict[str, str]], source_ref: str) -> list[Flowable]:
     add_section(story, "13. 7i84U-B outputs OUT0-OUT15")
     story.append(authority_table([r for r in rows if r["mesa_card"] == "7i84U-B" and r["direction"] == "OUT"]))
 
-    add_section(story, "14. Unassigned, deferred, and P3 rows")
+    add_section(story, "14. Unassigned, deferred, and P2 rows")
     story.append(authority_table([r for r in rows if r["mesa_card"] in {"none", "7i80HDT"}]))
     add_section(story, "15. Conflict and commissioning blocker register")
     blocker_rows = [r for r in rows if r["authority_status"] in {"HOLD_CONFLICT", "UNBOUND"}]
