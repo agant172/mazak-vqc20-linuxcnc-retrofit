@@ -432,9 +432,9 @@ change it here in the same commit.
   with no credentials; only **pushing** needs write access. Repo paths cited anywhere resolve
   for any reader, signed in or not.
   **Nothing secret may ever be committed.** On a public repo a secret is world-readable the
-  instant it lands, and deleting it later does not remove it from history. That makes the
-  `.gitignore` entry on `.obsidian/plugins/*/data.json` (plugin settings can hold an API key)
-  load-bearing rather than housekeeping. The media rule is unchanged — raw photos are never
+  instant it lands, and deleting it later does not remove it from history. That is why `.obsidian/` is ignored
+  outright (plugin settings can hold an API key) rather than curated — this repo is no
+  longer maintained as an Obsidian vault. The media rule is unchanged — raw photos are never
   committed — and note that the Google Drive folder links in this file and in
   `docs/README_photo_sorting.md` are now readable by anyone who reads the repo: if those
   folders are shared "anyone with the link", they are effectively public too.
@@ -555,22 +555,6 @@ facts (an SSH alias, a printer).
 
 **Start every session with `git pull`.** With three machines and an automated status push, a
 stale working copy is now the most likely way to act on facts that are no longer true.
-
-### Reading the repo in Obsidian
-
-The repo doubles as an Obsidian vault. `.obsidian/` is tracked on purpose so appearance and
-hotkeys follow you between machines, but `.gitignore` holds back workspace state, the vendored
-plugin code, and `plugins/*/data.json` — **plugin settings can hold credentials, and a committed
-secret is in the history permanently.** **Do not install the Obsidian *Git* plugin's auto-commit
-here:** it would push editor state straight to `main`, which desk sessions are not allowed to do.
-**Two clones on one machine (working copy + vault clone) is a foot-gun that has already cost us
-a day of resolver measurements** — both machines are confirmed consolidated (2026-08-20), single
-clone each at `~/Projects/obsidian-vault`. The MacBook Pro previously also had a
-`~/copilot-worktrees/obsidian-vault/...` git worktree (already-merged, unpushed branch
-`agant172-compare-obsidian-folders`); it was removed 2026-08-20 once confirmed merged.
-
-Full details — the tracked/ignored table and the safe consolidation procedure — are in the
-`obsidian-vault` skill (`.claude/skills/obsidian-vault/SKILL.md`).
 
 ### Photos and large media
 

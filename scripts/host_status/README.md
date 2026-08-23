@@ -153,6 +153,7 @@ control PC that mostly runs headless is most of it. Two consequences:
 - Do not hand-edit the vault on the OptiPlex outside Obsidian. A dirty tree makes the
   timer skip silently, and staleness is exactly what it exists to prevent.
 
-The prohibition on auto-commit **in this repo** (`CLAUDE.md`, Obsidian section) is
+The prohibition on auto-commit **in this repo** (the retrofit repo is no longer an
+Obsidian vault as of 2026-08-23) is
 unchanged and unaffected — it applies to the retrofit working copy, not the personal
 vault.
