@@ -579,7 +579,7 @@ Full details — the tracked/ignored table and the safe consolidation procedure 
   consolidated in
   [Google Drive](https://drive.google.com/drive/folders/1YYpWPyWiRuoY2z5GACSDw6H3zzSQoVdf?usp=drive_link)
   `My Drive/Mazak` under `00_Inbox`…`07_Reference` (plus `Videos`,
-  `Live Photo Motion`, `Manuals_SN060231`), sorted; `00_Inbox` is empty. **844 files.**
+  `Live Photo Motion`, `Manuals_SN060231`), sorted; `00_Inbox` is empty. **1142 objects / 7.41 GiB** as verified against Drive by rclone on 2026-08-23 (the earlier figure of 844 files was low). **Backed up to `/mnt/media/mazak-photos` daily** — Drive is no longer the sole copy; see `scripts/backup/README.md`.
   Sources folded in: the OneDrive store, the Apple Photos "Mazak" album, and both
   Google Photos albums. Layout, the `__dup2` collision convention and the UTC date
   caveat: `docs/photo_drive_layout_2026-08-21.md`.

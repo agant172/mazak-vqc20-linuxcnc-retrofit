@@ -1,0 +1,13 @@
+[Unit]
+Description=Daily mirror of the Mazak photo archive from Google Drive
+
+[Timer]
+# 04:10 daily — after the 03:15 offsite G-code snapshot has finished, and clear
+# of the smartd long self-test at 03:00 Saturdays.
+OnCalendar=*-*-* 04:10:00
+Persistent=true
+RandomizedDelaySec=15m
+AccuracySec=5m
+
+[Install]
+WantedBy=timers.target
