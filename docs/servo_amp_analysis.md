@@ -6,7 +6,7 @@
 Machine: **VQC-20/40 SN 060231**, Mazatrol **M-2** control (drawing sets labeled M-1 reflect the original 10/1983 mechanical drawings — the NC was later upgraded to M-2).
 Incoming power: **460 VAC 3-phase → onboard variable-voltage transformer (VVT) → 230 VAC 3-phase bus** feeding a shared rectifier/condenser unit that supplies all axis amps and the FR-SX spindle drive.
 
-**Revision 3 changes (2026-08-09):** Updated the Mesa control architecture to match the project's Rev B plan. The **7i97T is retired**; the current stack is **7i80HDT** (Ethernet FPGA host) → **P1: 7i44** sserial breakout → two **7i84U** field-I/O cards; **P2: 7i49** provides both X/Y/Z resolver feedback **and** the ±10 V analog velocity commands on **AOUT0–AOUT3** (there is no separate 7i97T DAC). All hardware findings below (motors, DK-427 isolation amp, TRA drives, Tamagawa TS2014N resolvers, FR-SX spindle) are unchanged — only the control-side board names and the analog-command source were corrected.
+**Revision 3 changes (2026-08-09):** Updated the Mesa control architecture to match the project's Rev B plan. The **7i97T is retired**; the current stack is **7i80HDT** (Ethernet FPGA host) → **P3: 7i44** sserial breakout → two **7i84U** field-I/O cards; **P1: 7i49** provides both X/Y/Z resolver feedback **and** the ±10 V analog velocity commands on **AOUT0–AOUT3** (there is no separate 7i97T DAC). All hardware findings below (motors, DK-427 isolation amp, TRA drives, Tamagawa TS2014N resolvers, FR-SX spindle) are unchanged — only the control-side board names and the analog-command source were corrected.
 
 **Revision 2 changes:** Prior revision listed the drives and resolver as "unknown, likely Yaskawa Servopack + Tamagawa TS2620N". After on-machine photo inspection (July 2026), all key part numbers are now positively confirmed. This revision replaces speculation with observed part numbers and updates the retrofit plan accordingly.
 
@@ -141,7 +141,7 @@ Both rendered PNGs in `Manuals_SN060231/`:
 
 ## 3. What this means for the LinuxCNC retrofit
 
-**Plan of record on GitHub `agant172/mazak-vqc20-linuxcnc-retrofit` (Rev B):** LinuxCNC PC → **Mesa 7i80HDT** (Ethernet FPGA host, `hm2_eth`) → **P1: 7i44** sserial breakout → two **7i84U** (smart-serial field I/O); **P2: 7i49** provides X/Y/Z resolver-to-digital (5 kHz excitation baseline) **and** the ±10 V analog velocity commands (AOUT0–AOUT3); **P3: unused/spare**. Command each existing DC-servo amp with a ±10 V velocity reference **from 7i49 AOUT0/1/2**; read each Tamagawa resolver on the 7i49 RES0/1/2; keep the FR-SX spindle and command it with ±10 V (7i49 AOUT3) + FWD/REV (7i84U) + a discrete orient bit. This is unchanged by the new part-number info — **the plan is still valid, it just has more concrete drive/resolver information behind it**.
+**Plan of record on GitHub `agant172/mazak-vqc20-linuxcnc-retrofit` (Rev B):** LinuxCNC PC → **Mesa 7i80HDT** (Ethernet FPGA host, `hm2_eth`) → **P3: 7i44** sserial breakout → two **7i84U** (smart-serial field I/O); **P1: 7i49** provides X/Y/Z resolver-to-digital (5 kHz excitation baseline) **and** the ±10 V analog velocity commands (AOUT0–AOUT3); **P2: unused/spare**. Command each existing DC-servo amp with a ±10 V velocity reference **from 7i49 AOUT0/1/2**; read each Tamagawa resolver on the 7i49 RES0/1/2; keep the FR-SX spindle and command it with ±10 V (7i49 AOUT3) + FWD/REV (7i84U) + a discrete orient bit. This is unchanged by the new part-number info — **the plan is still valid, it just has more concrete drive/resolver information behind it**.
 
 ### 3.1 Resolver signal issue — 7i49 excitation frequency
 
@@ -180,7 +180,7 @@ M-2 NC ──[±10 V velocity cmd]──► DK-427 (isolation) ──► TRAxxA 
 
 **Post-retrofit signal chain (LinuxCNC → axis motor):**
 ```
-LinuxCNC PC ──eth──► 7i80HDT ──P2──► 7i49 AOUTn ──[±10 V]──► DK-427 (isolation) ──► TRAxxA ──► DC motor
+LinuxCNC PC ──eth──► 7i80HDT ──P1──► 7i49 AOUTn ──[±10 V]──► DK-427 (isolation) ──► TRAxxA ──► DC motor
                                                                                      │
                                                        ┌────[tach 7 V/krpm]──────────┘  (velocity loop stays inside the TRAxxA)
                                                        │

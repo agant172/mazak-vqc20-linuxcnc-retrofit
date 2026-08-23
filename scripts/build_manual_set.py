@@ -404,7 +404,7 @@ def architecture_diagram() -> Drawing:
     box(d, 155, 165, 120, 68, "Mesa 7i80HDT\nP1 / P2 / P3", GREEN)
     box(d, 325, 190, 95, 45, "7i44 on P3\nRS-422", GREEN)
     box(d, 325, 115, 95, 45, "7i49 on P1\nresolver + analog", AMBER)
-    box(d, 325, 40, 95, 42, "P3 EMPTY\n3.3 V bare GPIO", RED)
+    box(d, 325, 40, 95, 42, "P2 EMPTY\n3.3 V bare GPIO", RED)
     box(d, 445, 195, 50, 35, "7i84U-A\nch 0", GREEN, 7)
     box(d, 445, 150, 50, 35, "7i84U-B\nch 1", GREEN, 7)
     box(d, 445, 85, 50, 35, "TRA drives\nX / Z / Y", BLUE, 7)
@@ -504,9 +504,9 @@ def volume0(rows: list[dict[str, str]], source_ref: str) -> list[Flowable]:
     changes = [
         ["Area", "Rev B consolidated position"],
         ["Host", "Mesa 7i80HDT over hm2_eth at 10.10.10.121"],
-        ["P1", "7i44; physical channels 0/1 to 7i84U-A/B"],
-        ["P2", "Plain 7i49; RES0/1/2 and AOUT0/1/2/3"],
-        ["P3", "Empty; no bare 3.3 V GPIO field wiring"],
+        ["P1", "Plain 7i49; RES0/1/2 and AOUT0/1/2/3"],
+        ["P2", "Empty; no bare 3.3 V GPIO field wiring"],
+        ["P3", "7i44; physical channels 0/1 to 7i84U-A/B"],
         ["Field I/O", "Two 7i84Us; 43 DI / 25 DO allocated, 21 DI / 7 DO reserve"],
         ["7i84U TB1", "1/2 VFIELDB, 3/4 VFIELDA, 5 VIN, 6/7/8 common"],
         ["Firmware", "Efinix resolver bitfile name/binary/provenance remain unverified"],
@@ -613,7 +613,7 @@ def volume1(rows: list[dict[str, str]], source_ref: str) -> list[Flowable]:
         ["Wrong resolver winding/phasing", "Wrong position, discontinuity, oscillation", "Ohmmeter pairs, exact suffix datasheet, scope traces, independent scale proof"],
         ["Dual resolver excitation", "Damage or invalid feedback", "Continuity/isolation proof; 7i49 sole source"],
         ["Wrong 7i84U TB1 landing", "Supply short or card damage", "Pins 1/2 VFIELDB; 3/4 VFIELDA; 5 VIN; 6/7/8 common"],
-        ["Bare P3 field wiring", "7i80HDT FPGA damage", "P3 empty; probe on opto-isolated 7i84U-B IN15"],
+        ["Bare P2 field wiring", "7i80HDT FPGA damage", "P2 empty; probe on opto-isolated 7i84U-B IN15"],
         ["100 VAC on 7i84U output", "Card damage, shock", "Interposing relays and load-specific suppression"],
         ["Smart-serial/Ethernet loss", "Delayed or missing control", "Remote watchdog, HostMot2 watchdog, latched inhibit, measured fault tests"],
         ["ATC state error", "Tool drop, collision, pinch injury", "D13 hazard analysis, dry-cycle fixture, mutual exclusion, no automatic retry"],
@@ -727,7 +727,7 @@ def volume2(rows: list[dict[str, str]], source_ref: str) -> list[Flowable]:
 def volume3(rows: list[dict[str, str]], source_ref: str) -> list[Flowable]:
     story = cover(3, VOLUME_INFO[3][1], VOLUME_INFO[3][2], source_ref)
     add_section(story, "1. Selected architecture", [
-        "The selected stack is a LinuxCNC PC connected by dedicated Ethernet to a Mesa 7i80HDT. P1 carries a 7i44 smart-serial interface to two 7i84U field-I/O cards. P2 carries a plain 7i49 for three resolver channels and four active analog outputs. P3 is intentionally empty.",
+        "The selected stack is a LinuxCNC PC connected by dedicated Ethernet to a Mesa 7i80HDT. P3 carries a 7i44 smart-serial interface to two 7i84U field-I/O cards. P1 carries a plain 7i49 for three resolver channels and four active analog outputs. P2 is intentionally empty.",
     ])
     story.append(architecture_diagram())
     story.append(caption("Figure 3-1. Rev B control architecture. No 7i97T or 7i37TA is part of the selected stack."))
@@ -739,7 +739,7 @@ def volume3(rows: list[dict[str, str]], source_ref: str) -> list[Flowable]:
         ["Mesa 7i49 on P1", "6 resolver + 6 bipolar analog channels", "Plain board baseline; installed revision and signal levels unverified"],
         ["7i84U-A ch 0", "32 DI / 16 DO machine field I/O", "Fully allocated; physical states unverified"],
         ["7i84U-B ch 1", "Limits, homes, probe, enables, relay loads", "11 DI / 9 DO used; physical states unverified"],
-        ["P3", "Future daughter-card position", "Empty; bare 3.3 V GPIO must not see 24 V"],
+        ["P2", "Future daughter-card position", "Empty; bare 3.3 V GPIO must not see 24 V"],
     ], [38 * mm, 60 * mm, 62 * mm], font_size=7.1))
     add_section(story, "2. Host and Ethernet setup", items=[
         "Use a dedicated wired NIC directly connected to the 7i80HDT; no wireless or USB Ethernet.",
@@ -759,7 +759,7 @@ def volume3(rows: list[dict[str, str]], source_ref: str) -> list[Flowable]:
         ["Analog PWM generators", "num_pwmgens=4", "pwmgen.00-.03 and measured AOUT mapping"],
         ["Encoders", "num_encoders=0", "No spindle receiver/pins assigned"],
         ["Smart serial", "sserial_port_0=00xxxxxx", "One port, channels 0/1, both remote serials"],
-        ["P3", "IOPort only / unused", "No field conductors; pin listing retained for future use"],
+        ["P2", "IOPort only / unused", "No field conductors; pin listing retained for future use"],
     ], [50 * mm, 50 * mm, 60 * mm], font_size=7.2))
     add_section(story, "4. Resolver and analog motion path")
     story.append(drive_diagram())
@@ -822,7 +822,7 @@ def volume3(rows: list[dict[str, str]], source_ref: str) -> list[Flowable]:
         ["Mesa 7i97T", "Retracted; not part of this analog-velocity/resolver stack"],
         ["Mesa 7i80HD / 7i80HD-16", "Different FPGA generation; never use its bitfile on a 7i80HDT"],
         ["Mesa 7i37TA on P3", "Retracted; duplicates field I/O and is not in the selected plan"],
-        ["Probe on P3 gpio.042", "Retracted; unsafe 24 V on bare 3.3 V GPIO. Probe is 7i84U-B IN15"],
+        ["Probe on gpio.042 (bare GPIO, P2)", "Retracted; unsafe 24 V on bare 3.3 V GPIO. Probe is 7i84U-B IN15"],
         ["Analog orient reference on AOUT4", "Retracted; ORCM1 is discrete and AOUT4 is spare"],
         ["Quadrature axis encoders", "Not selected; X/Y/Z feedback is resolver through 7i49"],
     ], [55 * mm, 105 * mm], font_size=7.3))
@@ -1069,7 +1069,7 @@ def volume6(rows: list[dict[str, str]], source_ref: str) -> list[Flowable]:
         ("ORCM1", "Discrete spindle orient command, OEM wire Y093"),
         ("ORA1", "Spindle orient-arrival indication, OEM wire X003"),
         ("P/N bus", "Shared DC bus from retained rectifier/capacitor stack"),
-        ("P3", "Unused 7i80HDT 50-pin connector; bare 3.3 V GPIO, no field wiring"),
+        ("P2", "Unused 7i80HDT 50-pin connector; bare 3.3 V GPIO, no field wiring"),
         ("PROPOSED", "Paper design only; no physical verification"),
         ("RESDRV", "7i49 differential resolver excitation pair"),
         ("RESSIN/RESCOS", "7i49 differential resolver return pairs"),
@@ -1090,8 +1090,8 @@ def volume6(rows: list[dict[str, str]], source_ref: str) -> list[Flowable]:
         ["Retracted / unsafe claim", "Current disposition"],
         ["7i97T is the primary controller", "Retracted; 7i80HDT host with 7i49/7i44 daughters"],
         ["7i80HD-16 is interchangeable", "Contradicted; never flash HD/HD-16 images on HDT"],
-        ["7i37TA is on P3", "Retracted; P3 is empty"],
-        ["Probe uses P3 gpio.042", "Retracted; 7i84U-B TB3 IN15"],
+        ["7i37TA is on the spare connector", "Retracted; no daughter card fitted, P2 is empty"],
+        ["Probe uses gpio.042 on bare GPIO", "Retracted; 7i84U-B TB3 IN15"],
         ["Axis feedback is quadrature encoder", "Contradicted; resolver through 7i49"],
         ["AOUT4 commands orient angle", "Contradicted; ORCM1 is discrete and AOUT4 spare"],
         ["W2 can correct X/Y/Z amplitude", "Contradicted; W2 affects channels 3/4/5 only"],
@@ -1222,7 +1222,7 @@ def write_readme(output: Path, pdfs: Sequence[Path], rows: list[dict[str, str]],
         "- Replaces the retracted 7i97T/one-7i84U Rev A architecture with 7i80HDT + 7i44 + 7i49 + two 7i84Us.",
         "- Generates Volume 4 directly from `mesa/current_pin_authority.csv`.",
         "- Corrects 7i84U TB1: pins 1/2 VFIELDB positive, pins 3/4 VFIELDA positive, pin 5 VIN, pins 6/7/8 common.",
-        "- Keeps P3 empty and routes the probe to 7i84U-B TB3 IN15.",
+        "- Keeps P2 empty and routes the probe to 7i84U-B TB3 IN15.",
         "- Treats FR-SX orient as a discrete ORCM1 command; AOUT4 remains spare.",
         "- Consolidates D1-D16 hold points, resolver/servo commissioning, shared-bus/Z-brake risks, network qualification, maintenance, and superseded-claim quarantine.",
         "",

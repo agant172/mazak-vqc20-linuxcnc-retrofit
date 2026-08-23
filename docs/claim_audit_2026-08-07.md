@@ -206,7 +206,7 @@ with the actual correction applied.
   electrical format, and receiver are not identified; the active
   HAL therefore requests `num_encoders=0` and the authority leaves
   the spindle-feedback path unassigned.
-- **Correction:** Keep the current target's P3 connector empty and
+- **Correction:** Keep the current target's P2 connector empty and
   request `num_encoders=0`. Identify the spindle encoder part and
   electrical format, then select a compatible receiver/daughter
   interface and IDROM-proven connector pins before allocating it.

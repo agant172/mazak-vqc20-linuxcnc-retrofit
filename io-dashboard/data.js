@@ -6,7 +6,7 @@ window.MAZAK_DATA = {
   "machine": "Mazak VQC-20/40",
   "serial": "060231",
   "architecture": "LinuxCNC + Mesa 7i80HDT (Ethernet FPGA host) + 7i44 on P3 (HostMot2 sserial port 0 channels 0/1 to 7i84U-A/B) + 7i49 on P1 (resolver + analog outs); P2 unused/spare (confirmed 2026-08-13 by readhmid)",
-  "generated": "2026-08-23 16:56 UTC",
+  "generated": "2026-08-23 17:03 UTC",
   "source_repo": "mazak-vqc20-linuxcnc-retrofit",
   "authority_file": "mesa/current_pin_authority.csv",
   "epson_ferrule_file": "wiring/labels/bbia1_mesa_end_ferrules_epson.csv",
@@ -85,7 +85,7 @@ window.MAZAK_DATA = {
    "label": "Ready — factory link",
    "tone": "verified",
    "order": 0,
-   "blurb": "Final factory-built Mesa link with two distinct plug-in segments: a Mesa 50-pin IDC cable from 7i80HDT P1 to 7i44, then CAT5 smart-serial from 7i44 to 7i84U. Inspect identity, keying, seating, strain relief, and visible condition; do not continuity-audit individual conductors. Verify by clean smart-serial enumeration at LinuxCNC startup.",
+   "blurb": "Final factory-built Mesa link with two distinct plug-in segments: a Mesa 50-pin IDC cable from 7i80HDT P3 to 7i44, then CAT5 smart-serial from 7i44 to 7i84U. Inspect identity, keying, seating, strain relief, and visible condition; do not continuity-audit individual conductors. Verify by clean smart-serial enumeration at LinuxCNC startup.",
    "safe_to_energize": "Factory plug-in link; functional acceptance is clean smart-serial enumeration."
   },
   "FACTORY_INTERFACE": {
@@ -636,7 +636,7 @@ window.MAZAK_DATA = {
    "bbia_class": "exception",
    "designations": [],
    "primary_source": "motion_7i80hdt.hal",
-   "cleanup_notes": "Current target leaves P3 empty and requests num_encoders=0. Identify encoder model/electrical format and select a compatible receiver/daughter interface plus IDROM-proven pins before allocation. | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/spindle_run_ladder_transcription.md] | [2026-08-12: STILL UNBOUND. The spindle MOTOR built-in PLG was identified from nameplate photos (Tamagawa TS1526N55 optical, 512 counts/turn, DC +/-15V, 9-pin AMP-350720-1) but it is the FR-SX drive's own detector, not this row - do not allocate it to Mesa and do not parallel-tap it. Whether the schematics' machine-side SPINDLE ENCODER (MS3108B 20-29P, dwg 4143075301 p090) is a separate device remains open. See docs/spindle_motor_plg_encoder.md] | [2026-08-12 DECIDED (owner): UNBOUND is now SETTLED, not pending. LinuxCNC does not read spindle position - orient is FR-SX internal (ORCM1/ORA1), speed supervision is discrete (SZS IN5 / speed-reach IN13), and tapping uses a floating holder so needs only FWD/REV + dwell. No rigid tapping or G33 in scope. Do not open this row again without a scoped project: an encoder on the SPINDLE side of the 2-speed gearbox, a receiver (P3 is bare 3.3V GPIO), and possibly a new bitfile] | [IDENTIFIED 2026-08-15 (AG, nameplate photo): Tamagawa TS1526N55, 512 c/t, DC +/-15 V. Identification only -- num_encoders=0 stays the settled design decision (2026-08-12); no Mesa input exists for a +/-15 V-supplied device and none is being scoped. See docs/feedback_nameplate_survey_2026-08-15.md]",
+   "cleanup_notes": "Current target leaves P2 empty and requests num_encoders=0. Identify encoder model/electrical format and select a compatible receiver/daughter interface plus IDROM-proven pins before allocation. | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/spindle_run_ladder_transcription.md] | [2026-08-12: STILL UNBOUND. The spindle MOTOR built-in PLG was identified from nameplate photos (Tamagawa TS1526N55 optical, 512 counts/turn, DC +/-15V, 9-pin AMP-350720-1) but it is the FR-SX drive's own detector, not this row - do not allocate it to Mesa and do not parallel-tap it. Whether the schematics' machine-side SPINDLE ENCODER (MS3108B 20-29P, dwg 4143075301 p090) is a separate device remains open. See docs/spindle_motor_plg_encoder.md] | [2026-08-12 DECIDED (owner): UNBOUND is now SETTLED, not pending. LinuxCNC does not read spindle position - orient is FR-SX internal (ORCM1/ORA1), speed supervision is discrete (SZS IN5 / speed-reach IN13), and tapping uses a floating holder so needs only FWD/REV + dwell. No rigid tapping or G33 in scope. Do not open this row again without a scoped project: an encoder on the SPINDLE side of the 2-speed gearbox, a receiver (P2 is bare 3.3V GPIO), and possibly a new bitfile] | [IDENTIFIED 2026-08-15 (AG, nameplate photo): Tamagawa TS1526N55, 512 c/t, DC +/-15 V. Identification only -- num_encoders=0 stays the settled design decision (2026-08-12); no Mesa input exists for a +/-15 V-supplied device and none is being scoped. See docs/feedback_nameplate_survey_2026-08-15.md]",
    "location": "Spindle head — machine-side A/B/Z encoder if fitted",
    "location_note": "Unassigned: part, electrical format, and receiver/interface are not confirmed. The confirmed rmsvss6_8 firmware has no Encoder module at all.",
    "expected": {
@@ -8148,7 +8148,7 @@ window.MAZAK_DATA = {
    "bbia_class": "spare",
    "designations": [],
    "primary_source": "field_7i84u.hal",
-   "cleanup_notes": "Moved from bare P3 gpio.042 to opto-isolated 7i84U-B input-15. MP-3 is believed NC so HAL consumes input-15-not; verify physical polarity fail-open response and measured probing latency before use. | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/probe_mms_ladder_transcription.md] | [RESERVED 2026-08-21 (owner decision AG): probe is out of scope; hal_net set to none. HAL nets commented out in field_7i84u.hal; motion.probe-input left undriven reads FALSE so G38.x errors out rather than misfiring. TB3 IN15 is now spare. Re-enable by uncommenting both nets and restoring PROPOSED]",
+   "cleanup_notes": "Moved from bare P2 gpio.042 to opto-isolated 7i84U-B input-15. MP-3 is believed NC so HAL consumes input-15-not; verify physical polarity fail-open response and measured probing latency before use. | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/probe_mms_ladder_transcription.md] | [RESERVED 2026-08-21 (owner decision AG): probe is out of scope; hal_net set to none. HAL nets commented out in field_7i84u.hal; motion.probe-input left undriven reads FALSE so G38.x errors out rather than misfiring. TB3 IN15 is now spare. Re-enable by uncommenting both nets and restoring PROPOSED]",
    "location": "Unknown — trace in cabinet",
    "location_note": "",
    "expected": {
@@ -10207,8 +10207,8 @@ window.MAZAK_DATA = {
    "authority_line": 124
   },
   {
-   "id": "P3_GPIO_SPARE",
-   "name": "P3 Gpio Spare",
+   "id": "P2_GPIO_SPARE",
+   "name": "P2 Gpio Spare",
    "board": "7i80HDT",
    "connector": "P2 GPIO (bare, no daughter card)",
    "channel": "TBD_FROM_IDROM",
@@ -10218,14 +10218,14 @@ window.MAZAK_DATA = {
    "subsystem": "Spare",
    "machine_subsystem": "Spare",
    "status": "SPARE",
-   "field_point": "Spare direct FPGA GPIO on P3 (all pins)",
+   "field_point": "Spare direct FPGA GPIO on P2 (all pins)",
    "dest_connector": "",
    "dest_pin": "",
    "factory_wire": "",
    "bbia_class": "spare",
    "designations": [],
    "primary_source": "mesa_firmware_checklist.md",
-   "cleanup_notes": "P3 is unused/spare in this configuration. Actual GPIO indices depend on the verified bitfile/IDROM. Do NOT wire 24V field signals to bare P3; use isolated field I/O.",
+   "cleanup_notes": "P2 is unused/spare in this configuration. Actual GPIO indices depend on the verified bitfile/IDROM. Do NOT wire 24V field signals to bare P2; use isolated field I/O.",
    "location": "Unknown — trace in cabinet",
    "location_note": "",
    "expected": {
