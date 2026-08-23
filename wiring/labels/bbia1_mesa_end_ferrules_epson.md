@@ -83,7 +83,7 @@ verified. A separate new 24 V conductor runs from 7i84U-B TB3 physical pin 20
 ## Maintaining the batch
 
 The source crosswalk is
-[`bbia1_retrofit_destination_crosswalk.csv`](bbia1_retrofit_destination_crosswalk.csv).
+[`bbia1_retrofit_destination_crosswalk.csv`](../bbia1_retrofit_destination_crosswalk.csv).
 Add a row only when the old connector location and intended authority signal are
 supported by repo evidence. The generator derives the physical pin and refuses
 missing, spare, non-7i84U, or duplicate source assignments.
