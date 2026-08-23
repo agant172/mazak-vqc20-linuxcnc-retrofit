@@ -1,8 +1,10 @@
 # OptiPlex host scripts
 
 Systemd timers that run on the LinuxCNC control PC (Dell OptiPlex 7050, Debian 13,
-PREEMPT-RT). One timer lives here today: the **working-copy pull timer**, which
-fast-forwards this repo's checkout on the host from `origin`.
+PREEMPT-RT). Two timers live here today, both driven by the same script: the
+**working-copy pull timer**, which fast-forwards this repo's checkout on the host
+from `origin`, and a second unit that does the same for the personal Obsidian vault
+(see [Second consumer](#second-consumer-the-obsidian-vault) below).
 
 The directory is named `host_status` for the status reporter that used to live here.
 That reporter was **removed from the OptiPlex on 2026-08-17** (owner decision); its
@@ -106,3 +108,37 @@ SKIP  fetched; branch=docs/7i49hv-correction has no upstream
 ```bash
 sudo systemctl disable --now mazak-repo-pull.timer
 ```
+
+
+## Second consumer: the Obsidian vault
+
+Installed 2026-08-22. `repo_pull.sh` takes its target from `REPO_DIR`, so a second
+pair of units reuses the **same installed copy** at `/usr/local/bin/mazak-repo-pull.sh`
+to keep a clone of the personal Obsidian vault current on this host:
+
+| File | Value |
+|---|---|
+| Units | `/etc/systemd/system/obsidian-vault-pull.{service,timer}` (not in this repo — they are not retrofit artifacts) |
+| Working copy | `/home/andy/Projects/obsidian-vault` (same path as both Macs) |
+| Remote | `git@github.com:agant172/obsidian-vault.git`, private, **Git LFS** |
+| Schedule | `*:12/15` → :12 :27 :42 :57, offset 5 min off this repo's `:07/15` grid |
+| Timeout | 600 s, not 120 s — the vault carries ~380 MB of LFS objects, two of them ~123 MB |
+
+Why it is written down here: editing `repo_pull.sh` or re-running `install_repo_pull.sh`
+now affects **two** services, not one. The installer refreshes the shared copy, which is
+what both `ExecStart=` lines point at.
+
+Two extra `Environment=` lines that this repo's unit does not need:
+
+- `PATH=/home/andy/.local/bin:…` — `git-lfs` is a userspace install on this host. The
+  global `filter.lfs.*` config names it by absolute path so checkout works regardless,
+  but `git-lfs` shells out to `git`, so the PATH is set anyway.
+- The same explicit-key `GIT_SSH_COMMAND` — `git-lfs` honours it too, which it needs for
+  `git-lfs-authenticate` over SSH.
+
+**Divergence risk to know about:** the vault has the Obsidian Git plugin's auto-commit
+enabled on at least one other machine (`omarchy`), so commits arrive there without a
+human pushing. This host only ever fast-forwards and skips on a dirty tree, so it cannot
+lose that work — but do not start hand-editing the vault on the OptiPlex, or the timer
+will silently stop advancing it. The prohibition on auto-commit **in this repo**
+(`CLAUDE.md`, Obsidian section) is unchanged and unaffected.
