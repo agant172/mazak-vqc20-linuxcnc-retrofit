@@ -316,15 +316,61 @@ def dump_schema(library: Path) -> None:
                 print(f"    b.{fk} = a.Z_PK  ->  {n} matched rows")
 
 
+def probe_rows(library: Path, limit: int = 10) -> None:
+    """Print the raw values read_assets() sees, for the earliest assets.
+
+    Counts alone cannot explain a wrong filename -- a column can be populated
+    across the table yet still arrive NULL for the specific rows in question.
+    This runs the same query and shows what each field actually contains, so the
+    fallback that fired is visible rather than inferred.
+    """
+    db = library / "database" / "Photos.sqlite"
+    originals = _index_files(library, ORIGINAL_DIRS)
+    derivatives = _index_files(library, DERIVATIVE_DIRS)
+    print(f"indexed: {len(originals)} original UUIDs, {len(derivatives)} derivative UUIDs")
+
+    with _open_readonly(db) as conn:
+        cols = _columns(conn, "ZASSET")
+        aux = _columns(conn, "ZADDITIONALASSETATTRIBUTES")
+        has = lambda t, c: c in (aux if t == "b" else cols)  # noqa: E731
+        sql = (
+            "SELECT a.ZUUID, a.ZDATECREATED, a.ZFILENAME, "
+            + ("b.ZORIGINALFILENAME, " if has("b", "ZORIGINALFILENAME") else "NULL, ")
+            + ("b.ZTIMEZONEOFFSET, " if has("b", "ZTIMEZONEOFFSET") else "NULL, ")
+            + ("b.ZINFERREDTIMEZONEOFFSET " if has("b", "ZINFERREDTIMEZONEOFFSET") else "NULL ")
+            + "FROM ZASSET a LEFT JOIN ZADDITIONALASSETATTRIBUTES b ON b.ZASSET = a.Z_PK "
+            + ("WHERE a.ZTRASHEDSTATE = 0 " if has("a", "ZTRASHEDSTATE") else "")
+            + f"ORDER BY a.ZDATECREATED LIMIT {int(limit)}"
+        )
+        print(f"\nsql: {sql}\n")
+        for uuid, raw_date, filename, orig, tz, inferred_tz in conn.execute(sql):
+            key = str(uuid).upper()
+            where = "orig" if key in originals else ("deriv" if key in derivatives else "NONE")
+            found = (originals.get(key) or derivatives.get(key) or [None])[0]
+            utc = APPLE_EPOCH + timedelta(seconds=float(raw_date or 0))
+            print(f"  ZUUID              = {uuid}")
+            print(f"  ZFILENAME          = {filename!r}")
+            print(f"  ZORIGINALFILENAME  = {orig!r}")
+            print(f"  ZTIMEZONEOFFSET    = {tz!r}   (inferred: {inferred_tz!r})")
+            print(f"  ZDATECREATED       = {raw_date!r} -> {utc:%Y-%m-%d %H:%M} UTC")
+            print(f"  local file         = [{where}] {found.name if found else '-'}")
+            print()
+
+
 if __name__ == "__main__":
     # Quick standalone probe, useful for checking a real library.
-    argv = [a for a in sys.argv[1:] if a != "--schema"]
+    flags = {"--schema", "--probe"}
+    argv = [a for a in sys.argv[1:] if a not in flags]
     want_schema = "--schema" in sys.argv
+    want_probe = "--probe" in sys.argv
     try:
         lib = find_library(Path(argv[0]) if argv else None)
-        if want_schema:
+        if want_schema or want_probe:
             print(f"library: {lib}")
-            dump_schema(lib)
+            if want_schema:
+                dump_schema(lib)
+            if want_probe:
+                probe_rows(lib)
             raise SystemExit(0)
         found, stats = read_assets(lib)
         print(f"library: {lib}")
