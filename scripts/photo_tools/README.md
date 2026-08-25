@@ -14,6 +14,13 @@ you read before anything is touched.
 Nothing is moved, renamed, or deleted by the analysis. It produces a proposal;
 acting on it is a second step you take yourself.
 
+> **Do not commit the output.** `groups.json` and `apply_plan.sh` list the
+> absolute path, filename and exact capture time of every photo in the library —
+> a personal-activity timeline, and this repo is public. `.gitignore` covers
+> `photo-grouping-report*/`; keep it that way, and regenerate rather than
+> committing. If your machine auto-commits its working tree, check that rule is
+> in place before the first run.
+
 ## Scope note
 
 This is a **general-purpose camera-roll tool**, not a Mazak one. It lives here
