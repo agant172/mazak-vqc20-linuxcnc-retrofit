@@ -54,3 +54,14 @@ linuxcnc.var.bak
 # Shareable single-file build of the I/O Navigator (tools/build_standalone.py).
 # Derived from index.html + the CSS/JS in this folder — rebuild it, never commit it.
 io-dashboard/dist/
+
+# Camera-roll grouping output (scripts/photo_tools/group_photos.py).
+# These are generated per-run and must never be committed: groups.json and
+# apply_plan.sh list the absolute path, filename and exact capture time of
+# every photo in the library, and this repo is PUBLIC (CLAUDE.md, owner
+# decision 2026-08-22). That is a personal-activity timeline, not a build
+# artefact. An auto-sync commit published three runs' worth on 2026-08-25
+# before this rule existed.
+# Regenerate instead: python3 scripts/photo_tools/group_photos.py --photos-library
+photo-grouping-report/
+photo-grouping-report-*/

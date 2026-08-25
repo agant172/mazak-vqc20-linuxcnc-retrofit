@@ -105,6 +105,14 @@ deleted.
 
 ## Cautions
 
+- **Never commit the run output.** `groups.json` and `apply_plan.sh` name every
+  photo's absolute path and exact capture time. The repo is public
+  ([`../CLAUDE.md`](../CLAUDE.md) line 429), so that is a personal-activity
+  timeline published to the world. An `auto-sync` commit did exactly this on
+  2026-08-25 (three runs, ~29k lines) before `.gitignore` covered
+  `photo-grouping-report*/`. If a machine auto-commits its working tree, confirm
+  that rule is present before running.
+
 - **One session per working copy.** `CLAUDE.md` records a commit orphaned on
   2026-08-23 by two sessions sharing a clone. The cloud session that wrote this
   file has stopped pushing to this branch; if that changes, use
