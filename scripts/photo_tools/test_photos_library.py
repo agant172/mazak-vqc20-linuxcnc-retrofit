@@ -533,5 +533,70 @@ class ReadableNaming(unittest.TestCase):
 
 
 
+@unittest.skipUnless(HAVE_PILLOW, "Pillow is needed to generate fixtures")
+class LivePhotoClipsAreNotPixelSources(unittest.TestCase):
+    """A Live Photo's .mov must never be chosen as the asset's image.
+
+    Found on the real library: 159 assets resolved to their motion clip because
+    _best_file picks the largest file and a movie outweighs a JPEG derivative.
+    Those photos could not be hashed and so dropped out of duplicate detection
+    silently -- the failure only surfaced as blank thumbnails.
+    """
+
+    @classmethod
+    def setUpClass(cls) -> None:
+        import io
+        import random
+
+        cls.tmp = Path(tempfile.mkdtemp(prefix="live-"))
+        cls.lib = cls.tmp / "Live.photoslibrary"
+        fx = Fixture(cls.lib)
+
+        rnd = random.Random(3)
+        im = Image.new("RGB", (160, 120))
+        d = ImageDraw.Draw(im)
+        for y in range(0, 120, 5):
+            d.rectangle([0, y, 160, y + 5], fill=(rnd.randint(0, 255),
+                                                  rnd.randint(0, 255), rnd.randint(0, 255)))
+        buf = io.BytesIO()
+        im.save(buf, "JPEG", quality=85)
+        cls.still_bytes = buf.getvalue()
+
+        uuid = fx.add(name="IMG_4242.HEIC", local_time=datetime(2024, 3, 1, 12, 0),
+                      original=False, derivative=True, payload=cls.still_bytes)
+        # The motion clip: same asset id, deliberately much larger than the still.
+        clip_dir = cls.lib / "resources" / "derivatives" / uuid[0]
+        clip_dir.mkdir(parents=True, exist_ok=True)
+        (clip_dir / f"{uuid}_3.mov").write_bytes(b"\x00" * (len(cls.still_bytes) * 8))
+        fx.write()
+        cls.uuid = uuid
+
+    @classmethod
+    def tearDownClass(cls) -> None:
+        shutil.rmtree(cls.tmp, ignore_errors=True)
+
+    def test_the_still_is_chosen_not_the_larger_movie(self):
+        assets, _ = pl.read_assets(self.lib)
+        self.assertEqual(len(assets), 1)
+        self.assertNotEqual(assets[0].path.suffix.lower(), ".mov",
+                            "the Live Photo clip was chosen as the image")
+        self.assertEqual(assets[0].path.suffix.lower(), ".jpeg")
+
+    def test_the_chosen_file_can_actually_be_decoded(self):
+        """The real symptom: the picked file was not an image at all."""
+        import imageio
+
+        assets, _ = pl.read_assets(self.lib)
+        gray = imageio.load_gray(assets[0].path, 9, 8)
+        self.assertEqual(len(gray), 72)
+
+    def test_video_suffixes_are_excluded_from_the_index(self):
+        index = pl._index_files(self.lib, pl.DERIVATIVE_DIRS)
+        for paths in index.values():
+            for path in paths:
+                self.assertNotIn(path.suffix.lower(), pl.NON_IMAGE_SUFFIXES)
+
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)

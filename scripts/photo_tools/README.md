@@ -203,7 +203,7 @@ The report header prints which backends are live. See
 
 ```sh
 python3 test_group_photos.py     # 24 tests -- folder mode
-python3 test_photos_library.py   # 32 tests -- library mode, merging, naming, end-to-end
+python3 test_photos_library.py   # 35 tests -- library mode, merging, naming, end-to-end
 ```
 
 Both run against synthetic fixtures with known answers. Between them they cover
@@ -220,10 +220,24 @@ not affect the repo's CI gate.
 ## Verified on a real library
 
 A full run on a 2,714-asset library (MacBook Pro, macOS, 2026-08-25) reported
-`Backends: Pillow (no HEIC), sips` and **hashed 2,442/2,442 images with no decode
+`Backends: Pillow (no HEIC), sips` and decoded **2,442/2,442 images with no
 failures**, so the `sips` path — previously the one piece never exercised on a
-Mac — works on real HEIC. It produced 427 sessions, 32 near-duplicate sets and 1
-identical set.
+Mac — works on real HEIC. Thumbnails 1,533/1,533.
+
+```
+427 sessions, 35 near-duplicate sets, 1 identical set
+```
+
+**What that says about duplicate detection.** An earlier run of the same library
+produced 32 sets while 159 assets were silently failing to decode (they had
+resolved to their Live Photo `.mov` clip instead of the still). Recovering all
+159 moved the count to 35. So the missing hashes were *not* why the number was
+low — a library of 2,442 photos really does contain only a few near-duplicate
+sets, and the prediction that they explained it was wrong.
+
+Raising `--threshold` from 5 to 8 took the pre-fix count from 32 to 48, so the
+threshold matters more than coverage here. On a well-curated library the useful
+output is the **session grouping**, not deduplication.
 
 The Photos schema, the `ZASSET` join, the Core Data date conversion and the
 read-only guarantee were confirmed against that same library.
@@ -235,8 +249,4 @@ read-only guarantee were confirmed against that same library.
   `PRAGMA table_info` rather than assuming. `photos_library.py --schema` prints
   what a given library actually contains, and `--probe` shows the raw values
   behind a specific row.
-- **Thumbnail generation is not fully reliable.** That same run produced
-  1,372 of 1,531 thumbnails; the rest are blank frames in the report. It affects
-  only the pictures in the report, never the grouping — every image the grouping
-  depended on decoded successfully. Failures are now counted and their reasons
-  summarised at the end of a run.
+- **Other macOS releases.** See above; the schema is probed, not assumed.

@@ -254,6 +254,20 @@ def compute_hashes(photos: list[Photo], workers: int) -> None:
                 print(f"\r  hashed {done}/{len(images)}", end="", file=sys.stderr, flush=True)
     print(file=sys.stderr)
 
+    # This counted attempts, not successes -- a file that failed to decode still
+    # advanced it. An image with no hash takes no part in duplicate detection,
+    # so a silent failure quietly shrinks the result and must be stated.
+    unread = [p for p in images if p.dhash is None]
+    if unread:
+        print(f"  {len(unread)} image(s) could not be decoded and are excluded from "
+              f"duplicate detection (they still appear in sessions):", file=sys.stderr)
+        tally: dict[str, int] = {}
+        for photo in unread:
+            tally[(photo.error or "unknown")[:90]] = tally.get((photo.error or "unknown")[:90], 0) + 1
+        for reason, count in sorted(tally.items(), key=lambda kv: -kv[1])[:3]:
+            print(f"    {count:5d}  {reason}", file=sys.stderr)
+        print(f"    e.g. {unread[0].path.name}", file=sys.stderr)
+
     # Byte-identical files must share a size, so only hash inside size groups.
     # On a camera roll that skips the full read for almost every file.
     by_size: dict[int, list[Photo]] = defaultdict(list)
@@ -467,8 +481,7 @@ def build_thumbs(photos: list[Photo], sessions: dict[int, list[Photo]],
         # list of 159 filenames would bury it.
         tally: dict[str, int] = {}
         for _name, reason in failures:
-            key = reason.split(":")[0] + ": " + reason.split(": ", 1)[-1][:80]
-            tally[key] = tally.get(key, 0) + 1
+            tally[reason[:110]] = tally.get(reason[:110], 0) + 1
         print(f"  {len(failures)} thumbnail(s) failed (report images only, "
               f"grouping unaffected):", file=sys.stderr)
         for reason, count in sorted(tally.items(), key=lambda kv: -kv[1])[:5]:
