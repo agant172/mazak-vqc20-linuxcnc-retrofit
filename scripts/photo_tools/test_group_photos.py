@@ -239,9 +239,12 @@ class CameraRoll(unittest.TestCase):
         # the redundant copy is set aside, the keeper is filed normally
         keep = next(s["keep"] for s in self.result["identical_sets"])
         redundant = next(s["redundant"][0] for s in self.result["identical_sets"])
-        self.assertIn(f'"$DEST/_review_duplicates/"', plan)
+        self.assertIn('"$DEST/_review_duplicates"/', plan)
         self.assertIn(redundant, plan)
         self.assertIn(keep, plan)
+        redundant_name = Path(redundant).name
+        self.assertIn(f'"$DEST/_review_duplicates"/{redundant_name}', plan,
+                      "the set-aside copy should be given an explicit filename")
 
     def test_executing_the_plan_leaves_the_source_untouched(self):
         """The whole safety claim, checked by actually running the script."""
