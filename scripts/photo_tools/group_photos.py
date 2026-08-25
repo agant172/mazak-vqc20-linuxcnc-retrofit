@@ -67,6 +67,7 @@ class Photo:
     from_original: bool = True        # False when only a Photos derivative existed
     origin: str = ""                  # which library or folder this came from
     asset_uuid: str | None = None     # Photos asset id, stable across synced devices
+    name_is_placeholder: bool = False # stored name is a UUID; use the date instead
 
     session: int = -1
     similar_group: int = -1
@@ -74,7 +75,19 @@ class Photo:
 
     @property
     def label(self) -> str:
+        if self.name_is_placeholder:
+            return self.readable_name
         return self.display_name or self.path.name
+
+    @property
+    def readable_name(self) -> str:
+        """A name built from the capture time, for photos Photos never named.
+
+        Migrated assets carry a UUID as their "original filename". Filing
+        thousands of those defeats the point of sorting, so they are named for
+        when they were taken instead -- which also sorts correctly in Finder.
+        """
+        return f"{self.taken:%Y-%m-%d_%H%M%S}{self.path.suffix.lower()}"
 
     @property
     def dest_name(self) -> str:
@@ -83,6 +96,8 @@ class Photo:
         A Photos derivative is a JPEG called <UUID>_1_105_c.jpeg even when the
         original was IMG_1234.HEIC, so neither name is right on its own.
         """
+        if self.name_is_placeholder:
+            return self.readable_name
         if not self.display_name:
             return self.path.name
         return Path(self.display_name).stem + self.path.suffix
@@ -158,6 +173,7 @@ def scan_photos_library(library: Path, include_videos: bool) -> tuple[list[Photo
             lat=asset.lat, lon=asset.lon, is_video=asset.is_video,
             display_name=asset.original_name, from_original=asset.from_original,
             origin=library.name, asset_uuid=asset.uuid,
+            name_is_placeholder=asset.placeholder_name,
         ))
     return photos, stats
 

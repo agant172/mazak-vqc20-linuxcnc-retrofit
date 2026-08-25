@@ -55,6 +55,17 @@ python3 group_photos.py \
 
 `--photos-library` with no path uses **every** library found in `~/Pictures`.
 
+### Photos that Photos never named
+
+Assets migrated out of an older library carry a UUID as their stored
+"original filename" — e.g. `E238A261-704E-4097-B5D2-AD721899FD4C.JPG`, which is
+that previous library's identifier rather than anything a person chose. It is a
+truthful value and a useless label, so those are filed by **capture time**
+instead: `2015-08-03_195300.jpeg`, which also sorts correctly in Finder. Photos
+with a real filename keep it untouched.
+
+Confirmed on a 2,714-asset library where the whole 2015 range is named this way.
+
 ### How duplicates across libraries are handled
 
 Photos gives an asset the same UUID on every device that syncs it, so the same
@@ -192,7 +203,7 @@ The report header prints which backends are live. See
 
 ```sh
 python3 test_group_photos.py     # 24 tests -- folder mode
-python3 test_photos_library.py   # 27 tests -- library mode, merging, end-to-end
+python3 test_photos_library.py   # 32 tests -- library mode, merging, naming, end-to-end
 ```
 
 Both run against synthetic fixtures with known answers. Between them they cover

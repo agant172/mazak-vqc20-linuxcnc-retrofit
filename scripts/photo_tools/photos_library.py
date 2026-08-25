@@ -59,6 +59,7 @@ class Asset:
     from_original: bool        # False when only a derivative was available
     library: Path | None = None   # which library this came from
     size: int = 0                 # bytes of the local file actually chosen
+    placeholder_name: bool = False  # the stored name is a UUID, not a real filename
 
 
 def _columns(conn: sqlite3.Connection, table: str) -> set[str]:
@@ -111,6 +112,22 @@ def _index_files(root: Path, subdirs: tuple[str, ...]) -> dict[str, list[Path]]:
             if len(key) == 36 and key.count("-") == 4:
                 index.setdefault(key, []).append(path)
     return index
+
+
+_UUID_LEN = 36
+
+
+def is_placeholder_name(name: str) -> bool:
+    """True when a stored filename is really just a UUID.
+
+    Photos carries a UUID-shaped ZORIGINALFILENAME for assets migrated out of an
+    older library -- the name is the previous library's identifier, not anything
+    a person chose. It is a truthful value but a useless label, so callers can
+    substitute something readable.
+    """
+    stem = Path(name).stem
+    return (len(stem) == _UUID_LEN and stem.count("-") == 4
+            and all(c in "0123456789abcdefABCDEF-" for c in stem))
 
 
 def _best_file(uuid: str, originals: dict[str, list[Path]],
@@ -268,6 +285,7 @@ def read_assets(library: Path, include_videos: bool = False) -> tuple[list[Asset
                 lat = lon = None
 
             display = orig_name or filename or f"{uuid}{path.suffix}"
+            placeholder = is_placeholder_name(str(display))
             try:
                 size = path.stat().st_size
             except OSError:
@@ -275,7 +293,7 @@ def read_assets(library: Path, include_videos: bool = False) -> tuple[list[Asset
             assets.append(Asset(
                 uuid=str(uuid), path=path, original_name=str(display), taken=when,
                 lat=lat, lon=lon, is_video=is_video, from_original=from_original,
-                library=library, size=size,
+                library=library, size=size, placeholder_name=placeholder,
             ))
             stats["from_original" if from_original else "from_derivative"] += 1
 

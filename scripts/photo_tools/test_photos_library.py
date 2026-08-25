@@ -472,5 +472,66 @@ class MultipleSources(unittest.TestCase):
 
 
 
+class PlaceholderNames(unittest.TestCase):
+    """Photos stores a UUID as ZORIGINALFILENAME for migrated assets.
+
+    Confirmed on a real 2714-asset library: rows from 2015 carry values like
+    'E238A261-704E-4097-B5D2-AD721899FD4C.JPG' -- a different UUID from the
+    asset's own, left over from the library they were migrated out of. The value
+    is truthful but useless as a label, so it is replaced with the capture time.
+    """
+
+    def test_recognises_a_uuid_filename(self):
+        self.assertTrue(pl.is_placeholder_name(
+            "E238A261-704E-4097-B5D2-AD721899FD4C.JPG"))
+        self.assertTrue(pl.is_placeholder_name(
+            "a12625a1-64cb-4e96-b060-f5fea788df26.jpeg"))
+
+    def test_leaves_real_filenames_alone(self):
+        for name in ("IMG_0260.HEIC", "DSC_0001.JPG", "Screenshot 2024.png",
+                     "IMG_1234.JPG", "photo-of-a-thing.jpg"):
+            self.assertFalse(pl.is_placeholder_name(name), name)
+
+    def test_a_uuid_without_the_right_shape_is_not_a_placeholder(self):
+        self.assertFalse(pl.is_placeholder_name("E238A261-704E-4097.JPG"))
+        self.assertFalse(pl.is_placeholder_name("ZZZZZZZZ-704E-4097-B5D2-AD721899FD4C.JPG"))
+
+
+@unittest.skipUnless(HAVE_PILLOW, "Pillow is needed to generate fixtures")
+class ReadableNaming(unittest.TestCase):
+    """A placeholder-named asset should be filed by date, not by UUID."""
+
+    @classmethod
+    def setUpClass(cls) -> None:
+        import group_photos as gp
+
+        cls.tmp = Path(tempfile.mkdtemp(prefix="names-"))
+        lib = cls.tmp / "Legacy.photoslibrary"
+        fx = Fixture(lib)
+        # Mirrors the real library: ZORIGINALFILENAME is a foreign UUID.
+        fx.add(name="E238A261-704E-4097-B5D2-AD721899FD4C.JPG",
+               local_time=datetime(2015, 8, 3, 19, 53, 0), tz_offset=-21600)
+        fx.add(name="IMG_0260.HEIC", local_time=datetime(2024, 6, 1, 9, 0),
+               tz_offset=-21600)
+        fx.write()
+        cls.out = cls.tmp / "out"
+        assert gp.main(["--photos-library", str(lib), "--out", str(cls.out),
+                        "--no-thumbs"]) == 0
+
+    @classmethod
+    def tearDownClass(cls) -> None:
+        shutil.rmtree(cls.tmp, ignore_errors=True)
+
+    def test_uuid_named_asset_is_filed_by_capture_time(self):
+        plan = (self.out / "apply_plan.sh").read_text()
+        self.assertIn("2015-08-03_195300", plan)
+        self.assertNotIn("E238A261", plan, "the UUID name leaked into the plan")
+
+    def test_genuinely_named_asset_keeps_its_name(self):
+        plan = (self.out / "apply_plan.sh").read_text()
+        self.assertIn("IMG_0260", plan)
+
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)
