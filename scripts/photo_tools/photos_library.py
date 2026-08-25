@@ -57,6 +57,8 @@ class Asset:
     lon: float | None
     is_video: bool
     from_original: bool        # False when only a derivative was available
+    library: Path | None = None   # which library this came from
+    size: int = 0                 # bytes of the local file actually chosen
 
 
 def _columns(conn: sqlite3.Connection, table: str) -> set[str]:
@@ -121,6 +123,33 @@ def _best_file(uuid: str, originals: dict[str, list[Path]],
     if pool:
         return max(pool, key=lambda p: p.stat().st_size), False
     return None, False
+
+
+def find_libraries(explicit: list[Path] | None = None) -> list[Path]:
+    """Resolve one or more Photos libraries.
+
+    With no paths given, every usable library in ~/Pictures is returned rather
+    than just one. A machine that has accumulated a second or archived library
+    holds photos the main one does not, and the point of scanning several is to
+    cover them; the caller prints what was chosen so the selection is visible.
+    """
+    if explicit:
+        out: list[Path] = []
+        for raw in explicit:
+            lib = raw.expanduser()
+            if not (lib / "database" / "Photos.sqlite").is_file():
+                raise LibraryError(f"not a Photos library (no database/Photos.sqlite): {lib}")
+            out.append(lib)
+        return out
+
+    found = [c for c in sorted(Path.home().glob("Pictures/*.photoslibrary"))
+             if (c / "database" / "Photos.sqlite").is_file()]
+    if not found:
+        raise LibraryError(
+            "no Photos library found in ~/Pictures. Pass --photos-library with the "
+            "path to the .photoslibrary bundle."
+        )
+    return found
 
 
 def find_library(explicit: Path | None = None) -> Path:
@@ -239,9 +268,14 @@ def read_assets(library: Path, include_videos: bool = False) -> tuple[list[Asset
                 lat = lon = None
 
             display = orig_name or filename or f"{uuid}{path.suffix}"
+            try:
+                size = path.stat().st_size
+            except OSError:
+                size = 0
             assets.append(Asset(
                 uuid=str(uuid), path=path, original_name=str(display), taken=when,
                 lat=lat, lon=lon, is_video=is_video, from_original=from_original,
+                library=library, size=size,
             ))
             stats["from_original" if from_original else "from_derivative"] += 1
 

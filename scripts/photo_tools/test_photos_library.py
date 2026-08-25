@@ -347,5 +347,130 @@ class EndToEnd(unittest.TestCase):
         self.assertIn("was not modified", html)
 
 
+@unittest.skipUnless(HAVE_PILLOW, "Pillow is needed to generate real pixels")
+class MultipleSources(unittest.TestCase):
+    """Several libraries plus a loose folder, merged into one grouping.
+
+    This is the shape a household of Apple devices actually has: one iCloud
+    library cached differently on each Mac, sometimes a second or archived
+    library, and folders of photos that never lived in Photos at all.
+    """
+
+    @classmethod
+    def setUpClass(cls) -> None:
+        import io
+        import random
+
+        import group_photos as gp
+
+        cls.gp = gp
+        cls.tmp = Path(tempfile.mkdtemp(prefix="multi-"))
+
+        def scene(seed: int, w: int = 200, h: int = 150):
+            rnd = random.Random(seed)
+            im = Image.new("RGB", (w, h))
+            d = ImageDraw.Draw(im)
+            for y in range(0, h, 5):
+                d.rectangle([0, y, w, y + 5], fill=(rnd.randint(0, 255),
+                                                    rnd.randint(0, 255), rnd.randint(0, 255)))
+            for _ in range(8):
+                x0, y0 = rnd.randint(0, w - 60), rnd.randint(0, h - 60)
+                d.ellipse([x0, y0, x0 + 50, y0 + 50], fill=(rnd.randint(0, 255),
+                                                            rnd.randint(0, 255), rnd.randint(0, 255)))
+            return im
+
+        def jpeg(im) -> bytes:
+            buf = io.BytesIO()
+            im.save(buf, "JPEG", quality=85)
+            return buf.getvalue()
+
+        # Library A -- holds true originals for three shared assets.
+        cls.lib_a = cls.tmp / "MacBook.photoslibrary"
+        fx_a = Fixture(cls.lib_a)
+        cls.shared = []
+        for i in range(3):
+            payload = jpeg(scene(700 + i))
+            uuid = fx_a.add(name=f"IMG_80{i:02d}.HEIC",
+                            local_time=datetime(2024, 7, 1, 10, i), payload=payload)
+            cls.shared.append((uuid, payload, i))
+        fx_a.write()
+
+        # Library B -- the SAME assets by UUID, but derivative-only, as on a
+        # fully-optimised Mac. Plus one asset that exists nowhere else.
+        cls.lib_b = cls.tmp / "iMac.photoslibrary"
+        fx_b = Fixture(cls.lib_b)
+        for uuid, payload, i in cls.shared:
+            fx_b._pk += 1
+            fx_b.rows.append((
+                fx_b._pk, uuid, core_data_time(datetime(2024, 7, 1, 10, i), -28800),
+                pl.NO_LOCATION, pl.NO_LOCATION, 0, 0, f"IMG_80{i:02d}.HEIC"))
+            fx_b.aux.append((fx_b._pk, fx_b._pk, f"IMG_80{i:02d}.HEIC", -28800))
+            d = cls.lib_b / "resources" / "derivatives" / uuid[0]
+            d.mkdir(parents=True, exist_ok=True)
+            (d / f"{uuid}_1_105_c.jpeg").write_bytes(payload + b"deriv")
+        fx_b.add(name="IMG_9000.HEIC", local_time=datetime(2024, 7, 2, 14, 0),
+                 payload=jpeg(scene(800)))
+        fx_b.write()
+
+        # A folder that was never in any Photos library.
+        cls.folder = cls.tmp / "SDCard"
+        cls.folder.mkdir()
+        for i in range(2):
+            (cls.folder / f"DSC_{i:04d}.JPG").write_bytes(jpeg(scene(900 + i)))
+
+        cls.out = cls.tmp / "out"
+        rc = gp.main(["--photos-library", str(cls.lib_a),
+                      "--photos-library", str(cls.lib_b),
+                      "--source", str(cls.folder),
+                      "--out", str(cls.out), "--no-thumbs"])
+        assert rc == 0, f"tool exited {rc}"
+        import json
+        cls.result = json.loads((cls.out / "groups.json").read_text())
+
+    @classmethod
+    def tearDownClass(cls) -> None:
+        shutil.rmtree(cls.tmp, ignore_errors=True)
+
+    def all_files(self) -> list[str]:
+        return [f for s in self.result["sessions"] for f in s["files"]]
+
+    def test_shared_assets_are_not_counted_twice(self):
+        # 3 shared (collapsed to 3) + 1 iMac-only + 2 folder = 6, not 9.
+        self.assertEqual(self.result["counts"]["items"], 6)
+
+    def test_the_library_holding_the_original_wins(self):
+        """A derivative copy must never be preferred over a true original."""
+        for path in self.all_files():
+            self.assertNotIn("_1_105_c", path,
+                             "a derivative was kept while an original existed")
+        from_a = [p for p in self.all_files() if "MacBook.photoslibrary" in p]
+        self.assertEqual(len(from_a), 3, "the three shared assets should come from A")
+
+    def test_asset_unique_to_one_library_is_still_included(self):
+        self.assertTrue(any("iMac.photoslibrary" in p for p in self.all_files()),
+                        "the asset only present in library B went missing")
+
+    def test_loose_folder_is_merged_alongside_the_libraries(self):
+        names = {Path(p).name for p in self.all_files()}
+        self.assertIn("DSC_0000.JPG", names)
+        self.assertIn("DSC_0001.JPG", names)
+
+    def test_report_names_every_source(self):
+        html = (self.out / "report.html").read_text()
+        self.assertIn("Merged 3 sources", html)
+        self.assertIn("MacBook.photoslibrary", html)
+        self.assertIn("iMac.photoslibrary", html)
+        self.assertIn("SDCard", html)
+
+    def test_a_single_source_still_reports_relative_paths(self):
+        """One input keeps the tidy relative-path form; several cannot."""
+        out2 = self.tmp / "out-single"
+        self.gp.main(["--photos-library", str(self.lib_a),
+                      "--out", str(out2), "--no-thumbs"])
+        html = (out2 / "report.html").read_text()
+        self.assertNotIn("Merged", html)
+
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)

@@ -24,53 +24,86 @@ retrofit and does not implement the eight-folder scheme in
 project photos into `01_Cabinet`…`07_Reference` is still a human judgement about
 *subject*, which this tool does not attempt.
 
+## Covering every Apple device
+
+**Start here, because it usually collapses the problem:** with iCloud Photos
+enabled, your iPhone, iPad and Macs are not separate sets of photos. They are
+caches of *one* library, differing only in which originals are stored locally.
+Reading one Mac's library therefore covers every device that syncs to it — a
+photo taken on the iPhone this morning is in the MacBook's library already, even
+if only as a derivative.
+
+An iOS device is never read directly; nothing on an iPhone runs this. Its photos
+arrive through iCloud, and that is enough.
+
+Three things genuinely sit outside that:
+
+| Gap | What to do |
+|---|---|
+| **A second or archived library** (an old library, one on an external drive, a pre-iCloud library) | Pass `--photos-library` once per library. Assets shared between them are collapsed automatically. |
+| **Folders that were never in Photos** — SD-card dumps, exports, old backups | Pass `--source` once per folder. Combine freely with `--photos-library`. |
+| **Photos on a device that never reached iCloud** — iCloud Photos off, a different Apple ID, excluded from a shared library | Must be imported to a Mac first. Nothing can read them in place. Use **Image Capture.app** to copy them to a folder, then pass that folder with `--source`. |
+
+Scanning several sources at once:
+
+```sh
+python3 group_photos.py \
+    --photos-library ~/Pictures/Photos\ Library.photoslibrary \
+    --photos-library /Volumes/Archive/Old.photoslibrary \
+    --source ~/Pictures/SDCardDump
+```
+
+`--photos-library` with no path uses **every** library found in `~/Pictures`.
+
+### How duplicates across libraries are handled
+
+Photos gives an asset the same UUID on every device that syncs it, so the same
+photo in two libraries is matched by id — exactly, with no hashing — and
+collapsed to one item. Where both libraries hold a copy, the better local file
+wins: **a true original always beats a derivative**, so a fully-optimised Mac
+never drags down a library that still has the real file.
+
+Photos in separate, *unsynced* libraries have different ids. Those are not
+collapsed by id; they fall through to ordinary near-duplicate detection and
+appear as a duplicate set for you to judge.
+
 ## Two ways in
 
-### Reading the Photos library directly (usually what you want)
-
-If the roll already syncs to a Mac through iCloud Photos, **you do not need to
-export anything, and you do not need the phone**:
+### Reading a Photos library directly (usually what you want)
 
 ```sh
 python3 group_photos.py --photos-library
 ```
 
-That autodetects the library in `~/Pictures`; pass a path if you keep it
-elsewhere or have more than one. It reads capture times and locations out of
-`Photos.sqlite` and hashes whichever local file is best — the original when it is
-on disk, otherwise the derivative JPEG.
+It reads capture times and locations out of `Photos.sqlite` and hashes whichever
+local file is best — the original when on disk, otherwise the derivative JPEG.
 
 This matters on an iCloud-optimised library, where most originals live in the
 cloud and exporting forces a slow, unreliable download of every one. A derivative
-is entirely adequate for finding duplicates, and because the dates come from the
+is entirely adequate for finding duplicates, and because dates come from the
 database rather than the file, **the timeline stays correct even for photos whose
 originals are not on this Mac**.
 
 The library is opened read-only from a temporary copy of the database. Nothing in
 the bundle is modified, which is asserted by a test that fingerprints every file
-before and after a run.
+before and after a run. Assets present in the database but with no local file are
+counted and reported, not silently dropped.
 
-Assets present in the database but with no local file at all are counted and
-reported, not silently dropped, so the report tells you what it could not see.
-
-### Exporting to a folder
-
-If the photos are not in a Photos library — a directory of files, a card, a
-download — point it at the folder instead:
+### Pointing at a folder
 
 ```sh
 python3 group_photos.py --source ~/Pictures/CameraRollExport
 ```
 
-Exporting from Photos.app is also the route when you want the full-size originals
-rather than derivatives. Use **File → Export → _Export Unmodified Original_**;
-the plain *Export* re-encodes and can rewrite metadata. From a phone over a cable,
-**Image Capture.app** copies originals with EXIF intact.
+For photos outside any Photos library. When you want full-size originals rather
+than derivatives, export with **File → Export → _Export Unmodified Original_**;
+the plain *Export* re-encodes and can rewrite metadata. From a phone over a
+cable, **Image Capture.app** copies originals with EXIF intact.
 
-Whatever the route, metadata is what makes session grouping work. If capture
-times are missing the tool falls back to file modification dates, which on a
-fresh copy are all the copy date — every photo collapses into one session. The
-report says so at the top when it detects this.
+Metadata is what makes session grouping work. If capture times are missing the
+tool falls back to file modification dates, which on a fresh copy are all the
+copy date — every photo collapses into one session. The report says so at the top
+when it detects this.
 
 ## Running it
 
@@ -94,8 +127,8 @@ discarded; delete the originals yourself once you have looked.
 
 | Flag | Default | What it does |
 |---|---|---|
-| `--source` | *one of these* | Folder of photos, searched recursively |
-| `--photos-library` | *one of these* | Read an Apple Photos library directly; omit the path to autodetect in `~/Pictures` |
+| `--source` | *at least one* | Folder of photos, searched recursively. Repeatable. |
+| `--photos-library` | *at least one* | Read an Apple Photos library directly. Repeatable; omit the path to use every library in `~/Pictures`. Combines with `--source`. |
 | `--out` | `photo-grouping-report` | Where the report is written |
 | `--dest` | `<out>/organised` | Target tree for `apply_plan.sh` |
 | `--gap-hours` | `3` | Pause that starts a new session |
@@ -159,7 +192,7 @@ The report header prints which backends are live. See
 
 ```sh
 python3 test_group_photos.py     # 24 tests -- folder mode
-python3 test_photos_library.py   # 21 tests -- Photos library mode
+python3 test_photos_library.py   # 27 tests -- library mode, merging, end-to-end
 ```
 
 Both run against synthetic fixtures with known answers. Between them they cover
