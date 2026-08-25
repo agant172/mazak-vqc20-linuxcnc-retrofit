@@ -43,33 +43,47 @@ fixture.
 that the `ZADDITIONALASSETATTRIBUTES` lookup was failing, and that capture times
 were coming back as raw UTC. The probe output above disproves both.
 
+### The full run — done 2026-08-25
+
+Ran on the MacBook against the real library. **Both previously open questions are
+now closed.**
+
+```
+Backends: Pillow (no HEIC), sips
+2714 rows; 1264 originals, 1178 derivatives, 26 with no local file, 169 trashed
+2442 items
+hashed 2442/2442
+427 sessions, 32 near-duplicate sets, 1 identical sets
+thumbnails: 1372/1531
+```
+
+- **`sips` works.** It was the one path never exercised on a Mac. It decoded all
+  2,442 images, HEIC included, with no failures.
+- **The grouping completed on real photos** for the first time.
+
 ### Not verified
 
-- **The `sips` decode backend has never run.** It is the path HEIC takes on a Mac
-  with no Pillow. The pure-Python PNG reader it feeds *is* tested; the `sips`
-  invocation is not. The report header prints which backend is live. If it
-  misbehaves: `pip3 install Pillow pillow-heif` takes the tested path instead.
-- **No full grouping run has ever completed on real photos.** Every result so far
-  is from synthetic fixtures. This is the next step.
+- **Other macOS releases.** The above is one library on one machine; the schema
+  is probed rather than assumed for that reason.
+- **Thumbnails are ~90% reliable** — 1,372 of 1,531 on that run. Cosmetic only:
+  it affects pictures in the report, never the grouping, since every image the
+  grouping used decoded fine. Failure reasons are now counted and summarised at
+  the end of a run, so a re-run will say *why*.
 
 ---
 
 ## Next step
 
+Open the report and judge it:
+
 ```sh
-python3 scripts/photo_tools/group_photos.py --photos-library
 open photo-grouping-report/report.html
 ```
 
-Decodes ~2,442 images once, so it takes a while. Nothing moves — it writes a
-report, `groups.json`, and an `apply_plan.sh` that only runs if you run it.
-
-Worth capturing from that run, into this file or a new dated note:
-
-1. Which decode backend the report header names (the open `sips` question).
-2. How many sessions and near-duplicate sets it finds, and the reclaimable size.
-3. Anything that errors, with the file that caused it — the report lists
-   unreadable files rather than dropping them silently.
+**32 near-duplicate sets out of 2,442 photos is on the low side** — the default
+`--threshold 5` is conservative. If the report misses obvious burst clutter,
+re-run with `--threshold 8` or `10`; higher values start grouping merely similar
+scenes, so compare before acting.
 
 Then, if the report looks right, `sh photo-grouping-report/apply_plan.sh`. It
 copies into a new tree and leaves the originals untouched, so it needs free disk

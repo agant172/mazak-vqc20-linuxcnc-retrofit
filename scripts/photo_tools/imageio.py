@@ -238,8 +238,15 @@ def load_gray(path: Path, width: int, height: int) -> list[int]:
     raise DecodeError("; ".join(errors) or "no decode backend available")
 
 
-def make_thumb(src: Path, dest: Path, max_edge: int = 240) -> bool:
-    """Write a small colour thumbnail for the HTML report. False if it failed."""
+def make_thumb(src: Path, dest: Path, max_edge: int = 240) -> str | None:
+    """Write a small colour thumbnail for the report.
+
+    Returns None on success, or a short reason on failure. A missing thumbnail
+    is cosmetic -- the grouping never depends on it -- but silently swallowing
+    the cause made a 10% failure rate on a real library impossible to explain,
+    so the reason is reported now.
+    """
+    reasons: list[str] = []
     dest.parent.mkdir(parents=True, exist_ok=True)
     is_heif = src.suffix.lower() in _HEIF_SUFFIXES
 
@@ -250,9 +257,9 @@ def make_thumb(src: Path, dest: Path, max_edge: int = 240) -> bool:
                 im = im.convert("RGB")
                 im.thumbnail((max_edge, max_edge), Image.BILINEAR)
                 im.save(dest, "JPEG", quality=72)
-            return True
-        except Exception:  # noqa: BLE001 - thumbnails are best-effort
-            pass
+            return None
+        except Exception as exc:  # noqa: BLE001 - thumbnails are best-effort
+            reasons.append(f"pillow: {type(exc).__name__}: {exc}")
 
     if SIPS is not None:
         try:
@@ -261,8 +268,11 @@ def make_thumb(src: Path, dest: Path, max_edge: int = 240) -> bool:
                  "--resampleHeightWidthMax", str(max_edge), str(src), "--out", str(dest)],
                 capture_output=True, timeout=60,
             )
-            return proc.returncode == 0 and dest.exists()
-        except (subprocess.SubprocessError, OSError):
-            return False
+            if proc.returncode == 0 and dest.exists():
+                return None
+            detail = proc.stderr.decode(errors="replace").strip().splitlines()
+            reasons.append(f"sips: rc={proc.returncode} {detail[-1] if detail else ''}"[:160])
+        except (subprocess.SubprocessError, OSError) as exc:
+            reasons.append(f"sips: {type(exc).__name__}: {exc}")
 
-    return False
+    return "; ".join(reasons) or "no thumbnail backend available"

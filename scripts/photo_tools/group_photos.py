@@ -447,16 +447,34 @@ def build_thumbs(photos: list[Photo], sessions: dict[int, list[Photo]],
     unique = {p.path: p for p in wanted if not p.is_video}
     thumb_dir = out_dir / "thumbs"
 
+    failures: list[tuple[str, str]] = []
+
     def work(item: tuple[Path, Photo]) -> None:
         path, photo = item
         name = hashlib.sha1(str(path).encode()).hexdigest()[:16] + ".jpg"
-        if imageio.make_thumb(path, thumb_dir / name):
+        reason = imageio.make_thumb(path, thumb_dir / name)
+        if reason is None:
             photo.thumb = f"thumbs/{name}"
+        else:
+            failures.append((path.name, reason))
 
     with concurrent.futures.ThreadPoolExecutor(max_workers=workers) as pool:
         list(pool.map(work, unique.items()))
     made = sum(1 for p in unique.values() if p.thumb)
     print(f"  thumbnails: {made}/{len(unique)}", file=sys.stderr)
+    if failures:
+        # Group by reason: one recurring cause is the usual explanation, and a
+        # list of 159 filenames would bury it.
+        tally: dict[str, int] = {}
+        for _name, reason in failures:
+            key = reason.split(":")[0] + ": " + reason.split(": ", 1)[-1][:80]
+            tally[key] = tally.get(key, 0) + 1
+        print(f"  {len(failures)} thumbnail(s) failed (report images only, "
+              f"grouping unaffected):", file=sys.stderr)
+        for reason, count in sorted(tally.items(), key=lambda kv: -kv[1])[:5]:
+            print(f"    {count:5d}  {reason}", file=sys.stderr)
+        example = failures[0]
+        print(f"    e.g. {example[0]}", file=sys.stderr)
 
 
 CSS = """

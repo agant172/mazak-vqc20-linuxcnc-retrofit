@@ -217,21 +217,26 @@ Photos library does not modify it.
 The tests need Pillow to build fixtures and skip cleanly without it, so they do
 not affect the repo's CI gate.
 
-## What is not verified
+## Verified on a real library
 
-Two paths were written and reviewed in a Linux container and have never run on a
-Mac. Both fail loudly rather than silently if they are wrong, and both have a
-documented fallback:
+A full run on a 2,714-asset library (MacBook Pro, macOS, 2026-08-25) reported
+`Backends: Pillow (no HEIC), sips` and **hashed 2,442/2,442 images with no decode
+failures**, so the `sips` path — previously the one piece never exercised on a
+Mac — works on real HEIC. It produced 427 sessions, 32 near-duplicate sets and 1
+identical set.
 
-* **The `sips` decode backend.** The pure-Python PNG reader it feeds *is* tested
-  (RGB, grayscale, RGBA and palette, against Pillow), but the `sips` invocation
-  itself is unverified. If it misbehaves, `pip3 install Pillow pillow-heif` takes
-  the Pillow path instead.
-* **A real `Photos.sqlite`.** The adapter is tested against a synthetic library
-  built to the same shape macOS uses, which exercises the SQL, the UUID-to-file
-  matching and the date conversion — but it cannot prove that a library from any
-  particular macOS release has the columns the fixture has. This is why the
-  adapter probes the schema with `PRAGMA table_info` and degrades rather than
-  assuming: a missing side table costs the original filename, not the run. If the
-  schema turns out to differ, `python3 photos_library.py <path>` prints what it
-  found and is the quickest way to see where it diverges.
+The Photos schema, the `ZASSET` join, the Core Data date conversion and the
+read-only guarantee were confirmed against that same library.
+
+## What is still not verified
+
+- **Other macOS releases.** Everything above is one library on one machine.
+  Photos' schema shifts between releases, which is why the reader probes it with
+  `PRAGMA table_info` rather than assuming. `photos_library.py --schema` prints
+  what a given library actually contains, and `--probe` shows the raw values
+  behind a specific row.
+- **Thumbnail generation is not fully reliable.** That same run produced
+  1,372 of 1,531 thumbnails; the rest are blank frames in the report. It affects
+  only the pictures in the report, never the grouping — every image the grouping
+  depended on decoded successfully. Failures are now counted and their reasons
+  summarised at the end of a run.
