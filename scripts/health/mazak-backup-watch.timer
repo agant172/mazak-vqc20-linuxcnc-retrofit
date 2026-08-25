@@ -1,0 +1,13 @@
+[Unit]
+Description=Check daily that the backup jobs are still running
+
+[Timer]
+# 09:00 — after every nightly job has had its chance, and at an hour when a
+# notification will actually be seen.
+OnCalendar=*-*-* 09:00:00
+Persistent=true
+RandomizedDelaySec=10m
+AccuracySec=5m
+
+[Install]
+WantedBy=timers.target

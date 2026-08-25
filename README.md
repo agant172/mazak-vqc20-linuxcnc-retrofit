@@ -35,7 +35,7 @@ control to LinuxCNC using Mesa Electronics FPGA hardware.
 > [`mesa/mesa_firmware_checklist.md`](mesa/mesa_firmware_checklist.md#bitfile-provenance-verification-procedure)).
 > Trust this section, not older docs/notes still describing P1=7i44/P2=7i49/P3=unused.
 
-- **LinuxCNC control PC** (Debian 13 / LinuxCNC 2.9.10) driving a **Mesa 7i80HDT** Ethernet FPGA host as the primary control board (`hm2_eth`, static IP 192.168.1.121).
+- **LinuxCNC control PC** (Debian 13 / LinuxCNC 2.9.10) driving a **Mesa 7i80HDT** Ethernet FPGA host as the primary control board (`hm2_eth`, static IP 10.10.10.121).
 - **P1 → 7i49** (plain 7i49) — X/Y/Z resolver feedback on RES0/1/2 plus X/Z/Y servo velocity and FR-SX spindle velocity commands on AOUT0..AOUT3. AOUT4/AOUT5 are spare; FR-SX orient uses discrete ORCM1.
 - **P2 → unused/spare** — no daughter card fitted. All bare FPGA GPIO. Not safe for 24 V field wiring (probe stays on 7i84U-B for opto-isolation).
 - **P3 → 7i44** — RS-422 smart-serial breakout. Physical channel 0 carries **7i84U-A** near the existing green breakout PCB; channel 1 carries **7i84U-B** for limit/home monitoring and relay-driven loads; channels 2-7 are spare. Both remotes are under HostMot2 smart-serial port 0.
@@ -80,7 +80,7 @@ Full rationale: [docs/architecture_decision.md](docs/architecture_decision.md).
 
 **Immediate — Phase B: seat the cards and enumerate the stack**
 - All interface hardware is on hand as of **2026-08-17** (7i80HDT, 7i49, 7i44, 7i84U-A, 7i84U-B, 50-pin IDC cables). Nothing is seated or wired yet.
-- Confirm the network path (host NIC at 192.168.1.1/24, board at 192.168.1.121) → seat 7i49 on P1 and 7i44 on P3, **P2 stays empty** → bring up 7i84U-A/B on sserial channels 0/1 → re-run `readhmid` → capture `mesa/firmware/hal_pins_YYYY-MM-DD.txt` → replace the placeholder `hm2_7i80.0...` names in HAL.
+- Confirm the network path (host NIC at 10.10.10.1/24, board at 10.10.10.121) → seat 7i49 on P1 and 7i44 on P3, **P2 stays empty** → bring up 7i84U-A/B on sserial channels 0/1 → re-run `readhmid` → capture `mesa/firmware/hal_pins_YYYY-MM-DD.txt` → replace the placeholder `hm2_7i80.0...` names in HAL.
 - **No field wiring lands on a Mesa terminal until that pin dump exists.** Bitfile `7i80hdt_rmsvss6_8.bin` is already flashed with layout, identity and upstream source confirmed — see [`mesa/mesa_firmware_checklist.md`](mesa/mesa_firmware_checklist.md#bitfile-provenance-verification-procedure).
 
 **Immediate — Phase C: owner decisions** (blocked on a decision, not on work) — five items in [`wiring/authority_conflicts.md`](wiring/authority_conflicts.md) §5: the `57B` preserve-list add, the `SOL-62`→`SOL-15` relabel, the two unfitted blast outputs, `SOL-16`'s missing authority row, and the `LUBE_OK` promotion.
@@ -175,7 +175,7 @@ they are static checks and do not replace a LinuxCNC load test or fault injectio
 - [Mesa 7i80HDT / 7i80HD Ethernet FPGA host](http://www.mesanet.com/fpgacardinfo.html)
 - [Mesa 7i49 manual (resolver interface)](http://www.mesanet.com/pdf/motion/7i49man.pdf)
 - [Mesa 50-pin daughter card catalog (7i44, 7i49)](https://www.mesanet.com/aiodaughter.html)
-- [Servo PID tuning thread — VQC 15/40, TRA-31, HD81-12S, 7i49 @ 5 kHz](https://forum.linuxcnc.org/10-advanced-configuration/32061-servo-pid-tuning-can-t-clamp-down-on-overshoot) — sister-machine retrofit. The thread reads as a plain 7i49 at 5 kHz, but neither figure survives that machine's own records: its purchased-parts table lists a **`7i49HV`** and its committed config runs `RESOLVER_EXC_FREQ = 2.5` (settled 2026-08-17, [bom/README.md](bom/README.md#which-7i49-the-sister-machine-actually-runs--settled-2026-08-17)). Supporting anecdote only; not a substitute for scoping this machine.
+- [Servo PID tuning thread — VQC 15/40, TRA-31, HD81-12S, 7i49 @ 5 kHz](https://forum.linuxcnc.org/10-advanced-configuration/32061-servo-pid-tuning-can-t-clamp-down-on-overshoot) — sister-machine retrofit running a **plain 7i49**, confirmed by owner (2026-08-22) and by that machine's committed config (`MAZAK-VQC1540.ini:138` `# BOARD1=7i49`, no `HV` occurrence anywhere in that repo). A purchased-parts spreadsheet in that repo had briefly been read as `7i49HV`, but that reading did not hold up. **The 5 kHz figure is not confirmed** — the same config sets `RESOLVER_EXC_FREQ = 2.5` (checked 2026-08-17). Thread and config disagree on frequency; the thread has not been re-read. Supporting anecdote only; not a substitute for scoping this machine.
 - [Tamagawa FA-SOLVER page](https://tamagawa.eu/products/resolvers/brushless-resolvers-fa-solver/) — TS2014N141E26 electrical specs (10 Vrms, 4.5 kHz, K = 0.5, rotor DC 121 Ω, stator DC 69 Ω; no frequency tolerance published). **Comparison data for a different suffix**: installed X/Y pickups read `TS2014N 25 E …` (2026-08-15 survey, [docs/feedback_nameplate_survey_2026-08-15.md](docs/feedback_nameplate_survey_2026-08-15.md)); absolutes unconfirmed until the 25E datasheet is obtained.
 - [PCW on TS2014 variant compatibility with the 7i49](https://forum.linuxcnc.org/27-driver-boards/39171-7i49-with-tamagawa-ts2014-e1-type-resolvers) — explicit warning that some TS2014 variants are not 7i49-compatible; the suffix matters.
 - [srdco/MazakVQC1540 configs](https://github.com/srdco/MazakVQC1540) — LinuxCNC configs for the sister VQC 15/40.

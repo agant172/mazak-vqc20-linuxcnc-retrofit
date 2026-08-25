@@ -390,7 +390,7 @@ machine is which.
 needs the real machine, hardware, OS, or live measurements:
 - Live Mesa install, `mesaflash`/`readhmid`, bitfile flashing, IDROM/pin-dump capture.
 - Editing and testing HAL/INI on the control PC (`halrun`, watching real pins).
-- Host/NIC/network setup (static IP 192.168.1.121, `hm2_eth`, `enp0s31f6`), package installs,
+- Host/NIC/network setup (static IP 10.10.10.121, `hm2_eth`, `enp0s31f6`), package installs,
   systemd services.
 - Resolver/analog scope measurements and continuity checks.
 - Axis / spindle / ATC bring-up and every commissioning step.
@@ -426,18 +426,34 @@ change it here in the same commit.
 - **One repo only:** `agant172/mazak-vqc20-linuxcnc-retrofit`. Default branch `main`.
   There is no second repo, no private sibling, no gist. If work seems to need another
   repository, ask before adding one.
-- **The repo is PRIVATE** (owner decision 2026-08-16 — all of the owner's repos were made
-  private). Every clone, fetch, and push needs credentials; anything that assumed anonymous
-  read no longer works. This is not a licence to commit secrets — see the `.obsidian` table
-  below. Do not link repo paths from anywhere expecting them to resolve for a reader who is
-  not signed in.
+- **The repo is PUBLIC** (owner decision 2026-08-22). This **supersedes, for this repo only,**
+  the 2026-08-16 "all of the owner's repos were made private" decision, which stood in this
+  file until now — the other repos are unaffected. Anyone can read, clone, and link to it
+  with no credentials; only **pushing** needs write access. Repo paths cited anywhere resolve
+  for any reader, signed in or not.
+  **Nothing secret may ever be committed.** On a public repo a secret is world-readable the
+  instant it lands, and deleting it later does not remove it from history. That is why `.obsidian/` is ignored
+  outright (plugin settings can hold an API key) rather than curated — this repo is no
+  longer maintained as an Obsidian vault. The media rule is unchanged — raw photos are never
+  committed — and note that the Google Drive folder links in this file and in
+  `docs/README_photo_sorting.md` are now readable by anyone who reads the repo: if those
+  folders are shared "anyone with the link", they are effectively public too.
 - **Desk sessions never push to `main`** — Macs and cloud alike. Work on a feature branch and
   open a **draft PR**; the Authority gate (`.github/workflows/authority-gate.yml`) must pass
   before merge. The OptiPlex commits directly when recording a measurement at the machine.
-- **`main` moves on its own.** The OptiPlex pushes `status/host_status.{md,json}` to `main`
-  every 5 minutes via a systemd timer (`scripts/host_status/collect_status.sh`). Fetch and
-  rebase before pushing rather than assuming your base is current, and don't be alarmed by
-  commits you didn't write in `status/`.
+- **Nothing writes to `main` unattended.** Every commit here is one a person or a session
+  made deliberately. Fetch before pushing anyway — three machines share this repo — but a
+  commit you did not write means another *session* wrote it, not a robot.
+  This corrects a claim that stood in this file until 2026-08-17: that the OptiPlex pushed
+  `status/host_status.{md,json}` to `main` every 5 minutes. It never did. The status
+  collector that ran on the OptiPlex pushed to a **separate** repo,
+  `agant172/mazak-vqc20-status`, and it was **removed on 2026-08-17** (owner decision) —
+  archived at `scripts/host_status/retired/`. The `status/` directory is gone.
+- **The OptiPlex updates its own checkout.** `mazak-repo-pull.timer` fast-forwards the
+  working copy from `origin` every 15 minutes — fetch always, fast-forward only when it
+  cannot lose work, and it skips on a dirty tree, divergence, or a branch with no upstream
+  (`scripts/host_status/README.md`). It is a floor under staleness, not a reason to skip
+  `git pull` when you sit down.
 
 ### The machines
 
@@ -467,12 +483,13 @@ writes `PROPOSED`, not `ELECTRICALLY_VERIFIED`
 
 | Item | Value | Source |
 |---|---|---|
-| OptiPlex user | `andy` | `scripts/host_status/install.sh` |
-| Working copy — **all three machines** | `~/mazak-vqc20-linuxcnc-retrofit` | `scripts/host_status/collect_status.sh` |
-| Control NIC | `192.168.1.1/24`; interface name `enp0s31f6` **unverified** — confirm with `ip -o link show` | `linuxcnc/README.md`, `docs/hm2_eth_nic_validation.md` |
-| Mesa 7i80HDT | `192.168.1.121` (static) | same |
+| OptiPlex user | `andy` | `scripts/host_status/install_repo_pull.sh` |
+| Working copy — **all three machines** | `~/mazak-vqc20-linuxcnc-retrofit` | `scripts/host_status/install_repo_pull.sh` |
+| Control NIC | `10.10.10.1/24`; interface name `enp0s31f6` **unverified** — confirm with `ip -o link show` | `linuxcnc/README.md`, `docs/hm2_eth_nic_validation.md` |
+| Mesa 7i80HDT | `10.10.10.121` (static) | same |
 | SSH to the OptiPlex | `ssh linuxcnc` → `andy@linuxcnc.tail2a912f.ts.net`, over Tailscale, **key auth only** | `~/.ssh/config` on each Mac |
-| Keys authorized on the OptiPlex | **iMac** `SHA256:tjYw8rTkarNYK8r/uxvQskP78Y4ADFx+8U5fBWKsQag` (`andygant@imac`, added 2026-08-16). **MacBook Pro: unknown — check.** | `andy@linuxcnc:~/.ssh/authorized_keys` |
+| Keys authorized on the OptiPlex (inbound: Mac → OptiPlex) | **iMac** `SHA256:tjYw8rTkarNYK8r/uxvQskP78Y4ADFx+8U5fBWKsQag` (`andygant@imac`, added 2026-08-16). **MacBook Pro: unknown — check.** | `andy@linuxcnc:~/.ssh/authorized_keys` |
+| OptiPlex key on the Macs (outbound: OptiPlex → Mac) | `andy@LinuxCNC` is authorized on **both** — MacBook 2026-08-21, **iMac 2026-08-22**. The Mac accounts are `andygant@`, not `andy@`. | each Mac's `~/.ssh/authorized_keys` |
 
 Work in the git working copy, not in a scratch directory — anything produced outside it is
 lost, and the repo is the memory. LinuxCNC runtime output (`mesa_readhmid.txt`,
@@ -492,11 +509,19 @@ non-interactive `PATH` gotcha that makes `which claude` wrongly report "not inst
 key in the machines table above in the same commit** — that table is the only place it is written
 down.
 
+The two directions are independent files on independent machines, and being able to SSH *from*
+a Mac says nothing about whether the OptiPlex can SSH *to* it. Anything that collects from the
+Macs — `netwatch`, for one — needs the outbound direction. Install it from the Mac, which needs
+no password because the inbound direction already works:
+`ssh linuxcnc 'cat ~/.ssh/id_ed25519.pub' >> ~/.ssh/authorized_keys`. Running `ssh-copy-id` from
+the OptiPlex instead hits `Too many authentication failures`, because this box offers two keys
+before it reaches the password and macOS sshd cuts the session off first.
+
 **Allowed over SSH, unattended** — read-only inspection that cannot move anything or energize
 an output:
 - `mesaflash --readhmid`, `halcmd show pin|sig|param`, `halcmd -s show` sampling.
 - Reading logs: `journalctl -u linuxcnc`, dmesg, latency notes, `systemctl status`.
-- `ip -o link show`, `ping 192.168.1.121`, package queries, editing files, git operations.
+- `ip -o link show`, `ping 10.10.10.121`, package queries, editing files, git operations.
 
 **Requires a human physically at the machine, with the E-stop in reach** — anything that can
 move an axis, turn the spindle, actuate a solenoid, energize a coil, or change what the drives
@@ -515,9 +540,10 @@ that it was taken at the machine, so a later reader can tell a real reading from
 ### Getting a machine onto the shared memory
 
 `CLAUDE.md` travels with the repo, so a machine joins by cloning it — nothing to copy by hand.
-**The repo is private, so the clone needs credentials** (`gh auth login` or an SSH key on the
-account); an unauthenticated clone fails with a misleading "repository not found". Use the SSH
-remote form — the OptiPlex's status timer pushes non-interactively and HTTPS would prompt.
+**The repo is public, so an unauthenticated clone works** — no credentials needed to read it.
+You still need an SSH key on the account (or `gh auth login`) to **push**. Use the SSH remote
+form anyway: the OptiPlex's pull timer fetches non-interactively with a named key, and an HTTPS
+remote would prompt for a password it cannot answer.
 Step-by-step commands and the per-machine clone inventory are in the `new-machine-setup` skill
 (`.claude/skills/new-machine-setup/SKILL.md`).
 
@@ -527,24 +553,27 @@ conventions went missing until 2026-08-15. Anything that should be true on every
 *this* file, in the repo. Keep per-machine user memory empty, or limited to genuinely local
 facts (an SSH alias, a printer).
 
+**⚠️ One session per working copy at a time.** On 2026-08-23 a commit made on `main`
+in the OptiPlex's clone was orphaned before it ever reached GitHub — no force-push, no
+merge strategy, nothing on the remote to see. A second session was operating in the
+*same clone* concurrently, doing checkouts and a rebase while this one committed to
+`main`; git's `HEAD`, index and branch refs are single-threaded state, and the reflog
+shows one interleaved history. The loss was invisible because the installed systemd
+units kept running from `/usr/local/bin`, so the job worked while its source had
+vanished. It surfaced only during an unrelated bug hunt.
+
+This is the same family of foot-gun as the two-clones-on-one-machine trap below. If a
+session needs a branch while another is working here, use **`git worktree add`** so the
+branch gets its own directory and never touches the shared `HEAD` — never `git checkout
+-b` in a clone someone else is using.
+
+`mazak-repo-guard.timer` now checks hourly that local commits actually reached origin
+and that no unreviewed orphan is sitting in the object store, and pushes a notification
+if either is wrong (`scripts/health/README.md`). **A clean `git status` says nothing
+about whether your commits survived** — and neither does a `git push` that exits 0.
+
 **Start every session with `git pull`.** With three machines and an automated status push, a
 stale working copy is now the most likely way to act on facts that are no longer true.
-
-### Reading the repo in Obsidian
-
-The repo doubles as an Obsidian vault. `.obsidian/` is tracked on purpose so appearance and
-hotkeys follow you between machines, but `.gitignore` holds back workspace state, the vendored
-plugin code, and `plugins/*/data.json` — **plugin settings can hold credentials, and a committed
-secret is in the history permanently.** **Do not install the Obsidian *Git* plugin's auto-commit
-here:** it would push editor state straight to `main`, which desk sessions are not allowed to do.
-**Two clones on one machine (working copy + vault clone) is a foot-gun that has already cost us
-a day of resolver measurements** — both machines are confirmed consolidated (2026-08-20), single
-clone each at `~/Projects/obsidian-vault`. The MacBook Pro previously also had a
-`~/copilot-worktrees/obsidian-vault/...` git worktree (already-merged, unpushed branch
-`agant172-compare-obsidian-folders`); it was removed 2026-08-20 once confirmed merged.
-
-Full details — the tracked/ignored table and the safe consolidation procedure — are in the
-`obsidian-vault` skill (`.claude/skills/obsidian-vault/SKILL.md`).
 
 ### Photos and large media
 
@@ -553,7 +582,7 @@ Full details — the tracked/ignored table and the safe consolidation procedure 
   consolidated in
   [Google Drive](https://drive.google.com/drive/folders/1YYpWPyWiRuoY2z5GACSDw6H3zzSQoVdf?usp=drive_link)
   `My Drive/Mazak` under `00_Inbox`…`07_Reference` (plus `Videos`,
-  `Live Photo Motion`, `Manuals_SN060231`), sorted; `00_Inbox` is empty. **844 files.**
+  `Live Photo Motion`, `Manuals_SN060231`), sorted; `00_Inbox` is empty. **1142 objects / 7.41 GiB** as verified against Drive by rclone on 2026-08-23 (the earlier figure of 844 files was low). **Backed up to `/mnt/media/mazak-photos` daily** — Drive is no longer the sole copy; see `scripts/backup/README.md`.
   Sources folded in: the OneDrive store, the Apple Photos "Mazak" album, and both
   Google Photos albums. Layout, the `__dup2` collision convention and the UTC date
   caveat: `docs/photo_drive_layout_2026-08-21.md`.

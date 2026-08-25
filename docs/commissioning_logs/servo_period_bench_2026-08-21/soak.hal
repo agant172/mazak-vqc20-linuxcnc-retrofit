@@ -1,0 +1,4 @@
+source /home/andy/mazak-bench/bench.hal
+loadusr -w sleep 300
+show thread
+show pin hm2_7i80.0.packet

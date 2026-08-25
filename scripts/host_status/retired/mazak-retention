@@ -1,0 +1,252 @@
+#!/usr/bin/env python3
+"""mazak-retention — roll old snapshots into compressed daily archives.
+
+The collector writes 288 files a day. After 8 days that was 2389 files and
+19 MB of working tree, on track for ~105,000 files and ~870 MB a year. Every
+clone, every `git add -A` (which runs every 5 minutes) and every `git status`
+pays for that.
+
+WHAT THIS DOES NOT DO: delete data. Each day older than the retention window
+is concatenated into
+
+    snapshots/archive/YYYY-MM-DD.jsonl.gz
+
+one snapshot per line, ordered by timestamp, and only then are the loose
+files removed. Measured on a real day: 279 files / 1463 KiB becomes 1 file /
+13.4 KiB — 109x smaller and 279x fewer files, with every byte of every
+snapshot still present.
+
+Compression is a clear win here even inside git. Loose snapshots delta-pack
+to roughly 31 KiB/day; a daily .gz is ~13 KiB and, being written once and
+never modified, has no delta chain to lose.
+
+Note that git history retains every blob ever committed regardless — this
+shrinks the working tree and the file count, not `.git`. As of writing `.git`
+is 262 KiB for 2389 snapshots, so history is not the problem worth solving.
+
+Safety:
+  * an archive is verified to read back with the exact snapshot count and
+    content before a single loose file is removed
+  * the current day and everything inside the retention window are never
+    touched
+  * idempotent: a second run does nothing
+  * --dry-run shows the plan and changes nothing
+
+No git operations. The collector runs `git add -A` every 5 minutes and will
+commit the rollup on its next pass, which avoids any index.lock race between
+the two.
+
+Usage:
+    mazak-retention.py [--days N] [--repo DIR] [--dry-run] [--quiet]
+"""
+
+import argparse
+import glob
+import gzip
+import json
+import os
+import re
+import sys
+from datetime import datetime, timedelta, timezone
+
+DEFAULT_DAYS = 14
+ARCHIVE_DIR = "archive"
+DAY_RE = re.compile(r"^(\d{4})/(\d{2})/(\d{2})$")
+
+
+def find_days(snapshots_dir):
+    """-> {(y, m, d): [snapshot paths]} for loose YYYY/MM/DD/HHMM.json files."""
+    days = {}
+    pattern = os.path.join(snapshots_dir, "[0-9][0-9][0-9][0-9]", "[0-9][0-9]",
+                           "[0-9][0-9]", "*.json")
+    for path in glob.glob(pattern):
+        rel = os.path.relpath(os.path.dirname(path), snapshots_dir)
+        m = DAY_RE.match(rel.replace(os.sep, "/"))
+        if not m:
+            continue
+        days.setdefault(tuple(int(x) for x in m.groups()), []).append(path)
+    return days
+
+
+def archive_path(snapshots_dir, day):
+    y, m, d = day
+    return os.path.join(snapshots_dir, ARCHIVE_DIR, f"{y:04d}-{m:02d}-{d:02d}.jsonl.gz")
+
+
+def load_snapshots(paths):
+    """-> [(ts, doc)] sorted by ts. Raises on anything unreadable."""
+    out = []
+    for p in sorted(paths):
+        with open(p) as fh:
+            doc = json.load(fh)
+        if not isinstance(doc, dict) or "ts" not in doc:
+            raise ValueError(f"{p}: not a snapshot object with a ts")
+        out.append((doc["ts"], doc))
+    out.sort(key=lambda kv: kv[0])
+    return out
+
+
+def serialise(snapshots):
+    """-> bytes of newline-delimited JSON, one snapshot per line."""
+    return "".join(
+        json.dumps(doc, separators=(",", ":"), sort_keys=True) + "\n"
+        for _, doc in snapshots
+    ).encode("utf-8")
+
+
+def write_archive(path, payload):
+    """Write payload.gz atomically and reproducibly."""
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    tmp = path + ".tmp"
+    # mtime=0 so re-running produces a byte-identical archive rather than a
+    # spurious diff for git to commit.
+    with open(tmp, "wb") as raw:
+        with gzip.GzipFile(fileobj=raw, mode="wb", compresslevel=9, mtime=0) as gz:
+            gz.write(payload)
+    os.replace(tmp, path)
+
+
+def read_archive(path):
+    with gzip.open(path, "rb") as fh:
+        return fh.read()
+
+
+def verify(path, payload):
+    """Read the archive back and confirm it matches, byte for byte."""
+    got = read_archive(path)
+    if got != payload:
+        return False, "archive content does not match what was written"
+    lines = [ln for ln in got.decode("utf-8").splitlines() if ln.strip()]
+    for ln in lines:
+        json.loads(ln)  # every line must be parseable on its own
+    return True, f"{len(lines)} snapshots"
+
+
+def prune_empty_dirs(root, log):
+    """Remove directories left empty under root, deepest first.
+
+    Also clears the stray HHMM/ directories the collector used to create
+    beside each snapshot file.
+    """
+    removed = 0
+    for dirpath, dirnames, filenames in os.walk(root, topdown=False):
+        if dirpath == root:
+            continue
+        if not dirnames and not filenames:
+            try:
+                os.rmdir(dirpath)
+                removed += 1
+            except OSError:
+                pass
+    if removed:
+        log(f"removed {removed} empty director{'y' if removed == 1 else 'ies'}")
+    return removed
+
+
+def main(argv=None):
+    ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
+    ap.add_argument("--days", type=int, default=int(
+        os.environ.get("MAZAK_RETENTION_DAYS", DEFAULT_DAYS)),
+        help=f"keep this many days at full resolution (default {DEFAULT_DAYS})")
+    ap.add_argument("--repo", default=os.environ.get(
+        "STATUS_REPO_DIR", os.path.dirname(os.path.dirname(os.path.abspath(__file__)))),
+        help="repo checkout containing snapshots/")
+    ap.add_argument("--dry-run", action="store_true")
+    ap.add_argument("--quiet", action="store_true")
+    args = ap.parse_args(argv)
+
+    if args.days < 1:
+        print("--days must be at least 1", file=sys.stderr)
+        return 2
+
+    def log(msg):
+        if not args.quiet:
+            print(msg)
+
+    snapshots_dir = os.path.join(args.repo, "snapshots")
+    if not os.path.isdir(snapshots_dir):
+        print(f"no snapshots directory at {snapshots_dir}", file=sys.stderr)
+        return 2
+
+    cutoff = (datetime.now(timezone.utc) - timedelta(days=args.days)).date()
+    days = find_days(snapshots_dir)
+    eligible = sorted(d for d in days if datetime(*d).date() < cutoff)
+
+    log(f"retention: {args.days} days at full resolution "
+        f"(archiving days before {cutoff.isoformat()})")
+    log(f"  {len(days)} day(s) of loose snapshots, {len(eligible)} eligible")
+
+    if not eligible:
+        log("  nothing to archive")
+        if not args.dry_run:
+            prune_empty_dirs(snapshots_dir, log)
+        return 0
+
+    archived = files_removed = 0
+    bytes_before = bytes_after = 0
+
+    for day in eligible:
+        paths = days[day]
+        target = archive_path(snapshots_dir, day)
+        label = f"{day[0]:04d}-{day[1]:02d}-{day[2]:02d}"
+        raw = sum(os.path.getsize(p) for p in paths)
+
+        try:
+            snapshots = load_snapshots(paths)
+        except (OSError, ValueError, json.JSONDecodeError) as e:
+            print(f"  {label}: SKIPPED — {e}", file=sys.stderr)
+            continue
+
+        payload = serialise(snapshots)
+
+        if os.path.exists(target):
+            # Already archived. Only drop the loose files if the existing
+            # archive genuinely contains them.
+            try:
+                if read_archive(target) != payload:
+                    print(f"  {label}: SKIPPED — archive exists but differs from "
+                          f"the loose files; refusing to delete", file=sys.stderr)
+                    continue
+            except OSError as e:
+                print(f"  {label}: SKIPPED — unreadable archive: {e}", file=sys.stderr)
+                continue
+
+        if args.dry_run:
+            log(f"  {label}: would archive {len(paths)} files "
+                f"({raw / 1024:.0f} KiB) -> {os.path.relpath(target, args.repo)}")
+            archived += 1
+            files_removed += len(paths)
+            bytes_before += raw
+            continue
+
+        write_archive(target, payload)
+        ok, detail = verify(target, payload)
+        if not ok:
+            print(f"  {label}: FAILED verification ({detail}); "
+                  f"loose files left in place", file=sys.stderr)
+            continue
+
+        for p in paths:
+            os.remove(p)
+
+        size = os.path.getsize(target)
+        log(f"  {label}: {len(paths)} files ({raw / 1024:.0f} KiB) -> "
+            f"1 archive ({size / 1024:.1f} KiB), {detail}")
+        archived += 1
+        files_removed += len(paths)
+        bytes_before += raw
+        bytes_after += size
+
+    if not args.dry_run:
+        prune_empty_dirs(snapshots_dir, log)
+
+    verb = "would free" if args.dry_run else "freed"
+    if bytes_before:
+        saved = bytes_before - bytes_after
+        log(f"  {archived} day(s) archived, {files_removed} files removed, "
+            f"{verb} {saved / 1024 / 1024:.1f} MiB")
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

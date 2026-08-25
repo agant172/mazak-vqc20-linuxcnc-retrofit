@@ -1,0 +1,16 @@
+[Unit]
+Description=Daily offsite backup of the LinuxCNC working directory
+
+[Timer]
+# 03:15 daily. Late enough that the iMac is idle, and clear of the smartd long
+# self-test at 03:00 Saturdays so the two do not fight for the same disk.
+OnCalendar=*-*-* 03:15:00
+# The Mac is often asleep at 03:15 and the tailnet may be down; catch up on the
+# next boot or wake rather than silently skipping a day.
+Persistent=true
+# Spread the start so a whole shop of timers does not fire on the same second.
+RandomizedDelaySec=10m
+AccuracySec=5m
+
+[Install]
+WantedBy=timers.target

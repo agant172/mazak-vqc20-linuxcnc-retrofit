@@ -1,0 +1,9 @@
+ISOLATED core3  1ms  run1 |     1000000  YES          servo-thread (   525986,  2207050 ) | pkt-err=0x00000000
+ISOLATED core3  1ms  run2 |     1000000  YES          servo-thread (   593746,  2324200 ) | pkt-err=0x00000000
+ISOLATED core3  1ms  run3 |     1000000  YES          servo-thread (   540628,  1572468 ) | pkt-err=0x00000000
+HOUSEKEEP 0,1   1ms  run1 |     1000000  YES          servo-thread (   521408,  1729044 ) | pkt-err=0x00000000
+HOUSEKEEP 0,1   1ms  run2 |     1000000  YES          servo-thread (   526464,  1437396 ) | pkt-err=0x00000000
+HOUSEKEEP 0,1   1ms  run3 |     1000000  YES          servo-thread (   536332,  2194508 ) | pkt-err=0x00000000
+ISOLATED core3  2ms  run1 |     2000000  YES          servo-thread (   561374,  1647744 ) | pkt-err=0x00000000
+ISOLATED core3  2ms  run2 |     2000000  YES          servo-thread (   522220,  1660570 ) | pkt-err=0x00000000
+DONE

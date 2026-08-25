@@ -1,0 +1,2 @@
+source /home/andy/mazak-bench/bench.hal
+show param servo-thread

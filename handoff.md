@@ -53,9 +53,10 @@ conclusions and will re-derive things that are now settled.
    See the warning below.
 4. **Desk items** — see
    [`docs/project_status.md`](docs/project_status.md#open-desk-items--no-machine-access-needed).
-   Both of the two named here are now closed: the P1 card is the **7i49HV**, and the ballscrew
-   lead is **10.000 mm** — settled not by the parts list, which never states it, but by turning
-   the screw.
+   Both of the two named here are now closed: the P1 card is a **plain 7i49** (settled
+   2026-08-22 by owner, superseding a brief 2026-08-17 misread of the sister's purchase
+   spreadsheet as `7i49HV`), and the ballscrew lead is **10.000 mm** — settled not by the
+   parts list, which never states it, but by turning the screw.
 
 ---
 
@@ -101,6 +102,8 @@ Nothing large is committed (media rule). To get back to the primaries:
 | `VQC20-40_060231_Parts_List.pdf` — for the ballscrew lead | same Drive folder |
 | Live `MACH CONSTANT PAR NO.2` CRT photo | Drive file ID `1yTkUJBBNEuA-mmtQIEsrb2WuOz5qpe3N` |
 | All three PDFs, already downloaded | `~/Downloads` on the OptiPlex |
+| **Google Drive, mounted locally on the iMac** — read the manuals directly, no download needed | `~/Library/CloudStorage/GoogleDrive-andy.gant@gmail.com/My Drive/Mazak/Manuals_SN060231/` |
+| Sister-machine configs (card, excitation, resolver scale) | `github.com/srdco/MazakVQC1540`, `MAZAK-VQC1540-20170501/` |
 
 Both Meldas manuals are **scans with no text layer**: page images only. Printed page
 = PDF page − 11 in the M2 maintenance manual. OCR them with `pdftoppm -r 250 -png`

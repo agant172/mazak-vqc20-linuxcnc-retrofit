@@ -1,5 +1,7 @@
 # Mesa/PCW inquiry — Efinix 7i49 resolver bitfile for the 7i80HDT stack
 
+> **Address note (2026-08-23):** the Mesa control subnet moved from `192.168.1.0/24` to `10.10.10.0/24` (host `10.10.10.1`, board `10.10.10.121`) because the old range collided with the workshop LAN. Addresses below are kept as-recorded and are correct for the date shown.
+
 > **ROLE: BACKGROUND** — moved from `docs/` 2026-08-15; historical — the bitfile was received, verified, and committed. Index: [README.md](README.md).
 
 

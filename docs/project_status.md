@@ -62,7 +62,7 @@ control to LinuxCNC using Mesa Electronics FPGA hardware.
 > (2026-08-11, re-confirmed byte-identical 2026-08-13) — see
 > [`../mesa/mesa_firmware_checklist.md`](../mesa/mesa_firmware_checklist.md#bitfile-provenance-verification-procedure).
 
-- **LinuxCNC control PC** (Debian 13 / LinuxCNC 2.9.10) driving a **Mesa 7i80HDT** Ethernet FPGA host as the primary control board (`hm2_eth`, static IP 192.168.1.121).
+- **LinuxCNC control PC** (Debian 13 / LinuxCNC 2.9.10) driving a **Mesa 7i80HDT** Ethernet FPGA host as the primary control board (`hm2_eth`, static IP 10.10.10.121).
 - **P3: Mesa 7i44** — RS-422 sserial breakout. Physical channels 0/1 → **7i84U-A/B** within HostMot2 port 0; channels 2-7 spare.
 - **P1: Mesa 7i49** — plain 7i49 (not 7i49HV). X/Y/Z resolver feedback on RES0/1/2 + X/Z/Y servo velocity command on AOUT0..AOUT2 and FR-SX spindle velocity on AOUT3. AOUT4/AOUT5 spare. FR-SX orient is a DISCRETE ORCM1 command on 7i84U-A TB3 OUT4 (not analog); see [`frsx_orient_model.md`](frsx_orient_model.md).
 - **P2: unused/spare** — no daughter card is fitted; all pins are bare-FPGA GPIO. Not safe for 24 V field wiring. The Renishaw MP-3 probe SKIP1 was moved off P2 and now lands on 7i84U-B TB3 IN15.
@@ -104,7 +104,7 @@ See [`architecture_decision.md`](architecture_decision.md) for the full rational
   verification and a synthesized coverage report.
 
 ### In progress
-- **All interface hardware is on hand as of 2026-08-17** (owner, at the machine): 7i80HDT, 7i49, 7i44, 7i84U-A, 7i84U-B, and the 50-pin IDC cables that were the last blocker. The 7i80HDT is on the network at 192.168.1.121 and flashed with `7i80hdt_rmsvss6_8.bin`; the daughter cards and both 7i84U remotes are **not yet seated, wired, or enumerated** — no card other than the 7i80HDT has been proven present by `readhmid` or `halcmd show pin hm2`. Procurement is no longer the gate; the physical install is.
+- **All interface hardware is on hand as of 2026-08-17** (owner, at the machine): 7i80HDT, 7i49, 7i44, 7i84U-A, 7i84U-B, and the 50-pin IDC cables that were the last blocker. The 7i80HDT is on the network at 10.10.10.121 (192.168.1.121 until the 2026-08-23 renumber) and flashed with `7i80hdt_rmsvss6_8.bin`; the daughter cards and both 7i84U remotes are **not yet seated, wired, or enumerated** — no card other than the 7i80HDT has been proven present by `readhmid` or `halcmd show pin hm2`. Procurement is no longer the gate; the physical install is.
 - Collecting cabinet photos.
 
 ### Not started
@@ -217,7 +217,7 @@ evidence and an authority disposition.
 dump exists. Do the steps in order; **no field wiring lands on a Mesa terminal
 until step 6 is done.**
 
-- [ ] 1. Confirm the host/network path first, since everything below depends on it: host NIC `enp0s31f6` (**name unverified** — check `ip -o link show`) at 192.168.1.1/24, board static 192.168.1.121, `ping 192.168.1.121`, and `hm2_eth` `board_ip="192.168.1.121"`.
+- [ ] 1. Confirm the host/network path first, since everything below depends on it: host NIC `enp0s31f6` (**name unverified** — check `ip -o link show`) at 10.10.10.1/24, board static 10.10.10.121, `ping 10.10.10.121`, and `hm2_eth` `board_ip="10.10.10.121"`.
 - [ ] 2. Seat **7i49 on P1** and **7i44 on P3** with the 50-pin IDC cables. **P2 stays empty — no exceptions**: it is bare 3.3 V FPGA GPIO and must never see 24 V field wiring.
 - [ ] 3. Bring up **7i84U-A on 7i44 channel 0** and **7i84U-B on channel 1**, both under HostMot2 smart-serial port 0. Preserve the A/B identities — do not let them swap silently.
 - [ ] 4. Re-run `mesaflash --readhmid` **after** the cards are seated and diff it against [`../mesa/firmware/readhmid_2026-08-13.txt`](../mesa/firmware/readhmid_2026-08-13.txt) (bench read, host only). Confirm the daughter cards now enumerate.
@@ -282,6 +282,23 @@ retirement:**
 - [ ] Measure smart-serial input/output latency and probing jitter end-to-end; fault-inject 7i44 and hm2_eth link loss and confirm both hardware watchdog safe states plus the software latch. Do not add DPLL or `SSERIAL_TIMER` settings for resolver/sserial without a primary source that documents those interfaces. See [`smart_serial_latency.md`](smart_serial_latency.md).
 - [ ] Confirm the Renishaw MP-3 probe SKIP1 lands on 7i84U-B TB3 IN15 (opto-isolated 24 V input). Do NOT wire the probe to bare P2 GPIO — that path is RETRACTED (see [`superseded_claims_2026-08-06.md`](superseded_claims_2026-08-06.md) row 15). All P2 pins remain unused/spare.
 
+### Control PC — host hardware, before commissioning
+
+The OptiPlex is now the only thing standing between a running program and a
+storage fault, so its own hardware gets qualified like any other part of the
+machine.
+
+- [ ] **Flash both SSDs to current firmware — 2026-08-23, owner decision: before commissioning.** Root disk (Crucial MX500) is on `M3CR010`, the 2017 launch firmware, 36 revisions behind `M3CR046`, whose release notes name "a hang condition occurring under corner-case workloads" — a storage hang on the disk running LinuxCNC presents as the control freezing mid-program, not as a disk problem. Backup disk (SanDisk X400 `SD8SN8U`) is on `X4120006` vs Dell's `X4152012`, which fixes "drive lost during cold boot" — a backup drive that intermittently fails to appear is a backup that silently stops. Full procedure, ordering, and the root-image safety net: [`ssd_firmware_plan.md`](ssd_firmware_plan.md). **Closure test:** `smartctl -i` reports `M3CR046` / `X4152012`, LinuxCNC starts, `mazak-gcode-backup.service` runs clean.
+- [ ] **Resolve how the SanDisk X400 gets flashed without Windows** — Dell package `hv8f3` is a Windows executable and Windows was removed from this box 2026-08-23. Either find a bootable/DUP form, or move the M.2 drive to a Windows machine to flash and return it. Blocks the item above. See [`ssd_firmware_plan.md`](ssd_firmware_plan.md) step 3.
+- [ ] **Reseat both ends of the `/dev/sda` SATA cable** while the case is open for the firmware work. `UDMA_CRC_Error_Count = 4` with zero reallocated sectors and zero uncorrectable errors — that is the SATA link dropping frames, i.e. a cable or connector, not the flash. **Closure test:** counter stops climbing; if it does not, replace the cable. Visible on the `netwatch` disk line.
+- [x] **Offsite copy of the G-code exists — DONE 2026-08-23.** `mazak-gcode-backup-remote.timer` ships a dated, SHA-256-verified tarball of `~/linuxcnc` to the iMac daily at 03:15, keeping 30. Tarball rather than rsync because the iMac runs **openrsync**, not GNU rsync. Restore drilled end to end: snapshot pulled back, extracted, byte-identical to the live file. ~9 MB compressed over a 1.57 MB/s relayed tailnet path. See [`../scripts/backup/README.md`](../scripts/backup/README.md).
+- [x] **Second copy of the G-code exists — DONE 2026-08-23.** The box's unused second SSD (was a never-used Windows install) is now a 232 GB ext4 volume at `/mnt/media`, and `mazak-gcode-backup.timer` mirrors `~/linuxcnc` to it hourly with a `mountpoint` guard, a deletion-history safety net, and `nofail` so a dead backup disk can never stop the machine booting. Recovery drill passed end to end. See [`../scripts/backup/README.md`](../scripts/backup/README.md).
+- [x] **Disk health is monitored and reaches a human — DONE 2026-08-23.** `smartmontools` installed, baseline captured (both drives PASSED, short self-tests clean), hourly SMART snapshot to `/var/lib/mazak-health/smart.json`, rendered per-drive on `netwatch`. Stock Debian smartd mailed local root on a box with no MTA — every warning it would ever produce went nowhere; replaced with a journal + flag-file + optional-push alert path. See [`../scripts/health/README.md`](../scripts/health/README.md).
+- [x] ⚠️ **Mesa control subnet renumbered to `10.10.10.0/24` — DONE 2026-08-23, at the machine.** The workshop LAN is also `192.168.1.0/24` (iMac `.19`, gateway `.1`) and this PC held **`192.168.1.1`** on the Mesa NIC — the shop gateway's own address. Two failures, one loud (patch the Mesa NIC into the shop switch and this PC fights the router for `.1`, taking down the shop network) and one silent (the route `192.168.1.0/24 dev enp0s31f6` sent every shop-LAN packet out the Mesa link into a dead end, so the iMac was unreachable by LAN address). **Done:** EEPROM written via `mesaflash --set ip=10.10.10.121`, owner moved jumper **W3 UP** (W2 DOWN) and power-cycled, host NIC moved to `10.10.10.1/24` with `scripts/health/switch_mesa_subnet.sh`, `board_ip` updated in `linuxcnc/mazak_vqc_20_40.hal`, and every live doc reference rewritten (dated commissioning logs and the PCW inquiry left as-recorded, with address notes). **The renumber also reaches outside this repo** — `netwatch` reported the board offline until its config, its built-in default, and two memory notes were updated (`claude-config` `fe392b4`). Check there too before assuming a renumber is complete. **Verified:** board answers at `10.10.10.121`; `readhmid` and `--sserial` output **byte-identical** to the committed `2026-08-13` baselines, so the renumber changed nothing about the board; `ip route get 192.168.1.19` now leaves via the default route instead of the Mesa NIC. **Rollback if ever needed:** W3 DOWN → board reverts to the fixed default `192.168.1.121`.
+- [ ] **Decide how this box reaches the shop LAN at all.** The OptiPlex has one onboard NIC, dedicated to Mesa, plus a USB WiFi adapter (currently `192.168.68.109`). After the renumber the shop LAN is reachable, but over WiFi unless a second wired NIC is added. Irrelevant for the ~9 MB nightly backup; relevant if bulk media ever moves this way.
+- [ ] ⚠️ **Create a private Google OAuth client ID for rclone — deadline is this year.** Both rclone remotes (`gdrive` read-only on the OptiPlex for the photo backup, `gdrive-backup` write-scoped on the MacBook for the cloud upload) use **rclone's shared client ID**, and rclone now warns it *"is being retired and will stop working during 2026"*. It is already August 2026. When it stops, the nightly Mazak photo backup silently starts failing. Fix: create a project in Google Cloud Console, enable the Drive API, make an OAuth client ID, and add `client_id`/`client_secret` to both remotes — no re-download needed, the existing local copies stay valid. See <https://rclone.org/drive/#making-your-own-client-id>. **Closure test:** `rclone about gdrive:` runs with no retirement NOTICE, and a photo-backup run logs OK.
+- [x] **Push channel configured — DONE 2026-08-23.** ntfy.sh with a random 24-hex-character topic, written to `/etc/mazak-health/notify.conf` (mode 600, **deliberately not in this public repo** — the topic name is the only thing protecting the channel, and anyone holding it can both send and read alerts). Owner subscribes from the ntfy phone app; no account needed. **Verified:** a simulated smartd pending-sector event delivered to the phone, the journal, the flag file, and the `netwatch` disk panel in one pass.
+
 ### Next — resolver and analog path, drives inhibited
 
 In this order. Pole count gates scaling, so it comes before any scale is entered.
@@ -302,16 +319,20 @@ In this order. Pole count gates scaling, so it comes before any scale is entered
 
 Both are pure document work and both bear on decisions already in the BOM.
 
-- [x] **Settle plain 7i49 vs 7i49HV — DONE 2026-08-17. It is a `7i49HV`.** The sister
-  VQC 15/40's own purchased-parts table lists **`7i49HV`, $184.00** (`vqc-retrofit-wiring-sheet2.ods`,
-  Sheet3 row 4, ticked `x`). The "plain 7i49" reading came from **comments** in
-  `MAZAK-VQC1540.ini:138` / `.hal:28`, which cannot settle it: both cards expose identical
-  `hm2_*.resolver.NN.*` pins, so no HAL/INI can record which card was bought. `bom/` and the
-  stack table are updated; the later pass was right and the original claim was wrong.
-  Full write-up and citations: [`../bom/README.md`](../bom/README.md#which-7i49-the-sister-machine-actually-runs--settled-2026-08-17).
-  - **Also corrected:** that same sentence said the sister runs "at 5 kHz". It runs
-    **2.5 kHz** (`MAZAK-VQC1540.ini:176`, applied live at `.hal:117`). Our plan still says
-    5 kHz "verify on scope" — that is now an unanchored choice, not one the sister corroborates.
+- [x] **Settle plain 7i49 vs 7i49HV — DONE 2026-08-22 (owner). It is a plain `7i49`.**
+  The sister VQC 15/40's committed config names `7i49` in both INI and HAL
+  (`MAZAK-VQC1540.ini:138`, `.hal:28`) with no "HV" anywhere in that repository. A
+  purchased-parts spreadsheet in the same repo (`vqc-retrofit-wiring-sheet2.ods`,
+  Sheet3 row 4) had briefly been read as `7i49HV` on 2026-08-17, on the theory that
+  HAL/INI comments can't settle it since both cards expose identical
+  `hm2_*.resolver.NN.*` pins. Owner confirmation on 2026-08-22 settles it the other
+  way: the config comments were right, and the `.ods` row was either misread or does
+  not reflect what was actually installed. `bom/` and the stack table are updated.
+  Full write-up: [`../bom/README.md`](../bom/README.md#which-7i49-the-sister-machine-actually-runs--settled-2026-08-22-owner-superseding-2026-08-17).
+  - **Also corrected on 2026-08-17, still stands:** the sister runs
+    **2.5 kHz, not 5 kHz** (`MAZAK-VQC1540.ini:176`, applied live at `.hal:117`). Our
+    plan still says 5 kHz "verify on scope" — that is an unanchored choice, not one the
+    sister corroborates.
   - **Small follow-up, does not block ordering:** get `7i49man.pdf` into
     `docs/Mesa Manuals/` to confirm Mesa's "2:1" vs "1:2" direction convention.
     `freeby.mesanet.com` served an expired certificate on 2026-08-17.
@@ -427,11 +448,16 @@ Real gaps, but nothing downstream waits on them.
 
 ### Closed — kept for the rationale, not the checkmark
 
+> **Address note (2026-08-23):** items below cite the Mesa control subnet as
+> `192.168.1.0/24` / `192.168.1.121`. That was correct when they were closed; the
+> subnet was renumbered to `10.10.10.0/24` / `10.10.10.121` on 2026-08-23. Left
+> as-recorded on purpose.
+
 - [x] **All Mesa interface hardware on hand (2026-08-17).** 7i80HDT, 7i49, 7i44, 7i84U-A, 7i84U-B and the 50-pin IDC cables. On-hand is inventory, not evidence: only the 7i80HDT has been proven present electrically, so every daughter-card pin name stays a placeholder until Phase B step 6.
 - [x] 7i80HDT is in hand, on the network at 192.168.1.121, and flashed with `7i80hdt_rmsvss6_8.bin`.
 - [x] **D3 complete — firmware is flashed and its provenance closed.** `7i80hdt_rmsvss6_8.bin` (2026-08-11), layout/identity confirmed by two independent `readhmid` reads plus a recorded SHA-256, source cited (Peter Wallace, Mesa Electronics, `freeby.mesanet.com/7i80hdt_rmsvss6_8.zip`, 2026-08-11), the binary committed under `mesa/firmware/`, and the recovery procedure documented from the 7I80HD manual (fallback + jumper-W5 dual-flash recovery) at `docs/Mesa Manuals/7i80hdman.pdf`.
 - [x] **FR-SX orient detector — ANSWERED 2026-08-13 from the drive manual.** `docs/OEM Manuals/…BCN-21735-S5.pdf` §5.2: the `SX-CPU2` card is fitted "when the controller unit is equipped with **1024P×4/Rev. encoder type multi-point orientation**" — and this machine has an `SX-CPU2`. So the drive orients from a **1024 ppr encoder**, which is **not** the motor's 512 c/t PLG. See [`frsx_maintenance_manual_notes.md`](frsx_maintenance_manual_notes.md).
-- [x] **DECIDED 2026-08-12 (owner): LinuxCNC does not read spindle position.** `num_encoders=0`, P3 empty, and `SPINDLE_ENCODER` `UNBOUND` are settled, not pending. Orient is FR-SX internal, speed supervision is discrete, and tapping uses a floating holder (no rigid tapping / G33 in scope). The motor PLG is structurally unusable anyway — it sits upstream of the 2-speed gearbox and has no index line. See [`spindle_motor_plg_encoder.md`](spindle_motor_plg_encoder.md#design-decision--linuxcnc-does-not-read-spindle-position).
+- [x] **DECIDED 2026-08-12 (owner): LinuxCNC does not read spindle position.** `num_encoders=0`, P2 empty, and `SPINDLE_ENCODER` `UNBOUND` are settled, not pending. Orient is FR-SX internal, speed supervision is discrete, and tapping uses a floating holder (no rigid tapping / G33 in scope). The motor PLG is structurally unusable anyway — it sits upstream of the 2-speed gearbox and has no index line. See [`spindle_motor_plg_encoder.md`](spindle_motor_plg_encoder.md#design-decision--linuxcnc-does-not-read-spindle-position).
 
 ## Bring-up order (summary)
 

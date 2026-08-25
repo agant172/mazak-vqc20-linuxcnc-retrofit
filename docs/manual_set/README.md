@@ -23,7 +23,7 @@
 - Replaces the retracted 7i97T/one-7i84U Rev A architecture with 7i80HDT + 7i44 + 7i49 + two 7i84Us.
 - Generates Volume 4 directly from `mesa/current_pin_authority.csv`.
 - Corrects 7i84U TB1: pins 1/2 VFIELDB positive, pins 3/4 VFIELDA positive, pin 5 VIN, pins 6/7/8 common.
-- Keeps P3 empty and routes the probe to 7i84U-B TB3 IN15.
+- Keeps P2 empty and routes the probe to 7i84U-B TB3 IN15.
 - Treats FR-SX orient as a discrete ORCM1 command; AOUT4 remains spare.
 - Consolidates D1-D16 hold points, resolver/servo commissioning, shared-bus/Z-brake risks, network qualification, maintenance, and superseded-claim quarantine.
 

@@ -454,7 +454,7 @@ def build(root):
         "authority_file": AUTHORITY,
         "epson_ferrule_file": EPSON_FERRULES,
         "halfiles": halfiles,
-        "board_ip": "192.168.1.121",
+        "board_ip": "10.10.10.121",
         "rules": [
             "mesa/current_pin_authority.csv is the wiring authority.",
             "7i49 AOUT axis order is X=AOUT0, Z=AOUT1, Y=AOUT2.",

@@ -1,0 +1,20 @@
+[Unit]
+Description=Daily rollup of old Mazak status snapshots
+
+[Timer]
+# 03:17 local — deliberately off the collector's :00/:05/:10 grid so the two
+# are unlikely to touch the working tree at the same moment. Retention does
+# no git operations at all (the collector's next `git add -A` commits the
+# rollup), so the worst case of an overlap is one collector run erroring and
+# the next one succeeding.
+OnCalendar=*-*-* 03:17:00
+
+# Catch up if the machine was switched off at 03:17 — which, on a desktop
+# that gets powered down, is most nights.
+Persistent=true
+
+AccuracySec=1h
+Unit=mazak-retention.service
+
+[Install]
+WantedBy=timers.target

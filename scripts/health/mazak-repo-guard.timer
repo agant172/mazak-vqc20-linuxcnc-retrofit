@@ -1,0 +1,12 @@
+[Unit]
+Description=Check hourly that local commits reached origin
+
+[Timer]
+# :50 — clear of repo-pull (:07/15), smart-collect (:25) and gcode-backup (:40).
+OnCalendar=*:50
+OnBootSec=6min
+Persistent=true
+AccuracySec=2m
+
+[Install]
+WantedBy=timers.target

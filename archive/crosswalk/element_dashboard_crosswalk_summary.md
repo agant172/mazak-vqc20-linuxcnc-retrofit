@@ -61,7 +61,7 @@ The two-card design uses 32 DI / 16 DO on 7i84U-A and 11 DI / 9 DO on
 7i84U-B: 43 DI and 25 DO total, leaving 21 DI and 7 DO. A second 7i84U is
 therefore required and already part of the active architecture; a third is not
 required by the current authority. See
-[`../io_capacity_reconciliation.md`](../io_capacity_reconciliation.md).
+[`../io_capacity_reconciliation.md`](../../docs/io_capacity_reconciliation.md).
 
 Any newly restored option or panel function must first receive a unique row and
 terminal in `current_pin_authority.csv`; do not allocate from the old discovery

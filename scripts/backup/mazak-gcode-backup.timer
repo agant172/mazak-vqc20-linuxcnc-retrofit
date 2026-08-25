@@ -1,0 +1,15 @@
+[Unit]
+Description=Back up the LinuxCNC working directory hourly
+
+[Timer]
+# Hourly at :40 — off the :07/15 grid that mazak-repo-pull.timer uses, so the
+# two never wake at the same instant. The copy is ~23 MB and almost entirely
+# unchanged run to run, so the real cost is a directory scan.
+OnCalendar=*:40
+# Catch up once after a boot or a long power-off rather than waiting for :40.
+OnBootSec=5min
+Persistent=true
+AccuracySec=1m
+
+[Install]
+WantedBy=timers.target

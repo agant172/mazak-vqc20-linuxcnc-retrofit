@@ -34,8 +34,8 @@ window.MAZAK_PROJECT = {
   ],
   "hardware": [
     { "group": "Machine", "item": "Mazak VQC-20/40", "detail": "S/N 060231, original control Mazatrol M-2", "status": "CONFIRMED", "source": "machine plate / 41434WB docs" },
-    { "group": "Control", "item": "LinuxCNC host", "detail": "Debian 13, LinuxCNC 2.9.10, PREEMPT-RT; NIC enp0s31f6 at 192.168.1.1/24", "status": "CONFIRMED", "source": "repo config" },
-    { "group": "Mesa", "item": "7i80HDT", "detail": "Ethernet FPGA host at 192.168.1.121; P1 = 7i44, P2 = 7i49, P3 empty", "status": "CONFIRMED", "source": "docs/architecture_decision.md" },
+    { "group": "Control", "item": "LinuxCNC host", "detail": "Debian 13, LinuxCNC 2.9.10, PREEMPT-RT; NIC enp0s31f6 at 10.10.10.1/24", "status": "CONFIRMED", "source": "repo config" },
+    { "group": "Mesa", "item": "7i80HDT", "detail": "Ethernet FPGA host at 10.10.10.121; P1 = 7i49, P2 = empty/spare, P3 = 7i44", "status": "CONFIRMED", "source": "docs/architecture_decision.md" },
     { "group": "Mesa", "item": "7i44", "detail": "RS-422 sserial breakout on P1; ch0 = 7i84U-A, ch1 = 7i84U-B", "status": "CONFIRMED", "source": "docs/architecture_decision.md" },
     { "group": "Mesa", "item": "7i84U-A (ch0)", "detail": "ATC / hydraulic / coolant / air / magazine / spindle / utility field I/O", "status": "CONFIRMED", "source": "mesa/current_pin_authority.csv" },
     { "group": "Mesa", "item": "7i84U-B (ch1)", "detail": "Limits, homes, drive enables, probe IN15, relay loads", "status": "CONFIRMED", "source": "mesa/current_pin_authority.csv" },

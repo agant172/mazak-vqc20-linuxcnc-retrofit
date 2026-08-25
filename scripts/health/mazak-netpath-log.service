@@ -1,0 +1,21 @@
+[Unit]
+Description=Sample per-hop network latency to key targets
+Documentation=file:/home/andy/mazak-vqc20-linuxcnc-retrofit/scripts/health/README.md
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=oneshot
+# Root: mtr needs raw sockets.
+User=root
+Environment=MAZAK_HEALTH_DIR=/var/lib/mazak-health
+Environment=CYCLES=10
+ExecStart=/usr/local/bin/mazak-netpath-log.sh
+# Regenerate the HTML so it is always current without anyone remembering to.
+ExecStartPost=/usr/local/bin/mazak-netpath-report.py --hours 24
+TimeoutStartSec=300
+Nice=19
+IOSchedulingClass=idle
+
+[Install]
+WantedBy=multi-user.target

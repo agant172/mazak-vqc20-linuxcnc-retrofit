@@ -7,6 +7,10 @@ Thumbs.db
 # iMac, and the OptiPlex, and the paths and toolchains differ on each.
 .vscode/
 
+# Per-machine Claude Code settings (permissions, model, etc). .claude/skills/
+# is tracked on purpose — only local settings.json is excluded.
+.claude/settings.json
+
 # Python bytecode (io-dashboard/tools)
 __pycache__/
 *.pyc
@@ -34,24 +38,12 @@ desktop.ini
 *.avi
 *.mkv
 
-# Obsidian vault state.
-# The repo doubles as an Obsidian vault, so .obsidian/ is tracked on purpose —
-# that is how appearance, hotkeys, and enabled plugins follow you between the
-# MacBook Pro, the iMac, and the OptiPlex. Only per-machine state and anything
-# that can hold a credential is excluded:
-.obsidian/workspace.json
-.obsidian/workspace-mobile.json
-.obsidian/cache
-.obsidian/.trash/
-# Plugin *code* is not tracked — the bundles run to ~9 MB of vendored JS and
-# would drown every PR diff. community-plugins.json below records which plugins
-# are enabled; install them once per machine from Obsidian's community store.
-.obsidian/plugins/
-# (Belt and braces: plugin settings can contain API keys — obsidian-local-rest-api
-# stores one. The repo went private 2026-08-16, which does not help: a committed
-# secret stays in history and comes back if it is ever public again. Never track
-# a plugin data.json.)
-.obsidian/plugins/*/data.json
+# Obsidian editor state.
+# This repo is no longer maintained as an Obsidian vault (2026-08-23). Nothing
+# under .obsidian/ is tracked; if you open the repo in Obsidian anyway, its
+# config stays local to your machine. Plugin settings can hold API keys and this
+# repo is public, so this must stay ignored.
+.obsidian/
 
 # LinuxCNC / Mesa runtime outputs kept locally, not committed
 mesa_readhmid.txt

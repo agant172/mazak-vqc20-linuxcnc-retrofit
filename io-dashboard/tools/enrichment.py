@@ -34,7 +34,7 @@ STATUS = {
         "tone": "verified",
         "order": 0,
         "blurb": "Final factory-built Mesa link with two distinct plug-in segments: a Mesa "
-                 "50-pin IDC cable from 7i80HDT P1 to 7i44, then CAT5 smart-serial from "
+                 "50-pin IDC cable from 7i80HDT P3 to 7i44, then CAT5 smart-serial from "
                  "7i44 to 7i84U. Inspect identity, keying, seating, strain relief, and visible "
                  "condition; do not continuity-audit individual conductors. Verify by clean "
                  "smart-serial enumeration at LinuxCNC startup.",
@@ -419,8 +419,8 @@ CONFLICTS = [
             "field_7i84u.hal:3-6 \u2014 \"Every hm2_7i80.*.7i84.* name below is an UNVERIFIED PLACEHOLDER\"",
             "mazak_vqc_20_40.hal:4-7 \u2014 board name, IP, firmware, resolver scales, drive polarity, "
             "normal states and safety wiring all unverified",
-            "mazak_vqc_20_40.hal:25-26 \u2014 board_ip and config string still TODO despite 192.168.1.121 "
-            "being set on line 31",
+            "mazak_vqc_20_40.hal:48 \u2014 TODO says board_ip and config string are unset, but line 55 "
+            "already sets board_ip 10.10.10.121",
         ],
         "action": "At bring-up: run readhmid and halcmd show pin hm2 against the real firmware, then "
                   "regenerate the HAL pin names. Treat every gpio.NNN in this dashboard as a label, not a "
@@ -485,7 +485,7 @@ BOARDS = {
         "role": "Ethernet FPGA host (hm2_eth)",
         "detail": "Primary control board. P1 = 7i49 resolvers + analog outs, P3 = 7i44 sserial breakout; "
                   "P2 is unused/spare (confirmed 2026-08-13 by readhmid); the probe is on 7i84U-B IN15.",
-        "address": "board_ip 192.168.1.121 (host NIC enp0s31f6 at 192.168.1.1/24)",
+        "address": "board_ip 10.10.10.121 (host NIC enp0s31f6 at 10.10.10.1/24)",
     },
     "7i44": {
         "name": "Mesa 7i44",

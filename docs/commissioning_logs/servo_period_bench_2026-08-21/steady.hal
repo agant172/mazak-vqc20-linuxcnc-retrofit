@@ -1,0 +1,6 @@
+source /home/andy/mazak-bench/bench.hal
+loadusr -w sleep 15
+setp servo-thread.tmax 0
+loadusr -w sleep 120
+show thread
+show pin hm2_7i80.0.packet

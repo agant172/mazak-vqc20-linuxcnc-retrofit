@@ -17,7 +17,7 @@ It is meant for planning and bring-up, not direct live-machine use. Before enabl
 
 The confirmed retrofit architecture is:
 
-- LinuxCNC control PC connected to the Mesa **7i80HDT** over Ethernet (`hm2_eth`, static IP 192.168.1.121). The 7i80HDT is a bare-FPGA Ethernet host with three 50-pin daughter connectors (P1/P2/P3) and 72 IO total.
+- LinuxCNC control PC connected to the Mesa **7i80HDT** over Ethernet (`hm2_eth`, static IP 10.10.10.121). The 7i80HDT is a bare-FPGA Ethernet host with three 50-pin daughter connectors (P1/P2/P3) and 72 IO total.
 - Mesa **7i49 on P1** — plain 7i49 (not 7i49HV). Provides X/Y/Z resolver feedback on RES0/1/2 and X/Y/Z servo velocity commands + FR-SX spindle velocity command on ±10V analog outputs AOUT0..AOUT3. RES3-RES5 and AOUT4-AOUT5 are spare. FR-SX orient is triggered by the DISCRETE ORCM1 command (7i84U-A OUT4 / Y093), not by any analog reference — see [`docs/frsx_orient_model.md`](../docs/frsx_orient_model.md).
 - **P2 unused/spare** — no daughter card fitted; all bare-FPGA GPIO. Not safe for 24 V field wiring. Probe stays on 7i84U-B TB3 IN15.
 - Mesa **7i44 on P3** — 8-channel RS-422 smart-serial breakout. Physical channels 0/1 carry **7i84U-A/B** within HostMot2 port 0; channels 2-7 are spare.
@@ -27,7 +27,7 @@ The confirmed retrofit architecture is:
 
 ## Assumed hardware stack
 
-- LinuxCNC control PC with an Ethernet NIC on the 7i80HDT subnet (`enp0s31f6` at `192.168.1.1/24`; board at `192.168.1.121`).
+- LinuxCNC control PC with an Ethernet NIC on the 7i80HDT subnet (`enp0s31f6` at `10.10.10.1/24`; board at `10.10.10.121`).
 - Mesa 7i80HDT Ethernet FPGA host for motion command and, via its daughter cards, resolver feedback and field I/O.
 - Mesa 7i49 on P1 for X/Y/Z resolver feedback and analog servo/spindle outputs.
 - P2 is unused/spare. The Renishaw MP-3 probe input is on **7i84U-B input-15** (opto-isolated 24 V), not on bare P2 GPIO — see [`../docs/superseded_claims_2026-08-06.md`](../docs/superseded_claims_2026-08-06.md) #15.
@@ -62,7 +62,7 @@ The confirmed retrofit architecture is:
 > signed off.
 
 
-1. Confirm 7i80HDT detection over Ethernet: host static IP, `ping 192.168.1.121`, `mesaflash --device 7i80hdt --addr 192.168.1.121 --readhmid`, and `hm2_eth` HAL loading. The dedicated-NIC pinning, coalescing/offload settings, multi-hour latency-under-load test, and packet-error-into-motion-permit HAL wiring are documented in [`../docs/hm2_eth_nic_validation.md`](../docs/hm2_eth_nic_validation.md); commissioning must not enable drives until that acceptance passes.
+1. Confirm 7i80HDT detection over Ethernet: host static IP, `ping 10.10.10.121`, `mesaflash --device 7i80hdt --addr 10.10.10.121 --readhmid`, and `hm2_eth` HAL loading. The dedicated-NIC pinning, coalescing/offload settings, multi-hour latency-under-load test, and packet-error-into-motion-permit HAL wiring are documented in [`../docs/hm2_eth_nic_validation.md`](../docs/hm2_eth_nic_validation.md); commissioning must not enable drives until that acceptance passes.
 3. Confirm resolver wiring with drives disabled. **The installed suffix has no published datasheet** — `TS2014N25E8-1` (X) / `TS2014N25E3-1` (Y) were built to Mitsubishi spec BKO-NC6062(A) and never appeared in a Tamagawa catalogue (search 2026-08-16). The E26 figures (10 Vrms / 4.5 kHz / K = 0.5, rotor DC 121 Ω, stator DC 69 Ω) are a **different suffix** and are not a check on this one; PCW has flagged some TS2014 variants as 7i49-incompatible. Ohmmeter the winding pairs before power — measured 2026-08-16 as one 35 Ω winding and a matched 105–109 Ω pair, which identifies the windings but **not** which to excite — then run the bench tests in [`../docs/resolver_commissioning.md`](../docs/resolver_commissioning.md#power-off-bench-identification-replaces-the-datasheet-gate) to settle drive direction, transformation ratio, and whether the unit is 1× or 5×. Then set the 7i49 to 5 kHz excitation (closest to the 4.5 kHz spec; the Tamagawa page publishes no frequency tolerance, so verify on scope rather than by tolerance calc), confirm the 7i49 is the sole excitation source, scope RESDRV excitation and RESSIN/RESCOS amplitude and phase at rest and under motion, then verify counts, direction, shielding, and scale.
 4. Confirm 7i49 analog command wiring with drives disabled or inhibited. Verify zero command voltage and output polarity on AOUT0/1/2 (X/Z/Y) and AOUT3 (FR-SX spindle).
 5. Confirm 7i84U-B wiring: limits (NC) on TB3 IN0-5, homes (NO) on TB3 IN6-8, air-pressure permissive on TB3 IN9, probe on TB3 IN15, X/Y/Z drive enables on TB3 OUT0-2, and the proposed single-coil cover command on TB2 OUT8. Ohmmeter each input path before deciding whether to consume `input-NN` (raw) or `input-NN-not` (complement) in HAL. Per [sserial(9)](https://linuxcnc.org/docs/html/man/man9/sserial.9.html), sserial cards expose both spellings for every input and there is no `invert_input` parameter; the probe uses the opto-isolated 7i84U input rather than bare P2 GPIO.

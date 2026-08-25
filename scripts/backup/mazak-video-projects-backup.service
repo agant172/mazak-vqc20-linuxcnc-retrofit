@@ -1,0 +1,33 @@
+[Unit]
+Description=Daily verified snapshot of the video project files from the USB Video Drive
+Documentation=file:/home/andy/mazak-vqc20-linuxcnc-retrofit/scripts/backup/README.md
+Wants=network-online.target
+After=network-online.target tailscaled.service
+RequiresMountsFor=/mnt/media
+
+# Push a notification when this fails. systemd's notion of failure is broader
+# than the script's: it also catches timeouts, kills, OOM, and never starting --
+# the cases a script cannot report because it is no longer running.
+OnFailure=mazak-notify-failure@%n.service
+
+[Service]
+Type=oneshot
+User=andy
+Group=andy
+Environment=HOME=/home/andy
+Environment=REMOTE=andygant@andys-macbook-pro-16
+# QUOTED deliberately: systemd splits an unquoted Environment= value on
+# whitespace, so this arrived as VOLUME=/Volumes/USB and every run failed with
+# "not mounted" while the drive was plugged in the whole time. Exactly the trap
+# already documented on GIT_SSH_COMMAND in mazak-repo-pull.service.
+Environment="VOLUME=/Volumes/USB Video Drive"
+Environment=DEST_MOUNT=/mnt/media
+Environment=DEST=/mnt/media/video-projects
+Environment=KEEP=60
+ExecStart=/usr/local/bin/mazak-video-projects-backup.sh
+TimeoutStartSec=1800
+Nice=19
+IOSchedulingClass=idle
+
+[Install]
+WantedBy=multi-user.target

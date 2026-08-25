@@ -6,7 +6,7 @@ window.MAZAK_DATA = {
   "machine": "Mazak VQC-20/40",
   "serial": "060231",
   "architecture": "LinuxCNC + Mesa 7i80HDT (Ethernet FPGA host) + 7i44 on P3 (HostMot2 sserial port 0 channels 0/1 to 7i84U-A/B) + 7i49 on P1 (resolver + analog outs); P2 unused/spare (confirmed 2026-08-13 by readhmid)",
-  "generated": "2026-08-22 02:36 UTC",
+  "generated": "2026-08-23 17:03 UTC",
   "source_repo": "mazak-vqc20-linuxcnc-retrofit",
   "authority_file": "mesa/current_pin_authority.csv",
   "epson_ferrule_file": "wiring/labels/bbia1_mesa_end_ferrules_epson.csv",
@@ -16,7 +16,7 @@ window.MAZAK_DATA = {
    "field_7i84u.hal",
    "atc_orient.hal"
   ],
-  "board_ip": "192.168.1.121",
+  "board_ip": "10.10.10.121",
   "rules": [
    "mesa/current_pin_authority.csv is the wiring authority.",
    "7i49 AOUT axis order is X=AOUT0, Z=AOUT1, Y=AOUT2.",
@@ -33,7 +33,7 @@ window.MAZAK_DATA = {
    "name": "Mesa 7i80HDT",
    "role": "Ethernet FPGA host (hm2_eth)",
    "detail": "Primary control board. P1 = 7i49 resolvers + analog outs, P3 = 7i44 sserial breakout; P2 is unused/spare (confirmed 2026-08-13 by readhmid); the probe is on 7i84U-B IN15.",
-   "address": "board_ip 192.168.1.121 (host NIC enp0s31f6 at 192.168.1.1/24)"
+   "address": "board_ip 10.10.10.121 (host NIC enp0s31f6 at 10.10.10.1/24)"
   },
   "7i44": {
    "name": "Mesa 7i44",
@@ -85,7 +85,7 @@ window.MAZAK_DATA = {
    "label": "Ready — factory link",
    "tone": "verified",
    "order": 0,
-   "blurb": "Final factory-built Mesa link with two distinct plug-in segments: a Mesa 50-pin IDC cable from 7i80HDT P1 to 7i44, then CAT5 smart-serial from 7i44 to 7i84U. Inspect identity, keying, seating, strain relief, and visible condition; do not continuity-audit individual conductors. Verify by clean smart-serial enumeration at LinuxCNC startup.",
+   "blurb": "Final factory-built Mesa link with two distinct plug-in segments: a Mesa 50-pin IDC cable from 7i80HDT P3 to 7i44, then CAT5 smart-serial from 7i44 to 7i84U. Inspect identity, keying, seating, strain relief, and visible condition; do not continuity-audit individual conductors. Verify by clean smart-serial enumeration at LinuxCNC startup.",
    "safe_to_energize": "Factory plug-in link; functional acceptance is clean smart-serial enumeration."
   },
   "FACTORY_INTERFACE": {
@@ -636,7 +636,7 @@ window.MAZAK_DATA = {
    "bbia_class": "exception",
    "designations": [],
    "primary_source": "motion_7i80hdt.hal",
-   "cleanup_notes": "Current target leaves P3 empty and requests num_encoders=0. Identify encoder model/electrical format and select a compatible receiver/daughter interface plus IDROM-proven pins before allocation. | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/spindle_run_ladder_transcription.md] | [2026-08-12: STILL UNBOUND. The spindle MOTOR built-in PLG was identified from nameplate photos (Tamagawa TS1526N55 optical, 512 counts/turn, DC +/-15V, 9-pin AMP-350720-1) but it is the FR-SX drive's own detector, not this row - do not allocate it to Mesa and do not parallel-tap it. Whether the schematics' machine-side SPINDLE ENCODER (MS3108B 20-29P, dwg 4143075301 p090) is a separate device remains open. See docs/spindle_motor_plg_encoder.md] | [2026-08-12 DECIDED (owner): UNBOUND is now SETTLED, not pending. LinuxCNC does not read spindle position - orient is FR-SX internal (ORCM1/ORA1), speed supervision is discrete (SZS IN5 / speed-reach IN13), and tapping uses a floating holder so needs only FWD/REV + dwell. No rigid tapping or G33 in scope. Do not open this row again without a scoped project: an encoder on the SPINDLE side of the 2-speed gearbox, a receiver (P3 is bare 3.3V GPIO), and possibly a new bitfile] | [IDENTIFIED 2026-08-15 (AG, nameplate photo): Tamagawa TS1526N55, 512 c/t, DC +/-15 V. Identification only -- num_encoders=0 stays the settled design decision (2026-08-12); no Mesa input exists for a +/-15 V-supplied device and none is being scoped. See docs/feedback_nameplate_survey_2026-08-15.md]",
+   "cleanup_notes": "Current target leaves P2 empty and requests num_encoders=0. Identify encoder model/electrical format and select a compatible receiver/daughter interface plus IDROM-proven pins before allocation. | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/spindle_run_ladder_transcription.md] | [2026-08-12: STILL UNBOUND. The spindle MOTOR built-in PLG was identified from nameplate photos (Tamagawa TS1526N55 optical, 512 counts/turn, DC +/-15V, 9-pin AMP-350720-1) but it is the FR-SX drive's own detector, not this row - do not allocate it to Mesa and do not parallel-tap it. Whether the schematics' machine-side SPINDLE ENCODER (MS3108B 20-29P, dwg 4143075301 p090) is a separate device remains open. See docs/spindle_motor_plg_encoder.md] | [2026-08-12 DECIDED (owner): UNBOUND is now SETTLED, not pending. LinuxCNC does not read spindle position - orient is FR-SX internal (ORCM1/ORA1), speed supervision is discrete (SZS IN5 / speed-reach IN13), and tapping uses a floating holder so needs only FWD/REV + dwell. No rigid tapping or G33 in scope. Do not open this row again without a scoped project: an encoder on the SPINDLE side of the 2-speed gearbox, a receiver (P2 is bare 3.3V GPIO), and possibly a new bitfile] | [IDENTIFIED 2026-08-15 (AG, nameplate photo): Tamagawa TS1526N55, 512 c/t, DC +/-15 V. Identification only -- num_encoders=0 stays the settled design decision (2026-08-12); no Mesa input exists for a +/-15 V-supplied device and none is being scoped. See docs/feedback_nameplate_survey_2026-08-15.md]",
    "location": "Spindle head — machine-side A/B/Z encoder if fitted",
    "location_note": "Unassigned: part, electrical format, and receiver/interface are not confirmed. The confirmed rmsvss6_8 firmware has no Encoder module at all.",
    "expected": {
@@ -3075,7 +3075,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/mazak_vqc_20_40.hal",
-     "line": 318,
+     "line": 323,
      "text": "net spindle-fault        => logic.spindle-fault-not.in-00",
      "commented": false,
      "producers": [],
@@ -3153,7 +3153,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/mazak_vqc_20_40.hal",
-     "lines": "318",
+     "lines": "323",
      "note": "net spindle-fault        => logic.spindle-fault-not.in-00"
     },
     {
@@ -4678,7 +4678,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/mazak_vqc_20_40.hal",
-     "line": 252,
+     "line": 257,
      "text": "net estop-monitor     => estop-latch.0.ok-in",
      "commented": false,
      "producers": [],
@@ -4709,7 +4709,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/mazak_vqc_20_40.hal",
-     "lines": "252",
+     "lines": "257",
      "note": "net estop-monitor     => estop-latch.0.ok-in"
     },
     {
@@ -4823,7 +4823,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/mazak_vqc_20_40.hal",
-     "line": 325,
+     "line": 330,
      "text": "net servo-ready            => logic.spindle-permit-and.in-05",
      "commented": false,
      "producers": [],
@@ -4879,7 +4879,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/mazak_vqc_20_40.hal",
-     "lines": "325",
+     "lines": "330",
      "note": "net servo-ready            => logic.spindle-permit-and.in-05"
     },
     {
@@ -8135,20 +8135,20 @@ window.MAZAK_DATA = {
    "board": "7i84U-B",
    "connector": "TB3",
    "channel": "IN15",
-   "hal_net": "probe-in",
+   "hal_net": "",
    "direction": "IN",
    "direction_label": "Input (digital)",
    "subsystem": "Motion",
    "machine_subsystem": "Motion",
-   "status": "PROPOSED",
+   "status": "RESERVED",
    "field_point": "Renishaw MP-3 probe SKIP1 (PLC X03F SKIP1.M)",
    "dest_connector": "",
    "dest_pin": "",
    "factory_wire": "",
-   "bbia_class": "exception",
+   "bbia_class": "spare",
    "designations": [],
    "primary_source": "field_7i84u.hal",
-   "cleanup_notes": "Moved from bare P3 gpio.042 to opto-isolated 7i84U-B input-15. MP-3 is believed NC so HAL consumes input-15-not; verify physical polarity fail-open response and measured probing latency before use. | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/probe_mms_ladder_transcription.md]",
+   "cleanup_notes": "Moved from bare P2 gpio.042 to opto-isolated 7i84U-B input-15. MP-3 is believed NC so HAL consumes input-15-not; verify physical polarity fail-open response and measured probing latency before use. | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/probe_mms_ladder_transcription.md] | [RESERVED 2026-08-21 (owner decision AG): probe is out of scope; hal_net set to none. HAL nets commented out in field_7i84u.hal; motion.probe-input left undriven reads FALSE so G38.x errors out rather than misfiring. TB3 IN15 is now spare. Re-enable by uncommenting both nets and restoring PROPOSED]",
    "location": "Unknown — trace in cabinet",
    "location_note": "",
    "expected": {
@@ -8157,38 +8157,11 @@ window.MAZAK_DATA = {
     "basis": "No explicit normal-state evidence in the repo for this signal.",
     "kind": "unknown"
    },
-   "hal_state": "active",
-   "mesa_pins": [
-    "hm2_7i80.0.7i84.0.1.input-15-not"
-   ],
+   "hal_state": "absent",
+   "mesa_pins": [],
    "producers": [],
-   "consumers": [
-    "motion.probe-input"
-   ],
-   "hal_refs": [
-    {
-     "file": "linuxcnc/field_7i84u.hal",
-     "line": 267,
-     "text": "net probe-in <= hm2_7i80.0.7i84.0.1.input-15-not",
-     "commented": false,
-     "producers": [
-      "hm2_7i80.0.7i84.0.1.input-15-not"
-     ],
-     "consumers": [],
-     "bidir": []
-    },
-    {
-     "file": "linuxcnc/field_7i84u.hal",
-     "line": 268,
-     "text": "net probe-in => motion.probe-input",
-     "commented": false,
-     "producers": [],
-     "consumers": [
-      "motion.probe-input"
-     ],
-     "bidir": []
-    }
-   ],
+   "consumers": [],
+   "hal_refs": [],
    "setp_refs": [],
    "epson_ferrules": [],
    "sources": [
@@ -8196,16 +8169,6 @@ window.MAZAK_DATA = {
      "file": "mesa/current_pin_authority.csv",
      "lines": "92",
      "note": "Current wiring authority row"
-    },
-    {
-     "file": "linuxcnc/field_7i84u.hal",
-     "lines": "267",
-     "note": "net probe-in <= hm2_7i80.0.7i84.0.1.input-15-not"
-    },
-    {
-     "file": "linuxcnc/field_7i84u.hal",
-     "lines": "268",
-     "note": "net probe-in => motion.probe-input"
     },
     {
      "file": "field_7i84u.hal",
@@ -9097,7 +9060,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 304,
+     "line": 311,
      "text": "net x-enable     <= and2.0.out",
      "commented": false,
      "producers": [
@@ -9108,7 +9071,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 305,
+     "line": 312,
      "text": "net x-enable     => hm2_7i80.0.7i84.0.1.output-00   # X servo S-ON to MELDAS DK-427",
      "commented": false,
      "producers": [],
@@ -9155,12 +9118,12 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "304",
+     "lines": "311",
      "note": "net x-enable     <= and2.0.out"
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "305",
+     "lines": "312",
      "note": "net x-enable     => hm2_7i80.0.7i84.0.1.output-00   # X servo S-ON to MELDAS DK-427"
     },
     {
@@ -9252,7 +9215,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 310,
+     "line": 317,
      "text": "net y-enable     <= and2.1.out",
      "commented": false,
      "producers": [
@@ -9263,7 +9226,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 311,
+     "line": 318,
      "text": "net y-enable     => hm2_7i80.0.7i84.0.1.output-01   # Y servo S-ON to MELDAS DK-427",
      "commented": false,
      "producers": [],
@@ -9310,12 +9273,12 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "310",
+     "lines": "317",
      "note": "net y-enable     <= and2.1.out"
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "311",
+     "lines": "318",
      "note": "net y-enable     => hm2_7i80.0.7i84.0.1.output-01   # Y servo S-ON to MELDAS DK-427"
     },
     {
@@ -9382,7 +9345,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 318,
+     "line": 325,
      "text": "net z-enable     <= z-drive-drop-delay.out",
      "commented": false,
      "producers": [
@@ -9393,7 +9356,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 319,
+     "line": 326,
      "text": "net z-enable     => hm2_7i80.0.7i84.0.1.output-02   # Z servo S-ON to MELDAS DK-427",
      "commented": false,
      "producers": [],
@@ -9413,12 +9376,12 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "318",
+     "lines": "325",
      "note": "net z-enable     <= z-drive-drop-delay.out"
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "319",
+     "lines": "326",
      "note": "net z-enable     => hm2_7i80.0.7i84.0.1.output-02   # Z servo S-ON to MELDAS DK-427"
     },
     {
@@ -9476,7 +9439,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 325,
+     "line": 332,
      "text": "net air-blast          => hm2_7i80.0.7i84.0.1.output-03  # SOL-15 spindle air blast via RLY-5",
      "commented": false,
      "producers": [],
@@ -9496,7 +9459,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "325",
+     "lines": "332",
      "note": "net air-blast          => hm2_7i80.0.7i84.0.1.output-03  # SOL-15 spindle air blast via RLY-5"
     },
     {
@@ -9758,7 +9721,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 338,
+     "line": 345,
      "text": "net flood-valve        => hm2_7i80.0.7i84.0.1.output-07  # PLC Y011 FCL (SOL-31); driver TBD - candidate: follow flood-coolant net with pump",
      "commented": false,
      "producers": [],
@@ -9778,7 +9741,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "338",
+     "lines": "345",
      "note": "net flood-valve        => hm2_7i80.0.7i84.0.1.output-07  # PLC Y011 FCL (SOL-31); driver TBD - candidate: follow flood-coolant net with pump"
     },
     {
@@ -10244,8 +10207,8 @@ window.MAZAK_DATA = {
    "authority_line": 124
   },
   {
-   "id": "P3_GPIO_SPARE",
-   "name": "P3 Gpio Spare",
+   "id": "P2_GPIO_SPARE",
+   "name": "P2 Gpio Spare",
    "board": "7i80HDT",
    "connector": "P2 GPIO (bare, no daughter card)",
    "channel": "TBD_FROM_IDROM",
@@ -10255,14 +10218,14 @@ window.MAZAK_DATA = {
    "subsystem": "Spare",
    "machine_subsystem": "Spare",
    "status": "SPARE",
-   "field_point": "Spare direct FPGA GPIO on P3 (all pins)",
+   "field_point": "Spare direct FPGA GPIO on P2 (all pins)",
    "dest_connector": "",
    "dest_pin": "",
    "factory_wire": "",
    "bbia_class": "spare",
    "designations": [],
    "primary_source": "mesa_firmware_checklist.md",
-   "cleanup_notes": "P3 is unused/spare in this configuration. Actual GPIO indices depend on the verified bitfile/IDROM. Do NOT wire 24V field signals to bare P3; use isolated field I/O.",
+   "cleanup_notes": "P2 is unused/spare in this configuration. Actual GPIO indices depend on the verified bitfile/IDROM. Do NOT wire 24V field signals to bare P2; use isolated field I/O.",
    "location": "Unknown — trace in cabinet",
    "location_note": "",
    "expected": {
@@ -10293,6 +10256,81 @@ window.MAZAK_DATA = {
    "conflicts": [],
    "bb_source": null,
    "authority_line": 125
+  },
+  {
+   "id": "NET_PROBE_IN",
+   "name": "probe-in",
+   "board": "7i84U-B",
+   "connector": "TB3",
+   "channel": "IN15-NOT",
+   "hal_net": "probe-in",
+   "direction": "IN",
+   "direction_label": "Input (digital)",
+   "subsystem": "Unmapped",
+   "machine_subsystem": "Unmapped",
+   "status": "CONFIG_ONLY",
+   "field_point": "Not in the wiring authority",
+   "designations": [],
+   "primary_source": "HAL config only",
+   "cleanup_notes": "No row in current_pin_authority.csv. Commented out in HAL.",
+   "location": "Unknown — no authority row, trace in cabinet",
+   "location_note": "",
+   "expected": {
+    "value": "Unknown",
+    "label": "Unknown — measure/verify",
+    "basis": "No authority row and no normal-state evidence.",
+    "kind": "unknown"
+   },
+   "hal_state": "commented",
+   "mesa_pins": [
+    "hm2_7i80.0.7i84.0.1.input-15-not"
+   ],
+   "producers": [],
+   "consumers": [
+    "motion.probe-input"
+   ],
+   "hal_refs": [
+    {
+     "file": "linuxcnc/field_7i84u.hal",
+     "line": 274,
+     "text": "# net probe-in <= hm2_7i80.0.7i84.0.1.input-15-not",
+     "commented": true,
+     "producers": [
+      "hm2_7i80.0.7i84.0.1.input-15-not"
+     ],
+     "consumers": [],
+     "bidir": []
+    },
+    {
+     "file": "linuxcnc/field_7i84u.hal",
+     "line": 275,
+     "text": "# net probe-in => motion.probe-input",
+     "commented": true,
+     "producers": [],
+     "consumers": [
+      "motion.probe-input"
+     ],
+     "bidir": []
+    }
+   ],
+   "setp_refs": [],
+   "epson_ferrules": [],
+   "sources": [
+    {
+     "file": "linuxcnc/field_7i84u.hal",
+     "lines": "274",
+     "note": "commented out — # net probe-in <= hm2_7i80.0.7i84.0.1.input-15-not"
+    },
+    {
+     "file": "linuxcnc/field_7i84u.hal",
+     "lines": "275",
+     "note": "commented out — # net probe-in => motion.probe-input"
+    }
+   ],
+   "conflicts": [
+    "C1"
+   ],
+   "authority_line": null
   }
  ],
  "conflicts": [
@@ -10332,7 +10370,7 @@ window.MAZAK_DATA = {
     "motion_7i80hdt.hal:116 — pwmgen instance to axis mapping unconfirmed",
     "field_7i84u.hal:3-6 — \"Every hm2_7i80.*.7i84.* name below is an UNVERIFIED PLACEHOLDER\"",
     "mazak_vqc_20_40.hal:4-7 — board name, IP, firmware, resolver scales, drive polarity, normal states and safety wiring all unverified",
-    "mazak_vqc_20_40.hal:25-26 — board_ip and config string still TODO despite 192.168.1.121 being set on line 31"
+    "mazak_vqc_20_40.hal:48 — TODO says board_ip and config string are unset, but line 55 already sets board_ip 10.10.10.121"
    ],
    "action": "At bring-up: run readhmid and halcmd show pin hm2 against the real firmware, then regenerate the HAL pin names. Treat every gpio.NNN in this dashboard as a label, not a landing point. (Per-signal holds cleared 2026-08-11; signals list emptied then.)",
    "signals": [],
@@ -10405,6 +10443,7 @@ window.MAZAK_DATA = {
   "Spindle",
   "Spindle gear",
   "Spindle safety",
+  "Unmapped",
   "Utility"
  ],
  "connectors": [
@@ -10419,6 +10458,28 @@ window.MAZAK_DATA = {
   "UNASSIGNED",
   "none"
  ],
- "orphan_nets": [],
+ "orphan_nets": [
+  {
+   "net": "probe-in",
+   "mesa_pins": [
+    "hm2_7i80.0.7i84.0.1.input-15-not"
+   ],
+   "refs": [
+    {
+     "file": "linuxcnc/field_7i84u.hal",
+     "line": 274,
+     "commented": true,
+     "text": "# net probe-in <= hm2_7i80.0.7i84.0.1.input-15-not"
+    },
+    {
+     "file": "linuxcnc/field_7i84u.hal",
+     "line": 275,
+     "commented": true,
+     "text": "# net probe-in => motion.probe-input"
+    }
+   ],
+   "active": false
+  }
+ ],
  "missing_from_hal": []
 };

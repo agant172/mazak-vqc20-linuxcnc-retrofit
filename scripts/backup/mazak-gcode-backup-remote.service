@@ -1,0 +1,28 @@
+[Unit]
+Description=Daily verified offsite snapshot of ~/linuxcnc to the iMac
+Documentation=file:/home/andy/mazak-vqc20-linuxcnc-retrofit/scripts/backup/README.md
+Wants=network-online.target
+After=network-online.target tailscaled.service
+
+# Push a notification when this fails. systemd's notion of failure is broader
+# than the script's: it also catches timeouts, kills, OOM, and never starting --
+# the cases a script cannot report because it is no longer running.
+OnFailure=mazak-notify-failure@%n.service
+
+[Service]
+Type=oneshot
+User=andy
+Group=andy
+Environment=HOME=/home/andy
+Environment=SRC=/home/andy/linuxcnc
+Environment=REMOTE=andygant@andys-imac
+Environment=REMOTE_DIR=Backups/mazak-linuxcnc
+Environment=KEEP=30
+ExecStart=/usr/local/bin/mazak-gcode-backup-remote.sh
+# Generous: the tailnet path is relayed and the Mac may be waking from sleep.
+TimeoutStartSec=1800
+Nice=19
+IOSchedulingClass=idle
+
+[Install]
+WantedBy=multi-user.target

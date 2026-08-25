@@ -1,0 +1,102 @@
+Note: Using POSIX realtime
+hm2: loading Mesa HostMot2 driver version 0.15
+hm2_eth: loading Mesa AnyIO HostMot2 ethernet driver version 0.2
+hm2_eth: 192.168.1.121: INFO: Hardware address (MAC): 00:60:1b:11:c0:6b
+hm2_eth: discovered 7I80HDT
+hm2/hm2_7i80.0: Low Level init 0.15
+hm2/hm2_7i80.0: Smart Serial Firmware Version 43
+Board hm2_7i80.0.7i84.0.0 Hardware Mode 0 = standard
+Board hm2_7i80.0.7i84.0.0 Software Mode 0 = input_output
+Board hm2_7i80.0.7i84.0.0 Software Mode 1 = io_analog_fieldvoltage
+Board hm2_7i80.0.7i84.0.0 Software Mode 2 = io_encoder_analog
+hm2/hm2_7i80.0: 72 I/O Pins used:
+hm2/hm2_7i80.0:     IO Pin 000 (P1-01): PWMGen #0, pin Not-Enable (Output)
+hm2/hm2_7i80.0:     IO Pin 001 (P1-03): Resolver #0, pin NC (Output)
+hm2/hm2_7i80.0:     IO Pin 002 (P1-05): Resolver #0, pin SPIDO0 (Input)
+hm2/hm2_7i80.0:     IO Pin 003 (P1-07): Resolver #0, pin SPIDO1 (Input)
+hm2/hm2_7i80.0:     IO Pin 004 (P1-09): Resolver #0, pin AMUX2 (Output)
+hm2/hm2_7i80.0:     IO Pin 005 (P1-11): Resolver #0, pin AMUX1 (Output)
+hm2/hm2_7i80.0:     IO Pin 006 (P1-13): Resolver #0, pin AMUX0 (Output)
+hm2/hm2_7i80.0:     IO Pin 007 (P1-15): Resolver #0, pin SPICLK (Output)
+hm2/hm2_7i80.0:     IO Pin 008 (P1-17): Resolver #0, pin SPICS (Output)
+hm2/hm2_7i80.0:     IO Pin 009 (P1-19): Resolver #0, pin REFPDM- (Output)
+hm2/hm2_7i80.0:     IO Pin 010 (P1-21): Resolver #0, pin REFPDM+ (Output)
+hm2/hm2_7i80.0:     IO Pin 011 (P1-23): PWMGen #0, pin Out0 (PWM or Up) (Output)
+hm2/hm2_7i80.0:     IO Pin 012 (P1-25): PWMGen #0, pin Out1 (Dir or Down) (Output)
+hm2/hm2_7i80.0:     IO Pin 013 (P1-27): PWMGen #1, pin Out0 (PWM or Up) (Output)
+hm2/hm2_7i80.0:     IO Pin 014 (P1-29): PWMGen #1, pin Out1 (Dir or Down) (Output)
+hm2/hm2_7i80.0:     IO Pin 015 (P1-31): PWMGen #2, pin Out0 (PWM or Up) (Output)
+hm2/hm2_7i80.0:     IO Pin 016 (P1-33): PWMGen #2, pin Out1 (Dir or Down) (Output)
+hm2/hm2_7i80.0:     IO Pin 017 (P1-35): PWMGen #3, pin Out0 (PWM or Up) (Output)
+hm2/hm2_7i80.0:     IO Pin 018 (P1-37): PWMGen #3, pin Out1 (Dir or Down) (Output)
+hm2/hm2_7i80.0:     IO Pin 019 (P1-39): IOPort
+hm2/hm2_7i80.0:     IO Pin 020 (P1-41): IOPort
+hm2/hm2_7i80.0:     IO Pin 021 (P1-43): IOPort
+hm2/hm2_7i80.0:     IO Pin 022 (P1-45): IOPort
+hm2/hm2_7i80.0:     IO Pin 023 (P1-47): PWMGen #0, pin Not-Enable (Output)
+hm2/hm2_7i80.0:     IO Pin 024 (P2-01): IOPort
+hm2/hm2_7i80.0:     IO Pin 025 (P2-03): IOPort
+hm2/hm2_7i80.0:     IO Pin 026 (P2-05): IOPort
+hm2/hm2_7i80.0:     IO Pin 027 (P2-07): IOPort
+hm2/hm2_7i80.0:     IO Pin 028 (P2-09): IOPort
+hm2/hm2_7i80.0:     IO Pin 029 (P2-11): IOPort
+hm2/hm2_7i80.0:     IO Pin 030 (P2-13): IOPort
+hm2/hm2_7i80.0:     IO Pin 031 (P2-15): IOPort
+hm2/hm2_7i80.0:     IO Pin 032 (P2-17): IOPort
+hm2/hm2_7i80.0:     IO Pin 033 (P2-19): IOPort
+hm2/hm2_7i80.0:     IO Pin 034 (P2-21): IOPort
+hm2/hm2_7i80.0:     IO Pin 035 (P2-23): IOPort
+hm2/hm2_7i80.0:     IO Pin 036 (P2-25): IOPort
+hm2/hm2_7i80.0:     IO Pin 037 (P2-27): IOPort
+hm2/hm2_7i80.0:     IO Pin 038 (P2-29): IOPort
+hm2/hm2_7i80.0:     IO Pin 039 (P2-31): IOPort
+hm2/hm2_7i80.0:     IO Pin 040 (P2-33): IOPort
+hm2/hm2_7i80.0:     IO Pin 041 (P2-35): IOPort
+hm2/hm2_7i80.0:     IO Pin 042 (P2-37): IOPort
+hm2/hm2_7i80.0:     IO Pin 043 (P2-39): IOPort
+hm2/hm2_7i80.0:     IO Pin 044 (P2-41): IOPort
+hm2/hm2_7i80.0:     IO Pin 045 (P2-43): IOPort
+hm2/hm2_7i80.0:     IO Pin 046 (P2-45): IOPort
+hm2/hm2_7i80.0:     IO Pin 047 (P2-47): IOPort
+hm2/hm2_7i80.0:     IO Pin 048 (P3-01): Smart Serial Interface #0, pin rx0 (Input)
+hm2/hm2_7i80.0:     IO Pin 049 (P3-03): IOPort
+hm2/hm2_7i80.0:     IO Pin 050 (P3-05): IOPort
+hm2/hm2_7i80.0:     IO Pin 051 (P3-07): IOPort
+hm2/hm2_7i80.0:     IO Pin 052 (P3-09): Smart Serial Interface #0, pin tx0 (Output)
+hm2/hm2_7i80.0:     IO Pin 053 (P3-11): Smart Serial Interface #0, pin txen0 (Output)
+hm2/hm2_7i80.0:     IO Pin 054 (P3-13): IOPort
+hm2/hm2_7i80.0:     IO Pin 055 (P3-15): IOPort
+hm2/hm2_7i80.0:     IO Pin 056 (P3-17): IOPort
+hm2/hm2_7i80.0:     IO Pin 057 (P3-19): IOPort
+hm2/hm2_7i80.0:     IO Pin 058 (P3-21): IOPort
+hm2/hm2_7i80.0:     IO Pin 059 (P3-23): IOPort
+hm2/hmRealtime Threads:
+     Period  FP     Name               (     Time, Max-Time )
+    1000000  YES          servo-thread (   523634,  2450250 )
+                  1 hm2_7i80.0.read
+                  2 hm2_7i80.0.write
+
+Component Pins:
+Owner   Type  Dir         Value  Name
+     7  bit   OUT         FALSE  hm2_7i80.0.packet-error
+     7  bit   OUT         FALSE  hm2_7i80.0.packet-error-exceeded
+     7  s32   OUT             0  hm2_7i80.0.packet-error-level
+     7  u32   I/O    0x00000000  hm2_7i80.0.packet-error-total
+
+2_7i80.0:     IO Pin 060 (P3-25): IOPort
+hm2/hm2_7i80.0:     IO Pin 061 (P3-27): IOPort
+hm2/hm2_7i80.0:     IO Pin 062 (P3-29): IOPort
+hm2/hm2_7i80.0:     IO Pin 063 (P3-31): IOPort
+hm2/hm2_7i80.0:     IO Pin 064 (P3-33): IOPort
+hm2/hm2_7i80.0:     IO Pin 065 (P3-35): IOPort
+hm2/hm2_7i80.0:     IO Pin 066 (P3-37): IOPort
+hm2/hm2_7i80.0:     IO Pin 067 (P3-39): IOPort
+hm2/hm2_7i80.0:     IO Pin 068 (P3-41): IOPort
+hm2/hm2_7i80.0:     IO Pin 069 (P3-43): IOPort
+hm2/hm2_7i80.0:     IO Pin 070 (P3-45): IOPort
+hm2/hm2_7i80.0:     IO Pin 071 (P3-47): IOPort
+hm2/hm2_7i80.0: registered
+hm2_eth: in hm2_eth_reset
+hm2_eth: HostMot2 ethernet driver unloaded
+hm2: unloading
+Note: Using POSIX realtime

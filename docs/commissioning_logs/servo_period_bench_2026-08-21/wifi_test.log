@@ -1,0 +1,20 @@
+wifi test started
+================ PHASE 1: WIFI UP (baseline) ================
+### wifi UP @ 1 ms   [xhci irq/sec during run: 403]
+    1000000  YES          servo-thread (   738480,  3172684 )
+     7  u32   I/O    0x00000000  hm2_7i80.0.packet-error-total
+### wifi UP @ 2 ms   [xhci irq/sec during run: 269]
+    2000000  YES          servo-thread (   522184,  1522302 )
+     7  u32   I/O    0x00000000  hm2_7i80.0.packet-error-total
+================ PHASE 2: WIFI DOWN ================
+link state: wlx20e15d9e9d08  DOWN           1e:48:16:66:61:08 <BROADCAST,MULTICAST> 
+### wifi DOWN @ 1 ms   [xhci irq/sec during run: 2]
+    1000000  YES          servo-thread (   523676,  1460772 )
+     7  u32   I/O    0x00000000  hm2_7i80.0.packet-error-total
+### wifi DOWN @ 2 ms   [xhci irq/sec during run: 0]
+    2000000  YES          servo-thread (   521866,  2826216 )
+     7  u32   I/O    0x00000000  hm2_7i80.0.packet-error-total
+--- wifi restore attempted ---
+final link state: wlx20e15d9e9d08  DOWN           1e:48:16:66:61:08 <NO-CARRIER,BROADCAST,MULTICAST,UP> 
+DONE
+--- wifi restore attempted ---

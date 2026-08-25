@@ -1,5 +1,7 @@
 # Mesa 7i80HDT firmware package
 
+> **Address note (2026-08-23):** the Mesa control subnet moved from `192.168.1.0/24` to `10.10.10.0/24` (host `10.10.10.1`, board `10.10.10.121`) because the old range collided with the workshop LAN. Addresses below are kept as-recorded and are correct for the date shown.
+
 Evidence package for the bitfile actually flashed to the 7i80HDT, per
 [`../../docs/pre_power_deliverables.md`](../../docs/pre_power_deliverables.md)
 deliverable D3 (immutable Mesa firmware package). Full narrative and
@@ -51,8 +53,8 @@ the bricked-card procedure above.
 ## Re-verifying the running board
 
 ```bash
-mesaflash --device 7i80hdt --addr 192.168.1.121 --readhmid > mesa/firmware/readhmid_$(date +%Y-%m-%d).txt
-mesaflash --device 7i80hdt --addr 192.168.1.121 --sserial > mesa/firmware/sserial_$(date +%Y-%m-%d).txt
+mesaflash --device 7i80hdt --addr 10.10.10.121 --readhmid > mesa/firmware/readhmid_$(date +%Y-%m-%d).txt
+mesaflash --device 7i80hdt --addr 10.10.10.121 --sserial > mesa/firmware/sserial_$(date +%Y-%m-%d).txt
 diff mesa/firmware/readhmid_2026-08-13.txt mesa/firmware/readhmid_$(date +%Y-%m-%d).txt   # should be empty
 ```
 
