@@ -258,10 +258,74 @@ def describe(stats: dict) -> str:
     )
 
 
+def dump_schema(library: Path) -> None:
+    """Print what this library's database actually contains.
+
+    Used when the adapter produces something wrong -- UUID filenames, or dates
+    that look like UTC -- to find where a real schema differs from the one the
+    tests were built against. Prints structure, counts and a few filenames; no
+    location data.
+    """
+    db = library / "database" / "Photos.sqlite"
+    with _open_readonly(db) as conn:
+        tables = [r[0] for r in conn.execute(
+            "SELECT name FROM sqlite_master WHERE type='table' AND name LIKE 'Z%' "
+            "ORDER BY name")]
+        print(f"tables ({len(tables)}):")
+        for t in tables:
+            if "ASSET" in t.upper() or "ATTRIB" in t.upper():
+                print(f"    {t}")
+
+        for table in ("ZASSET", "ZADDITIONALASSETATTRIBUTES"):
+            cols = sorted(_columns(conn, table))
+            print(f"\n{table}: {len(cols)} columns")
+            if not cols:
+                print("    (table absent)")
+                continue
+            interesting = [c for c in cols if any(k in c for k in (
+                "FILENAME", "NAME", "DATE", "TIMEZONE", "ZONE", "ASSET", "UUID",
+                "TRASH", "KIND", "DIRECTORY", "LAT", "LONG"))]
+            for c in interesting:
+                print(f"    {c}")
+
+            # How many rows actually carry a value in each name/time column?
+            (total,) = conn.execute(f"SELECT COUNT(*) FROM {table}").fetchone()
+            print(f"    -- {total} rows")
+            for c in cols:
+                if not any(k in c for k in ("FILENAME", "TIMEZONE")):
+                    continue
+                (n,) = conn.execute(
+                    f"SELECT COUNT(*) FROM {table} WHERE {c} IS NOT NULL AND {c} != ''"
+                ).fetchone()
+                samples = [str(r[0])[:48] for r in conn.execute(
+                    f"SELECT {c} FROM {table} WHERE {c} IS NOT NULL AND {c} != '' LIMIT 3")]
+                print(f"    {c}: {n}/{total} populated  e.g. {samples}")
+
+        # Does the join this module relies on actually connect the two tables?
+        aux = _columns(conn, "ZADDITIONALASSETATTRIBUTES")
+        if aux:
+            print("\njoin check (ZADDITIONALASSETATTRIBUTES -> ZASSET.Z_PK):")
+            for fk in sorted(c for c in aux if "ASSET" in c):
+                try:
+                    (n,) = conn.execute(
+                        f"SELECT COUNT(*) FROM ZASSET a JOIN ZADDITIONALASSETATTRIBUTES b "
+                        f"ON b.{fk} = a.Z_PK").fetchone()
+                except sqlite3.DatabaseError as exc:
+                    print(f"    b.{fk}: query failed ({exc})")
+                    continue
+                print(f"    b.{fk} = a.Z_PK  ->  {n} matched rows")
+
+
 if __name__ == "__main__":
     # Quick standalone probe, useful for checking a real library.
+    argv = [a for a in sys.argv[1:] if a != "--schema"]
+    want_schema = "--schema" in sys.argv
     try:
-        lib = find_library(Path(sys.argv[1]) if len(sys.argv) > 1 else None)
+        lib = find_library(Path(argv[0]) if argv else None)
+        if want_schema:
+            print(f"library: {lib}")
+            dump_schema(lib)
+            raise SystemExit(0)
         found, stats = read_assets(lib)
         print(f"library: {lib}")
         print(describe(stats))
