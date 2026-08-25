@@ -63,6 +63,8 @@ class Photo:
     live_sidecar: Path | None = None
     error: str | None = None
     thumb: str | None = None
+    display_name: str | None = None   # set when the filename on disk is a UUID
+    from_original: bool = True        # False when only a Photos derivative existed
 
     session: int = -1
     similar_group: int = -1
@@ -70,7 +72,18 @@ class Photo:
 
     @property
     def label(self) -> str:
-        return self.path.name
+        return self.display_name or self.path.name
+
+    @property
+    def dest_name(self) -> str:
+        """Filename to file this under: the original's stem, the real suffix.
+
+        A Photos derivative is a JPEG called <UUID>_1_105_c.jpeg even when the
+        original was IMG_1234.HEIC, so neither name is right on its own.
+        """
+        if not self.display_name:
+            return self.path.name
+        return Path(self.display_name).stem + self.path.suffix
 
 
 # --------------------------------------------------------------------------
@@ -122,6 +135,30 @@ def scan(source: Path, include_videos: bool) -> tuple[list[Photo], list[Path]]:
             live_sidecar=sidecars.get(path),
         ))
     return photos, folded
+
+
+def scan_photos_library(library: Path, include_videos: bool) -> tuple[list[Photo], dict]:
+    """Build the photo list from a Photos library instead of a folder.
+
+    Metadata comes from the database rather than the file, because a derivative
+    JPEG carries no useful EXIF -- reading the file would fall back to mtime and
+    collapse every session into one.
+    """
+    import photos_library
+
+    assets, stats = photos_library.read_assets(library, include_videos)
+    photos: list[Photo] = []
+    for asset in assets:
+        try:
+            size = asset.path.stat().st_size
+        except OSError:
+            continue
+        photos.append(Photo(
+            path=asset.path, size=size, taken=asset.taken, time_source="photos-db",
+            lat=asset.lat, lon=asset.lon, is_video=asset.is_video,
+            display_name=asset.original_name, from_original=asset.from_original,
+        ))
+    return photos, stats
 
 
 # --------------------------------------------------------------------------
@@ -402,7 +439,8 @@ padding:.1rem .3rem;border-radius:3px}
 
 def write_report(out_dir: Path, photos: list[Photo], sessions: dict[int, list[Photo]],
                  similar: dict[int, list[Photo]], exact: dict[int, list[Photo]],
-                 args: argparse.Namespace, folded: list[Path]) -> None:
+                 args: argparse.Namespace, folded: list[Path],
+                 lib_stats: dict | None = None) -> None:
     esc = html.escape
     reclaim = sum(
         sum(p.size for p in group if p is not keeper(group))
@@ -437,6 +475,20 @@ def write_report(out_dir: Path, photos: list[Photo], sessions: dict[int, list[Ph
             "the file's modification date was used. If this export was copied or synced, those "
             "dates are the copy date and their session grouping will be wrong. "
             "Re-export with metadata preserved to fix it.</div>"
+        )
+    if lib_stats:
+        derived = sum(1 for p in photos if not p.from_original)
+        parts.append(
+            f"<div class='note'>Read directly from the Photos library &mdash; nothing was "
+            f"exported and the library was not modified. Capture times and locations come "
+            f"from the Photos database, so they are the real ones."
+            + (f" {derived} item(s) had no local original, so a derivative was hashed "
+               f"instead; that is fine for finding duplicates, and the timeline is "
+               f"unaffected because the dates come from the database, not the file."
+               if derived else "")
+            + (f" {lib_stats['no_local_file']} asset(s) had no local file at all and "
+               f"could not be included." if lib_stats.get("no_local_file") else "")
+            + "</div>"
         )
     if folded:
         parts.append(
@@ -586,10 +638,25 @@ def write_plan(out_dir: Path, sessions: dict[int, list[Photo]],
     ]
 
     redundant = {
-        str(p.path)
+        str(p.path): p
         for group in list(similar.values()) + list(exact.values())
         for p in group if p is not keeper(group)
     }
+
+    def unique(taken: set[str], wanted: str, photo: Photo) -> str:
+        """Two photos can share an original filename; never let one hide another."""
+        if wanted not in taken:
+            taken.add(wanted)
+            return wanted
+        stem, suffix = Path(wanted).stem, Path(wanted).suffix
+        marker = (photo.display_name and str(abs(hash(str(photo.path))))[:6]) or "dup"
+        candidate = f"{stem}_{marker}{suffix}"
+        n = 2
+        while candidate in taken:
+            candidate = f"{stem}_{marker}_{n}{suffix}"
+            n += 1
+        taken.add(candidate)
+        return candidate
 
     for sid, members in sorted(sessions.items(), key=lambda kv: min(p.taken for p in kv[1])):
         ordered = sorted(members, key=lambda p: p.taken)
@@ -597,18 +664,23 @@ def write_plan(out_dir: Path, sessions: dict[int, list[Photo]],
         year = ordered[0].taken.year
         folder = f'"$DEST"/{q(f"{year}/{name}")}'
         lines.append(f"mkdir -p {folder}")
+        used: set[str] = set()
         for photo in ordered:
             if str(photo.path) in redundant:
                 continue
-            lines.append(f"cp -n {q(str(photo.path))} {folder}/")
+            target = unique(used, photo.dest_name, photo)
+            lines.append(f"cp -n {q(str(photo.path))} {folder}/{q(target)}")
             if photo.live_sidecar:
-                lines.append(f"cp -n {q(str(photo.live_sidecar))} {folder}/")
+                clip = unique(used, photo.live_sidecar.name, photo)
+                lines.append(f"cp -n {q(str(photo.live_sidecar))} {folder}/{q(clip)}")
         lines.append("")
 
     if redundant:
         lines.append('mkdir -p "$DEST/_review_duplicates"')
-        for path in sorted(redundant):
-            lines.append(f'cp -n {q(path)} "$DEST/_review_duplicates/"')
+        used_dup: set[str] = set()
+        for photo in sorted(redundant.values(), key=lambda p: str(p.path)):
+            target = unique(used_dup, photo.dest_name, photo)
+            lines.append(f'cp -n {q(str(photo.path))} "$DEST/_review_duplicates"/{q(target)}')
         lines.append("")
 
     lines.append('echo "Done. Originals were left untouched."')
@@ -626,8 +698,13 @@ def main(argv: list[str] | None = None) -> int:
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog=__doc__,
     )
-    parser.add_argument("--source", type=Path, required=True,
-                        help="folder of exported photos (searched recursively)")
+    source_group = parser.add_mutually_exclusive_group(required=True)
+    source_group.add_argument("--source", type=Path,
+                              help="folder of exported photos (searched recursively)")
+    source_group.add_argument("--photos-library", type=Path, nargs="?", const=Path("auto"),
+                              metavar="PATH",
+                              help="read an Apple Photos library directly, no export "
+                                   "needed; omit PATH to autodetect in ~/Pictures")
     parser.add_argument("--out", type=Path, default=Path("photo-grouping-report"),
                         help="where to write the report (default: ./photo-grouping-report)")
     parser.add_argument("--dest", type=Path, default=None,
@@ -646,7 +723,7 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--no-thumbs", action="store_true", help="skip thumbnails (faster)")
     args = parser.parse_args(argv)
 
-    if not args.source.is_dir():
+    if args.source and not args.source.is_dir():
         parser.error(f"--source is not a directory: {args.source}")
     if not 0 <= args.threshold <= 16:
         parser.error("--threshold must be between 0 and 16")
@@ -661,9 +738,24 @@ def main(argv: list[str] | None = None) -> int:
 
     print(f"Backends: {imageio.backend_report()}", file=sys.stderr)
     print("Scanning...", file=sys.stderr)
-    photos, folded = scan(args.source, args.include_videos)
+    folded: list[Path] = []
+    lib_stats: dict | None = None
+    if args.photos_library is not None:
+        import photos_library
+        try:
+            library = photos_library.find_library(
+                None if str(args.photos_library) == "auto" else args.photos_library)
+            print(f"  library: {library}", file=sys.stderr)
+            photos, lib_stats = scan_photos_library(library, args.include_videos)
+        except photos_library.LibraryError as exc:
+            print(f"error: {exc}", file=sys.stderr)
+            return 1
+        args.source = library
+        print(f"  {photos_library.describe(lib_stats)}", file=sys.stderr)
+    else:
+        photos, folded = scan(args.source, args.include_videos)
     if not photos:
-        print(f"No photos or videos found under {args.source}", file=sys.stderr)
+        print(f"No photos or videos found in {args.source}", file=sys.stderr)
         return 1
     print(f"  {len(photos)} items ({len(folded)} Live Photo clips folded in)", file=sys.stderr)
 
@@ -699,7 +791,7 @@ def main(argv: list[str] | None = None) -> int:
         print("Thumbnails...", file=sys.stderr)
         build_thumbs(photos, sessions, args.out, args.workers)
 
-    write_report(args.out, photos, sessions, similar, exact, args, folded)
+    write_report(args.out, photos, sessions, similar, exact, args, folded, lib_stats)
     write_json(args.out, photos, sessions, similar, exact)
     write_plan(args.out, sessions, similar, exact, dest)
 

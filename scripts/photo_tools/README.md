@@ -24,22 +24,53 @@ retrofit and does not implement the eight-folder scheme in
 project photos into `01_Cabinet`…`07_Reference` is still a human judgement about
 *subject*, which this tool does not attempt.
 
-## Getting the photos off the phone
+## Two ways in
 
-Metadata is what makes the session grouping work, so export in a way that keeps
-it. On a Mac, best first:
+### Reading the Photos library directly (usually what you want)
 
-1. **Image Capture.app** — plug the iPhone in, select all, *Import To* a folder.
-   Copies the originals untouched, with EXIF intact. Best option for the whole
-   roll.
-2. **Photos.app → File → Export → _Export Unmodified Original_.** Note the
-   *Unmodified Original* variant specifically; the plain *Export* re-encodes and
-   can rewrite metadata.
+If the roll already syncs to a Mac through iCloud Photos, **you do not need to
+export anything, and you do not need the phone**:
 
-Avoid routes that re-encode (AirDrop to some targets, chat apps, the iCloud web
-download). If capture times are lost the tool falls back to file modification
-dates, which on a fresh copy are all the copy date — every photo collapses into
-one session. The report says so at the top when it detects this.
+```sh
+python3 group_photos.py --photos-library
+```
+
+That autodetects the library in `~/Pictures`; pass a path if you keep it
+elsewhere or have more than one. It reads capture times and locations out of
+`Photos.sqlite` and hashes whichever local file is best — the original when it is
+on disk, otherwise the derivative JPEG.
+
+This matters on an iCloud-optimised library, where most originals live in the
+cloud and exporting forces a slow, unreliable download of every one. A derivative
+is entirely adequate for finding duplicates, and because the dates come from the
+database rather than the file, **the timeline stays correct even for photos whose
+originals are not on this Mac**.
+
+The library is opened read-only from a temporary copy of the database. Nothing in
+the bundle is modified, which is asserted by a test that fingerprints every file
+before and after a run.
+
+Assets present in the database but with no local file at all are counted and
+reported, not silently dropped, so the report tells you what it could not see.
+
+### Exporting to a folder
+
+If the photos are not in a Photos library — a directory of files, a card, a
+download — point it at the folder instead:
+
+```sh
+python3 group_photos.py --source ~/Pictures/CameraRollExport
+```
+
+Exporting from Photos.app is also the route when you want the full-size originals
+rather than derivatives. Use **File → Export → _Export Unmodified Original_**;
+the plain *Export* re-encodes and can rewrite metadata. From a phone over a cable,
+**Image Capture.app** copies originals with EXIF intact.
+
+Whatever the route, metadata is what makes session grouping work. If capture
+times are missing the tool falls back to file modification dates, which on a
+fresh copy are all the copy date — every photo collapses into one session. The
+report says so at the top when it detects this.
 
 ## Running it
 
@@ -63,7 +94,8 @@ discarded; delete the originals yourself once you have looked.
 
 | Flag | Default | What it does |
 |---|---|---|
-| `--source` | *required* | Folder of photos, searched recursively |
+| `--source` | *one of these* | Folder of photos, searched recursively |
+| `--photos-library` | *one of these* | Read an Apple Photos library directly; omit the path to autodetect in `~/Pictures` |
 | `--out` | `photo-grouping-report` | Where the report is written |
 | `--dest` | `<out>/organised` | Target tree for `apply_plan.sh` |
 | `--gap-hours` | `3` | Pause that starts a new session |
@@ -102,8 +134,14 @@ which is most of the mess in a camera roll.
   read for almost every file.
 * **Live Photos** — a still and a same-stem `.MOV` are treated as one item, and
   the clip follows its still when the plan is applied.
+* **Photos libraries** — metadata comes from `Photos.sqlite`, never from the
+  file, because a derivative carries no usable EXIF and its filename is a bare
+  UUID. Core Data stores capture time in UTC with a separate timezone offset;
+  the two are recombined into local wall-clock time, so an evening shot stays on
+  the day it was taken instead of sliding into the next one. Files are filed
+  under their real original names, with collisions disambiguated.
 
-## Decoding, and one untested path
+## Decoding
 
 An iPhone roll is mostly HEIC, which plain Pillow cannot read. Three backends
 are tried in order:
@@ -114,25 +152,42 @@ are tried in order:
    this path needs **no `pip install` at all**.
 3. **Pillow alone**, for JPEG/PNG off a Mac.
 
-The report header prints which backends are live.
-
-> **The `sips` path has not been run on a Mac.** It was written and reviewed in a
-> Linux container, where `sips` does not exist. The pure-Python PNG reader it
-> feeds *is* tested (RGB, grayscale, RGBA, and palette, against Pillow), but the
-> `sips` invocation itself is unverified. If it misbehaves on macOS, the fix is
-> `pip3 install Pillow pillow-heif`, which takes path 1 instead.
+The report header prints which backends are live. See
+[What is not verified](#what-is-not-verified) for the caveat on the `sips` path.
 
 ## Tests
 
 ```sh
-python3 test_group_photos.py
+python3 test_group_photos.py     # 24 tests -- folder mode
+python3 test_photos_library.py   # 21 tests -- Photos library mode
 ```
 
-24 tests over a synthetic roll with known answers: EXIF parsing including GPS
-hemisphere signs, hash behaviour, burst clustering, both session-split rules,
-Live Photo folding, unreadable-file handling, and — most importantly — that the
-generated plan contains no destructive command and that executing it leaves the
-source tree byte-for-byte unchanged.
+Both run against synthetic fixtures with known answers. Between them they cover
+EXIF parsing including GPS hemisphere signs, hash behaviour, burst clustering,
+both session-split rules, Live Photo folding, unreadable-file handling, the Core
+Data date conversion, derivative fallback, schema tolerance, and — most
+importantly — that the generated plan contains no destructive command, that
+executing it leaves the source tree byte-for-byte unchanged, and that reading a
+Photos library does not modify it.
 
 The tests need Pillow to build fixtures and skip cleanly without it, so they do
 not affect the repo's CI gate.
+
+## What is not verified
+
+Two paths were written and reviewed in a Linux container and have never run on a
+Mac. Both fail loudly rather than silently if they are wrong, and both have a
+documented fallback:
+
+* **The `sips` decode backend.** The pure-Python PNG reader it feeds *is* tested
+  (RGB, grayscale, RGBA and palette, against Pillow), but the `sips` invocation
+  itself is unverified. If it misbehaves, `pip3 install Pillow pillow-heif` takes
+  the Pillow path instead.
+* **A real `Photos.sqlite`.** The adapter is tested against a synthetic library
+  built to the same shape macOS uses, which exercises the SQL, the UUID-to-file
+  matching and the date conversion — but it cannot prove that a library from any
+  particular macOS release has the columns the fixture has. This is why the
+  adapter probes the schema with `PRAGMA table_info` and degrades rather than
+  assuming: a missing side table costs the original filename, not the run. If the
+  schema turns out to differ, `python3 photos_library.py <path>` prints what it
+  found and is the quickest way to see where it diverges.
