@@ -125,6 +125,7 @@ mkdir -p "$DEST"/2015/2015-09-25_session-005
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/5/57C3C26D-235E-4F67-81CB-3B889E507D5A_1_105_c.jpeg' "$DEST"/2015/2015-09-25_session-005/IMG_0191.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/E/E47F9BD3-2D68-4F78-9F5F-B838A47D46FA_1_105_c.jpeg' "$DEST"/2015/2015-09-25_session-005/IMG_0192.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/0/013C75D9-A908-48D6-98C3-7834641C85ED_1_105_c.jpeg' "$DEST"/2015/2015-09-25_session-005/IMG_0193.jpeg
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0194.JPG "$DEST"/2015/2015-09-25_session-005/IMG_0194.JPG
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/F/F83A1103-A37B-4EB8-8F7B-4A6CC1651785_1_105_c.jpeg' "$DEST"/2015/2015-09-25_session-005/IMG_0194.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/8/8FFBC930-9E67-4587-A74D-20B5E99A4983_1_105_c.jpeg' "$DEST"/2015/2015-09-25_session-005/IMG_0196.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/7/78B85086-E5E5-4C74-83DF-7A0324891DA3_1_105_c.jpeg' "$DEST"/2015/2015-09-25_session-005/IMG_0197.jpeg
@@ -246,7 +247,7 @@ cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivativ
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/F/FC9602DD-B23B-445A-8806-30E91B9ADDE7_1_105_c.jpeg' "$DEST"/2015/2015-09-30_session-020/IMG_0422.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/C/C1A48CBE-F0F9-47A9-B9AA-C9F2A87B3F22_1_105_c.jpeg' "$DEST"/2015/2015-09-30_session-020/IMG_0423.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/0/01B73D6B-A840-40BC-AC76-E2DA8EA0493A_1_105_c.jpeg' "$DEST"/2015/2015-09-30_session-020/IMG_0426.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/C/C50A54C8-6007-4DC9-8EDA-85663C70A1C6_1_105_c.jpeg' "$DEST"/2015/2015-09-30_session-020/IMG_0429.jpeg
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0429.JPG "$DEST"/2015/2015-09-30_session-020/IMG_0429.JPG
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/D/D6602977-8435-448B-BE2A-0C1724A95157_1_105_c.jpeg' "$DEST"/2015/2015-09-30_session-020/IMG_0438.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/B/BC75DFF3-0DF7-4D82-A63D-2E3BA20BCE7E_1_105_c.jpeg' "$DEST"/2015/2015-09-30_session-020/IMG_0439.jpeg
 
@@ -279,6 +280,7 @@ cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivativ
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/1/1A792450-F1AE-42E4-BC9C-BF34CE3DB2C8_1_105_c.jpeg' "$DEST"/2015/2015-10-27_session-024/20151027_211150.jpeg
 
 mkdir -p "$DEST"/2015/2015-10-29_session-025
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/XUTH8716.JPG "$DEST"/2015/2015-10-29_session-025/XUTH8716.JPG
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/A/A6FA055C-949C-4A55-8F61-4596FB07C3AA_1_105_c.jpeg' "$DEST"/2015/2015-10-29_session-025/20151029_120110.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/9/92DD15D4-7985-409D-86A8-A3D59E5FAB0E_1_105_c.jpeg' "$DEST"/2015/2015-10-29_session-025/20151029_122353.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/5/5BDAF036-8CA9-41A7-972A-80D34D3CB55F_1_105_c.jpeg' "$DEST"/2015/2015-10-29_session-025/20151029_122406.jpeg
@@ -298,7 +300,7 @@ cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivativ
 
 mkdir -p "$DEST"/2016/2016-02-11_session-029
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/6/67493529-1428-49EB-BBC3-A69219376346_1_105_c.jpeg' "$DEST"/2016/2016-02-11_session-029/IMG_0325.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/2/20089463-E227-4304-8E8C-444C5F16030E_1_105_c.jpeg' "$DEST"/2016/2016-02-11_session-029/IMG_0305.jpeg
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0305.JPG "$DEST"/2016/2016-02-11_session-029/IMG_0305.JPG
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/7/7626EDA9-E4F3-461B-AC34-E29EF35222E0_1_105_c.jpeg' "$DEST"/2016/2016-02-11_session-029/IMG_0307.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/0/04B439F0-66E5-48E3-BA99-F89B6EE3F286_1_105_c.jpeg' "$DEST"/2016/2016-02-11_session-029/IMG_0308.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/1/16A21BFC-09FA-4396-B1DF-4062D4BE8D37_1_105_c.jpeg' "$DEST"/2016/2016-02-11_session-029/IMG_0309.jpeg
@@ -307,6 +309,7 @@ cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivativ
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/7/75C2BA2F-DBE6-4566-997E-2DCC7F7F5E45_1_105_c.jpeg' "$DEST"/2016/2016-02-11_session-029/IMG_0312.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/4/497CC690-9CFF-4489-87B9-43B745AE2AF0_1_105_c.jpeg' "$DEST"/2016/2016-02-11_session-029/IMG_0313.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/0/043A6A2D-E626-4806-BB66-F49B89EEB7E3_1_105_c.jpeg' "$DEST"/2016/2016-02-11_session-029/IMG_0314.jpeg
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0315.JPG "$DEST"/2016/2016-02-11_session-029/IMG_0315.JPG
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/D/D16398C3-CAA5-499E-9494-3FD0CD95232B_1_105_c.jpeg' "$DEST"/2016/2016-02-11_session-029/IMG_0315.jpeg
 
 mkdir -p "$DEST"/2016/2016-02-11_session-030
@@ -323,14 +326,14 @@ cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivativ
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/7/79BDE64C-B96F-456F-80E6-5EC266EC917B_1_105_c.jpeg' "$DEST"/2016/2016-02-12_session-031/IMG_0344.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/3/3AF19238-A2A7-46B6-9519-E9B6D437AE81_1_105_c.jpeg' "$DEST"/2016/2016-02-12_session-031/IMG_0345.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/B/BF8B51CC-B877-442B-AF7B-72360891E61D_1_105_c.jpeg' "$DEST"/2016/2016-02-12_session-031/IMG_0346.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/4/49B659C1-6A25-417E-96E7-2B0471F813C6_1_105_c.jpeg' "$DEST"/2016/2016-02-12_session-031/IMG_0347.jpeg
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0347.JPG "$DEST"/2016/2016-02-12_session-031/IMG_0347.JPG
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/D/DF214090-10EC-4C91-B629-F58D983D39B8_1_105_c.jpeg' "$DEST"/2016/2016-02-12_session-031/IMG_0348.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/4/4E721D28-CB02-4407-82E3-C623CABACC76_1_105_c.jpeg' "$DEST"/2016/2016-02-12_session-031/IMG_0349.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/E/E3E45548-CA28-470A-86A3-2D1D1AA15918_1_105_c.jpeg' "$DEST"/2016/2016-02-12_session-031/IMG_0350.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/3/33BD5F4B-3766-42E3-BDF4-BB7E78D61CEF_1_105_c.jpeg' "$DEST"/2016/2016-02-12_session-031/IMG_0351.jpeg
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0351.JPG "$DEST"/2016/2016-02-12_session-031/IMG_0351.JPG
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/E/E20568B5-2BD4-457E-8A8D-AB942EDAE09B_1_105_c.jpeg' "$DEST"/2016/2016-02-12_session-031/IMG_0352.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/7/7472C73D-CAD3-4153-8144-681497FE9FC5_1_105_c.jpeg' "$DEST"/2016/2016-02-12_session-031/IMG_0355.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/8/8AF70594-1F4F-4926-8D2D-6676A7892933_1_105_c.jpeg' "$DEST"/2016/2016-02-12_session-031/IMG_0356.jpeg
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0356.JPG "$DEST"/2016/2016-02-12_session-031/IMG_0356.JPG
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/B/B7D86F9A-AFFE-4065-A549-2A35A6FC5879_1_105_c.jpeg' "$DEST"/2016/2016-02-12_session-031/IMG_0358.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/E/EE029F2F-4F65-46D4-A8E4-EA0FBDE8AAFE_1_105_c.jpeg' "$DEST"/2016/2016-02-12_session-031/IMG_0360.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/3/313939D0-AE88-4BD4-A108-1DBD46254E94_1_105_c.jpeg' "$DEST"/2016/2016-02-12_session-031/IMG_0361.jpeg
@@ -349,7 +352,7 @@ cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivativ
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/5/5D4CDC8C-BAC6-4F0E-B415-FC5079C2AEEC_1_105_c.jpeg' "$DEST"/2017/2017-05-15_session-033/IMG_0390.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/3/3CD0106D-B76B-46AC-9D74-766E10B88B98_1_105_c.jpeg' "$DEST"/2017/2017-05-15_session-033/IMG_0393.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/7/7F56D165-EF6F-46C6-A21F-C4EFABD4FC2D_1_105_c.jpeg' "$DEST"/2017/2017-05-15_session-033/IMG_0405.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/9/9B2CF6F8-8772-4E53-9224-6A8E8C641B19_3.mov' "$DEST"/2017/2017-05-15_session-033/IMG_0406.mov
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/9/9B2CF6F8-8772-4E53-9224-6A8E8C641B19.jpeg' "$DEST"/2017/2017-05-15_session-033/IMG_0406.jpeg
 
 mkdir -p "$DEST"/2017/2017-09-30_session-034
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/A/A23FD086-6C2F-437F-B36F-C9F198F6F415_1_105_c.jpeg' "$DEST"/2017/2017-09-30_session-034/IMG_0696.jpeg
@@ -364,7 +367,7 @@ cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivativ
 mkdir -p "$DEST"/2017/2017-10-24_session-036
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/5/5EF874F8-7454-4B41-836D-2567076B2ABA_1_105_c.jpeg' "$DEST"/2017/2017-10-24_session-036/IMG_0031.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/7/7A622A9C-D6D1-40D0-A477-F7173A7A6A77_1_105_c.jpeg' "$DEST"/2017/2017-10-24_session-036/IMG_0042.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/2/28460F64-138A-4C42-AAD6-5B91F88E8B9D_1_102_o.jpeg' "$DEST"/2017/2017-10-24_session-036/530602036.704767.jpeg
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/RQLH4167.JPG "$DEST"/2017/2017-10-24_session-036/RQLH4167.JPG
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/9/92451F71-0CD8-4EEB-BA67-56272DE00A32.jpeg' "$DEST"/2017/2017-10-24_session-036/530602253.132238.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/E/EB4411BF-E4BD-425D-BB5B-8016AF2F9519_1_102_o.jpeg' "$DEST"/2017/2017-10-24_session-036/530602316.088723.jpeg
 
@@ -374,7 +377,7 @@ cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivativ
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/E/E0DA3834-0B3E-44AF-950C-12A4FFB83BC1_1_105_c.jpeg' "$DEST"/2017/2017-11-13_session-037/532327031.587594.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/C/C3C5F795-7B61-4C31-A926-87FE9390E2D2_1_105_c.jpeg' "$DEST"/2017/2017-11-13_session-037/532327064.915138.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/8/83595310-5993-4055-A0B3-BC3F17B7D063_1_105_c.jpeg' "$DEST"/2017/2017-11-13_session-037/532327175.596193.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/E/E59684C2-3B3E-4172-9A42-B60405FC2022_1_105_c.jpeg' "$DEST"/2017/2017-11-13_session-037/532327262.247370.jpeg
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/AQBX5068.JPG "$DEST"/2017/2017-11-13_session-037/AQBX5068.JPG
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/9/944E04A8-79AB-4032-8C19-FB56EE8EEA12_1_105_c.jpeg' "$DEST"/2017/2017-11-13_session-037/532327350.041455.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/C/C93BE6F3-4107-4C48-82C5-29007FB06387_1_102_o.jpeg' "$DEST"/2017/2017-11-13_session-037/532327439.087323.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/0/0CF9FC18-7252-4FEC-B4F1-31C79984CEF7_1_105_c.jpeg' "$DEST"/2017/2017-11-13_session-037/532327508.790442.jpeg
@@ -441,6 +444,7 @@ cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivativ
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/9/9A612AB5-F30C-46C2-9319-FD3A204C9D80_1_105_c.jpeg' "$DEST"/2018/2018-05-16_session-044/IMG_0529.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/6/6AAF0787-EDFC-46CF-B551-6242AD466AF2_1_105_c.jpeg' "$DEST"/2018/2018-05-16_session-044/IMG_0533.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/4/4D319A31-A910-4E84-BB1D-E7551E8F2D82_1_105_c.jpeg' "$DEST"/2018/2018-05-16_session-044/IMG_0534.jpeg
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0534.HEIC "$DEST"/2018/2018-05-16_session-044/IMG_0534.HEIC
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/C/C7DDEDE6-705C-45C3-96C6-41A6B3142BFF_1_105_c.jpeg' "$DEST"/2018/2018-05-16_session-044/IMG_0535.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/0/00AFC269-0EE8-4509-A247-36187B596B8B_1_105_c.jpeg' "$DEST"/2018/2018-05-16_session-044/IMG_0539.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/4/429F0353-D737-4C28-8E7F-A70C7EBF7518_1_105_c.jpeg' "$DEST"/2018/2018-05-16_session-044/IMG_0540.jpeg
@@ -452,7 +456,7 @@ mkdir -p "$DEST"/2019/2019-07-17_session-046
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/masters/2/29607C5A-9DA4-468C-B866-9CD78A3AF7DC_4_5005_c.jpeg' "$DEST"/2019/2019-07-17_session-046/IMG_0721.jpeg
 
 mkdir -p "$DEST"/2019/2019-07-18_session-047
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/masters/4/4E3E7909-B0D3-44D7-9F68-5C701E7ABC4E_4_5005_c.jpeg' "$DEST"/2019/2019-07-18_session-047/IMG_0734.jpeg
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0734.HEIC "$DEST"/2019/2019-07-18_session-047/IMG_0734.HEIC
 
 mkdir -p "$DEST"/2019/2019-07-18_session-048
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/A/A0B5ECF7-FD68-42DF-9795-82C51857272B_1_105_c.jpeg' "$DEST"/2019/2019-07-18_session-048/IMG_0740.jpeg
@@ -547,7 +551,7 @@ cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/1/10C3762
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/3/3DE4B97F-1AE0-4CA4-A077-D500136FEBC9.heic' "$DEST"/2020/2020-03-11_session-065/IMG_1529.heic
 
 mkdir -p "$DEST"/2020/2020-03-11_session-066
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/0/076664C3-5D5C-4402-B03F-DCDA7F2EACD2_3.mov' "$DEST"/2020/2020-03-11_session-066/IMG_1527.mov
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/0/076664C3-5D5C-4402-B03F-DCDA7F2EACD2.heic' "$DEST"/2020/2020-03-11_session-066/IMG_1527.heic
 
 mkdir -p "$DEST"/2020/2020-03-16_session-067
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/4/40211C2E-0331-4986-B4BE-8D22DB93209E_1_102_o.jpeg' "$DEST"/2020/2020-03-16_session-067/IMG_1549.jpeg
@@ -568,12 +572,11 @@ cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivativ
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/masters/A/A88EE724-A7B2-4390-9C09-408C6358DCBE_4_5005_c.jpeg' "$DEST"/2020/2020-03-16_session-068/IMG_1547.jpeg
 
 mkdir -p "$DEST"/2020/2020-09-17_session-069
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/3/3442C19D-75CA-415D-9988-9906A131E7AE_3.mov' "$DEST"/2020/2020-09-17_session-069/IMG_0427.mov
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/1/1A9D0555-53B4-4807-994A-904F64DE4884.heic' "$DEST"/2020/2020-09-17_session-069/IMG_0428.heic
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/3/3442C19D-75CA-415D-9988-9906A131E7AE.heic' "$DEST"/2020/2020-09-17_session-069/IMG_0427.heic
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/1/1147C302-16BC-46D0-AD7C-ACBD6555655A.heic' "$DEST"/2020/2020-09-17_session-069/IMG_0429.heic
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/0/0BFB809A-04F9-46A6-8832-DCAEBD1BB3CC_3.mov' "$DEST"/2020/2020-09-17_session-069/IMG_0430.mov
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/5/58A208AA-96BA-401D-A278-C79CD2723D2E_3.mov' "$DEST"/2020/2020-09-17_session-069/IMG_0431.mov
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/0/03ACA739-8289-4B99-B432-3891B6083BC4_3.mov' "$DEST"/2020/2020-09-17_session-069/IMG_0432.mov
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/0/0BFB809A-04F9-46A6-8832-DCAEBD1BB3CC.heic' "$DEST"/2020/2020-09-17_session-069/IMG_0430.heic
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/5/58A208AA-96BA-401D-A278-C79CD2723D2E.heic' "$DEST"/2020/2020-09-17_session-069/IMG_0431.heic
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/0/03ACA739-8289-4B99-B432-3891B6083BC4.heic' "$DEST"/2020/2020-09-17_session-069/IMG_0432.heic
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/masters/B/B244DA4E-BE45-4BC9-9496-8B9A40B592EE_4_5005_c.jpeg' "$DEST"/2020/2020-09-17_session-069/IMG_0433.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/masters/E/EA30FCF9-64DD-48E8-B3D4-DC7D2E01E5BA_4_5005_c.jpeg' "$DEST"/2020/2020-09-17_session-069/IMG_0434.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/masters/F/F0176F6B-4496-41B8-ADBD-A7EA763B4E72_4_5005_c.jpeg' "$DEST"/2020/2020-09-17_session-069/IMG_0435.jpeg
@@ -585,29 +588,55 @@ cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivativ
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/C/C832934B-8918-4C0D-A00E-05B4042D1A75_1_102_o.jpeg' "$DEST"/2020/2020-09-17_session-069/IMG_0441.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/masters/F/FEE47B59-7472-41A6-A374-BC9502C250A1_4_5005_c.jpeg' "$DEST"/2020/2020-09-17_session-069/IMG_0442.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/4/4531E5B8-3BE8-4514-861B-D1432DEAFEFE_1_102_o.jpeg' "$DEST"/2020/2020-09-17_session-069/IMG_0443.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/D/DBD03349-C732-43DF-9910-415E4A56DE51_3.mov' "$DEST"/2020/2020-09-17_session-069/IMG_0446.mov
 
 mkdir -p "$DEST"/2020/2020-10-07_session-070
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/masters/7/7EAC85D6-A42C-492F-9173-A5E9B78845F0_4_5005_c.jpeg' "$DEST"/2020/2020-10-07_session-070/IMG_0026.jpeg
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0026.HEIC "$DEST"/2020/2020-10-07_session-070/IMG_0026.HEIC
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0026.MOV "$DEST"/2020/2020-10-07_session-070/IMG_0026.MOV
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/masters/A/A0CBCAB0-688F-436F-8B25-7184058FEA50_4_5005_c.jpeg' "$DEST"/2020/2020-10-07_session-070/IMG_0027.jpeg
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0027.HEIC "$DEST"/2020/2020-10-07_session-070/IMG_0027.HEIC
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0027.MOV "$DEST"/2020/2020-10-07_session-070/IMG_0027.MOV
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0028.HEIC "$DEST"/2020/2020-10-07_session-070/IMG_0028.HEIC
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0028.MOV "$DEST"/2020/2020-10-07_session-070/IMG_0028.MOV
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/masters/8/8047A8C9-DE97-41D0-A157-088F1C17D392_4_5005_c.jpeg' "$DEST"/2020/2020-10-07_session-070/IMG_0028.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/masters/6/6540C863-C70F-4CB3-BD57-E04E1CD6D72F_4_5005_c.jpeg' "$DEST"/2020/2020-10-07_session-070/IMG_0029.jpeg
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0029.HEIC "$DEST"/2020/2020-10-07_session-070/IMG_0029.HEIC
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0029.MOV "$DEST"/2020/2020-10-07_session-070/IMG_0029.MOV
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/masters/7/7A0926BD-DB55-492C-A9E7-042A57251343_4_5005_c.jpeg' "$DEST"/2020/2020-10-07_session-070/IMG_0030.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/masters/6/67196175-29EE-42F2-B4EE-DC550BA97041_4_5005_c.jpeg' "$DEST"/2020/2020-10-07_session-070/IMG_0031.jpeg
 
 mkdir -p "$DEST"/2020/2020-10-12_session-071
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0034.HEIC "$DEST"/2020/2020-10-12_session-071/IMG_0034.HEIC
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0034.MOV "$DEST"/2020/2020-10-12_session-071/IMG_0034.MOV
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/masters/0/0923F7A9-3E56-4571-851D-84E1F74EF41C_4_5005_c.jpeg' "$DEST"/2020/2020-10-12_session-071/IMG_0034.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/masters/5/56586D16-5706-4E36-BAD9-DDB9E041869A_4_5005_c.jpeg' "$DEST"/2020/2020-10-12_session-071/IMG_0035.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/masters/4/4D19D599-3977-4012-B92A-435D107D3BCB_4_5005_c.jpeg' "$DEST"/2020/2020-10-12_session-071/IMG_0036.jpeg
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0035.HEIC "$DEST"/2020/2020-10-12_session-071/IMG_0035.HEIC
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0035.MOV "$DEST"/2020/2020-10-12_session-071/IMG_0035.MOV
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0036.HEIC "$DEST"/2020/2020-10-12_session-071/IMG_0036.HEIC
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0036.MOV "$DEST"/2020/2020-10-12_session-071/IMG_0036.MOV
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0037.HEIC "$DEST"/2020/2020-10-12_session-071/IMG_0037.HEIC
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0037.MOV "$DEST"/2020/2020-10-12_session-071/IMG_0037.MOV
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/masters/2/218ADD84-B0F3-4540-A6E9-38AAC20F87F3_4_5005_c.jpeg' "$DEST"/2020/2020-10-12_session-071/IMG_0037.jpeg
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0039.HEIC "$DEST"/2020/2020-10-12_session-071/IMG_0039.HEIC
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0039.MOV "$DEST"/2020/2020-10-12_session-071/IMG_0039.MOV
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/masters/0/0A65146E-3C73-4510-8E36-5EC979C52409_4_5005_c.jpeg' "$DEST"/2020/2020-10-12_session-071/IMG_0039.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/masters/8/8EEB0D36-FB46-41A2-ADF9-F9BC960B7C13_4_5005_c.jpeg' "$DEST"/2020/2020-10-12_session-071/IMG_0040.jpeg
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0040.HEIC "$DEST"/2020/2020-10-12_session-071/IMG_0040.HEIC
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0040.MOV "$DEST"/2020/2020-10-12_session-071/IMG_0040.MOV
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/masters/3/34D9F527-B6D1-4E2E-8D6F-586A7540EA7B_4_5005_c.jpeg' "$DEST"/2020/2020-10-12_session-071/IMG_0041.jpeg
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0041.HEIC "$DEST"/2020/2020-10-12_session-071/IMG_0041.HEIC
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0041.MOV "$DEST"/2020/2020-10-12_session-071/IMG_0041.MOV
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0042.HEIC "$DEST"/2020/2020-10-12_session-071/IMG_0042.HEIC
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0042.MOV "$DEST"/2020/2020-10-12_session-071/IMG_0042.MOV
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/masters/B/B03F94A4-CF02-4AD3-AE90-9B62300C0A5D_4_5005_c.jpeg' "$DEST"/2020/2020-10-12_session-071/IMG_0042.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/masters/B/B7D0F9F5-82F1-4A60-96A7-5BEF6B335B4E_4_5005_c.jpeg' "$DEST"/2020/2020-10-12_session-071/IMG_0043.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/masters/3/3EB67CA3-4EF2-42DA-A46D-06189DC57872_4_5005_c.jpeg' "$DEST"/2020/2020-10-12_session-071/IMG_0044.jpeg
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0043.HEIC "$DEST"/2020/2020-10-12_session-071/IMG_0043.HEIC
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0043.MOV "$DEST"/2020/2020-10-12_session-071/IMG_0043.MOV
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0044.HEIC "$DEST"/2020/2020-10-12_session-071/IMG_0044.HEIC
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0044.MOV "$DEST"/2020/2020-10-12_session-071/IMG_0044.MOV
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/masters/4/4E6C416F-4430-4BC5-90E9-676FD025B586_4_5005_c.jpeg' "$DEST"/2020/2020-10-12_session-071/IMG_0045.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/masters/8/86B2738F-90DA-47F6-8685-8923A26169F6_4_5005_c.jpeg' "$DEST"/2020/2020-10-12_session-071/IMG_0046.jpeg
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0045.HEIC "$DEST"/2020/2020-10-12_session-071/IMG_0045.HEIC
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0045.MOV "$DEST"/2020/2020-10-12_session-071/IMG_0045.MOV
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0046.HEIC "$DEST"/2020/2020-10-12_session-071/IMG_0046.HEIC
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0046.MOV "$DEST"/2020/2020-10-12_session-071/IMG_0046.MOV
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/masters/7/75ED26ED-13B2-4E77-9B95-85AAFE79A3E7_4_5005_c.jpeg' "$DEST"/2020/2020-10-12_session-071/IMG_0047.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/masters/B/BD1DC7AC-B178-4CB7-B3A7-432D5932035D_4_5005_c.jpeg' "$DEST"/2020/2020-10-12_session-071/IMG_0048.jpeg
 
@@ -618,7 +647,10 @@ mkdir -p "$DEST"/2021/2021-07-30_session-073
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/F/F5B11DC3-4F3A-47D7-8BA0-039FDB1DDD63.heic' "$DEST"/2021/2021-07-30_session-073/IMG_0157.heic
 
 mkdir -p "$DEST"/2021/2021-08-13_session-074
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_5245.HEIC "$DEST"/2021/2021-08-13_session-074/IMG_5245.HEIC
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/C/CC959E32-6872-4209-B380-A9F1B5408F92_1_102_o.jpeg' "$DEST"/2021/2021-08-13_session-074/IMG_5245.jpeg
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0183.HEIC "$DEST"/2021/2021-08-13_session-074/IMG_0183.HEIC
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0183.MOV "$DEST"/2021/2021-08-13_session-074/IMG_0183.MOV
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/masters/F/F9798479-F2D9-4D29-B365-6C1CE29EA3CB_4_5005_c.jpeg' "$DEST"/2021/2021-08-13_session-074/IMG_0183.jpeg
 
 mkdir -p "$DEST"/2021/2021-09-17_session-075
@@ -632,22 +664,28 @@ cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivativ
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/masters/3/3A44B70A-1259-480F-8A22-03BA7D179EDB_4_5005_c.jpeg' "$DEST"/2021/2021-09-17_session-075/IMG_0268.jpeg
 
 mkdir -p "$DEST"/2021/2021-10-28_session-076
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_2180.HEIC "$DEST"/2021/2021-10-28_session-076/IMG_2180.HEIC
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_2180.MOV "$DEST"/2021/2021-10-28_session-076/IMG_2180.MOV
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/masters/4/4B7732ED-DD7E-4F3B-AE38-60386DCEE523_4_5005_c.jpeg' "$DEST"/2021/2021-10-28_session-076/IMG_2180.jpeg
 
 mkdir -p "$DEST"/2021/2021-12-06_session-077
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0401.HEIC "$DEST"/2021/2021-12-06_session-077/IMG_0401.HEIC
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/E/E4214FC2-9ED7-473F-B888-0B37F63C7D34_1_102_o.jpeg' "$DEST"/2021/2021-12-06_session-077/IMG_0401.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/D/D85D4422-0215-4410-B0B2-B98FFDFF3695_1_102_o.jpeg' "$DEST"/2021/2021-12-06_session-077/IMG_0402.jpeg
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0402.HEIC "$DEST"/2021/2021-12-06_session-077/IMG_0402.HEIC
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/masters/2/2D2E5978-B8F5-484A-8045-9E6EE41E09DA_4_5005_c.jpeg' "$DEST"/2021/2021-12-06_session-077/IMG_0403.jpeg
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0403.HEIC "$DEST"/2021/2021-12-06_session-077/IMG_0403.HEIC
 
 mkdir -p "$DEST"/2021/2021-12-07_session-078
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/8/820B3014-F3A0-4FC3-BAE7-F4831555F6CA_1_102_o.jpeg' "$DEST"/2021/2021-12-07_session-078/IMG_7618.jpeg
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_7618.HEIC "$DEST"/2021/2021-12-07_session-078/IMG_7618.HEIC
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_7618.MOV "$DEST"/2021/2021-12-07_session-078/IMG_7618.MOV
 
 mkdir -p "$DEST"/2022/2022-01-19_session-079
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/masters/B/BE324C3C-9A2E-403B-BDDA-8BF8371B7C32_4_5005_c.jpeg' "$DEST"/2022/2022-01-19_session-079/IMG_0497.jpeg
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0497.HEIC "$DEST"/2022/2022-01-19_session-079/IMG_0497.HEIC
 
 mkdir -p "$DEST"/2022/2022-01-24_session-080
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/0/09000BE5-C424-4C9D-9319-863CB0EAD8E2_1_105_c.jpeg' "$DEST"/2022/2022-01-24_session-080/IMG_0528.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/6/6C0C8A79-A227-4BB6-B36B-720FEE534ACF_1_102_o.jpeg' "$DEST"/2022/2022-01-24_session-080/IMG_0532.jpeg
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0528.HEIC "$DEST"/2022/2022-01-24_session-080/IMG_0528.HEIC
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0532.HEIC "$DEST"/2022/2022-01-24_session-080/IMG_0532.HEIC
 
 mkdir -p "$DEST"/2023/2023-02-18_session-081
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/1/16A105B0-68E1-4022-9EAC-4658FE3D4AB2_1_105_c.jpeg' "$DEST"/2023/2023-02-18_session-081/IMG_1456.jpeg
@@ -790,7 +828,7 @@ cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/A/A9B004F
 
 mkdir -p "$DEST"/2023/2023-11-13_session-104
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/1/13422F64-B56A-4202-824F-9D0AEEED1A2C.heic' "$DEST"/2023/2023-11-13_session-104/IMG_2593.heic
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/0/02E9EFCE-4AAD-4992-BE0D-D37F70425AE5_3.mov' "$DEST"/2023/2023-11-13_session-104/IMG_2594.mov
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/0/02E9EFCE-4AAD-4992-BE0D-D37F70425AE5.heic' "$DEST"/2023/2023-11-13_session-104/IMG_2594.heic
 
 mkdir -p "$DEST"/2023/2023-12-13_session-105
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/C/CD866DC7-88EA-41B6-AE0F-0D27BF689408_1_105_c.jpeg' "$DEST"/2023/2023-12-13_session-105/IMG_2718.jpeg
@@ -813,6 +851,7 @@ cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/F/FAE6AAA
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/1/1670F125-724B-403C-A82D-A52C4BECA002.heic' "$DEST"/2024/2024-03-14_session-106/IMG_3514.heic
 
 mkdir -p "$DEST"/2024/2024-08-22_session-107
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0269.HEIC "$DEST"/2024/2024-08-22_session-107/IMG_0269.HEIC
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/5/55DB23BA-162D-4C2B-AE71-9AA4E0B02E58_1_105_c.jpeg' "$DEST"/2024/2024-08-22_session-107/IMG_0269.jpeg
 
 mkdir -p "$DEST"/2024/2024-08-24_session-108
@@ -980,7 +1019,7 @@ cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivativ
 
 mkdir -p "$DEST"/2024/2024-10-19_session-140
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/2/21D74DD5-CB44-4AF8-8A0C-40499776AFF4_1_105_c.jpeg' "$DEST"/2024/2024-10-19_session-140/IMG_2502.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/B/B496F85C-933B-4B64-B41D-CB728236049D_1_105_c.jpeg' "$DEST"/2024/2024-10-19_session-140/IMG_2506.jpeg
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_2506.HEIC "$DEST"/2024/2024-10-19_session-140/IMG_2506.HEIC
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/F/F2069C09-83F9-4C25-91EE-005F5CE3CAB7_1_105_c.jpeg' "$DEST"/2024/2024-10-19_session-140/IMG_2507.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/9/97FD7D6C-249A-471E-B555-0EDAE1DE961E_1_105_c.jpeg' "$DEST"/2024/2024-10-19_session-140/IMG_2508.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/B/B4B87527-A5FC-47AA-9498-C13F56BBFA91_1_105_c.jpeg' "$DEST"/2024/2024-10-19_session-140/IMG_2509.jpeg
@@ -1154,11 +1193,11 @@ cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivativ
 
 mkdir -p "$DEST"/2024/2024-12-20_session-166
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/5/5DE170AD-3FCC-4E69-8504-53731EDF221C.heic' "$DEST"/2024/2024-12-20_session-166/IMG_0805.heic
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/5/5CDAE04F-B45B-46CB-A91D-EFB188931FCC_3.mov' "$DEST"/2024/2024-12-20_session-166/IMG_0806.mov
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/3/343A911F-8489-40CA-B65D-DCA21398E562_3.mov' "$DEST"/2024/2024-12-20_session-166/IMG_0807.mov
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/0/0D0C8928-46D7-4E00-B610-B7D1F5E5B193_3.mov' "$DEST"/2024/2024-12-20_session-166/IMG_0808.mov
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/B/B57D8921-8F1F-4614-A4E4-B8063B425BAF_3.mov' "$DEST"/2024/2024-12-20_session-166/IMG_0809.mov
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/A/AAD34F6C-4B98-48C7-8C3C-B708E48807A6_3.mov' "$DEST"/2024/2024-12-20_session-166/IMG_0810.mov
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/5/5CDAE04F-B45B-46CB-A91D-EFB188931FCC.heic' "$DEST"/2024/2024-12-20_session-166/IMG_0806.heic
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/3/343A911F-8489-40CA-B65D-DCA21398E562.heic' "$DEST"/2024/2024-12-20_session-166/IMG_0807.heic
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/0/0D0C8928-46D7-4E00-B610-B7D1F5E5B193.heic' "$DEST"/2024/2024-12-20_session-166/IMG_0808.heic
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/B/B57D8921-8F1F-4614-A4E4-B8063B425BAF.heic' "$DEST"/2024/2024-12-20_session-166/IMG_0809.heic
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/A/AAD34F6C-4B98-48C7-8C3C-B708E48807A6.heic' "$DEST"/2024/2024-12-20_session-166/IMG_0810.heic
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/1/1E9E0ED2-C7E2-4CB6-A7FC-EC7D6A1AB480.heic' "$DEST"/2024/2024-12-20_session-166/IMG_0811.heic
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/E/E265BA5E-D6C5-498B-AA6F-F694F1F07E2A.heic' "$DEST"/2024/2024-12-20_session-166/IMG_0812.heic
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/2/22482A12-61F6-44A3-AF1B-244C87696555_1_105_c.jpeg' "$DEST"/2024/2024-12-20_session-166/IMG_0813.jpeg
@@ -1171,14 +1210,14 @@ cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivativ
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/F/FC2EEDC7-8284-4EAA-874E-E45F50AF1656.heic' "$DEST"/2024/2024-12-24_session-167/IMG_0828.heic
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/9/97198AD2-B1F5-41C0-93D1-97B88E57900F.heic' "$DEST"/2024/2024-12-24_session-167/IMG_0829.heic
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/7/70AED501-247C-467E-9D08-BE3A2916C6AA.heic' "$DEST"/2024/2024-12-24_session-167/IMG_0830.heic
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/3/3F351483-5EEC-4A46-A281-067AB9C2EF01_3.mov' "$DEST"/2024/2024-12-24_session-167/IMG_0831.mov
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/8/8791F576-5B04-445E-B52E-8D71367A3B3D_3.mov' "$DEST"/2024/2024-12-24_session-167/IMG_0832.mov
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/3/3F351483-5EEC-4A46-A281-067AB9C2EF01.heic' "$DEST"/2024/2024-12-24_session-167/IMG_0831.heic
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/8/8791F576-5B04-445E-B52E-8D71367A3B3D.heic' "$DEST"/2024/2024-12-24_session-167/IMG_0832.heic
 
 mkdir -p "$DEST"/2025/2025-02-12_session-168
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/7/7638593E-57B5-4BBD-BD82-42615E9EB051.jpeg' "$DEST"/2025/2025-02-12_session-168/Resized_20250122_131814.jpeg
 
 mkdir -p "$DEST"/2025/2025-02-27_session-169
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/1/19AB5E2A-6AE4-414A-9D4A-1E81CC83A1A4_1_105_c.jpeg' "$DEST"/2025/2025-02-27_session-169/IMG_1159.jpeg
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1159.HEIC "$DEST"/2025/2025-02-27_session-169/IMG_1159.HEIC
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/D/DFE7AA39-68C7-484A-9D98-C793CD9B9D08_1_105_c.jpeg' "$DEST"/2025/2025-02-27_session-169/IMG_1160.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/6/626E01E9-6CC1-4F42-BEF4-F007BE3F8A5C_1_105_c.jpeg' "$DEST"/2025/2025-02-27_session-169/2025-02-27_172615.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/D/D3225E3B-20ED-4C37-A447-7733BD560010_1_105_c.jpeg' "$DEST"/2025/2025-02-27_session-169/IMG_1161.jpeg
@@ -1196,9 +1235,10 @@ cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivativ
 
 mkdir -p "$DEST"/2025/2025-03-01_session-171
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/0/0E7BB865-214A-4A24-BE2F-A0578FBC55D7_1_105_c.jpeg' "$DEST"/2025/2025-03-01_session-171/IMG_1184.jpeg
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1185.HEIC "$DEST"/2025/2025-03-01_session-171/IMG_1185.HEIC
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/4/420C4310-ABCC-46F2-B37F-D4ACE7D79219_1_105_c.jpeg' "$DEST"/2025/2025-03-01_session-171/IMG_1185.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/9/9A1ABE15-05D0-4049-B8A1-1451648D304B_1_105_c.jpeg' "$DEST"/2025/2025-03-01_session-171/IMG_1186.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/2/285EC8F3-6B4F-4B7B-9222-18EBB1CC0ECD_1_105_c.jpeg' "$DEST"/2025/2025-03-01_session-171/IMG_1187.jpeg
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1187.HEIC "$DEST"/2025/2025-03-01_session-171/IMG_1187.HEIC
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/5/5921406A-8F39-4B3D-9621-4FEB01F1988F_1_105_c.jpeg' "$DEST"/2025/2025-03-01_session-171/IMG_1188.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/3/377B2D43-B39B-44FD-B9EE-E11DBC5CA3C2_1_105_c.jpeg' "$DEST"/2025/2025-03-01_session-171/IMG_1189.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/6/627D068A-E65D-45E6-B816-533B713797EB_1_105_c.jpeg' "$DEST"/2025/2025-03-01_session-171/IMG_1190.jpeg
@@ -1216,11 +1256,12 @@ cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivativ
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/4/42A0E7AD-DA22-4F2E-91F4-98DC4BA97036_1_105_c.jpeg' "$DEST"/2025/2025-03-05_session-172/IMG_1227.jpeg
 
 mkdir -p "$DEST"/2025/2025-03-25_session-173
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1335.HEIC "$DEST"/2025/2025-03-25_session-173/IMG_1335.HEIC
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/5/575B064C-57F7-4331-B447-0AFA71A1ADBE_1_105_c.jpeg' "$DEST"/2025/2025-03-25_session-173/IMG_1335.jpeg
 
 mkdir -p "$DEST"/2025/2025-03-25_session-174
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/E/E2602143-8183-44C2-8C52-86E17F1A2716_1_105_c.jpeg' "$DEST"/2025/2025-03-25_session-174/IMG_1336.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/E/E495C9A5-D411-4EF1-A7F9-135E89B3AC95_1_105_c.jpeg' "$DEST"/2025/2025-03-25_session-174/IMG_1337.jpeg
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1336.HEIC "$DEST"/2025/2025-03-25_session-174/IMG_1336.HEIC
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1337.HEIC "$DEST"/2025/2025-03-25_session-174/IMG_1337.HEIC
 
 mkdir -p "$DEST"/2025/2025-03-26_session-175
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/A/A808AAE8-AAAE-4426-996B-A7EAEB782869.heic' "$DEST"/2025/2025-03-26_session-175/IMG_1344.heic
@@ -1239,6 +1280,7 @@ cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivativ
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/0/042307EA-E4CC-4110-A40C-C374D0AB726B_1_105_c.jpeg' "$DEST"/2025/2025-04-01_session-178/IMG_1355.jpeg
 
 mkdir -p "$DEST"/2025/2025-04-04_session-179
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1379.HEIC "$DEST"/2025/2025-04-04_session-179/IMG_1379.HEIC
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/3/30F65B84-2647-44D8-AAB2-999487220D7E_1_105_c.jpeg' "$DEST"/2025/2025-04-04_session-179/IMG_1379.jpeg
 
 mkdir -p "$DEST"/2025/2025-04-04_session-180
@@ -1249,16 +1291,16 @@ mkdir -p "$DEST"/2025/2025-04-08_session-181
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/3/3D00793D-59B1-45BC-B76D-A90AFCC2987A.heic' "$DEST"/2025/2025-04-08_session-181/IMG_1398.heic
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/F/F4752621-B8AF-427C-AEE5-7D1DDFC8AC71.heic' "$DEST"/2025/2025-04-08_session-181/IMG_1399.heic
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/7/7CCA9EE4-0137-412B-BED9-7D59C84D5084.heic' "$DEST"/2025/2025-04-08_session-181/IMG_1400.heic
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/3/3B9F54D6-421B-4B14-994E-CF6F7FF17CCC.heic' "$DEST"/2025/2025-04-08_session-181/IMG_1402.heic
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/6/693AFAB8-E67B-4DBE-8C04-BCD98A53C83F.heic' "$DEST"/2025/2025-04-08_session-181/IMG_1403.heic
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1402.HEIC "$DEST"/2025/2025-04-08_session-181/IMG_1402.HEIC
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1403.HEIC "$DEST"/2025/2025-04-08_session-181/IMG_1403.HEIC
 
 mkdir -p "$DEST"/2025/2025-04-10_session-182
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/4/4F1D7FC2-7577-44C2-B043-968803865371.heic' "$DEST"/2025/2025-04-10_session-182/IMG_1411.heic
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/C/C346C806-EE90-4625-B9F9-C40464A2C5FD.heic' "$DEST"/2025/2025-04-10_session-182/IMG_1412.heic
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/0/0C88D4CC-DE60-4319-84C9-2A1ABC09D136.heic' "$DEST"/2025/2025-04-10_session-182/IMG_1413.heic
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/C/C6ED97BA-7BC6-49E8-9C73-E315633D9650.heic' "$DEST"/2025/2025-04-10_session-182/IMG_1414.heic
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/8/867087DA-B73C-4899-8154-96CFFF15389C.heic' "$DEST"/2025/2025-04-10_session-182/IMG_1415.heic
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/7/7197AF82-B0E6-4E3C-BB94-94E3CF40DA50.heic' "$DEST"/2025/2025-04-10_session-182/IMG_1416.heic
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1415.HEIC "$DEST"/2025/2025-04-10_session-182/IMG_1415.HEIC
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1416.HEIC "$DEST"/2025/2025-04-10_session-182/IMG_1416.HEIC
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/8/84E15927-CC22-404F-B11C-F1E99DB15B71.heic' "$DEST"/2025/2025-04-10_session-182/IMG_1417.heic
 
 mkdir -p "$DEST"/2025/2025-04-19_session-183
@@ -1269,36 +1311,61 @@ mkdir -p "$DEST"/2025/2025-04-19_session-184
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/E/EB1999B8-4A87-4269-9C99-EE45B15F05F2_1_105_c.jpeg' "$DEST"/2025/2025-04-19_session-184/JOY_20250419_210350_915_photo.jpeg
 
 mkdir -p "$DEST"/2025/2025-04-22_session-185
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/3/30CA8660-A367-4287-BBB1-E1A0271209D4.heic' "$DEST"/2025/2025-04-22_session-185/IMG_1457.heic
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/0/0F5CB0EA-9C30-4629-992F-587A67E9FB8F.heic' "$DEST"/2025/2025-04-22_session-185/IMG_1458.heic
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/2/2C63DB78-F460-4989-99EE-7F08D592FD26.heic' "$DEST"/2025/2025-04-22_session-185/IMG_1459.heic
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/C/C490E03E-FC2B-4582-9D23-ECDE7556C0F6.heic' "$DEST"/2025/2025-04-22_session-185/IMG_1460.heic
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/1/14A89CD6-ECF0-4D1A-BAE7-A7E6BCEE837D.heic' "$DEST"/2025/2025-04-22_session-185/IMG_1461.heic
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/5/5E557C34-BF4C-423E-9FCB-7C0340A439B5.heic' "$DEST"/2025/2025-04-22_session-185/IMG_1462.heic
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/6/627DE3D2-8D7A-41C4-81B0-2F5F715E484B.heic' "$DEST"/2025/2025-04-22_session-185/IMG_1463.heic
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/4/4118657C-AC55-4287-93BE-893114E6AD13.heic' "$DEST"/2025/2025-04-22_session-185/IMG_1464.heic
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/E/ECEB7363-2DB6-4A15-BB9C-71010989E1C1.heic' "$DEST"/2025/2025-04-22_session-185/IMG_1465.heic
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/E/E882C88C-2934-4FDE-8CE7-811094FA63C2.heic' "$DEST"/2025/2025-04-22_session-185/IMG_1466.heic
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/D/DBD0148D-5284-4798-B6A4-EBFFCCCB6F93.heic' "$DEST"/2025/2025-04-22_session-185/IMG_1467.heic
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/4/410BADF7-78F6-4F41-AD7B-299E833CC31A.heic' "$DEST"/2025/2025-04-22_session-185/IMG_1468.heic
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/D/D5A726BA-B182-4D55-A6B8-0EB450103C0B.heic' "$DEST"/2025/2025-04-22_session-185/IMG_1469.heic
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/A/A1DBFDD6-41E5-4725-BA33-DBACC71D56D4.heic' "$DEST"/2025/2025-04-22_session-185/IMG_1470.heic
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/6/60A41ABE-FE8F-4D31-B21F-E128CE258412.heic' "$DEST"/2025/2025-04-22_session-185/IMG_1471.heic
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1457.HEIC "$DEST"/2025/2025-04-22_session-185/IMG_1457.HEIC
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1457.MOV "$DEST"/2025/2025-04-22_session-185/IMG_1457.MOV
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1458.HEIC "$DEST"/2025/2025-04-22_session-185/IMG_1458.HEIC
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1458.MOV "$DEST"/2025/2025-04-22_session-185/IMG_1458.MOV
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1459.HEIC "$DEST"/2025/2025-04-22_session-185/IMG_1459.HEIC
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1459.MOV "$DEST"/2025/2025-04-22_session-185/IMG_1459.MOV
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1460.HEIC "$DEST"/2025/2025-04-22_session-185/IMG_1460.HEIC
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1460.MOV "$DEST"/2025/2025-04-22_session-185/IMG_1460.MOV
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1461.HEIC "$DEST"/2025/2025-04-22_session-185/IMG_1461.HEIC
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1461.MOV "$DEST"/2025/2025-04-22_session-185/IMG_1461.MOV
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1462.HEIC "$DEST"/2025/2025-04-22_session-185/IMG_1462.HEIC
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1462.MOV "$DEST"/2025/2025-04-22_session-185/IMG_1462.MOV
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1463.HEIC "$DEST"/2025/2025-04-22_session-185/IMG_1463.HEIC
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1463.MOV "$DEST"/2025/2025-04-22_session-185/IMG_1463.MOV
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1464.HEIC "$DEST"/2025/2025-04-22_session-185/IMG_1464.HEIC
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1464.MOV "$DEST"/2025/2025-04-22_session-185/IMG_1464.MOV
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1465.HEIC "$DEST"/2025/2025-04-22_session-185/IMG_1465.HEIC
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1465.MOV "$DEST"/2025/2025-04-22_session-185/IMG_1465.MOV
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1466.HEIC "$DEST"/2025/2025-04-22_session-185/IMG_1466.HEIC
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1466.MOV "$DEST"/2025/2025-04-22_session-185/IMG_1466.MOV
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1467.HEIC "$DEST"/2025/2025-04-22_session-185/IMG_1467.HEIC
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1467.MOV "$DEST"/2025/2025-04-22_session-185/IMG_1467.MOV
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1468.HEIC "$DEST"/2025/2025-04-22_session-185/IMG_1468.HEIC
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1468.MOV "$DEST"/2025/2025-04-22_session-185/IMG_1468.MOV
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1469.HEIC "$DEST"/2025/2025-04-22_session-185/IMG_1469.HEIC
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1469.MOV "$DEST"/2025/2025-04-22_session-185/IMG_1469.MOV
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1470.HEIC "$DEST"/2025/2025-04-22_session-185/IMG_1470.HEIC
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1470.MOV "$DEST"/2025/2025-04-22_session-185/IMG_1470.MOV
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1471.HEIC "$DEST"/2025/2025-04-22_session-185/IMG_1471.HEIC
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1471.MOV "$DEST"/2025/2025-04-22_session-185/IMG_1471.MOV
 
 mkdir -p "$DEST"/2025/2025-05-01_session-186
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/E/EB267DB3-7F91-48FE-A3B9-256A92575C1B_3.mov' "$DEST"/2025/2025-05-01_session-186/IMG_1637.mov
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/B/B0AC5C91-2BF5-40F4-9012-52A7626ED0F4.heic' "$DEST"/2025/2025-05-01_session-186/IMG_1638.heic
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/4/4A5A4AD5-7B6D-4324-8523-4FA7C71DBCB2_3.mov' "$DEST"/2025/2025-05-01_session-186/IMG_1639.mov
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/2/26954E59-B495-4B7B-8F52-C5B031BD64C3_3.mov' "$DEST"/2025/2025-05-01_session-186/IMG_1640.mov
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/4/4AAF39E1-A0D9-4CB6-AC5F-BA13408DF7C5.heic' "$DEST"/2025/2025-05-01_session-186/IMG_1641.heic
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1637.HEIC "$DEST"/2025/2025-05-01_session-186/IMG_1637.HEIC
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1637.MOV "$DEST"/2025/2025-05-01_session-186/IMG_1637.MOV
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1638.HEIC "$DEST"/2025/2025-05-01_session-186/IMG_1638.HEIC
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1638.MOV "$DEST"/2025/2025-05-01_session-186/IMG_1638.MOV
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1639.HEIC "$DEST"/2025/2025-05-01_session-186/IMG_1639.HEIC
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1639.MOV "$DEST"/2025/2025-05-01_session-186/IMG_1639.MOV
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1640.HEIC "$DEST"/2025/2025-05-01_session-186/IMG_1640.HEIC
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1640.MOV "$DEST"/2025/2025-05-01_session-186/IMG_1640.MOV
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1641.HEIC "$DEST"/2025/2025-05-01_session-186/IMG_1641.HEIC
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1641.MOV "$DEST"/2025/2025-05-01_session-186/IMG_1641.MOV
 
 mkdir -p "$DEST"/2025/2025-05-09_session-187
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/B/BF22491F-F914-4189-85CA-74B0D160CE77_3.mov' "$DEST"/2025/2025-05-09_session-187/IMG_1711.mov
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/4/48E8E8C1-0E98-47C2-94BC-D5CA3EE61AB0.heic' "$DEST"/2025/2025-05-09_session-187/IMG_1712.heic
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/5/5A723EBA-9B3D-42CC-8510-B04863746433_1_105_c.jpeg' "$DEST"/2025/2025-05-09_session-187/IMG_1713.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/3/30CF8752-2C8F-4207-92EA-6FAFB9A0318A_1_105_c.jpeg' "$DEST"/2025/2025-05-09_session-187/IMG_1718.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/B/BF22491F-F914-4189-85CA-74B0D160CE77.heic' "$DEST"/2025/2025-05-09_session-187/IMG_1711.heic
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1712.HEIC "$DEST"/2025/2025-05-09_session-187/IMG_1712.HEIC
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1712.MOV "$DEST"/2025/2025-05-09_session-187/IMG_1712.MOV
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1713.HEIC "$DEST"/2025/2025-05-09_session-187/IMG_1713.HEIC
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1713.MOV "$DEST"/2025/2025-05-09_session-187/IMG_1713.MOV
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1718.HEIC "$DEST"/2025/2025-05-09_session-187/IMG_1718.HEIC
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1718.MOV "$DEST"/2025/2025-05-09_session-187/IMG_1718.MOV
 
 mkdir -p "$DEST"/2025/2025-05-15_session-188
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1741.HEIC "$DEST"/2025/2025-05-15_session-188/IMG_1741.HEIC
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1741.MOV "$DEST"/2025/2025-05-15_session-188/IMG_1741.MOV
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/A/A643CB68-9B94-4840-A134-53F5298BA96C_1_105_c.jpeg' "$DEST"/2025/2025-05-15_session-188/IMG_1741.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/F/FAEE4F62-80BA-40D9-B22B-2DB3C626EF68_1_105_c.jpeg' "$DEST"/2025/2025-05-15_session-188/IMG_1744.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/8/8672A8B9-997E-40DC-A799-16081F4700A5_1_105_c.jpeg' "$DEST"/2025/2025-05-15_session-188/IMG_1747.jpeg
@@ -1324,8 +1391,9 @@ cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivativ
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/6/61B3BE36-9931-4CAD-B35E-EEC20C35021E_1_105_c.jpeg' "$DEST"/2025/2025-05-16_session-190/IMG_1769.jpeg
 
 mkdir -p "$DEST"/2025/2025-05-21_session-191
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/8/8DFC6B22-F90C-4C02-BAAF-829433A99576_1_105_c.jpeg' "$DEST"/2025/2025-05-21_session-191/IMG_0064.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/7/7C597D01-438A-4AC1-B131-95435CD9F536_1_105_c.jpeg' "$DEST"/2025/2025-05-21_session-191/IMG_0065.jpeg
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0063.JPG "$DEST"/2025/2025-05-21_session-191/IMG_0063.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0064.JPG "$DEST"/2025/2025-05-21_session-191/IMG_0064.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0065.JPG "$DEST"/2025/2025-05-21_session-191/IMG_0065.JPG
 
 mkdir -p "$DEST"/2025/2025-05-22_session-192
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/9/9E2CD9E5-01AB-464F-977E-EB994024739F_1_102_o.jpeg' "$DEST"/2025/2025-05-22_session-192/123_2.jpeg
@@ -1337,6 +1405,7 @@ mkdir -p "$DEST"/2025/2025-05-23_session-194
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/8/86AD4713-6496-41E5-A52D-32EC8B402BB7_1_105_c.jpeg' "$DEST"/2025/2025-05-23_session-194/IMG_1833.jpeg
 
 mkdir -p "$DEST"/2025/2025-05-23_session-195
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1229.HEIC "$DEST"/2025/2025-05-23_session-195/IMG_1229.HEIC
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/4/4069FB6D-0747-40A2-B192-CEB597AA7F87_1_105_c.jpeg' "$DEST"/2025/2025-05-23_session-195/IMG_1229.jpeg
 
 mkdir -p "$DEST"/2025/2025-05-25_session-196
@@ -1348,7 +1417,7 @@ cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivativ
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/3/3239D938-3D05-4D3C-96D3-E8C1779CD70D_1_105_c.jpeg' "$DEST"/2025/2025-05-25_session-197/IMG_1841.jpeg
 
 mkdir -p "$DEST"/2025/2025-05-26_session-198
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/7/7355AC38-8630-45B3-92BD-1D21BE7F7AF8.jpeg' "$DEST"/2025/2025-05-26_session-198/Image.jpeg
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IJQB4742.JPG "$DEST"/2025/2025-05-26_session-198/IJQB4742.JPG
 
 mkdir -p "$DEST"/2025/2025-05-27_session-199
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/D/DD025CEC-3D70-40C8-9D3D-7FB52BC73257_1_105_c.jpeg' "$DEST"/2025/2025-05-27_session-199/IMG_1854.jpeg
@@ -1359,7 +1428,10 @@ cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivativ
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/A/AE91AA1D-14E2-4B09-8A75-BB6E6BFC1019_1_105_c.jpeg' "$DEST"/2025/2025-05-27_session-199/IMG_1859.jpeg
 
 mkdir -p "$DEST"/2025/2025-05-27_session-200
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/7/73BA83AE-7C4B-43EA-9702-571427451FE8_1_105_c.jpeg' "$DEST"/2025/2025-05-27_session-200/IMG_1863.jpeg
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1863.HEIC "$DEST"/2025/2025-05-27_session-200/IMG_1863.HEIC
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1863.MOV "$DEST"/2025/2025-05-27_session-200/IMG_1863.MOV
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1867.HEIC "$DEST"/2025/2025-05-27_session-200/IMG_1867.HEIC
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1867.MOV "$DEST"/2025/2025-05-27_session-200/IMG_1867.MOV
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/8/8A0E83F7-FCAF-40A9-9406-D60BC3E254D1_1_105_c.jpeg' "$DEST"/2025/2025-05-27_session-200/IMG_1867.jpeg
 
 mkdir -p "$DEST"/2025/2025-06-05_session-201
@@ -1383,7 +1455,7 @@ cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivativ
 
 mkdir -p "$DEST"/2025/2025-06-12_session-203
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/4/4E2EDEB8-7AF6-4D3B-AA47-52858AE5DC98.heic' "$DEST"/2025/2025-06-12_session-203/IMG_1920.heic
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/1/1AC1BC82-610C-4FB8-89B9-C9758E934F9F_3.mov' "$DEST"/2025/2025-06-12_session-203/IMG_1921.mov
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/1/1AC1BC82-610C-4FB8-89B9-C9758E934F9F.heic' "$DEST"/2025/2025-06-12_session-203/IMG_1921.heic
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/7/7CFDABD0-D135-4BA3-BE14-A1A849231C10.heic' "$DEST"/2025/2025-06-12_session-203/IMG_1922.heic
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/3/319DD928-C7C7-4A7B-9724-50245068214D.heic' "$DEST"/2025/2025-06-12_session-203/IMG_1923.heic
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/F/F9F4D37E-EFD9-475F-AE1D-68CD31A0601D.heic' "$DEST"/2025/2025-06-12_session-203/IMG_1924.heic
@@ -1392,24 +1464,28 @@ cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/A/A947DC4
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/A/A4FF2C72-811C-4A48-9197-2DDA84492DE3.heic' "$DEST"/2025/2025-06-12_session-203/IMG_1927.heic
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/3/312D1548-0140-421A-B1DC-E008F75A6E34.heic' "$DEST"/2025/2025-06-12_session-203/IMG_1928.heic
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/A/A2FEBD31-30F3-4F16-AF99-DD39D65D8016.heic' "$DEST"/2025/2025-06-12_session-203/IMG_1929.heic
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/4/4161FBF2-1381-42B7-B1B7-5D85E5B37BE5.heic' "$DEST"/2025/2025-06-12_session-203/IMG_1930.heic
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/0/0AAA7058-28A8-49F1-A374-38E097F23DB2_3.mov' "$DEST"/2025/2025-06-12_session-203/IMG_1931.mov
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1930.HEIC "$DEST"/2025/2025-06-12_session-203/IMG_1930.HEIC
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1930.MOV "$DEST"/2025/2025-06-12_session-203/IMG_1930.MOV
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1931.HEIC "$DEST"/2025/2025-06-12_session-203/IMG_1931.HEIC
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1931.MOV "$DEST"/2025/2025-06-12_session-203/IMG_1931.MOV
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/5/575F7D77-4E37-4455-952B-FABD6D5A61E8.heic' "$DEST"/2025/2025-06-12_session-203/IMG_1932.heic
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/9/9C6D065B-B0C2-4575-B155-81F6C16D85C2.heic' "$DEST"/2025/2025-06-12_session-203/IMG_1933.heic
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/2/2104853B-3494-4B2D-BE2D-D852A126EC71.heic' "$DEST"/2025/2025-06-12_session-203/IMG_1934.heic
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/0/01184D7F-F5AE-45EE-A2EF-6705E6979967_3.mov' "$DEST"/2025/2025-06-12_session-203/IMG_1935.mov
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1934.HEIC "$DEST"/2025/2025-06-12_session-203/IMG_1934.HEIC
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1935.HEIC "$DEST"/2025/2025-06-12_session-203/IMG_1935.HEIC
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1935.MOV "$DEST"/2025/2025-06-12_session-203/IMG_1935.MOV
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/D/DBA20A44-9354-4035-AEE7-D0673BF9F31E.heic' "$DEST"/2025/2025-06-12_session-203/IMG_1936.heic
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/3/37FBAFBC-3483-4E13-B95F-6DA892476432.heic' "$DEST"/2025/2025-06-12_session-203/IMG_1937.heic
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1937.HEIC "$DEST"/2025/2025-06-12_session-203/IMG_1937.HEIC
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/8/836F71C3-7F63-4184-82EA-49C4F71B05F9.heic' "$DEST"/2025/2025-06-12_session-203/IMG_1938.heic
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/9/9A4467C5-D9D0-48EE-9993-80F7C1E4E318_3.mov' "$DEST"/2025/2025-06-12_session-203/IMG_1939.mov
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/9/9A4467C5-D9D0-48EE-9993-80F7C1E4E318.heic' "$DEST"/2025/2025-06-12_session-203/IMG_1939.heic
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/E/EE927903-9ED1-489D-9F30-3A7E39FCBBC7.heic' "$DEST"/2025/2025-06-12_session-203/IMG_1940.heic
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/4/47D64B56-B616-4D65-A15F-2E0086A8D49B.heic' "$DEST"/2025/2025-06-12_session-203/IMG_1941.heic
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/8/8C0C38DB-6CCD-4946-A9B7-DE4AE8FE2A2B.heic' "$DEST"/2025/2025-06-12_session-203/IMG_1942.heic
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1942.HEIC "$DEST"/2025/2025-06-12_session-203/IMG_1942.HEIC
 
 mkdir -p "$DEST"/2025/2025-06-29_session-204
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/1/1145C036-2857-4491-AD2E-E447C329DFCF_1_105_c.jpeg' "$DEST"/2025/2025-06-29_session-204/IMG_0094.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/9/92E15447-A8A6-44B2-8B25-5AC5B2151BDC_1_105_c.jpeg' "$DEST"/2025/2025-06-29_session-204/IMG_0095.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/5/5F6716CD-4586-4706-BB15-2E1B31514E8F_1_105_c.jpeg' "$DEST"/2025/2025-06-29_session-204/IMG_0096.jpeg
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0096.JPG "$DEST"/2025/2025-06-29_session-204/IMG_0096.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0096.MOV "$DEST"/2025/2025-06-29_session-204/IMG_0096.MOV
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/C/CC3DA1ED-A2D5-4115-B461-FE20A74AECC1_1_105_c.jpeg' "$DEST"/2025/2025-06-29_session-204/IMG_0097.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/3/35DCB9B1-0CDB-4944-9305-16FBFE2A648A_1_105_c.jpeg' "$DEST"/2025/2025-06-29_session-204/IMG_0098.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/B/BF28EE15-2363-4737-8055-0780177F288E_1_105_c.jpeg' "$DEST"/2025/2025-06-29_session-204/IMG_0099.jpeg
@@ -1434,7 +1510,7 @@ cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivativ
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/2/254BDAB5-876C-4C6F-88AC-49098B26EA3B_1_105_c.jpeg' "$DEST"/2025/2025-07-01_session-208/IMG_0138.jpeg
 
 mkdir -p "$DEST"/2025/2025-07-01_session-209
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/A/A6373E81-4D60-48E7-986A-663EDA71E39E_3.mov' "$DEST"/2025/2025-07-01_session-209/IMG_0143.mov
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/A/A6373E81-4D60-48E7-986A-663EDA71E39E.jpeg' "$DEST"/2025/2025-07-01_session-209/IMG_0143.jpeg
 
 mkdir -p "$DEST"/2025/2025-07-23_session-210
 
@@ -1460,6 +1536,8 @@ cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivativ
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/A/A1E194BB-0384-4193-A7EE-D71E88F53611_1_105_c.jpeg' "$DEST"/2025/2025-08-07_session-214/IMG_0286.jpeg
 
 mkdir -p "$DEST"/2025/2025-08-08_session-215
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0287.JPG "$DEST"/2025/2025-08-08_session-215/IMG_0287.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0287.MOV "$DEST"/2025/2025-08-08_session-215/IMG_0287.MOV
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/8/89136300-9078-42FB-A2B6-FBF661DB02FE_1_105_c.jpeg' "$DEST"/2025/2025-08-08_session-215/IMG_0287.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/C/C1ABF048-61DD-4BB7-B7C1-1F6B48485569_1_105_c.jpeg' "$DEST"/2025/2025-08-08_session-215/IMG_0288.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/1/184587A7-C2E5-4EE1-A5EE-A16A5D8566F4_1_105_c.jpeg' "$DEST"/2025/2025-08-08_session-215/IMG_0289.jpeg
@@ -1478,10 +1556,10 @@ cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivativ
 mkdir -p "$DEST"/2025/2025-08-10_session-216
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/A/A2291145-9DC8-480C-A8FD-A380B21C0451.jpeg' "$DEST"/2025/2025-08-10_session-216/IMG_0303.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/F/F1CC4A9A-8E67-49B8-89BC-1910A32E8004.jpeg' "$DEST"/2025/2025-08-10_session-216/IMG_0304.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/F/F447EF5A-FC41-49A5-B36B-7FDD246913B4_3.mov' "$DEST"/2025/2025-08-10_session-216/IMG_0305.mov
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/C/C9D3CD35-ADB8-4984-969A-9B6998A5F929_3.mov' "$DEST"/2025/2025-08-10_session-216/IMG_0306.mov
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/F/F447EF5A-FC41-49A5-B36B-7FDD246913B4.jpeg' "$DEST"/2025/2025-08-10_session-216/IMG_0305.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/C/C9D3CD35-ADB8-4984-969A-9B6998A5F929.jpeg' "$DEST"/2025/2025-08-10_session-216/IMG_0306.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/C/CA0EACFE-9698-4D26-B26D-D0BD9FF8407F.jpeg' "$DEST"/2025/2025-08-10_session-216/IMG_0307.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/0/013C1982-F148-4EEB-808A-978F5BAD3FB0_3.mov' "$DEST"/2025/2025-08-10_session-216/IMG_0308.mov
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/0/013C1982-F148-4EEB-808A-978F5BAD3FB0.jpeg' "$DEST"/2025/2025-08-10_session-216/IMG_0308.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/F/F2423A3C-B971-4F87-AA44-17103D99E92E.jpeg' "$DEST"/2025/2025-08-10_session-216/IMG_0309.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/D/D108D3BA-12EA-4BA2-BE50-924489CB7826.jpeg' "$DEST"/2025/2025-08-10_session-216/IMG_0310.jpeg
 
@@ -1504,10 +1582,14 @@ cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivativ
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/1/17151475-C765-4C25-86DB-E9F6FACADE78_1_105_c.jpeg' "$DEST"/2025/2025-08-22_session-221/IMG_0350.jpeg
 
 mkdir -p "$DEST"/2025/2025-10-14_session-222
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1230.HEIC "$DEST"/2025/2025-10-14_session-222/IMG_1230.HEIC
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/masters/6/607E6363-8E27-4CE9-9A72-CF358B1E84F0_4_5005_c.jpeg' "$DEST"/2025/2025-10-14_session-222/IMG_1230.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/masters/1/151B2BA1-EE50-4A74-8159-C662AC4337A8_4_5005_c.jpeg' "$DEST"/2025/2025-10-14_session-222/IMG_1231.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/masters/2/22DFF4D2-4103-4226-8E42-429710E730DC_4_5005_c.jpeg' "$DEST"/2025/2025-10-14_session-222/IMG_1232.jpeg
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1231.HEIC "$DEST"/2025/2025-10-14_session-222/IMG_1231.HEIC
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1232.HEIC "$DEST"/2025/2025-10-14_session-222/IMG_1232.HEIC
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1233.HEIC "$DEST"/2025/2025-10-14_session-222/IMG_1233.HEIC
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/9/92FB4C9C-BE1A-4997-87CE-7526B932B7D4_1_105_c.jpeg' "$DEST"/2025/2025-10-14_session-222/IMG_1233.jpeg
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1234.HEIC "$DEST"/2025/2025-10-14_session-222/IMG_1234.HEIC
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1235.HEIC "$DEST"/2025/2025-10-14_session-222/IMG_1235.HEIC
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/masters/5/5F8D6A61-F13D-4D7D-9DF9-6C73C65102D8_4_5005_c.jpeg' "$DEST"/2025/2025-10-14_session-222/IMG_1235.jpeg
 
 mkdir -p "$DEST"/2025/2025-10-22_session-223
@@ -1614,6 +1696,8 @@ cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivativ
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/masters/E/EBF2301B-1E76-48F9-A681-FE1AE7E1D360_4_5005_c.jpeg' "$DEST"/2025/2025-12-21_session-240/IMG_1234.jpeg
 
 mkdir -p "$DEST"/2025/2025-12-22_session-241
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1338.JPG "$DEST"/2025/2025-12-22_session-241/IMG_1338.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1338.MOV "$DEST"/2025/2025-12-22_session-241/IMG_1338.MOV
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/D/D289D7AD-A592-40D5-8E33-604779C4F255_1_105_c.jpeg' "$DEST"/2025/2025-12-22_session-241/IMG_1338.jpeg
 
 mkdir -p "$DEST"/2025/2025-12-26_session-242
@@ -1625,18 +1709,36 @@ cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivativ
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/A/AE81E528-3047-483B-B916-8FC700037AA1_1_105_c.jpeg' "$DEST"/2025/2025-12-26_session-242/IMG_1359.jpeg
 
 mkdir -p "$DEST"/2026/2026-01-01_session-243
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1377.JPG "$DEST"/2026/2026-01-01_session-243/IMG_1377.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1377.MOV "$DEST"/2026/2026-01-01_session-243/IMG_1377.MOV
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/8/80063ACC-6E48-4C67-A1B4-0D045435E8DB_1_105_c.jpeg' "$DEST"/2026/2026-01-01_session-243/IMG_1377.jpeg
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1378.JPG "$DEST"/2026/2026-01-01_session-243/IMG_1378.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1378.MOV "$DEST"/2026/2026-01-01_session-243/IMG_1378.MOV
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/6/6DA56151-D0C9-46C3-8E0F-AF097184B45A_1_105_c.jpeg' "$DEST"/2026/2026-01-01_session-243/IMG_1378.jpeg
 
 mkdir -p "$DEST"/2026/2026-01-03_session-244
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1385.JPG "$DEST"/2026/2026-01-03_session-244/IMG_1385.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1385.MOV "$DEST"/2026/2026-01-03_session-244/IMG_1385.MOV
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/3/30CC24AF-2A42-443D-9976-0BCCF652BFAD_1_105_c.jpeg' "$DEST"/2026/2026-01-03_session-244/IMG_1385.jpeg
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1386.JPG "$DEST"/2026/2026-01-03_session-244/IMG_1386.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1386.MOV "$DEST"/2026/2026-01-03_session-244/IMG_1386.MOV
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/D/DDDEA3C1-B7D6-4096-8D28-13182E6C42D5_1_105_c.jpeg' "$DEST"/2026/2026-01-03_session-244/IMG_1386.jpeg
 
 mkdir -p "$DEST"/2026/2026-01-03_session-245
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1387.JPG "$DEST"/2026/2026-01-03_session-245/IMG_1387.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1387.MOV "$DEST"/2026/2026-01-03_session-245/IMG_1387.MOV
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/B/B429A048-7EB2-4878-8DCA-438AF3ADCEFE_1_105_c.jpeg' "$DEST"/2026/2026-01-03_session-245/IMG_1387.jpeg
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1388.JPG "$DEST"/2026/2026-01-03_session-245/IMG_1388.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1388.MOV "$DEST"/2026/2026-01-03_session-245/IMG_1388.MOV
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/A/A4A131A9-ECA5-436C-A5CB-470B53DE4972_1_105_c.jpeg' "$DEST"/2026/2026-01-03_session-245/IMG_1388.jpeg
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1389.JPG "$DEST"/2026/2026-01-03_session-245/IMG_1389.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1389.MOV "$DEST"/2026/2026-01-03_session-245/IMG_1389.MOV
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/2/227E4A46-029B-4F67-9EB3-C8E313373053_1_105_c.jpeg' "$DEST"/2026/2026-01-03_session-245/IMG_1389.jpeg
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1393.JPG "$DEST"/2026/2026-01-03_session-245/IMG_1393.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1393.MOV "$DEST"/2026/2026-01-03_session-245/IMG_1393.MOV
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/5/567E12F5-C2CA-4702-990A-1AD064F3CE47_1_105_c.jpeg' "$DEST"/2026/2026-01-03_session-245/IMG_1393.jpeg
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1394.JPG "$DEST"/2026/2026-01-03_session-245/IMG_1394.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1394.MOV "$DEST"/2026/2026-01-03_session-245/IMG_1394.MOV
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/9/9C4BD372-AB7C-41EC-8916-0279D45C1A4B_1_105_c.jpeg' "$DEST"/2026/2026-01-03_session-245/IMG_1394.jpeg
 
 mkdir -p "$DEST"/2026/2026-01-05_session-246
@@ -1644,7 +1746,7 @@ cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/4/4B02B97
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/C/CFA3E70D-F63C-4DA4-9CC1-FB823904C74F.jpeg' "$DEST"/2026/2026-01-05_session-246/IMG_1451.jpeg
 
 mkdir -p "$DEST"/2026/2026-01-06_session-247
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/5/5FB50D75-9442-4072-BD4A-7D4B5CD0D32E.jpeg' "$DEST"/2026/2026-01-06_session-247/IMG_1463.jpeg
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1463.JPG "$DEST"/2026/2026-01-06_session-247/IMG_1463.JPG
 
 mkdir -p "$DEST"/2026/2026-01-09_session-248
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/5/545BBB38-4FC7-4D1A-9BD5-9211F8BF876C_1_105_c.jpeg' "$DEST"/2026/2026-01-09_session-248/IMG_1495.jpeg
@@ -1653,7 +1755,9 @@ mkdir -p "$DEST"/2026/2026-01-09_session-249
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/0/0CE4C081-8301-4B78-8D58-AC61345B9413_1_105_c.jpeg' "$DEST"/2026/2026-01-09_session-249/IMG_1246.jpeg
 
 mkdir -p "$DEST"/2026/2026-01-09_session-250
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1249.HEIC "$DEST"/2026/2026-01-09_session-250/IMG_1249.HEIC
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/7/7670DEFC-7F0B-430A-8180-FA1E6A6F3DF7_1_105_c.jpeg' "$DEST"/2026/2026-01-09_session-250/IMG_1249.jpeg
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1250.HEIC "$DEST"/2026/2026-01-09_session-250/IMG_1250.HEIC
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/C/C1B8D3CD-C88F-4F98-8892-B3F51A1A7205_1_105_c.jpeg' "$DEST"/2026/2026-01-09_session-250/IMG_1250.jpeg
 
 mkdir -p "$DEST"/2026/2026-01-11_session-251
@@ -1674,8 +1778,8 @@ cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivativ
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/4/4A8C637E-D57C-477F-B65D-2765D83847B6_1_105_c.jpeg' "$DEST"/2026/2026-01-14_session-253/IMG_1512.jpeg
 
 mkdir -p "$DEST"/2026/2026-01-16_session-254
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/A/A7710E96-163A-490F-904A-FD85CC6E95F7_3.mov' "$DEST"/2026/2026-01-16_session-254/IMG_1514.mov
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/5/5821B640-D854-420C-BF50-8590396978AF_3.mov' "$DEST"/2026/2026-01-16_session-254/IMG_1515.mov
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/A/A7710E96-163A-490F-904A-FD85CC6E95F7.jpeg' "$DEST"/2026/2026-01-16_session-254/IMG_1514.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/5/5821B640-D854-420C-BF50-8590396978AF.jpeg' "$DEST"/2026/2026-01-16_session-254/IMG_1515.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/A/A3048102-5E2E-4989-90D9-C42D252E62DF.jpeg' "$DEST"/2026/2026-01-16_session-254/IMG_1516.jpeg
 
 mkdir -p "$DEST"/2026/2026-01-17_session-255
@@ -1700,78 +1804,178 @@ cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivativ
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/5/5F27C94B-9C43-4474-994A-1EB903437936_1_105_c.jpeg' "$DEST"/2026/2026-01-19_session-257/IMG_1536.jpeg
 
 mkdir -p "$DEST"/2026/2026-01-22_session-258
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1544.JPG "$DEST"/2026/2026-01-22_session-258/IMG_1544.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1544.MOV "$DEST"/2026/2026-01-22_session-258/IMG_1544.MOV
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/7/7D4BD140-3BA3-458D-87C3-E9D118B38229_1_105_c.jpeg' "$DEST"/2026/2026-01-22_session-258/IMG_1544.jpeg
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1545.JPG "$DEST"/2026/2026-01-22_session-258/IMG_1545.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1545.MOV "$DEST"/2026/2026-01-22_session-258/IMG_1545.MOV
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/6/66939592-E08B-44EC-A111-943FAB124C2A_1_105_c.jpeg' "$DEST"/2026/2026-01-22_session-258/IMG_1545.jpeg
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1546.JPG "$DEST"/2026/2026-01-22_session-258/IMG_1546.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1546.MOV "$DEST"/2026/2026-01-22_session-258/IMG_1546.MOV
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/F/F2590991-41E0-46DC-9AA0-0AC0708AC1BE_1_105_c.jpeg' "$DEST"/2026/2026-01-22_session-258/IMG_1546.jpeg
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1547.JPG "$DEST"/2026/2026-01-22_session-258/IMG_1547.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1547.MOV "$DEST"/2026/2026-01-22_session-258/IMG_1547.MOV
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/D/D0FBC9BE-47B0-4534-BAF2-AF709D615A43_1_105_c.jpeg' "$DEST"/2026/2026-01-22_session-258/IMG_1547.jpeg
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1548.JPG "$DEST"/2026/2026-01-22_session-258/IMG_1548.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1548.MOV "$DEST"/2026/2026-01-22_session-258/IMG_1548.MOV
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/4/4F168CF2-85CA-4855-ADDC-4AF0EAD4E125_1_105_c.jpeg' "$DEST"/2026/2026-01-22_session-258/IMG_1548.jpeg
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1549.JPG "$DEST"/2026/2026-01-22_session-258/IMG_1549.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1549.MOV "$DEST"/2026/2026-01-22_session-258/IMG_1549.MOV
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/4/4D6FB888-B140-412E-B00C-CBF3A503B5B5_1_105_c.jpeg' "$DEST"/2026/2026-01-22_session-258/IMG_1549.jpeg
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1550.JPG "$DEST"/2026/2026-01-22_session-258/IMG_1550.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1550.MOV "$DEST"/2026/2026-01-22_session-258/IMG_1550.MOV
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/E/E57877E6-B376-4797-9F82-86632335C9A9_1_105_c.jpeg' "$DEST"/2026/2026-01-22_session-258/IMG_1550.jpeg
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1551.JPG "$DEST"/2026/2026-01-22_session-258/IMG_1551.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1551.MOV "$DEST"/2026/2026-01-22_session-258/IMG_1551.MOV
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/0/08C9D3FD-6682-45A8-B34A-13020E20533A_1_105_c.jpeg' "$DEST"/2026/2026-01-22_session-258/IMG_1551.jpeg
 
 mkdir -p "$DEST"/2026/2026-01-22_session-259
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/E/E3990BF3-0130-469A-9332-8806DE6D1DEF_1_105_c.jpeg' "$DEST"/2026/2026-01-22_session-259/IMG_1554.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/9/951562D2-64E3-4DBB-8123-0829AC44FA37_1_105_c.jpeg' "$DEST"/2026/2026-01-22_session-259/IMG_1556.jpeg
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1554.JPG "$DEST"/2026/2026-01-22_session-259/IMG_1554.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1554.MOV "$DEST"/2026/2026-01-22_session-259/IMG_1554.MOV
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1556.JPG "$DEST"/2026/2026-01-22_session-259/IMG_1556.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1556.MOV "$DEST"/2026/2026-01-22_session-259/IMG_1556.MOV
 
 mkdir -p "$DEST"/2026/2026-01-23_session-260
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1558.JPG "$DEST"/2026/2026-01-23_session-260/IMG_1558.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1558.MOV "$DEST"/2026/2026-01-23_session-260/IMG_1558.MOV
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/2/2F2A0F4F-2028-4BD3-83E8-24C40F4C900D_1_105_c.jpeg' "$DEST"/2026/2026-01-23_session-260/IMG_1558.jpeg
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1559.JPG "$DEST"/2026/2026-01-23_session-260/IMG_1559.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1559.MOV "$DEST"/2026/2026-01-23_session-260/IMG_1559.MOV
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/1/1B5E2E94-89C6-4A1A-AB2B-38F3A7C17AB2_1_105_c.jpeg' "$DEST"/2026/2026-01-23_session-260/IMG_1559.jpeg
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1560.JPG "$DEST"/2026/2026-01-23_session-260/IMG_1560.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1560.MOV "$DEST"/2026/2026-01-23_session-260/IMG_1560.MOV
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/A/A0D21A8F-0A0A-4288-AE21-F90BBA2C3096_1_105_c.jpeg' "$DEST"/2026/2026-01-23_session-260/IMG_1560.jpeg
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1561.JPG "$DEST"/2026/2026-01-23_session-260/IMG_1561.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1561.MOV "$DEST"/2026/2026-01-23_session-260/IMG_1561.MOV
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/E/E4683DCB-6435-452F-86FE-522047040744_1_105_c.jpeg' "$DEST"/2026/2026-01-23_session-260/IMG_1561.jpeg
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1562.JPG "$DEST"/2026/2026-01-23_session-260/IMG_1562.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1562.MOV "$DEST"/2026/2026-01-23_session-260/IMG_1562.MOV
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/1/1F3C0230-EFE8-4B41-9884-FA645C067B82_1_105_c.jpeg' "$DEST"/2026/2026-01-23_session-260/IMG_1562.jpeg
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1563.JPG "$DEST"/2026/2026-01-23_session-260/IMG_1563.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1563.MOV "$DEST"/2026/2026-01-23_session-260/IMG_1563.MOV
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/6/6B771C74-6E2C-43DD-9994-355ABAE0D708_1_105_c.jpeg' "$DEST"/2026/2026-01-23_session-260/IMG_1563.jpeg
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1564.JPG "$DEST"/2026/2026-01-23_session-260/IMG_1564.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1564.MOV "$DEST"/2026/2026-01-23_session-260/IMG_1564.MOV
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/3/3168DC5D-6AB4-4E3D-A245-5B7CB62EE470_1_105_c.jpeg' "$DEST"/2026/2026-01-23_session-260/IMG_1564.jpeg
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1565.JPG "$DEST"/2026/2026-01-23_session-260/IMG_1565.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1565.MOV "$DEST"/2026/2026-01-23_session-260/IMG_1565.MOV
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/5/56DF3EC7-0B87-4299-AFDE-12945D571C1B_1_105_c.jpeg' "$DEST"/2026/2026-01-23_session-260/IMG_1565.jpeg
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1566.JPG "$DEST"/2026/2026-01-23_session-260/IMG_1566.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1566.MOV "$DEST"/2026/2026-01-23_session-260/IMG_1566.MOV
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/7/7CED3E62-0A63-4B63-8925-C3A1B6E9E039_1_105_c.jpeg' "$DEST"/2026/2026-01-23_session-260/IMG_1566.jpeg
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1567.JPG "$DEST"/2026/2026-01-23_session-260/IMG_1567.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1567.MOV "$DEST"/2026/2026-01-23_session-260/IMG_1567.MOV
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/7/79DF2C3D-51ED-49C7-905C-DD773D289718_1_105_c.jpeg' "$DEST"/2026/2026-01-23_session-260/IMG_1567.jpeg
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1568.JPG "$DEST"/2026/2026-01-23_session-260/IMG_1568.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1568.MOV "$DEST"/2026/2026-01-23_session-260/IMG_1568.MOV
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/B/B654C250-7C7F-4363-A6E6-81129944119D_1_105_c.jpeg' "$DEST"/2026/2026-01-23_session-260/IMG_1568.jpeg
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1569.JPG "$DEST"/2026/2026-01-23_session-260/IMG_1569.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1569.MOV "$DEST"/2026/2026-01-23_session-260/IMG_1569.MOV
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/7/77E098D1-A387-43B3-BD52-FB02EFA1DB5C_1_105_c.jpeg' "$DEST"/2026/2026-01-23_session-260/IMG_1569.jpeg
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1570.JPG "$DEST"/2026/2026-01-23_session-260/IMG_1570.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1570.MOV "$DEST"/2026/2026-01-23_session-260/IMG_1570.MOV
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/9/9077731E-6F97-4B27-8C73-2ED4B2D0AFED_1_105_c.jpeg' "$DEST"/2026/2026-01-23_session-260/IMG_1570.jpeg
 
 mkdir -p "$DEST"/2026/2026-01-24_session-261
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1571.JPG "$DEST"/2026/2026-01-24_session-261/IMG_1571.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1571.MOV "$DEST"/2026/2026-01-24_session-261/IMG_1571.MOV
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/masters/7/7EFE3003-0282-4529-9DE4-C9223FC1EBA6_4_5005_c.jpeg' "$DEST"/2026/2026-01-24_session-261/IMG_1571.jpeg
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1572.JPG "$DEST"/2026/2026-01-24_session-261/IMG_1572.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1572.MOV "$DEST"/2026/2026-01-24_session-261/IMG_1572.MOV
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/masters/2/272F35B5-6E04-4DBE-BBB0-00241C8922C6_4_5005_c.jpeg' "$DEST"/2026/2026-01-24_session-261/IMG_1572.jpeg
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1573.JPG "$DEST"/2026/2026-01-24_session-261/IMG_1573.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1573.MOV "$DEST"/2026/2026-01-24_session-261/IMG_1573.MOV
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/masters/A/A0AAC0F4-6ECF-40C7-96A6-C28503858E4E_4_5005_c.jpeg' "$DEST"/2026/2026-01-24_session-261/IMG_1573.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/masters/9/93F215C2-8756-46DE-B6A7-679586316AC2_4_5005_c.jpeg' "$DEST"/2026/2026-01-24_session-261/IMG_1574.jpeg
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1574.JPG "$DEST"/2026/2026-01-24_session-261/IMG_1574.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1574.MOV "$DEST"/2026/2026-01-24_session-261/IMG_1574.MOV
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_E1574.JPG "$DEST"/2026/2026-01-24_session-261/IMG_E1574.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1575.JPG "$DEST"/2026/2026-01-24_session-261/IMG_1575.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1575.MOV "$DEST"/2026/2026-01-24_session-261/IMG_1575.MOV
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/masters/A/ACEA0881-C95A-4206-89B7-0EF7FBD75AC1_4_5005_c.jpeg' "$DEST"/2026/2026-01-24_session-261/IMG_1575.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/masters/8/89EA7DB1-0052-4604-8993-23DB9BD0B657_4_5005_c.jpeg' "$DEST"/2026/2026-01-24_session-261/IMG_1576.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/masters/B/B39E2D38-76DC-429A-A5B6-69E067F998D4_4_5005_c.jpeg' "$DEST"/2026/2026-01-24_session-261/IMG_1577.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/masters/5/5F983884-5F14-4ACE-A13C-1D281E98CC97_4_5005_c.jpeg' "$DEST"/2026/2026-01-24_session-261/IMG_1578.jpeg
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1576.JPG "$DEST"/2026/2026-01-24_session-261/IMG_1576.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1576.MOV "$DEST"/2026/2026-01-24_session-261/IMG_1576.MOV
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1577.JPG "$DEST"/2026/2026-01-24_session-261/IMG_1577.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1577.MOV "$DEST"/2026/2026-01-24_session-261/IMG_1577.MOV
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1578.JPG "$DEST"/2026/2026-01-24_session-261/IMG_1578.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1578.MOV "$DEST"/2026/2026-01-24_session-261/IMG_1578.MOV
 
 mkdir -p "$DEST"/2026/2026-01-26_session-262
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/masters/1/11E1EEEF-95B6-4439-AC0A-B8410061FF20_4_5005_c.jpeg' "$DEST"/2026/2026-01-26_session-262/IMG_1592.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/masters/6/60C796CC-2C58-4C57-94EE-E9820271CA91_4_5005_c.jpeg' "$DEST"/2026/2026-01-26_session-262/IMG_1593.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/masters/4/44257E01-6D92-48A8-B60F-759D01D73AC5_4_5005_c.jpeg' "$DEST"/2026/2026-01-26_session-262/IMG_1594.jpeg
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1592.JPG "$DEST"/2026/2026-01-26_session-262/IMG_1592.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1592.MOV "$DEST"/2026/2026-01-26_session-262/IMG_1592.MOV
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1593.JPG "$DEST"/2026/2026-01-26_session-262/IMG_1593.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1593.MOV "$DEST"/2026/2026-01-26_session-262/IMG_1593.MOV
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1594.JPG "$DEST"/2026/2026-01-26_session-262/IMG_1594.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1594.MOV "$DEST"/2026/2026-01-26_session-262/IMG_1594.MOV
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/RMPL6213.JPG "$DEST"/2026/2026-01-26_session-262/RMPL6213.JPG
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/8/83925274-E4F9-4E1B-A3BF-FA7373BCF2FA_1_102_o.jpeg' "$DEST"/2026/2026-01-26_session-262/IMG_EE3B762B-F039-4E61-91E9-5F214CB8B18A.jpeg
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/OVRJ9840.JPG "$DEST"/2026/2026-01-26_session-262/OVRJ9840.JPG
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/0/0DB61B1A-66E7-4CC3-8AE3-953DAD439254_1_102_o.jpeg' "$DEST"/2026/2026-01-26_session-262/IMG_12473758-A09F-4BDA-AE7F-461BD0C4D4F8.jpeg
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1597.JPG "$DEST"/2026/2026-01-26_session-262/IMG_1597.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1597.MOV "$DEST"/2026/2026-01-26_session-262/IMG_1597.MOV
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/masters/D/D9940519-2351-4324-9947-96FE533259B4_4_5005_c.jpeg' "$DEST"/2026/2026-01-26_session-262/IMG_1597.jpeg
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1598.JPG "$DEST"/2026/2026-01-26_session-262/IMG_1598.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1598.MOV "$DEST"/2026/2026-01-26_session-262/IMG_1598.MOV
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/masters/0/06AF6AF4-8799-422F-8180-5080C0AABA78_4_5005_c.jpeg' "$DEST"/2026/2026-01-26_session-262/IMG_1598.jpeg
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1599.JPG "$DEST"/2026/2026-01-26_session-262/IMG_1599.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1599.MOV "$DEST"/2026/2026-01-26_session-262/IMG_1599.MOV
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/masters/6/6484ABD3-E9BB-421F-977C-0BB0AD89DDA4_4_5005_c.jpeg' "$DEST"/2026/2026-01-26_session-262/IMG_1599.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/masters/9/9A92B6CE-3A91-47B3-A7FC-B7E0765259E8_4_5005_c.jpeg' "$DEST"/2026/2026-01-26_session-262/IMG_1600.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/masters/9/9388CE6C-36D5-481B-BC48-A81CB8E12894_4_5005_c.jpeg' "$DEST"/2026/2026-01-26_session-262/IMG_1601.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/masters/8/875EAE9F-EA92-4174-9003-26ED6703D093_4_5005_c.jpeg' "$DEST"/2026/2026-01-26_session-262/IMG_1602.jpeg
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1600.JPG "$DEST"/2026/2026-01-26_session-262/IMG_1600.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1600.MOV "$DEST"/2026/2026-01-26_session-262/IMG_1600.MOV
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1601.JPG "$DEST"/2026/2026-01-26_session-262/IMG_1601.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1601.MOV "$DEST"/2026/2026-01-26_session-262/IMG_1601.MOV
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1602.JPG "$DEST"/2026/2026-01-26_session-262/IMG_1602.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1602.MOV "$DEST"/2026/2026-01-26_session-262/IMG_1602.MOV
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/PQTK3714.JPG "$DEST"/2026/2026-01-26_session-262/PQTK3714.JPG
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/A/A3ED66B4-2F23-478C-8082-9455543FC696_1_102_o.jpeg' "$DEST"/2026/2026-01-26_session-262/IMG_5421E291-1C6F-4E60-AFD3-ECF919D7D9A5.jpeg
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/TJAJ4063.JPG "$DEST"/2026/2026-01-26_session-262/TJAJ4063.JPG
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/3/3818FE58-618E-4020-8D2D-39DB0857D0E7_1_102_o.jpeg' "$DEST"/2026/2026-01-26_session-262/IMG_C282A998-BE77-4B92-9746-CB5318C286B8.jpeg
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1605.JPG "$DEST"/2026/2026-01-26_session-262/IMG_1605.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1605.MOV "$DEST"/2026/2026-01-26_session-262/IMG_1605.MOV
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/masters/1/108D2BEE-AD72-4322-BCCB-943DEE988CE4_4_5005_c.jpeg' "$DEST"/2026/2026-01-26_session-262/IMG_1605.jpeg
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1606.JPG "$DEST"/2026/2026-01-26_session-262/IMG_1606.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1606.MOV "$DEST"/2026/2026-01-26_session-262/IMG_1606.MOV
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/masters/C/C36D22A9-6725-4605-A7D2-18CF3BADBE8B_4_5005_c.jpeg' "$DEST"/2026/2026-01-26_session-262/IMG_1606.jpeg
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1607.JPG "$DEST"/2026/2026-01-26_session-262/IMG_1607.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1607.MOV "$DEST"/2026/2026-01-26_session-262/IMG_1607.MOV
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/masters/E/EF9FE21D-4057-4A2A-80C4-B1D1FFAB39E5_4_5005_c.jpeg' "$DEST"/2026/2026-01-26_session-262/IMG_1607.jpeg
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1608.JPG "$DEST"/2026/2026-01-26_session-262/IMG_1608.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1608.MOV "$DEST"/2026/2026-01-26_session-262/IMG_1608.MOV
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/masters/4/43F475AB-8F17-4D58-8868-3694B78F0D86_4_5005_c.jpeg' "$DEST"/2026/2026-01-26_session-262/IMG_1608.jpeg
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1609.JPG "$DEST"/2026/2026-01-26_session-262/IMG_1609.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1609.MOV "$DEST"/2026/2026-01-26_session-262/IMG_1609.MOV
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/masters/2/2DF96C3D-31F5-4054-8F94-2A6ED4EEC915_4_5005_c.jpeg' "$DEST"/2026/2026-01-26_session-262/IMG_1609.jpeg
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1610.JPG "$DEST"/2026/2026-01-26_session-262/IMG_1610.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1610.MOV "$DEST"/2026/2026-01-26_session-262/IMG_1610.MOV
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/masters/2/2ADA1F05-9CF8-4F93-AD7F-E1C6E8D11C9C_4_5005_c.jpeg' "$DEST"/2026/2026-01-26_session-262/IMG_1610.jpeg
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1611.JPG "$DEST"/2026/2026-01-26_session-262/IMG_1611.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1611.MOV "$DEST"/2026/2026-01-26_session-262/IMG_1611.MOV
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/masters/A/A836CE1F-1EFC-48F2-A76C-E8361FF2EED1_4_5005_c.jpeg' "$DEST"/2026/2026-01-26_session-262/IMG_1611.jpeg
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1612.JPG "$DEST"/2026/2026-01-26_session-262/IMG_1612.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1612.MOV "$DEST"/2026/2026-01-26_session-262/IMG_1612.MOV
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/4/42D9AA3C-DB43-4668-BBB2-7EC01A7131B2_1_102_o.jpeg' "$DEST"/2026/2026-01-26_session-262/IMG_1612.jpeg
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1613.JPG "$DEST"/2026/2026-01-26_session-262/IMG_1613.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1613.MOV "$DEST"/2026/2026-01-26_session-262/IMG_1613.MOV
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/8/814C4404-BB76-4532-9FCB-699ECB217E26_1_102_o.jpeg' "$DEST"/2026/2026-01-26_session-262/IMG_1613.jpeg
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1614.JPG "$DEST"/2026/2026-01-26_session-262/IMG_1614.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1614.MOV "$DEST"/2026/2026-01-26_session-262/IMG_1614.MOV
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/0/03D76380-9C0C-4CB2-9E43-9DBAA5495A43_1_102_o.jpeg' "$DEST"/2026/2026-01-26_session-262/IMG_1614.jpeg
 
 mkdir -p "$DEST"/2026/2026-01-27_session-263
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/renders/B/BBB712CE-BB91-4F4D-B9C0-D1E7772B361F_1_201_a.jpeg' "$DEST"/2026/2026-01-27_session-263/IMG_1616.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/2/2FF862F3-3DCD-4DF2-884C-FDF770344E0B.jpeg' "$DEST"/2026/2026-01-27_session-263/IMG_1617.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/7/709507E0-5DF2-4567-BE1C-D39CB055CC13_3.mov' "$DEST"/2026/2026-01-27_session-263/IMG_1618.mov
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/7/718CE40F-0763-487E-9683-5824457633EF.jpeg' "$DEST"/2026/2026-01-27_session-263/IMG_1619.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/A/A09D05AB-7351-4C0C-AC52-6E182145BAF1.jpeg' "$DEST"/2026/2026-01-27_session-263/IMG_1620.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/D/DA50D105-BE13-49D9-943D-F4F3E8FC190C.jpeg' "$DEST"/2026/2026-01-27_session-263/IMG_1621.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/5/513E470F-DB81-4C6D-83E6-F9297BBDC9B9_3.mov' "$DEST"/2026/2026-01-27_session-263/IMG_1622.mov
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/9/905287E5-ADBE-4979-BF0C-A42B8740DE70.jpeg' "$DEST"/2026/2026-01-27_session-263/IMG_1623.jpeg
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1617.JPG "$DEST"/2026/2026-01-27_session-263/IMG_1617.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1617.MOV "$DEST"/2026/2026-01-27_session-263/IMG_1617.MOV
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1618.JPG "$DEST"/2026/2026-01-27_session-263/IMG_1618.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1618.MOV "$DEST"/2026/2026-01-27_session-263/IMG_1618.MOV
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1619.JPG "$DEST"/2026/2026-01-27_session-263/IMG_1619.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1619.MOV "$DEST"/2026/2026-01-27_session-263/IMG_1619.MOV
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1620.JPG "$DEST"/2026/2026-01-27_session-263/IMG_1620.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1620.MOV "$DEST"/2026/2026-01-27_session-263/IMG_1620.MOV
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1621.JPG "$DEST"/2026/2026-01-27_session-263/IMG_1621.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1621.MOV "$DEST"/2026/2026-01-27_session-263/IMG_1621.MOV
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1622.JPG "$DEST"/2026/2026-01-27_session-263/IMG_1622.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1622.MOV "$DEST"/2026/2026-01-27_session-263/IMG_1622.MOV
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1623.JPG "$DEST"/2026/2026-01-27_session-263/IMG_1623.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1623.MOV "$DEST"/2026/2026-01-27_session-263/IMG_1623.MOV
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/masters/0/09E54763-1D4E-4294-91FE-5B1F2F0DD192_4_5005_c.jpeg' "$DEST"/2026/2026-01-27_session-263/IMG_1624.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/masters/A/A716489A-7EFA-43BE-97A5-CFECCA9E6322_4_5005_c.jpeg' "$DEST"/2026/2026-01-27_session-263/IMG_1625.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/masters/5/5A5861C7-0E0B-49A7-AF19-D7823B746F24_4_5005_c.jpeg' "$DEST"/2026/2026-01-27_session-263/IMG_1626.jpeg
@@ -1779,12 +1983,18 @@ cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivativ
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/masters/3/3BB891B8-1637-4FF8-B41C-47A77D76E44B_4_5005_c.jpeg' "$DEST"/2026/2026-01-27_session-263/IMG_1628.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/masters/E/E8EA63D7-2E9F-4383-8EBE-F77E5CD8AC69_4_5005_c.jpeg' "$DEST"/2026/2026-01-27_session-263/IMG_1629.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/masters/6/6C1FCCFB-D65B-4FB5-8964-7C22E2EB2E50_4_5005_c.jpeg' "$DEST"/2026/2026-01-27_session-263/IMG_1630.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/2/2F4A2C31-D33C-44EA-8468-B28602386B9B.jpeg' "$DEST"/2026/2026-01-27_session-263/IMG_1631.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/7/7FBEC1FB-2388-40FE-961A-7D9A22B61EDF_3.mov' "$DEST"/2026/2026-01-27_session-263/IMG_1632.mov
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/5/54D7128E-B0A8-4FF3-8E69-1E6AACFE9022.jpeg' "$DEST"/2026/2026-01-27_session-263/IMG_1633.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/6/6BA9FED3-FA8C-4678-8F9A-BC0E967BD641.jpeg' "$DEST"/2026/2026-01-27_session-263/IMG_1634.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/0/05A07F54-C7A4-4A66-B381-C46F97C43DFB.jpeg' "$DEST"/2026/2026-01-27_session-263/IMG_1635.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/0/0387D22D-029F-42D0-8AD2-4CEC255489B5_3.mov' "$DEST"/2026/2026-01-27_session-263/IMG_1636.mov
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1631.JPG "$DEST"/2026/2026-01-27_session-263/IMG_1631.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1631.MOV "$DEST"/2026/2026-01-27_session-263/IMG_1631.MOV
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1632.JPG "$DEST"/2026/2026-01-27_session-263/IMG_1632.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1632.MOV "$DEST"/2026/2026-01-27_session-263/IMG_1632.MOV
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1633.JPG "$DEST"/2026/2026-01-27_session-263/IMG_1633.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1633.MOV "$DEST"/2026/2026-01-27_session-263/IMG_1633.MOV
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1634.JPG "$DEST"/2026/2026-01-27_session-263/IMG_1634.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1634.MOV "$DEST"/2026/2026-01-27_session-263/IMG_1634.MOV
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1635.JPG "$DEST"/2026/2026-01-27_session-263/IMG_1635.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1635.MOV "$DEST"/2026/2026-01-27_session-263/IMG_1635.MOV
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1636.JPG "$DEST"/2026/2026-01-27_session-263/IMG_1636.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1636.MOV "$DEST"/2026/2026-01-27_session-263/IMG_1636.MOV
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/masters/7/7135BB1F-B09A-48E8-9845-7D67C6497DFF_4_5005_c.jpeg' "$DEST"/2026/2026-01-27_session-263/IMG_1637.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/masters/4/4110BFD9-9D8B-43A3-ABA3-0FBB3302A708_4_5005_c.jpeg' "$DEST"/2026/2026-01-27_session-263/IMG_1638.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/masters/4/48086C0F-2612-423F-8884-C350DE56BB9F_4_5005_c.jpeg' "$DEST"/2026/2026-01-27_session-263/IMG_1639.jpeg
@@ -1794,131 +2004,171 @@ cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivativ
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/masters/C/CCE87FBF-A958-445E-BD4E-E7C869F59F28_4_5005_c.jpeg' "$DEST"/2026/2026-01-27_session-263/IMG_1643.jpeg
 
 mkdir -p "$DEST"/2026/2026-01-28_session-264
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/F/FEFA75FE-D61B-4C83-82EC-F63B49E125EF_3.mov' "$DEST"/2026/2026-01-28_session-264/IMG_1644.mov
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/8/810E3107-1097-4F38-8A82-F5AE08C6E197.jpeg' "$DEST"/2026/2026-01-28_session-264/IMG_1645.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/3/3928A6DA-D3AE-40FF-A71D-15779F40B6C2_3.mov' "$DEST"/2026/2026-01-28_session-264/IMG_1646.mov
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/D/D11BC6E6-79CC-4944-A29E-22303FA5446D_3.mov' "$DEST"/2026/2026-01-28_session-264/IMG_1647.mov
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/0/007B1BBD-8AE9-4C19-B403-6C1065DF023E.jpeg' "$DEST"/2026/2026-01-28_session-264/IMG_1648.jpeg
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1644.JPG "$DEST"/2026/2026-01-28_session-264/IMG_1644.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1644.MOV "$DEST"/2026/2026-01-28_session-264/IMG_1644.MOV
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1645.JPG "$DEST"/2026/2026-01-28_session-264/IMG_1645.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1645.MOV "$DEST"/2026/2026-01-28_session-264/IMG_1645.MOV
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1646.JPG "$DEST"/2026/2026-01-28_session-264/IMG_1646.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1646.MOV "$DEST"/2026/2026-01-28_session-264/IMG_1646.MOV
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1647.JPG "$DEST"/2026/2026-01-28_session-264/IMG_1647.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1647.MOV "$DEST"/2026/2026-01-28_session-264/IMG_1647.MOV
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1648.JPG "$DEST"/2026/2026-01-28_session-264/IMG_1648.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1648.MOV "$DEST"/2026/2026-01-28_session-264/IMG_1648.MOV
 
 mkdir -p "$DEST"/2026/2026-01-29_session-265
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/E/E0B5FE40-E60D-4753-973D-706E58CDE197_3.mov' "$DEST"/2026/2026-01-29_session-265/IMG_1649.mov
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1649.JPG "$DEST"/2026/2026-01-29_session-265/IMG_1649.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1649.MOV "$DEST"/2026/2026-01-29_session-265/IMG_1649.MOV
 
 mkdir -p "$DEST"/2026/2026-01-30_session-266
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/4/4FE563B2-E79D-481F-9084-A34500BC3F4B.jpeg' "$DEST"/2026/2026-01-30_session-266/IMG_A6B1C4C9-2722-45D4-B6F6-AD4C247F7569.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/A/A3091D0A-840A-4AE6-AAA6-3FBDD188AAC3.jpeg' "$DEST"/2026/2026-01-30_session-266/IMG_D48457C8-5CBB-4039-A97F-09CBB8921545.jpeg
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/EJJA1350.JPG "$DEST"/2026/2026-01-30_session-266/EJJA1350.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/EANR8110.JPG "$DEST"/2026/2026-01-30_session-266/EANR8110.JPG
 
 mkdir -p "$DEST"/2026/2026-01-31_session-267
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/3/3110676A-8072-4337-9147-0F505E5DCF5E.jpeg' "$DEST"/2026/2026-01-31_session-267/IMG_1653.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/C/C5F79D68-82C8-4EF9-A86F-6930F76FD79F.jpeg' "$DEST"/2026/2026-01-31_session-267/IMG_1654.jpeg
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1653.JPG "$DEST"/2026/2026-01-31_session-267/IMG_1653.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1653.MOV "$DEST"/2026/2026-01-31_session-267/IMG_1653.MOV
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1654.JPG "$DEST"/2026/2026-01-31_session-267/IMG_1654.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1654.MOV "$DEST"/2026/2026-01-31_session-267/IMG_1654.MOV
 
 mkdir -p "$DEST"/2026/2026-02-01_session-268
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/E/E5D9BD19-92D7-4461-A7A7-AFD4BB1010BF.jpeg' "$DEST"/2026/2026-02-01_session-268/IMG_1655.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/C/C0C145FB-1A9E-4802-A9FB-0AC042809600_3.mov' "$DEST"/2026/2026-02-01_session-268/IMG_1656.mov
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/A/A913D02D-2B15-43D3-9240-DBD2F7B6076D.jpeg' "$DEST"/2026/2026-02-01_session-268/IMG_1657.jpeg
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1655.JPG "$DEST"/2026/2026-02-01_session-268/IMG_1655.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1655.MOV "$DEST"/2026/2026-02-01_session-268/IMG_1655.MOV
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1656.JPG "$DEST"/2026/2026-02-01_session-268/IMG_1656.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1656.MOV "$DEST"/2026/2026-02-01_session-268/IMG_1656.MOV
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1657.JPG "$DEST"/2026/2026-02-01_session-268/IMG_1657.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1657.MOV "$DEST"/2026/2026-02-01_session-268/IMG_1657.MOV
 
 mkdir -p "$DEST"/2026/2026-02-02_session-269
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/E/E0EE9BED-4053-4136-BC4F-A2FFE69A64DC_3.mov' "$DEST"/2026/2026-02-02_session-269/IMG_1658.mov
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/E/E0EE9BED-4053-4136-BC4F-A2FFE69A64DC.jpeg' "$DEST"/2026/2026-02-02_session-269/IMG_1658.jpeg
 
 mkdir -p "$DEST"/2026/2026-02-03_session-270
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/0/002907E7-BA65-43E0-997C-B178E0366069_3.mov' "$DEST"/2026/2026-02-03_session-270/IMG_1659.mov
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/3/3BABE3A2-DDCC-49D9-96F3-B1AF4E21965D_3.mov' "$DEST"/2026/2026-02-03_session-270/IMG_1660.mov
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/7/79EF6E38-8E8E-49D5-9127-31E21C81DD94_3.mov' "$DEST"/2026/2026-02-03_session-270/IMG_1661.mov
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/9/906D9523-ACDE-447B-B319-26BD76743B4C_3.mov' "$DEST"/2026/2026-02-03_session-270/IMG_1662.mov
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/0/002907E7-BA65-43E0-997C-B178E0366069.jpeg' "$DEST"/2026/2026-02-03_session-270/IMG_1659.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/3/3BABE3A2-DDCC-49D9-96F3-B1AF4E21965D.jpeg' "$DEST"/2026/2026-02-03_session-270/IMG_1660.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/7/79EF6E38-8E8E-49D5-9127-31E21C81DD94.jpeg' "$DEST"/2026/2026-02-03_session-270/IMG_1661.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/9/906D9523-ACDE-447B-B319-26BD76743B4C.jpeg' "$DEST"/2026/2026-02-03_session-270/IMG_1662.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/renders/6/6EFB50C2-BACE-470A-873D-442EBA91D4BD_1_201_a.jpeg' "$DEST"/2026/2026-02-03_session-270/IMG_1663.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/F/F25BE2D2-19A3-40DE-927A-2F5A1E66C83F.jpeg' "$DEST"/2026/2026-02-03_session-270/IMG_1664.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/A/A006BE34-840E-4324-970A-E2ACF814FD42.jpeg' "$DEST"/2026/2026-02-03_session-270/IMG_1665.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/6/642A1B38-3133-4AA5-AD13-FC700548439C_3.mov' "$DEST"/2026/2026-02-03_session-270/IMG_1666.mov
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/7/70465DAD-BDCF-48FE-8099-847D81CFBD6F_3.mov' "$DEST"/2026/2026-02-03_session-270/IMG_1667.mov
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/6/642A1B38-3133-4AA5-AD13-FC700548439C.jpeg' "$DEST"/2026/2026-02-03_session-270/IMG_1666.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/7/70465DAD-BDCF-48FE-8099-847D81CFBD6F.jpeg' "$DEST"/2026/2026-02-03_session-270/IMG_1667.jpeg
 
 mkdir -p "$DEST"/2026/2026-02-04_session-271
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/9/95F2BA28-EA83-4143-A460-7C14BCA89AF9_3.mov' "$DEST"/2026/2026-02-04_session-271/IMG_1669.mov
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/7/73AD5DA8-C6C4-4F59-BBF7-622C7D36EA92_3.mov' "$DEST"/2026/2026-02-04_session-271/IMG_1670.mov
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/9/95F2BA28-EA83-4143-A460-7C14BCA89AF9.jpeg' "$DEST"/2026/2026-02-04_session-271/IMG_1669.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/7/73AD5DA8-C6C4-4F59-BBF7-622C7D36EA92.jpeg' "$DEST"/2026/2026-02-04_session-271/IMG_1670.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/4/4419BFB7-CB50-4CBB-9435-250DCAC4AE88.jpeg' "$DEST"/2026/2026-02-04_session-271/IMG_1671.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/E/EE72E3B1-6064-4003-B9ED-2F560B8484B0.jpeg' "$DEST"/2026/2026-02-04_session-271/IMG_1672.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/9/925BADDA-311B-4B2A-8B8F-AA750D24F2CF_3.mov' "$DEST"/2026/2026-02-04_session-271/IMG_1673.mov
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/9/925BADDA-311B-4B2A-8B8F-AA750D24F2CF.jpeg' "$DEST"/2026/2026-02-04_session-271/IMG_1673.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/D/DBE085D2-DE25-48CA-A75B-64A9A683EDE0.jpeg' "$DEST"/2026/2026-02-04_session-271/IMG_1674.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/0/015D9B45-50BD-4856-9EEE-6BC4406A0BAA_3.mov' "$DEST"/2026/2026-02-04_session-271/IMG_1675.mov
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/4/496AB64D-C267-4043-A969-9FFAEFEF02B4_3.mov' "$DEST"/2026/2026-02-04_session-271/IMG_1676.mov
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/0/015D9B45-50BD-4856-9EEE-6BC4406A0BAA.jpeg' "$DEST"/2026/2026-02-04_session-271/IMG_1675.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/4/496AB64D-C267-4043-A969-9FFAEFEF02B4.jpeg' "$DEST"/2026/2026-02-04_session-271/IMG_1676.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/1/19B0492B-755F-4E3B-9163-C9F7CDB77A0C.jpeg' "$DEST"/2026/2026-02-04_session-271/IMG_1677.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/9/947397B9-3EFB-4B30-BCE0-3281D8FEA77D_3.mov' "$DEST"/2026/2026-02-04_session-271/IMG_1678.mov
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/F/F62FA148-328B-4704-BC81-0CEAF48BDD20_3.mov' "$DEST"/2026/2026-02-04_session-271/IMG_1679.mov
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/2/21B98AEC-2447-4E14-8989-0D52BD522549_3.mov' "$DEST"/2026/2026-02-04_session-271/IMG_1680.mov
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/2/244D0478-8774-4FE8-99AA-76474A8A344C_3.mov' "$DEST"/2026/2026-02-04_session-271/IMG_1682.mov
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/9/947397B9-3EFB-4B30-BCE0-3281D8FEA77D.jpeg' "$DEST"/2026/2026-02-04_session-271/IMG_1678.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/F/F62FA148-328B-4704-BC81-0CEAF48BDD20.jpeg' "$DEST"/2026/2026-02-04_session-271/IMG_1679.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/2/21B98AEC-2447-4E14-8989-0D52BD522549.jpeg' "$DEST"/2026/2026-02-04_session-271/IMG_1680.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/2/244D0478-8774-4FE8-99AA-76474A8A344C.jpeg' "$DEST"/2026/2026-02-04_session-271/IMG_1682.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/3/3516130D-A718-4BE3-82E8-0DFB47759844.jpeg' "$DEST"/2026/2026-02-04_session-271/IMG_1683.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/7/7E538D28-867E-47F2-8CD6-B6984405318C_3.mov' "$DEST"/2026/2026-02-04_session-271/IMG_1684.mov
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/1/1E15D5BB-C792-4BB1-B3E5-8131C00D551D_3.mov' "$DEST"/2026/2026-02-04_session-271/IMG_1685.mov
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/4/4C8AAF50-F90E-4E14-AB40-13C5613CBA34_3.mov' "$DEST"/2026/2026-02-04_session-271/IMG_1686.mov
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/7/7E538D28-867E-47F2-8CD6-B6984405318C.jpeg' "$DEST"/2026/2026-02-04_session-271/IMG_1684.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/1/1E15D5BB-C792-4BB1-B3E5-8131C00D551D.jpeg' "$DEST"/2026/2026-02-04_session-271/IMG_1685.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/4/4C8AAF50-F90E-4E14-AB40-13C5613CBA34.jpeg' "$DEST"/2026/2026-02-04_session-271/IMG_1686.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/7/731471A8-D19D-4053-8EAE-7156E09D317D.jpeg' "$DEST"/2026/2026-02-04_session-271/IMG_1687.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/0/0E9F2ADC-EA2D-46BC-9BAF-17E0D969B7ED_3.mov' "$DEST"/2026/2026-02-04_session-271/IMG_1688.mov
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/7/7CFBAF85-56F2-4162-8D5E-CEDDACC37899_3.mov' "$DEST"/2026/2026-02-04_session-271/IMG_1689.mov
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/7/7B3D8FB4-3DDB-4758-868F-A504BDEE395B_3.mov' "$DEST"/2026/2026-02-04_session-271/IMG_1690.mov
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/0/0E9F2ADC-EA2D-46BC-9BAF-17E0D969B7ED.jpeg' "$DEST"/2026/2026-02-04_session-271/IMG_1688.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/7/7CFBAF85-56F2-4162-8D5E-CEDDACC37899.jpeg' "$DEST"/2026/2026-02-04_session-271/IMG_1689.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/7/7B3D8FB4-3DDB-4758-868F-A504BDEE395B.jpeg' "$DEST"/2026/2026-02-04_session-271/IMG_1690.jpeg
 
 mkdir -p "$DEST"/2026/2026-02-05_session-272
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/3/30002581-02FF-4B7A-AD06-2CD6ADE129A3_1_102_o.jpeg' "$DEST"/2026/2026-02-05_session-272/IMG_1691.jpeg
 
 mkdir -p "$DEST"/2026/2026-02-05_session-273
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/9/9082543C-0379-461B-A63C-462703937431_3.mov' "$DEST"/2026/2026-02-05_session-273/IMG_1692.mov
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/9/9082543C-0379-461B-A63C-462703937431.jpeg' "$DEST"/2026/2026-02-05_session-273/IMG_1692.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/1/1746A946-ED01-4001-82DF-1B2E2890AFD1.heic' "$DEST"/2026/2026-02-05_session-273/IMG_3990.heic
 
 mkdir -p "$DEST"/2026/2026-02-06_session-274
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/F/FF42E3F7-0280-4426-9669-5B0D09EBDD1C.jpeg' "$DEST"/2026/2026-02-06_session-274/IMG_1694.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/F/F4A4E115-7B54-474C-9D28-CEDCA30CA675.jpeg' "$DEST"/2026/2026-02-06_session-274/IMG_1695.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/8/8C9E8D4D-72AE-429D-9061-5FF53D1C1964_3.mov' "$DEST"/2026/2026-02-06_session-274/IMG_1696.mov
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/5/564C01FE-00C5-4F4D-9C2A-A4DEE05D408A_3.mov' "$DEST"/2026/2026-02-06_session-274/IMG_1697.mov
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/A/A040900E-B68D-40B8-85AF-220BC8FEAF3D.jpeg' "$DEST"/2026/2026-02-06_session-274/IMG_1698.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/6/600E4F5C-A865-4BF5-8FC5-F0C94B54AA29_3.mov' "$DEST"/2026/2026-02-06_session-274/IMG_1699.mov
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/E/E9B9D6A1-05D3-40A3-A509-B81979D697DA.jpeg' "$DEST"/2026/2026-02-06_session-274/IMG_1700.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/1/10DE1683-8D6C-4E21-9862-0EDCBD890737_3.mov' "$DEST"/2026/2026-02-06_session-274/IMG_1701.mov
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/8/89C93B96-9042-40B7-AEEE-DDFEFA187945_3.mov' "$DEST"/2026/2026-02-06_session-274/IMG_1702.mov
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1694.JPG "$DEST"/2026/2026-02-06_session-274/IMG_1694.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1694.MOV "$DEST"/2026/2026-02-06_session-274/IMG_1694.MOV
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1695.JPG "$DEST"/2026/2026-02-06_session-274/IMG_1695.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1695.MOV "$DEST"/2026/2026-02-06_session-274/IMG_1695.MOV
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1696.JPG "$DEST"/2026/2026-02-06_session-274/IMG_1696.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1696.MOV "$DEST"/2026/2026-02-06_session-274/IMG_1696.MOV
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1697.JPG "$DEST"/2026/2026-02-06_session-274/IMG_1697.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1697.MOV "$DEST"/2026/2026-02-06_session-274/IMG_1697.MOV
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1698.JPG "$DEST"/2026/2026-02-06_session-274/IMG_1698.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1698.MOV "$DEST"/2026/2026-02-06_session-274/IMG_1698.MOV
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1699.JPG "$DEST"/2026/2026-02-06_session-274/IMG_1699.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1699.MOV "$DEST"/2026/2026-02-06_session-274/IMG_1699.MOV
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1700.JPG "$DEST"/2026/2026-02-06_session-274/IMG_1700.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1700.MOV "$DEST"/2026/2026-02-06_session-274/IMG_1700.MOV
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1701.JPG "$DEST"/2026/2026-02-06_session-274/IMG_1701.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1701.MOV "$DEST"/2026/2026-02-06_session-274/IMG_1701.MOV
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1702.JPG "$DEST"/2026/2026-02-06_session-274/IMG_1702.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1702.MOV "$DEST"/2026/2026-02-06_session-274/IMG_1702.MOV
 
 mkdir -p "$DEST"/2026/2026-02-07_session-275
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/B/B7C02F4A-B292-44AE-BB35-DCDC848E64D9_1_102_o.jpeg' "$DEST"/2026/2026-02-07_session-275/IMG_1704.jpeg
 
 mkdir -p "$DEST"/2026/2026-02-08_session-276
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/6/68DCF792-8A24-4712-9496-A13A1A5241AC.jpeg' "$DEST"/2026/2026-02-08_session-276/IMG_1705.jpeg
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1705.JPG "$DEST"/2026/2026-02-08_session-276/IMG_1705.JPG
 
 mkdir -p "$DEST"/2026/2026-02-08_session-277
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/4/4659CD8D-269A-48EA-8771-B68709B86894_1_102_o.jpeg' "$DEST"/2026/2026-02-08_session-277/IMG_1706.jpeg
 
 mkdir -p "$DEST"/2026/2026-02-09_session-278
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/0/0C411476-E130-4F47-87FC-E881C9C0DDE3.jpeg' "$DEST"/2026/2026-02-09_session-278/IMG_1707.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/F/F8E9C43F-2130-4B29-BB5F-AE0AF1EAABD7.jpeg' "$DEST"/2026/2026-02-09_session-278/IMG_1709.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/D/DC8BBA58-9009-4F1F-ACDB-A61D7BBD3FAD_3.mov' "$DEST"/2026/2026-02-09_session-278/IMG_1710.mov
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/9/93E94994-7C08-4F9C-93FD-855605E39DC7.jpeg' "$DEST"/2026/2026-02-09_session-278/IMG_1711.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/A/ACE92803-B68D-412D-BE3D-31A6F6CD3E78.jpeg' "$DEST"/2026/2026-02-09_session-278/IMG_1712.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/A/AD3D9187-046B-4107-861E-68CD251F250C.jpeg' "$DEST"/2026/2026-02-09_session-278/IMG_1713.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/6/6F5BF9C8-27FA-409F-8032-B0AEBCDC39B8.jpeg' "$DEST"/2026/2026-02-09_session-278/IMG_1714.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/E/EC668399-127B-484F-95CC-D92063691ADE.jpeg' "$DEST"/2026/2026-02-09_session-278/IMG_1715.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/0/00B31494-6670-47AB-AF8A-53C9B2229404.jpeg' "$DEST"/2026/2026-02-09_session-278/IMG_1716.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/3/3E97A910-821C-4507-A59F-4D3BEF531D28.jpeg' "$DEST"/2026/2026-02-09_session-278/IMG_1717.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/B/BBAE5962-6B3E-4EE6-9414-7AB16DB30B18.jpeg' "$DEST"/2026/2026-02-09_session-278/IMG_1718.jpeg
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1707.JPG "$DEST"/2026/2026-02-09_session-278/IMG_1707.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1707.MOV "$DEST"/2026/2026-02-09_session-278/IMG_1707.MOV
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1709.JPG "$DEST"/2026/2026-02-09_session-278/IMG_1709.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1709.MOV "$DEST"/2026/2026-02-09_session-278/IMG_1709.MOV
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1710.JPG "$DEST"/2026/2026-02-09_session-278/IMG_1710.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1710.MOV "$DEST"/2026/2026-02-09_session-278/IMG_1710.MOV
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1711.JPG "$DEST"/2026/2026-02-09_session-278/IMG_1711.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1711.MOV "$DEST"/2026/2026-02-09_session-278/IMG_1711.MOV
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1712.JPG "$DEST"/2026/2026-02-09_session-278/IMG_1712.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1713.JPG "$DEST"/2026/2026-02-09_session-278/IMG_1713.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1714.JPG "$DEST"/2026/2026-02-09_session-278/IMG_1714.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1714.MOV "$DEST"/2026/2026-02-09_session-278/IMG_1714.MOV
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1715.JPG "$DEST"/2026/2026-02-09_session-278/IMG_1715.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1715.MOV "$DEST"/2026/2026-02-09_session-278/IMG_1715.MOV
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1716.JPG "$DEST"/2026/2026-02-09_session-278/IMG_1716.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1716.MOV "$DEST"/2026/2026-02-09_session-278/IMG_1716.MOV
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1717.JPG "$DEST"/2026/2026-02-09_session-278/IMG_1717.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1717.MOV "$DEST"/2026/2026-02-09_session-278/IMG_1717.MOV
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1718.JPG "$DEST"/2026/2026-02-09_session-278/IMG_1718.JPG
 
 mkdir -p "$DEST"/2026/2026-02-11_session-279
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/F/F9D5574F-75A7-4C6C-BA28-C9B3430CA931.jpeg' "$DEST"/2026/2026-02-11_session-279/IMG_1720.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/C/C6E15996-A906-4EFB-90E2-96BDB5E7BB17.jpeg' "$DEST"/2026/2026-02-11_session-279/IMG_1721.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/A/A1C7852D-ECF2-4D5F-BF0C-7E264EFE8C6F.jpeg' "$DEST"/2026/2026-02-11_session-279/IMG_1722.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/4/4D3220ED-51DA-41BC-A943-A1EB47CD8F2A.jpeg' "$DEST"/2026/2026-02-11_session-279/IMG_1723.jpeg
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1720.JPG "$DEST"/2026/2026-02-11_session-279/IMG_1720.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1720.MOV "$DEST"/2026/2026-02-11_session-279/IMG_1720.MOV
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1721.JPG "$DEST"/2026/2026-02-11_session-279/IMG_1721.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1721.MOV "$DEST"/2026/2026-02-11_session-279/IMG_1721.MOV
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1722.JPG "$DEST"/2026/2026-02-11_session-279/IMG_1722.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1722.MOV "$DEST"/2026/2026-02-11_session-279/IMG_1722.MOV
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1723.JPG "$DEST"/2026/2026-02-11_session-279/IMG_1723.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1723.MOV "$DEST"/2026/2026-02-11_session-279/IMG_1723.MOV
 
 mkdir -p "$DEST"/2026/2026-02-11_session-280
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/B/B1778BEA-5621-4EBB-A30C-BA39290B45AF.jpeg' "$DEST"/2026/2026-02-11_session-280/IMG_1724.jpeg
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1724.JPG "$DEST"/2026/2026-02-11_session-280/IMG_1724.JPG
 
 mkdir -p "$DEST"/2026/2026-02-12_session-281
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/4/47581409-0499-4145-9F26-7DF92110E266.jpeg' "$DEST"/2026/2026-02-12_session-281/IMG_1725.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/D/DD9E423D-F96E-4E05-916A-CC309C8AFCC6_3.mov' "$DEST"/2026/2026-02-12_session-281/IMG_1726.mov
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/4/42BE37CC-20BA-4232-9442-FFEBFC0D2F33_3.mov' "$DEST"/2026/2026-02-12_session-281/IMG_1727.mov
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/8/8D28EF93-C8BB-4D26-8DCB-63347B467EFB.jpeg' "$DEST"/2026/2026-02-12_session-281/IMG_1728.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/F/F5B14729-716E-414B-9278-EED383924F4E_3.mov' "$DEST"/2026/2026-02-12_session-281/IMG_1729.mov
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/6/6AF0C6F8-C471-468F-8FFA-2EB3E4703236.jpeg' "$DEST"/2026/2026-02-12_session-281/IMG_1730.jpeg
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1725.JPG "$DEST"/2026/2026-02-12_session-281/IMG_1725.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1725.MOV "$DEST"/2026/2026-02-12_session-281/IMG_1725.MOV
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1726.JPG "$DEST"/2026/2026-02-12_session-281/IMG_1726.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1726.MOV "$DEST"/2026/2026-02-12_session-281/IMG_1726.MOV
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1727.JPG "$DEST"/2026/2026-02-12_session-281/IMG_1727.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1727.MOV "$DEST"/2026/2026-02-12_session-281/IMG_1727.MOV
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1728.JPG "$DEST"/2026/2026-02-12_session-281/IMG_1728.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1728.MOV "$DEST"/2026/2026-02-12_session-281/IMG_1728.MOV
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1729.JPG "$DEST"/2026/2026-02-12_session-281/IMG_1729.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1729.MOV "$DEST"/2026/2026-02-12_session-281/IMG_1729.MOV
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1730.JPG "$DEST"/2026/2026-02-12_session-281/IMG_1730.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1730.MOV "$DEST"/2026/2026-02-12_session-281/IMG_1730.MOV
 
 mkdir -p "$DEST"/2026/2026-02-12_session-282
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/A/A5381983-2814-4895-98BD-ECC7A2A44B9C.jpeg' "$DEST"/2026/2026-02-12_session-282/IMG_1731.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/2/2B539003-E32A-4003-A348-D7EC868E16FF_3.mov' "$DEST"/2026/2026-02-12_session-282/IMG_1732.mov
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1731.JPG "$DEST"/2026/2026-02-12_session-282/IMG_1731.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1731.MOV "$DEST"/2026/2026-02-12_session-282/IMG_1731.MOV
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1732.JPG "$DEST"/2026/2026-02-12_session-282/IMG_1732.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1732.MOV "$DEST"/2026/2026-02-12_session-282/IMG_1732.MOV
 
 mkdir -p "$DEST"/2026/2026-02-14_session-283
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/C/C69B5E7B-B858-4597-97DA-D9C8228394A4_1_102_o.jpeg' "$DEST"/2026/2026-02-14_session-283/IMG_1733.jpeg
 
 mkdir -p "$DEST"/2026/2026-02-14_session-284
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/D/D8E1C708-E6E2-47B6-A7E8-5C352E3F6506_3.mov' "$DEST"/2026/2026-02-14_session-284/lp_image.mov
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/XGBR4139.HEIC "$DEST"/2026/2026-02-14_session-284/XGBR4139.HEIC
 
 mkdir -p "$DEST"/2026/2026-02-15_session-285
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/B/BDC6397B-207F-4ACF-99D0-2447202A7665_1_102_o.jpeg' "$DEST"/2026/2026-02-15_session-285/IMG_1735.jpeg
@@ -1927,80 +2177,111 @@ mkdir -p "$DEST"/2026/2026-02-17_session-286
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/4/427BBAA2-3DF5-4A7F-A8C4-0C7C52AE29DC_1_102_o.jpeg' "$DEST"/2026/2026-02-17_session-286/IMG_1736.jpeg
 
 mkdir -p "$DEST"/2026/2026-02-18_session-287
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/8/850825B6-021E-434E-B98A-8353317C02F0_3.mov' "$DEST"/2026/2026-02-18_session-287/IMG_1737.mov
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/4/414361CC-E678-4687-B3C2-B04B97C40DFE_3.mov' "$DEST"/2026/2026-02-18_session-287/IMG_1738.mov
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/B/B025A00E-53D3-45E8-8E04-D3A4CF9FCD4F.jpeg' "$DEST"/2026/2026-02-18_session-287/IMG_1739.jpeg
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1737.JPG "$DEST"/2026/2026-02-18_session-287/IMG_1737.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1737.MOV "$DEST"/2026/2026-02-18_session-287/IMG_1737.MOV
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1738.JPG "$DEST"/2026/2026-02-18_session-287/IMG_1738.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1738.MOV "$DEST"/2026/2026-02-18_session-287/IMG_1738.MOV
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1739.JPG "$DEST"/2026/2026-02-18_session-287/IMG_1739.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1739.MOV "$DEST"/2026/2026-02-18_session-287/IMG_1739.MOV
 
 mkdir -p "$DEST"/2026/2026-02-19_session-288
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/0/0F494DDD-FB87-4EB2-BE1B-53A16616FF2E.jpeg' "$DEST"/2026/2026-02-19_session-288/IMG_1741.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/B/BF3792B9-26A7-4A04-9EEF-350AB515BB17.jpeg' "$DEST"/2026/2026-02-19_session-288/IMG_1742.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/F/F4A9684E-6B96-451F-B6BD-6F7F734B433B.jpeg' "$DEST"/2026/2026-02-19_session-288/IMG_1743.jpeg
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1741.JPG "$DEST"/2026/2026-02-19_session-288/IMG_1741.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1742.JPG "$DEST"/2026/2026-02-19_session-288/IMG_1742.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1742.MOV "$DEST"/2026/2026-02-19_session-288/IMG_1742.MOV
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1743.JPG "$DEST"/2026/2026-02-19_session-288/IMG_1743.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1743.MOV "$DEST"/2026/2026-02-19_session-288/IMG_1743.MOV
 
 mkdir -p "$DEST"/2026/2026-02-19_session-289
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/2/20240F66-B070-49BA-9C02-1561F670A48B_3.mov' "$DEST"/2026/2026-02-19_session-289/IMG_1744.mov
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/4/4B9358C4-12A7-486B-B055-22218D84BBE3_3.mov' "$DEST"/2026/2026-02-19_session-289/IMG_1746.mov
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/6/6A34A745-B953-4427-B1E6-4B9F73A16993_3.mov' "$DEST"/2026/2026-02-19_session-289/IMG_1747.mov
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/3/3646ADB4-57F1-4C3F-B26B-E5C93BD2FBE0_3.mov' "$DEST"/2026/2026-02-19_session-289/IMG_1748.mov
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1744.JPG "$DEST"/2026/2026-02-19_session-289/IMG_1744.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1744.MOV "$DEST"/2026/2026-02-19_session-289/IMG_1744.MOV
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1746.JPG "$DEST"/2026/2026-02-19_session-289/IMG_1746.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1746.MOV "$DEST"/2026/2026-02-19_session-289/IMG_1746.MOV
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1747.JPG "$DEST"/2026/2026-02-19_session-289/IMG_1747.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1747.MOV "$DEST"/2026/2026-02-19_session-289/IMG_1747.MOV
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1748.JPG "$DEST"/2026/2026-02-19_session-289/IMG_1748.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1748.MOV "$DEST"/2026/2026-02-19_session-289/IMG_1748.MOV
 
 mkdir -p "$DEST"/2026/2026-02-20_session-290
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/3/3C6C8E7A-181D-4ECA-9F61-2EDB448DD559.jpeg' "$DEST"/2026/2026-02-20_session-290/IMG_1749.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/7/73422DF6-A98E-4A1F-88FA-75160CB3FFB9_3.mov' "$DEST"/2026/2026-02-20_session-290/IMG_1750.mov
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1749.JPG "$DEST"/2026/2026-02-20_session-290/IMG_1749.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1749.MOV "$DEST"/2026/2026-02-20_session-290/IMG_1749.MOV
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1750.JPG "$DEST"/2026/2026-02-20_session-290/IMG_1750.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1750.MOV "$DEST"/2026/2026-02-20_session-290/IMG_1750.MOV
 
 mkdir -p "$DEST"/2026/2026-02-21_session-291
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/D/DF3EE5BC-845F-4779-AB18-78B6A1BC7AFE_1_102_o.jpeg' "$DEST"/2026/2026-02-21_session-291/IMG_606D20E3-014C-40A3-B454-5BB79987E6FF.jpeg
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/TVFG8378.JPEG "$DEST"/2026/2026-02-21_session-291/TVFG8378.JPEG
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/D/DCDFDA05-9DA9-4A2B-9296-962D21BD1513_1_102_o.jpeg' "$DEST"/2026/2026-02-21_session-291/IMG_D85513BB-FEE6-4EA2-B1F5-A9C0241781E0.jpeg
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/KSNN6258.JPEG "$DEST"/2026/2026-02-21_session-291/KSNN6258.JPEG
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/8/80590AEF-6D44-4D6F-8DC2-B744D4762A6D_1_102_o.jpeg' "$DEST"/2026/2026-02-21_session-291/IMG_CB01E218-9A25-4273-8FFC-392364BF83AF.jpeg
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0081.HEIC "$DEST"/2026/2026-02-21_session-291/IMG_0081.HEIC
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0081.MOV "$DEST"/2026/2026-02-21_session-291/IMG_0081.MOV
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/masters/9/9928EA75-0507-4AE8-92C6-63C130EEC06B_4_5005_c.jpeg' "$DEST"/2026/2026-02-21_session-291/IMG_0081.jpeg
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0082.HEIC "$DEST"/2026/2026-02-21_session-291/IMG_0082.HEIC
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0082.MOV "$DEST"/2026/2026-02-21_session-291/IMG_0082.MOV
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/masters/B/B5443983-05BF-47EC-AF9F-C22F43FA6FA3_4_5005_c.jpeg' "$DEST"/2026/2026-02-21_session-291/IMG_0082.jpeg
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0083.HEIC "$DEST"/2026/2026-02-21_session-291/IMG_0083.HEIC
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0083.MOV "$DEST"/2026/2026-02-21_session-291/IMG_0083.MOV
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/masters/B/B67EEFB7-0AE4-418A-A0F0-41CA14A12EEE_4_5005_c.jpeg' "$DEST"/2026/2026-02-21_session-291/IMG_0083.jpeg
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0084.HEIC "$DEST"/2026/2026-02-21_session-291/IMG_0084.HEIC
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0084.MOV "$DEST"/2026/2026-02-21_session-291/IMG_0084.MOV
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/masters/6/61BB0CDE-03CD-4F4E-95A9-2F261175D52D_4_5005_c.jpeg' "$DEST"/2026/2026-02-21_session-291/IMG_0084.jpeg
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0085.HEIC "$DEST"/2026/2026-02-21_session-291/IMG_0085.HEIC
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0085.MOV "$DEST"/2026/2026-02-21_session-291/IMG_0085.MOV
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/masters/B/B1EEA592-9B98-4412-B64A-97B42B9B7524_4_5005_c.jpeg' "$DEST"/2026/2026-02-21_session-291/IMG_0085.jpeg
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0086.HEIC "$DEST"/2026/2026-02-21_session-291/IMG_0086.HEIC
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0086.MOV "$DEST"/2026/2026-02-21_session-291/IMG_0086.MOV
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/masters/1/1DD82457-7312-4A83-AC3E-0C8BAD2A6AFA_4_5005_c.jpeg' "$DEST"/2026/2026-02-21_session-291/IMG_0086.jpeg
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0087.HEIC "$DEST"/2026/2026-02-21_session-291/IMG_0087.HEIC
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0087.MOV "$DEST"/2026/2026-02-21_session-291/IMG_0087.MOV
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/masters/4/43628FED-D189-4870-A602-18CEF5FB693B_4_5005_c.jpeg' "$DEST"/2026/2026-02-21_session-291/IMG_0087.jpeg
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0088.HEIC "$DEST"/2026/2026-02-21_session-291/IMG_0088.HEIC
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0088.MOV "$DEST"/2026/2026-02-21_session-291/IMG_0088.MOV
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/masters/E/EC905B6F-5B6B-487B-9240-4E77D9FAD112_4_5005_c.jpeg' "$DEST"/2026/2026-02-21_session-291/IMG_0088.jpeg
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0089.HEIC "$DEST"/2026/2026-02-21_session-291/IMG_0089.HEIC
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0089.MOV "$DEST"/2026/2026-02-21_session-291/IMG_0089.MOV
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/masters/2/248A1743-572C-4033-8E6B-8FC029C35542_4_5005_c.jpeg' "$DEST"/2026/2026-02-21_session-291/IMG_0089.jpeg
 
 mkdir -p "$DEST"/2026/2026-02-24_session-292
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/B/B1411834-3CBF-4166-9795-D4B633CED35E.jpeg' "$DEST"/2026/2026-02-24_session-292/IMG_1751.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/C/CA7546E9-6388-4588-9BA3-718C55A3DB19.jpeg' "$DEST"/2026/2026-02-24_session-292/IMG_1752.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/E/E6C579EA-E177-43E2-8028-DA60DE2A014C_3.mov' "$DEST"/2026/2026-02-24_session-292/IMG_1753.mov
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/E/E6C579EA-E177-43E2-8028-DA60DE2A014C.jpeg' "$DEST"/2026/2026-02-24_session-292/IMG_1753.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/0/05C20234-0B10-4CFC-A41A-53FA41CF75D4.jpeg' "$DEST"/2026/2026-02-24_session-292/IMG_1754.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/9/93D2736D-A7EC-482F-ABEA-D564B3240808.jpeg' "$DEST"/2026/2026-02-24_session-292/IMG_1755.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/4/46A224D0-84C4-45BB-B2A6-7E0B1CC0A73B_3.mov' "$DEST"/2026/2026-02-24_session-292/IMG_1756.mov
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/4/46A224D0-84C4-45BB-B2A6-7E0B1CC0A73B.jpeg' "$DEST"/2026/2026-02-24_session-292/IMG_1756.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/F/F4308D05-657C-4064-978D-55FFE462B25D.jpeg' "$DEST"/2026/2026-02-24_session-292/IMG_1757.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/0/0F0F36F7-55A7-4956-802E-64DEF91E8112_3.mov' "$DEST"/2026/2026-02-24_session-292/IMG_1758.mov
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/0/02BEA517-7DD6-4D2A-930A-8D99D1A0F439_3.mov' "$DEST"/2026/2026-02-24_session-292/IMG_1759.mov
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/0/0F0F36F7-55A7-4956-802E-64DEF91E8112.jpeg' "$DEST"/2026/2026-02-24_session-292/IMG_1758.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/0/02BEA517-7DD6-4D2A-930A-8D99D1A0F439.jpeg' "$DEST"/2026/2026-02-24_session-292/IMG_1759.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/E/E98C7C49-EB6E-4714-BBBD-ACB2C3C89E5D.jpeg' "$DEST"/2026/2026-02-24_session-292/IMG_1760.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/7/72504D90-73A0-408B-9BCB-4B35B6356856.jpeg' "$DEST"/2026/2026-02-24_session-292/IMG_1761.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/B/B541DA33-9B22-4E77-921D-8F894B6B7448.jpeg' "$DEST"/2026/2026-02-24_session-292/IMG_1762.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/F/F4C00412-A5E1-4F0A-890D-DE9B4B5495ED.jpeg' "$DEST"/2026/2026-02-24_session-292/IMG_1763.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/1/1C3D01EF-40BD-4AE1-BCE1-93BC3664F779_3.mov' "$DEST"/2026/2026-02-24_session-292/IMG_1764.mov
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/5/50A0FF73-E934-4864-86AC-18BDEAA406A8_3.mov' "$DEST"/2026/2026-02-24_session-292/IMG_1765.mov
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/1/1C3D01EF-40BD-4AE1-BCE1-93BC3664F779.jpeg' "$DEST"/2026/2026-02-24_session-292/IMG_1764.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/5/50A0FF73-E934-4864-86AC-18BDEAA406A8.jpeg' "$DEST"/2026/2026-02-24_session-292/IMG_1765.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/3/3113A987-B835-45CC-8C45-BB7874598B22.jpeg' "$DEST"/2026/2026-02-24_session-292/IMG_1766.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/E/E9F5530B-C1D6-46BE-A732-9E1C647DF79E_3.mov' "$DEST"/2026/2026-02-24_session-292/IMG_1767.mov
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/E/E9F5530B-C1D6-46BE-A732-9E1C647DF79E.jpeg' "$DEST"/2026/2026-02-24_session-292/IMG_1767.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/7/759886EA-CE5F-4012-A541-7A0E21524E22.jpeg' "$DEST"/2026/2026-02-24_session-292/IMG_1768.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/F/F50DE46F-31FF-484A-8725-0D3329486F32_3.mov' "$DEST"/2026/2026-02-24_session-292/IMG_1769.mov
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/9/9FDA35A9-955D-4ED3-97C4-9427F523EE45_3.mov' "$DEST"/2026/2026-02-24_session-292/IMG_1770.mov
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/B/BB13F47A-8EA7-49AE-9540-DA081604EE2D_1_102_o.jpeg' "$DEST"/2026/2026-02-24_session-292/IMG_0091.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/F/F50DE46F-31FF-484A-8725-0D3329486F32.jpeg' "$DEST"/2026/2026-02-24_session-292/IMG_1769.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/9/9FDA35A9-955D-4ED3-97C4-9427F523EE45.jpeg' "$DEST"/2026/2026-02-24_session-292/IMG_1770.jpeg
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0091.PNG "$DEST"/2026/2026-02-24_session-292/IMG_0091.PNG
 
 mkdir -p "$DEST"/2026/2026-02-27_session-293
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/A/AD9DDFE5-061E-48BF-8413-387614B41680_3.mov' "$DEST"/2026/2026-02-27_session-293/IMG_1772.mov
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/4/4127E934-24F1-4347-89A3-8B5923596AAF_3.mov' "$DEST"/2026/2026-02-27_session-293/IMG_1773.mov
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/C/CA877DCE-1F8B-4211-A507-FE84610FFD8F_3.mov' "$DEST"/2026/2026-02-27_session-293/IMG_1774.mov
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/A/AD9DDFE5-061E-48BF-8413-387614B41680.jpeg' "$DEST"/2026/2026-02-27_session-293/IMG_1772.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/4/4127E934-24F1-4347-89A3-8B5923596AAF.jpeg' "$DEST"/2026/2026-02-27_session-293/IMG_1773.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/C/CA877DCE-1F8B-4211-A507-FE84610FFD8F.jpeg' "$DEST"/2026/2026-02-27_session-293/IMG_1774.jpeg
 
 mkdir -p "$DEST"/2026/2026-02-28_session-294
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/9/994F3B02-2800-4C64-9A2A-3381CF4B05B9.jpeg' "$DEST"/2026/2026-02-28_session-294/IMG_1783.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/D/DB1AD677-0543-40C1-8D3C-E9EAD3AC0E7B.jpeg' "$DEST"/2026/2026-02-28_session-294/IMG_1784.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/E/E7ACCFF8-9E05-408A-825C-7F049B3B869C.jpeg' "$DEST"/2026/2026-02-28_session-294/IMG_1785.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/3/32520FEF-ACE8-429E-8011-3AA06D83D2AB_3.mov' "$DEST"/2026/2026-02-28_session-294/IMG_1786.mov
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/3/32520FEF-ACE8-429E-8011-3AA06D83D2AB.jpeg' "$DEST"/2026/2026-02-28_session-294/IMG_1786.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/0/0B90BF72-AAD9-48BA-AB3E-8C5B79CE5294.jpeg' "$DEST"/2026/2026-02-28_session-294/IMG_1787.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/D/DF79C7E9-1B3B-4736-8108-57520928B21D.jpeg' "$DEST"/2026/2026-02-28_session-294/IMG_1788.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/0/080BD752-3A42-4F7A-950F-E230D907F23D.jpeg' "$DEST"/2026/2026-02-28_session-294/IMG_1789.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/0/08A6BC0E-7EAA-4221-B8FE-E8D635C69695_3.mov' "$DEST"/2026/2026-02-28_session-294/IMG_1790.mov
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/F/FA4CA4F4-C67A-456E-A262-4455BABF77B0_3.mov' "$DEST"/2026/2026-02-28_session-294/IMG_1791.mov
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/3/3B0C12ED-FAD0-48DC-9690-DD1937CB6B95_3.mov' "$DEST"/2026/2026-02-28_session-294/IMG_1792.mov
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/0/0E5E04CD-5CC6-494E-995A-BA9A5CB6CBC4_3.mov' "$DEST"/2026/2026-02-28_session-294/IMG_1793.mov
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/7/7432941E-9696-4949-B640-69D277E23CAD_3.mov' "$DEST"/2026/2026-02-28_session-294/IMG_1794.mov
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/0/08A6BC0E-7EAA-4221-B8FE-E8D635C69695.jpeg' "$DEST"/2026/2026-02-28_session-294/IMG_1790.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/F/FA4CA4F4-C67A-456E-A262-4455BABF77B0.jpeg' "$DEST"/2026/2026-02-28_session-294/IMG_1791.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/3/3B0C12ED-FAD0-48DC-9690-DD1937CB6B95.jpeg' "$DEST"/2026/2026-02-28_session-294/IMG_1792.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/0/0E5E04CD-5CC6-494E-995A-BA9A5CB6CBC4.jpeg' "$DEST"/2026/2026-02-28_session-294/IMG_1793.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/7/7432941E-9696-4949-B640-69D277E23CAD.jpeg' "$DEST"/2026/2026-02-28_session-294/IMG_1794.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/D/DE3FE929-46E4-4362-8ECC-3C8140C01CF7.jpeg' "$DEST"/2026/2026-02-28_session-294/IMG_1795.jpeg
 
 mkdir -p "$DEST"/2026/2026-03-02_session-295
@@ -2009,44 +2290,44 @@ cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/5/553B9F8
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/3/3EF4D029-56BA-4255-B2C9-915F4A4BC845.jpeg' "$DEST"/2026/2026-03-02_session-295/IMG_1808.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/A/A3DC6750-E1CC-4595-86ED-232D00F2B2BF.jpeg' "$DEST"/2026/2026-03-02_session-295/IMG_1809.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/1/1B526916-DBAD-483D-BF5F-2780127E09C6.jpeg' "$DEST"/2026/2026-03-02_session-295/IMG_1810.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/1/12B38504-819D-4B10-B133-2AC2A09DD420_3.mov' "$DEST"/2026/2026-03-02_session-295/IMG_1811.mov
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/1/12B38504-819D-4B10-B133-2AC2A09DD420.jpeg' "$DEST"/2026/2026-03-02_session-295/IMG_1811.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/8/89A111A6-31C8-40D1-BA0B-D939893FFA36.jpeg' "$DEST"/2026/2026-03-02_session-295/IMG_1812.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/7/73C52CE2-5580-420A-A3DD-BDF3F5C0F61B.jpeg' "$DEST"/2026/2026-03-02_session-295/IMG_1813.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/8/8BE7EE74-24AE-4A8C-A67A-64A8A55698C6.jpeg' "$DEST"/2026/2026-03-02_session-295/IMG_1814.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/8/863DD232-8CDD-4589-A73D-9C042BA58C18.jpeg' "$DEST"/2026/2026-03-02_session-295/IMG_1815.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/E/E7EA5D96-05EE-46B4-86A8-68DBFD84065E.jpeg' "$DEST"/2026/2026-03-02_session-295/IMG_1816.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/8/8F8A912C-A726-4ED0-A36E-EEBFF7BC3DB6.jpeg' "$DEST"/2026/2026-03-02_session-295/IMG_1817.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/F/FEDEEF24-4EDA-4A4C-BD36-61EE77DA1225_3.mov' "$DEST"/2026/2026-03-02_session-295/IMG_1818.mov
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/3/3270E850-CC12-4F14-BBFA-ED52B42C7025_3.mov' "$DEST"/2026/2026-03-02_session-295/IMG_1819.mov
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/F/FEDEEF24-4EDA-4A4C-BD36-61EE77DA1225.jpeg' "$DEST"/2026/2026-03-02_session-295/IMG_1818.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/3/3270E850-CC12-4F14-BBFA-ED52B42C7025.jpeg' "$DEST"/2026/2026-03-02_session-295/IMG_1819.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/7/72367A7A-B409-45B5-9EE5-038F6A73EF88.jpeg' "$DEST"/2026/2026-03-02_session-295/IMG_B487679F-F15E-4831-AEB6-2C12EAD4B955.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/A/AAEDB845-DA94-4F1B-872C-9E19B16E6827.jpeg' "$DEST"/2026/2026-03-02_session-295/IMG_E5FD9072-8AFD-4DEB-83A8-1306D3565551.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/F/FB390637-5DBD-4751-AB4A-626DF36BC7E8.jpeg' "$DEST"/2026/2026-03-02_session-295/IMG_1822.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/0/03B0BA48-15AD-4EA3-B1FD-38D2A3E59B44.jpeg' "$DEST"/2026/2026-03-02_session-295/IMG_1823.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/B/BB4428CC-E330-4F53-8F0B-DCCC831B9467_3.mov' "$DEST"/2026/2026-03-02_session-295/IMG_1824.mov
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/7/7343BFC5-AE37-4626-8BB4-18350340AB86_3.mov' "$DEST"/2026/2026-03-02_session-295/IMG_1825.mov
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/7/7A63221B-F991-4122-9716-5154B02D4CC7_3.mov' "$DEST"/2026/2026-03-02_session-295/IMG_1826.mov
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/B/BB4428CC-E330-4F53-8F0B-DCCC831B9467.jpeg' "$DEST"/2026/2026-03-02_session-295/IMG_1824.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/7/7343BFC5-AE37-4626-8BB4-18350340AB86.jpeg' "$DEST"/2026/2026-03-02_session-295/IMG_1825.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/7/7A63221B-F991-4122-9716-5154B02D4CC7.jpeg' "$DEST"/2026/2026-03-02_session-295/IMG_1826.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/C/CA443C27-A812-4FAE-A96B-13954D0725EE.jpeg' "$DEST"/2026/2026-03-02_session-295/IMG_1827.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/6/62BC8A2F-558F-447B-9A65-30E2C58DE9E6_3.mov' "$DEST"/2026/2026-03-02_session-295/IMG_1828.mov
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/0/0F9011BB-9707-49F6-B17C-044D6BCD80EC_3.mov' "$DEST"/2026/2026-03-02_session-295/IMG_1830.mov
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/2/2487E652-60C0-4143-A74F-248DD88464B1_3.mov' "$DEST"/2026/2026-03-02_session-295/IMG_1831.mov
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/6/62BC8A2F-558F-447B-9A65-30E2C58DE9E6.jpeg' "$DEST"/2026/2026-03-02_session-295/IMG_1828.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/0/0F9011BB-9707-49F6-B17C-044D6BCD80EC.jpeg' "$DEST"/2026/2026-03-02_session-295/IMG_1830.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/2/2487E652-60C0-4143-A74F-248DD88464B1.jpeg' "$DEST"/2026/2026-03-02_session-295/IMG_1831.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/1/1674FC0E-BE1A-4FA1-B06A-4F85E7E4918E.jpeg' "$DEST"/2026/2026-03-02_session-295/IMG_1832.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/0/019EC297-21F7-4424-BC05-3D6CF6BF47A0.jpeg' "$DEST"/2026/2026-03-02_session-295/IMG_1833.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/A/A81E9EA2-210C-4F60-B371-BEB89A9E0035.jpeg' "$DEST"/2026/2026-03-02_session-295/IMG_1834.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/A/A2784477-D2F3-4B27-9020-723742CEDFEC_3.mov' "$DEST"/2026/2026-03-02_session-295/IMG_1835.mov
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/A/A2784477-D2F3-4B27-9020-723742CEDFEC.jpeg' "$DEST"/2026/2026-03-02_session-295/IMG_1835.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/A/AC574651-5B17-4ECE-9FE5-B1FDEEB25F53.jpeg' "$DEST"/2026/2026-03-02_session-295/IMG_1836.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/E/E07F97C1-EEEB-4FB5-BEEB-AC8DA6D7ECAF.jpeg' "$DEST"/2026/2026-03-02_session-295/IMG_1837.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/6/60A98AEC-4EFB-47A1-86BF-7A6914D99626.jpeg' "$DEST"/2026/2026-03-02_session-295/IMG_1838.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/2/22A4E2C2-BC6C-458A-98F8-E8DCBE81DFCD_3.mov' "$DEST"/2026/2026-03-02_session-295/IMG_1839.mov
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/2/22A4E2C2-BC6C-458A-98F8-E8DCBE81DFCD.jpeg' "$DEST"/2026/2026-03-02_session-295/IMG_1839.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/9/92DFA48D-E379-48F8-9B0C-098F7C98DBEB.jpeg' "$DEST"/2026/2026-03-02_session-295/IMG_1840.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/5/585FDEDF-B294-4A80-B15D-D47E785B75BD.jpeg' "$DEST"/2026/2026-03-02_session-295/IMG_1841.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/D/D22C58E3-65EA-4146-9512-B9E8FCD80E90.jpeg' "$DEST"/2026/2026-03-02_session-295/IMG_1842.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/1/1A35059A-ED0F-46DC-AB92-0B8455490022_3.mov' "$DEST"/2026/2026-03-02_session-295/IMG_1843.mov
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/A/A7729B0E-ED93-4AF2-8BA1-238E70977814_3.mov' "$DEST"/2026/2026-03-02_session-295/IMG_1844.mov
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/A/A7EF37E8-B60C-430E-B777-0901433636AE_3.mov' "$DEST"/2026/2026-03-02_session-295/IMG_1845.mov
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/1/1A35059A-ED0F-46DC-AB92-0B8455490022.jpeg' "$DEST"/2026/2026-03-02_session-295/IMG_1843.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/A/A7729B0E-ED93-4AF2-8BA1-238E70977814.jpeg' "$DEST"/2026/2026-03-02_session-295/IMG_1844.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/A/A7EF37E8-B60C-430E-B777-0901433636AE.jpeg' "$DEST"/2026/2026-03-02_session-295/IMG_1845.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/B/BDA2455A-BD8B-4D61-B1C5-0045F411FE45.jpeg' "$DEST"/2026/2026-03-02_session-295/IMG_1846.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/1/1F3371CE-94A2-47DD-B4FB-4860F4DE194B_3.mov' "$DEST"/2026/2026-03-02_session-295/IMG_1847.mov
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/renders/7/747AA2AD-2FAD-406A-92F4-EBE188044429_2_100_a.mov' "$DEST"/2026/2026-03-02_session-295/IMG_1848.mov
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/0/04C2D65E-96CF-4299-8C3C-63EC1FCB4909_3.mov' "$DEST"/2026/2026-03-02_session-295/IMG_1849.mov
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/1/1F3371CE-94A2-47DD-B4FB-4860F4DE194B.jpeg' "$DEST"/2026/2026-03-02_session-295/IMG_1847.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/renders/7/747AA2AD-2FAD-406A-92F4-EBE188044429_1_201_a.jpeg' "$DEST"/2026/2026-03-02_session-295/IMG_1848.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/0/04C2D65E-96CF-4299-8C3C-63EC1FCB4909.jpeg' "$DEST"/2026/2026-03-02_session-295/IMG_1849.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/B/B071E515-50AF-4FC5-B836-A70A9FD33CF0.jpeg' "$DEST"/2026/2026-03-02_session-295/IMG_1850.jpeg
 
 mkdir -p "$DEST"/2026/2026-03-04_session-296
@@ -2054,24 +2335,24 @@ cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivativ
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/9/939BA075-D55B-4B6E-834F-1A13E1CBDA54.jpeg' "$DEST"/2026/2026-03-04_session-296/7410991329188917584.jpeg
 
 mkdir -p "$DEST"/2026/2026-03-04_session-297
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/A/A7349F94-8622-4AC5-A878-515BF1D3D7DB_3.mov' "$DEST"/2026/2026-03-04_session-297/IMG_1855.mov
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/A/A7349F94-8622-4AC5-A878-515BF1D3D7DB.jpeg' "$DEST"/2026/2026-03-04_session-297/IMG_1855.jpeg
 
 mkdir -p "$DEST"/2026/2026-03-04_session-298
 
 mkdir -p "$DEST"/2026/2026-03-05_session-299
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/D/D2D6D629-3F0E-4ECE-A387-96F8F5C6D5CF_3.mov' "$DEST"/2026/2026-03-05_session-299/IMG_1860.mov
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/0/0A7ED712-E6F6-40E6-ABA7-BE0B5D00FC41_3.mov' "$DEST"/2026/2026-03-05_session-299/IMG_1861.mov
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/D/D2D6D629-3F0E-4ECE-A387-96F8F5C6D5CF.jpeg' "$DEST"/2026/2026-03-05_session-299/IMG_1860.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/0/0A7ED712-E6F6-40E6-ABA7-BE0B5D00FC41.jpeg' "$DEST"/2026/2026-03-05_session-299/IMG_1861.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/9/96372D37-B792-44D9-A109-C07447D180A9.jpeg' "$DEST"/2026/2026-03-05_session-299/IMG_1862.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/8/8173CA05-6468-4D6B-9092-971A4D866748.jpeg' "$DEST"/2026/2026-03-05_session-299/IMG_1864.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/E/EA133E6D-CD2B-4FA7-805B-7E4B9D94936C_3.mov' "$DEST"/2026/2026-03-05_session-299/IMG_1865.mov
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/5/58B0A0BC-72B3-4D44-B0C9-96489BAE8A44_3.mov' "$DEST"/2026/2026-03-05_session-299/IMG_1866.mov
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/E/EA133E6D-CD2B-4FA7-805B-7E4B9D94936C.jpeg' "$DEST"/2026/2026-03-05_session-299/IMG_1865.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/5/58B0A0BC-72B3-4D44-B0C9-96489BAE8A44.jpeg' "$DEST"/2026/2026-03-05_session-299/IMG_1866.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/F/F398878C-1F47-4EB5-8484-9B3C08BDF6D6.jpeg' "$DEST"/2026/2026-03-05_session-299/IMG_1867.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/4/466E5B97-D6D4-404E-BCCD-FCA956F6CF8A_3.mov' "$DEST"/2026/2026-03-05_session-299/IMG_1868.mov
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/4/466E5B97-D6D4-404E-BCCD-FCA956F6CF8A.jpeg' "$DEST"/2026/2026-03-05_session-299/IMG_1868.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/A/ACE09FE4-F1B5-417B-A3F5-19F7199059DA.jpeg' "$DEST"/2026/2026-03-05_session-299/IMG_1869.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/B/B66BCAB6-E6BF-435D-AABB-D6BDCAC79E40.jpeg' "$DEST"/2026/2026-03-05_session-299/IMG_D9102510-4003-4992-92BB-9BF2E285D23B.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/D/DC81435A-615E-4066-A408-114AA082F991.jpeg' "$DEST"/2026/2026-03-05_session-299/IMG_1A3C5ED4-BAD5-4E2C-B435-651CBBF04168.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/8/82AB1361-A864-4A0E-85FF-C24A05B272ED.jpeg' "$DEST"/2026/2026-03-05_session-299/IMG_71E9D10F-5474-4266-9A24-D65BF9F9FF7E.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/4/439A127B-B80B-4F3A-B651-D589FFB1550A_3.mov' "$DEST"/2026/2026-03-05_session-299/IMG_1876.mov
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/4/439A127B-B80B-4F3A-B651-D589FFB1550A.jpeg' "$DEST"/2026/2026-03-05_session-299/IMG_1876.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/D/D146A099-F7A0-4D3B-A4E4-C504F80E95FC.jpeg' "$DEST"/2026/2026-03-05_session-299/IMG_B29E032E-E79C-4833-A2A0-E462BEE24695.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/3/30DED7F8-C87B-460F-9333-95CDCB2E29B1.jpeg' "$DEST"/2026/2026-03-05_session-299/IMG_BF734492-8DDE-4F3B-BEFD-5D006F8065D6.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/2/2F97FF04-1541-4DA6-B1C2-D52A38839BFF.jpeg' "$DEST"/2026/2026-03-05_session-299/IMG_3C39C844-AA46-4DC0-A08E-E12CCE315D17.jpeg
@@ -2106,33 +2387,32 @@ mkdir -p "$DEST"/2026/2026-03-12_session-306
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/D/D08848AF-EB4A-4C6A-ACD1-F6ED4B1D51C2.jpeg' "$DEST"/2026/2026-03-12_session-306/IMG_1901.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/8/86A2E81B-D2E3-4C5E-8900-0921BE4932B7.jpeg' "$DEST"/2026/2026-03-12_session-306/IMG_1902.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/7/79D3B48D-67CF-4DF8-83AC-0A329B002AA4.jpeg' "$DEST"/2026/2026-03-12_session-306/IMG_1903.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/2/29BC891F-4C0E-405F-8BC8-B8A539C9E44F_3.mov' "$DEST"/2026/2026-03-12_session-306/IMG_1904.mov
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/2/29BC891F-4C0E-405F-8BC8-B8A539C9E44F.jpeg' "$DEST"/2026/2026-03-12_session-306/IMG_1904.jpeg
 
 mkdir -p "$DEST"/2026/2026-03-13_session-307
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/2/24EAB18C-74EC-4835-8EF9-27C995F0C9EA.jpeg' "$DEST"/2026/2026-03-13_session-307/IMG_1905.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/C/CF0F0063-2F40-4BC1-8FB0-8B24AB4DBF42_3.mov' "$DEST"/2026/2026-03-13_session-307/IMG_1906.mov
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/3/3485B648-CB1B-4E28-97A9-13C5B96563DB.jpeg' "$DEST"/2026/2026-03-13_session-307/IMG_1907.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/5/5A128B0E-6F7B-4E7F-B2AB-220563344EBF.jpeg' "$DEST"/2026/2026-03-13_session-307/IMG_1908.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/renders/9/975E0BAF-A75D-4D51-BF24-388A59CC7FB1_1_201_a.jpeg' "$DEST"/2026/2026-03-13_session-307/IMG_1909.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/7/761195F3-A27E-4E17-9A49-39D425CD5CD6_3.mov' "$DEST"/2026/2026-03-13_session-307/IMG_1910.mov
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/7/761195F3-A27E-4E17-9A49-39D425CD5CD6.jpeg' "$DEST"/2026/2026-03-13_session-307/IMG_1910.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/0/05C810AE-2E14-4B2C-83A4-A242DF8BEE3D.jpeg' "$DEST"/2026/2026-03-13_session-307/IMG_1911.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/B/B977A908-C2BC-4AA0-83A2-B7E3F59A4B8C_3.mov' "$DEST"/2026/2026-03-13_session-307/IMG_1912.mov
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/B/B977A908-C2BC-4AA0-83A2-B7E3F59A4B8C.jpeg' "$DEST"/2026/2026-03-13_session-307/IMG_1912.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/F/F0FB99C2-1FF4-4D4E-B5C5-520497F4AD06.jpeg' "$DEST"/2026/2026-03-13_session-307/IMG_1913.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/E/E9ECFD7A-3B04-4105-B0CE-5B79BB0D785E_3.mov' "$DEST"/2026/2026-03-13_session-307/IMG_1914.mov
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/E/E04AC132-9E9F-4CFC-979D-5DDF0B8EBACE_3.mov' "$DEST"/2026/2026-03-13_session-307/IMG_1915.mov
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/1/1C28CF93-4AD0-4597-A7F3-A181F1555BDB_3.mov' "$DEST"/2026/2026-03-13_session-307/IMG_1916.mov
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/E/E9ECFD7A-3B04-4105-B0CE-5B79BB0D785E.jpeg' "$DEST"/2026/2026-03-13_session-307/IMG_1914.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/E/E04AC132-9E9F-4CFC-979D-5DDF0B8EBACE.jpeg' "$DEST"/2026/2026-03-13_session-307/IMG_1915.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/1/1C28CF93-4AD0-4597-A7F3-A181F1555BDB.jpeg' "$DEST"/2026/2026-03-13_session-307/IMG_1916.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/2/2D8D8E80-26BC-4B57-9BF6-348311CB347A.jpeg' "$DEST"/2026/2026-03-13_session-307/IMG_1917.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/C/CA250EBF-7B59-49E8-B5F1-2BE47692FE7A.jpeg' "$DEST"/2026/2026-03-13_session-307/IMG_1919.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/renders/9/9FF4C6CE-F9AD-43AF-B26E-9C367B20180F_1_201_a.jpeg' "$DEST"/2026/2026-03-13_session-307/IMG_1920.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/1/1AA4C50B-7616-4D51-8E85-4F5230E130B4.jpeg' "$DEST"/2026/2026-03-13_session-307/IMG_1921.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/renders/B/BDF1AD61-F6FB-4B11-BC6D-35DF68469165_1_201_a.jpeg' "$DEST"/2026/2026-03-13_session-307/IMG_1922.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/2/25ADDEEA-C886-4C94-AD81-2932705F5EEE.jpeg' "$DEST"/2026/2026-03-13_session-307/IMG_1923.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/E/E67EDDB6-9C35-440C-84D9-00AAAED12B5F_3.mov' "$DEST"/2026/2026-03-13_session-307/IMG_1924.mov
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/3/3066EBBA-5FAF-4267-AF1D-035F6416C411_3.mov' "$DEST"/2026/2026-03-13_session-307/IMG_1925.mov
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/E/E67EDDB6-9C35-440C-84D9-00AAAED12B5F.jpeg' "$DEST"/2026/2026-03-13_session-307/IMG_1924.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/3/3066EBBA-5FAF-4267-AF1D-035F6416C411.jpeg' "$DEST"/2026/2026-03-13_session-307/IMG_1925.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/F/FA9A34FA-CEA4-4BBC-892B-08063911F330.jpeg' "$DEST"/2026/2026-03-13_session-307/IMG_1926.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/3/3C0FEFDB-269A-4710-B915-97C23FB34513.jpeg' "$DEST"/2026/2026-03-13_session-307/IMG_1927.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/0/0C66BE47-70A1-4CCF-92D8-6D3F4112DAFF.jpeg' "$DEST"/2026/2026-03-13_session-307/IMG_1928.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/3/34FEFCB8-C0B3-4466-BD55-ED5EB6BAE860_3.mov' "$DEST"/2026/2026-03-13_session-307/IMG_1929.mov
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/3/34FEFCB8-C0B3-4466-BD55-ED5EB6BAE860.jpeg' "$DEST"/2026/2026-03-13_session-307/IMG_1929.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/B/BB36EB0F-1CB1-4E8C-84F1-649291BEF083.jpeg' "$DEST"/2026/2026-03-13_session-307/IMG_C1CA6F1E-DD10-4CF4-AE78-44DA79672FE6.jpeg
 
 mkdir -p "$DEST"/2026/2026-03-14_session-308
@@ -2143,8 +2423,8 @@ cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/0/07A6763
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/7/7B513034-33E3-41EB-9DBC-F79561E1CA48.jpeg' "$DEST"/2026/2026-03-14_session-309/IMG_1F87E1C9-1077-4FA2-A911-C0EC37D51C54.jpeg
 
 mkdir -p "$DEST"/2026/2026-03-14_session-310
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/4/4E0B1A44-A305-4A24-B044-46D93B0A0605_3.mov' "$DEST"/2026/2026-03-14_session-310/IMG_1934.mov
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/1/1780718B-365D-40DD-B917-CD7F825CA6A3_3.mov' "$DEST"/2026/2026-03-14_session-310/IMG_1935.mov
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/4/4E0B1A44-A305-4A24-B044-46D93B0A0605.jpeg' "$DEST"/2026/2026-03-14_session-310/IMG_1934.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/1/1780718B-365D-40DD-B917-CD7F825CA6A3.jpeg' "$DEST"/2026/2026-03-14_session-310/IMG_1935.jpeg
 
 mkdir -p "$DEST"/2026/2026-03-15_to_03-16_session-311
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/F/F6992EB0-A63F-49CD-9341-92778CD400F1.jpeg' "$DEST"/2026/2026-03-15_to_03-16_session-311/IMG_50C7F9CB-5EAB-490C-B947-70931E5765AB.jpeg
@@ -2152,7 +2432,7 @@ cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivativ
 
 mkdir -p "$DEST"/2026/2026-03-16_session-312
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/E/E73A1DAE-F726-496C-9CF7-75D99180F2E2.jpeg' "$DEST"/2026/2026-03-16_session-312/IMG_1938.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/0/0F89D026-ECD9-4598-8667-1A5DEDFC3E6B_3.mov' "$DEST"/2026/2026-03-16_session-312/IMG_1939.mov
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/0/0F89D026-ECD9-4598-8667-1A5DEDFC3E6B.jpeg' "$DEST"/2026/2026-03-16_session-312/IMG_1939.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/F/FFA79547-4E73-4A3C-A3E1-8BDA2A2BB923.jpeg' "$DEST"/2026/2026-03-16_session-312/IMG_7A7D48AA-6C09-4311-BCDD-3FC777F79CA3.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/3/3E38A605-1121-40CF-BA8A-B286B56D6B59.jpeg' "$DEST"/2026/2026-03-16_session-312/IMG_EFAA75FB-4C4E-46F5-B414-E04D40B71E6C.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/C/CDDACC3F-1501-4EE7-8A08-8E4A8435A019.jpeg' "$DEST"/2026/2026-03-16_session-312/IMG_286A219C-1211-45B0-B436-ADB99B4A7858.jpeg
@@ -2180,7 +2460,8 @@ mkdir -p "$DEST"/2026/2026-03-20_session-315
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/F/F3FFE623-A8EA-4E16-B81D-6070698034BC.jpeg' "$DEST"/2026/2026-03-20_session-315/camphoto_2084953916.jpeg
 
 mkdir -p "$DEST"/2026/2026-03-21_session-316
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/D/D7FFFAE4-CF90-4FC0-BF72-E4CC9FCCB016_3.mov' "$DEST"/2026/2026-03-21_session-316/IMG_1964.mov
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1964.JPG "$DEST"/2026/2026-03-21_session-316/IMG_1964.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1964.MOV "$DEST"/2026/2026-03-21_session-316/IMG_1964.MOV
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/0/0789C279-40D1-443D-BEC5-D538ACF4AB02.jpeg' "$DEST"/2026/2026-03-21_session-316/IMG_1965.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/8/828E4E91-A42B-47E7-8CB5-F8BBB8103F28.jpeg' "$DEST"/2026/2026-03-21_session-316/IMG_7CBA11A1-0C8F-4EC5-BC66-C66840EB2888.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/7/7B66DA5B-61E7-4B25-B795-BB3B2C10CEF8.jpeg' "$DEST"/2026/2026-03-21_session-316/IMG_B2624F41-4828-4AF9-A625-66DE005C67E0.jpeg
@@ -2190,12 +2471,12 @@ cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/7/7D5335D
 
 mkdir -p "$DEST"/2026/2026-03-22_session-317
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/0/0DE3C62F-665A-44BA-8DCF-C61A3877D4FB.jpeg' "$DEST"/2026/2026-03-22_session-317/IMG_1974.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/3/346EC695-73EC-4EEC-9182-737C936E7C71_3.mov' "$DEST"/2026/2026-03-22_session-317/IMG_1978.mov
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/7/7B2AD379-706E-43EE-9272-EBBA7E5EA4AD_3.mov' "$DEST"/2026/2026-03-22_session-317/IMG_1979.mov
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/3/346EC695-73EC-4EEC-9182-737C936E7C71.jpeg' "$DEST"/2026/2026-03-22_session-317/IMG_1978.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/7/7B2AD379-706E-43EE-9272-EBBA7E5EA4AD.jpeg' "$DEST"/2026/2026-03-22_session-317/IMG_1979.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/4/489BECD0-9971-4714-B816-0C21F729773A.jpeg' "$DEST"/2026/2026-03-22_session-317/IMG_1980.jpeg
 
 mkdir -p "$DEST"/2026/2026-03-23_session-318
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/5/5323D443-4567-4EB0-8524-BA5FE37181BB_3.mov' "$DEST"/2026/2026-03-23_session-318/IMG_1983.mov
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/5/5323D443-4567-4EB0-8524-BA5FE37181BB.jpeg' "$DEST"/2026/2026-03-23_session-318/IMG_1983.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/3/3846DFB6-834F-4F8B-AFC5-1958B2FB972F.jpeg' "$DEST"/2026/2026-03-23_session-318/IMG_1984.jpeg
 
 mkdir -p "$DEST"/2026/2026-03-23_session-319
@@ -2205,62 +2486,62 @@ mkdir -p "$DEST"/2026/2026-03-24_session-320
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/9/934733F0-F92C-4DA9-84FD-B31FC264F80F.jpeg' "$DEST"/2026/2026-03-24_session-320/IMG_1986.jpeg
 
 mkdir -p "$DEST"/2026/2026-03-25_session-321
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/4/46F7CF32-7D5D-48AE-B73A-87F9CAE50209_3.mov' "$DEST"/2026/2026-03-25_session-321/IMG_1987.mov
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/D/D92E5697-E87B-492D-9145-C19833D98B47_3.mov' "$DEST"/2026/2026-03-25_session-321/IMG_1988.mov
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/4/46F7CF32-7D5D-48AE-B73A-87F9CAE50209.jpeg' "$DEST"/2026/2026-03-25_session-321/IMG_1987.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/D/D92E5697-E87B-492D-9145-C19833D98B47.jpeg' "$DEST"/2026/2026-03-25_session-321/IMG_1988.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/F/F31006D1-2AAB-4223-A39B-BE07B4FDF777.jpeg' "$DEST"/2026/2026-03-25_session-321/IMG_1989.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/B/B860544C-35BD-47B0-AD66-930A3996DBCC.jpeg' "$DEST"/2026/2026-03-25_session-321/IMG_1990.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/9/9545B3CB-57F8-42EF-B5FA-7B99D67D783A.jpeg' "$DEST"/2026/2026-03-25_session-321/IMG_1991.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/0/0C4175B7-7133-4162-A437-6C12D1ECA91E_3.mov' "$DEST"/2026/2026-03-25_session-321/IMG_1992.mov
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/F/FD91A40F-863F-4AC8-9FD6-6EEE7080F2DA_3.mov' "$DEST"/2026/2026-03-25_session-321/IMG_1993.mov
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/E/EE500098-D696-4272-909B-838A3D62E687_3.mov' "$DEST"/2026/2026-03-25_session-321/IMG_1994.mov
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/0/0C4175B7-7133-4162-A437-6C12D1ECA91E.jpeg' "$DEST"/2026/2026-03-25_session-321/IMG_1992.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/F/FD91A40F-863F-4AC8-9FD6-6EEE7080F2DA.jpeg' "$DEST"/2026/2026-03-25_session-321/IMG_1993.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/E/EE500098-D696-4272-909B-838A3D62E687.jpeg' "$DEST"/2026/2026-03-25_session-321/IMG_1994.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/2/24697807-99A1-4AEC-803C-C05945CF99B3.jpeg' "$DEST"/2026/2026-03-25_session-321/IMG_1995.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/4/4766CF31-22C3-431E-9985-D6571F04D7F5_3.mov' "$DEST"/2026/2026-03-25_session-321/IMG_1996.mov
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/C/C3F05E9D-B50D-4994-BE6E-40A9641AA018_3.mov' "$DEST"/2026/2026-03-25_session-321/IMG_1997.mov
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/4/4766CF31-22C3-431E-9985-D6571F04D7F5.jpeg' "$DEST"/2026/2026-03-25_session-321/IMG_1996.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/C/C3F05E9D-B50D-4994-BE6E-40A9641AA018.jpeg' "$DEST"/2026/2026-03-25_session-321/IMG_1997.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/D/D2344ECA-86CC-4DC8-B548-25B562CA1FB2.jpeg' "$DEST"/2026/2026-03-25_session-321/IMG_1998.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/3/30FD4FF3-EBAF-45CE-9BF3-73842820E2F2_3.mov' "$DEST"/2026/2026-03-25_session-321/IMG_1999.mov
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/9/998F6A03-52F0-4C6E-BDEC-B52AC272A1E7_3.mov' "$DEST"/2026/2026-03-25_session-321/IMG_2001.mov
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/3/30FD4FF3-EBAF-45CE-9BF3-73842820E2F2.jpeg' "$DEST"/2026/2026-03-25_session-321/IMG_1999.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/9/998F6A03-52F0-4C6E-BDEC-B52AC272A1E7.jpeg' "$DEST"/2026/2026-03-25_session-321/IMG_2001.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/9/942FE500-21FF-4874-9DB7-63C81FBD205F.jpeg' "$DEST"/2026/2026-03-25_session-321/IMG_2002.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/0/047444EE-6694-436F-8CE2-5E2ADE8C02F7_3.mov' "$DEST"/2026/2026-03-25_session-321/IMG_2003.mov
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/8/84C3F0D3-F1AD-4C01-9356-B45E6FE88703_3.mov' "$DEST"/2026/2026-03-25_session-321/IMG_2004.mov
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/0/047444EE-6694-436F-8CE2-5E2ADE8C02F7.jpeg' "$DEST"/2026/2026-03-25_session-321/IMG_2003.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/8/84C3F0D3-F1AD-4C01-9356-B45E6FE88703.jpeg' "$DEST"/2026/2026-03-25_session-321/IMG_2004.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/9/955A9B4A-D554-48CB-91C7-8534F2DBAFB8.jpeg' "$DEST"/2026/2026-03-25_session-321/IMG_2005.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/D/DC69BE66-F384-41D9-A110-62EE59536CDF_3.mov' "$DEST"/2026/2026-03-25_session-321/IMG_2006.mov
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/D/DC69BE66-F384-41D9-A110-62EE59536CDF.jpeg' "$DEST"/2026/2026-03-25_session-321/IMG_2006.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/9/9DDC7E3F-9307-4BE5-BD60-D0AFFD4279F5.jpeg' "$DEST"/2026/2026-03-25_session-321/IMG_2007.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/2/292CE734-37B0-4809-9217-8F4BB19ADDE5.jpeg' "$DEST"/2026/2026-03-25_session-321/IMG_2008.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/E/E379E32F-36B6-4E94-A255-B8DBB847A865_3.mov' "$DEST"/2026/2026-03-25_session-321/IMG_2009.mov
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/E/E379E32F-36B6-4E94-A255-B8DBB847A865.jpeg' "$DEST"/2026/2026-03-25_session-321/IMG_2009.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/6/60754E3B-2DDF-43E3-8A92-FE3161A470C6.jpeg' "$DEST"/2026/2026-03-25_session-321/IMG_2010.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/B/BB84111C-7A7B-4FB4-B50E-574CC8FEEE7E_3.mov' "$DEST"/2026/2026-03-25_session-321/IMG_2011.mov
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/B/BB84111C-7A7B-4FB4-B50E-574CC8FEEE7E.jpeg' "$DEST"/2026/2026-03-25_session-321/IMG_2011.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/0/0819444C-E1DD-4BE5-ACCB-55939F3513F4.jpeg' "$DEST"/2026/2026-03-25_session-321/IMG_2012.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/1/12A34B5F-7F38-4C4A-8141-40B3F19D8233.jpeg' "$DEST"/2026/2026-03-25_session-321/IMG_2013.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/A/A9F7B503-CC4B-4363-95A4-9B20A266DC7F_3.mov' "$DEST"/2026/2026-03-25_session-321/IMG_2014.mov
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/2/2D7B9131-3F9C-4775-ADEF-00C0FB75468C_3.mov' "$DEST"/2026/2026-03-25_session-321/IMG_2015.mov
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/A/A25F294B-38D5-4CB7-BC89-F40B46BDADA1_3.mov' "$DEST"/2026/2026-03-25_session-321/IMG_2016.mov
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/A/A9F7B503-CC4B-4363-95A4-9B20A266DC7F.jpeg' "$DEST"/2026/2026-03-25_session-321/IMG_2014.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/2/2D7B9131-3F9C-4775-ADEF-00C0FB75468C.jpeg' "$DEST"/2026/2026-03-25_session-321/IMG_2015.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/A/A25F294B-38D5-4CB7-BC89-F40B46BDADA1.jpeg' "$DEST"/2026/2026-03-25_session-321/IMG_2016.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/renders/B/BEA1163D-567C-41F0-B5B1-BE5B21D19E71_1_201_a.jpeg' "$DEST"/2026/2026-03-25_session-321/IMG_2017.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/renders/E/E1D9AE71-83A5-4798-875B-D9BE56044809_1_201_a.jpeg' "$DEST"/2026/2026-03-25_session-321/IMG_2018.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/renders/B/B9F81778-0608-4A44-8486-3436D971EEEF_1_201_a.jpeg' "$DEST"/2026/2026-03-25_session-321/IMG_2019.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/renders/D/D2C9A1A4-7A9F-4B35-9C76-A2E8ECF84513_1_201_a.jpeg' "$DEST"/2026/2026-03-25_session-321/IMG_2020.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/renders/3/3965FEA6-9189-4A8E-9D94-82047499AB41_2_100_a.mov' "$DEST"/2026/2026-03-25_session-321/IMG_2021.mov
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/renders/E/E9A864EA-DF7F-4FDA-B8F9-D656A562E312_2_100_a.mov' "$DEST"/2026/2026-03-25_session-321/IMG_2022.mov
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/renders/3/3251FABF-98C2-4CD5-B0C6-EEFBDE0CA093_2_100_a.mov' "$DEST"/2026/2026-03-25_session-321/IMG_2023.mov
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/renders/3/3965FEA6-9189-4A8E-9D94-82047499AB41_1_201_a.jpeg' "$DEST"/2026/2026-03-25_session-321/IMG_2021.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/renders/E/E9A864EA-DF7F-4FDA-B8F9-D656A562E312_1_201_a.jpeg' "$DEST"/2026/2026-03-25_session-321/IMG_2022.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/renders/3/3251FABF-98C2-4CD5-B0C6-EEFBDE0CA093_1_201_a.jpeg' "$DEST"/2026/2026-03-25_session-321/IMG_2023.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/renders/3/3D1057D7-11E1-457A-8CAA-3ACF73AFEDB0_1_201_a.jpeg' "$DEST"/2026/2026-03-25_session-321/IMG_2024.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/renders/9/9DAB9981-4E0E-4E40-92CD-B3DCAEB6EB99_1_201_a.jpeg' "$DEST"/2026/2026-03-25_session-321/IMG_2025.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/renders/2/2C1B67FE-29C9-4C3D-BDD8-0400E6482AAB_1_201_a.jpeg' "$DEST"/2026/2026-03-25_session-321/IMG_2026.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/renders/D/D639DE94-B606-4931-A143-C0AD3798DB5C_2_100_a.mov' "$DEST"/2026/2026-03-25_session-321/IMG_2027.mov
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/renders/D/D639DE94-B606-4931-A143-C0AD3798DB5C_1_201_a.jpeg' "$DEST"/2026/2026-03-25_session-321/IMG_2027.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/renders/1/1F556263-167D-4832-92FA-AFB2A49CB656_1_201_a.jpeg' "$DEST"/2026/2026-03-25_session-321/IMG_2028.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/renders/9/96EB01DC-6D04-471D-AE60-A55A79F3F5C3_2_100_a.mov' "$DEST"/2026/2026-03-25_session-321/IMG_2029.mov
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/renders/3/30E1C96C-76D8-496B-9D27-982E1667B8FB_2_100_a.mov' "$DEST"/2026/2026-03-25_session-321/IMG_2030.mov
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/renders/7/71579313-C6FA-4C92-92F9-1CF38A960E39_2_100_a.mov' "$DEST"/2026/2026-03-25_session-321/IMG_2031.mov
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/renders/E/EE687E3F-7CB0-421C-8D57-695D03AE4E71_2_100_a.mov' "$DEST"/2026/2026-03-25_session-321/IMG_2032.mov
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/renders/7/744797BA-59BD-4AD1-B0E6-D6E1E7990AF0_2_100_a.mov' "$DEST"/2026/2026-03-25_session-321/IMG_2033.mov
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/renders/9/96EB01DC-6D04-471D-AE60-A55A79F3F5C3_1_201_a.jpeg' "$DEST"/2026/2026-03-25_session-321/IMG_2029.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/renders/3/30E1C96C-76D8-496B-9D27-982E1667B8FB_1_201_a.jpeg' "$DEST"/2026/2026-03-25_session-321/IMG_2030.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/renders/7/71579313-C6FA-4C92-92F9-1CF38A960E39_1_201_a.jpeg' "$DEST"/2026/2026-03-25_session-321/IMG_2031.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/renders/E/EE687E3F-7CB0-421C-8D57-695D03AE4E71_1_201_a.jpeg' "$DEST"/2026/2026-03-25_session-321/IMG_2032.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/renders/7/744797BA-59BD-4AD1-B0E6-D6E1E7990AF0_1_201_a.jpeg' "$DEST"/2026/2026-03-25_session-321/IMG_2033.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/A/A79249F2-5517-4D25-9B49-B0F5C9FAC18F.jpeg' "$DEST"/2026/2026-03-25_session-321/IMG_2034.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/9/9E2FC8F0-D74A-4F70-BA13-E37A48428A70.jpeg' "$DEST"/2026/2026-03-25_session-321/IMG_2035.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/C/C828D2C8-573A-4688-A8CE-004F82A2D0F2.jpeg' "$DEST"/2026/2026-03-25_session-321/IMG_2036.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/5/5BD2A22A-74E9-49B7-8E37-73EF7003390A_3.mov' "$DEST"/2026/2026-03-25_session-321/IMG_2037.mov
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/0/08E4AE26-9448-4DDA-92F1-D015072F3149_3.mov' "$DEST"/2026/2026-03-25_session-321/IMG_2038.mov
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/5/5BD2A22A-74E9-49B7-8E37-73EF7003390A.jpeg' "$DEST"/2026/2026-03-25_session-321/IMG_2037.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/0/08E4AE26-9448-4DDA-92F1-D015072F3149.jpeg' "$DEST"/2026/2026-03-25_session-321/IMG_2038.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/4/422FF1A3-4F42-4EC9-9E57-D21E835DC95A.jpeg' "$DEST"/2026/2026-03-25_session-321/IMG_2039.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/E/E3D48C86-1E09-4B1A-A607-F4DB8F21EE72_3.mov' "$DEST"/2026/2026-03-25_session-321/IMG_2040.mov
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/E/E3D48C86-1E09-4B1A-A607-F4DB8F21EE72.jpeg' "$DEST"/2026/2026-03-25_session-321/IMG_2040.jpeg
 
 mkdir -p "$DEST"/2026/2026-03-26_session-322
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/9/9510A087-315D-49F8-A7DD-86D5B7CFAEF3_3.mov' "$DEST"/2026/2026-03-26_session-322/IMG_2043.mov
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/9/9510A087-315D-49F8-A7DD-86D5B7CFAEF3.jpeg' "$DEST"/2026/2026-03-26_session-322/IMG_2043.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/3/3135B341-9482-4EBF-B414-030210330579.jpeg' "$DEST"/2026/2026-03-26_session-322/IMG_2044.jpeg
 
 mkdir -p "$DEST"/2026/2026-03-26_session-323
@@ -2281,45 +2562,45 @@ cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/6/65F0516
 mkdir -p "$DEST"/2026/2026-03-28_session-324
 
 mkdir -p "$DEST"/2026/2026-03-29_session-325
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/6/6F460170-A068-4278-895A-E8F6D3088E13_3.mov' "$DEST"/2026/2026-03-29_session-325/IMG_2060.mov
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/1/102B6A51-A142-42DC-8F9E-33A6F8AC9685_3.mov' "$DEST"/2026/2026-03-29_session-325/IMG_2061.mov
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/6/6F460170-A068-4278-895A-E8F6D3088E13.jpeg' "$DEST"/2026/2026-03-29_session-325/IMG_2060.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/1/102B6A51-A142-42DC-8F9E-33A6F8AC9685.jpeg' "$DEST"/2026/2026-03-29_session-325/IMG_2061.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/4/4556369E-FD82-43EF-885E-47A3B39F3038.jpeg' "$DEST"/2026/2026-03-29_session-325/IMG_2062.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/A/A0DE867C-985A-4FF4-BE8E-5E70B505E5ED.jpeg' "$DEST"/2026/2026-03-29_session-325/IMG_2063.jpeg
 
 mkdir -p "$DEST"/2026/2026-03-29_session-326
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/B/BB8B211E-4D67-4686-A493-1BBD7184ABD5_3.mov' "$DEST"/2026/2026-03-29_session-326/IMG_2064.mov
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/6/699537E8-D8F3-4B68-8767-83E791814045_3.mov' "$DEST"/2026/2026-03-29_session-326/IMG_2065.mov
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/D/DE4FD8D0-3B59-4014-92F2-64155E7423E1_3.mov' "$DEST"/2026/2026-03-29_session-326/IMG_2066.mov
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/B/BB8B211E-4D67-4686-A493-1BBD7184ABD5.jpeg' "$DEST"/2026/2026-03-29_session-326/IMG_2064.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/6/699537E8-D8F3-4B68-8767-83E791814045.jpeg' "$DEST"/2026/2026-03-29_session-326/IMG_2065.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/D/DE4FD8D0-3B59-4014-92F2-64155E7423E1.jpeg' "$DEST"/2026/2026-03-29_session-326/IMG_2066.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/E/E2F31380-F12D-4538-8B51-A1D7A706090C.jpeg' "$DEST"/2026/2026-03-29_session-326/IMG_2067.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/7/74A47595-D281-4BD4-A4E4-4EAEF433070A_3.mov' "$DEST"/2026/2026-03-29_session-326/IMG_2068.mov
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/5/5AAE2969-8E22-460C-9527-AADA72CE68DB_3.mov' "$DEST"/2026/2026-03-29_session-326/IMG_2069.mov
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/4/40FEEB8D-BDB1-4E11-87EE-E9537BC85548_3.mov' "$DEST"/2026/2026-03-29_session-326/IMG_2070.mov
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/2/261F77B0-E4BE-49E9-AEA4-EFF5160AD1C2_3.mov' "$DEST"/2026/2026-03-29_session-326/IMG_2071.mov
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/1/1379FFE6-1405-457B-A178-18C13D1F5B1B_3.mov' "$DEST"/2026/2026-03-29_session-326/IMG_2072.mov
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/7/74A47595-D281-4BD4-A4E4-4EAEF433070A.jpeg' "$DEST"/2026/2026-03-29_session-326/IMG_2068.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/5/5AAE2969-8E22-460C-9527-AADA72CE68DB.jpeg' "$DEST"/2026/2026-03-29_session-326/IMG_2069.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/4/40FEEB8D-BDB1-4E11-87EE-E9537BC85548.jpeg' "$DEST"/2026/2026-03-29_session-326/IMG_2070.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/2/261F77B0-E4BE-49E9-AEA4-EFF5160AD1C2.jpeg' "$DEST"/2026/2026-03-29_session-326/IMG_2071.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/1/1379FFE6-1405-457B-A178-18C13D1F5B1B.jpeg' "$DEST"/2026/2026-03-29_session-326/IMG_2072.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/7/7D06B712-F48D-4F58-A7B6-DBC3BED00412.jpeg' "$DEST"/2026/2026-03-29_session-326/IMG_2073.jpeg
 
 mkdir -p "$DEST"/2026/2026-03-30_session-327
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/5/56393860-0389-4031-AF6E-0EC78B901726.png' "$DEST"/2026/2026-03-30_session-327/IMG_2074.png
 
 mkdir -p "$DEST"/2026/2026-03-31_session-328
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/C/C3F2AAFC-B76D-4517-BBFF-0CAEE5E131DD_3.mov' "$DEST"/2026/2026-03-31_session-328/IMG_2077.mov
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/2/2E2DBB5B-97F4-4824-B18C-6DBBDE0F56DE_3.mov' "$DEST"/2026/2026-03-31_session-328/IMG_2078.mov
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/6/66B0E1BB-EE43-483F-9CC0-8C87BD91812B_3.mov' "$DEST"/2026/2026-03-31_session-328/IMG_2079.mov
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/C/C3F2AAFC-B76D-4517-BBFF-0CAEE5E131DD.jpeg' "$DEST"/2026/2026-03-31_session-328/IMG_2077.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/2/2E2DBB5B-97F4-4824-B18C-6DBBDE0F56DE.jpeg' "$DEST"/2026/2026-03-31_session-328/IMG_2078.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/6/66B0E1BB-EE43-483F-9CC0-8C87BD91812B.jpeg' "$DEST"/2026/2026-03-31_session-328/IMG_2079.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/D/D2982E1A-697B-4075-9F8D-774A8370AA94.jpeg' "$DEST"/2026/2026-03-31_session-328/IMG_2080.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/7/777325FF-0C7A-48FB-A0C2-AB836B0F6529.jpeg' "$DEST"/2026/2026-03-31_session-328/IMG_2081.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/8/8346DE7A-33F2-41EF-9EF4-640E42DBFB62.jpeg' "$DEST"/2026/2026-03-31_session-328/IMG_2082.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/2/2F25D51F-1FE1-48DB-ABB2-1DC0C4B8AD46_3.mov' "$DEST"/2026/2026-03-31_session-328/IMG_2083.mov
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/A/A93C62E5-E3FA-4972-A237-4B3CAA16E4C3_3.mov' "$DEST"/2026/2026-03-31_session-328/IMG_2084.mov
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/2/2F25D51F-1FE1-48DB-ABB2-1DC0C4B8AD46.jpeg' "$DEST"/2026/2026-03-31_session-328/IMG_2083.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/A/A93C62E5-E3FA-4972-A237-4B3CAA16E4C3.jpeg' "$DEST"/2026/2026-03-31_session-328/IMG_2084.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/3/3CE4EB10-A01C-452A-8E9E-CB85E79D4F29.jpeg' "$DEST"/2026/2026-03-31_session-328/IMG_2085.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/5/58303290-23AE-44B2-BB3A-492AD0CF24D1_3.mov' "$DEST"/2026/2026-03-31_session-328/IMG_2086.mov
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/5/58303290-23AE-44B2-BB3A-492AD0CF24D1.jpeg' "$DEST"/2026/2026-03-31_session-328/IMG_2086.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/C/C1E9C7CF-D491-457B-8002-16D32D70DA35.jpeg' "$DEST"/2026/2026-03-31_session-328/IMG_2088.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/1/17ACF5A6-2E0D-40A6-8B82-94E5540C67FE_3.mov' "$DEST"/2026/2026-03-31_session-328/IMG_2089.mov
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/1/17ACF5A6-2E0D-40A6-8B82-94E5540C67FE.jpeg' "$DEST"/2026/2026-03-31_session-328/IMG_2089.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/B/BD508ADF-5CD4-42A6-8369-B12FB0CBBA95.jpeg' "$DEST"/2026/2026-03-31_session-328/IMG_2090.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/F/FE822F9A-EE2D-4E90-B3D1-10186B3C2AF7_5.aae' "$DEST"/2026/2026-03-31_session-328/IMG_2091.aae
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/F/FE822F9A-EE2D-4E90-B3D1-10186B3C2AF7.jpeg' "$DEST"/2026/2026-03-31_session-328/IMG_2091.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/6/6618E22A-0AEA-4130-8D68-B2448FEF5CD3.jpeg' "$DEST"/2026/2026-03-31_session-328/IMG_2092.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/2/2A18F04B-6AE7-4E13-BCA8-38059337694A_5.aae' "$DEST"/2026/2026-03-31_session-328/IMG_2093.aae
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/C/C7CD55C7-7B22-4A59-801F-99657DB6083D_3.mov' "$DEST"/2026/2026-03-31_session-328/IMG_2094.mov
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/D/DE41F013-609A-4079-8844-3BBF4B5BE900_3.mov' "$DEST"/2026/2026-03-31_session-328/IMG_2095.mov
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/2/2A18F04B-6AE7-4E13-BCA8-38059337694A.jpeg' "$DEST"/2026/2026-03-31_session-328/IMG_2093.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/C/C7CD55C7-7B22-4A59-801F-99657DB6083D.jpeg' "$DEST"/2026/2026-03-31_session-328/IMG_2094.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/D/DE41F013-609A-4079-8844-3BBF4B5BE900.jpeg' "$DEST"/2026/2026-03-31_session-328/IMG_2095.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/F/FDDB9385-6734-44AC-AD60-FEE61DED28F1.jpeg' "$DEST"/2026/2026-03-31_session-328/IMG_2096.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/3/30082B0C-B21E-43F4-AD8A-73DDB19FBA25.jpeg' "$DEST"/2026/2026-03-31_session-328/IMG_2098.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/9/91D57FC0-8AC8-4576-AA51-B7F37CAB197F.jpeg' "$DEST"/2026/2026-03-31_session-328/IMG_2099.jpeg
@@ -2329,27 +2610,27 @@ cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/7/784F99D
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/1/162503F9-B978-489A-8744-B90166207FA8.jpeg' "$DEST"/2026/2026-03-31_session-328/IMG_F7C78049-2F61-4625-85EF-1E279D1523A7.jpeg
 
 mkdir -p "$DEST"/2026/2026-04-01_session-329
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/1/18D0D96B-B373-4FD5-BAA8-F7A049785E53_3.mov' "$DEST"/2026/2026-04-01_session-329/IMG_2107.mov
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/1/18D0D96B-B373-4FD5-BAA8-F7A049785E53.jpeg' "$DEST"/2026/2026-04-01_session-329/IMG_2107.jpeg
 
 mkdir -p "$DEST"/2026/2026-04-03_session-330
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/C/C5FBA2DD-41E4-4EA4-9FA4-0E4A6832A2CB_3.mov' "$DEST"/2026/2026-04-03_session-330/IMG_2109.mov
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/C/C5FBA2DD-41E4-4EA4-9FA4-0E4A6832A2CB.jpeg' "$DEST"/2026/2026-04-03_session-330/IMG_2109.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/B/BFC92424-A938-4EC6-91E4-F2D7D0959845.jpeg' "$DEST"/2026/2026-04-03_session-330/IMG_2110.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/B/B137F487-0C0B-4831-8ABB-48A7EFCEA59D.jpeg' "$DEST"/2026/2026-04-03_session-330/IMG_2112.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/8/8CA970FA-EFD5-4599-BCF7-B683D3AD6492_3.mov' "$DEST"/2026/2026-04-03_session-330/IMG_2113.mov
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/2/2397E825-93AF-4266-93AB-9505A0F4A988_3.mov' "$DEST"/2026/2026-04-03_session-330/IMG_2114.mov
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/2/22C0D905-BD44-4D14-8E2D-994D651364A4_3.mov' "$DEST"/2026/2026-04-03_session-330/IMG_2115.mov
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/8/8CA970FA-EFD5-4599-BCF7-B683D3AD6492.jpeg' "$DEST"/2026/2026-04-03_session-330/IMG_2113.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/2/2397E825-93AF-4266-93AB-9505A0F4A988.jpeg' "$DEST"/2026/2026-04-03_session-330/IMG_2114.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/2/22C0D905-BD44-4D14-8E2D-994D651364A4.jpeg' "$DEST"/2026/2026-04-03_session-330/IMG_2115.jpeg
 
 mkdir -p "$DEST"/2026/2026-04-03_session-331
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/A/A2D194FB-C5A8-4002-B908-D9D7D96FAE62_3.mov' "$DEST"/2026/2026-04-03_session-331/IMG_2116.mov
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/F/F372CF8C-D856-45CA-A544-8597334281F9_3.mov' "$DEST"/2026/2026-04-03_session-331/IMG_2117.mov
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/E/EE06A8C2-CCC8-46B2-9ADB-B736F5E4B254_3.mov' "$DEST"/2026/2026-04-03_session-331/IMG_2118.mov
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/A/A2D194FB-C5A8-4002-B908-D9D7D96FAE62.jpeg' "$DEST"/2026/2026-04-03_session-331/IMG_2116.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/F/F372CF8C-D856-45CA-A544-8597334281F9.jpeg' "$DEST"/2026/2026-04-03_session-331/IMG_2117.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/E/EE06A8C2-CCC8-46B2-9ADB-B736F5E4B254.jpeg' "$DEST"/2026/2026-04-03_session-331/IMG_2118.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/B/B79406C3-D1E0-4A7D-A519-296F494FB38A.jpeg' "$DEST"/2026/2026-04-03_session-331/IMG_2119.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/0/02A817D5-F392-4A16-ACD2-413A1CA69AFA_3.mov' "$DEST"/2026/2026-04-03_session-331/IMG_2120.mov
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/E/E7D12915-DE81-471F-BDD2-BE3FF518C597_3.mov' "$DEST"/2026/2026-04-03_session-331/IMG_2121.mov
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/C/C2B91CA7-BFB3-4CAE-9083-5E672C229984_3.mov' "$DEST"/2026/2026-04-03_session-331/IMG_2122.mov
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/0/02A817D5-F392-4A16-ACD2-413A1CA69AFA.jpeg' "$DEST"/2026/2026-04-03_session-331/IMG_2120.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/E/E7D12915-DE81-471F-BDD2-BE3FF518C597.jpeg' "$DEST"/2026/2026-04-03_session-331/IMG_2121.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/C/C2B91CA7-BFB3-4CAE-9083-5E672C229984.jpeg' "$DEST"/2026/2026-04-03_session-331/IMG_2122.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/7/707BBB83-BC0F-4A55-951C-F382ACFB9D4F.jpeg' "$DEST"/2026/2026-04-03_session-331/IMG_2123.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/C/C1437DC5-A61A-4207-84C0-5B6931154766.jpeg' "$DEST"/2026/2026-04-03_session-331/IMG_2124.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/7/78D3394F-8F77-447A-B5F3-70A12C24ABFC_3.mov' "$DEST"/2026/2026-04-03_session-331/IMG_2125.mov
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/7/78D3394F-8F77-447A-B5F3-70A12C24ABFC.jpeg' "$DEST"/2026/2026-04-03_session-331/IMG_2125.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/A/A76DB8AC-E8E1-4DE7-B1EA-135BECAD7066.jpeg' "$DEST"/2026/2026-04-03_session-331/IMG_2126.jpeg
 
 mkdir -p "$DEST"/2026/2026-04-05_session-332
@@ -2368,7 +2649,7 @@ mkdir -p "$DEST"/2026/2026-04-07_session-334
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/0/0D8A3183-908D-4994-8577-06ECA7A0FAF8.jpeg' "$DEST"/2026/2026-04-07_session-334/IMG_2137.jpeg
 
 mkdir -p "$DEST"/2026/2026-04-09_session-335
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/3/3E5E22BD-E0C6-4D6C-B12B-6CA06D86FA03_3.mov' "$DEST"/2026/2026-04-09_session-335/IMG_2139.mov
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/3/3E5E22BD-E0C6-4D6C-B12B-6CA06D86FA03.jpeg' "$DEST"/2026/2026-04-09_session-335/IMG_2139.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/renders/6/6F2563F8-5AB9-4B97-A9A1-F7CA6DC06470_1_201_a.jpeg' "$DEST"/2026/2026-04-09_session-335/IMG_2140.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/4/45A4A11B-4702-43BA-9DCA-C03750651295.jpeg' "$DEST"/2026/2026-04-09_session-335/IMG_2142.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/9/9B20E68D-4173-46C2-BB2B-7432773E68D7.jpeg' "$DEST"/2026/2026-04-09_session-335/IMG_2143.jpeg
@@ -2378,70 +2659,69 @@ cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/9/9500951
 
 mkdir -p "$DEST"/2026/2026-04-10_session-337
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/B/B1CB8826-D16F-4381-9763-F85BFB583DCA.jpeg' "$DEST"/2026/2026-04-10_session-337/IMG_2146.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/5/59B80A73-ABCE-4598-967E-A3D91A2E0FAF_3.mov' "$DEST"/2026/2026-04-10_session-337/IMG_2147.mov
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/5/52CC02D0-5224-4B94-916C-6D3917BE91A4_3.mov' "$DEST"/2026/2026-04-10_session-337/IMG_2148.mov
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/5/59B80A73-ABCE-4598-967E-A3D91A2E0FAF.jpeg' "$DEST"/2026/2026-04-10_session-337/IMG_2147.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/5/52CC02D0-5224-4B94-916C-6D3917BE91A4.jpeg' "$DEST"/2026/2026-04-10_session-337/IMG_2148.jpeg
 
 mkdir -p "$DEST"/2026/2026-04-10_session-338
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/4/451E9B51-4E47-408F-82E4-EF57D559D749.jpeg' "$DEST"/2026/2026-04-10_session-338/IMG_2149.jpeg
 
 mkdir -p "$DEST"/2026/2026-04-14_session-339
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/B/B7734DFD-BE68-4AFE-A533-660CE2F7F554_3.mov' "$DEST"/2026/2026-04-14_session-339/IMG_2164.mov
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/B/B7734DFD-BE68-4AFE-A533-660CE2F7F554.jpeg' "$DEST"/2026/2026-04-14_session-339/IMG_2164.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/C/CFE0F251-FCAF-48D3-8BA0-CD46BDAF115F.jpeg' "$DEST"/2026/2026-04-14_session-339/IMG_2165.jpeg
 
 mkdir -p "$DEST"/2026/2026-04-15_session-340
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/8/81A41A3C-54BD-494E-9880-F19E137E3CF8_3.mov' "$DEST"/2026/2026-04-15_session-340/IMG_2166.mov
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/8/81A41A3C-54BD-494E-9880-F19E137E3CF8.jpeg' "$DEST"/2026/2026-04-15_session-340/IMG_2166.jpeg
 
 mkdir -p "$DEST"/2026/2026-04-15_session-341
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/7/732F1014-0BAD-4437-AF57-69C3901C1E3B.jpeg' "$DEST"/2026/2026-04-15_session-341/IMG_2167.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/5/581E2E48-CAB1-414A-BBA9-678A1A724690.jpeg' "$DEST"/2026/2026-04-15_session-341/IMG_2168.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/F/F15CD5D5-84C5-4F13-BC27-EDF70CCDAC16.jpeg' "$DEST"/2026/2026-04-15_session-341/IMG_2169.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/A/A3160100-6A64-4060-8205-FFE2676AAD29_3.mov' "$DEST"/2026/2026-04-15_session-341/IMG_2170.mov
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/9/9346681E-8CA2-4C70-AFFB-145900383E55.jpeg' "$DEST"/2026/2026-04-15_session-341/IMG_2171.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/F/F477DA8F-A013-42F8-B6C1-43D9C3CB64C5_3.mov' "$DEST"/2026/2026-04-15_session-341/IMG_2172.mov
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/F/F477DA8F-A013-42F8-B6C1-43D9C3CB64C5.jpeg' "$DEST"/2026/2026-04-15_session-341/IMG_2172.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/4/461757B0-0539-472E-84C8-BC40BBDAA387.jpeg' "$DEST"/2026/2026-04-15_session-341/IMG_2173.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/2/292D49E8-5B96-4D0C-ACAA-F6AADE365BA6.jpeg' "$DEST"/2026/2026-04-15_session-341/IMG_2174.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/7/70E1D235-D0F7-4F04-A38F-B4FA73CD4BD7.jpeg' "$DEST"/2026/2026-04-15_session-341/IMG_2175.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/6/65A45A0D-62AA-40F6-B59D-BB1B66860671_3.mov' "$DEST"/2026/2026-04-15_session-341/IMG_2176.mov
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/6/65A45A0D-62AA-40F6-B59D-BB1B66860671.jpeg' "$DEST"/2026/2026-04-15_session-341/IMG_2176.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/D/D02C87AD-700C-4323-BADC-CFDAE72893BB.jpeg' "$DEST"/2026/2026-04-15_session-341/IMG_2177.jpeg
 
 mkdir -p "$DEST"/2026/2026-04-17_session-342
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/renders/8/8FA4B108-A98D-4BB3-90F7-5F3367115D6A_2_100_a.mov' "$DEST"/2026/2026-04-17_session-342/IMG_2178.mov
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/2/2B219FD3-7260-41B5-B01F-018EBACEB1CD_3.mov' "$DEST"/2026/2026-04-17_session-342/IMG_2179.mov
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/renders/8/8FA4B108-A98D-4BB3-90F7-5F3367115D6A_1_201_a.jpeg' "$DEST"/2026/2026-04-17_session-342/IMG_2178.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/2/2B219FD3-7260-41B5-B01F-018EBACEB1CD.jpeg' "$DEST"/2026/2026-04-17_session-342/IMG_2179.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/0/012A193B-EAC8-4202-9F18-4B8455651959.jpeg' "$DEST"/2026/2026-04-17_session-342/IMG_2180.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/1/15BBEB7D-236A-4468-8289-F9550FFF02E5_3.mov' "$DEST"/2026/2026-04-17_session-342/IMG_2181.mov
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/1/15BBEB7D-236A-4468-8289-F9550FFF02E5.jpeg' "$DEST"/2026/2026-04-17_session-342/IMG_2181.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/renders/2/232C1C5D-EAA6-4745-BB82-9466903E8FE6_1_201_a.jpeg' "$DEST"/2026/2026-04-17_session-342/IMG_2182.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/F/F73F288D-7E2F-48C5-92C5-B431DDFE8B49.jpeg' "$DEST"/2026/2026-04-17_session-342/IMG_2183.jpeg
 
 mkdir -p "$DEST"/2026/2026-04-20_session-343
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/5/50028FBE-A003-4BD8-87A4-0580CB80D0D6.jpeg' "$DEST"/2026/2026-04-20_session-343/IMG_2189.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/3/3489E727-EFB3-4FC7-9032-9FE5A48A0EF0_3.mov' "$DEST"/2026/2026-04-20_session-343/IMG_2190.mov
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/4/45D3F7B3-E4E4-485B-A67D-30D17CA51BF7_3.mov' "$DEST"/2026/2026-04-20_session-343/IMG_2191.mov
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/2/2B191F48-8796-48BE-97DB-F3306A5B2386_3.mov' "$DEST"/2026/2026-04-20_session-343/IMG_2192.mov
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/3/3489E727-EFB3-4FC7-9032-9FE5A48A0EF0.jpeg' "$DEST"/2026/2026-04-20_session-343/IMG_2190.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/4/45D3F7B3-E4E4-485B-A67D-30D17CA51BF7.jpeg' "$DEST"/2026/2026-04-20_session-343/IMG_2191.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/2/2B191F48-8796-48BE-97DB-F3306A5B2386.jpeg' "$DEST"/2026/2026-04-20_session-343/IMG_2192.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/6/6D5680ED-585C-40CA-BA11-2F6B8AB21BD5.jpeg' "$DEST"/2026/2026-04-20_session-343/IMG_4BE91CE9-EC46-4E92-8552-F493C9B4AF94.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/B/B9DEAB5C-C8BC-4C6A-A50D-25A9C56ECDA1.jpeg' "$DEST"/2026/2026-04-20_session-343/IMG_93D58D74-2D7B-49AD-94E8-FFDCDF67E93E.jpeg
 
 mkdir -p "$DEST"/2026/2026-04-20_session-344
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/D/D32760DC-573C-4654-A427-C0E51D0567A0_3.mov' "$DEST"/2026/2026-04-20_session-344/IMG_2196.mov
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/D/D32760DC-573C-4654-A427-C0E51D0567A0.jpeg' "$DEST"/2026/2026-04-20_session-344/IMG_2196.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/2/204AEEC2-0FC7-4416-87F9-3B21586B2011.jpeg' "$DEST"/2026/2026-04-20_session-344/IMG_2197.jpeg
 
 mkdir -p "$DEST"/2026/2026-04-21_session-345
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/renders/A/ABD88D27-54DA-49F6-9DA9-FB49DEFB80DF_1_201_a.jpeg' "$DEST"/2026/2026-04-21_session-345/IMG_2238.jpeg
 
 mkdir -p "$DEST"/2026/2026-04-23_session-346
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/A/ADE2A5AF-6991-4DC5-AB73-BFE7B05107D7_3.mov' "$DEST"/2026/2026-04-23_session-346/IMG_2239.mov
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/A/ADE2A5AF-6991-4DC5-AB73-BFE7B05107D7.jpeg' "$DEST"/2026/2026-04-23_session-346/IMG_2239.jpeg
 
 mkdir -p "$DEST"/2026/2026-04-24_session-347
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/B/B3EB9B41-08AB-4EEF-BEB6-4011F7954406.jpeg' "$DEST"/2026/2026-04-24_session-347/IMG_2240.jpeg
 
 mkdir -p "$DEST"/2026/2026-04-25_session-348
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/C/C7EF99A0-4809-4917-9BEC-237F1077DB44_3.mov' "$DEST"/2026/2026-04-25_session-348/IMG_2241.mov
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/8/8B0588A9-0404-4718-A329-E4E38C424471_3.mov' "$DEST"/2026/2026-04-25_session-348/IMG_2242.mov
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/E/E361DC94-3C9A-4C5A-B090-F7E41C36367B_3.mov' "$DEST"/2026/2026-04-25_session-348/IMG_2243.mov
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/2/24996ADF-D76D-4130-AD73-F45E364960B0_3.mov' "$DEST"/2026/2026-04-25_session-348/IMG_2244.mov
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/C/C7EF99A0-4809-4917-9BEC-237F1077DB44.jpeg' "$DEST"/2026/2026-04-25_session-348/IMG_2241.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/8/8B0588A9-0404-4718-A329-E4E38C424471.jpeg' "$DEST"/2026/2026-04-25_session-348/IMG_2242.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/E/E361DC94-3C9A-4C5A-B090-F7E41C36367B.jpeg' "$DEST"/2026/2026-04-25_session-348/IMG_2243.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/2/24996ADF-D76D-4130-AD73-F45E364960B0.jpeg' "$DEST"/2026/2026-04-25_session-348/IMG_2244.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/F/F8330C5F-5C6C-4B74-9D07-FC09AB30BBF2.jpeg' "$DEST"/2026/2026-04-25_session-348/IMG_2245.jpeg
 
 mkdir -p "$DEST"/2026/2026-04-26_session-349
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/8/8877B89E-2BD5-4F76-A981-6713A26FA025.jpeg' "$DEST"/2026/2026-04-26_session-349/IMG_2246.jpeg
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_2246.JPG "$DEST"/2026/2026-04-26_session-349/IMG_2246.JPG
 
 mkdir -p "$DEST"/2026/2026-04-27_session-350
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/6/63F48E92-E964-441E-96FA-B7376A1925B1.jpeg' "$DEST"/2026/2026-04-27_session-350/IMG_2247.jpeg
@@ -2451,54 +2731,70 @@ cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/1/12EA622
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/1/12CD63C0-758B-4F07-8AE9-BF5185AA5F6E.jpeg' "$DEST"/2026/2026-04-27_session-351/IMG_2249.jpeg
 
 mkdir -p "$DEST"/2026/2026-04-28_session-352
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/4/49477C29-C4AC-4CAD-999D-614BA8AD95D0_3.mov' "$DEST"/2026/2026-04-28_session-352/IMG_2250.mov
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/4/49477C29-C4AC-4CAD-999D-614BA8AD95D0.jpeg' "$DEST"/2026/2026-04-28_session-352/IMG_2250.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/6/691109E8-3BF7-4FE4-BEB6-C1C08EE94B4F.jpeg' "$DEST"/2026/2026-04-28_session-352/IMG_2251.jpeg
 
 mkdir -p "$DEST"/2026/2026-04-29_session-353
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/6/65438A3C-4287-4A99-80FC-BF4215953A64_3.mov' "$DEST"/2026/2026-04-29_session-353/IMG_2252.mov
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/B/B962204B-C651-4E28-8B46-0AB2A7B70258.jpeg' "$DEST"/2026/2026-04-29_session-353/IMG_CFDC9561-D009-4C30-A607-194E6D5F7E33.jpeg
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_2252.JPG "$DEST"/2026/2026-04-29_session-353/IMG_2252.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_2252.MOV "$DEST"/2026/2026-04-29_session-353/IMG_2252.MOV
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/TJBP6607.JPG "$DEST"/2026/2026-04-29_session-353/TJBP6607.JPG
 
 mkdir -p "$DEST"/2026/2026-04-30_session-354
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/3/3E0A517B-4992-494C-9DAD-AC8CD22BB8EC.jpeg' "$DEST"/2026/2026-04-30_session-354/IMG_2254.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/3/3D301424-6A9D-49DE-8A3E-F98F40287BD7_3.mov' "$DEST"/2026/2026-04-30_session-354/IMG_2255.mov
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/4/48D0534D-50DF-4280-A411-61D093047AB2.jpeg' "$DEST"/2026/2026-04-30_session-354/IMG_2256.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/6/605BB042-DA17-41AF-A86D-CD58B8C1EE86_3.mov' "$DEST"/2026/2026-04-30_session-354/IMG_2257.mov
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/7/7126E251-03B6-48BD-9EE0-71F6B4E93ED5_3.mov' "$DEST"/2026/2026-04-30_session-354/IMG_2258.mov
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/renders/A/A7D09450-56A4-4F69-9FB6-0B11495C51EE_2_100_a.mov' "$DEST"/2026/2026-04-30_session-354/IMG_2259.mov
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_2254.JPG "$DEST"/2026/2026-04-30_session-354/IMG_2254.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_2254.MOV "$DEST"/2026/2026-04-30_session-354/IMG_2254.MOV
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_2255.JPG "$DEST"/2026/2026-04-30_session-354/IMG_2255.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_2255.MOV "$DEST"/2026/2026-04-30_session-354/IMG_2255.MOV
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_2256.JPG "$DEST"/2026/2026-04-30_session-354/IMG_2256.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_2256.MOV "$DEST"/2026/2026-04-30_session-354/IMG_2256.MOV
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_2257.JPG "$DEST"/2026/2026-04-30_session-354/IMG_2257.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_2257.MOV "$DEST"/2026/2026-04-30_session-354/IMG_2257.MOV
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_2258.JPG "$DEST"/2026/2026-04-30_session-354/IMG_2258.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_2258.MOV "$DEST"/2026/2026-04-30_session-354/IMG_2258.MOV
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/renders/A/A7D09450-56A4-4F69-9FB6-0B11495C51EE_1_201_a.jpeg' "$DEST"/2026/2026-04-30_session-354/IMG_2259.jpeg
 
 mkdir -p "$DEST"/2026/2026-05-01_session-355
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/5/57D530B1-66BB-461E-89FC-0CFF2CF1F320.jpeg' "$DEST"/2026/2026-05-01_session-355/IMG_2260.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/2/229AA256-2EC6-4D68-9977-6FE99780EAFE_3.mov' "$DEST"/2026/2026-05-01_session-355/IMG_2261.mov
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_2260.JPG "$DEST"/2026/2026-05-01_session-355/IMG_2260.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_2260.MOV "$DEST"/2026/2026-05-01_session-355/IMG_2260.MOV
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_2261.JPG "$DEST"/2026/2026-05-01_session-355/IMG_2261.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_2261.MOV "$DEST"/2026/2026-05-01_session-355/IMG_2261.MOV
 
 mkdir -p "$DEST"/2026/2026-05-02_session-356
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/7/78953EDF-B13B-4D03-A401-78CAA34CCEAB_3.mov' "$DEST"/2026/2026-05-02_session-356/IMG_2262.mov
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/F/F2276386-B1B7-4854-B593-1728A57B45F3.jpeg' "$DEST"/2026/2026-05-02_session-356/IMG_2263.jpeg
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_2262.JPG "$DEST"/2026/2026-05-02_session-356/IMG_2262.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_2262.MOV "$DEST"/2026/2026-05-02_session-356/IMG_2262.MOV
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_2263.JPG "$DEST"/2026/2026-05-02_session-356/IMG_2263.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_2263.MOV "$DEST"/2026/2026-05-02_session-356/IMG_2263.MOV
 
 mkdir -p "$DEST"/2026/2026-05-04_session-357
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/D/D84C54B8-8E2F-4E6C-B2C2-79ADA0D35D1A.jpeg' "$DEST"/2026/2026-05-04_session-357/IMG_2266.jpeg
 
 mkdir -p "$DEST"/2026/2026-05-05_session-358
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/1/19542345-5D1E-45BF-B51E-444BDB320099.jpeg' "$DEST"/2026/2026-05-05_session-358/IMG_0B1B4385-42DE-44BD-9D85-2B900DFF507B.jpeg
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/VBWR1104.JPG "$DEST"/2026/2026-05-05_session-358/VBWR1104.JPG
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/4/4DCDA573-6BD5-420F-8EA2-183E2D51D34D.jpeg' "$DEST"/2026/2026-05-05_session-358/IMG_7C3F5EF0-4D72-4842-86BD-A8C7863F83C8.jpeg
 
 mkdir -p "$DEST"/2026/2026-05-05_session-359
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/4/481826A8-5417-490F-8F98-1EF77D360DF3.jpeg' "$DEST"/2026/2026-05-05_session-359/IMG_2270.jpeg
 
 mkdir -p "$DEST"/2026/2026-05-08_session-360
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/2/2FD8EDBD-3B4B-4321-9CC7-DFAEBDD596B6_3.mov' "$DEST"/2026/2026-05-08_session-360/IMG_2273.mov
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/C/CA219CA8-41B3-47EF-8872-664E5F6B7516_3.mov' "$DEST"/2026/2026-05-08_session-360/IMG_2274.mov
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/2/2FD8EDBD-3B4B-4321-9CC7-DFAEBDD596B6.jpeg' "$DEST"/2026/2026-05-08_session-360/IMG_2273.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/C/CA219CA8-41B3-47EF-8872-664E5F6B7516.jpeg' "$DEST"/2026/2026-05-08_session-360/IMG_2274.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/9/917A5F39-58D9-49D5-A2C8-954EEA124968.jpeg' "$DEST"/2026/2026-05-08_session-360/IMG_2275.jpeg
 
 mkdir -p "$DEST"/2026/2026-05-09_session-361
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/D/D9B39147-A935-4442-B84B-9522293D7FAE.jpeg' "$DEST"/2026/2026-05-09_session-361/IMG_2277.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/renders/B/B229186D-F4E6-455D-9185-E180FD38B6CB_1_201_a.jpeg' "$DEST"/2026/2026-05-09_session-361/IMG_2278.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/F/FBF60E2E-50E7-4C44-8EF5-F68A048B6C95_3.mov' "$DEST"/2026/2026-05-09_session-361/IMG_2280.mov
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/F/FBF60E2E-50E7-4C44-8EF5-F68A048B6C95.jpeg' "$DEST"/2026/2026-05-09_session-361/IMG_2280.jpeg
 
 mkdir -p "$DEST"/2026/2026-05-10_session-362
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_2291.JPG "$DEST"/2026/2026-05-10_session-362/IMG_2291.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_2291.MOV "$DEST"/2026/2026-05-10_session-362/IMG_2291.MOV
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/masters/1/1F0D7691-E627-4A90-BFBC-020FF67EAB09_4_5005_c.jpeg' "$DEST"/2026/2026-05-10_session-362/IMG_2291.jpeg
 
 mkdir -p "$DEST"/2026/2026-05-12_session-363
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_2308.JPG "$DEST"/2026/2026-05-12_session-363/IMG_2308.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_2308.MOV "$DEST"/2026/2026-05-12_session-363/IMG_2308.MOV
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/masters/A/AB4F341D-CC1F-4DD3-8143-099590A858CE_4_5005_c.jpeg' "$DEST"/2026/2026-05-12_session-363/IMG_2308.jpeg
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_2309.JPG "$DEST"/2026/2026-05-12_session-363/IMG_2309.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_2309.MOV "$DEST"/2026/2026-05-12_session-363/IMG_2309.MOV
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/masters/3/349C17E9-16E9-4BDE-9C0D-654B86D14E0D_4_5005_c.jpeg' "$DEST"/2026/2026-05-12_session-363/IMG_2309.jpeg
 
 mkdir -p "$DEST"/2026/2026-05-13_session-364
@@ -2513,55 +2809,72 @@ mkdir -p "$DEST"/2026/2026-05-14_session-366
 mkdir -p "$DEST"/2026/2026-05-14_session-367
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/renders/A/A856B20C-472B-4DD0-AF4B-438CDCD999C2_1_201_a.jpeg' "$DEST"/2026/2026-05-14_session-367/IMG_2320.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/renders/0/0401F02E-08FA-4DB3-8C8C-3554D7BED3DE_1_201_a.jpeg' "$DEST"/2026/2026-05-14_session-367/IMG_2321.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/E/E3455A73-6671-49FF-9141-4DAE2A930F06_3.mov' "$DEST"/2026/2026-05-14_session-367/IMG_2322.mov
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/D/D225733E-4C4B-4849-9CF4-51E466697F9A.jpeg' "$DEST"/2026/2026-05-14_session-367/IMG_2323.jpeg
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_2322.JPG "$DEST"/2026/2026-05-14_session-367/IMG_2322.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_2322.MOV "$DEST"/2026/2026-05-14_session-367/IMG_2322.MOV
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_2323.JPG "$DEST"/2026/2026-05-14_session-367/IMG_2323.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_2323.MOV "$DEST"/2026/2026-05-14_session-367/IMG_2323.MOV
 
 mkdir -p "$DEST"/2026/2026-05-15_session-368
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/E/EBB5D877-6A1B-4442-BD35-FDA17A2F9AA2.jpeg' "$DEST"/2026/2026-05-15_session-368/IMG_2324.jpeg
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_2324.JPG "$DEST"/2026/2026-05-15_session-368/IMG_2324.JPG
 
 mkdir -p "$DEST"/2026/2026-05-16_session-369
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/renders/B/B678C63B-FF8C-4CEF-A514-E51AF92ADFB6_1_201_a.jpeg' "$DEST"/2026/2026-05-16_session-369/IMG_2326.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/renders/6/6E0E1E6C-DAC6-41E2-AC33-4CD4B2C283A3_1_201_a.jpeg' "$DEST"/2026/2026-05-16_session-369/IMG_2327.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/B/B6C814F9-0AE3-4179-BD62-6B4B1E385616_3.mov' "$DEST"/2026/2026-05-16_session-369/IMG_2328.mov
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_2326.JPG "$DEST"/2026/2026-05-16_session-369/IMG_2326.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_2326.MOV "$DEST"/2026/2026-05-16_session-369/IMG_2326.MOV
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_2327.JPG "$DEST"/2026/2026-05-16_session-369/IMG_2327.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_2327.MOV "$DEST"/2026/2026-05-16_session-369/IMG_2327.MOV
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/B/B6C814F9-0AE3-4179-BD62-6B4B1E385616.jpeg' "$DEST"/2026/2026-05-16_session-369/IMG_2328.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/4/4A835509-7595-426E-BB72-BBC101F287C7.jpeg' "$DEST"/2026/2026-05-16_session-369/IMG_2329.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/renders/8/85913FE4-7BD2-4471-A84C-31D11E3BA5EC_1_201_a.jpeg' "$DEST"/2026/2026-05-16_session-369/IMG_2330.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/renders/8/8AEBFD63-2C8B-429D-93A3-F95DDA74DB95_1_201_a.jpeg' "$DEST"/2026/2026-05-16_session-369/IMG_2331.jpeg
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_2331.JPG "$DEST"/2026/2026-05-16_session-369/IMG_2331.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_2331.MOV "$DEST"/2026/2026-05-16_session-369/IMG_2331.MOV
 
 mkdir -p "$DEST"/2026/2026-05-17_session-370
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/9/90A87E0D-511C-4239-AE47-829F402E6F9A.jpeg' "$DEST"/2026/2026-05-17_session-370/IMG_2333.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/2/206CAFF1-70E5-4C0F-9D4A-D680966A0725.jpeg' "$DEST"/2026/2026-05-17_session-370/IMG_2334.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/D/DA9E64AF-981B-4CA1-A9DD-E9C6A45E7E0D_3.mov' "$DEST"/2026/2026-05-17_session-370/IMG_2335.mov
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_2333.JPG "$DEST"/2026/2026-05-17_session-370/IMG_2333.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_2333.MOV "$DEST"/2026/2026-05-17_session-370/IMG_2333.MOV
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_2334.JPG "$DEST"/2026/2026-05-17_session-370/IMG_2334.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_2334.MOV "$DEST"/2026/2026-05-17_session-370/IMG_2334.MOV
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_2335.JPG "$DEST"/2026/2026-05-17_session-370/IMG_2335.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_2335.MOV "$DEST"/2026/2026-05-17_session-370/IMG_2335.MOV
 
 mkdir -p "$DEST"/2026/2026-05-19_session-371
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/renders/6/69BE9DBC-3AC6-461D-A0D7-927673C8F8A0_1_201_a.jpeg' "$DEST"/2026/2026-05-19_session-371/IMG_2336.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/renders/6/6084D40A-4123-49FB-A4DE-EB1CF6C4E12B_2_100_a.mov' "$DEST"/2026/2026-05-19_session-371/IMG_2337.mov
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/renders/6/6084D40A-4123-49FB-A4DE-EB1CF6C4E12B_1_201_a.jpeg' "$DEST"/2026/2026-05-19_session-371/IMG_2337.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/A/A99DA86A-F203-48EA-B853-ABEDF855CF8C.jpeg' "$DEST"/2026/2026-05-19_session-371/IMG_2338.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/4/4CB53ECF-676D-493D-A40E-7996BD091A06_3.mov' "$DEST"/2026/2026-05-19_session-371/IMG_2339.mov
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/7/76C4A985-F61C-4180-911A-8C564BCA52C1_3.mov' "$DEST"/2026/2026-05-19_session-371/IMG_2340.mov
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_2339.JPG "$DEST"/2026/2026-05-19_session-371/IMG_2339.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_2339.MOV "$DEST"/2026/2026-05-19_session-371/IMG_2339.MOV
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_2340.JPG "$DEST"/2026/2026-05-19_session-371/IMG_2340.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_2340.MOV "$DEST"/2026/2026-05-19_session-371/IMG_2340.MOV
 
 mkdir -p "$DEST"/2026/2026-05-21_session-372
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/renders/9/9DB954A3-9C94-42F2-8799-30C4CA6793DF_1_201_a.jpeg' "$DEST"/2026/2026-05-21_session-372/IMG_2343.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/renders/C/C3474598-3907-4F06-9852-F351BB189409_1_201_a.jpeg' "$DEST"/2026/2026-05-21_session-372/IMG_2344.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/renders/3/3D57D5C7-A781-44BB-A603-FE9A8C0B4084_1_201_a.jpeg' "$DEST"/2026/2026-05-21_session-372/IMG_2345.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/F/F53DB1B9-C643-4E52-AF71-807C708BA484_3.mov' "$DEST"/2026/2026-05-21_session-372/IMG_2346.mov
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_2346.JPG "$DEST"/2026/2026-05-21_session-372/IMG_2346.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_2346.MOV "$DEST"/2026/2026-05-21_session-372/IMG_2346.MOV
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/renders/3/3CB55DE3-7B70-4140-A986-299D6EDCA403_1_201_a.jpeg' "$DEST"/2026/2026-05-21_session-372/IMG_2347.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/8/860329F2-1884-47B6-B06D-315213915250.jpeg' "$DEST"/2026/2026-05-21_session-372/IMG_2348.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/B/B85E01ED-8F90-40E1-A7BB-025DFD7232C9.jpeg' "$DEST"/2026/2026-05-21_session-372/IMG_2349.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/9/97E145ED-E07E-4B0B-A36E-014FF5EA364E.jpeg' "$DEST"/2026/2026-05-21_session-372/IMG_2350.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/C/CC03FBC5-D6D8-4F4C-A29A-E19AC539D1AB.jpeg' "$DEST"/2026/2026-05-21_session-372/IMG_2351.jpeg
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_2348.JPG "$DEST"/2026/2026-05-21_session-372/IMG_2348.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_2349.JPG "$DEST"/2026/2026-05-21_session-372/IMG_2349.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_2350.JPG "$DEST"/2026/2026-05-21_session-372/IMG_2350.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_2351.JPG "$DEST"/2026/2026-05-21_session-372/IMG_2351.JPG
 
 mkdir -p "$DEST"/2026/2026-05-22_session-373
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/9/9B7C0C2D-B2F6-411D-97AD-42F7825635E0_3.mov' "$DEST"/2026/2026-05-22_session-373/IMG_2352.mov
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/6/61D35C2F-66E7-4F09-9C1D-7F19EB480735_3.mov' "$DEST"/2026/2026-05-22_session-373/IMG_2353.mov
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_2352.JPG "$DEST"/2026/2026-05-22_session-373/IMG_2352.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_2352.MOV "$DEST"/2026/2026-05-22_session-373/IMG_2352.MOV
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_2353.JPG "$DEST"/2026/2026-05-22_session-373/IMG_2353.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_2353.MOV "$DEST"/2026/2026-05-22_session-373/IMG_2353.MOV
 
 mkdir -p "$DEST"/2026/2026-05-23_session-374
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/0/032365E1-5E02-4D1B-947A-C92A86C9446F.jpeg' "$DEST"/2026/2026-05-23_session-374/IMG_2355.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/E/EB2E0E6D-041B-4D4E-99F6-A28F71541E95_3.mov' "$DEST"/2026/2026-05-23_session-374/IMG_2356.mov
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/3/368B9124-D6DF-41B4-99B9-9936729BF204.jpeg' "$DEST"/2026/2026-05-23_session-374/IMG_2357.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/B/B52D5A31-4F3A-46A0-8614-B7A9EB07601B_3.mov' "$DEST"/2026/2026-05-23_session-374/IMG_2358.mov
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_2355.JPG "$DEST"/2026/2026-05-23_session-374/IMG_2355.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_2355.MOV "$DEST"/2026/2026-05-23_session-374/IMG_2355.MOV
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_2356.JPG "$DEST"/2026/2026-05-23_session-374/IMG_2356.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_2356.MOV "$DEST"/2026/2026-05-23_session-374/IMG_2356.MOV
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_2357.JPG "$DEST"/2026/2026-05-23_session-374/IMG_2357.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_2357.MOV "$DEST"/2026/2026-05-23_session-374/IMG_2357.MOV
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_2358.JPG "$DEST"/2026/2026-05-23_session-374/IMG_2358.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_2358.MOV "$DEST"/2026/2026-05-23_session-374/IMG_2358.MOV
 
 mkdir -p "$DEST"/2026/2026-05-28_session-375
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/F/F62C4E2A-4CD9-44B5-B9A9-46E3F65AD0D9_3.mov' "$DEST"/2026/2026-05-28_session-375/IMG_2360.mov
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/F/F62C4E2A-4CD9-44B5-B9A9-46E3F65AD0D9.jpeg' "$DEST"/2026/2026-05-28_session-375/IMG_2360.jpeg
 
 mkdir -p "$DEST"/2026/2026-05-28_session-376
 
@@ -2643,9 +2956,9 @@ cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/B/B22E06B
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/6/6292BAB8-C16F-4866-8077-A8C085614CD9.jpeg' "$DEST"/2026/2026-06-12_session-388/IMG_0033.jpeg
 
 mkdir -p "$DEST"/2026/2026-06-18_session-389
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/D/D3BDD6DE-67F9-42BA-A8DD-2584F74355E2.jpeg' "$DEST"/2026/2026-06-18_session-389/IMG_0044.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/9/96B26168-8756-4912-85C5-D4FE7E7137FE.jpeg' "$DEST"/2026/2026-06-18_session-389/IMG_0045.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/0/05F7A8A3-80C8-4618-A1D4-D7893226864D.jpeg' "$DEST"/2026/2026-06-18_session-389/IMG_0046.jpeg
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0044.JPG "$DEST"/2026/2026-06-18_session-389/IMG_0044.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0045.JPG "$DEST"/2026/2026-06-18_session-389/IMG_0045.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0046.JPG "$DEST"/2026/2026-06-18_session-389/IMG_0046.JPG
 
 mkdir -p "$DEST"/2026/2026-06-21_session-390
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/3/314DB2C8-B83E-4191-AEFD-28E1F38876D0.jpeg' "$DEST"/2026/2026-06-21_session-390/IMG_0052.jpeg
@@ -3011,7 +3324,6 @@ cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/B/BEEC6F9
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/5/56E8B4BD-6B22-42A6-867A-73E0F1475E1F.jpeg' "$DEST"/2026/2026-08-02_session-409/IMG_0498.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/0/04EA83A3-F329-4CB9-8EF7-8B278F7C963F.jpeg' "$DEST"/2026/2026-08-02_session-409/IMG_0500.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/7/72C90506-2832-40E8-A3B4-0F4EA2D08485.jpeg' "$DEST"/2026/2026-08-02_session-409/IMG_0501.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/C/C446B51D-939C-4CE7-ACDB-5E2874316C2D.jpeg' "$DEST"/2026/2026-08-02_session-409/IMG_0502.jpeg
 
 mkdir -p "$DEST"/2026/2026-08-03_session-410
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/B/BF5EF9A5-BB1B-4895-B301-0CE4A236C987.jpeg' "$DEST"/2026/2026-08-03_session-410/IMG_0503.jpeg
@@ -3024,173 +3336,174 @@ mkdir -p "$DEST"/2026/2026-08-05_session-412
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/1/18AE6F26-7EA8-4836-9735-35DD4AFFDF7F.jpeg' "$DEST"/2026/2026-08-05_session-412/IMG_0506.jpeg
 
 mkdir -p "$DEST"/2026/2026-08-07_session-413
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/0/0514184B-0913-462A-82DB-6A294B3B3C93.jpeg' "$DEST"/2026/2026-08-07_session-413/IMG_0509.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/6/612DB27A-11B7-4C75-82BC-8A27E68D17DC.jpeg' "$DEST"/2026/2026-08-07_session-413/IMG_0510.jpeg
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0509.JPG "$DEST"/2026/2026-08-07_session-413/IMG_0509.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0510.JPG "$DEST"/2026/2026-08-07_session-413/IMG_0510.JPG
 
 mkdir -p "$DEST"/2026/2026-08-09_session-414
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/5/571735F1-BB54-46C7-8289-BF6B58BFE62A.jpeg' "$DEST"/2026/2026-08-09_session-414/IMG_0512.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/2/2EE665AA-D1A5-4A6F-8E02-9210D65579D0.jpeg' "$DEST"/2026/2026-08-09_session-414/IMG_0513.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/1/1C4989A1-7ED4-45AF-AD45-ABDEF0F999CE.jpeg' "$DEST"/2026/2026-08-09_session-414/IMG_0514.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/0/096DAD46-9136-447C-A8B6-50AA76DF92CE.jpeg' "$DEST"/2026/2026-08-09_session-414/IMG_0515.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/9/9076AAD8-2266-4C8F-8010-6ECA3537D6F5.jpeg' "$DEST"/2026/2026-08-09_session-414/IMG_0516.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/1/1D1CEFF4-DC4E-43EE-85E7-27ED1194A18C.jpeg' "$DEST"/2026/2026-08-09_session-414/IMG_0517.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/E/E67E7F93-A51A-4E59-B628-11EA4C8A15DE.jpeg' "$DEST"/2026/2026-08-09_session-414/IMG_0518.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/3/3F938E48-6F1A-457E-8E80-9A2D90753A36.jpeg' "$DEST"/2026/2026-08-09_session-414/IMG_0519.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/3/39680224-D2A1-4394-A455-11BC80E73A43.jpeg' "$DEST"/2026/2026-08-09_session-414/IMG_0520.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/5/54AF2BE7-1A4D-4DD4-BFC3-64A67D5FBB10.jpeg' "$DEST"/2026/2026-08-09_session-414/IMG_0521.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/A/AE7A505C-2B0B-4698-8269-8CBAE6789AF8.jpeg' "$DEST"/2026/2026-08-09_session-414/IMG_0522.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/E/EA5C6BC9-A71D-481D-907A-8C355E349E49.jpeg' "$DEST"/2026/2026-08-09_session-414/IMG_0523.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/D/D963091B-682E-42EB-AB1C-002E873D0B60.jpeg' "$DEST"/2026/2026-08-09_session-414/IMG_0524.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/C/C6A9E216-6157-4982-80A7-78CFC86F6779.jpeg' "$DEST"/2026/2026-08-09_session-414/IMG_0525.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/E/EC12EC41-004D-49AC-9B26-34C4B236B4A3.jpeg' "$DEST"/2026/2026-08-09_session-414/IMG_0526.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/8/8B1A229C-951A-4B4A-A8F7-3B84F72184CC.jpeg' "$DEST"/2026/2026-08-09_session-414/IMG_0527.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/9/997C37D1-EBD9-4B96-87DE-9364A0BDF33A.jpeg' "$DEST"/2026/2026-08-09_session-414/IMG_0528.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/6/6CA1C8BE-2828-4CB4-9914-8E864FEF2792.jpeg' "$DEST"/2026/2026-08-09_session-414/IMG_0529.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/7/7740DF6C-4E11-4BA6-A370-8C52698636BF.jpeg' "$DEST"/2026/2026-08-09_session-414/IMG_0530.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/C/C0A092C5-10CF-4CDF-A5A6-8657E3582E3D.jpeg' "$DEST"/2026/2026-08-09_session-414/IMG_0531.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/A/A33A4A1C-3025-430A-9BA7-D1DC7B80C2EE.jpeg' "$DEST"/2026/2026-08-09_session-414/IMG_0532.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/A/A00D8404-44D4-4672-8288-9781B5301F3A.jpeg' "$DEST"/2026/2026-08-09_session-414/IMG_0533.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/C/C754B9DA-BDA6-4720-95F5-187A8E40E2BC.jpeg' "$DEST"/2026/2026-08-09_session-414/IMG_0534.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/2/2CAD1D63-0C02-4D5B-8E53-84B2CA20BD3E.jpeg' "$DEST"/2026/2026-08-09_session-414/IMG_0535.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/D/D516B424-9D18-4046-AF33-989E3D17D59F.jpeg' "$DEST"/2026/2026-08-09_session-414/IMG_0536.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/C/CA90FEC8-2595-4063-AE80-14F04A1B49B6.jpeg' "$DEST"/2026/2026-08-09_session-414/IMG_0537.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/8/8C51766E-5CE0-400B-8A49-B841DCEE85D3.jpeg' "$DEST"/2026/2026-08-09_session-414/IMG_0538.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/5/5C065D45-0183-4215-B244-951BD253CB5A.jpeg' "$DEST"/2026/2026-08-09_session-414/IMG_0539.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/6/64FF5A4B-9BD9-48DF-889D-7D548CBB7012.jpeg' "$DEST"/2026/2026-08-09_session-414/IMG_0540.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/7/7BAC6DE3-5DE3-47A4-9497-A5F77B4D0ECA.jpeg' "$DEST"/2026/2026-08-09_session-414/IMG_0541.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/9/9BAA4845-74E5-475B-B2FB-743DAB8BE57C.jpeg' "$DEST"/2026/2026-08-09_session-414/IMG_0542.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/D/D6C91B41-A88D-4D60-9659-EC9D4D213FE8.jpeg' "$DEST"/2026/2026-08-09_session-414/IMG_0543.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/F/F8D86343-9ABF-421B-851F-6105CECE943A.jpeg' "$DEST"/2026/2026-08-09_session-414/IMG_0544.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/6/651A2BE1-8251-4F67-B90E-ECBFCD16663A.jpeg' "$DEST"/2026/2026-08-09_session-414/IMG_0545.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/3/321D8AF4-69CE-4A66-9736-3328F813C4D6.jpeg' "$DEST"/2026/2026-08-09_session-414/IMG_0546.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/5/5FA443C3-6607-4D55-8DA4-16A794605E27.jpeg' "$DEST"/2026/2026-08-09_session-414/IMG_0547.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/F/F2D6C633-AA42-44D0-97D3-F23B1511148E.jpeg' "$DEST"/2026/2026-08-09_session-414/IMG_0548.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/8/8C949468-6E92-4A5C-A2B5-6861CE733256.jpeg' "$DEST"/2026/2026-08-09_session-414/IMG_0549.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/0/05A16BE6-A554-4DE6-AF82-84BC351141B6.jpeg' "$DEST"/2026/2026-08-09_session-414/IMG_0550.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/B/BAFBFB70-01B7-467E-B0B3-483ADA601C3A.jpeg' "$DEST"/2026/2026-08-09_session-414/IMG_0551.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/6/6E32B5DE-EAE9-48A4-A673-E048F4BEBA0D.jpeg' "$DEST"/2026/2026-08-09_session-414/IMG_0552.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/E/E0CAD8C8-B7BC-4CE3-9F1D-F34B788A3CB5.jpeg' "$DEST"/2026/2026-08-09_session-414/IMG_0553.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/A/AC2288BB-8112-4959-9C1C-AC9C90959BBA.jpeg' "$DEST"/2026/2026-08-09_session-414/IMG_0554.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/6/6B66B7D8-1DEC-41FD-BDBF-DE7E6055C006.jpeg' "$DEST"/2026/2026-08-09_session-414/IMG_0555.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/B/BBF986BF-09ED-4B44-B2D9-31F711CCA8F6.jpeg' "$DEST"/2026/2026-08-09_session-414/IMG_0556.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/D/DB10E081-3FDD-4E16-9C48-EB1338B3FBAB.jpeg' "$DEST"/2026/2026-08-09_session-414/IMG_0557.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/6/63551A59-9593-42DB-90B4-2E3E577664A4.jpeg' "$DEST"/2026/2026-08-09_session-414/IMG_0558.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/9/9EBC052F-C5D4-41E0-B090-D55EE011D673.jpeg' "$DEST"/2026/2026-08-09_session-414/IMG_0559.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/7/7443B109-4761-40F6-B4BE-8EA167F05D06.jpeg' "$DEST"/2026/2026-08-09_session-414/IMG_0560.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/3/30E7AB0E-2C6A-4D4D-8A8D-EAAC27CD0B5A.jpeg' "$DEST"/2026/2026-08-09_session-414/IMG_0561.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/D/D10D612B-DBFA-4F8F-BC06-9378083608AD.jpeg' "$DEST"/2026/2026-08-09_session-414/IMG_0562.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/4/40F141E6-7486-44E8-A194-07859502B617.jpeg' "$DEST"/2026/2026-08-09_session-414/IMG_0563.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/A/AB829404-DFDA-4837-AE7A-1151DBCA0DA0.jpeg' "$DEST"/2026/2026-08-09_session-414/IMG_0564.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/2/23D02A23-2AC7-442F-A6B4-BAB8894DB082.jpeg' "$DEST"/2026/2026-08-09_session-414/IMG_0565.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/A/A1A10D3A-6020-4191-9ACF-A57EE8D939B0.jpeg' "$DEST"/2026/2026-08-09_session-414/IMG_0566.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/B/BF03EFE3-15F6-40D0-AA69-86D1B73F7497.jpeg' "$DEST"/2026/2026-08-09_session-414/IMG_0567.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/4/4C04C364-E698-41E7-B3B1-63AE0ACD76AE.jpeg' "$DEST"/2026/2026-08-09_session-414/IMG_0568.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/2/27753350-BE51-4157-A0A0-37E11D820F37.jpeg' "$DEST"/2026/2026-08-09_session-414/IMG_0569.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/B/BE285EA9-43CD-473E-B8B6-2B79809A81E2.jpeg' "$DEST"/2026/2026-08-09_session-414/IMG_0570.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/C/C5291AC4-BE84-4C02-ADF2-4B57B1D3B839.jpeg' "$DEST"/2026/2026-08-09_session-414/IMG_0571.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/E/EBFE35C9-43EE-406A-8F26-301AC30FA4A6.jpeg' "$DEST"/2026/2026-08-09_session-414/IMG_0572.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/3/31701CAB-677D-4F65-8980-DFD408F7DA1A.jpeg' "$DEST"/2026/2026-08-09_session-414/IMG_0573.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/A/A0B3FB27-CD65-45CF-8A04-3F86113DCD6E.jpeg' "$DEST"/2026/2026-08-09_session-414/IMG_0574.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/D/DA52B1ED-1376-4C5D-A118-86D4EF5F7934.jpeg' "$DEST"/2026/2026-08-09_session-414/IMG_0575.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/2/27774DB1-3A95-4F17-8ABA-8F7BC5384EE2.jpeg' "$DEST"/2026/2026-08-09_session-414/IMG_0576.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/6/60F58BEA-E8DC-4E79-9C95-8362FEC51231.jpeg' "$DEST"/2026/2026-08-09_session-414/IMG_0577.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/D/D97EE0DA-6379-4F09-AB70-84C1DD33BC2A.jpeg' "$DEST"/2026/2026-08-09_session-414/IMG_0578.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/0/0DBD869B-BC8C-427A-8DA9-784DA8485946.jpeg' "$DEST"/2026/2026-08-09_session-414/IMG_0579.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/9/9EC6EDD0-48A5-498F-BD4A-D7C343E66824.jpeg' "$DEST"/2026/2026-08-09_session-414/IMG_0580.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/1/1EBDBCEB-E5DD-4418-9F09-0D137DB50367.jpeg' "$DEST"/2026/2026-08-09_session-414/IMG_0581.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/8/8A7F10B5-DBF5-4501-A4D9-99F46BA4A99B.jpeg' "$DEST"/2026/2026-08-09_session-414/IMG_0582.jpeg
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0512.JPG "$DEST"/2026/2026-08-09_session-414/IMG_0512.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0513.JPG "$DEST"/2026/2026-08-09_session-414/IMG_0513.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0514.JPG "$DEST"/2026/2026-08-09_session-414/IMG_0514.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0515.JPG "$DEST"/2026/2026-08-09_session-414/IMG_0515.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0516.JPG "$DEST"/2026/2026-08-09_session-414/IMG_0516.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0517.JPG "$DEST"/2026/2026-08-09_session-414/IMG_0517.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0518.JPG "$DEST"/2026/2026-08-09_session-414/IMG_0518.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0519.JPG "$DEST"/2026/2026-08-09_session-414/IMG_0519.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_E0519.JPG "$DEST"/2026/2026-08-09_session-414/IMG_E0519.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0520.JPG "$DEST"/2026/2026-08-09_session-414/IMG_0520.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0521.JPG "$DEST"/2026/2026-08-09_session-414/IMG_0521.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0522.JPG "$DEST"/2026/2026-08-09_session-414/IMG_0522.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0523.JPG "$DEST"/2026/2026-08-09_session-414/IMG_0523.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0524.JPG "$DEST"/2026/2026-08-09_session-414/IMG_0524.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0525.JPG "$DEST"/2026/2026-08-09_session-414/IMG_0525.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0526.JPG "$DEST"/2026/2026-08-09_session-414/IMG_0526.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0527.JPG "$DEST"/2026/2026-08-09_session-414/IMG_0527.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0528.JPG "$DEST"/2026/2026-08-09_session-414/IMG_0528.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0529.JPG "$DEST"/2026/2026-08-09_session-414/IMG_0529.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0530.JPG "$DEST"/2026/2026-08-09_session-414/IMG_0530.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0531.JPG "$DEST"/2026/2026-08-09_session-414/IMG_0531.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0532.JPG "$DEST"/2026/2026-08-09_session-414/IMG_0532.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0533.JPG "$DEST"/2026/2026-08-09_session-414/IMG_0533.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0534.JPG "$DEST"/2026/2026-08-09_session-414/IMG_0534.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0535.JPG "$DEST"/2026/2026-08-09_session-414/IMG_0535.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0536.JPG "$DEST"/2026/2026-08-09_session-414/IMG_0536.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0537.JPG "$DEST"/2026/2026-08-09_session-414/IMG_0537.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0538.JPG "$DEST"/2026/2026-08-09_session-414/IMG_0538.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0539.JPG "$DEST"/2026/2026-08-09_session-414/IMG_0539.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0540.JPG "$DEST"/2026/2026-08-09_session-414/IMG_0540.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0541.JPG "$DEST"/2026/2026-08-09_session-414/IMG_0541.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0542.JPG "$DEST"/2026/2026-08-09_session-414/IMG_0542.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0543.JPG "$DEST"/2026/2026-08-09_session-414/IMG_0543.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0544.JPG "$DEST"/2026/2026-08-09_session-414/IMG_0544.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0545.JPG "$DEST"/2026/2026-08-09_session-414/IMG_0545.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0546.JPG "$DEST"/2026/2026-08-09_session-414/IMG_0546.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0547.JPG "$DEST"/2026/2026-08-09_session-414/IMG_0547.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0548.JPG "$DEST"/2026/2026-08-09_session-414/IMG_0548.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0549.JPG "$DEST"/2026/2026-08-09_session-414/IMG_0549.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0550.JPG "$DEST"/2026/2026-08-09_session-414/IMG_0550.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0551.JPG "$DEST"/2026/2026-08-09_session-414/IMG_0551.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0552.JPG "$DEST"/2026/2026-08-09_session-414/IMG_0552.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0553.JPG "$DEST"/2026/2026-08-09_session-414/IMG_0553.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0554.JPG "$DEST"/2026/2026-08-09_session-414/IMG_0554.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0555.JPG "$DEST"/2026/2026-08-09_session-414/IMG_0555.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0556.JPG "$DEST"/2026/2026-08-09_session-414/IMG_0556.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0557.JPG "$DEST"/2026/2026-08-09_session-414/IMG_0557.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0558.JPG "$DEST"/2026/2026-08-09_session-414/IMG_0558.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0559.JPG "$DEST"/2026/2026-08-09_session-414/IMG_0559.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0560.JPG "$DEST"/2026/2026-08-09_session-414/IMG_0560.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0561.JPG "$DEST"/2026/2026-08-09_session-414/IMG_0561.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0562.JPG "$DEST"/2026/2026-08-09_session-414/IMG_0562.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0563.JPG "$DEST"/2026/2026-08-09_session-414/IMG_0563.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0564.JPG "$DEST"/2026/2026-08-09_session-414/IMG_0564.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0565.JPG "$DEST"/2026/2026-08-09_session-414/IMG_0565.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0566.JPG "$DEST"/2026/2026-08-09_session-414/IMG_0566.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0567.JPG "$DEST"/2026/2026-08-09_session-414/IMG_0567.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0568.JPG "$DEST"/2026/2026-08-09_session-414/IMG_0568.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0569.JPG "$DEST"/2026/2026-08-09_session-414/IMG_0569.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0570.JPG "$DEST"/2026/2026-08-09_session-414/IMG_0570.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0571.JPG "$DEST"/2026/2026-08-09_session-414/IMG_0571.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0572.JPG "$DEST"/2026/2026-08-09_session-414/IMG_0572.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0573.JPG "$DEST"/2026/2026-08-09_session-414/IMG_0573.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0574.JPG "$DEST"/2026/2026-08-09_session-414/IMG_0574.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0575.JPG "$DEST"/2026/2026-08-09_session-414/IMG_0575.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0576.JPG "$DEST"/2026/2026-08-09_session-414/IMG_0576.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0577.JPG "$DEST"/2026/2026-08-09_session-414/IMG_0577.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0578.JPG "$DEST"/2026/2026-08-09_session-414/IMG_0578.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0579.JPG "$DEST"/2026/2026-08-09_session-414/IMG_0579.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0580.JPG "$DEST"/2026/2026-08-09_session-414/IMG_0580.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0581.JPG "$DEST"/2026/2026-08-09_session-414/IMG_0581.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0582.JPG "$DEST"/2026/2026-08-09_session-414/IMG_0582.JPG
 
 mkdir -p "$DEST"/2026/2026-08-12_session-415
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/8/835B668A-5874-414D-9540-888098385B4D.jpeg' "$DEST"/2026/2026-08-12_session-415/IMG_0596.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/3/324CC57B-9C76-4F19-994F-056BCC64B5E7.jpeg' "$DEST"/2026/2026-08-12_session-415/IMG_0599.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/C/C61C63E2-D5D2-4083-B2D4-9AB17035FD92.jpeg' "$DEST"/2026/2026-08-12_session-415/IMG_0600.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/C/CB135446-FFC4-48DB-973A-CF5DA1B93C17.jpeg' "$DEST"/2026/2026-08-12_session-415/IMG_0601.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/7/7BB919F6-E061-424F-BECF-768BFBDAAE35.jpeg' "$DEST"/2026/2026-08-12_session-415/IMG_0602.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/5/583876AA-D4CC-4885-8720-63D0C09F712B.jpeg' "$DEST"/2026/2026-08-12_session-415/IMG_0603.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/7/7AEC0A65-9E86-4F8A-B0EF-25C5F02F108C.jpeg' "$DEST"/2026/2026-08-12_session-415/IMG_0604.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/6/628D4735-D0C3-4951-8CBA-5D477E94469A.jpeg' "$DEST"/2026/2026-08-12_session-415/IMG_0605.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/5/590CC873-46B1-4F42-8305-88568D2BAEB4.jpeg' "$DEST"/2026/2026-08-12_session-415/IMG_0606.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/4/4DA0A33E-34D3-4012-93EB-F8F71EC2926C.jpeg' "$DEST"/2026/2026-08-12_session-415/IMG_0607.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/5/537FBBB4-6C46-42A5-8835-8F781E3863DC.jpeg' "$DEST"/2026/2026-08-12_session-415/IMG_0608.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/7/7D774EC4-8D5D-4942-BC83-95E9B005C88A.jpeg' "$DEST"/2026/2026-08-12_session-415/IMG_0609.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/4/41EF0778-D4DF-4B0F-A7B9-9023706BEC11.jpeg' "$DEST"/2026/2026-08-12_session-415/IMG_0610.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/3/3B3A25BA-7F0B-40EC-9EDF-386C8D5110A5.jpeg' "$DEST"/2026/2026-08-12_session-415/IMG_0611.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/2/2C967A0C-0907-4541-8304-506E65B8B168.jpeg' "$DEST"/2026/2026-08-12_session-415/IMG_0612.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/5/59C6BB39-0784-4DCA-B330-AD16648E628E.jpeg' "$DEST"/2026/2026-08-12_session-415/IMG_0613.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/7/7BB66A86-E5D7-47D7-BA2E-B93E1AC54726.jpeg' "$DEST"/2026/2026-08-12_session-415/IMG_0614.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/F/F533667A-7BCF-4B58-B7E7-CC8293E46556.jpeg' "$DEST"/2026/2026-08-12_session-415/IMG_0615.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/8/880B09A7-BDB3-4952-AC6D-51115784774F.jpeg' "$DEST"/2026/2026-08-12_session-415/IMG_0616.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/8/8565CC4C-C887-4CB3-920A-5BD2ED6359C4.jpeg' "$DEST"/2026/2026-08-12_session-415/IMG_0617.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/A/A2D3E266-E27A-4919-9405-9735B925D446.jpeg' "$DEST"/2026/2026-08-12_session-415/IMG_0618.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/A/A1F7F09E-FC92-437E-90C0-82EF5E1039F4.jpeg' "$DEST"/2026/2026-08-12_session-415/IMG_0619.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/B/B1EC5A42-0E30-44DA-A413-47A6472945F9.jpeg' "$DEST"/2026/2026-08-12_session-415/IMG_0620.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/5/554EBB8A-E657-48A2-82E6-31ABC8CDF486.jpeg' "$DEST"/2026/2026-08-12_session-415/IMG_0621.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/C/CD9C58AF-F378-4822-A219-92B150D7D70D.jpeg' "$DEST"/2026/2026-08-12_session-415/IMG_0622.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/F/F4B4781E-83E4-4070-A6F4-E2AE87D54F85.jpeg' "$DEST"/2026/2026-08-12_session-415/IMG_0623.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/2/22D9A125-6F2E-4724-87BF-6ABD160F69E7.jpeg' "$DEST"/2026/2026-08-12_session-415/IMG_0625.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/5/52CE2880-2A09-46CB-BB43-6EC84158A839.jpeg' "$DEST"/2026/2026-08-12_session-415/IMG_0626.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/4/4A00C746-8424-4EFF-AFF3-E9DFA25014EF.jpeg' "$DEST"/2026/2026-08-12_session-415/IMG_0627.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/A/A7F7B458-5AA2-423C-95C6-299E9C7EB9E2.jpeg' "$DEST"/2026/2026-08-12_session-415/IMG_0628.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/7/78BC490E-C948-450A-AEB3-5F14DA3AC40A.jpeg' "$DEST"/2026/2026-08-12_session-415/IMG_0629.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/5/5FFB195B-91B9-4D6B-A516-BD6ABBDC93FC.jpeg' "$DEST"/2026/2026-08-12_session-415/IMG_0630.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/7/7B9B94F3-3AFD-4166-A6D6-A9341F209DE1.jpeg' "$DEST"/2026/2026-08-12_session-415/IMG_0631.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/2/24385F34-4BFF-4C75-9404-BE0E8B2749F5.jpeg' "$DEST"/2026/2026-08-12_session-415/IMG_0632.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/D/DE2246CF-5DE5-4447-9548-7B6E76A866DE.jpeg' "$DEST"/2026/2026-08-12_session-415/IMG_0633.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/7/774EAA15-BC62-4430-9119-4F9ECD513B68.jpeg' "$DEST"/2026/2026-08-12_session-415/IMG_0634.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/6/6AD23AE3-9E56-4BFD-9188-FD2823A86583.jpeg' "$DEST"/2026/2026-08-12_session-415/IMG_0635.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/3/34ED2704-33C0-41C1-8A3C-F606D0654D3D.jpeg' "$DEST"/2026/2026-08-12_session-415/IMG_0636.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/8/85727802-7485-4237-BD62-73FBACBDB8F0.jpeg' "$DEST"/2026/2026-08-12_session-415/IMG_0637.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/5/5692B678-4C3A-4ADA-910D-857B86FA707F.jpeg' "$DEST"/2026/2026-08-12_session-415/IMG_0638.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/7/7BBA721C-CCB3-47D9-8E23-BB9D3B1E9D7F.jpeg' "$DEST"/2026/2026-08-12_session-415/IMG_0639.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/C/C9B11E3E-6B54-442E-942F-065BCBFEC5E7.jpeg' "$DEST"/2026/2026-08-12_session-415/IMG_0640.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/1/12A8BFC4-EA70-4C7F-9E8A-C5E300A41256.jpeg' "$DEST"/2026/2026-08-12_session-415/IMG_0641.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/C/CCA5C396-3482-4BB9-B266-B1C10DBE0764.jpeg' "$DEST"/2026/2026-08-12_session-415/IMG_0642.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/4/4A71BC8A-5D70-4BBB-BC18-3A55BFEBE5E5.jpeg' "$DEST"/2026/2026-08-12_session-415/IMG_0643.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/B/BBB2BD9E-7D5C-4379-B089-8A42DA5CD44E.jpeg' "$DEST"/2026/2026-08-12_session-415/IMG_0644.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/C/C19D5901-585F-4534-A1E5-CC4AD75A5D72.jpeg' "$DEST"/2026/2026-08-12_session-415/IMG_0645.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/8/85C46644-5656-4A8C-B6F5-5666850EDBD9.jpeg' "$DEST"/2026/2026-08-12_session-415/IMG_0647.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/2/2871F82B-69A9-404F-A935-AEFDCA77A88D.jpeg' "$DEST"/2026/2026-08-12_session-415/IMG_0648.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/A/A3F061A0-67A6-4779-9CA1-E1713A669767.jpeg' "$DEST"/2026/2026-08-12_session-415/IMG_0649.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/E/EDA6BB62-3187-4A1D-88CD-4B26A35F6294.jpeg' "$DEST"/2026/2026-08-12_session-415/IMG_0650.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/A/A847998B-D0B4-4060-AB1A-0060E4F2BE0A.jpeg' "$DEST"/2026/2026-08-12_session-415/IMG_0651.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/3/3A85F55C-A924-4083-B663-0726F7FDE0C1.jpeg' "$DEST"/2026/2026-08-12_session-415/IMG_0652.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/F/F63EAA0C-ADDD-4EF0-9870-FBECE40B1F38.jpeg' "$DEST"/2026/2026-08-12_session-415/IMG_0653.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/E/EDA65794-10C2-4A79-9419-DE81231621A4.jpeg' "$DEST"/2026/2026-08-12_session-415/IMG_0654.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/E/E2AF25A2-434C-444B-A27D-E3FB2FF014A8.jpeg' "$DEST"/2026/2026-08-12_session-415/IMG_0655.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/8/8CDA936B-6646-4D7D-A890-ED8222A67E34.jpeg' "$DEST"/2026/2026-08-12_session-415/IMG_0656.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/0/095DB4DD-05CF-4C4C-A3AA-9986CA1A9BC3.jpeg' "$DEST"/2026/2026-08-12_session-415/IMG_0657.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/6/69640AFF-F20A-4667-8302-45B5A539D0C2.jpeg' "$DEST"/2026/2026-08-12_session-415/IMG_0658.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/7/79166EB7-09C6-4165-A305-13B128F0ABDA.jpeg' "$DEST"/2026/2026-08-12_session-415/IMG_0659.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/C/C74D5D75-3419-4134-8F85-5F4B32E77704.jpeg' "$DEST"/2026/2026-08-12_session-415/IMG_0660.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/8/8B8F1838-68EE-47E9-B96C-AD67FF29E1A8.jpeg' "$DEST"/2026/2026-08-12_session-415/IMG_0661.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/7/7B72FCE2-91F6-4B21-8A81-28192FD72DBE.jpeg' "$DEST"/2026/2026-08-12_session-415/IMG_0662.jpeg
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0596.JPG "$DEST"/2026/2026-08-12_session-415/IMG_0596.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0599.JPG "$DEST"/2026/2026-08-12_session-415/IMG_0599.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0600.JPG "$DEST"/2026/2026-08-12_session-415/IMG_0600.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0601.JPG "$DEST"/2026/2026-08-12_session-415/IMG_0601.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0602.JPG "$DEST"/2026/2026-08-12_session-415/IMG_0602.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0603.JPG "$DEST"/2026/2026-08-12_session-415/IMG_0603.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0604.JPG "$DEST"/2026/2026-08-12_session-415/IMG_0604.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0605.JPG "$DEST"/2026/2026-08-12_session-415/IMG_0605.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0606.JPG "$DEST"/2026/2026-08-12_session-415/IMG_0606.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0607.JPG "$DEST"/2026/2026-08-12_session-415/IMG_0607.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0608.JPG "$DEST"/2026/2026-08-12_session-415/IMG_0608.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0609.JPG "$DEST"/2026/2026-08-12_session-415/IMG_0609.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0610.JPG "$DEST"/2026/2026-08-12_session-415/IMG_0610.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0611.JPG "$DEST"/2026/2026-08-12_session-415/IMG_0611.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0612.JPG "$DEST"/2026/2026-08-12_session-415/IMG_0612.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0613.JPG "$DEST"/2026/2026-08-12_session-415/IMG_0613.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0614.JPG "$DEST"/2026/2026-08-12_session-415/IMG_0614.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0615.JPG "$DEST"/2026/2026-08-12_session-415/IMG_0615.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0616.JPG "$DEST"/2026/2026-08-12_session-415/IMG_0616.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0617.JPG "$DEST"/2026/2026-08-12_session-415/IMG_0617.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0618.JPG "$DEST"/2026/2026-08-12_session-415/IMG_0618.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0619.JPG "$DEST"/2026/2026-08-12_session-415/IMG_0619.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0620.JPG "$DEST"/2026/2026-08-12_session-415/IMG_0620.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0621.JPG "$DEST"/2026/2026-08-12_session-415/IMG_0621.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0622.JPG "$DEST"/2026/2026-08-12_session-415/IMG_0622.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0623.JPG "$DEST"/2026/2026-08-12_session-415/IMG_0623.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0625.JPG "$DEST"/2026/2026-08-12_session-415/IMG_0625.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0626.JPG "$DEST"/2026/2026-08-12_session-415/IMG_0626.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0627.JPG "$DEST"/2026/2026-08-12_session-415/IMG_0627.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0628.JPG "$DEST"/2026/2026-08-12_session-415/IMG_0628.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0629.JPG "$DEST"/2026/2026-08-12_session-415/IMG_0629.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0630.JPG "$DEST"/2026/2026-08-12_session-415/IMG_0630.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0631.JPG "$DEST"/2026/2026-08-12_session-415/IMG_0631.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0632.JPG "$DEST"/2026/2026-08-12_session-415/IMG_0632.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0633.JPG "$DEST"/2026/2026-08-12_session-415/IMG_0633.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0634.JPG "$DEST"/2026/2026-08-12_session-415/IMG_0634.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0635.JPG "$DEST"/2026/2026-08-12_session-415/IMG_0635.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0636.JPG "$DEST"/2026/2026-08-12_session-415/IMG_0636.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0637.JPG "$DEST"/2026/2026-08-12_session-415/IMG_0637.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0638.JPG "$DEST"/2026/2026-08-12_session-415/IMG_0638.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0639.JPG "$DEST"/2026/2026-08-12_session-415/IMG_0639.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0640.JPG "$DEST"/2026/2026-08-12_session-415/IMG_0640.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0641.JPG "$DEST"/2026/2026-08-12_session-415/IMG_0641.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0642.JPG "$DEST"/2026/2026-08-12_session-415/IMG_0642.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0643.JPG "$DEST"/2026/2026-08-12_session-415/IMG_0643.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0644.JPG "$DEST"/2026/2026-08-12_session-415/IMG_0644.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0645.JPG "$DEST"/2026/2026-08-12_session-415/IMG_0645.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0647.JPG "$DEST"/2026/2026-08-12_session-415/IMG_0647.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0648.JPG "$DEST"/2026/2026-08-12_session-415/IMG_0648.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0649.JPG "$DEST"/2026/2026-08-12_session-415/IMG_0649.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0650.JPG "$DEST"/2026/2026-08-12_session-415/IMG_0650.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0651.JPG "$DEST"/2026/2026-08-12_session-415/IMG_0651.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0652.JPG "$DEST"/2026/2026-08-12_session-415/IMG_0652.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0653.JPG "$DEST"/2026/2026-08-12_session-415/IMG_0653.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0654.JPG "$DEST"/2026/2026-08-12_session-415/IMG_0654.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0655.JPG "$DEST"/2026/2026-08-12_session-415/IMG_0655.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0656.JPG "$DEST"/2026/2026-08-12_session-415/IMG_0656.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0657.JPG "$DEST"/2026/2026-08-12_session-415/IMG_0657.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0658.JPG "$DEST"/2026/2026-08-12_session-415/IMG_0658.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0659.JPG "$DEST"/2026/2026-08-12_session-415/IMG_0659.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0660.JPG "$DEST"/2026/2026-08-12_session-415/IMG_0660.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0661.JPG "$DEST"/2026/2026-08-12_session-415/IMG_0661.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0662.JPG "$DEST"/2026/2026-08-12_session-415/IMG_0662.JPG
 
 mkdir -p "$DEST"/2026/2026-08-13_session-416
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/C/C7CA5C13-3CA1-4DDE-897F-3B729F13185D.jpeg' "$DEST"/2026/2026-08-13_session-416/IMG_0664.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/B/B8638AC7-F8AB-4D92-AA26-D0B7E8CF80F0.jpeg' "$DEST"/2026/2026-08-13_session-416/IMG_0665.jpeg
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0664.JPG "$DEST"/2026/2026-08-13_session-416/IMG_0664.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0665.JPG "$DEST"/2026/2026-08-13_session-416/IMG_0665.JPG
 
 mkdir -p "$DEST"/2026/2026-08-15_session-417
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/0/0558FE06-9100-46CE-A1FB-97A4A019AD34.jpeg' "$DEST"/2026/2026-08-15_session-417/IMG_0670.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/A/A0537641-29FF-479C-AAF6-D623CBED2073.jpeg' "$DEST"/2026/2026-08-15_session-417/IMG_0671.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/7/7F4FB358-E863-437C-81E3-EA7411F5465B.jpeg' "$DEST"/2026/2026-08-15_session-417/IMG_0672.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/C/C6D03DE1-F734-48B0-88D8-D94F3D29D4E3.jpeg' "$DEST"/2026/2026-08-15_session-417/IMG_0673.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/7/771799FB-30FD-4898-B742-BF8E68C95C7E.jpeg' "$DEST"/2026/2026-08-15_session-417/IMG_0674.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/B/B6912F2E-460B-423E-A572-6869CBB28457.jpeg' "$DEST"/2026/2026-08-15_session-417/IMG_0675.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/5/5350DF27-D7FD-407C-950A-7CC572B170CC.jpeg' "$DEST"/2026/2026-08-15_session-417/IMG_0676.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/7/73A90710-3915-4970-92DD-DFD8D7730D4F.jpeg' "$DEST"/2026/2026-08-15_session-417/IMG_0677.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/2/2521A4D3-3ACD-49DF-AD77-14DF120B1664.jpeg' "$DEST"/2026/2026-08-15_session-417/IMG_0680.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/F/FFCB68A8-0992-4F83-99DE-8556FF2EF75C.jpeg' "$DEST"/2026/2026-08-15_session-417/IMG_0681.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/D/DC9CA11A-3EF6-45CB-9504-62C48ECFA15E.jpeg' "$DEST"/2026/2026-08-15_session-417/IMG_0682.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/2/262B1CF4-65FC-45C6-9BAC-1616405EC1BF.jpeg' "$DEST"/2026/2026-08-15_session-417/IMG_0683.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/6/60B7229D-A8FC-4C94-BF8E-67D6F95E15DE.jpeg' "$DEST"/2026/2026-08-15_session-417/IMG_0684.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/F/FE19E642-D938-42C9-A73A-EBC0A8120F1A.jpeg' "$DEST"/2026/2026-08-15_session-417/IMG_0685.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/5/5140DE51-1569-465C-B8C7-48A579FE4500.jpeg' "$DEST"/2026/2026-08-15_session-417/IMG_0686.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/C/C8571452-36ED-4A7F-A0C5-19FCA81C153F.jpeg' "$DEST"/2026/2026-08-15_session-417/IMG_0687.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/6/6496F754-323B-43A4-AE8B-8124ABA3A8F4.jpeg' "$DEST"/2026/2026-08-15_session-417/IMG_0688.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/2/2051DF91-73E7-411B-8A28-2802447FB6CC.jpeg' "$DEST"/2026/2026-08-15_session-417/IMG_0689.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/0/00812471-DB8C-4C5C-AB49-5D51EE623AE6.jpeg' "$DEST"/2026/2026-08-15_session-417/IMG_0690.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/0/031D9F2C-4E4F-4FEA-A046-940F293B2D83.jpeg' "$DEST"/2026/2026-08-15_session-417/IMG_0691.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/F/FF8331EE-CA2F-4CCF-BF58-51806D96ED82.jpeg' "$DEST"/2026/2026-08-15_session-417/IMG_0692.jpeg
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0670.JPG "$DEST"/2026/2026-08-15_session-417/IMG_0670.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0671.JPG "$DEST"/2026/2026-08-15_session-417/IMG_0671.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0672.JPG "$DEST"/2026/2026-08-15_session-417/IMG_0672.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0673.JPG "$DEST"/2026/2026-08-15_session-417/IMG_0673.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0674.JPG "$DEST"/2026/2026-08-15_session-417/IMG_0674.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0675.JPG "$DEST"/2026/2026-08-15_session-417/IMG_0675.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0676.JPG "$DEST"/2026/2026-08-15_session-417/IMG_0676.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0677.JPG "$DEST"/2026/2026-08-15_session-417/IMG_0677.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0680.JPG "$DEST"/2026/2026-08-15_session-417/IMG_0680.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0681.JPG "$DEST"/2026/2026-08-15_session-417/IMG_0681.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0682.JPG "$DEST"/2026/2026-08-15_session-417/IMG_0682.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0683.JPG "$DEST"/2026/2026-08-15_session-417/IMG_0683.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0684.JPG "$DEST"/2026/2026-08-15_session-417/IMG_0684.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0685.JPG "$DEST"/2026/2026-08-15_session-417/IMG_0685.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0686.JPG "$DEST"/2026/2026-08-15_session-417/IMG_0686.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0687.JPG "$DEST"/2026/2026-08-15_session-417/IMG_0687.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0688.JPG "$DEST"/2026/2026-08-15_session-417/IMG_0688.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0689.JPG "$DEST"/2026/2026-08-15_session-417/IMG_0689.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0690.JPG "$DEST"/2026/2026-08-15_session-417/IMG_0690.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0691.JPG "$DEST"/2026/2026-08-15_session-417/IMG_0691.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0692.JPG "$DEST"/2026/2026-08-15_session-417/IMG_0692.JPG
 
 mkdir -p "$DEST"/2026/2026-08-16_session-418
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/4/41B81BDB-874C-4A0C-BBB5-A937D16923C4.jpeg' "$DEST"/2026/2026-08-16_session-418/IMG_0698.jpeg
@@ -3227,7 +3540,7 @@ cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivativ
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/masters/F/F49F111D-4F96-4B99-A598-AFD4D2258C3F_4_5005_c.jpeg' "$DEST"/2026/2026-08-20_session-422/IMG_0726.jpeg
 
 mkdir -p "$DEST"/2026/2026-08-22_session-423
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/B/B5A99EF4-4BF6-4055-AE0C-7A4A0210AF03.jpeg' "$DEST"/2026/2026-08-22_session-423/IMG_0728.jpeg
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0728.JPG "$DEST"/2026/2026-08-22_session-423/IMG_0728.JPG
 
 mkdir -p "$DEST"/2026/2026-08-23_session-424
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/E/EAD414C1-B0ED-43F3-A5DB-CBB6C87089B2.jpeg' "$DEST"/2026/2026-08-23_session-424/IMG_0729.jpeg
@@ -3235,7 +3548,7 @@ cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/E/EEB0EC6
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/0/0B9B4433-BD6B-4DD4-90BA-C21010D3F36E.jpeg' "$DEST"/2026/2026-08-23_session-424/IMG_0731.jpeg
 
 mkdir -p "$DEST"/2026/2026-08-24_session-425
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/masters/A/AAA7A674-D03D-444E-AD2B-E0C4C78A1526_4_5005_c.jpeg' "$DEST"/2026/2026-08-24_session-425/IMG_0732.jpeg
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0732.PNG "$DEST"/2026/2026-08-24_session-425/IMG_0732.PNG
 
 mkdir -p "$DEST"/2026/2026-08-24_session-426
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/5/5B4D1183-B3B9-4964-82F3-BAF5AFAA19A1.jpeg' "$DEST"/2026/2026-08-24_session-426/IMG_0733.jpeg
@@ -3246,68 +3559,430 @@ cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/5/5EAE7D4
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/8/8D71D873-8E32-4001-B261-37961B21FBA9.jpeg' "$DEST"/2026/2026-08-24_session-427/IMG_0736.jpeg
 
 mkdir -p "$DEST/_review_duplicates"
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/0/007B1BBD-8AE9-4C19-B403-6C1065DF023E.jpeg' "$DEST/_review_duplicates"/IMG_1648.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/0/00812471-DB8C-4C5C-AB49-5D51EE623AE6.jpeg' "$DEST/_review_duplicates"/IMG_0690.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/0/00B31494-6670-47AB-AF8A-53C9B2229404.jpeg' "$DEST/_review_duplicates"/IMG_1716.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/0/01184D7F-F5AE-45EE-A2EF-6705E6979967.heic' "$DEST/_review_duplicates"/IMG_1935.heic
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/0/031D9F2C-4E4F-4FEA-A046-940F293B2D83.jpeg' "$DEST/_review_duplicates"/IMG_0691.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/0/032365E1-5E02-4D1B-947A-C92A86C9446F.jpeg' "$DEST/_review_duplicates"/IMG_2355.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/0/0387D22D-029F-42D0-8AD2-4CEC255489B5.jpeg' "$DEST/_review_duplicates"/IMG_1636.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/0/0514184B-0913-462A-82DB-6A294B3B3C93.jpeg' "$DEST/_review_duplicates"/IMG_0509.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/0/0558FE06-9100-46CE-A1FB-97A4A019AD34.jpeg' "$DEST/_review_duplicates"/IMG_0670.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/0/05A07F54-C7A4-4A66-B381-C46F97C43DFB.jpeg' "$DEST/_review_duplicates"/IMG_1635.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/0/05A16BE6-A554-4DE6-AF82-84BC351141B6.jpeg' "$DEST/_review_duplicates"/IMG_0550.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/0/05F7A8A3-80C8-4618-A1D4-D7893226864D.jpeg' "$DEST/_review_duplicates"/IMG_0046.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/0/095DB4DD-05CF-4C4C-A3AA-9986CA1A9BC3.jpeg' "$DEST/_review_duplicates"/IMG_0657.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/0/096DAD46-9136-447C-A8B6-50AA76DF92CE.jpeg' "$DEST/_review_duplicates"/IMG_0515.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/0/0AAA7058-28A8-49F1-A374-38E097F23DB2.heic' "$DEST/_review_duplicates"/IMG_1931.heic
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/0/0C411476-E130-4F47-87FC-E881C9C0DDE3.jpeg' "$DEST/_review_duplicates"/IMG_1707.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/0/0DBD869B-BC8C-427A-8DA9-784DA8485946.jpeg' "$DEST/_review_duplicates"/IMG_0579.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/0/0F494DDD-FB87-4EB2-BE1B-53A16616FF2E.jpeg' "$DEST/_review_duplicates"/IMG_1741.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/0/0F5CB0EA-9C30-4629-992F-587A67E9FB8F.heic' "$DEST/_review_duplicates"/IMG_1458.heic
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/1/10DE1683-8D6C-4E21-9862-0EDCBD890737.jpeg' "$DEST/_review_duplicates"/IMG_1701.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/1/12A8BFC4-EA70-4C7F-9E8A-C5E300A41256.jpeg' "$DEST/_review_duplicates"/IMG_0641.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/1/14A89CD6-ECF0-4D1A-BAE7-A7E6BCEE837D.heic' "$DEST/_review_duplicates"/IMG_1461.heic
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/1/16E5AE7F-5AAD-44B8-AB0C-4B7C42B689C4.jpeg' "$DEST/_review_duplicates"/IMG_2362.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/1/17C5A058-4F0B-430C-BBF5-879A1C043313.jpeg' "$DEST/_review_duplicates"/IMG_0499.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/1/19542345-5D1E-45BF-B51E-444BDB320099.jpeg' "$DEST/_review_duplicates"/IMG_0B1B4385-42DE-44BD-9D85-2B900DFF507B.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/1/1A9D0555-53B4-4807-994A-904F64DE4884.heic' "$DEST/_review_duplicates"/IMG_0428.heic
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/1/1C4989A1-7ED4-45AF-AD45-ABDEF0F999CE.jpeg' "$DEST/_review_duplicates"/IMG_0514.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/1/1D1CAC1F-F359-4D91-8E62-446E9DC54D8F.jpeg' "$DEST/_review_duplicates"/IMG_FBDD1A60-2441-46C5-A49B-7979BAFBE4D8.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/1/1D1CEFF4-DC4E-43EE-85E7-27ED1194A18C.jpeg' "$DEST/_review_duplicates"/IMG_0517.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/1/1EBDBCEB-E5DD-4418-9F09-0D137DB50367.jpeg' "$DEST/_review_duplicates"/IMG_0581.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/2/20240F66-B070-49BA-9C02-1561F670A48B.jpeg' "$DEST/_review_duplicates"/IMG_1744.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/2/2051DF91-73E7-411B-8A28-2802447FB6CC.jpeg' "$DEST/_review_duplicates"/IMG_0689.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/2/206CAFF1-70E5-4C0F-9D4A-D680966A0725.jpeg' "$DEST/_review_duplicates"/IMG_2334.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/2/2104853B-3494-4B2D-BE2D-D852A126EC71.heic' "$DEST/_review_duplicates"/IMG_1934.heic
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/2/229AA256-2EC6-4D68-9977-6FE99780EAFE.jpeg' "$DEST/_review_duplicates"/IMG_2261.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/2/22D9A125-6F2E-4724-87BF-6ABD160F69E7.jpeg' "$DEST/_review_duplicates"/IMG_0625.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/2/23D02A23-2AC7-442F-A6B4-BAB8894DB082.jpeg' "$DEST/_review_duplicates"/IMG_0565.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/2/24385F34-4BFF-4C75-9404-BE0E8B2749F5.jpeg' "$DEST/_review_duplicates"/IMG_0632.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/2/2521A4D3-3ACD-49DF-AD77-14DF120B1664.jpeg' "$DEST/_review_duplicates"/IMG_0680.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/2/262B1CF4-65FC-45C6-9BAC-1616405EC1BF.jpeg' "$DEST/_review_duplicates"/IMG_0683.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/2/26954E59-B495-4B7B-8F52-C5B031BD64C3.heic' "$DEST/_review_duplicates"/IMG_1640.heic
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/2/27753350-BE51-4157-A0A0-37E11D820F37.jpeg' "$DEST/_review_duplicates"/IMG_0569.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/2/27774DB1-3A95-4F17-8ABA-8F7BC5384EE2.jpeg' "$DEST/_review_duplicates"/IMG_0576.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/2/2871F82B-69A9-404F-A935-AEFDCA77A88D.jpeg' "$DEST/_review_duplicates"/IMG_0648.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/2/2B539003-E32A-4003-A348-D7EC868E16FF.jpeg' "$DEST/_review_duplicates"/IMG_1732.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/2/2C63DB78-F460-4989-99EE-7F08D592FD26.heic' "$DEST/_review_duplicates"/IMG_1459.heic
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/2/2C967A0C-0907-4541-8304-506E65B8B168.jpeg' "$DEST/_review_duplicates"/IMG_0612.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/2/2CAD1D63-0C02-4D5B-8E53-84B2CA20BD3E.jpeg' "$DEST/_review_duplicates"/IMG_0535.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/2/2EE665AA-D1A5-4A6F-8E02-9210D65579D0.jpeg' "$DEST/_review_duplicates"/IMG_0513.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/2/2F4A2C31-D33C-44EA-8468-B28602386B9B.jpeg' "$DEST/_review_duplicates"/IMG_1631.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/2/2FF862F3-3DCD-4DF2-884C-FDF770344E0B.jpeg' "$DEST/_review_duplicates"/IMG_1617.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/3/30CA8660-A367-4287-BBB1-E1A0271209D4.heic' "$DEST/_review_duplicates"/IMG_1457.heic
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/3/30E7AB0E-2C6A-4D4D-8A8D-EAAC27CD0B5A.jpeg' "$DEST/_review_duplicates"/IMG_0561.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/3/3110676A-8072-4337-9147-0F505E5DCF5E.jpeg' "$DEST/_review_duplicates"/IMG_1653.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/3/3122113A-0AF2-48F0-8619-C3E67245B681.jpeg' "$DEST/_review_duplicates"/IMG_2368.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/3/31701CAB-677D-4F65-8980-DFD408F7DA1A.jpeg' "$DEST/_review_duplicates"/IMG_0573.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/3/321D8AF4-69CE-4A66-9736-3328F813C4D6.jpeg' "$DEST/_review_duplicates"/IMG_0546.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/3/324CC57B-9C76-4F19-994F-056BCC64B5E7.jpeg' "$DEST/_review_duplicates"/IMG_0599.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/3/34ED2704-33C0-41C1-8A3C-F606D0654D3D.jpeg' "$DEST/_review_duplicates"/IMG_0636.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/3/3646ADB4-57F1-4C3F-B26B-E5C93BD2FBE0.jpeg' "$DEST/_review_duplicates"/IMG_1748.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/3/368B9124-D6DF-41B4-99B9-9936729BF204.jpeg' "$DEST/_review_duplicates"/IMG_2357.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/3/37FBAFBC-3483-4E13-B95F-6DA892476432.heic' "$DEST/_review_duplicates"/IMG_1937.heic
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/3/3928A6DA-D3AE-40FF-A71D-15779F40B6C2.jpeg' "$DEST/_review_duplicates"/IMG_1646.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/3/39680224-D2A1-4394-A455-11BC80E73A43.jpeg' "$DEST/_review_duplicates"/IMG_0520.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/3/3A4DFA5A-6E1E-45A9-87FE-5A1AAC12DD48.jpeg' "$DEST/_review_duplicates"/IMG_0472.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/3/3A753D95-A20B-4D17-A2C4-DC60C0343CDB.jpeg' "$DEST/_review_duplicates"/IMG_1745.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/3/3A85F55C-A924-4083-B663-0726F7FDE0C1.jpeg' "$DEST/_review_duplicates"/IMG_0652.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/3/3B19E8FB-9DB6-45F1-A205-54B641196574.jpeg' "$DEST/_review_duplicates"/DSC00031.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/3/3B3A25BA-7F0B-40EC-9EDF-386C8D5110A5.jpeg' "$DEST/_review_duplicates"/IMG_0611.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/3/3B9F54D6-421B-4B14-994E-CF6F7FF17CCC.heic' "$DEST/_review_duplicates"/IMG_1402.heic
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/3/3C6C8E7A-181D-4ECA-9F61-2EDB448DD559.jpeg' "$DEST/_review_duplicates"/IMG_1749.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/3/3D301424-6A9D-49DE-8A3E-F98F40287BD7.jpeg' "$DEST/_review_duplicates"/IMG_2255.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/3/3E0A517B-4992-494C-9DAD-AC8CD22BB8EC.jpeg' "$DEST/_review_duplicates"/IMG_2254.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/3/3E97A910-821C-4507-A59F-4D3BEF531D28.jpeg' "$DEST/_review_duplicates"/IMG_1717.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/3/3F63EB00-3C7D-448E-A052-214D7E27209C.jpeg' "$DEST/_review_duplicates"/DSC00034.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/3/3F938E48-6F1A-457E-8E80-9A2D90753A36.jpeg' "$DEST/_review_duplicates"/IMG_0519.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/4/40F141E6-7486-44E8-A194-07859502B617.jpeg' "$DEST/_review_duplicates"/IMG_0563.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/4/410BADF7-78F6-4F41-AD7B-299E833CC31A.heic' "$DEST/_review_duplicates"/IMG_1468.heic
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/4/4118657C-AC55-4287-93BE-893114E6AD13.heic' "$DEST/_review_duplicates"/IMG_1464.heic
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/4/414361CC-E678-4687-B3C2-B04B97C40DFE.jpeg' "$DEST/_review_duplicates"/IMG_1738.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/4/4161FBF2-1381-42B7-B1B7-5D85E5B37BE5.heic' "$DEST/_review_duplicates"/IMG_1930.heic
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/4/41EF0778-D4DF-4B0F-A7B9-9023706BEC11.jpeg' "$DEST/_review_duplicates"/IMG_0610.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/4/42BE37CC-20BA-4232-9442-FFEBFC0D2F33.jpeg' "$DEST/_review_duplicates"/IMG_1727.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/4/47581409-0499-4145-9F26-7DF92110E266.jpeg' "$DEST/_review_duplicates"/IMG_1725.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/4/48D0534D-50DF-4280-A411-61D093047AB2.jpeg' "$DEST/_review_duplicates"/IMG_2256.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/4/48E8E8C1-0E98-47C2-94BC-D5CA3EE61AB0.heic' "$DEST/_review_duplicates"/IMG_1712.heic
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/4/4A00C746-8424-4EFF-AFF3-E9DFA25014EF.jpeg' "$DEST/_review_duplicates"/IMG_0627.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/4/4A5A4AD5-7B6D-4324-8523-4FA7C71DBCB2.heic' "$DEST/_review_duplicates"/IMG_1639.heic
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/4/4A71BC8A-5D70-4BBB-BC18-3A55BFEBE5E5.jpeg' "$DEST/_review_duplicates"/IMG_0643.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/4/4AAF39E1-A0D9-4CB6-AC5F-BA13408DF7C5.heic' "$DEST/_review_duplicates"/IMG_1641.heic
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/4/4AE90DC6-0B1C-42FA-8CF7-71849A01E7FE.jpeg' "$DEST/_review_duplicates"/IMG_0479.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/4/4B9358C4-12A7-486B-B055-22218D84BBE3.jpeg' "$DEST/_review_duplicates"/IMG_1746.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/4/4C04C364-E698-41E7-B3B1-63AE0ACD76AE.jpeg' "$DEST/_review_duplicates"/IMG_0568.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/4/4CB53ECF-676D-493D-A40E-7996BD091A06.jpeg' "$DEST/_review_duplicates"/IMG_2339.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/4/4D3220ED-51DA-41BC-A943-A1EB47CD8F2A.jpeg' "$DEST/_review_duplicates"/IMG_1723.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/4/4DA0A33E-34D3-4012-93EB-F8F71EC2926C.jpeg' "$DEST/_review_duplicates"/IMG_0607.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/4/4FE563B2-E79D-481F-9084-A34500BC3F4B.jpeg' "$DEST/_review_duplicates"/IMG_A6B1C4C9-2722-45D4-B6F6-AD4C247F7569.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/5/513E470F-DB81-4C6D-83E6-F9297BBDC9B9.jpeg' "$DEST/_review_duplicates"/IMG_1622.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/5/5140DE51-1569-465C-B8C7-48A579FE4500.jpeg' "$DEST/_review_duplicates"/IMG_0686.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/5/52CE2880-2A09-46CB-BB43-6EC84158A839.jpeg' "$DEST/_review_duplicates"/IMG_0626.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/5/5350DF27-D7FD-407C-950A-7CC572B170CC.jpeg' "$DEST/_review_duplicates"/IMG_0676.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/5/537FBBB4-6C46-42A5-8835-8F781E3863DC.jpeg' "$DEST/_review_duplicates"/IMG_0608.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/5/53CC2509-444E-444C-9518-DC5FB76EB1B1.jpeg' "$DEST/_review_duplicates"/IMG_2319.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/5/54AF2BE7-1A4D-4DD4-BFC3-64A67D5FBB10.jpeg' "$DEST/_review_duplicates"/IMG_0521.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/5/54D7128E-B0A8-4FF3-8E69-1E6AACFE9022.jpeg' "$DEST/_review_duplicates"/IMG_1633.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/5/554EBB8A-E657-48A2-82E6-31ABC8CDF486.jpeg' "$DEST/_review_duplicates"/IMG_0621.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/5/564C01FE-00C5-4F4D-9C2A-A4DEE05D408A.jpeg' "$DEST/_review_duplicates"/IMG_1697.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/5/5692B678-4C3A-4ADA-910D-857B86FA707F.jpeg' "$DEST/_review_duplicates"/IMG_0638.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/5/571735F1-BB54-46C7-8289-BF6B58BFE62A.jpeg' "$DEST/_review_duplicates"/IMG_0512.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/5/57D530B1-66BB-461E-89FC-0CFF2CF1F320.jpeg' "$DEST/_review_duplicates"/IMG_2260.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/5/583876AA-D4CC-4885-8720-63D0C09F712B.jpeg' "$DEST/_review_duplicates"/IMG_0603.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/5/590CC873-46B1-4F42-8305-88568D2BAEB4.jpeg' "$DEST/_review_duplicates"/IMG_0606.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/5/59C6BB39-0784-4DCA-B330-AD16648E628E.jpeg' "$DEST/_review_duplicates"/IMG_0613.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/5/5C065D45-0183-4215-B244-951BD253CB5A.jpeg' "$DEST/_review_duplicates"/IMG_0539.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/5/5E557C34-BF4C-423E-9FCB-7C0340A439B5.heic' "$DEST/_review_duplicates"/IMG_1462.heic
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/5/5FA443C3-6607-4D55-8DA4-16A794605E27.jpeg' "$DEST/_review_duplicates"/IMG_0547.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/5/5FB50D75-9442-4072-BD4A-7D4B5CD0D32E.jpeg' "$DEST/_review_duplicates"/IMG_1463.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/5/5FFB195B-91B9-4D6B-A516-BD6ABBDC93FC.jpeg' "$DEST/_review_duplicates"/IMG_0630.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/6/600E4F5C-A865-4BF5-8FC5-F0C94B54AA29.jpeg' "$DEST/_review_duplicates"/IMG_1699.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/6/605BB042-DA17-41AF-A86D-CD58B8C1EE86.jpeg' "$DEST/_review_duplicates"/IMG_2257.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/6/60A41ABE-FE8F-4D31-B21F-E128CE258412.heic' "$DEST/_review_duplicates"/IMG_1471.heic
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/6/60B7229D-A8FC-4C94-BF8E-67D6F95E15DE.jpeg' "$DEST/_review_duplicates"/IMG_0684.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/6/60F58BEA-E8DC-4E79-9C95-8362FEC51231.jpeg' "$DEST/_review_duplicates"/IMG_0577.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/6/612DB27A-11B7-4C75-82BC-8A27E68D17DC.jpeg' "$DEST/_review_duplicates"/IMG_0510.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/6/61D35C2F-66E7-4F09-9C1D-7F19EB480735.jpeg' "$DEST/_review_duplicates"/IMG_2353.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/6/627DE3D2-8D7A-41C4-81B0-2F5F715E484B.heic' "$DEST/_review_duplicates"/IMG_1463.heic
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/6/628D4735-D0C3-4951-8CBA-5D477E94469A.jpeg' "$DEST/_review_duplicates"/IMG_0605.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/6/63551A59-9593-42DB-90B4-2E3E577664A4.jpeg' "$DEST/_review_duplicates"/IMG_0558.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/6/6496F754-323B-43A4-AE8B-8124ABA3A8F4.jpeg' "$DEST/_review_duplicates"/IMG_0688.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/6/64FF5A4B-9BD9-48DF-889D-7D548CBB7012.jpeg' "$DEST/_review_duplicates"/IMG_0540.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/6/651A2BE1-8251-4F67-B90E-ECBFCD16663A.jpeg' "$DEST/_review_duplicates"/IMG_0545.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/6/65438A3C-4287-4A99-80FC-BF4215953A64.jpeg' "$DEST/_review_duplicates"/IMG_2252.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/6/68DCF792-8A24-4712-9496-A13A1A5241AC.jpeg' "$DEST/_review_duplicates"/IMG_1705.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/6/693AFAB8-E67B-4DBE-8C04-BCD98A53C83F.heic' "$DEST/_review_duplicates"/IMG_1403.heic
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/6/69640AFF-F20A-4667-8302-45B5A539D0C2.jpeg' "$DEST/_review_duplicates"/IMG_0658.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/6/6A34A745-B953-4427-B1E6-4B9F73A16993.jpeg' "$DEST/_review_duplicates"/IMG_1747.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/6/6AD23AE3-9E56-4BFD-9188-FD2823A86583.jpeg' "$DEST/_review_duplicates"/IMG_0635.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/6/6AF0C6F8-C471-468F-8FFA-2EB3E4703236.jpeg' "$DEST/_review_duplicates"/IMG_1730.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/6/6B66B7D8-1DEC-41FD-BDBF-DE7E6055C006.jpeg' "$DEST/_review_duplicates"/IMG_0555.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/6/6BA9FED3-FA8C-4678-8F9A-BC0E967BD641.jpeg' "$DEST/_review_duplicates"/IMG_1634.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/6/6CA1C8BE-2828-4CB4-9914-8E864FEF2792.jpeg' "$DEST/_review_duplicates"/IMG_0529.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/6/6E32B5DE-EAE9-48A4-A673-E048F4BEBA0D.jpeg' "$DEST/_review_duplicates"/IMG_0552.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/6/6F5BF9C8-27FA-409F-8032-B0AEBCDC39B8.jpeg' "$DEST/_review_duplicates"/IMG_1714.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/7/709507E0-5DF2-4567-BE1C-D39CB055CC13.jpeg' "$DEST/_review_duplicates"/IMG_1618.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/7/7126E251-03B6-48BD-9EE0-71F6B4E93ED5.jpeg' "$DEST/_review_duplicates"/IMG_2258.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/7/718CE40F-0763-487E-9683-5824457633EF.jpeg' "$DEST/_review_duplicates"/IMG_1619.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/7/7197AF82-B0E6-4E3C-BB94-94E3CF40DA50.heic' "$DEST/_review_duplicates"/IMG_1416.heic
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/7/72B3E9B5-8065-4C2F-B31C-F2F16A127EE1.jpeg' "$DEST/_review_duplicates"/DSC00032.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/7/73422DF6-A98E-4A1F-88FA-75160CB3FFB9.jpeg' "$DEST/_review_duplicates"/IMG_1750.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/7/7355AC38-8630-45B3-92BD-1D21BE7F7AF8.jpeg' "$DEST/_review_duplicates"/Image.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/7/73A90710-3915-4970-92DD-DFD8D7730D4F.jpeg' "$DEST/_review_duplicates"/IMG_0677.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/7/7443B109-4761-40F6-B4BE-8EA167F05D06.jpeg' "$DEST/_review_duplicates"/IMG_0560.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/7/76C4A985-F61C-4180-911A-8C564BCA52C1.jpeg' "$DEST/_review_duplicates"/IMG_2340.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/7/771799FB-30FD-4898-B742-BF8E68C95C7E.jpeg' "$DEST/_review_duplicates"/IMG_0674.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/7/7740DF6C-4E11-4BA6-A370-8C52698636BF.jpeg' "$DEST/_review_duplicates"/IMG_0530.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/7/774EAA15-BC62-4430-9119-4F9ECD513B68.jpeg' "$DEST/_review_duplicates"/IMG_0634.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/7/78953EDF-B13B-4D03-A401-78CAA34CCEAB.jpeg' "$DEST/_review_duplicates"/IMG_2262.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/7/78BC490E-C948-450A-AEB3-5F14DA3AC40A.jpeg' "$DEST/_review_duplicates"/IMG_0629.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/7/79166EB7-09C6-4165-A305-13B128F0ABDA.jpeg' "$DEST/_review_duplicates"/IMG_0659.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/7/79F27624-8690-4391-80BD-FAFB4DC15651.heic' "$DEST/_review_duplicates"/IMG_4261.heic
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/7/7AEC0A65-9E86-4F8A-B0EF-25C5F02F108C.jpeg' "$DEST/_review_duplicates"/IMG_0604.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/7/7B72FCE2-91F6-4B21-8A81-28192FD72DBE.jpeg' "$DEST/_review_duplicates"/IMG_0662.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/7/7B9B94F3-3AFD-4166-A6D6-A9341F209DE1.jpeg' "$DEST/_review_duplicates"/IMG_0631.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/7/7BAC6DE3-5DE3-47A4-9497-A5F77B4D0ECA.jpeg' "$DEST/_review_duplicates"/IMG_0541.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/7/7BB66A86-E5D7-47D7-BA2E-B93E1AC54726.jpeg' "$DEST/_review_duplicates"/IMG_0614.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/7/7BB919F6-E061-424F-BECF-768BFBDAAE35.jpeg' "$DEST/_review_duplicates"/IMG_0602.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/7/7BBA721C-CCB3-47D9-8E23-BB9D3B1E9D7F.jpeg' "$DEST/_review_duplicates"/IMG_0639.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/7/7D774EC4-8D5D-4942-BC83-95E9B005C88A.jpeg' "$DEST/_review_duplicates"/IMG_0609.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/7/7E8B28A8-BCB7-4521-BCDB-4FF7939F3E2D.jpeg' "$DEST/_review_duplicates"/IMG_2370.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/7/7F4FB358-E863-437C-81E3-EA7411F5465B.jpeg' "$DEST/_review_duplicates"/IMG_0672.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/7/7FBEC1FB-2388-40FE-961A-7D9A22B61EDF.jpeg' "$DEST/_review_duplicates"/IMG_1632.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/7/7FE2AB65-9039-4E36-9132-134868E9D4F0.jpeg' "$DEST/_review_duplicates"/IMG_0679.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/8/810E3107-1097-4F38-8A82-F5AE08C6E197.jpeg' "$DEST/_review_duplicates"/IMG_1645.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/8/835B668A-5874-414D-9540-888098385B4D.jpeg' "$DEST/_review_duplicates"/IMG_0596.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/8/850825B6-021E-434E-B98A-8353317C02F0.jpeg' "$DEST/_review_duplicates"/IMG_1737.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/8/8565CC4C-C887-4CB3-920A-5BD2ED6359C4.jpeg' "$DEST/_review_duplicates"/IMG_0617.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/8/85727802-7485-4237-BD62-73FBACBDB8F0.jpeg' "$DEST/_review_duplicates"/IMG_0637.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/8/858458C1-3657-4DAD-AB2D-967A3FD98C73.jpeg' "$DEST/_review_duplicates"/IMG_0474.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/8/85C46644-5656-4A8C-B6F5-5666850EDBD9.jpeg' "$DEST/_review_duplicates"/IMG_0647.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/8/860329F2-1884-47B6-B06D-315213915250.jpeg' "$DEST/_review_duplicates"/IMG_2348.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/8/867087DA-B73C-4899-8154-96CFFF15389C.heic' "$DEST/_review_duplicates"/IMG_1415.heic
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/8/880B09A7-BDB3-4952-AC6D-51115784774F.jpeg' "$DEST/_review_duplicates"/IMG_0616.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/8/8877B89E-2BD5-4F76-A981-6713A26FA025.jpeg' "$DEST/_review_duplicates"/IMG_2246.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/8/89C93B96-9042-40B7-AEEE-DDFEFA187945.jpeg' "$DEST/_review_duplicates"/IMG_1702.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/8/8A7F10B5-DBF5-4501-A4D9-99F46BA4A99B.jpeg' "$DEST/_review_duplicates"/IMG_0582.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/8/8B1A229C-951A-4B4A-A8F7-3B84F72184CC.jpeg' "$DEST/_review_duplicates"/IMG_0527.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/8/8B8F1838-68EE-47E9-B96C-AD67FF29E1A8.jpeg' "$DEST/_review_duplicates"/IMG_0661.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/8/8C0C38DB-6CCD-4946-A9B7-DE4AE8FE2A2B.heic' "$DEST/_review_duplicates"/IMG_1942.heic
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/8/8C51766E-5CE0-400B-8A49-B841DCEE85D3.jpeg' "$DEST/_review_duplicates"/IMG_0538.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/8/8C949468-6E92-4A5C-A2B5-6861CE733256.jpeg' "$DEST/_review_duplicates"/IMG_0549.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/8/8C9E8D4D-72AE-429D-9061-5FF53D1C1964.jpeg' "$DEST/_review_duplicates"/IMG_1696.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/8/8CDA936B-6646-4D7D-A890-ED8222A67E34.jpeg' "$DEST/_review_duplicates"/IMG_0656.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/8/8D28EF93-C8BB-4D26-8DCB-63347B467EFB.jpeg' "$DEST/_review_duplicates"/IMG_1728.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/9/905287E5-ADBE-4979-BF0C-A42B8740DE70.jpeg' "$DEST/_review_duplicates"/IMG_1623.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/9/9076AAD8-2266-4C8F-8010-6ECA3537D6F5.jpeg' "$DEST/_review_duplicates"/IMG_0516.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/9/90A87E0D-511C-4239-AE47-829F402E6F9A.jpeg' "$DEST/_review_duplicates"/IMG_2333.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/9/93E94994-7C08-4F9C-93FD-855605E39DC7.jpeg' "$DEST/_review_duplicates"/IMG_1711.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/9/964B9A27-1619-4287-8728-AA55D45977CC.jpeg' "$DEST/_review_duplicates"/IMG_0176.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/9/96B26168-8756-4912-85C5-D4FE7E7137FE.jpeg' "$DEST/_review_duplicates"/IMG_0045.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/9/97E145ED-E07E-4B0B-A36E-014FF5EA364E.jpeg' "$DEST/_review_duplicates"/IMG_2350.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/9/997C37D1-EBD9-4B96-87DE-9364A0BDF33A.jpeg' "$DEST/_review_duplicates"/IMG_0528.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/9/9B7C0C2D-B2F6-411D-97AD-42F7825635E0.jpeg' "$DEST/_review_duplicates"/IMG_2352.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/9/9BAA4845-74E5-475B-B2FB-743DAB8BE57C.jpeg' "$DEST/_review_duplicates"/IMG_0542.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/9/9EBC052F-C5D4-41E0-B090-D55EE011D673.jpeg' "$DEST/_review_duplicates"/IMG_0559.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/9/9EC6EDD0-48A5-498F-BD4A-D7C343E66824.jpeg' "$DEST/_review_duplicates"/IMG_0580.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/A/A00D8404-44D4-4672-8288-9781B5301F3A.jpeg' "$DEST/_review_duplicates"/IMG_0533.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/A/A040900E-B68D-40B8-85AF-220BC8FEAF3D.jpeg' "$DEST/_review_duplicates"/IMG_1698.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/A/A0537641-29FF-479C-AAF6-D623CBED2073.jpeg' "$DEST/_review_duplicates"/IMG_0671.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/A/A09D05AB-7351-4C0C-AC52-6E182145BAF1.jpeg' "$DEST/_review_duplicates"/IMG_1620.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/A/A0B3FB27-CD65-45CF-8A04-3F86113DCD6E.jpeg' "$DEST/_review_duplicates"/IMG_0574.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/A/A1A10D3A-6020-4191-9ACF-A57EE8D939B0.jpeg' "$DEST/_review_duplicates"/IMG_0566.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/A/A1C7852D-ECF2-4D5F-BF0C-7E264EFE8C6F.jpeg' "$DEST/_review_duplicates"/IMG_1722.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/A/A1DBFDD6-41E5-4725-BA33-DBACC71D56D4.heic' "$DEST/_review_duplicates"/IMG_1470.heic
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/A/A1F7F09E-FC92-437E-90C0-82EF5E1039F4.jpeg' "$DEST/_review_duplicates"/IMG_0619.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/A/A2D3E266-E27A-4919-9405-9735B925D446.jpeg' "$DEST/_review_duplicates"/IMG_0618.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/A/A3091D0A-840A-4AE6-AAA6-3FBDD188AAC3.jpeg' "$DEST/_review_duplicates"/IMG_D48457C8-5CBB-4039-A97F-09CBB8921545.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/A/A3160100-6A64-4060-8205-FFE2676AAD29.jpeg' "$DEST/_review_duplicates"/IMG_2170.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/A/A33A4A1C-3025-430A-9BA7-D1DC7B80C2EE.jpeg' "$DEST/_review_duplicates"/IMG_0532.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/A/A3F061A0-67A6-4779-9CA1-E1713A669767.jpeg' "$DEST/_review_duplicates"/IMG_0649.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/A/A5381983-2814-4895-98BD-ECC7A2A44B9C.jpeg' "$DEST/_review_duplicates"/IMG_1731.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/A/A7F7B458-5AA2-423C-95C6-299E9C7EB9E2.jpeg' "$DEST/_review_duplicates"/IMG_0628.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/A/A847998B-D0B4-4060-AB1A-0060E4F2BE0A.jpeg' "$DEST/_review_duplicates"/IMG_0651.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/A/A913D02D-2B15-43D3-9240-DBD2F7B6076D.jpeg' "$DEST/_review_duplicates"/IMG_1657.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/A/AA2546AF-CB1E-4138-B462-5A1BBB8B562F.jpeg' "$DEST/_review_duplicates"/IMG_002.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/A/AB829404-DFDA-4837-AE7A-1151DBCA0DA0.jpeg' "$DEST/_review_duplicates"/IMG_0564.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/A/AC2288BB-8112-4959-9C1C-AC9C90959BBA.jpeg' "$DEST/_review_duplicates"/IMG_0554.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/A/ACE92803-B68D-412D-BE3D-31A6F6CD3E78.jpeg' "$DEST/_review_duplicates"/IMG_1712.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/A/AD3D9187-046B-4107-861E-68CD251F250C.jpeg' "$DEST/_review_duplicates"/IMG_1713.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/A/AE7A505C-2B0B-4698-8269-8CBAE6789AF8.jpeg' "$DEST/_review_duplicates"/IMG_0522.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/B/B025A00E-53D3-45E8-8E04-D3A4CF9FCD4F.jpeg' "$DEST/_review_duplicates"/IMG_1739.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/B/B0AC5C91-2BF5-40F4-9012-52A7626ED0F4.heic' "$DEST/_review_duplicates"/IMG_1638.heic
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/B/B1778BEA-5621-4EBB-A30C-BA39290B45AF.jpeg' "$DEST/_review_duplicates"/IMG_1724.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/B/B1EC5A42-0E30-44DA-A413-47A6472945F9.jpeg' "$DEST/_review_duplicates"/IMG_0620.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/B/B52D5A31-4F3A-46A0-8614-B7A9EB07601B.jpeg' "$DEST/_review_duplicates"/IMG_2358.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/B/B5A8CF29-D145-4D4C-9759-701885C99885.jpeg' "$DEST/_review_duplicates"/DSC00030.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/B/B5A99EF4-4BF6-4055-AE0C-7A4A0210AF03.jpeg' "$DEST/_review_duplicates"/IMG_0728.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/B/B6912F2E-460B-423E-A572-6869CBB28457.jpeg' "$DEST/_review_duplicates"/IMG_0675.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/B/B762FFE2-3FB1-442C-BA2D-570522BB11AA.jpeg' "$DEST/_review_duplicates"/IMG_1918.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/B/B85E01ED-8F90-40E1-A7BB-025DFD7232C9.jpeg' "$DEST/_review_duplicates"/IMG_2349.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/B/B8638AC7-F8AB-4D92-AA26-D0B7E8CF80F0.jpeg' "$DEST/_review_duplicates"/IMG_0665.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/B/B962204B-C651-4E28-8B46-0AB2A7B70258.jpeg' "$DEST/_review_duplicates"/IMG_CFDC9561-D009-4C30-A607-194E6D5F7E33.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/B/BAFBFB70-01B7-467E-B0B3-483ADA601C3A.jpeg' "$DEST/_review_duplicates"/IMG_0551.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/B/BBAE5962-6B3E-4EE6-9414-7AB16DB30B18.jpeg' "$DEST/_review_duplicates"/IMG_1718.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/B/BBB2BD9E-7D5C-4379-B089-8A42DA5CD44E.jpeg' "$DEST/_review_duplicates"/IMG_0644.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/B/BBF986BF-09ED-4B44-B2D9-31F711CCA8F6.jpeg' "$DEST/_review_duplicates"/IMG_0556.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/B/BC9EE31C-7AE7-4854-BE45-1024E5BCDAA7.jpeg' "$DEST/_review_duplicates"/IMG_2111.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/B/BE285EA9-43CD-473E-B8B6-2B79809A81E2.jpeg' "$DEST/_review_duplicates"/IMG_0570.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/B/BE93D391-0594-43A8-8239-F5DDC6E279E2.jpeg' "$DEST/_review_duplicates"/IMG_0185.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/B/BF03EFE3-15F6-40D0-AA69-86D1B73F7497.jpeg' "$DEST/_review_duplicates"/IMG_0567.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/B/BF3792B9-26A7-4A04-9EEF-350AB515BB17.jpeg' "$DEST/_review_duplicates"/IMG_1742.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/C/C0A092C5-10CF-4CDF-A5A6-8657E3582E3D.jpeg' "$DEST/_review_duplicates"/IMG_0531.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/C/C0C145FB-1A9E-4802-A9FB-0AC042809600.jpeg' "$DEST/_review_duplicates"/IMG_1656.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/C/C19D5901-585F-4534-A1E5-CC4AD75A5D72.jpeg' "$DEST/_review_duplicates"/IMG_0645.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/C/C42031AB-A829-41E6-BD86-0643CCD993F2.jpeg' "$DEST/_review_duplicates"/IMG_90950489-6924-4F61-9230-BD08F29E6DB8.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/C/C446B51D-939C-4CE7-ACDB-5E2874316C2D.jpeg' "$DEST/_review_duplicates"/IMG_0502.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/C/C490E03E-FC2B-4582-9D23-ECDE7556C0F6.heic' "$DEST/_review_duplicates"/IMG_1460.heic
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/C/C5291AC4-BE84-4C02-ADF2-4B57B1D3B839.jpeg' "$DEST/_review_duplicates"/IMG_0571.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/C/C5A10487-8D34-4C7B-B577-28107AD255D6.jpeg' "$DEST/_review_duplicates"/IMG_003.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/C/C5F79D68-82C8-4EF9-A86F-6930F76FD79F.jpeg' "$DEST/_review_duplicates"/IMG_1654.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/C/C61C63E2-D5D2-4083-B2D4-9AB17035FD92.jpeg' "$DEST/_review_duplicates"/IMG_0600.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/C/C6A9E216-6157-4982-80A7-78CFC86F6779.jpeg' "$DEST/_review_duplicates"/IMG_0525.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/C/C6D03DE1-F734-48B0-88D8-D94F3D29D4E3.jpeg' "$DEST/_review_duplicates"/IMG_0673.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/C/C6E15996-A906-4EFB-90E2-96BDB5E7BB17.jpeg' "$DEST/_review_duplicates"/IMG_1721.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/C/C74D5D75-3419-4134-8F85-5F4B32E77704.jpeg' "$DEST/_review_duplicates"/IMG_0660.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/C/C754B9DA-BDA6-4720-95F5-187A8E40E2BC.jpeg' "$DEST/_review_duplicates"/IMG_0534.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/C/C7CA5C13-3CA1-4DDE-897F-3B729F13185D.jpeg' "$DEST/_review_duplicates"/IMG_0664.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/C/C8571452-36ED-4A7F-A0C5-19FCA81C153F.jpeg' "$DEST/_review_duplicates"/IMG_0687.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/C/C8587821-EC7F-4966-9D5E-0754CAFDD659.jpeg' "$DEST/_review_duplicates"/2026-03-28_125237.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/C/C9B11E3E-6B54-442E-942F-065BCBFEC5E7.jpeg' "$DEST/_review_duplicates"/IMG_0640.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/C/CA90FEC8-2595-4063-AE80-14F04A1B49B6.jpeg' "$DEST/_review_duplicates"/IMG_0537.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/C/CB135446-FFC4-48DB-973A-CF5DA1B93C17.jpeg' "$DEST/_review_duplicates"/IMG_0601.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/C/CC03FBC5-D6D8-4F4C-A29A-E19AC539D1AB.jpeg' "$DEST/_review_duplicates"/IMG_2351.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/C/CCA5C396-3482-4BB9-B266-B1C10DBE0764.jpeg' "$DEST/_review_duplicates"/IMG_0642.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/C/CD9C58AF-F378-4822-A219-92B150D7D70D.jpeg' "$DEST/_review_duplicates"/IMG_0622.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/C/CF0F0063-2F40-4BC1-8FB0-8B24AB4DBF42.jpeg' "$DEST/_review_duplicates"/IMG_1906.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/D/D10D612B-DBFA-4F8F-BC06-9378083608AD.jpeg' "$DEST/_review_duplicates"/IMG_0562.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/D/D11BC6E6-79CC-4944-A29E-22303FA5446D.jpeg' "$DEST/_review_duplicates"/IMG_1647.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/D/D2100CB3-AE69-4EB4-B3CA-460791121364.jpeg' "$DEST/_review_duplicates"/IMG_0678.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/D/D225733E-4C4B-4849-9CF4-51E466697F9A.jpeg' "$DEST/_review_duplicates"/IMG_2323.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/D/D3BDD6DE-67F9-42BA-A8DD-2584F74355E2.jpeg' "$DEST/_review_duplicates"/IMG_0044.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/D/D516B424-9D18-4046-AF33-989E3D17D59F.jpeg' "$DEST/_review_duplicates"/IMG_0536.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/D/D5A726BA-B182-4D55-A6B8-0EB450103C0B.heic' "$DEST/_review_duplicates"/IMG_1469.heic
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/D/D6C91B41-A88D-4D60-9659-EC9D4D213FE8.jpeg' "$DEST/_review_duplicates"/IMG_0543.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/D/D7FFFAE4-CF90-4FC0-BF72-E4CC9FCCB016.jpeg' "$DEST/_review_duplicates"/IMG_1964.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/D/D8E1C708-E6E2-47B6-A7E8-5C352E3F6506.heic' "$DEST/_review_duplicates"/lp_image.heic
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/D/D963091B-682E-42EB-AB1C-002E873D0B60.jpeg' "$DEST/_review_duplicates"/IMG_0524.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/D/D97EE0DA-6379-4F09-AB70-84C1DD33BC2A.jpeg' "$DEST/_review_duplicates"/IMG_0578.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/D/DA50D105-BE13-49D9-943D-F4F3E8FC190C.jpeg' "$DEST/_review_duplicates"/IMG_1621.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/D/DA52B1ED-1376-4C5D-A118-86D4EF5F7934.jpeg' "$DEST/_review_duplicates"/IMG_0575.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/D/DA9E64AF-981B-4CA1-A9DD-E9C6A45E7E0D.jpeg' "$DEST/_review_duplicates"/IMG_2335.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/D/DB10E081-3FDD-4E16-9C48-EB1338B3FBAB.jpeg' "$DEST/_review_duplicates"/IMG_0557.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/D/DBD0148D-5284-4798-B6A4-EBFFCCCB6F93.heic' "$DEST/_review_duplicates"/IMG_1467.heic
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/D/DBD03349-C732-43DF-9910-415E4A56DE51.heic' "$DEST/_review_duplicates"/IMG_0446.heic
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/D/DC8BBA58-9009-4F1F-ACDB-A61D7BBD3FAD.jpeg' "$DEST/_review_duplicates"/IMG_1710.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/D/DC9CA11A-3EF6-45CB-9504-62C48ECFA15E.jpeg' "$DEST/_review_duplicates"/IMG_0682.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/D/DD9E423D-F96E-4E05-916A-CC309C8AFCC6.jpeg' "$DEST/_review_duplicates"/IMG_1726.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/D/DE2246CF-5DE5-4447-9548-7B6E76A866DE.jpeg' "$DEST/_review_duplicates"/IMG_0633.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/E/E0B5FE40-E60D-4753-973D-706E58CDE197.jpeg' "$DEST/_review_duplicates"/IMG_1649.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/E/E0CAD8C8-B7BC-4CE3-9F1D-F34B788A3CB5.jpeg' "$DEST/_review_duplicates"/IMG_0553.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/E/E2662071-49D4-4F74-B7AA-8C24A4852CB1.jpeg' "$DEST/_review_duplicates"/IMG_0285.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/E/E2AF25A2-434C-444B-A27D-E3FB2FF014A8.jpeg' "$DEST/_review_duplicates"/IMG_0655.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/E/E3455A73-6671-49FF-9141-4DAE2A930F06.jpeg' "$DEST/_review_duplicates"/IMG_2322.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/E/E5D9BD19-92D7-4461-A7A7-AFD4BB1010BF.jpeg' "$DEST/_review_duplicates"/IMG_1655.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/E/E67E7F93-A51A-4E59-B628-11EA4C8A15DE.jpeg' "$DEST/_review_duplicates"/IMG_0518.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/E/E882C88C-2934-4FDE-8CE7-811094FA63C2.heic' "$DEST/_review_duplicates"/IMG_1466.heic
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/E/E9B9D6A1-05D3-40A3-A509-B81979D697DA.jpeg' "$DEST/_review_duplicates"/IMG_1700.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/E/EA5C6BC9-A71D-481D-907A-8C355E349E49.jpeg' "$DEST/_review_duplicates"/IMG_0523.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/E/EB267DB3-7F91-48FE-A3B9-256A92575C1B.heic' "$DEST/_review_duplicates"/IMG_1637.heic
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/E/EB2E0E6D-041B-4D4E-99F6-A28F71541E95.jpeg' "$DEST/_review_duplicates"/IMG_2356.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/E/EBB5D877-6A1B-4442-BD35-FDA17A2F9AA2.jpeg' "$DEST/_review_duplicates"/IMG_2324.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/E/EBFE35C9-43EE-406A-8F26-301AC30FA4A6.jpeg' "$DEST/_review_duplicates"/IMG_0572.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/E/EC12EC41-004D-49AC-9B26-34C4B236B4A3.jpeg' "$DEST/_review_duplicates"/IMG_0526.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/E/EC668399-127B-484F-95CC-D92063691ADE.jpeg' "$DEST/_review_duplicates"/IMG_1715.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/E/ECEB7363-2DB6-4A15-BB9C-71010989E1C1.heic' "$DEST/_review_duplicates"/IMG_1465.heic
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/E/EDA65794-10C2-4A79-9419-DE81231621A4.jpeg' "$DEST/_review_duplicates"/IMG_0654.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/E/EDA6BB62-3187-4A1D-88CD-4B26A35F6294.jpeg' "$DEST/_review_duplicates"/IMG_0650.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/F/F2276386-B1B7-4854-B593-1728A57B45F3.jpeg' "$DEST/_review_duplicates"/IMG_2263.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/F/F2D6C633-AA42-44D0-97D3-F23B1511148E.jpeg' "$DEST/_review_duplicates"/IMG_0548.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/F/F4A4E115-7B54-474C-9D28-CEDCA30CA675.jpeg' "$DEST/_review_duplicates"/IMG_1695.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/F/F4A9684E-6B96-451F-B6BD-6F7F734B433B.jpeg' "$DEST/_review_duplicates"/IMG_1743.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/F/F4B4781E-83E4-4070-A6F4-E2AE87D54F85.jpeg' "$DEST/_review_duplicates"/IMG_0623.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/F/F533667A-7BCF-4B58-B7E7-CC8293E46556.jpeg' "$DEST/_review_duplicates"/IMG_0615.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/F/F53DB1B9-C643-4E52-AF71-807C708BA484.jpeg' "$DEST/_review_duplicates"/IMG_2346.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/F/F561D71E-93CA-4720-8B78-193060F83B11.jpeg' "$DEST/_review_duplicates"/IMG_0184.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/F/F5B14729-716E-414B-9278-EED383924F4E.jpeg' "$DEST/_review_duplicates"/IMG_1729.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/F/F63EAA0C-ADDD-4EF0-9870-FBECE40B1F38.jpeg' "$DEST/_review_duplicates"/IMG_0653.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/F/F8D86343-9ABF-421B-851F-6105CECE943A.jpeg' "$DEST/_review_duplicates"/IMG_0544.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/F/F8E9C43F-2130-4B29-BB5F-AE0AF1EAABD7.jpeg' "$DEST/_review_duplicates"/IMG_1709.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/F/F987F0A9-EA0B-4CF2-A41D-4B92B1024C8C.jpeg' "$DEST/_review_duplicates"/2026-03-04_230427.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/F/F9D5574F-75A7-4C6C-BA28-C9B3430CA931.jpeg' "$DEST/_review_duplicates"/IMG_1720.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/F/FE19E642-D938-42C9-A73A-EBC0A8120F1A.jpeg' "$DEST/_review_duplicates"/IMG_0685.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/F/FEFA75FE-D61B-4C83-82EC-F63B49E125EF.jpeg' "$DEST/_review_duplicates"/IMG_1644.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/F/FF42E3F7-0280-4426-9669-5B0D09EBDD1C.jpeg' "$DEST/_review_duplicates"/IMG_1694.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/F/FF8331EE-CA2F-4CCF-BF58-51806D96ED82.jpeg' "$DEST/_review_duplicates"/IMG_0692.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/originals/F/FFCB68A8-0992-4F83-99DE-8556FF2EF75C.jpeg' "$DEST/_review_duplicates"/IMG_0681.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/0/0338F51D-C86E-45E6-A7A6-A61C006E5631_1_105_c.jpeg' "$DEST/_review_duplicates"/IMG_0933.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/0/060427F7-F9F8-479C-BAA8-78FF7474165F_1_105_c.jpeg' "$DEST/_review_duplicates"/IMG_0286.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/0/08162886-6B22-4353-8767-7D02829D86EF_1_105_c.jpeg' "$DEST/_review_duplicates"/IMG_1837.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/0/0A92DF7F-23EE-4C99-830E-6A5E183FBABB_1_102_o.jpeg' "$DEST/_review_duplicates"/IMG_1047.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/1/107BF98F-861B-4562-8595-AADA82EAFE20_1_105_c.jpeg' "$DEST/_review_duplicates"/IMG_0471.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/1/118300A0-63E3-4EAB-8BCA-0BE4E4EA501D_1_102_o.jpeg' "$DEST/_review_duplicates"/IMG_1227.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/1/19AB5E2A-6AE4-414A-9D4A-1E81CC83A1A4_1_105_c.jpeg' "$DEST/_review_duplicates"/IMG_1159.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/1/1CC243BA-319B-454B-8E3B-668BA8FB9D46_1_105_c.jpeg' "$DEST/_review_duplicates"/IMG_0029.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/1/1F419201-95F5-442F-8D35-CD2A4DFDF8F0_1_105_c.jpeg' "$DEST/_review_duplicates"/IMG_0533.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/1/1F419201-95F5-442F-8D35-CD2A4DFDF8F0_1_105_c.jpeg' "$DEST/_review_duplicates"/IMG_0533_681463.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/2/20089463-E227-4304-8E8C-444C5F16030E_1_105_c.jpeg' "$DEST/_review_duplicates"/IMG_0305.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/2/2264964F-088B-4FB6-88AA-5676D308974B_1_105_c.jpeg' "$DEST/_review_duplicates"/IMG_0358.jpeg
-cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/2/253CF32F-E1F4-4C43-A781-42BAED7B04B8_1_105_c.jpeg' "$DEST/_review_duplicates"/IMG_0534.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/2/253CF32F-E1F4-4C43-A781-42BAED7B04B8_1_105_c.jpeg' "$DEST/_review_duplicates"/IMG_0534_135011.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/2/2788E18C-D000-4A57-9A4E-1E29AA48004C_1_105_c.jpeg' "$DEST/_review_duplicates"/IMG_0030.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/2/28460F64-138A-4C42-AAD6-5B91F88E8B9D_1_102_o.jpeg' "$DEST/_review_duplicates"/530602036.704767.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/2/285EC8F3-6B4F-4B7B-9222-18EBB1CC0ECD_1_105_c.jpeg' "$DEST/_review_duplicates"/IMG_1187.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/3/30CF8752-2C8F-4207-92EA-6FAFB9A0318A_1_105_c.jpeg' "$DEST/_review_duplicates"/IMG_1718_728439.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/3/33BD5F4B-3766-42E3-BDF4-BB7E78D61CEF_1_105_c.jpeg' "$DEST/_review_duplicates"/IMG_0351.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/4/49B659C1-6A25-417E-96E7-2B0471F813C6_1_105_c.jpeg' "$DEST/_review_duplicates"/IMG_0347.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/5/5383DFCC-4C08-4552-9053-02F659BD5B13_1_105_c.jpeg' "$DEST/_review_duplicates"/IMG_0804.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/5/56BFE15A-97D4-4D39-A4F0-6CE3BAD01F96_1_105_c.jpeg' "$DEST/_review_duplicates"/IMG_0902.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/5/5A723EBA-9B3D-42CC-8510-B04863746433_1_105_c.jpeg' "$DEST/_review_duplicates"/IMG_1713_229117.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/5/5F6716CD-4586-4706-BB15-2E1B31514E8F_1_105_c.jpeg' "$DEST/_review_duplicates"/IMG_0096.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/6/6C0C8A79-A227-4BB6-B36B-720FEE534ACF_1_102_o.jpeg' "$DEST/_review_duplicates"/IMG_0532_226078.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/6/6C9B1260-911B-485F-8AFA-B747A1CA89BB_1_105_c.jpeg' "$DEST/_review_duplicates"/IMG_0937.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/7/71636450-D0F4-40F3-BDD6-1268E79F3299_1_105_c.jpeg' "$DEST/_review_duplicates"/2025-12-21_221845.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/7/7219106E-E737-46F1-8412-6BB1C8E042E7_1_105_c.jpeg' "$DEST/_review_duplicates"/IMG_0442.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/7/73BA83AE-7C4B-43EA-9702-571427451FE8_1_105_c.jpeg' "$DEST/_review_duplicates"/IMG_1863.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/7/7B8543FB-C832-40F0-AFE5-033D26B5BFA5_1_105_c.jpeg' "$DEST/_review_duplicates"/IMG_0395.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/7/7C597D01-438A-4AC1-B131-95435CD9F536_1_105_c.jpeg' "$DEST/_review_duplicates"/IMG_0065.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/8/820B3014-F3A0-4FC3-BAE7-F4831555F6CA_1_102_o.jpeg' "$DEST/_review_duplicates"/IMG_7618.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/8/829D660B-2D3A-4760-8193-0748F701F21B_1_105_c.jpeg' "$DEST/_review_duplicates"/IMG_0936.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/8/848BECD7-3F09-4011-A7A3-8806598EDD44_1_105_c.jpeg' "$DEST/_review_duplicates"/IMG_0437.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/8/8AF70594-1F4F-4926-8D2D-6676A7892933_1_105_c.jpeg' "$DEST/_review_duplicates"/IMG_0356.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/8/8DFC6B22-F90C-4C02-BAAF-829433A99576_1_105_c.jpeg' "$DEST/_review_duplicates"/IMG_0064.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/8/8DFE40D3-A5B2-4F34-9950-2776BDF1DACB_1_105_c.jpeg' "$DEST/_review_duplicates"/IMG_0441.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/9/951562D2-64E3-4DBB-8123-0829AC44FA37_1_105_c.jpeg' "$DEST/_review_duplicates"/IMG_1556.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/A/AADACCF5-75E3-41CC-BA6E-63FEC86B7918_1_105_c.jpeg' "$DEST/_review_duplicates"/IMG_0225.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/A/ABA7CE1D-04A8-4415-A51E-6F2882C8C7C4_1_105_c.jpeg' "$DEST/_review_duplicates"/IMG_0206.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/B/B3B44EA9-7AD8-4E2D-8426-4AB0B3C1128C_1_105_c.jpeg' "$DEST/_review_duplicates"/IMG_0408.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/B/B496F85C-933B-4B64-B41D-CB728236049D_1_105_c.jpeg' "$DEST/_review_duplicates"/IMG_2506.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/B/BB13F47A-8EA7-49AE-9540-DA081604EE2D_1_102_o.jpeg' "$DEST/_review_duplicates"/IMG_0091.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/B/BC2366CF-42A4-4D22-8CE1-D6CB0CAAD090_1_105_c.jpeg' "$DEST/_review_duplicates"/IMG_0063.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/C/C50A54C8-6007-4DC9-8EDA-85663C70A1C6_1_105_c.jpeg' "$DEST/_review_duplicates"/IMG_0429.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/C/C8ABB5E7-2C01-4070-8DE7-58752BADB5E7_1_105_c.jpeg' "$DEST/_review_duplicates"/IMG_0409.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/D/D04D18E8-DFCD-458F-9040-252C481AA9A2_1_105_c.jpeg' "$DEST/_review_duplicates"/IMG_0250.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/D/D85D4422-0215-4410-B0B2-B98FFDFF3695_1_102_o.jpeg' "$DEST/_review_duplicates"/IMG_0402.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/E/E2602143-8183-44C2-8C52-86E17F1A2716_1_105_c.jpeg' "$DEST/_review_duplicates"/IMG_1336.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/E/E3990BF3-0130-469A-9332-8806DE6D1DEF_1_105_c.jpeg' "$DEST/_review_duplicates"/IMG_1554.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/E/E495C9A5-D411-4EF1-A7F9-135E89B3AC95_1_105_c.jpeg' "$DEST/_review_duplicates"/IMG_1337.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/E/E59684C2-3B3E-4172-9A42-B60405FC2022_1_105_c.jpeg' "$DEST/_review_duplicates"/532327262.247370.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/E/E6F29307-A899-4F79-957F-863FC992AC91_1_105_c.jpeg' "$DEST/_review_duplicates"/IMG_0443.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/F/F6BFAA75-1D8D-4CE6-B965-0D7E4A377C57_1_105_c.jpeg' "$DEST/_review_duplicates"/IMG_0136.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/F/FFB7AD44-E4DD-42F9-8344-EC44306E1768_1_105_c.jpeg' "$DEST/_review_duplicates"/IMG_0440.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/masters/0/0F238350-8D32-42B4-95C7-A02CCC7BCBA4_4_5005_c.jpeg' "$DEST/_review_duplicates"/IMG_1045.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/masters/1/11E1EEEF-95B6-4439-AC0A-B8410061FF20_4_5005_c.jpeg' "$DEST/_review_duplicates"/IMG_1592.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/masters/1/151B2BA1-EE50-4A74-8159-C662AC4337A8_4_5005_c.jpeg' "$DEST/_review_duplicates"/IMG_1231.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/masters/2/22DFF4D2-4103-4226-8E42-429710E730DC_4_5005_c.jpeg' "$DEST/_review_duplicates"/IMG_1232.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/masters/3/34229D5A-C60C-45AE-A40C-BBF4268AA630_4_5005_c.jpeg' "$DEST/_review_duplicates"/2015-08-03_232310.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/masters/3/3CD90C6F-CDCB-40D7-9C85-30578CE44DFC_4_5005_c.jpeg' "$DEST/_review_duplicates"/2015-08-03_232253.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/masters/3/3EB67CA3-4EF2-42DA-A46D-06189DC57872_4_5005_c.jpeg' "$DEST/_review_duplicates"/IMG_0044_898755.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/masters/4/44257E01-6D92-48A8-B60F-759D01D73AC5_4_5005_c.jpeg' "$DEST/_review_duplicates"/IMG_1594.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/masters/4/4D19D599-3977-4012-B92A-435D107D3BCB_4_5005_c.jpeg' "$DEST/_review_duplicates"/IMG_0036.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/masters/4/4E3E7909-B0D3-44D7-9F68-5C701E7ABC4E_4_5005_c.jpeg' "$DEST/_review_duplicates"/IMG_0734.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/masters/5/56586D16-5706-4E36-BAD9-DDB9E041869A_4_5005_c.jpeg' "$DEST/_review_duplicates"/IMG_0035.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/masters/5/5F983884-5F14-4ACE-A13C-1D281E98CC97_4_5005_c.jpeg' "$DEST/_review_duplicates"/IMG_1578.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/masters/6/60C796CC-2C58-4C57-94EE-E9820271CA91_4_5005_c.jpeg' "$DEST/_review_duplicates"/IMG_1593.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/masters/8/86B2738F-90DA-47F6-8685-8923A26169F6_4_5005_c.jpeg' "$DEST/_review_duplicates"/IMG_0046_360138.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/masters/8/875EAE9F-EA92-4174-9003-26ED6703D093_4_5005_c.jpeg' "$DEST/_review_duplicates"/IMG_1602.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/masters/8/89EA7DB1-0052-4604-8993-23DB9BD0B657_4_5005_c.jpeg' "$DEST/_review_duplicates"/IMG_1576.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/masters/9/9388CE6C-36D5-481B-BC48-A81CB8E12894_4_5005_c.jpeg' "$DEST/_review_duplicates"/IMG_1601.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/masters/9/93F215C2-8756-46DE-B6A7-679586316AC2_4_5005_c.jpeg' "$DEST/_review_duplicates"/IMG_1574.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/masters/9/9A92B6CE-3A91-47B3-A7FC-B7E0765259E8_4_5005_c.jpeg' "$DEST/_review_duplicates"/IMG_1600.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/masters/A/A12625A1-64CB-4E96-B060-F5FEA788DF26_4_5005_c.jpeg' "$DEST/_review_duplicates"/2015-08-03_195356.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/masters/A/A1EEC6EA-5C9A-4875-A851-DBA701A901CA_4_5005_c.jpeg' "$DEST/_review_duplicates"/2015-08-03_201431.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/masters/A/AAA7A674-D03D-444E-AD2B-E0C4C78A1526_4_5005_c.jpeg' "$DEST/_review_duplicates"/IMG_0732.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/masters/B/B39E2D38-76DC-429A-A5B6-69E067F998D4_4_5005_c.jpeg' "$DEST/_review_duplicates"/IMG_1577.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/masters/B/B7D0F9F5-82F1-4A60-96A7-5BEF6B335B4E_4_5005_c.jpeg' "$DEST/_review_duplicates"/IMG_0043.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/masters/B/BE324C3C-9A2E-403B-BDDA-8BF8371B7C32_4_5005_c.jpeg' "$DEST/_review_duplicates"/IMG_0497.jpeg
 cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/derivatives/masters/E/EA7FC1D1-0F2C-4E39-A5C7-3AED9C07DCF3_4_5005_c.jpeg' "$DEST/_review_duplicates"/2015-08-03_232410.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/renders/6/6E0E1E6C-DAC6-41E2-AC33-4CD4B2C283A3_1_201_a.jpeg' "$DEST/_review_duplicates"/IMG_2327.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/renders/8/8AEBFD63-2C8B-429D-93A3-F95DDA74DB95_1_201_a.jpeg' "$DEST/_review_duplicates"/IMG_2331.jpeg
+cp -n '/Users/andygant/Pictures/Photos Library.photoslibrary/resources/renders/B/B678C63B-FF8C-4CEF-A514-E51AF92ADFB6_1_201_a.jpeg' "$DEST/_review_duplicates"/IMG_2326.jpeg
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/AOMC8912.JPEG "$DEST/_review_duplicates"/AOMC8912.JPEG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0678.JPG "$DEST/_review_duplicates"/IMG_0678.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_0679.JPG "$DEST/_review_duplicates"/IMG_0679.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_1745.JPG "$DEST/_review_duplicates"/IMG_1745.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_2319.JPG "$DEST/_review_duplicates"/IMG_2319.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_E2326.JPG "$DEST/_review_duplicates"/IMG_E2326.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_E2327.JPG "$DEST/_review_duplicates"/IMG_E2327.JPG
+cp -n /Users/andygant/Pictures/iPad_Import_2026-08-25/IMG_E2331.JPG "$DEST/_review_duplicates"/IMG_E2331.JPG
 
 echo "Done. Originals were left untouched."
