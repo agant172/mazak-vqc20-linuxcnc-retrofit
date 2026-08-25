@@ -203,7 +203,7 @@ The report header prints which backends are live. See
 
 ```sh
 python3 test_group_photos.py     # 24 tests -- folder mode
-python3 test_photos_library.py   # 32 tests -- library mode, merging, naming, end-to-end
+python3 test_photos_library.py   # 35 tests -- library mode, merging, naming, end-to-end
 ```
 
 Both run against synthetic fixtures with known answers. Between them they cover
@@ -235,8 +235,9 @@ read-only guarantee were confirmed against that same library.
   `PRAGMA table_info` rather than assuming. `photos_library.py --schema` prints
   what a given library actually contains, and `--probe` shows the raw values
   behind a specific row.
-- **Thumbnail generation is not fully reliable.** That same run produced
-  1,372 of 1,531 thumbnails; the rest are blank frames in the report. It affects
-  only the pictures in the report, never the grouping — every image the grouping
-  depended on decoded successfully. Failures are now counted and their reasons
-  summarised at the end of a run.
+- **Whether excluding video sources recovers the missing duplicates.** The run
+  above reported `hashed 2442/2442`, which counted *attempts*: 159 assets had
+  resolved to their Live Photo `.mov` clip rather than the still, could not be
+  decoded, and so took no part in duplicate detection. Both are fixed — video
+  suffixes are never offered as a pixel source, and decode failures are now
+  counted and named — but the corrected numbers have not been measured yet.

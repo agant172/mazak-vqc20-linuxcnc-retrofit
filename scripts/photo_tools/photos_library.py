@@ -42,6 +42,14 @@ NO_LOCATION = -180.0
 ORIGINAL_DIRS = ("originals", "Masters")
 DERIVATIVE_DIRS = ("resources/derivatives", "resources/renders", "resources/proxies")
 
+# A Live Photo keeps its motion clip beside the still, under the same asset id
+# and usually larger than the JPEG derivative. Picking the biggest file would
+# therefore hand the grouper a movie instead of a picture -- it cannot be hashed,
+# so the photo drops out of duplicate detection entirely. Only still-image
+# suffixes are ever considered as a source of pixels.
+NON_IMAGE_SUFFIXES = {".mov", ".mp4", ".m4v", ".avi", ".3gp", ".aae", ".plist",
+                      ".json", ".txt", ".xmp"}
+
 
 class LibraryError(RuntimeError):
     pass
@@ -105,6 +113,8 @@ def _index_files(root: Path, subdirs: tuple[str, ...]) -> dict[str, list[Path]]:
             continue
         for path in base.rglob("*"):
             if not path.is_file() or path.name.startswith("."):
+                continue
+            if path.suffix.lower() in NON_IMAGE_SUFFIXES:
                 continue
             # Filenames are "<UUID>.ext" or "<UUID>_1_105_c.jpeg"; the UUID is
             # the leading 36 characters in both shapes.
