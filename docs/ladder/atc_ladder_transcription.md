@@ -17,7 +17,7 @@ The VQC ATC is **armless** — the machine trades tools by moving Z between two 
 | 6503 | AUTTCME (M190) | `AUT.N(X180) · #MOP12 · TF · #MG.N` + seal via B/MS |
 | 6504 | **TCME (M160) tool change memory** | `AUTTCME ‖ MDITCME` — master "ATC in progress" latch |
 | 6505 | **TCME.M (Y095) barrier extend** | `(OTR.B · MGCORS) ‖ TCME` — barrier out while cover open or tool change active |
-| 6507/8 | data | `TCME` → MOV commanded/spindle tool registers to D1/D2 |
+| 6507/8 | data | `TCME` → MOV K2X168 (spindle tool) → D1, K2X140 (commanded) → D2 |
 | 6509 | TS0 (M164) spindle tool = 0 | `TCME · [D1 = 0]` |
 | 6510 | T0 (M165) command tool = 0 | `TCME · [D2 = 0]` |
 | 6511 | **EQTST (M230) equal tool select** | `TCME · #MOP13 · [D1 = D2]` — commanded = spindle tool → **skip the cycle** (also blocks ORCM1 at 3004) |
@@ -28,12 +28,12 @@ A T-command strobe (TF) in AUTO or MDI mode sets TCME. TCME immediately: extends
 
 | Cycle | Coil / rung | Condition | Meaning |
 |---|---|---|---|
-| A | M184 / 6708 | `INTF.N(X189) · EIA.N · TULME…` | prep: spindle-tool-length interference path 1 (Z pre-position) |
-| B | M256 / 6807 | `INTF.N# ‖ MDI.L…` | prep: alternate Z path / MDI variant |
+| A | M184 / 6708 | `INTF.N(X189) · #EIA.N · TULME…` | prep: spindle-tool-length interference path 1 (Z pre-position) |
+| B | M256 / 6807 | `(INTF.N# ‖ EIA.N) · TULME…` | prep: alternate Z path / MDI variant |
 | C | M264 / 7004 | `TLME(M167 tool-load mode)` | prep for manual tool load/unload |
 | **D** | M271 / 7101 | `MEMA-2 · MEMA-1 · ZPY1.N · ZPZ2.N · #TS0 · #T0` + seal·TCME | **full change** — both spindle and commanded tool exist |
-| **E** | M280 / 7203 | same but `TS0 · #T0` | **load only** — spindle empty |
-| **F** | M288 / 7210 | `MEMC-2 · ZPZ1.N · ZPY1.N · #TS0 · T0` + seal·TCME | **return only** — T0 commanded |
+| **E** | M280 / 7203 | same but `#TS0 · T0` | **return only** — spindle tool exists, T0 commanded |
+| **F** | M288 / 7210 | `MEMC-2 · ZPZ1.N · ZPY1.N · TS0 · #T0` + seal·TCME | **load only** — spindle empty, tool commanded |
 
 The A/B/C chains (sheets 67–70) are mode-dependent preparation: they raise reference-point commands, run Z-move memories (MOVZME 6803, timers T31/T32), and hand off to D/E/F once Y and Z sit on the correct zero points. ATC feed hold (ATCFHDME M169, rung 6701) freezes NC feed throughout.
 
@@ -42,17 +42,17 @@ The A/B/C chains (sheets 67–70) are mode-dependent preparation: they raise ref
 | Rung | Function |
 |---|---|
 | 3205–3209 | TNPS1–5 (M216–M220) = pot-number BCD sensors T11P/T12P/T14P/T18P/T21P (X008–X00C) |
-| 3210 | `MIPRS(X00D)` → MOV K2M216→D8, BIN→D10: **capture current pot number only while in-position** |
-| 3302–3303 | current pot D10 → D12 (per magazine size 1STS/20TS/24TS/30TS) |
+| 3210–3211 | 3210: `MIPRS(X00D)` → MOV K2M216→D8 (**capture only while in-position**); 3211: `(1STS ‖ 20TS)·TSME` → BIN D8→D10 |
+| 3301–3303 | 3301: `(24TS ‖ 30TS)·TSME` → MOV D8→D10; 3302: 20TS pot-20 fix (all TNPS off → MOV K20→D10); 3303: `TSME` → MOV D10→D12 |
 | 3304–3310 | T-command BCD (K2X140/K2X168) → D3/D4; LOADT selects D3, UNLOADT selects D4 → D11 → BIN → D13/D14/D15 |
-| 3311 | `TFP · [D12 < D13]` → **GRTCD (M224) "greater than command"** |
+| 3311 | `TFP · [D12 < D15]` → **GRTCD (M224) "greater than command"** |
 | 3312–3315 | magazine size constant → D16 (shortest-path threshold, per 16/20/24/30-tool magazine) |
 | 3316–3319 | difference vs D16 → **MRF (M225) forward** or **MRR (M226) reverse** — shortest-path direction choice |
 | 3401 | `MIPRS · TSME · [D14 = D10]` → **MSTP (M227) magazine stop** — commanded pot arrived |
 | 3402/3403 | FWME/REVME (M228/M229) direction memories |
-| 3404 | **TSME (M33) tool select memory** — `AUT.M · #MSTP · #RST` + seal; branches TCME, MIPRS, TFP, MNTS — "magazine is indexing" |
+| 3404 | **TSME (M33) tool select memory** — pickup `TFP ‖ MNTS·#TCME`; hold `TSME-seal · ((AUT.M ‖ TCME)·#MSTP ‖ #MIPRS)`; all `· *RST` — "magazine is indexing" |
 | 3405–3407 | TSOFFME/T29/TSOFFAL — tool-select-off supervision (pot must stay detected; alarm M61) |
-| 3408 | **MROT (M34) magazine rotate enable** = `#AL2? · TSME · TFP · TSINTL` |
+| 3408 | **MROT (M34) magazine rotate enable** = `(#AL2 ‖ #AUT.M) · TSME · #TFP · #TSINTL` |
 | 3501 | **MFWD.M (Y003)** = `MROT · FWME · #MOP13 · #M213` |
 | 3502 | **MREV.M (Y002)** = `MROT · REVME · #MOP13 · #M213` |
 | 3504–3507 | GRT15/20/24/30 → T-command > magazine size → alarm 6101 |
@@ -68,48 +68,48 @@ So the magazine is a **BCD-addressed rotary with shortest-path arithmetic done i
 | 3512/3513 | TUCFSX/TCFSX (M63/M65) | footswitch aux (manual, VQC20 X01A/X01B path, gated by MAT timer T90) |
 | 3601/3602 | T28 + **TUCPLS (M66)** | footswitch → pulse, manual mode only (`#AUT.M`) |
 | 3603 | **TCLPLS (M67)** | clamp footswitch pulse while unclamped |
-| 3604 | **TUC.M (Y097) TOOL UNCLAMP** | `[TUCPLS ‖ F1-key path ‖ SOSA(M92)·TUCME] · seal TUC.M · #TCLPLS · #SMR(spindle-run)` — **auto unclamp requires the oriented latch SOSA**; clamp pulse breaks the seal; never while spindle runs |
+| 3604 | **TUC.M (Y097) TOOL UNCLAMP** | `{[seal TUC.M · #TCLPLS ‖ (F1.L ‖ SOSA(M92)) · TUCPLS] · #TCME ‖ TUCME} · #SMR(spindle-run)` — **manual pulse path needs F1-key or SOSA and is blocked during a cycle; auto path is TUCME alone** (orientation enforced upstream in CNDD-1/E-1/F-1); clamp pulse breaks the seal; never while spindle runs |
 | 3606 | TUC.L lamp | `TUCPRS · TUC.M` |
 | 3607 | **M64 clamp confirmed** | `TCPRS(X018) · #TUCME · #TUC.M` |
 
 ## The three change cycles — sheets 71–73
 
 Step pattern, identical in all three chains:
-**MEM-n** (step latch) = `previous-CND · axis-at-reference · CYCLE-x · TCME` + seal — **CND-n** (step done) = mechanical confirmation.
+**MEM-n** (step latch) = `CND-n (own step, NO) · axis-at-reference · CYCLE-x · TCME` + seal — **CND-n** (step advance permit) = `MEM-(n−1) · #MEM-n · mechanical confirmation` (CND-1 permits also carry a seal).
 
 ### Cycle D — full change (return old tool, load new)
 
 | Step | Rung | Latch condition (MEM) | Completion (CND) |
 |---|---|---|---|
 | D-1 | 7102/7103 | `ZPY2.N` (Y at ref-2) | `#AL76 · MGTDPRS(X005) · #ATCSTPME · SOSA(M92) · MGCOX(M163) · TSOFFT · #TSOFFAL` — **oriented + cover open + tool present in pot** |
-| D-2 | 7104/7105 | `ZPZ1.N` (Z to ref-1 = pot exchange height) | `MEMD-1 · MEMD-2 · M69` — **unclamped** (TUCME set by D-1·#D-3) |
+| D-2 | 7104/7105 | `ZPZ1.N` (Z to ref-1 = pot exchange height) | `MEMD-1 · #MEMD-2 · M69` — **unclamped** (TUCME set by D-1·#D-3) |
 | D-3ax | 7107 | — | `#TSME · MEMD-2 · TCME` — magazine index (old pot away, new pot in) finished |
-| D-3 | 7106/7108 | `ZPZ2.N` (Z to ref-2) | `#MOP12 · MEMD-2 · MEMD-3 · CNDD-3AX · TSOFF ok · #TSME` |
-| D-4 | 7109/7110 | `ZPY1.N` | `MEMD-3 · MEMD-4 · M64` — **clamped** (TUCME dropped by MEMD-3) |
-| D-5 | 7201/7202 | `ZPZ1.N`? (scan ambiguous) | `MEMD-4 · MEMD-5# · INTF2.N(X18A) · EIA.N` ‖ TLATC — interference path clear, cycle done |
+| D-3 | 7106/7108 | `ZPZ2.N` (Z to ref-2) | `#MOP12 · MEMD-2 · #MEMD-3 · CNDD-3AX · TSOFF ok · #TSME` |
+| D-4 | 7109/7110 | `ZPY1.N` | `MEMD-3 · #MEMD-4 · M64` — **clamped** (TUCME dropped by MEMD-3) |
+| D-5 | 7201/7202 | `ZPZ1.N` | `MEMD-4 · #MEMD-5 · #INTF2.N(X18A) · (#EIA.N ‖ TLATC)` — interference path clear, cycle done |
 
-### Cycle E — load only (spindle empty)
+### Cycle E — return only (spindle tool in, T0 commanded)
 
 | Step | Rung | Notes |
 |---|---|---|
 | E-1 | 7204/7205 | latch on `ZPY2.N`; done = `#AL76 · MGTDPRS · SOSA · MGCOX · TSOFF ok` (same gate as D-1) |
-| E-2 | 7206/7207 | latch on `ZPZ2.N`; done = `M69` unclamped (to receive) |
-| E-3 | 7208/7209 | latch on `ZPY1.N`; done = `M64` clamped |
+| E-2 | 7206/7207 | latch on `ZPZ1.N`; done = `MEME-1 · #MEME-2 · M69` unclamped (tool released to pot) |
+| E-3 | 7208/7209 | latch on `ZPY1.N`; done = `MEME-2 · #MEME-3 · M64` clamped (empty spindle) |
 
-### Cycle F — return only (T0)
+### Cycle F — load only (spindle empty)
 
 | Step | Rung | Notes |
 |---|---|---|
 | F-1 | 7301/7302 | latch on `ZPY2.N`; done = `#AL75 · SPTDPRS(X05B) · #ATCSTPME · SOSA · MGCOX · TSOFF ok` — **spindle tool detect instead of magazine tool detect** |
-| F-2 | 7303/7304 | latch on `ZPZ2.N`; done = `#MOP12 · MEMF-1 · MEMF-2 · M69` unclamped |
-| F-3 | 7305/7306 | latch on `ZPY1.N`; done = `M64` clamped (empty spindle clamps on nothing / pot took tool) |
-| F-4 | 7307/7308 | latch on `ZPZ1.N`; done = `INTF2.N · EIA.N` ‖ TLATC |
+| F-2 | 7303/7304 | latch on `ZPZ2.N`; done = `#MOP12 · MEMF-1 · #MEMF-2 · M69` unclamped |
+| F-3 | 7305/7306 | latch on `ZPY1.N`; done = `MEMF-2 · #MEMF-3 · M64` clamped (new tool seated) |
+| F-4 | 7307/7308 | latch on `ZPZ1.N`; done = `MEMF-3 · #MEMF-4 · #INTF2.N · (#EIA.N ‖ TLATC)` |
 
 ### NC-side commands generated from the chains
 
 | Rung | Output | Meaning |
 |---|---|---|
-| 7309 | **ZPDEC.N (Y16B)** | `CNDD-1 ‖ CNDD-3 ‖ CNDE-1 ‖ CNDF-1` — "do the next zero-return move" decode to NC |
+| 7309 | **ZPDEC.N (Y16B)** | `(CNDD-1 ‖ CNDD-3 ‖ CNDE-1 ‖ CNDF-1) · M433(V6ME-2)` — "do the next zero-return move" decode to NC |
 | 7402/7403 | ZPAXX/ZPAX (M206/M296) | which reference point is the current target, from step-pair states (e.g. `MEMD-1·#MEMD-2`, `MEMD-3·#MEMD-4`) |
 | 7503 | **ZP1.B.N (Y194) ref-1 command** | `(ZP1.B ‖ ZPAX ‖ ZRNAX) · ENMCH · #ATCFHDME` |
 | 7504 | **ZP2.B.N (Y195) ref-2 command** | `(ZP2.B ‖ ZP2CDA from A/B/D/E/F step states) · ENMCH · #ATCFHDME` |
@@ -120,11 +120,11 @@ Step pattern, identical in all three chains:
 
 - **MGC.M (Y026) is a single-solenoid valve: energized = close, de-energized = open** (open/close memories MGCCME/MGCOME2-4 on sheet 31 drive the one output).
 - 7009: **MGCOX (M163)** = `#MGC.M · MGCORS(X052) · #AL71 · #AL74` — "cover verified open," the contact used by every cycle's step 1.
-- Sheet 58 alarms (all with delay timer T30):
+- Sheet 58 alarms (AL71/AL72/AL74 and MGCOONF carry the T30 delay; MGCHOONF and AL75–AL77 have no timer):
   - AL71 close-RS on while not commanded · AL72 commanded closed, RS off
   - AL73 open-RS on faulty (MGCOONF/MGCHOONF) · AL74 commanded open, open-RS off
   - **AL75** F-cycle: `SPTDPRS` off when spindle should hold a tool
-  - **AL76** D-cycle: `MGTDPRS` off when the commanded pot should hold a tool
+  - **AL76** D/E-cycles: `MGTDPRS` off when the commanded pot should hold a tool
   - AL77 tool life over (option)
 
 ## Derived physical sequence (cycle D, the full change)
@@ -161,10 +161,10 @@ Mapped to the pin authority (@ c4a66a0):
 
 Sequencing rules to reproduce:
 
-1. **Gate unclamp on the oriented latch** (SOSA equivalent from the orient component) AND spindle-not-running — exactly rung 3604. Clamp is the de-energized state; confirm with TCPRS **and** unclamp-output false (rung 3607 uses both).
+1. **Gate unclamp on the oriented latch** (SOSA equivalent from the orient component) AND spindle-not-running — rungs 7103/7205/7302 (step-1 permits carry SOSA); rung 3604 gates only the manual pulse path on SOSA. Clamp is the de-energized state; confirm with TCPRS **and** unclamp-output false (rung 3607 uses both).
 2. **Magazine indexing**: read 5-bit BCD only while MIPRS is true; shortest-path decision in software; stop when pot compare matches AND MIPRS re-made. Supervise with a "pot detect must persist" check (TSOFF equivalent) and a T-command > magazine size reject.
 3. **Cycle selection**: full/load-only/return-only from (spindle tool = 0, commanded tool = 0, equal) — LinuxCNC's tool table + `iocontrol.tool-prep-number` give this directly; EQTST = skip.
-4. **Step gating**: before any Z move toward the pot, require oriented latch · cover-open-conf · (pot tool detect for load, spindle tool detect for return) — the D-1/E-1/F-1 gate. Fault out (like AL75/AL76) instead of moving if detects disagree.
+4. **Step gating**: before any Z move toward the pot, require oriented latch · cover-open-conf · (MGTDPRS X005 for cycles D/E, SPTDPRS X05B for cycle F — physical identity of the two detects unverified; see bench checks) — the D-1/E-1/F-1 gate. Fault out (like AL75/AL76) instead of moving if detects disagree.
 5. **Cover**: single output, energize-to-close; alarm if confirm disagrees with command after ~T30 delay; "cover verified open" = command off · open-RS on · no cover alarm.
 6. **Barrier/soft-OT**: assert `atc-barrier` for the whole cycle; the OTNEG trick (soft-overtravel neglect at ref points) becomes unnecessary if the LinuxCNC soft limits are set to include the toolchange positions.
 7. **Feed hold during ATC** (ATCFHDME) comes free with a remapped M6 — motion is already paused during the remap.
