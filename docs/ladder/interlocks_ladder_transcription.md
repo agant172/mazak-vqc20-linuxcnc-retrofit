@@ -39,16 +39,23 @@ for the retrofit fault list._
 ## Axis interlocks — sheet 43, lines 2-4 (rungs 4302/4303/4304, PDF p44)
 
 **`ITX.N` X-AXIS INTERLOCK N/C** (Y100, H100.0), rung 4302:
-`SSET.M`(Y092, drive-arm) · `AL57`(F57, transformer-overheat) — both **NC** — in
-series with the interlock branch `[INTX.M(X080/X030) · ADDIS ‖ (TBRS·AEXT.N·AUT.M)
-‖ RCTIT ‖ MOP10]` → **ITX.N**. `ITY.N`(Y101, rung 4303) and `ITZ.N`(Y102, rung
-4304, adds MPCS pallet term) mirror it for Y/Z.
+Parallel OR branches — any one drives **ITX.N**:
+`[SSET.M(Y092, NC) · AL57(F57, NO)] ‖ [INTX.M(X080, NC) · INTX.M(X030, NC) ·
+ADDIS(M428, NO)] ‖ [TBRS(M426, NO) · AEXT.N(Y16C, NO) · AUT.M(Y070, NC)] ‖
+RCTIT(M107) ‖ MOP10(M148)` → **ITX.N**. `ITY.N`(Y101, rung 4303) is the same
+minus the TBRS branch. `ITZ.N`(Y102, rung 4304) also lacks the TBRS branch and
+swaps the input pair for an MPCS-selected block: `ADDIS · [MPCS(NC) ·
+(INTZ.M X082 NO ‖ INTZ.M X032 NO) ‖ MPCS(NO) · INTZ.M(X082, NC) ·
+INTZ.M(X032, NC)]`.
 
-**Reading:** the per-axis interlock output is **gated by `SSET.M` (spindle/drive
-set) and `AL57` (main-transformer OK)** — so the interlock **drops (inhibits the
-axis) if the drive isn't armed, the transformer overheats, or the axis's external
-interlock input (X030-032 / X080-082) is active.** These external interlock inputs
-are likely fixture/pallet/guard interlocks.
+**Reading:** ITX/Y/Z.N is an OR of independent assert conditions, not a series
+gate: it turns ON when the spindle is **not** set while the transformer-overheat
+alarm AL57 **is** active, or when the axis's external interlock inputs (X030-032 /
+X080-082, NC contacts) are **inactive** with ADDIS true, or via RCTIT / MOP10 (X
+adds a measuring-arm-extended · not-auto branch). Whether an energized ITx.N
+*inhibits* or *permits* the axis at the NC interface is not determinable from the
+ladder alone ("N/C" in the element list appears to mean "to NC") — verify before
+using in HAL. Field devices on X030-032 / X080-082 are unidentified.
 
 ## Retrofit implications (LinuxCNC / Mesa)
 
@@ -61,9 +68,11 @@ are likely fixture/pallet/guard interlocks.
 2. **Axis interlocks:** the external `INTX/Y/Z.M` inputs (X030-032 / X080-082) are
    candidate fixture/guard interlocks — verify which (if any) are used on this
    machine before allocating pins (the 2PC pallet interlocks are out of scope).
-   The `ITX/Y/Z.N` outputs' dependence on `SSET.M` + `AL57` re-confirms the pattern
-   that **motion is gated by drive-arm and a transformer-thermal-OK** — worth
-   carrying into the HAL enable chain.
+   Note the `ITX/Y/Z.N` rungs are OR structures whose SSET.M(NC)·AL57(NO) branch
+   asserts on drive-not-set + transformer-overheat — they are **not** a series
+   drive-arm/thermal-OK gate. Do not carry a "motion gated by drive-arm +
+   thermal-OK" pattern into the HAL enable chain from this rung; take the enable
+   chain from the E-stop/safety-chain docs instead.
 3. This ladder is **monitoring/sequencing**; the hardwired door lock + safety
    chain (D5) remain primary. See `estop_ladder_transcription.md`,
    `estop_safety_chain.md`.
