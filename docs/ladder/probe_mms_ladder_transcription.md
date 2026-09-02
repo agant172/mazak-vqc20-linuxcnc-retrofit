@@ -41,15 +41,22 @@ what the OEM did so the retrofit can reproduce or consciously drop it.
 
 - **`M33ME`** extend memory (M117, sheet 40 rung 4010) = `M33 decode(MHO·MT3·MU3) · #RST`
   + seal. **`M34ME`** retract memory (M118, rung 4011) = `M34 decode(…MU4)`.
-- **`AEXT.M`** MEASURING ARM EXTEND (Y034, sheet 41 rung 4102) — latched, driven by
-  the M33 memory + `AEXTRS`; **gated by `*ESP.M` so E-stop drops the arm extend**
-  (see `estop_ladder_transcription.md`).
+- **`AEXT.M`** MEASURING ARM EXTEND (Y034, sheet 41 rung 4102) =
+  `[AEXT-ME ‖ AEXT.M·*ESP.M ‖ AEXTRS·#HYD.M] · #ARET-ME · #ARET.N · #ARET.M · ENAEXT`.
+  Drive comes from **`AEXT-ME`** (M128, rung 4101 extend memory = `M33ME ‖ AEXT.N(X15D)
+  ‖ AUT.M` path, cleared at `#AEXTRS`); the self-hold is `AEXT.M·*ESP.M`, so E-stop
+  breaks only the mid-stroke latch — the `AEXTRS·#HYD.M` branch holds Y034 asserted
+  when hydraulics drop with the arm at full extend, so arm retraction on E-stop is the
+  electrical/hydraulic chain's job, not this rung's (see `estop_ladder_transcription.md`).
 - **`ARET.M`** MEASURING ARM RETRACT (Y033, sheet 41 rung 4105).
-- **Interlock:** coolant is inhibited while the arm is out (`#ARETRS` term in every
-  coolant rung — see `coolant_ladder_transcription.md`).
+- **Interlock:** coolant is inhibited while the arm is out — `ARETRS`(X027) is a
+  normally-open AND term in coolant-valve rungs 3905/3906/3908/3909 (coolant requires
+  the arm retracted; the flood-motor rung 3907 inherits it via FCL.M/THC.M — see
+  `coolant_ladder_transcription.md`).
 
 So the OEM flow: **M33** swings the measure arm in, the tool descends and touches
-it, **`SKIP1.M`/`TOUCH.N`** latches the touch (skip lamp), the NC records the
+it, **`SKIP1.M`/`TOUCH.N`** signal the touch (skip lamp, rung 4007 — combinational,
+no PLC latch; the NC's hardware SKIP capture does the latching), the NC records the
 tool length via the MMS unit, then **M34** retracts the arm. Air jet cleans.
 
 ## Retrofit — LinuxCNC / Mesa
@@ -61,12 +68,15 @@ tool length via the MMS unit, then **M34** retracts the arm. Air jet cleans.
   → 7i84U outputs, extend/retract limit switches → inputs, coolant-inhibit while
   out) **or replace it** with a Renishaw tool setter + LinuxCNC's own tool-length
   routine. If kept: reproduce the M33-extend / touch / M34-retract sequence with
-  the `AEXTRS`/`ARETRS` confirmations, and keep the **E-stop-drops-arm** and
-  **coolant-off-while-extended** interlocks.
+  the `AEXTRS`/`ARETRS` confirmations, and keep the
+  **coolant-off-while-extended** interlock (arm behavior through E-stop needs the
+  bench check on the Y034 solenoid chain before writing any "arm drops on E-stop"
+  rule).
 - **A-JET** (air-blast clean) is a simple output — energize during probe/measure.
 - MMS unit `MMS-PON`/`SEN-RDY`/`MMS-ST` handshake is only needed if the OEM MMS
   measuring unit is retained; with a Renishaw + LinuxCNC it's not.
 
 _This closes the probe/MMS functional-logic gap; the arm is optional for the
 retrofit (Renishaw MP-3 is the modern replacement), but the SKIP/probe-input
-mapping is real and in use._
+mapping is real — currently RESERVED per `mesa/current_pin_authority.csv`
+(PROBE_SKIP1: hal_net none, nets commented out, 7i84U-B TB3 IN15 spare)._
