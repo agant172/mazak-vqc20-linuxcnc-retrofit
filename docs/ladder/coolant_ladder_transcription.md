@@ -23,32 +23,38 @@
 | Y035 | A-JET.M | Air jet | 4002 | p41 |
 | Y096 | HYD.M | Hydraulic + **head-lube** pump | 2302 | p24 |
 
-## M-code decode (sheet 39 lines 1-3)
+## M-code decode (sheet 38 lines 6-9 · sheet 39 lines 1-3)
 
 The Mazatrol M-codes latch coolant memories (set on decode, cleared by **M09**
 coolant-off or RST):
 - **M08** → flood coolant on (`M08ME`) · **M09** → coolant off · **M07** → mist (`M07ME`)
-- **M50** → work air blast (`M50ME`) · **M51** → flood-coolant-2 / through-hole (`M51ME`)
+- **M50** → work air blast (`M50ME`; rung 3809 gates the M50 decode with
+  `#M504`(H09F.0) and has a parallel `M504 · MT2 · MU5` branch — with keep-bit
+  M504 set, **M25** sets it instead) · **M51** → flood-coolant-2 / through-hole (`M51ME`)
 - **M52** → tap coolant (`M52ME`) · **M53** → dust-inhale / work-air-blast-2 (`M53ME`)
 
 ## Master permissive — ENABLE COOLANT (rung 3904)
 
-**`ENCOOL`** (H06D.1, M105) = `ECOLEN.M`(X08A, coolant-enable) · `HYD.M`(hydraulics
-on) · `MGCCRS`(X053, magazine cover **closed**) · `#PROGSTP.L`(not program-stop),
-with a `#CDOORS`(door-closed) branch. **Every coolant output is ANDed with
-ENCOOL** — so coolant only runs when hydraulics are up, the magazine cover is
-closed, the door is closed, and no program-stop.
+**`ENCOOL`** (H06D.1, M105) = (`ECOLEN.M`(X08A, external coolant enable) ‖
+`ECOLEN.M`(X03B, external coolant enable) ‖ `#CDOORS`(M410, NC contact — bit
+meaning unverified)) · `HYD.M`(hydraulics on) · `MGCCRS`(X053, magazine cover
+**closed**) · `#PROGSTP.L`(not program-stop). **ENCOOL is ANDed into the six
+solenoid rungs 3905/3906/3908/3909/3910/3911** — FCM.M (3907) is gated only
+indirectly via FCL.M/THC.M, and SAB.M (3805) / A-JET.M (4002) are not
+ENCOOL-gated — so the gated outputs run only when hydraulics are up, the
+magazine cover is closed, there is no program-stop, and one enable branch
+(X08A ‖ X03B ‖ CDOORS false) is made.
 
 ## Per-output logic (sheet 39)
 
-Each output = `<M-code memory> · ENCOOL · #ARETRS(X027, measuring arm retracted)`
+Each output = `<M-code memory> · ENCOOL · ARETRS(X027, measuring arm retracted — NO contact)`
 with a parallel **manual** branch (CMAN/MMAN/BMAN panel buttons):
-- **FCL.M** flood valve (Y011) = `M08ME · CAUT · ENCOOL · #ARETRS` ‖ `CMAN`
-- **THC.M** through-hole (Y012) = `2NDFCS · M51ME · ENCOOL · #ARETRS`
+- **FCL.M** flood valve (Y011) = `(M08ME · CAUT ‖ CMAN) · ENCOOL · ARETRS`
+- **THC.M** through-hole (Y012) = `2NDFCS · M51ME · ENCOOL · ARETRS`
 - **FCM.M** flood **motor** (Y010) = `FCL.M ‖ THC.M` — **motor auto-runs whenever the flood valve or through-hole coolant is on**
-- **TAPC.M** tap coolant (Y016) = `TAPCS · M52ME · ENCOOL · #ARETRS`
-- **MCL.M** mist (Y013) = `M07ME · MAUT · ENCOOL · #ARETRS` ‖ `MMAN`
-- **WAB.M** work air blast (Y014) = `M50ME · BAUT · ENCOOL` ‖ `BMAN`
+- **TAPC.M** tap coolant (Y016) = `TAPCS · M52ME · ENCOOL · ARETRS`
+- **MCL.M** mist (Y013) = `(M07ME · MAUT ‖ MMAN) · ENCOOL · ARETRS`
+- **WAB.M** work air blast (Y014) = `(M50ME · BAUT ‖ BMAN) · ENCOOL`
 - **WAB2.M** work air blast 2 (Y015) = `2NDABS · M53ME · ENCOOL`
 
 ## Lube
@@ -69,6 +75,6 @@ Head-lube **pressure** is monitored via PS-5 → the AL56 head-lube alarm (sheet
 - **Flood motor auto-run:** in HAL, drive the flood-coolant *motor* output from
   the OR of the flood-valve and through-hole outputs, matching the OEM (Y010 =
   Y011 ‖ Y012).
-- The `#ARETRS` (measuring-arm-retracted) interlock means coolant is inhibited
+- The `ARETRS` (measuring-arm-retracted, NO contact) interlock means coolant is inhibited
   while the probe arm is extended — keep that interlock if the Renishaw arm is
   used.
