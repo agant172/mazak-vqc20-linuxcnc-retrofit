@@ -31,36 +31,39 @@ line 7), and **PDF page = sheet + 1** (sheet 21 = PDF p22). The E-stop input
 
 - **`#ESP.M` = X000 = H000.0** — "EMERGENCY STOP" (machine field input). Drawn
   `*ESP.M` where used as a contact. **Physical polarity of X000 must be verified**
-  (repo already flags: E-stop is field-wired, monitored on 7i84U-A TB2 IN29, and
+  (repo already flags: E-stop is field-wired, its 7i84U-A TB2 IN29 monitor is DEFERRED/unwired per the 2026-08-15 owner decision, and
   must go into the **hardwired** safety chain, not a Mesa input alone).
 - `FESP.N` = X1D6 = "FMS EMERGENCY STOP" — FMS/cell option, **not fitted**, drop.
 
 ## What E-stop gates (the rungs)
 
 **Sheet 23 line 7 — SERVO READY** (`SA.M`, H053.0 → Y098):
-`SA.N` (spindle-amp-normal, X119) **AND** `*ESP.M` (X000, E-stop healthy) → SERVO
+`SA.N` (SERVO READY input from the NC, X119) **AND** `*ESP.M` (X000, E-stop healthy) → SERVO
 READY. **When E-stop is asserted, SERVO READY drops** — this is the drive-enable
 the retrofit's velocity-mode axes depend on.
 
 **Sheet 23 line 2 — HYDRAULIC PUMP & HEAD LUBE** (`HYD.M`, H052.6 → Y096):
-`MA.N` (servo-amp-normal, X118) **AND** `SA.N` (X119) **AND** `*ESP.M` (X000) →
+`MA.N` (NC READY input from the NC, X118) **AND** `SA.N` (X119) **AND** `*ESP.M` (X000) →
 run hydraulic/head-lube pump. E-stop drops hydraulics. (Big cross-ref fan-out:
-`HYD.M` gates many downstream rungs, incl. 4102/4105.)
+`HYD.M` feeds many downstream rungs; note the starred `*4102 *4105` refs are
+**NC** usages — those rungs require HYD.M *off*.)
 
-**Sheet 23 line 4 — EMG. DELAY TIMER** (`T0`, K = 20 → **2.0 s**): the
-emergency-stop delay timer `ESPT` (H0B0.0). Used at sheet 23 line 5 to hold
-`SSET.M` (SPINDLE SET). So E-stop starts a **2-second delay** in the spindle-set
-/ shutdown sequence.
+**Sheet 23 line 4 — EMG. DELAY TIMER** (`T0`, K = 20 — timer base not stated
+on the sheet): the emergency-stop delay timer `ESPT` (H0B0.0). As drawn its
+inputs are `HYD.M` **NC** · `SZS.M` (X001, SPINDLE ZERO SPEED) — `*ESP.M` is
+not a contact in this rung; E-stop reaches it by dropping `HYD.M`. Its NC
+contact at sheet 23 line 5 holds `SSET.M` (SPINDLE SET), so the spindle-set
+drop is delayed K = 20 counts *after the spindle reaches zero speed*.
 
 **Sheet 21 — master control** (POWER-ON, NC-READY, RESET, AUTO-MODE-MC):
-- line 15 **RESET** (`*RST`, H060.0): a series interlock of `ERS.N · PGEND.P ·
-  HYD.M · RST.N · *ESP.M · FESP.N` → `*RST`. E-stop participates in the
-  reset-enable chain.
+- line 15 **RESET** (`*RST`, H060.0): a series interlock of `/ERS.N · /PGEND.P ·
+  HYD.M · /RST.N · *ESP.M · /FESP.N` → `*RST` (`/` = NC contact as drawn).
+  E-stop participates in the reset-enable chain.
 - line 14 **NC READY TIMER** (`T90`, K = 10) → `H0AB.2` (NC ready).
 - line 16 **AUTO MODE MC** (`AUT.M`, H04E.0 → Y070).
 
 **Sheet 76 lines 1-3 — axis jog direction memories** (`-XMEM`/`-YMEM`/`-ZMEM`,
-H07D.0/1/2): each is `-X.B/-Y.B/-Z.B` (jog button) · `SMZx.N` (axis zero) ·
+H07D.0/1/2): each is `-X.B/-Y.B/-Z.B` (jog button) · `SMZx.N` **NC** (SMOOTHING ZERO x, X190-X192) ·
 `HYD.M` (hydraulics OK) · `*ESP.M` (E-stop healthy) → set direction memory.
 **E-stop inhibits jog motion.** (Lines 4-6 are the matching `+XENV/+YENV/+ZENV`
 direction enables, also referencing `*ESP.M` via the jog memories.)
@@ -82,17 +85,17 @@ relevant to the retrofit's homing/`is-homed` handling.
 ## Retrofit implications (LinuxCNC / Mesa)
 
 The OEM E-stop, in ladder terms, **removes SERVO READY (Y098), drops the
-HYDRAULIC pump (Y096), blocks RESET, and inhibits jog**, with a **2 s EMG delay
+HYDRAULIC pump (Y096), blocks RESET, and inhibits jog**, with a **K = 20 EMG delay
 timer** in the spindle-set path. For the retrofit:
 
 - Reproduce "E-stop → drop drive-enable" in HAL: E-stop (and the hardwired chain)
   must remove the axis **drive-enable** outputs (7i84U-B TB3 OUT0-2) and the FR-SX
   run/enable, mirroring how the OEM `SA.M` SERVO READY gated the drives.
-- The **~2 s EMG delay** is a hint for the `stop_timing_budget.md` / Z-brake and
+- The **EMG delay (T0 K = 20, timed from spindle-zero-speed; base unstated)** is a hint for the `stop_timing_budget.md` / Z-brake and
   spindle-coast sequencing — don't drop everything instantaneously if the OEM
   sequenced it.
 - This ladder logic is **monitoring/sequencing only**; the **hardwired**
-  contactor-drop E-stop chain (still to be traced per **D5**) remains the primary
+  contactor-drop E-stop chain (tracing withdrawn with **D5**, owner decision 2026-08-15) remains the primary
   safety element. See `estop_safety_chain.md` and `estop_wiring_path_asbuilt.md`.
 
 ## Summary — everything E-stop drops/gates (complete set)
@@ -100,11 +103,11 @@ timer** in the spindle-set path. For the retrofit:
 When E-stop (`#ESP.M`/X000) is asserted, the OEM ladder:
 1. **Drops SERVO READY** (`SA.M`/Y098) — removes drive-enable to the axis amps.
 2. **Drops the HYDRAULIC / head-lube pump** (`HYD.M`/Y096).
-3. **Blocks RESET** (`*RST`) and gates **NC READY** (sheet 21).
+3. **Blocks RESET** (`*RST`, sheet 21 line 15). (The NC READY TMR at 2114 is driven by `MA.N` alone — E-stop is not a contact in it.)
 4. **Inhibits jog** (all axes, sheet 76) and **manual magazine tool select** (sheet 32).
-5. **Retracts/drops the measuring (probe) arm extend** (sheet 41).
+5. **Drops the measuring (probe) arm extend latch** (sheet 41; retract is not E-stop-commanded).
 6. **Clears the all-axis reference/homed memory** (sheet 60) — re-home after E-stop.
-7. Runs a **2.0 s EMG delay timer** (`ESPT`/T0, K20) in the spindle-set path.
+7. Runs the **EMG delay timer** (`ESPT`/T0, K = 20; time base unstated) in the spindle-set path, timed from spindle zero speed.
 
 For the retrofit, the HAL/hardwired E-stop must reproduce items 1-2 (drop
 drive-enable + hydraulics) as the safety-critical minimum, treat item 6 as the
