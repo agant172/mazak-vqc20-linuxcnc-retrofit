@@ -112,7 +112,7 @@ pin in bit gear_lo_conf = false
 pin out bit gear_hi_sol
     "Y00B GSH.M gear-high solenoid (rung 2907). Net: gear-hi-sol (TB3 OUT7).  Sealed while high range is selected - the solenoid holds the shift fork.";
 pin out bit gear_lo_sol
-    "Y00C GSL.M gear-low solenoid (rung 2910). Net: gear-lo-sol (TB2 OUT8).  AUTHORITY NOTE: OUT8 is HOLD_CONFLICT - see wiring/authority_conflicts.md.";
+    "Y00C GSL.M gear-low solenoid (rung 2910). Net: gear-lo-sol (TB2 OUT8).  SOL-13 identity resolved 2026-08-08 (authority_conflicts sec 6 lineage);  field wire unlanded - fit RLY-2 + suppression before energising.";
 
 //
 // ---------------------------------------------------------------------------
@@ -223,8 +223,11 @@ FUNCTION(update)
      * ----------------------------------------------------------------- */
     hyd_pump_on = machine_ready && servo_ready && estop_ok;
 
-    /* Rung 2305: SSET.M = HYD.M * PW1.M * ESPT(T-0) * #AL46, sealed.
-     * AL46 is the only orient-related bit that drops it. */
+    /* Rung 2305 (audit 2026-09-02): SSET.M = [(HYD.M || seal) * PW1.M * #ESPT
+     * || DIHT.N || TOUCH.N] * #AL46. ESPT is NC - the OEM arms with NO
+     * power-up delay; T-0 (K201) is a ~20 s post-pump-stop grace before the
+     * arm drops. drive_arm_delay here is a deliberate retrofit conservatism,
+     * not a ladder equivalence. */
     TMR(t_arm, hyd_pump_on, drive_arm_delay);
     arm_ok = hyd_pump_on && !fault_oriented_rotating && !drive_fault;
     if (!arm_ok) {
@@ -287,9 +290,14 @@ FUNCTION(update)
     mid_shift = (shift_pending && !tgt_conf) || !any_prs;
     gear_shifting = mid_shift ? true : false;
 
-    /* Rungs 2905/2906 T-5 -> ENGS: solenoids only after the zero-speed dwell
-     * with no run command. This is the whole point of the dwell - never
-     * energise a gear solenoid against a turning spindle. */
+    /* Rungs 2905/2906 T-5 -> ENGS: solenoids only after the zero-speed dwell.
+     * LADDER DISCREPANCY (audit 2026-09-02): rung 2905 draws SMR as a NO
+     * contact - the OEM dwell runs with the run memory STILL ASSERTED (the
+     * classic "jiggle the spindle into gear" pattern). This comp requires
+     * !spindle_run instead; scope FWD + SZS during a commanded gear change
+     * (bench check) before deciding whether to match the OEM and hold the
+     * run output through the shift. Never energise a gear solenoid against
+     * a turning spindle either way (spindle_zero_speed stays in the AND). */
     TMR(t_dwell, spindle_zero_speed && !spindle_run && mid_shift,
         zero_speed_dwell);
     engs = ELAPSED(t_dwell, zero_speed_dwell);

@@ -17,7 +17,7 @@
 | Coolant | 30 | 7 | 2 | 1 | ARETRS sense + ENCOOL topology fixed |
 | Homing | 32 | 4 | 0 | 0 | X100-102 are NC bits, not home switches; fixed |
 | Interlocks | 15 | 6 | 5 | 1 | Sheet-43 reading inverted the rung; fixed + warned |
-| Orient | — | — | — | — | *(pending — agent still running when this file was first committed)* |
+| Orient | 34 | 19 | 2 | 1 | Roughest subsystem: ~half the multi-branch rungs had wrong topology or inverted senses; 4 defects functionally significant for `mazak_orient.comp` |
 | Probe/MMS | 25 | 5 | 1 | 0 | Arm rung 4102 structure fixed; SKIP path RESERVED |
 | Spindle run | 28 | 4 | 2 | 0 | Jog-timer misread + 0-10 V analog fixed |
 | Signal map | 67 signals | 15 | 5 | 5 | Pin map fully consistent; defects were stale prose |
@@ -52,6 +52,17 @@
 8. **Two 7i84U cards, not one** — the audit premise itself was corrected by
    the repo: 7i84U-A and 7i84U-B are both on hand (owner 2026-08-17), neither
    yet enumerated. `7i84.0.1` bindings are valid 7i84U-B pins.
+9. **Gear-shift dwell runs with the run memory ASSERTED** (rung 2905, SMR is
+   NO — the "jiggle into gear" pattern); `mazak_orient.comp` currently
+   requires `!spindle_run`. Annotated as a LADDER DISCREPANCY in the comp;
+   the bench scope test (item 28) decides which behavior to keep.
+10. **SSET has no power-on delay** — ESPT is NC; T-0 is a ~20 s post-pump-stop
+    grace. The comp's 2.0 s `drive_arm_delay` is kept as deliberate retrofit
+    conservatism, now annotated as such.
+11. **Gear solenoid rungs 2907/2910 hold the OUTGOING gear's solenoid** until
+    the zero-speed dwell (ENGS) releases it — the inverse of the transcribed
+    "enable gating". And the ATC orient path (TCME) **bypasses** SOME2 and the
+    gear-shift interlock in rung 3004.
 
 ## Open items that are NOT bench checks
 
@@ -136,6 +147,29 @@ this repo from directing E-stop work — owner's option, not directed work.
     to each drive input before landing AOUT0/1/2.
 25. **Shield topology**: CNA5-20 (Z) case-ground bond (X/Y measured 0 Ω
     2026-08-16); settle GND pin choices at termination.
+
+### B2. Orient / gear (powered, drives configured — commissioning-adjacent)
+28. **Run command during gear shift**: scope FWD (CN-side) and SZS during a
+    commanded M38↔M39 change — decides whether `mazak_orient.comp` must hold
+    the run output through the shift (rung 2905 SMR-NO discrepancy).
+29. **SZS behavior while oriented**: watch CN4-1/2 during a manual orient —
+    if the FR-SX drops SZS during the orient approach (80–155 rpm), the
+    AL46-equivalent needs masking during approach.
+30. **PRS-10/PRS-12 idle states**: continuity in both gear positions and
+    mid-stroke (ladder assumes closed only when fully engaged, both open
+    mid-shift).
+31. **ORA1 idle polarity**: voltage at CN4-16/17 unoriented — rung 4810
+    consumes ORA1 as NC while 3006/5509 use NO; only consistent as a true
+    level (high = oriented).
+32. **TOUCH.N / DIHT.N (X159/X15B)**: identify the physical devices; both
+    must be FALSE on this configuration or orient is blocked / SSET
+    spuriously armed.
+33. **FR-SX terminals for ORCM1/CTL/ORA1/SZS/SET1-SET2 + where SSET lands**
+    (FR-SX vs DK-427) before spending TB5 SSR OUT5 — paper-mining exhausted,
+    41434WB has no FR-SX terminal sheet.
+34. **Timer bases by measurement**: stopwatch T-0 (pump-stop → SSET drop) and
+    ORCM1-edge → AL45 (T-18 K100); T-19 K3000 at a 100 ms base = 300 s, which
+    is implausible for a gear watchdog — bases may differ per timer.
 
 ### C. First powered ATC test (commissioning, much later)
 26. **E/F direction sanity**: tool in spindle + T0 → 3-step chain, no INTF2

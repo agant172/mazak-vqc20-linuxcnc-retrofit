@@ -18,9 +18,9 @@ Orient is not a standalone command — it rides the **gear-shift state machine**
 | 2302 | **HYD.M** (Y096, hydraulic + head-lube pump) | `MA.N(X118) · SA.N(X119) · ESP.M(X000)` — machine-ready AND servo-ready from NC AND E-stop chain healthy |
 | 2303 | HYD.MV (Y040) | `= HYD.M` (M2V twin) |
 | 2304 | Emergency delay timer T-0 (K 201) | `#HYD.M · SZS.M(X001)` — runs when pump off and spindle at zero speed |
-| 2305 | **SSET.M** (Y092, spindle set) | `HYD.M · PW1.M(Y090 power-on) · ESPT(T-0) · #AL46` + seal `SSET.M`, aux branches `DIHT.N`, `TOUCH.N` |
+| 2305 | **SSET.M** (Y092, spindle set) | `[(HYD.M ‖ seal SSET.M) · PW1.M(Y090 power-on) · #ESPT(T-0) ‖ DIHT.N ‖ TOUCH.N] · #AL46` — ESPT is **normally-closed**: T-0 only times out ~20 s after the pump stops, so SSET arms with power-on (no delay) and drops on a sustained pump stop or AL46 |
 | 2306 | SSET.MV (Y022) | `= SSET.M` |
-| 2307/8 | SA.M / SA.MV (Y098/Y042, servo ready out) | `SA.N(X119) · #ESP.M` |
+| 2307/8 | SA.M / SA.MV (Y098/Y042, servo ready out) | `SA.N(X119) · ESP.M(X000)` — same normally-open ESP.M contact as rung 2302 |
 
 **Reading:** SSET arms the spindle drive once hydraulics are up after power-on and stays held; the only orient-related thing that touches it is **AL46 (orient malfunction 3), which drops it**. Treat SSET as a drive enable/reset output asserted at machine-on, not an orient step.
 
@@ -28,28 +28,28 @@ Orient is not a standalone command — it rides the **gear-shift state machine**
 
 | Rung | Coil | Logic |
 |---|---|---|
-| 2801 | SFR.M (Y008 fwd) | `SJSTT(T46) · SMR(M78 run mem) · #FFREV1` ‖ `SJOG.B(X0E2)` |
+| 2801 | SFR.M (Y008 fwd) | `(SJSTT(T46) ‖ #SJOG.B(X0E2)) · SMR(M78 run mem) · #FFREV1` — the jog branch is a **normally-closed** contact paralleling only SJSTT |
 | 2802 | SRJ.M (Y009 rev) | same but `FFREV1` true |
 | 2804 | Spindle stop timer T-4 | `SZS.M(X001) · #SMR` — zero speed + no run command |
 | 2805 | M05 memory (M80) | M-code decode + seal, cleared via SSPT(T-4) |
-| 2806 | **M38CD** gear-low cmd (M81) | `M-code M38 decode (MHO·MT3·MU8) · #TOUCH.N · #DIHT.N · #1000OS` ‖ manual branch `#AUT.M · LGPLS · #TUC.M` |
+| 2806 | **M38CD** gear-low cmd (M81) | `[M-code M38 decode (MHO·MT3·MU8) ‖ manual branch #AUT.M · LGPLS · #TUC.M] · #TOUCH.N · #DIHT.N · #10000S` — qualifiers apply to both paths |
 | 2807 | **M39CD** gear-high cmd (M82) | mirror of 2806 with MU9/HGPLS |
-| 2808 | **HSR** high-range memory (M83) | `(M39CD ‖ seal ‖ 1000OS) · #LGPLS · #M38CD · #LSR` |
-| 2809 | **LSR** low-range memory (M84) | `(M38CD ‖ seal) · #HGPLS · #M39CD · #HSR` |
+| 2808 | **HSR** high-range memory (M83) | `(M39CD ‖ seal) · (#LGPLS ‖ AUT.M) · #M38CD · #LSR` ‖ `10000S` — AUT.M (NO) defeats the manual low pulse in auto; 10000S forces HSR unconditionally |
+| 2809 | **LSR** low-range memory (M84) | `(M38CD ‖ seal) · (#HGPLS ‖ AUT.M) · #M39CD · #HSR · #10000S` |
 
 ### Sheet 29 — gear shift state machine
 
 | Rung | Coil | Logic |
 |---|---|---|
-| 2901 | **GSFTC** gear shift command (M85) | `[(HSR · #HGPRS) ‖ (LSR · #LGPRS) ‖ SOME2(M90) ‖ M38CD ‖ M39CD ‖ SST(M74)] · #10000S · #RST` — target range ≠ confirmed position, **or orient memory active** |
-| 2902 | **GSFME** gear shift in-progress memory (M86) | `(LSR ‖ HSR) · GSFTC · #RST · #10000S` ‖ `(#HGPRS · #LGPRS)` — latched while between confirmed positions |
+| 2901 | **GSFTC** gear shift command (M85) | `{[(HSR · #HGPRS) ‖ (LSR · #LGPRS)] · GSFTC(seal) ‖ SOME2(M90) ‖ M38CD ‖ M39CD ‖ SST(M74)} · #10000S · #RST` — set only by M38/M39/orient memory/spindle start; range-vs-position mismatch merely **holds** the command through the GSFTC seal until the PRS confirms |
+| 2902 | **GSFME** gear shift in-progress memory (M86) | `(LSR ‖ #HGPRS) · (HSR ‖ #LGPRS) · GSFTC · #RST · #10000S` — true while GSFTC stands and the commanded range's PRS has not confirmed; not a latch |
 | 2903 | GSS1 (M87) | `= GSFME` |
 | 2904 | **GSF.N** (Y124 → NC) | `= GSS1` — "gear shifting" status to NC |
-| 2905 | Gear shift timer T-5 (K 3) | `SZS.M(X001) · #SMR · GSF.N` — **zero speed, no run cmd, shift pending** |
+| 2905 | Gear shift timer T-5 (K 3) | `SZS.M(X001) · SMR · GSF.N` — **zero speed, run memory ON, shift pending** (SMR is normally-open here, opposite of rung 2804) |
 | 2906 | **ENGS** enable gear shift (M88) | `= T-5` — solenoids only allowed after the zero-speed dwell |
-| 2907 | **GSH.M** (Y00B gear-high sol) | `HSR · #GSL.M · #AL47` gated by `(#HGPRS · ENGS)` ‖ seal `GSH.M` |
+| 2907 | **GSH.M** (Y00B gear-high sol) | `[HSR ‖ (HGPRS ‖ seal GSH.M) · #ENGS] · #GSL.M · #AL47` — HSR drives the solenoid directly; `(HGPRS ‖ seal)·#ENGS` **holds the outgoing gear's solenoid until the zero-speed dwell (ENGS) releases it** |
 | 2908/9 | GSH.N / GSL.N (Y120/Y121 → NC) | mirror solenoid states to NC |
-| 2910 | **GSL.M** (Y00C gear-low sol) | `LSR · #GSH.M · #AL47 · #10000S` gated by `(#LGPRS · ENGS)` ‖ seal |
+| 2910 | **GSL.M** (Y00C gear-low sol) | `[LSR ‖ (LGPRS ‖ seal GSL.M) · #ENGS] · #GSH.M · #AL47 · #10000S` — mirror of 2907 |
 
 ### Sheet 30 — orient proper
 
@@ -57,37 +57,37 @@ Orient is not a standalone command — it rides the **gear-shift state machine**
 |---|---|---|
 | 3001 | **CTL.M** (Y094 low-gear orient) | `= GSL.M` — **CTL simply mirrors the gear-low solenoid state** |
 | 3002 | CTL.MV (Y03C) | `= CTL.M` |
-| 3003 | **SOME2** orient memory (M90) | `[M19 decode (MHO·MT1·MU9) ‖ RCTSTEP2(M108) ‖ seal·SDSA-path] · #RST` — set by M19 or recess-tool step, latched |
-| 3004 | **ORCM1.M** (Y093 orient command) | `[HGPRS ‖ LGPRS ‖ 10000S ‖ (TCME · #EQTST) ‖ seal ORCM1.M] · SOME2 · #GSFME · #TOUCH.N · #DIHT.N · #AL45 · #UOME2 · #AL46 · #PGEND.P` (+ `#RST.N` X11A branch) |
+| 3003 | **SOME2** orient memory (M90) | `[M19 decode (MHO·MT1·MU9) ‖ RCTSTEP2(M108) ‖ seal SOME2 · #SOSA] · #RST` — set by M19 or recess-tool step; the seal runs through **#SOSA**, so the memory self-clears once arrival latches (ORCM1 then holds on its own seal) |
+| 3004 | **ORCM1.M** (Y093 orient command) | `{[(HGPRS ‖ LGPRS ‖ 10000S) · SOME2 · #GSFME ‖ TCME · #EQTST] · #TOUCH.N · #DIHT.N ‖ seal ORCM1.M} · (#AL45 ‖ #RST.N(X11A)) · #UOME2 · #AL46 · #PGEND.P` — the ATC path (TCME) bypasses SOME2/#GSFME; the seal holds through only the alarm/cancel block; #RST.N parallels #AL45 specifically |
 | 3005 | ORCM1.MV (Y03B) | `= ORCM1.M` |
-| 3006 | Orient timer T-6 (K 3) | `ORA1(X003)` — arrival debounce |
+| 3006 | Orient timer T-6 (K 3) | `ORA1(X003)` — delayed-arrival bit consumed **only by the recess-tool logic (#4809)**; the SOSA latch (5509) uses raw ORA1 |
 | 3007 | ATC FIN pulse (M152) | falling edge of `TCME(M160)` |
-| 3008 | **UOME2** unorient memory (M91) | `[SDSA-path ‖ M38CD·(#TCME·#TOUCH.N·#DIHT.N) ‖ M39CD ‖ AFINPLS(M152)·MDI.L ‖ SST(M74) ‖ PGEND.P ‖ SJOG.L] · #RST` + seal — cancels orient on gear change, ATC FIN, jog, program end |
+| 3008 | **UOME2** unorient memory (M91) | `{SOSA · seal UOME2 ‖ [(M38CD ‖ M39CD ‖ PGEND.P ‖ SJOG.L) · #TCME ‖ AFINPLS(M152)·#MDI.L ‖ SST(M74)] · #TOUCH.N · #DIHT.N} · #RST` — every cancel trigger passes #TOUCH.N·#DIHT.N and the gear/program/jog triggers also need #TCME (no cancel mid-ATC); the seal runs through SOSA and self-clears when the oriented latch drops |
 
 ### Sheet 55 — orient/gear supervision
 
 | Rung | Coil | Logic |
 |---|---|---|
-| 5501/2 | SZSK zero-speed aux (M133) + T-16 (K 30) | debounced zero-speed echo of SZS |
+| 5501/2 | SZSK aux (M133) + T-16 (K 30) | `SZSK = #SZSXT(T-16)·seal ‖ #SZS`; `T-16 = SZSK · SZS` — SZSK sets while SZS is **false** and drops K 30 after it returns; SZS (M132, rung 5411) is computed (`#GSF.N·#SST·#SF·#SOME2·#UOME2`), not the sensor |
 | 5503 | Orient timer 1 T-17 (K 10) | `HYD.M · #ORCM1.M` — runs while orient NOT commanded |
 | 5504 | Orient timer 2 T-18 (K 100) | `ORCM1.M` — **watchdog from orient command** |
-| 5505 | SLOK.L (Y1D4 spindle lock lamp) | `= SOSA` |
+| 5505 | SLCK.L (Y1D4 spindle lock lamp) | `= SOSA` |
 | 5506 | **AL44** orient malf 1 (F44) | `SOSA · ORCT1(T-17)` + seal via `#ALRST` — oriented state present with no command |
 | 5507 | **AL45** orient malf 2 (F45) | `ORCT2(T-18) · ORCM1.M · #SOSA` + seal — **commanded, timed out, never arrived** |
 | 5508 | **AL46** orient malf 3 (F46) | `#SZS.M · SOSA` + seal — **"oriented" while spindle not at zero speed** → drops SSET (2305) and ORCM1 (3004) |
 | 5509 | **SOSA** spindle orient safety (M92) | `[ORCM1.M · seal SOSA] ‖ ORA1(X003)` — arrival latch, held while command stands; consumed by ATC (36xx), lamp, alarms |
 | 5510/11 | Gear shift watchdog T-19 + **AL47** (F47) | `GSFME · #SOME2` → T-19; timeout → AL47, blocks both gear solenoids |
-| 5512 | Servo-off timer T-34 | from `#SA.M` |
+| 5512 | Servo-off timer T-34 (K 9000) | from `SA.M` (normally-open) |
 
-Note: the M92 bit is labeled SDSA on some rungs and SOSA on others — same element, scan ambiguity; one latch.
+Note: the M92 bit reads SOSA ("SPINDLE ORIENT SAFETY") legibly on every rung checked (3003, 3008, 5505–5509); no SDSA label exists.
 
 ## Derived sequence (what the HAL component must reproduce)
 
-1. **Arm (once per power-up):** HYD pump on (`hyd-pump-on` ← MA·SA·ESP ok) → after power-on delay, assert SSET-equivalent drive arm. Drop it only on AL46-type fault.
+1. **Arm:** HYD pump on (`hyd-pump-on` ← MA·SA·ESP ok) → assert SSET-equivalent drive arm immediately (no power-up delay); T-0 (K 201) is a ~20 s grace that drops the arm only after the pump stops. Also drop on AL46-type fault.
 2. **Orient request:** M19 / ATC prep sets orient-request latch. Cancel conditions: gear M-code, ATC FIN, jog, program end, reset.
-3. **Gear must be confirmed first:** orient request forces the gear-shift evaluation. If neither PRS-10 (`gear-hi-conf`) nor PRS-12 (`gear-lo-conf`) is made, shift: wait `spindle-zero-speed` (IN5) true with no run command for the T-5 dwell (~0.3 s), then energize one gear solenoid until its PRS confirms; 30 s-class watchdog → gear-shift fault (blocks both solenoids, latched until reset).
+3. **Gear must be confirmed first:** orient request forces the gear-shift evaluation. If neither PRS-10 (`gear-hi-conf`) nor PRS-12 (`gear-lo-conf`) is made, shift: wait `spindle-zero-speed` (IN5) true **with the run memory still asserted** (SMR is a NO contact in rung 2905) for the T-5 dwell (~0.3 s), then energize one gear solenoid until its PRS confirms; 30 s-class watchdog → gear-shift fault (blocks both solenoids, latched until reset).
 4. **Command orient:** with a PRS confirmed and not mid-shift → assert `spindle-orient-cmd` (OUT4). Simultaneously `orient-lo-gear` (OUT5) **must equal the gear-low solenoid state** (CTL.M = GSL.M — combinational, not sequenced).
-5. **Arrival:** `spindle-oriented` (IN4, ORA1) debounced ~0.3 s → oriented latch (SOSA equivalent). ATC motion is gated on this latch, not on the raw input.
+5. **Arrival:** the OEM SOSA latch (5509) sets from **raw** ORA1; T-6 (~0.3 s) feeds only the recess-tool logic (#4809). A HAL-side debounce is an engineering addition, not a ladder equivalence. ATC motion is gated on the latch, not the raw input.
 6. **Supervision — all three are cheap HAL comps and worth keeping:**
    - orient commanded but no arrival in ~10 s → orient fault (AL45)
    - oriented latch true while `spindle-zero-speed` false → hard fault, drop drive arm + orient cmd (AL46)
@@ -116,7 +116,9 @@ Note: the M92 bit is labeled SDSA on some rungs and SOSA on others — same elem
 
 ## Sources
 
-- Ladder: `VQC20-40_060231_Ladder_Diagrams.pdf` sheets 23 (p.24), 28 (p.29), 29 (p.30), 30 (p.31), 48 (p.49), 55 (p.56), drawing 4136081801
-- Element addresses: `VQC20-40_060231_Element_List.csv`
+- Ladder: `YM2V39L.pdf` (obsidian-vault `Machine Shop/Mazak VQC-20-40 Retrofit/Manuals/`, drawing 4136081801, 94 sheets, PDF page = sheet+1) sheets 23 (p.24), 28 (p.29), 29 (p.30), 30 (p.31), 48 (p.49), 55 (p.56)
+- Element addresses: `VQC20-40_060231_Element_List.csv` (Google Drive
+  `My Drive/Mazak/Manuals_SN060231/` — not on local disk; YM2V39L's front
+  pages carry the same element lists)
 - Pin assignments: `mesa/current_pin_authority.csv` @ c4a66a0
-- Drive context: `servo_amp_analysis.pdf` (FR-SX orient interface)
+- Drive context: `docs/servo_amp_analysis.md` (FR-SX orient interface)
