@@ -72,13 +72,17 @@ direction enables, also referencing `*ESP.M` via the jog memories.)
 `MIPRS` (magazine in-position, X00D) · `AUT.M` NC (not auto-mode) · `*ESP.M` ·
 `TSINTL` NC → MANUAL TOOL SELECT. **E-stop inhibits manual magazine tool select.**
 
-**Sheet 41 line 2 — MEASURING ARM EXTEND** (`AEXT.M`, H046.4 → Y034): the extend
-output latches through `AEXT.M · *ESP.M`, so **E-stop drops the tool-measure /
-probe-arm extend** (the arm can't stay extended through an E-stop).
+**Sheet 41 line 2 — MEASURING ARM EXTEND** (`AEXT.M`, H046.4 → Y034): the
+mid-stroke self-hold runs through `AEXT.M · *ESP.M`, so **E-stop breaks the
+extend latch** — but a parallel `AEXTRS · #HYD.M` branch holds Y034 asserted
+when hydraulics are down with the arm at full extend, so physical arm retraction
+on E-stop is the electrical/hydraulic chain's job, not this rung's (see
+`probe_mms_ladder_transcription.md`).
 
 **Sheet 60 line 2 — ALL AXIS REFERENCE MEMORY** (`REFME`, H072.6 → M150):
-`ZPX1.N · ZPY1.N · ZPZ1.N · ZP41.N` (all axes at ref point 1) · `*ESP.M` → set
-"all axis referenced" memory. **E-stop clears the referenced/homed state** — after
+`(ZPX1.N · ZPY1.N · ZPZ1.N · ZP41.N + REFME-seal) · *ESP.M` → latch
+"all axis referenced" memory (the seal joins ahead of `*ESP.M`, so only E-stop
+breaks it). **E-stop clears the referenced/homed state** — after
 E-stop the machine treats itself as un-referenced (re-home required). Directly
 relevant to the retrofit's homing/`is-homed` handling.
 

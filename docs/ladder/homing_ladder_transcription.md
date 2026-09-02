@@ -13,8 +13,11 @@
 The PLC ladder does **not** run the reference-return *motion*. There is no
 "home the axis" state machine in the ladder — the **NC unit performs the
 resolver-referenced zero-return move itself**, and the PLC only:
-1. reads the per-axis **reference-position detection** inputs, and
-2. reports **zero-position status** back to the NC and panel.
+1. reads the per-axis **reference-position status** bits from the NC,
+2. reports **zero-position status** to the panel/interface outputs, and
+3. forwards **zero-return requests to the NC** — panel PBs → `ZP1.B.N`/`ZP2.B.N`/
+   `ZP.B.N` (Y194/Y195/Y19A, rungs 7503/7504/8102) and ATC cycle states →
+   `ZPDEC.N` (Y16B, rung 7309) — commands only, no motion sequencing.
 
 This matches the M-2 design (absolute-within-one-rev resolver + grid), and it
 tells the retrofit: **homing is a servo/feedback function (7i49 + resolver), not
@@ -35,7 +38,7 @@ a ladder function** — reproduce it in LinuxCNC's homing, not in ClassicLadder.
 
 ## Rungs
 
-**Sheet 46 lines 12/14/16 (4613/4615/4617, PDF p47) — per-axis status:**
+**Sheet 46 lines 12/14/16 (4612/4614/4616, PDF p47) — per-axis status:**
 `ZPX.M`(Y080) = `ZPX1.N`(X100); `ZPY.M`(Y081) = `ZPY1.N`(X101); `ZPZ.M`(Y082) =
 `ZPZ1.N`(X102). A direct pass-through — the "zero 1 position" *input* becomes the
 "zero position" *status* output.
@@ -44,9 +47,11 @@ a ladder function** — reproduce it in LinuxCNC's homing, not in ClassicLadder.
 `AZP.N`(Y116) = `ZPX1.N · ZPY1.N · ZPZ1.N · ZP41.N` — all four axes at ref pt 1.
 
 **Sheet 60 line 2 (6002, PDF p61) — referenced + safe:**
-`REFME`(M150) = `ZPX1.N · ZPY1.N · ZPZ1.N · ZP41.N · *ESP.M` — same as AZP.N but
-also requires E-stop healthy, so **E-stop clears REFME → the machine treats
-itself un-referenced** (see `estop_ladder_transcription.md`).
+`REFME`(M150) = `(ZPX1.N · ZPY1.N · ZPZ1.N · ZP41.N + REFME) · *ESP.M` — a
+**latching memory**: the four-axis AND sets it, REFME's own contact seals it in
+(the seal joins ahead of `*ESP.M`), and only E-stop breaks the seal. Unlike
+AZP.N it stays TRUE after the axes leave reference, and **E-stop clears REFME →
+the machine treats itself un-referenced** (see `estop_ladder_transcription.md`).
 
 ## Two reference points
 
@@ -59,9 +64,13 @@ itself un-referenced** (see `estop_ladder_transcription.md`).
 
 - **Home on the resolver (7i49), not on the ladder.** LinuxCNC closes the position
   loop on the resolver; homing uses `HOME_SEARCH_VEL` / `HOME_LATCH_VEL` against a
-  home reference. The OEM **"ZERO 1 POSITION" inputs (X100-102)** are the OEM home
-  detectors — candidate LinuxCNC **home switches** if wired to a 7i84U input;
-  otherwise home on resolver position + a coarse switch.
+  home reference. The **"ZERO 1 POSITION" inputs (X100-102)** are NC-interface
+  status bits (element list marks them "NC") with no field terminal — they cannot
+  be landed on a 7i84U input. The physical OEM home detectors are the zero-return
+  deceleration switches **LS-42/52/62 (`*DECX`/`*DECY`/`*DECZ`, BBIA-1 CN2-15 /
+  CN2-16 / CN1-14)**, already routed to 7i84U-B TB3 IN6/7/8 as `home-x/y/z` in
+  the wiring crosswalk — use those as the LinuxCNC home switches, with resolver
+  position as the latch reference.
 - **Apply the captured M-2 params** (`parameters_sn060231.md`): machine zero =
   zero-return position (`ZP` all 0 → `HOME = 0`); `ZC` creep = 79 (raw, ~7.9 ipm →
   `HOME_FINAL_VEL`/`HOME_LATCH_VEL` starting point); `ZD` direction bits
