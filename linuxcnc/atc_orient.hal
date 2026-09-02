@@ -82,8 +82,8 @@ setp mazak-atc.pot-lost-timeout       5.0     # [T29] rung 3406
 setp mazak-atc.index-timeout         30.0
 setp mazak-atc.unclamp-timeout        3.0
 setp mazak-atc.clamp-timeout          3.0
-# Leave FALSE until the clamp valve is proven dual-coil
-# (wiring/authority_conflicts.md section 2 - TB2 OUT9 is HOLD_CONFLICT).
+# Keep 0: SOL-10 confirmed single-coil spring-return 2026-08-13
+# (wiring/authority_conflicts.md section 2 RESOLVED; CSV TOOL_CLAMP_SOL OUT9 = NOT_USED).
 setp mazak-atc.clamp-dual-coil        0
 setp mazak-atc.allow-manual-unclamp   1
 
@@ -134,7 +134,7 @@ net gear-hi-sol           => hm2_7i80.0.7i84.0.0.output-07  # OUT7  Y00B GSH.M
 # and fit RLY-2 with suppression before energising.
 net gear-lo-sol         => hm2_7i80.0.7i84.0.0.output-08  # OUT8  Y00C GSL.M
 # ATC barrier solenoid: on 7i84U-B (7i44 channel 1) OUT6 -- verify device exists
-# on SN 060231 before wiring (PLC Y095 TCME.M, PROPOSED).
+# on SN 060231 before wiring (PLC Y095 TCME.M; CSV: FACTORY_INTERFACE, landing untraced).
 net atc-barrier           => hm2_7i80.0.7i84.0.1.output-06  # 7i84U-B OUT6 (PLC Y095 TCME.M)
 # Proposed 7i84U-B OUT8 assignment for the single energise-to-close magazine
 # cover valve. Do not land the field wire until valve identity, coil voltage,
@@ -230,8 +230,7 @@ net tool-unclamp-sol    <= mazak-atc.tool-unclamp-sol
 # Kept only as a held-FALSE dead-end from mazak-atc; OUT9 is free.
 net tool-clamp-sol      <= mazak-atc.tool-clamp-sol
 
-# Cover. ONE solenoid, energised = closed (ladder sheet 31). The existing
-# mag-cover-open net in field_7i84u.hal is wrong for this valve and must go.
+# Cover. ONE solenoid, energised = closed (ladder sheet 31).
 net mag-cover-close     <= mazak-atc.mag-cover-sol
 net mag-cover-open-conf   => mazak-atc.mag-cover-open-conf
 net mag-cover-closed-conf => mazak-atc.mag-cover-closed-conf
@@ -299,7 +298,8 @@ net estop-reset => mazak-atc.fault-reset
 #####################################################################
 #
 # The former field-I/O contradiction list has been reconciled into
-# mesa/current_pin_authority.csv and field_7i84u.hal. Remaining HOLD_CONFLICT
-# outputs (gear low, dual-coil clamp, magazine direction, mist) stay physically
-# unbound until their cabinet traces are complete. The proposed cover output
+# mesa/current_pin_authority.csv and field_7i84u.hal. No HOLD_CONFLICT rows remain
+# (gear low resolved 2026-08-08; clamp valve single-coil 2026-08-13; mist eliminated
+# 2026-08-09). Magazine direction outputs OUT13/14 stay COMMISSIONING_PENDING and
+# physically unlanded until their cabinet traces are complete. The proposed cover output
 # above and air-pressure input in field_7i84u.hal must also be field-verified.

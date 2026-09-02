@@ -9,19 +9,19 @@
         <rect x="-165.0" y="-96.0" width="330" height="192" rx="0" ry="0" antialias="false" style="line-style:normal;line-weight:normal;filling:none;color:#0078a8" />
         <line x1="-165.0" y1="-70.0" x2="165.0" y2="-70.0" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:normal;filling:none;color:#0078a8" antialias="false" />
         <text text="7i49 P4" x="-157.0" y="-78.0" rotation="0" font="Liberation Sans,8,-1,5,75,0,0,0,0,0,Bold" color="#0078a8" />
-        <text text="2 | 2 | RESSIN0+ | PROPOSED - PHASE VERIFY" x="-157.0" y="-51.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#d00000" />
+        <text text="2 | 2 | RESSIN0+ | PHASE" x="-157.0" y="-51.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#d00000" />
         <terminal uuid="{99b0cecc-9cc9-52a0-8654-efb7ae4844eb}" name="2" x="-165.0" y="-54.0" orientation="w" type="Generic" />
-        <text text="1 | 1 | RESSIN0- | PROPOSED - PHASE VERIFY" x="-157.0" y="-31.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#d00000" />
+        <text text="1 | 1 | RESSIN0- | PHASE" x="-157.0" y="-31.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#d00000" />
         <terminal uuid="{fefd54ef-9d1e-5f5c-be9d-055ed99cf0da}" name="1" x="-165.0" y="-34.0" orientation="w" type="Generic" />
-        <text text="4 | 4 | RESCOS0+ | PROPOSED - PHASE VERIFY" x="-157.0" y="-11.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#d00000" />
+        <text text="4 | 4 | RESCOS0+ | PHASE" x="-157.0" y="-11.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#d00000" />
         <terminal uuid="{636849ea-70ae-5719-a477-caac7a3d8158}" name="4" x="-165.0" y="-14.0" orientation="w" type="Generic" />
-        <text text="3 | 3 | RESCOS0- | PROPOSED - PHASE VERIFY" x="-157.0" y="9.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#d00000" />
+        <text text="3 | 3 | RESCOS0- | PHASE" x="-157.0" y="9.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#d00000" />
         <terminal uuid="{53bcb38f-9c39-5d45-a457-0ac8cfaa208c}" name="3" x="-165.0" y="6.0" orientation="w" type="Generic" />
-        <text text="7 | 7 | RESDRV0+ | PROPOSED - PHASE VERIFY" x="-157.0" y="29.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#d00000" />
+        <text text="7 | 7 | RESDRV0+ | PHASE" x="-157.0" y="29.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#d00000" />
         <terminal uuid="{ceb08dd1-567c-5c2d-9561-eb350f38c710}" name="7" x="-165.0" y="26.0" orientation="w" type="Generic" />
-        <text text="6 | 6 | RESDRV0- | PROPOSED - PHASE VERIFY" x="-157.0" y="49.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#d00000" />
+        <text text="6 | 6 | RESDRV0- | PHASE" x="-157.0" y="49.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#d00000" />
         <terminal uuid="{3877821e-909a-5697-a4f9-b52e8e2e32d3}" name="6" x="-165.0" y="46.0" orientation="w" type="Generic" />
-        <text text="5 or 8 | 5 or 8 | GND | FIELD PENDING" x="-157.0" y="69.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+        <text text="5 or 8 | 5 or 8 | GND | FP" x="-157.0" y="69.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
         <terminal uuid="{050a5f5e-ea7a-5780-b7a7-33017c90a7e9}" name="5 or 8" x="-165.0" y="66.0" orientation="w" type="Generic" />
     </description>
 </definition>

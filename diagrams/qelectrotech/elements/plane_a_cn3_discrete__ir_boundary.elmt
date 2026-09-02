@@ -9,29 +9,29 @@
         <rect x="-165.0" y="-86.0" width="330" height="172" rx="0" ry="0" antialias="false" style="line-style:normal;line-weight:normal;filling:none;color:#a85d00" />
         <line x1="-165.0" y1="-60.0" x2="165.0" y2="-60.0" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:normal;filling:none;color:#a85d00" antialias="false" />
         <text text="Required interposing-relay boundary" x="-157.0" y="-68.0" rotation="0" font="Liberation Sans,8,-1,5,75,0,0,0,0,0,Bold" color="#a85d00" />
-        <text text="F01 | FIELD | SPINDLE_ORIENT_CMD" x="-157.0" y="-41.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+        <text text="F01 | F | SPINDLE_ORIENT_CMD" x="-157.0" y="-41.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
         <terminal uuid="{af44ccf5-dc85-518e-a69e-d17390ad984f}" name="F01" x="-165.0" y="-44.0" orientation="w" type="Generic" />
-        <text text="M01 | MESA | SPINDLE_ORIENT_CMD" x="4" y="-41.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+        <text text="M01 | M | SPINDLE_ORIENT_CMD" x="4" y="-41.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
         <terminal uuid="{afa3a87b-fab9-563a-8f81-ee83ff40973b}" name="M01" x="165.0" y="-44.0" orientation="e" type="Generic" />
-        <text text="F02 | FIELD | SPINDLE_ORIENT_LOGEAR" x="-157.0" y="-21.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+        <text text="F02 | F | SPINDLE_ORIENT_LOGEAR" x="-157.0" y="-21.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
         <terminal uuid="{8b503515-a32f-5ff5-a62b-e5d093e695cd}" name="F02" x="-165.0" y="-24.0" orientation="w" type="Generic" />
-        <text text="M02 | MESA | SPINDLE_ORIENT_LOGEAR" x="4" y="-21.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+        <text text="M02 | M | SPINDLE_ORIENT_LOGEAR" x="4" y="-21.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
         <terminal uuid="{b26c1ff3-9841-53f1-bcc5-cd9579fffe3c}" name="M02" x="165.0" y="-24.0" orientation="e" type="Generic" />
-        <text text="F03 | FIELD | Y_LIMIT_PLUS" x="-157.0" y="-1.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+        <text text="F03 | F | Y_LIMIT_PLUS" x="-157.0" y="-1.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
         <terminal uuid="{d7d9b63b-4c1e-5bb5-851b-4aa1b1ac7a1a}" name="F03" x="-165.0" y="-4.0" orientation="w" type="Generic" />
-        <text text="M03 | MESA | Y_LIMIT_PLUS" x="4" y="-1.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+        <text text="M03 | M | Y_LIMIT_PLUS" x="4" y="-1.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
         <terminal uuid="{3aa700c1-9add-5d31-8336-a276d8eb7f5b}" name="M03" x="165.0" y="-4.0" orientation="e" type="Generic" />
-        <text text="F04 | FIELD | Z_LIMIT_MINUS" x="-157.0" y="19.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+        <text text="F04 | F | Z_LIMIT_MINUS" x="-157.0" y="19.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
         <terminal uuid="{7c91cff4-73ec-577a-977c-2be241c431cb}" name="F04" x="-165.0" y="16.0" orientation="w" type="Generic" />
-        <text text="M04 | MESA | Z_LIMIT_MINUS" x="4" y="19.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+        <text text="M04 | M | Z_LIMIT_MINUS" x="4" y="19.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
         <terminal uuid="{f3e9598d-7679-512f-a78f-060fe82e8f90}" name="M04" x="165.0" y="16.0" orientation="e" type="Generic" />
-        <text text="F05 | FIELD | ATC_ZONE_Z" x="-157.0" y="39.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#d00000" />
+        <text text="F05 | F | ATC_ZONE_Z" x="-157.0" y="39.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#d00000" />
         <terminal uuid="{eb055c4c-277a-5889-9450-fe6d7ad936fa}" name="F05" x="-165.0" y="36.0" orientation="w" type="Generic" />
-        <text text="M05 | MESA | ATC_ZONE_Z" x="4" y="39.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#d00000" />
+        <text text="M05 | M | ATC_ZONE_Z" x="4" y="39.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#d00000" />
         <terminal uuid="{68d8a56f-3cde-508a-aa4d-811651c4dae3}" name="M05" x="165.0" y="36.0" orientation="e" type="Generic" />
-        <text text="F06 | FIELD | ATC_ZONE_Y" x="-157.0" y="59.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#d00000" />
+        <text text="F06 | F | ATC_ZONE_Y" x="-157.0" y="59.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#d00000" />
         <terminal uuid="{f83ce712-df73-58c7-bef6-bfd4e05d834d}" name="F06" x="-165.0" y="56.0" orientation="w" type="Generic" />
-        <text text="M06 | MESA | ATC_ZONE_Y" x="4" y="59.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#d00000" />
+        <text text="M06 | M | ATC_ZONE_Y" x="4" y="59.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#d00000" />
         <terminal uuid="{5a9702ca-7a8b-5fcd-a6a9-b28393971643}" name="M06" x="165.0" y="56.0" orientation="e" type="Generic" />
     </description>
 </definition>

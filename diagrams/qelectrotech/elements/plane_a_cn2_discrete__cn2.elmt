@@ -9,33 +9,33 @@
         <rect x="-165.0" y="-166.0" width="330" height="332" rx="0" ry="0" antialias="false" style="line-style:normal;line-weight:normal;filling:none;color:#0078a8" />
         <line x1="-165.0" y1="-140.0" x2="165.0" y2="-140.0" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:normal;filling:none;color:#0078a8" antialias="false" />
         <text text="BBIA-1 CN2 machine-facing connector" x="-157.0" y="-148.0" rotation="0" font="Liberation Sans,8,-1,5,75,0,0,0,0,0,Bold" color="#0078a8" />
-        <text text="3 | wire 149 | MANUAL_TOOL_UNCLAMP_PB | FIELD VERIFY" x="4" y="-121.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+        <text text="3 | 149 | MT_UNCLAMP_PB | FV" x="4" y="-121.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
         <terminal uuid="{37e98a75-b183-5d4d-9ae1-dae833e0b866}" name="3" x="165.0" y="-124.0" orientation="e" type="Generic" />
-        <text text="4 | wire 150 | MAG_BCD_BIT0 | FIELD VERIFY" x="4" y="-101.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+        <text text="4 | 150 | MAG_BCD_BIT0 | FV" x="4" y="-101.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
         <terminal uuid="{84e0edcf-62ce-56d7-9962-823f6d330fce}" name="4" x="165.0" y="-104.0" orientation="e" type="Generic" />
-        <text text="5 | wire 221 | MAG_BCD_BIT1 | FIELD VERIFY" x="4" y="-81.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+        <text text="5 | 221 | MAG_BCD_BIT1 | FV" x="4" y="-81.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
         <terminal uuid="{71529acb-cb52-5c28-9834-cdca60230639}" name="5" x="165.0" y="-84.0" orientation="e" type="Generic" />
-        <text text="6 | wire 222 | MAG_BCD_BIT2 | FIELD VERIFY" x="4" y="-61.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+        <text text="6 | 222 | MAG_BCD_BIT2 | FV" x="4" y="-61.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
         <terminal uuid="{2941ca4d-cc3b-5108-817d-ed7fa6152453}" name="6" x="165.0" y="-64.0" orientation="e" type="Generic" />
-        <text text="7 | wire 223 | MAG_BCD_BIT3 | FIELD VERIFY" x="4" y="-41.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+        <text text="7 | 223 | MAG_BCD_BIT3 | FV" x="4" y="-41.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
         <terminal uuid="{d3dc508c-8d0a-55a9-9b99-4653e0524c49}" name="7" x="165.0" y="-44.0" orientation="e" type="Generic" />
-        <text text="8 | wire 224 | MAG_BCD_BIT4 | FIELD VERIFY" x="4" y="-21.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+        <text text="8 | 224 | MAG_BCD_BIT4 | FV" x="4" y="-21.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
         <terminal uuid="{1b8e242f-978d-541e-9f32-2bdda5cd4fe9}" name="8" x="165.0" y="-24.0" orientation="e" type="Generic" />
-        <text text="9 | wire 225 | MAG_IN_POS | FIELD VERIFY" x="4" y="-1.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+        <text text="9 | 225 | MAG_IN_POS | FV" x="4" y="-1.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
         <terminal uuid="{4ed919aa-dd70-5b7a-bb88-c7fa27b644b5}" name="9" x="165.0" y="-4.0" orientation="e" type="Generic" />
-        <text text="11 | wire 218 | MAG_COVER_OPEN_CONF | FIELD VERIFY" x="4" y="19.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+        <text text="11 | 218 | MAG_COVER_OPEN | FV" x="4" y="19.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
         <terminal uuid="{67585b2a-6e29-553c-8270-a3dd85c8a800}" name="11" x="165.0" y="16.0" orientation="e" type="Generic" />
-        <text text="12 | wire 219 | MAG_COVER_CLOSE_CONF | FIELD VERIFY" x="4" y="39.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+        <text text="12 | 219 | MAG_COVER_CLOSE | FV" x="4" y="39.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
         <terminal uuid="{515778e3-13b8-511b-8bec-b5ba1dd28a6b}" name="12" x="165.0" y="36.0" orientation="e" type="Generic" />
-        <text text="13 | wire 381 | MAG_TOOL_AVAILABLE | FIELD VERIFY" x="4" y="59.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+        <text text="13 | 381 | MAG_TOOL_AVAILABLE | FV" x="4" y="59.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
         <terminal uuid="{48a6707c-73ea-560b-9d1f-aa4e96a6b2c8}" name="13" x="165.0" y="56.0" orientation="e" type="Generic" />
-        <text text="15 | wire *DECX | X_HOME | FIELD VERIFY" x="4" y="79.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+        <text text="15 | *DECX | X_HOME | FV" x="4" y="79.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
         <terminal uuid="{85458f2e-e33f-518e-ade3-1c054166933a}" name="15" x="165.0" y="76.0" orientation="e" type="Generic" />
-        <text text="16 | wire *DECY | Y_HOME | FIELD VERIFY" x="4" y="99.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+        <text text="16 | *DECY | Y_HOME | FV" x="4" y="99.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
         <terminal uuid="{fd846c37-e7f0-5a3c-8c16-0f074c457b26}" name="16" x="165.0" y="96.0" orientation="e" type="Generic" />
-        <text text="38 | wire 238 | DOOR_INTERLOCK | FIELD VERIFY" x="4" y="119.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+        <text text="38 | 238 | DOOR_INTERLOCK | FV" x="4" y="119.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
         <terminal uuid="{fb3f09b5-3fd9-52d5-9285-7b5e064acbd8}" name="38" x="165.0" y="116.0" orientation="e" type="Generic" />
-        <text text="44 | wire 149B | MANUAL_TOOL_CLAMP_PB | HOLD - RESERVED" x="4" y="139.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#d00000" />
+        <text text="44 | 149B | MT_CLAMP_PB | HOLD" x="4" y="139.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#d00000" />
         <terminal uuid="{045a5a4f-22e1-506b-96d5-daed92953d18}" name="44" x="165.0" y="136.0" orientation="e" type="Generic" />
     </description>
 </definition>

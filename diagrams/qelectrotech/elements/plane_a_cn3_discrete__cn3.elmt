@@ -9,17 +9,17 @@
         <rect x="-165.0" y="-86.0" width="330" height="172" rx="0" ry="0" antialias="false" style="line-style:normal;line-weight:normal;filling:none;color:#0078a8" />
         <line x1="-165.0" y1="-60.0" x2="165.0" y2="-60.0" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:normal;filling:none;color:#0078a8" antialias="false" />
         <text text="BBIA-1 CN3 machine-facing connector" x="-157.0" y="-68.0" rotation="0" font="Liberation Sans,8,-1,5,75,0,0,0,0,0,Bold" color="#0078a8" />
-        <text text="14 | wire ORI C1 | SPINDLE_ORIENT_CMD | FIELD VERIFY" x="4" y="-41.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+        <text text="14 | ORI C1 | SPINDLE_ORIENT_CMD | FV" x="4" y="-41.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
         <terminal uuid="{7fc77ae4-68fb-5b96-82f5-d308834b71e9}" name="14" x="165.0" y="-44.0" orientation="e" type="Generic" />
-        <text text="15 | wire CTL | SPINDLE_ORIENT_LOGEAR | FIELD VERIFY" x="4" y="-21.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+        <text text="15 | CTL | SPINDLE_ORIENT_LOGEAR | FV" x="4" y="-21.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
         <terminal uuid="{fca325a0-224e-5e7d-8b0d-7254be318c2a}" name="15" x="165.0" y="-24.0" orientation="e" type="Generic" />
-        <text text="37 | wire +LY | Y_LIMIT_PLUS | FIELD VERIFY" x="4" y="-1.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+        <text text="37 | +LY | Y_LIMIT_PLUS | FV" x="4" y="-1.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
         <terminal uuid="{9b870320-40cd-5983-9c9c-639104e715fc}" name="37" x="165.0" y="-4.0" orientation="e" type="Generic" />
-        <text text="38 | wire -LZ | Z_LIMIT_MINUS | FIELD VERIFY" x="4" y="19.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+        <text text="38 | -LZ | Z_LIMIT_MINUS | FV" x="4" y="19.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
         <terminal uuid="{ab5a266d-f4a0-5002-83bc-0605b84a64ff}" name="38" x="165.0" y="16.0" orientation="e" type="Generic" />
-        <text text="39 | wire 147 | ATC_ZONE_Z | HOLD - OEM CONFLICT" x="4" y="39.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#d00000" />
+        <text text="39 | 147 | ATC_ZONE_Z | HOLD" x="4" y="39.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#d00000" />
         <terminal uuid="{9eacee06-2ad6-5cee-8153-a19f8574f0ef}" name="39" x="165.0" y="36.0" orientation="e" type="Generic" />
-        <text text="44 | wire SPTD | ATC_ZONE_Y | HOLD - OEM CONFLICT" x="4" y="59.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#d00000" />
+        <text text="44 | SPTD | ATC_ZONE_Y | HOLD" x="4" y="59.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#d00000" />
         <terminal uuid="{44062154-be00-5199-be7a-633ddb5da891}" name="44" x="165.0" y="56.0" orientation="e" type="Generic" />
     </description>
 </definition>

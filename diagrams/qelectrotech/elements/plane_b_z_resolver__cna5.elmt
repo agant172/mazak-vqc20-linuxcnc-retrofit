@@ -9,19 +9,19 @@
         <rect x="-165.0" y="-96.0" width="330" height="192" rx="0" ry="0" antialias="false" style="line-style:normal;line-weight:normal;filling:none;color:#0078a8" />
         <line x1="-165.0" y1="-70.0" x2="165.0" y2="-70.0" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:normal;filling:none;color:#0078a8" antialias="false" />
         <text text="OEM / field endpoint CNA5" x="-157.0" y="-78.0" rotation="0" font="Liberation Sans,8,-1,5,75,0,0,0,0,0,Bold" color="#0078a8" />
-        <text text="12 | 12 | Z_RES_SIN_POS | lead/wire A | PROPOSED - PHASE VERIFY" x="4" y="-51.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#d00000" />
+        <text text="12 | 12 | Z_RES_SIN_POS | lead/wire A | PHASE" x="4" y="-51.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#d00000" />
         <terminal uuid="{8bef67da-c8d1-5055-8259-8b59b7586fa8}" name="12" x="165.0" y="-54.0" orientation="e" type="Generic" />
-        <text text="13 | 13 | Z_RES_SIN_NEG | lead/wire B | PROPOSED - PHASE VERIFY" x="4" y="-31.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#d00000" />
+        <text text="13 | 13 | Z_RES_SIN_NEG | lead/wire B | PHASE" x="4" y="-31.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#d00000" />
         <terminal uuid="{9f574b59-377e-5109-9e07-448a0d5ffaff}" name="13" x="165.0" y="-34.0" orientation="e" type="Generic" />
-        <text text="14 | 14 | Z_RES_COS_POS | lead/wire F | PROPOSED - PHASE VERIFY" x="4" y="-11.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#d00000" />
+        <text text="14 | 14 | Z_RES_COS_POS | lead/wire F | PHASE" x="4" y="-11.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#d00000" />
         <terminal uuid="{2fd519b6-713e-598c-8e38-ba392eeb6d67}" name="14" x="165.0" y="-14.0" orientation="e" type="Generic" />
-        <text text="15 | 15 | Z_RES_COS_NEG | lead/wire G | PROPOSED - PHASE VERIFY" x="4" y="9.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#d00000" />
+        <text text="15 | 15 | Z_RES_COS_NEG | lead/wire G | PHASE" x="4" y="9.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#d00000" />
         <terminal uuid="{9bb0a5f0-c9bb-56ca-9cb7-8ad5ea3d37d9}" name="15" x="165.0" y="6.0" orientation="e" type="Generic" />
-        <text text="16 | 16 | Z_RES_DRV_POS | lead/wire H | PROPOSED - PHASE VERIFY" x="4" y="29.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#d00000" />
+        <text text="16 | 16 | Z_RES_DRV_POS | lead/wire H | PHASE" x="4" y="29.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#d00000" />
         <terminal uuid="{515718d3-54c2-5f18-a260-264c495df8f9}" name="16" x="165.0" y="26.0" orientation="e" type="Generic" />
-        <text text="17 | 17 | Z_RES_DRV_NEG | lead/wire J | PROPOSED - PHASE VERIFY" x="4" y="49.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#d00000" />
+        <text text="17 | 17 | Z_RES_DRV_NEG | lead/wire J | PHASE" x="4" y="49.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#d00000" />
         <terminal uuid="{79cdff73-8cf1-5ee1-a10e-870f3356ef32}" name="17" x="165.0" y="46.0" orientation="e" type="Generic" />
-        <text text="20 | 20 | Z_RES_CASE_GND | lead/wire N | HOLD - SHIELD TOPOLOGY" x="4" y="69.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#d00000" />
+        <text text="20 | 20 | Z_RES_CASE_GND | lead/wire N | HOLD" x="4" y="69.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#d00000" />
         <terminal uuid="{47b1266e-47ee-5941-9e0b-88fa05e2826f}" name="20" x="165.0" y="66.0" orientation="e" type="Generic" />
     </description>
 </definition>

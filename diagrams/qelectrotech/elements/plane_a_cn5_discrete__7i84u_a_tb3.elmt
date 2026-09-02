@@ -9,7 +9,7 @@
         <rect x="-165.0" y="-40.0" width="330" height="80" rx="0" ry="0" antialias="false" style="line-style:normal;line-weight:normal;filling:none;color:#0078a8" />
         <line x1="-165.0" y1="-14.0" x2="165.0" y2="-14.0" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:normal;filling:none;color:#0078a8" antialias="false" />
         <text text="7i84U-A TB3" x="-157.0" y="-22.0" rotation="0" font="Liberation Sans,8,-1,5,75,0,0,0,0,0,Bold" color="#0078a8" />
-        <text text="IN8 | IN8 | thermal-alarm | FIELD VERIFY" x="-157.0" y="5.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+        <text text="IN8 | IN8 | thermal-alarm | FV" x="-157.0" y="5.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
         <terminal uuid="{fe7098e2-c4c9-5edc-8d9d-266fd3eafc8e}" name="IN8" x="-165.0" y="2.0" orientation="w" type="Generic" />
     </description>
 </definition>

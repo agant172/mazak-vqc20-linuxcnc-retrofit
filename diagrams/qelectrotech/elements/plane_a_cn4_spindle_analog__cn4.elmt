@@ -9,11 +9,11 @@
         <rect x="-165.0" y="-56.0" width="330" height="112" rx="0" ry="0" antialias="false" style="line-style:normal;line-weight:normal;filling:none;color:#0078a8" />
         <line x1="-165.0" y1="-30.0" x2="165.0" y2="-30.0" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:normal;filling:none;color:#0078a8" antialias="false" />
         <text text="OEM / field endpoint CN4" x="-157.0" y="-38.0" rotation="0" font="Liberation Sans,8,-1,5,75,0,0,0,0,0,Bold" color="#0078a8" />
-        <text text="18 | 18 | SPINDLE_SPEED_SE1 | lead/wire SE1 | HOLD - ANALOG ROLE" x="4" y="-11.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#d00000" />
+        <text text="18 | 18 | SPINDLE_SPEED_SE1 | lead/wire SE1 | HOLD" x="4" y="-11.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#d00000" />
         <terminal uuid="{639b9d1b-6289-50d0-bce5-4084c80e0abd}" name="18" x="165.0" y="-14.0" orientation="e" type="Generic" />
-        <text text="19 | 19 | SPINDLE_SPEED_SE2 | lead/wire SE2 | HOLD - ANALOG ROLE" x="4" y="9.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#d00000" />
+        <text text="19 | 19 | SPINDLE_SPEED_SE2 | lead/wire SE2 | HOLD" x="4" y="9.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#d00000" />
         <terminal uuid="{ba23de4f-ad91-58d3-b94f-14709815cdb0}" name="19" x="165.0" y="6.0" orientation="e" type="Generic" />
-        <text text="20 | 20 | SPINDLE_SPEED_SE3 | lead/wire SE3 | HOLD - SHIELD OR COMMON" x="4" y="29.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#d00000" />
+        <text text="20 | 20 | SPINDLE_SPEED_SE3 | lead/wire SE3 | HOLD" x="4" y="29.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#d00000" />
         <terminal uuid="{6aa6075d-2fb0-57f5-a7c1-8771281912da}" name="20" x="165.0" y="26.0" orientation="e" type="Generic" />
     </description>
 </definition>

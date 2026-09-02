@@ -10,15 +10,15 @@ B,Resolvers,Z pair,CNA5 (same pins),,RES2,PROPOSED_PHASE_VERIFY,Same mapping as 
 B,Axis velocity commands,X_AXIS_CMD,TBD (old NC harness),,AOUT0,HOLD_SOURCE_TRACE,Ring out removed NC command pair to DK-427 X input
 B,Axis velocity commands,Y_AXIS_CMD,TBD,,AOUT2,HOLD_SOURCE_TRACE,Same for Y
 B,Axis velocity commands,Z_AXIS_CMD,TBD,,AOUT1,HOLD_SOURCE_TRACE,Same for Z
-A,Homes and limits,X_HOME,CN2-15,*DECX,TB3 IN6,MESA_ROUTE,
-A,Homes and limits,Y_HOME,CN2-16,*DECY,TB3 IN7,MESA_ROUTE,
-A,Homes and limits,Z_HOME,CN1-14,*DECZ,TB3 IN8,MESA_ROUTE,
-A,Homes and limits,Y_LIMIT_PLUS,CN3-37,+LY,TB3 IN2,MESA_ROUTE,
-A,Homes and limits,Z_LIMIT_MINUS,CN3-38,-LZ,TB3 IN5,MESA_ROUTE,
-A,Homes and limits,X_LIMIT_PLUS,,,TB3 IN0,FIELD_TRACE,No connector-box label on this sheet
-A,Homes and limits,X_LIMIT_MINUS,,,TB3 IN1,FIELD_TRACE,No connector-box label on this sheet
-A,Homes and limits,Y_LIMIT_MINUS,,,TB3 IN3,FIELD_TRACE,No connector-box label on this sheet
-A,Homes and limits,Z_LIMIT_PLUS,,,TB3 IN4,FIELD_TRACE,No connector-box label on this sheet
+A,Homes and limits,X_HOME,CN2-15,*DECX,7i84U-B TB3 IN6,MESA_ROUTE,
+A,Homes and limits,Y_HOME,CN2-16,*DECY,7i84U-B TB3 IN7,MESA_ROUTE,
+A,Homes and limits,Z_HOME,CN1-14,*DECZ,7i84U-B TB3 IN8,MESA_ROUTE,
+A,Homes and limits,Y_LIMIT_PLUS,CN3-37,+LY,7i84U-B TB3 IN2,MESA_ROUTE,
+A,Homes and limits,Z_LIMIT_MINUS,CN3-38,-LZ,7i84U-B TB3 IN5,MESA_ROUTE,
+A,Homes and limits,X_LIMIT_PLUS,,,7i84U-B TB3 IN0,FIELD_TRACE,No connector-box label on this sheet
+A,Homes and limits,X_LIMIT_MINUS,,,7i84U-B TB3 IN1,FIELD_TRACE,No connector-box label on this sheet
+A,Homes and limits,Y_LIMIT_MINUS,,,7i84U-B TB3 IN3,FIELD_TRACE,No connector-box label on this sheet
+A,Homes and limits,Z_LIMIT_PLUS,,,7i84U-B TB3 IN4,FIELD_TRACE,No connector-box label on this sheet
 A,ATC/Magazine/Tool,ATC_ZONE_Y,CN3-44,+LY2,7i84U-A TB3 IN0,MESA_ROUTE,
 A,ATC/Magazine/Tool,ATC_ZONE_Z,CN3-39,-LZ2,7i84U-A TB3 IN1,MESA_ROUTE,
 A,ATC/Magazine/Tool,MAG_TOOL_AVAILABLE,CN2-13,381,7i84U-A TB3 IN2,MESA_ROUTE,
@@ -62,7 +62,7 @@ A,Gear/Coolant/Hydraulic/Safety,THERMAL_ALARM_CHAIN,CN5-1,144,7i84U-A TB3 IN8,ME
 A,Gear/Coolant/Hydraulic/Safety,SERVO_READY,CN6-7,SA,7i84U-A TB2 IN31,MESA_ROUTE,
 A,Gear/Coolant/Hydraulic/Safety,SERVO_FAULT,CN6-27,SER,7i84U-A TB3 IN10,MESA_ROUTE,
 A,Gear/Coolant/Hydraulic/Safety,WORK_LIGHT,CN6-8,WL,7i84U-B TB2 OUT9,MESA_ROUTE,
-A,Gear/Coolant/Hydraulic/Safety,PROBE (Renishaw),CN200-3,MMS SKIP,7i84U-B TB3 IN15,CANDIDATE,
+A,Gear/Coolant/Hydraulic/Safety,PROBE (Renishaw),CN200-3,MMS SKIP,7i84U-B TB3 IN15,RESERVED,Probe out of scope 2026-08-21 (owner decision); TB3 IN15 spare
 A,New signals (not original BBIA pass-through),X_DRIVE_ENABLE,,,7i84U-B TB3 OUT0,NEW,Interposing relay to DK-427 ENA
 A,New signals (not original BBIA pass-through),Y_DRIVE_ENABLE,,,7i84U-B TB3 OUT1,NEW,Interposing relay to DK-427 ENA
 A,New signals (not original BBIA pass-through),Z_DRIVE_ENABLE,,,7i84U-B TB3 OUT2,NEW,Interposing relay to DK-427 ENA

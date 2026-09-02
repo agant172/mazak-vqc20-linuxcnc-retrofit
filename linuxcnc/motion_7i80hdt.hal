@@ -231,8 +231,10 @@ net z-pos-fb        => joint.2.motor-pos-fb
 
 # Spindle feedback — NOT a resolver channel.
 # Confirmed (July 2026 analysis):
-#   Tachogenerator: Tamagawa TGF-3D P402-Sx (from schematic 4143075313 sh3) — feeds the
-#     FR-SX drive's own internal speed loop; LinuxCNC does not read this directly.
+#   Speed feedback: motor-built-in Tamagawa TS1526N55 PLG - feeds the FR-SX drive's own
+#     internal speed loop; LinuxCNC does not read it. The TGF-3D P402-Sx is an AXIS-motor
+#     tachogenerator, NOT a spindle device - see wiring/authority_conflicts.md sec 4 and
+#     docs/spindle_motor_plg_encoder.md.
 #   A separate machine-side A/B/Z encoder is believed present, but its model,
 #     electrical format, and receiver/interface are not confirmed. The
 #     confirmed rmsvss6_8 firmware has no Encoder module at all (readhmid
@@ -246,8 +248,8 @@ net z-pos-fb        => joint.2.motor-pos-fb
 # net spindle-index-enable  motion.spindle-index-enable <=> hm2_7i80.0.encoder.NN.index-enable
 # net spindle-revs     motion.spindle-revs
 #
-# spindle-at-speed is written EXCLUSIVELY by field_7i84u.hal from the FR-SX
-# SPD-REACH discrete (7i84U-A IN13). Do NOT `sets spindle-at-speed` here or
+# spindle-at-speed is written EXCLUSIVELY by field_7i84u.hal from 7i84U-A IN13
+# (CSV: DEFERRED - no factory FR-SX at-speed terminal exists; must be derived in HAL). Do NOT`sets spindle-at-speed` here or
 # anywhere else - HAL rejects multiple writers on the same signal at load time.
 # If the FR-SX SPD-REACH terminal is not yet wired, comment out the `net
 # spindle-at-speed <= hm2_7i80.0.7i84.0.0.input-13` line in field_7i84u.hal

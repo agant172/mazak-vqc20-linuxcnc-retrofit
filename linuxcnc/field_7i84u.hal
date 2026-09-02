@@ -1,5 +1,6 @@
-# 7i84U remote field I/O -- two cards on 7i80HDT smart-serial (via 7i44 P3,
-# confirmed 2026-08-13 by readhmid; see ../mesa/mesa_firmware_checklist.md)
+# 7i84U remote field I/O -- two cards planned on 7i80HDT smart-serial (7i44-on-P3
+# connector role confirmed 2026-08-13 by readhmid; the 7i84U cards themselves are NOT
+# yet enumerated - see docs/project_status.md and ../mesa/mesa_firmware_checklist.md)
 #
 # 7i84U-A (physical 7i44 channel 0): ATC, hydraulics, coolant, air, utility, spindle digital I/O
 #                   (existing 32/16 field I/O near green breakout PCB).
@@ -66,7 +67,7 @@ net y-axis-fault       <= resolver-fault-y.out
 net y-axis-fault       => joint.1.amp-fault-in
 net z-axis-fault       <= resolver-fault-z.out
 net z-axis-fault       => joint.2.amp-fault-in
-net spindle-at-speed   <= hm2_7i80.0.7i84.0.0.input-13   # IN13 FR-SX SPD-REACH
+net spindle-at-speed   <= hm2_7i80.0.7i84.0.0.input-13   # IN13 - CSV DEFERRED: no factory FR-SX at-speed terminal exists (Dwg 4143075403); derive at-speed in HAL, do NOT wire
 net spindle-at-speed   => spindle.0.at-speed
 net spindle-fault      <= hm2_7i80.0.7i84.0.0.input-14   # IN14 FR-SX ALM
 net spindle-fault      => spindle.0.amp-fault-in
@@ -282,7 +283,7 @@ net air-ok <= hm2_7i80.0.7i84.0.1.input-09
 #####################################################################
 #
 # WARNING: verify coil voltage/current and interpose relays for all 100 VAC
-# solenoid loads (SOL-35/61/62). Add suppression appropriate to each coil.
+# solenoid loads (SOL-15 spindle air blast; SOL-16 work air blast when bound). Add suppression appropriate to each coil.
 # X/Y/Z drive-enable outputs go into MELDAS DK-427 ENA inputs via interposing
 # relay (dry-contact input on the drive side).
 #

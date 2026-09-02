@@ -1,7 +1,7 @@
 {
   "generated_by": "scripts/generate_wireviz_diagrams.py",
   "inputs": {
-    "wiring/plane_a_bbia1_pin_crosswalk.csv": "145f01452c9817ae550ce63f324253667255e2f73463e5158e1c17e99ad0fef4",
+    "wiring/plane_a_bbia1_pin_crosswalk.csv": "4b5f9aa3aafa2b230e157cc9cefc30749922e4deafdd3fac4f5f7731faa3d77c",
     "wiring/plane_b_pin_crosswalk.csv": "94bc1337dc0ec7cb8773fc4b9957df362e256c530ba62028d145be1baf40a5fe"
   },
   "plane_a_accounted_pins": 320,

@@ -586,7 +586,8 @@ Continuity to *both* the +Y and +Z limits confirms the combined-bus reading.
 ### 7.4 Two plane rows bypass the curated provenance chain
 
 `AIR_BLAST` (`CN11-6`, wire `215`) and `WORK_AIR_BLAST` (`CN11-7`, wire `216`) carry a
-BBIA end in the authority but appear nowhere in `bbia1_source_dest.csv`, so
+BBIA end in the authority but appear nowhere in `bbia1_source_dest.csv` (as does
+`WORK_LIGHT`, OEM CN6-8 wire `WL` — the validator's provenance line reports all three), so
 `consolidate_bbia_authority.py` neither maintains nor contradicts them. Both **exactly
 match** the OEM pinout, so the data is corroborated by the higher authority for the
 machine-internal side; only the provenance chain has a hole. They correspond to the

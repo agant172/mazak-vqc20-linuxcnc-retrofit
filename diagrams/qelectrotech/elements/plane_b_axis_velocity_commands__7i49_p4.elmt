@@ -9,13 +9,13 @@
         <rect x="-165.0" y="-66.0" width="330" height="132" rx="0" ry="0" antialias="false" style="line-style:normal;line-weight:normal;filling:none;color:#0078a8" />
         <line x1="-165.0" y1="-40.0" x2="165.0" y2="-40.0" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:normal;filling:none;color:#0078a8" antialias="false" />
         <text text="7i49 P4" x="-157.0" y="-48.0" rotation="0" font="Liberation Sans,8,-1,5,75,0,0,0,0,0,Bold" color="#0078a8" />
-        <text text="20 | 20 | AOUT0 | HOLD - SOURCE TRACE" x="-157.0" y="-21.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#d00000" />
+        <text text="20 | 20 | AOUT0 | HOLD" x="-157.0" y="-21.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#d00000" />
         <terminal uuid="{00f47277-bbba-5d31-8ed6-6a45915b1420}" name="20" x="-165.0" y="-24.0" orientation="w" type="Generic" />
-        <text text="19 | 19 | GND0 | HOLD - SOURCE TRACE" x="-157.0" y="-1.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#d00000" />
+        <text text="19 | 19 | GND0 | HOLD" x="-157.0" y="-1.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#d00000" />
         <terminal uuid="{af003c62-dfa6-5781-b12d-3fa668224968}" name="19" x="-165.0" y="-4.0" orientation="w" type="Generic" />
-        <text text="24 | 24 | AOUT1 | HOLD - SOURCE TRACE" x="-157.0" y="19.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#d00000" />
+        <text text="24 | 24 | AOUT1 | HOLD" x="-157.0" y="19.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#d00000" />
         <terminal uuid="{d53cbdf0-87fc-57df-89ea-f927db9a45db}" name="24" x="-165.0" y="16.0" orientation="w" type="Generic" />
-        <text text="23 | 23 | GND1 | HOLD - SOURCE TRACE" x="-157.0" y="39.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#d00000" />
+        <text text="23 | 23 | GND1 | HOLD" x="-157.0" y="39.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#d00000" />
         <terminal uuid="{2891102d-16a8-59a2-a8c4-65045e151682}" name="23" x="-165.0" y="36.0" orientation="w" type="Generic" />
     </description>
 </definition>

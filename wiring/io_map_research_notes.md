@@ -277,7 +277,7 @@ diagram before wiring:**
 
 | Signal | This doc (OCR from OEM manual) | CSV | Likely cause |
 |---|---|---|---|
-| Low gear confirm | PRS-2 (alarm table, pg 45); PRS-10 (TB-51 diagram, pg 100 — see note above) | PRS-12 | Three different values now across three sources — needs a visual check, not another OCR/photo pass |
+| Low gear confirm | PRS-2 (alarm table, pg 45); PRS-10 (TB-51 diagram, pg 100 — see note above) | PRS-12 | Three different values now across three sources — needs a visual check, not another OCR/photo pass. **RESOLVED 2026-08-12 in favour of the CSV (PRS-10 high / PRS-12 low) by the head placard - see wiring/authority_conflicts.md sec 6.** |
 | Magazine tool available | PHS-127 (alarm table, "detector OFF") | PHS-181 | Could be the same sensor described two ways (fault vs. available-status), or two different sensors |
 | Spindle tool available | PHS-132 (alarm table, "detector OFF") | PHS-182 | Same ambiguity as above |
 | Magazine BCD bit 4 (PRS-25) | Labeled "magazine position 10" | Bit weight 4 in a 5-bit binary scheme | "10" doesn't fit a clean binary weighting — possible OCR misread on this doc's side |
@@ -287,7 +287,7 @@ zone switches PRS-55/66, drive fault relays (X/Y/Z), spindle at-speed/fault,
 servo ready, operator panel pushbuttons (cycle start/feed hold/single
 block).
 
-**In this doc but not yet in the CSV** (gaps in the CSV, worth adding):
+**In this doc but not yet in the CSV** (STALE: as of 2026-08-18 the CSV carries MAG_CW/CCW_SOL, MAG_COVER_OPEN/CLOSE_CONF, SPINDLE_ORIENT_ARRIVAL, DOOR_INTERLOCK incl. LS-140/141, and FLOOD_VALVE/SOL-31; the true remaining gaps are):
 magazine CW/CCW solenoids SOL-8A/8B, magazine cover reed switches
 RS-79/RS-18, spindle orientation arrival signal, ATC arm position sensors
 (0°/45°/180°), tool-measure stand switches, **the entire pallet-changer
@@ -303,8 +303,9 @@ need two channels, not one.
   confirmed via the TB-51 diagram; the other two still need cross-referencing
   against bit addresses.
 - Full over-travel limit switch list (separate from zero-return, if applicable).
-- Gear-shift confirm signal — three conflicting sources (see above), needs
-  direct visual check against the original diagram, not another photo pass.
+- ~~Gear-shift confirm signal~~ — RESOLVED 2026-08-12 in favour of the CSV by the
+  head placard (wiring/authority_conflicts.md sec 6); meter the switches before
+  trusting normal states.
 - Exact pin numbers on the MS/MR connector detail (pg 105) and the
   pallet-changer connector tables (pg 113, 116) — structure is clear, digits
   are not fully trustworthy from photos alone.
