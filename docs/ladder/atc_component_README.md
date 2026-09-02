@@ -66,7 +66,7 @@ during the change (`ATCFHDME`, rung 6701) for free.
 | Rung | Element | Implementation |
 |---|---|---|
 | 6504/6505 | TCME / TCME.M (Y095) | `cycle_active` latch, `atc_barrier` |
-| 6509–6511 | TS0 / T0 / EQTST | `cycle_select`: 0 skip, 1 full (D), 2 load-only (E), 3 return-only (F) |
+| 6509–6511 | TS0 / T0 / EQTST | `cycle_select`: 0 skip, 1 full (D), 2 load-only (ladder cycle **F**), 3 return-only (ladder cycle **E**) — letters per the 2026-09-02 audit; behavior unchanged |
 | 3205–3210 | TNPS1–5, MOV on MIPRS | 5-bit BCD (weights 1, 2, 4, 8, 10 — `K2M216` is two BCD digits) latched **only while `mag_in_pos`**; `pot_number_valid` says whether it has ever been captured |
 | 3311–3319 | GRTCD, D16, MRF/MRR | `index_distance` = signed shortest path modulo `pot-count`; forward when `diff <= pot-count/2` |
 | 3401 | MSTP | `index_done` = `mag_in_pos && pot == target` |

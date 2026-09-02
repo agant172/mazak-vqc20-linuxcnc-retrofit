@@ -75,10 +75,10 @@ pin out bit atc_barrier
 // Cycle selection - rungs 6509/6510/6511 (TS0 / T0 / EQTST).
 //
 pin out s32 cycle_select
-    "0 = skip (EQTST), 1 = full change (cycle D), 2 = load only (cycle E),  3 = return only (cycle F).";
+    "0 = skip (EQTST), 1 = full change (cycle D), 2 = load only (ladder cycle F),  3 = return only (ladder cycle E).";
 pin out bit cycle_full      "Cycle D - both spindle and commanded tool exist.";
-pin out bit cycle_load_only "Cycle E - spindle empty (TS0).";
-pin out bit cycle_return_only "Cycle F - T0 commanded, return the spindle tool.";
+pin out bit cycle_load_only "Ladder cycle F - spindle empty (TS0), tool commanded.";
+pin out bit cycle_return_only "Ladder cycle E - T0 commanded, return the spindle tool.";
 pin out bit cycle_skip
     "M230 EQTST - commanded tool already in the spindle: do nothing. Also  blocks the orient command in the ladder (rung 3004).";
 

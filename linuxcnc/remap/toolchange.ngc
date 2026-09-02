@@ -89,8 +89,8 @@ o<toolchange> sub
   ( thing from iocontrol and publishes it on mazak-atc.cycle-select;     )
   ( this copy exists so the NGC can branch without reading HAL.          )
   (   1 = full change   (D)  spindle has a tool, a new one is commanded  )
-  (   2 = load only     (E)  spindle empty                               )
-  (   3 = return only   (F)  T0 commanded                                )
+  (   2 = load only     (ladder cycle F)  spindle empty                  )
+  (   3 = return only   (ladder cycle E)  T0 commanded                   )
   #<cycle> = 1
   o<tc_sel1> if [#<spindle_tool> EQ 0]
     #<cycle> = 2
@@ -202,8 +202,9 @@ o<toolchange> sub
 
   (  ------------------------------------------------------------------ )
   (  Step 3 - Z to ref-2 (tool stays in the pot), then index.            )
-  (  Cycle E has no old tool to leave behind and cycle F has no new tool )
-  (  to fetch, so only the full change indexes here; for E the magazine  )
+  (  Load-only has no old tool to leave behind and return-only no new    )
+  (  tool to fetch, so only the full change indexes here; for load-only  )
+  (  the magazine                                                        )
   (  was already parked on the commanded pot during machining (TSME runs )
   (  independently of TCME, rung 3404).                                  )
   (  ------------------------------------------------------------------ )
