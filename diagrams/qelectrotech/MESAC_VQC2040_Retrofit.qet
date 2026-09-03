@@ -951,7 +951,7 @@
             </element>
         </elements>
         <conductors>
-            <conductor num="ORI C1 | SPINDLE_ORIENT_CMD" bus="" condsize="3" conductor_color="" x="0" y="0" freezeLabel="false" vertical-alignment="AlignRight" conductor_section="" function="Existing OEM conductor segments" type="multi" vertirotatetext="270" tension_protocol="" dash-size="1" formula="" color2="#000000" displaytext="1" bicolor="false" horizontal-alignment="AlignBottom" onetextperfolio="0" numsize="7" text_color="#000000" cable="OEM_CONDUCTORS" horizrotatetext="0" color="#a85d00" element1="{850cbcf9-7704-5817-b318-cdbb26f05572}" element2="{51186a08-cfc2-57f3-9003-f2f45961afca}" terminal1="{7fc77ae4-68fb-5b96-82f5-d308834b71e9}" terminal2="{af44ccf5-dc85-518e-a69e-d17390ad984f}">
+            <conductor num="ORC1 | SPINDLE_ORIENT_CMD" bus="" condsize="3" conductor_color="" x="0" y="0" freezeLabel="false" vertical-alignment="AlignRight" conductor_section="" function="Existing OEM conductor segments" type="multi" vertirotatetext="270" tension_protocol="" dash-size="1" formula="" color2="#000000" displaytext="1" bicolor="false" horizontal-alignment="AlignBottom" onetextperfolio="0" numsize="7" text_color="#000000" cable="OEM_CONDUCTORS" horizrotatetext="0" color="#d00000" element1="{850cbcf9-7704-5817-b318-cdbb26f05572}" element2="{51186a08-cfc2-57f3-9003-f2f45961afca}" terminal1="{7fc77ae4-68fb-5b96-82f5-d308834b71e9}" terminal2="{af44ccf5-dc85-518e-a69e-d17390ad984f}">
                 <segment orientation="horizontal" length="150" />
                 <sequentialNumbers />
             </conductor>
@@ -967,7 +967,7 @@
                 <segment orientation="horizontal" length="150" />
                 <sequentialNumbers />
             </conductor>
-            <conductor num="SPINDLE_ORIENT_CMD | spindle-orient-cmd" bus="" condsize="3" conductor_color="" x="0" y="0" freezeLabel="false" vertical-alignment="AlignRight" conductor_section="" function="New control-side conductors" type="multi" vertirotatetext="270" tension_protocol="" dash-size="1" formula="" color2="#000000" displaytext="1" bicolor="false" horizontal-alignment="AlignBottom" onetextperfolio="0" numsize="7" text_color="#000000" cable="NEW_CONTROL_WIRING" horizrotatetext="0" color="#a85d00" element1="{51186a08-cfc2-57f3-9003-f2f45961afca}" element2="{5b4c8266-9e3c-5f64-85a2-72b3ffae6bda}" terminal1="{afa3a87b-fab9-563a-8f81-ee83ff40973b}" terminal2="{1e7a2008-fe1a-5723-85fd-53f4020fa8a0}">
+            <conductor num="SPINDLE_ORIENT_CMD | spindle-orient-cmd" bus="" condsize="3" conductor_color="" x="0" y="0" freezeLabel="false" vertical-alignment="AlignRight" conductor_section="" function="New control-side conductors" type="multi" vertirotatetext="270" tension_protocol="" dash-size="1" formula="" color2="#000000" displaytext="1" bicolor="false" horizontal-alignment="AlignBottom" onetextperfolio="0" numsize="7" text_color="#000000" cable="NEW_CONTROL_WIRING" horizrotatetext="0" color="#d00000" element1="{51186a08-cfc2-57f3-9003-f2f45961afca}" element2="{5b4c8266-9e3c-5f64-85a2-72b3ffae6bda}" terminal1="{afa3a87b-fab9-563a-8f81-ee83ff40973b}" terminal2="{1e7a2008-fe1a-5723-85fd-53f4020fa8a0}">
                 <segment orientation="horizontal" length="75" />
                 <segment orientation="vertical" length="-35" />
                 <segment orientation="horizontal" length="75" />
@@ -997,8 +997,8 @@
         </inputs>
         <shapes>
             <shape z="8" x1="375" y1="386" x2="525" y2="386" type="Line" closed="0" is_movable="0">
-                <pen color="#a85d00" widthF="6" style="SolidLine" />
-                <brush color="#a85d00" style="NoBrush" />
+                <pen color="#d00000" widthF="6" style="SolidLine" />
+                <brush color="#d00000" style="NoBrush" />
             </shape>
             <shape z="8" x1="375" y1="406" x2="525" y2="406" type="Line" closed="0" is_movable="0">
                 <pen color="#a85d00" widthF="6" style="SolidLine" />
@@ -1013,16 +1013,16 @@
                 <brush color="#a85d00" style="NoBrush" />
             </shape>
             <shape z="8" x1="855" y1="386" x2="930" y2="386" type="Line" closed="0" is_movable="0">
-                <pen color="#a85d00" widthF="6" style="SolidLine" />
-                <brush color="#a85d00" style="NoBrush" />
+                <pen color="#d00000" widthF="6" style="SolidLine" />
+                <brush color="#d00000" style="NoBrush" />
             </shape>
             <shape z="8" x1="930" y1="386" x2="930" y2="351" type="Line" closed="0" is_movable="0">
-                <pen color="#a85d00" widthF="6" style="SolidLine" />
-                <brush color="#a85d00" style="NoBrush" />
+                <pen color="#d00000" widthF="6" style="SolidLine" />
+                <brush color="#d00000" style="NoBrush" />
             </shape>
             <shape z="8" x1="930" y1="351" x2="1005" y2="351" type="Line" closed="0" is_movable="0">
-                <pen color="#a85d00" widthF="6" style="SolidLine" />
-                <brush color="#a85d00" style="NoBrush" />
+                <pen color="#d00000" widthF="6" style="SolidLine" />
+                <brush color="#d00000" style="NoBrush" />
             </shape>
             <shape z="8" x1="855" y1="406" x2="930" y2="406" type="Line" closed="0" is_movable="0">
                 <pen color="#a85d00" widthF="6" style="SolidLine" />
@@ -3065,7 +3065,7 @@
                         <rect x="-165.0" y="-66.0" width="330" height="132" rx="0" ry="0" antialias="false" style="line-style:normal;line-weight:normal;filling:none;color:#0078a8" />
                         <line x1="-165.0" y1="-40.0" x2="165.0" y2="-40.0" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:normal;filling:none;color:#0078a8" antialias="false" />
                         <text text="BBIA-1 CN3 machine-facing connector" x="-157.0" y="-48.0" rotation="0" font="Liberation Sans,8,-1,5,75,0,0,0,0,0,Bold" color="#0078a8" />
-                        <text text="14 | ORI C1 | SPINDLE_ORIENT_CMD | FV" x="4" y="-21.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+                        <text text="14 | ORC1 | SPINDLE_ORIENT_CMD | HOLD" x="4" y="-21.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#d00000" />
                         <terminal uuid="{7fc77ae4-68fb-5b96-82f5-d308834b71e9}" name="14" x="165.0" y="-24.0" orientation="e" type="Generic" />
                         <text text="15 | CTL | SPINDLE_ORIENT_LOGEAR | FV" x="4" y="-1.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
                         <terminal uuid="{fca325a0-224e-5e7d-8b0d-7254be318c2a}" name="15" x="165.0" y="-4.0" orientation="e" type="Generic" />
@@ -3087,9 +3087,9 @@
                         <rect x="-165.0" y="-66.0" width="330" height="132" rx="0" ry="0" antialias="false" style="line-style:normal;line-weight:normal;filling:none;color:#a85d00" />
                         <line x1="-165.0" y1="-40.0" x2="165.0" y2="-40.0" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:normal;filling:none;color:#a85d00" antialias="false" />
                         <text text="Required interposing-relay boundary" x="-157.0" y="-48.0" rotation="0" font="Liberation Sans,8,-1,5,75,0,0,0,0,0,Bold" color="#a85d00" />
-                        <text text="F01 | F | SPINDLE_ORIENT_CMD" x="-157.0" y="-21.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+                        <text text="F01 | F | SPINDLE_ORIENT_CMD" x="-157.0" y="-21.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#d00000" />
                         <terminal uuid="{af44ccf5-dc85-518e-a69e-d17390ad984f}" name="F01" x="-165.0" y="-24.0" orientation="w" type="Generic" />
-                        <text text="M01 | M | SPINDLE_ORIENT_CMD" x="4" y="-21.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+                        <text text="M01 | M | SPINDLE_ORIENT_CMD" x="4" y="-21.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#d00000" />
                         <terminal uuid="{afa3a87b-fab9-563a-8f81-ee83ff40973b}" name="M01" x="165.0" y="-24.0" orientation="e" type="Generic" />
                         <text text="F02 | F | SPINDLE_ORIENT_LOGEAR" x="-157.0" y="-1.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
                         <terminal uuid="{8b503515-a32f-5ff5-a62b-e5d093e695cd}" name="F02" x="-165.0" y="-4.0" orientation="w" type="Generic" />
@@ -3117,7 +3117,7 @@
                         <rect x="-165.0" y="-46.0" width="330" height="92" rx="0" ry="0" antialias="false" style="line-style:normal;line-weight:normal;filling:none;color:#0078a8" />
                         <line x1="-165.0" y1="-20.0" x2="165.0" y2="-20.0" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:normal;filling:none;color:#0078a8" antialias="false" />
                         <text text="7i84U-A TB3" x="-157.0" y="-28.0" rotation="0" font="Liberation Sans,8,-1,5,75,0,0,0,0,0,Bold" color="#0078a8" />
-                        <text text="OUT4 | OUT4 | spindle-orient-cmd | FV" x="-157.0" y="-1.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+                        <text text="OUT4 | OUT4 | spindle-orient-cmd | HOLD" x="-157.0" y="-1.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#d00000" />
                         <terminal uuid="{1e7a2008-fe1a-5723-85fd-53f4020fa8a0}" name="OUT4" x="-165.0" y="-4.0" orientation="w" type="Generic" />
                         <text text="OUT5 | OUT5 | orient-lo-gear | FV" x="-157.0" y="19.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
                         <terminal uuid="{660a3de9-8712-5fd4-a6e4-e7845745d369}" name="OUT5" x="-165.0" y="16.0" orientation="w" type="Generic" />

@@ -19,12 +19,12 @@ connectors:
     - 37
     - 38
     pinlabels:
-    - ORI C1 | SPINDLE_ORIENT_CMD | FV
+    - ORC1 | SPINDLE_ORIENT_CMD | HOLD
     - CTL | SPINDLE_ORIENT_LOGEAR | FV
     - +LY | Y_LIMIT_PLUS | FV
     - -LZ | Z_LIMIT_MINUS | FV
     pincolors: &id001
-    - YE
+    - RD
     - YE
     - YE
     - YE
@@ -54,8 +54,8 @@ connectors:
     - F | Z_LIMIT_MINUS
     - M | Z_LIMIT_MINUS
     pincolors:
-    - YE
-    - YE
+    - RD
+    - RD
     - YE
     - YE
     - YE
@@ -73,10 +73,10 @@ connectors:
     - OUT4
     - OUT5
     pinlabels:
-    - OUT4 | spindle-orient-cmd | FV
+    - OUT4 | spindle-orient-cmd | HOLD
     - OUT5 | orient-lo-gear | FV
     pincolors:
-    - YE
+    - RD
     - YE
     hide_disconnected_pins: true
     show_pincount: false
@@ -104,7 +104,7 @@ cables:
     type: Existing OEM conductor segments
     wirecount: 4
     wirelabels:
-    - ORI C1 | SPINDLE_ORIENT_CMD
+    - ORC1 | SPINDLE_ORIENT_CMD
     - CTL | SPINDLE_ORIENT_LOGEAR
     - +LY | Y_LIMIT_PLUS
     - -LZ | Z_LIMIT_MINUS

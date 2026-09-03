@@ -9,7 +9,7 @@
         <rect x="-165.0" y="-66.0" width="330" height="132" rx="0" ry="0" antialias="false" style="line-style:normal;line-weight:normal;filling:none;color:#0078a8" />
         <line x1="-165.0" y1="-40.0" x2="165.0" y2="-40.0" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:normal;filling:none;color:#0078a8" antialias="false" />
         <text text="BBIA-1 CN3 machine-facing connector" x="-157.0" y="-48.0" rotation="0" font="Liberation Sans,8,-1,5,75,0,0,0,0,0,Bold" color="#0078a8" />
-        <text text="14 | ORI C1 | SPINDLE_ORIENT_CMD | FV" x="4" y="-21.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+        <text text="14 | ORC1 | SPINDLE_ORIENT_CMD | HOLD" x="4" y="-21.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#d00000" />
         <terminal uuid="{7fc77ae4-68fb-5b96-82f5-d308834b71e9}" name="14" x="165.0" y="-24.0" orientation="e" type="Generic" />
         <text text="15 | CTL | SPINDLE_ORIENT_LOGEAR | FV" x="4" y="-1.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
         <terminal uuid="{fca325a0-224e-5e7d-8b0d-7254be318c2a}" name="15" x="165.0" y="-4.0" orientation="e" type="Generic" />

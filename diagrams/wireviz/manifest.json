@@ -1,7 +1,7 @@
 {
   "generated_by": "scripts/generate_wireviz_diagrams.py",
   "inputs": {
-    "wiring/plane_a_bbia1_pin_crosswalk.csv": "9fce8d29fdf2fb0ca49857e083b37e2eeb921b863ef509e3d84004936316bfec",
+    "wiring/plane_a_bbia1_pin_crosswalk.csv": "c838a17f0e194ee72f22a6221a28840ff791f3343806f1d2069a52614281e186",
     "wiring/plane_b_pin_crosswalk.csv": "488d4a7b41c879cb604d867f1f703f085cd262a65a48dd85c139a83b78e5040d"
   },
   "plane_a_accounted_pins": 320,
@@ -53,7 +53,8 @@
       "source": "wiring/plane_a_bbia1_pin_crosswalk.csv",
       "source_file": "src/plane_a_cn3_discrete.yml",
       "statuses": {
-        "ROUTE_DEFINED_FIELD_VERIFY": 4
+        "HOLD_OEM_CONFLICT": 1,
+        "ROUTE_DEFINED_FIELD_VERIFY": 3
       }
     },
     {

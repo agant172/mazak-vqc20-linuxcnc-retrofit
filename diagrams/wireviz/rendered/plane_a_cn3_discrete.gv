@@ -19,11 +19,11 @@ graph {
  <tr><td>
   <table border="0" cellspacing="0" cellpadding="1" cellborder="1">
    <tr>
-    <td>ORI C1 | SPINDLE_ORIENT_CMD | FV</td>
-    <td sides="tbl">YE</td>
+    <td>ORC1 | SPINDLE_ORIENT_CMD | HOLD</td>
+    <td sides="tbl">RD</td>
     <td sides="tbr">
      <table border="0" cellborder="1"><tr>
-      <td bgcolor="#FFFF00" width="8" height="8" fixedsize="true"></td>
+      <td bgcolor="#FF0000" width="8" height="8" fixedsize="true"></td>
      </tr></table>
     </td>
     <td port="p1r">14</td>
@@ -84,10 +84,10 @@ graph {
    <tr>
     <td port="p1l">F01</td>
     <td>F | SPINDLE_ORIENT_CMD</td>
-    <td sides="tbl">YE</td>
+    <td sides="tbl">RD</td>
     <td sides="tbr">
      <table border="0" cellborder="1"><tr>
-      <td bgcolor="#FFFF00" width="8" height="8" fixedsize="true"></td>
+      <td bgcolor="#FF0000" width="8" height="8" fixedsize="true"></td>
      </tr></table>
     </td>
     <td port="p1r">F01</td>
@@ -95,10 +95,10 @@ graph {
    <tr>
     <td port="p2l">M01</td>
     <td>M | SPINDLE_ORIENT_CMD</td>
-    <td sides="tbl">YE</td>
+    <td sides="tbl">RD</td>
     <td sides="tbr">
      <table border="0" cellborder="1"><tr>
-      <td bgcolor="#FFFF00" width="8" height="8" fixedsize="true"></td>
+      <td bgcolor="#FF0000" width="8" height="8" fixedsize="true"></td>
      </tr></table>
     </td>
     <td port="p2r">M01</td>
@@ -194,11 +194,11 @@ graph {
   <table border="0" cellspacing="0" cellpadding="1" cellborder="1">
    <tr>
     <td port="p1l">OUT4</td>
-    <td>OUT4 | spindle-orient-cmd | FV</td>
-    <td sides="tbl">YE</td>
+    <td>OUT4 | spindle-orient-cmd | HOLD</td>
+    <td sides="tbl">RD</td>
     <td sides="tbr">
      <table border="0" cellborder="1"><tr>
-      <td bgcolor="#FFFF00" width="8" height="8" fixedsize="true"></td>
+      <td bgcolor="#FF0000" width="8" height="8" fixedsize="true"></td>
      </tr></table>
     </td>
    </tr>
@@ -264,7 +264,7 @@ graph {
  </td></tr>
 </table>
 > fillcolor="#FFFFFF" shape=box style=filled]
-	edge [color="#000000:#ffff00:#000000"]
+	edge [color="#000000:#ff0000:#000000"]
 	CN3:p1r:e -- OEM_CONDUCTORS:w1:w
 	OEM_CONDUCTORS:w1:e -- IR_BOUNDARY:p1l:w
 	edge [color="#000000:#ffff00:#000000"]
@@ -292,9 +292,9 @@ graph {
   <table border="0" cellspacing="0" cellborder="0">
    <tr><td>&nbsp;</td></tr>
    <tr>
-    <td>CN3:14:ORI C1 | SPINDLE_ORIENT_CMD | FV</td>
+    <td>CN3:14:ORC1 | SPINDLE_ORIENT_CMD | HOLD</td>
     <td>
-     1:YE:ORI C1 | SPINDLE_ORIENT_CMD
+     1:RD:ORC1 | SPINDLE_ORIENT_CMD
     </td>
     <td>IR_BOUNDARY:F01:F | SPINDLE_ORIENT_CMD</td>
    </tr>
@@ -302,7 +302,7 @@ graph {
     <td colspan="3" border="0" cellspacing="0" cellpadding="0" port="w1" height="6">
      <table cellspacing="0" cellborder="0" border="0">
       <tr><td colspan="3" cellpadding="0" height="2" bgcolor="#000000" border="0"></td></tr>
-      <tr><td colspan="3" cellpadding="0" height="2" bgcolor="#ffff00" border="0"></td></tr>
+      <tr><td colspan="3" cellpadding="0" height="2" bgcolor="#ff0000" border="0"></td></tr>
       <tr><td colspan="3" cellpadding="0" height="2" bgcolor="#000000" border="0"></td></tr>
      </table>
     </td>
@@ -365,7 +365,7 @@ graph {
  </td></tr>
 </table>
 > fillcolor="#FFFFFF" shape=box style=filled]
-	edge [color="#000000:#ffff00:#000000"]
+	edge [color="#000000:#ff0000:#000000"]
 	IR_BOUNDARY:p2r:e -- NEW_CONTROL_WIRING:w1:w
 	NEW_CONTROL_WIRING:w1:e -- "7i84U-A_TB3":p1l:w
 	edge [color="#000000:#ffff00:#000000"]
@@ -395,15 +395,15 @@ graph {
    <tr>
     <td>IR_BOUNDARY:M01:M | SPINDLE_ORIENT_CMD</td>
     <td>
-     1:YE:SPINDLE_ORIENT_CMD | spindle-orient-cmd
+     1:RD:SPINDLE_ORIENT_CMD | spindle-orient-cmd
     </td>
-    <td>7i84U-A_TB3:OUT4:OUT4 | spindle-orient-cmd | FV</td>
+    <td>7i84U-A_TB3:OUT4:OUT4 | spindle-orient-cmd | HOLD</td>
    </tr>
    <tr>
     <td colspan="3" border="0" cellspacing="0" cellpadding="0" port="w1" height="6">
      <table cellspacing="0" cellborder="0" border="0">
       <tr><td colspan="3" cellpadding="0" height="2" bgcolor="#000000" border="0"></td></tr>
-      <tr><td colspan="3" cellpadding="0" height="2" bgcolor="#ffff00" border="0"></td></tr>
+      <tr><td colspan="3" cellpadding="0" height="2" bgcolor="#ff0000" border="0"></td></tr>
       <tr><td colspan="3" cellpadding="0" height="2" bgcolor="#000000" border="0"></td></tr>
      </table>
     </td>

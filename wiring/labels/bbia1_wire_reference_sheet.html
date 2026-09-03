@@ -21,7 +21,7 @@ td.hold{color:#000;font-size:7.5pt;font-style:italic}
 @page{size:letter;margin:0.4in}
 </style></head><body>
 <h1>BBIA-1 Wire Reference — Mazak VQC-20/40 SN 060231</h1>
-<p class='sub'>Generated 2026-09-03 from repo commit eee822f (wiring/labels/*.csv). Regenerate with scripts/generate_wire_reference_sheet.py after any label CSV change — do not hand-edit this sheet.</p>
+<p class='sub'>Generated 2026-09-03 from repo commit 1212684 (wiring/labels/*.csv). Regenerate with scripts/generate_wire_reference_sheet.py after any label CSV change — do not hand-edit this sheet.</p>
 <div class='warn'>REFERENCE ONLY — NOT PERMISSION TO TERMINATE. Mesa landings marked HOLD are planned assignments pending continuity trace and terminal verification (see wiring/labels/*.md release rules). The hardwired E-stop chain is not represented here.</div>
 <div class='cols'>
 <h2>CN1 — 20 conductors</h2>
@@ -60,14 +60,14 @@ td.hold{color:#000;font-size:7.5pt;font-style:italic}
 <tr><td class='wire'>225</td><td class='pin'>9</td><td>MAGAZINE POSITION 10</td><td class='mesa'>A-TB2-08 <span class='hold'>HOLD</span></td></tr>
 <tr><td class='wire'>213</td><td class='pin'>10</td><td>MAGAZINE INPOSITION (MIPRS PRS-13)</td><td class='mesa'>A-TB2-13 <span class='hold'>HOLD</span></td></tr>
 <tr><td class='wire'>218</td><td class='pin'>11</td><td>MAGAZINE COVER OPEN</td><td class='hold'>&mdash;</td></tr>
-<tr><td class='wire'>219</td><td class='pin'>12</td><td>MAGAZINE FWD/REV SW</td><td class='hold'>&mdash;</td></tr>
-<tr><td class='wire'>381</td><td class='pin'>13</td><td>LUBE TIMER</td><td class='hold'>&mdash;</td></tr>
+<tr><td class='wire'>219</td><td class='pin'>12</td><td>MAGAZINE COVER CLOSE (RS-19 MGCCRS X53)</td><td class='hold'>&mdash;</td></tr>
+<tr><td class='wire'>381</td><td class='pin'>13</td><td>TOOL DETECTOR (PHS-181; p85 CN6-37 reads 391 - jacket read decides)</td><td class='hold'>&mdash;</td></tr>
 <tr><td class='wire'>+LY2</td><td class='pin'>14</td><td>2nd +Y OVER TRAVEL (PRS-55; to relay 1237/PYOT)</td><td class='hold'>&mdash;</td></tr>
 <tr><td class='wire'>*DECX</td><td class='pin'>15</td><td>X-AXIS ZERO RETURN DEC</td><td class='mesa'>B-TB3-07 <span class='hold'>HOLD</span></td></tr>
 <tr><td class='wire'>*DECY</td><td class='pin'>16</td><td>Y-AXIS ZERO RETURN DEC</td><td class='mesa'>B-TB3-08 <span class='hold'>HOLD</span></td></tr>
 <tr><td class='wire'>0G</td><td class='pin'>17</td><td>DC24V COM (-) NC</td><td class='hold'>&mdash;</td></tr>
 <tr><td class='wire'>0G</td><td class='pin'>18</td><td>DC24V COM (-)</td><td class='hold'>&mdash;</td></tr>
-<tr><td class='wire'>0G</td><td class='pin'>19</td><td>DC24V COM (-)</td><td class='hold'>&mdash;</td></tr>
+<tr><td class='wire'></td><td class='pin'>19</td><td>(not used - blank on source table; 0G is pins 17-18 only per p84/p135)</td><td class='hold'>&mdash;</td></tr>
 <tr><td class='wire'></td><td class='pin'>20</td><td>(not used - blank on source table)</td><td class='hold'>&mdash;</td></tr>
 <tr><td class='wire'>P24</td><td class='pin'>21</td><td>DC24V +COM (MACHINE)</td><td class='hold'>&mdash;</td></tr>
 <tr><td class='wire'></td><td class='pin'>22</td><td>(not used - blank on source table)</td><td class='hold'>&mdash;</td></tr>
@@ -92,10 +92,10 @@ td.hold{color:#000;font-size:7.5pt;font-style:italic}
 <tr><td class='wire'>EMC</td><td class='pin'>41</td><td>EMG STOP 2nd</td><td class='hold'>&mdash;</td></tr>
 <tr><td class='wire'>382</td><td class='pin'>42</td><td>SPINDLE TOOL DETECTOR</td><td class='hold'>&mdash;</td></tr>
 <tr><td class='wire'>G24</td><td class='pin'>43</td><td>DC24V -COM (ELECTRICAL CAB)</td><td class='hold'>&mdash;</td></tr>
-<tr><td class='wire'>149B</td><td class='pin'>44</td><td>FOOT SWITCH</td><td class='hold'>&mdash;</td></tr>
+<tr><td class='wire'>149B</td><td class='pin'>44</td><td>TOOL CLAMP FOOT SWITCH</td><td class='hold'>&mdash;</td></tr>
 <tr><td class='wire'>CH24</td><td class='pin'>45</td><td>HEAD LUBE PRESS ALARM</td><td class='hold'>&mdash;</td></tr>
-<tr><td class='wire'>SP29</td><td class='pin'>46</td><td>SPARE OUTPUT</td><td class='hold'>&mdash;</td></tr>
-<tr><td class='wire'>SP30</td><td class='pin'>47</td><td>SPARE OUTPUT</td><td class='hold'>&mdash;</td></tr>
+<tr><td class='wire'>SP29</td><td class='pin'>46</td><td>SPARE (INPUT)</td><td class='hold'>&mdash;</td></tr>
+<tr><td class='wire'>SP30</td><td class='pin'>47</td><td>SPARE (OUTPUT)</td><td class='hold'>&mdash;</td></tr>
 <tr><td class='wire'></td><td class='pin'>48</td><td>(not used - blank on source table)</td><td class='hold'>&mdash;</td></tr>
 <tr><td class='wire'>+24V</td><td class='pin'>49</td><td>DC24V +COM (NC)</td><td class='hold'>&mdash;</td></tr>
 <tr><td class='wire'>+24V</td><td class='pin'>50</td><td>DC24V +COM (NC)</td><td class='hold'>&mdash;</td></tr>
@@ -104,7 +104,7 @@ td.hold{color:#000;font-size:7.5pt;font-style:italic}
 <table><tr><th>Wire</th><th>Pin</th><th>Signal</th><th>Mesa landing</th></tr>
 <tr><td class='wire'>*ESP</td><td class='pin'>1</td><td>EMERGENCY STOP (chain status to NC X000)</td><td class='hold'>&mdash;</td></tr>
 <tr><td class='wire'>141</td><td class='pin'>2</td><td>HEAD LUBE PRESSURE ALARM</td><td class='hold'>&mdash;</td></tr>
-<tr><td class='wire'>142</td><td class='pin'>3</td><td>TOOL CLAMP INTERLOCK</td><td class='hold'>&mdash;</td></tr>
+<tr><td class='wire'>142</td><td class='pin'>3</td><td>MACHINE DOOR INTERLOCK (MDINT X1C)</td><td class='hold'>&mdash;</td></tr>
 <tr><td class='wire'>143</td><td class='pin'>4</td><td>ZERO SPEED</td><td class='hold'>&mdash;</td></tr>
 <tr><td class='wire'></td><td class='pin'>5</td><td>(not used - blank on source table)</td><td class='hold'>&mdash;</td></tr>
 <tr><td class='wire'></td><td class='pin'>6</td><td>(not used - blank on source table)</td><td class='hold'>&mdash;</td></tr>
@@ -115,7 +115,7 @@ td.hold{color:#000;font-size:7.5pt;font-style:italic}
 <tr><td class='wire'>SRN</td><td class='pin'>11</td><td>SPINDLE FORWARD</td><td class='hold'>&mdash;</td></tr>
 <tr><td class='wire'>SRI</td><td class='pin'>12</td><td>SPINDLE REVERSE</td><td class='hold'>&mdash;</td></tr>
 <tr><td class='wire'></td><td class='pin'>13</td><td>SPARE</td><td class='hold'>&mdash;</td></tr>
-<tr><td class='wire'>ORI C1</td><td class='pin'>14</td><td>ORIENT COMMAND</td><td class='mesa'>A-TB3-21 <span class='hold'>HOLD</span></td></tr>
+<tr><td class='wire'>ORC1</td><td class='pin'>14</td><td>ORIENT COMMAND</td><td class='mesa'>A-TB3-21 <span class='hold'>HOLD</span></td></tr>
 <tr><td class='wire'>CTL</td><td class='pin'>15</td><td>LOW GEAR SHIFT</td><td class='mesa'>A-TB3-22 <span class='hold'>HOLD</span></td></tr>
 <tr><td class='wire'></td><td class='pin'>16</td><td>(not used - blank on source table)</td><td class='hold'>&mdash;</td></tr>
 <tr><td class='wire'></td><td class='pin'>17</td><td>(not used - blank on source table)</td><td class='hold'>&mdash;</td></tr>
@@ -137,7 +137,7 @@ td.hold{color:#000;font-size:7.5pt;font-style:italic}
 <tr><td class='wire'>COM</td><td class='pin'>33</td><td>COM (DECEL) (CTL)</td><td class='hold'>&mdash;</td></tr>
 <tr><td class='wire'></td><td class='pin'>34</td><td>(not used - blank on source table)</td><td class='hold'>&mdash;</td></tr>
 <tr><td class='wire'>WLAL</td><td class='pin'>35</td><td>WAY LUBE ALARM</td><td class='hold'>&mdash;</td></tr>
-<tr><td class='wire'>362</td><td class='pin'>36</td><td>MAGAZINE TIMER</td><td class='hold'>&mdash;</td></tr>
+<tr><td class='wire'>362</td><td class='pin'>36</td><td>WAY LUBE WARNING TIMER</td><td class='hold'>&mdash;</td></tr>
 <tr><td class='wire'>+LY</td><td class='pin'>37</td><td>+Y OVER TRAVEL</td><td class='mesa'>B-TB3-03 <span class='hold'>HOLD</span></td></tr>
 <tr><td class='wire'>-LZ</td><td class='pin'>38</td><td>-Z OVER TRAVEL</td><td class='mesa'>B-TB3-06 <span class='hold'>HOLD</span></td></tr>
 <tr><td class='wire'>147</td><td class='pin'>39</td><td>TOOL DETECTOR (MGTDPRS X05)</td><td class='hold'>&mdash;</td></tr>
@@ -166,15 +166,15 @@ td.hold{color:#000;font-size:7.5pt;font-style:italic}
 <tr><td class='wire'>SRN</td><td class='pin'>9</td><td>SPINDLE FORWARD</td><td class='mesa'>A-TB3-17 <span class='hold'>HOLD</span></td></tr>
 <tr><td class='wire'>SRI</td><td class='pin'>10</td><td>SPINDLE REVERSE</td><td class='mesa'>A-TB3-18 <span class='hold'>HOLD</span></td></tr>
 <tr><td class='wire'></td><td class='pin'>11</td><td>(not used - blank on source table)</td><td class='hold'>&mdash;</td></tr>
-<tr><td class='wire'>ORI C1</td><td class='pin'>12</td><td>ORIENT COMMAND</td><td class='hold'>&mdash;</td></tr>
-<tr><td class='wire'>CTL</td><td class='pin'>13</td><td>ORIENT LOOP CHECK</td><td class='hold'>&mdash;</td></tr>
+<tr><td class='wire'>ORC1</td><td class='pin'>12</td><td>ORIENT COMMAND</td><td class='hold'>&mdash;</td></tr>
+<tr><td class='wire'>CTL</td><td class='pin'>13</td><td>LOW GEAR SHIFT</td><td class='hold'>&mdash;</td></tr>
 <tr><td class='wire'></td><td class='pin'>14</td><td>(not used - blank on source table)</td><td class='hold'>&mdash;</td></tr>
-<tr><td class='wire'>COM</td><td class='pin'>15</td><td>COM</td><td class='hold'>&mdash;</td></tr>
+<tr><td class='wire'>COM</td><td class='pin'>15</td><td>COM (p84 reads ORC2; p134 reads COM - annotated ambiguity)</td><td class='hold'>&mdash;</td></tr>
 <tr><td class='wire'>ORA1</td><td class='pin'>16</td><td>SPINDLE ORIENT ARRIVAL</td><td class='mesa'>A-TB3-05 <span class='hold'>HOLD</span></td></tr>
 <tr><td class='wire'>ORA2</td><td class='pin'>17</td><td>SPINDLE ORIENT ARRIVAL (2)</td><td class='hold'>&mdash;</td></tr>
 <tr><td class='wire'>SE1</td><td class='pin'>18</td><td>SPEED REFERENCE 1</td><td class='hold'>&mdash;</td></tr>
 <tr><td class='wire'>SE2</td><td class='pin'>19</td><td>SPEED REFERENCE 2</td><td class='hold'>&mdash;</td></tr>
-<tr><td class='wire'>SE3</td><td class='pin'>20</td><td>SPEED REFERENCE 3 (10V MAX SPEED)</td><td class='hold'>&mdash;</td></tr>
+<tr><td class='wire'>SE3</td><td class='pin'>20</td><td>SPEED REFERENCE 3 (10V MAX SPEED; p134 mnemonic reads SES)</td><td class='hold'>&mdash;</td></tr>
 </table>
 <h2>CN5 — 20 conductors</h2>
 <table><tr><th>Wire</th><th>Pin</th><th>Signal</th><th>Mesa landing</th></tr>
@@ -219,7 +219,7 @@ td.hold{color:#000;font-size:7.5pt;font-style:italic}
 <tr><td class='wire'></td><td class='pin'>16</td><td>(not used - blank on source table)</td><td class='hold'>&mdash;</td></tr>
 <tr><td class='wire'>+24V</td><td class='pin'>17</td><td>DC24V COM (+)</td><td class='hold'>&mdash;</td></tr>
 <tr><td class='wire'>TAPC</td><td class='pin'>18</td><td>TAP COOLANT</td><td class='hold'>&mdash;</td></tr>
-<tr><td class='wire'>MMAL</td><td class='pin'>19</td><td>MIL FUNCTION</td><td class='hold'>&mdash;</td></tr>
+<tr><td class='wire'>MMAL</td><td class='pin'>19</td><td>MACHINE MALFUNCTION</td><td class='hold'>&mdash;</td></tr>
 <tr><td class='wire'>PW1</td><td class='pin'>20</td><td>POWER ON</td><td class='hold'>&mdash;</td></tr>
 <tr><td class='wire'>P24</td><td class='pin'>21</td><td>DC24V +COM (MACHINE)</td><td class='hold'>&mdash;</td></tr>
 <tr><td class='wire'></td><td class='pin'>22</td><td>(not used - blank on source table)</td><td class='hold'>&mdash;</td></tr>
@@ -237,7 +237,7 @@ td.hold{color:#000;font-size:7.5pt;font-style:italic}
 <tr><td class='wire'>NSPT</td><td class='pin'>34</td><td>NO SPARE TOOL</td><td class='hold'>&mdash;</td></tr>
 <tr><td class='wire'></td><td class='pin'>35</td><td>(not used - blank on source table)</td><td class='hold'>&mdash;</td></tr>
 <tr><td class='wire'></td><td class='pin'>36</td><td>(not used - blank on source table)</td><td class='hold'>&mdash;</td></tr>
-<tr><td class='wire'>381</td><td class='pin'>37</td><td>MAGAZINE TOOL DETECTOR</td><td class='hold'>&mdash;</td></tr>
+<tr><td class='wire'>381</td><td class='pin'>37</td><td>MAGAZINE TOOL DETECTOR (p85 reads 391; p84 CN2-13 + p135 read 381 - jacket read decides)</td><td class='hold'>&mdash;</td></tr>
 <tr><td class='wire'></td><td class='pin'>38</td><td>(not used - row slashed out on source table)</td><td class='hold'>&mdash;</td></tr>
 <tr><td class='wire'>355</td><td class='pin'>39</td><td>HEAD LUBE PRESSURE</td><td class='hold'>&mdash;</td></tr>
 <tr><td class='wire'></td><td class='pin'>40</td><td>(not used - blank on source table)</td><td class='hold'>&mdash;</td></tr>

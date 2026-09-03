@@ -9,9 +9,9 @@
         <rect x="-165.0" y="-66.0" width="330" height="132" rx="0" ry="0" antialias="false" style="line-style:normal;line-weight:normal;filling:none;color:#a85d00" />
         <line x1="-165.0" y1="-40.0" x2="165.0" y2="-40.0" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:normal;filling:none;color:#a85d00" antialias="false" />
         <text text="Required interposing-relay boundary" x="-157.0" y="-48.0" rotation="0" font="Liberation Sans,8,-1,5,75,0,0,0,0,0,Bold" color="#a85d00" />
-        <text text="F01 | F | SPINDLE_ORIENT_CMD" x="-157.0" y="-21.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+        <text text="F01 | F | SPINDLE_ORIENT_CMD" x="-157.0" y="-21.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#d00000" />
         <terminal uuid="{af44ccf5-dc85-518e-a69e-d17390ad984f}" name="F01" x="-165.0" y="-24.0" orientation="w" type="Generic" />
-        <text text="M01 | M | SPINDLE_ORIENT_CMD" x="4" y="-21.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+        <text text="M01 | M | SPINDLE_ORIENT_CMD" x="4" y="-21.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#d00000" />
         <terminal uuid="{afa3a87b-fab9-563a-8f81-ee83ff40973b}" name="M01" x="165.0" y="-24.0" orientation="e" type="Generic" />
         <text text="F02 | F | SPINDLE_ORIENT_LOGEAR" x="-157.0" y="-1.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
         <terminal uuid="{8b503515-a32f-5ff5-a62b-e5d093e695cd}" name="F02" x="-165.0" y="-4.0" orientation="w" type="Generic" />
