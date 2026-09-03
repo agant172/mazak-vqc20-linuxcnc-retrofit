@@ -50,7 +50,7 @@ apart.
 | CN4 | MR-20RMW | 20 / 20 | pins 11, 14 blank | **YES** (2026-08-18) | Pins 18/19/20 = SE1/SE2/SE3 SPEED REFERENCE → CON1-31/-32/-30, confirming the p127 cross-read. Three signal-name divergences on pins 15–17 logged in `bbia1_cn_pinouts.md`. |
 | CN5 | MR-20RMW | 20 / 20 | none (all allocated) | **YES** | Complete. |
 | CN6 | MR-50RMW | 50 / 50 | 12 blank + pins 38/45 slashed out | **YES** (2026-08-18) | All absent pins confirmed unused on dwg (p85). |
-| CN7 | MR-50RMW | 50 / 50 | pins 17/18 = 0G, 49/50 = +24V | **YES** (2026-08-18) | Transcribed from dwg 4143015323 (p86). Full 2PC M-code/handshake set, every wire identified; all outside connections to TB6. Function stays out of retrofit scope, but the connector is now fully accounted. Two inside-connector refs (pins 31, 48) illegible — left blank, not guessed. |
+| CN7 | MR-50RMW | 50 / 50 | pins 17/18 = 0G, 49/50 = +24V | **YES** (2026-08-18) | Transcribed from dwg 4143075323 (p86). Full 2PC M-code/handshake set, every wire identified; all outside connections to TB6. Function stays out of retrofit scope, but the connector is now fully accounted. Two inside-connector refs (pins 31, 48) illegible — left blank, not guessed. |
 | CN200 | MR-20RMW | 20 / 20 | pins 6, 8–13, 15–19 blank | **YES** (2026-08-18) | MMS receiver: MMS RDY, SEN RDY, MMS SKIP, MMS ST, MMS PON, MMS STCMD, 0G, +24 V. `MMS SKIP` is only a held candidate for the retrofit probe input until traced. |
 | CN11 | MR-20RMW | 20 / 20 | pins 17, 18 "(not used)" | **YES** | Complete, disambiguated from CN11-SSR 2026-08-10. |
 | CN12 | MR-20RMW terminal unit → MR20-AMD/LFH SSR | 20 / 20 downstream | pins 10–18 "(not used)", 19–20 blank | **DOWNSTREAM TABLE ONLY** | The p78 SSR-side table accounts for all pins and 9 wire IDs (722A/B, 724, 725A/B, 782A/B, 787A/B). The terminal-unit hop has not been independently pin-traced; all functions are 2PC/pallet and unallocated. |
@@ -107,6 +107,7 @@ In priority order (items that get harder once the NC/cabinet is disturbed first)
 4. **Continuity-trace the X/Y/Z analog command pairs** from each DK-427 input back to
    the removed NC harness; the OEM connector and pins remain unknown.
 5. **Trace CN200-3 `MMS SKIP` to the installed probe interface** before treating it as
-   `PROBE_SKIP1`; the functional name alone is insufficient.
+   `PROBE_SKIP1`; the functional name alone is insufficient. (Probe is RESERVED/out of
+   scope since 2026-08-21 — this trace applies only if the probe is re-scoped.)
 6. **Identify the third "CN11"** (25-way, dwg 03-81581-02) or positively rule it out
    of this machine.

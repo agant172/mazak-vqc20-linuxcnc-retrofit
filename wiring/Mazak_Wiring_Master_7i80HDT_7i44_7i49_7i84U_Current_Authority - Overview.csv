@@ -1,8 +1,8 @@
 Mazak VQC-20/40 Wiring Master — Current Pin Authority,
 Machine,"Mazak VQC-20/40, S/N 060231"
-Current architecture,"LinuxCNC + Mesa 7i80HDT Ethernet host; 7i44 on P3 with smart-serial channels 0/1 to 7i84U-A/B; 7i49 on P1 for X/Y/Z resolvers and AOUT0..3; P2 unused/spare; probe on 7i84U-B IN15"
+Current architecture,"LinuxCNC + Mesa 7i80HDT Ethernet host; 7i44 on P3 with smart-serial channels 0/1 to 7i84U-A/B; 7i49 on P1 for X/Y/Z resolvers and AOUT0..3; P2 unused/spare; probe RESERVED/out of scope 2026-08-21 (7i84U-B IN15 held spare)"
 Source of truth,../mesa/current_pin_authority.csv
-Authority rows,132
+Authority rows,"132 in the legacy workbook snapshot; current ../mesa/current_pin_authority.csv has 124"
 Generated,2026-08-09
 Correction,"P1/P2/P3 connector text corrected 2026-08-13 to match confirmed readhmid (P1=7i49, P2=unused, P3=7i44). The underlying .xlsx workbook itself was NOT re-exported/re-generated -- only this text summary. Regenerate the workbook's own connector-map tab before treating it as authoritative again."
 Workbook sheets,"README; Current Pin Authority; Authority Summary"

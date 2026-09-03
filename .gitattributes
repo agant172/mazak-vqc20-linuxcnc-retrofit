@@ -5,4 +5,4 @@
 *.jpg binary
 *.jpeg binary
 *.png binary
-wiring/*_epson.csv text eol=crlf
+wiring/labels/*_epson.csv text eol=crlf

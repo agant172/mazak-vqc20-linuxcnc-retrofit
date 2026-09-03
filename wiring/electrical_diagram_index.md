@@ -16,7 +16,7 @@
 | Line voltage | 200–460 V (3-phase) |
 | Date | Jun 25 1984 |
 | Control | Mazatrol **M-2** |
-| ROM No. | **YMZ-39D** |
+| ROM No. | **YM2-39D** |
 | Spindle motor | 5.5 kW (AC) / 7.5 kW (VQC-40 2PC) |
 | Option | 2 Pallet Changer (2PC) |
 
@@ -45,7 +45,7 @@ Built from printed title blocks actually read; these are reliable anchors.
 | p074 | 4143075304 | Terminal Unit Layout | BBIA1 board (mined → `bbia1_terminal_unit.md`); visual audit places CN8 on the NC-facing row and CN200 on the machine-facing row |
 | p078 | 4143175309 | SSR Board (D2W102F-33QB) | drives spindle air blast, gear-shift hi/lo, coolant, ATC outputs; CN11/CN12 MR20 |
 | p079 | 4143175310 | Cable Connection Diagram — Components | cabinet interconnect overview; **Spindle Controller** block (CON4/CON5, CDN1/CDN2, TB3); feedback-device legend (spindle tacho gen, rotary encoder, per-axis resolvers). ⚠️ **The "spindle tacho gen" entry is DISPUTED** — this transcription is the only evidence such a device exists, and it is contradicted by the axis attribution of the TGF-3D and by owner observation. Re-read this legend at 300 DPI before citing it; see [`authority_conflicts.md`](authority_conflicts.md) §4. |
-| p082 | 4143075313 | Servo/drive topology (X/Y/Z amps, FR-SX, rectifier) | per `servo_amp_analysis.md` |
+| p082 | 4143075313 | Conection [sic] Diagram with Terminal Unit of Enclosure | printed title; shows the servo/drive topology (X/Y/Z amps, FR-SX, rectifier) per `servo_amp_analysis.md` |
 | p083 | 4143175314 | Terminal Blocks TB6/TB7 layout | per `servo_amp_analysis.md` |
 | p085 | 4143075322 | Terminal Unit Connection detail (MR connectors) | CN200 MMS-receiver pinout mined into `bbia1_cn_pinouts.md`; handshake lines per `servo_amp_analysis.md` |
 | p087 | 4143075324 | Detail Diagram — MS Connector Connection | CA1–CA7 pinouts; EMB/EMC on CA4 a/b |
