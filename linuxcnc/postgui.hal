@@ -4,3 +4,34 @@
 # is up, so they cannot go in the main HAL files.
 #
 # (stub — add GUI signal connections here once the panel/pendant is defined)
+
+# ---------------------------------------------------------------------------
+# QtDragon HD (added with the [DISPLAY] rewrite, INI v1.2) — NOTHING ACTIVE YET.
+# Comments only. Read before copying anything out of the stock sample at
+# /usr/share/doc/linuxcnc/examples/sample-configs/sim/qtdragon_hd/.
+#
+# The GUI's HAL component is named `qtdragon`, NOT `qtdragon_hd` — the HD screen
+# resets its own basename via screenOptions at startup. Pins are `qtdragon.*`.
+#
+# !! DO NOT COPY THE SAMPLE POSTGUI WHOLESALE — IT WILL BREAK THE ATC !!
+# qtdragon_hd_postgui.hal in the sample config contains:
+#     unlinkp iocontrol.0.tool-change
+#     unlinkp iocontrol.0.tool-changed
+#     unlinkp iocontrol.0.tool-prep-number
+#     net tool-change  hal_manualtoolchange.change  <= iocontrol.0.tool-change
+# That tears this machine's toolchanger out of the loop and substitutes the
+# manual "insert tool and click OK" dialog. This machine has a real ATC driven by
+# the M6 remap ([RS274NGC] REMAP) and atc_orient.hal. Those three unlinkp lines
+# would silently disconnect it.
+#
+# Optional QtDragon features that need postgui nets, none of them required:
+#   - Z level compensation  (loadusr z_level_compensation) — surface mapping,
+#     irrelevant to this machine; skip.
+#   - spindle pause         net spindle-pause qtdragon.spindle-inhibit \
+#                               spindle.0.inhibit
+#   - external offsets      qtdragon.eoffset-* against axis.z.eoffset-*, which
+#     also needs [AXIS_Z] OFFSET_AV_RATIO set. Not enabled.
+#
+# UNVERIFIED — none of this has been loaded on the machine. Add real nets only
+# after the screen variant is chosen and with a human at the machine.
+# ---------------------------------------------------------------------------
