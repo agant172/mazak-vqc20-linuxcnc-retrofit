@@ -310,16 +310,18 @@ conductors with heat-shrink numbers.
 **Photograph, or read, the conductor label closest to each coil's DIN plug.**
 A wire number resolves the identity outright via the numbering rule established
 in [`authority_conflicts.md`](authority_conflicts.md) §5 — terminal-unit side
-`2NN`, RC3A bank side `4NN`, both meaning **`SOL-NN`**:
+`7NN` (T.U. CN11 → SSR board, dwg 4143175414 p140), solenoid side `4NN`, both
+meaning **`SOL-NN`** (the earlier "2NN" reading was a 7→2 digit misread — see
+the 2026-09-02 wiring audit):
 
 | Wire | Device |
 |---|---|
-| `215` / `415` | `SOL-15` spindle air blast |
-| `216` / `416` | `SOL-16` work air blast |
-| `231` / `431` | `SOL-31` flood coolant |
-| `235` / `435` | `SOL-35` dust inhole eliminate |
-| `236` | `SOL-36` oil hole |
-| `261` / `461` | `SOL-61` air jet |
+| `715` / `415` | `SOL-15` spindle air blast |
+| `716` / `416` | `SOL-16` work air blast |
+| `731` / `431` | `SOL-31` flood coolant |
+| `735` / `435` | `SOL-35` dust inhole eliminate |
+| `736` / `436` | `SOL-36` oil hole |
+| `761` / `461` | `SOL-61` air jet |
 
 If the label is unreadable at the coil, ring the coil out to the RC3A terminal
 bank with a meter — same answer, more certain. **This is what closes §5.**
@@ -333,12 +335,14 @@ serves the MMS touch sensor, **dust inhole eliminate** feeds the extraction
 path. Slower than reading a wire number, but it needs nothing but eyes and
 works when every label has worn off.
 
-### Note — most of the air solenoids are not in these photos
+### Note — the placard lists more air solenoids than exist
 
 The placard lists **six** air/coolant solenoids on the head (`SOL-15`, `-16`,
-`-31`, `-35`, `-36`, `-61`). Only **two** CKD valves appear in this photo set,
-so **at least four more are elsewhere on the head** and have not been located.
-Finding them is part of closing §5.
+`-31`, `-35`, `-36`, `-61`). Only **two** CKD valves appear in this photo set —
+and that is all there are: the owner confirmed on the machine (2026-08-13) that
+only `SOL-15` and `SOL-16` are fitted, with no hidden ones (see the coil-label
+section above). The other four tags are unfitted family-plate options; §5 is
+closed on this point.
 
 ---
 

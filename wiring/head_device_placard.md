@@ -142,13 +142,14 @@ strength of this placard.** The affected CSV rows carry a pointer to §5 only.
 
 **Trace outcome (see §5 for the working):** the OEM wire numbering follows a
 strict rule — RC3A bank wire `4NN` drives `SOL-NN`, with the terminal-unit side
-carrying the same function as `2NN`. On that basis `AIR_BLAST` is `SOL-15` and
+carrying the same function as `7NN` (T.U. CN11 → SSR board, dwg 4143175414
+p140). On that basis `AIR_BLAST` is `SOL-15` and
 `TOUCH_SENSOR_BLAST` is `SOL-61` — both keep their correct function and wire, so
 those are relabels rather than rebindings. `TAP_COOLANT_BLAST` is the genuinely
 open one: its `SOL-61` tag belongs to the air jet, and no solenoid has been
 identified for tap coolant. The placard's two novel data points, `OIL HOLE
-SOL-36` (wire 236) and `AIR JET SOL-61` (wire 261), both land exactly where the
-rule predicts — which is what makes the rule trustworthy.
+SOL-36` (wire 436, T.U. 736) and `AIR JET SOL-61` (wire 461, T.U. 761), both
+land exactly where the rule predicts — which is what makes the rule trustworthy.
 
 ---
 
