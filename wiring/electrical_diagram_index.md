@@ -74,7 +74,7 @@ What this set gives for the spindle:
 | p082 | 4143075313 | Drive topology: FR-SX + shared rectifier/condenser DC bus alongside the X/Y/Z DC-servo amps |
 | p079 | 4143175310 | Spindle Controller block in the amp rack (CON4/CON5, CDN1/CDN2, TB3) |
 | p085 | 4143075322 | Terminal-unit handshake lines: SERVO READY/ALARM, ORIENT COMMAND, SPINDLE FWD/REV/RUN/BRAKE |
-| p090 | 4143075301 | Spindle AC motor; **spindle rotary encoder MS3108B 20-29P** (pinout PA/SC/PE/PSH/OH/PB); gear-shift hi/lo SOL-12/13; hi/lo gear PRS-10/12 |
+| p090 | 4143075301 | Spindle AC motor; **spindle rotary encoder MS3108B 20-29P** (pinout PA/SC/PB/P5H/OH + overlined complements \*PA/\*SC/\*PB — 2026-09-02 re-read; earlier PE/PSH were misreads); gear-shift hi/lo SOL-12/13; hi/lo gear PRS-10/12 |
 | p078 | 4143175309 | SSR board outputs: gear-shift hi/lo, spindle air blast |
 | p029 / p031 / p033 | (alarm tables) | Spindle-orient fault semantics: AL-21/22/23/28 (orient / pin-return), AL-44/45/46 (orient malf 1/2/3), AL-65 (MMS malf) — behavior the retrofit must reproduce |
 

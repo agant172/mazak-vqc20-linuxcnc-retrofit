@@ -19,8 +19,8 @@ A,Homes and limits,X_LIMIT_PLUS,,,7i84U-B TB3 IN0,FIELD_TRACE,No connector-box l
 A,Homes and limits,X_LIMIT_MINUS,,,7i84U-B TB3 IN1,FIELD_TRACE,No connector-box label on this sheet
 A,Homes and limits,Y_LIMIT_MINUS,,,7i84U-B TB3 IN3,FIELD_TRACE,No connector-box label on this sheet
 A,Homes and limits,Z_LIMIT_PLUS,,,7i84U-B TB3 IN4,FIELD_TRACE,No connector-box label on this sheet
-A,ATC/Magazine/Tool,ATC_ZONE_Y,CN3-44,+LY2,7i84U-A TB3 IN0,MESA_ROUTE,
-A,ATC/Magazine/Tool,ATC_ZONE_Z,CN3-39,-LZ2,7i84U-A TB3 IN1,MESA_ROUTE,
+A,ATC/Magazine/Tool,ATC_ZONE_Y,CN3-44,+LY2,7i84U-A TB3 IN0,HOLD_OEM_CONFLICT,Registered sec-7.2 conflict; 2026-09-02 audit: p84 CN3-44 reads SPTD SPINDLE TOOL DETECTOR - do not land until metered
+A,ATC/Magazine/Tool,ATC_ZONE_Z,CN3-39,-LZ2,7i84U-A TB3 IN1,HOLD_OEM_CONFLICT,Registered sec-7.2 conflict; 2026-09-02 audit: p84 CN3-39 reads 147 TOOL DETECTOR - do not land until metered
 A,ATC/Magazine/Tool,MAG_TOOL_AVAILABLE,CN2-13,381,7i84U-A TB3 IN2,MESA_ROUTE,
 A,ATC/Magazine/Tool,SPINDLE_TOOL_AVAILABLE,CN6-50,382,7i84U-A TB3 IN3,MESA_ROUTE,
 A,ATC/Magazine/Tool,MAG_COVER_OPEN_CONF,CN2-11,218,7i84U-A TB3 IN6,MESA_ROUTE,
@@ -36,7 +36,7 @@ A,ATC/Magazine/Tool,TOOL_UNCLAMP_CONF,CN1-1,208,7i84U-A TB2 IN16,MESA_ROUTE,
 A,ATC/Magazine/Tool,TOOL_UNCLAMP_SOL,CN11-3,710,7i84U-A TB2 OUT10,MESA_ROUTE,
 A,ATC/Magazine/Tool,MANUAL_TOOL_UNCLAMP_PB,CN2-3,149,7i84U-A TB3 IN9,MESA_ROUTE,
 A,ATC/Magazine/Tool,MANUAL_TOOL_CLAMP_PB,CN2-44,149B,7i84U-A TB2 IN30,MESA_ROUTE,
-A,Spindle discrete/analog,SPINDLE_ZERO_SPEED,CN4-1,231,7i84U-A TB3 IN5,MESA_ROUTE,
+A,Spindle discrete/analog,SPINDLE_ZERO_SPEED,CN4-1,231,7i84U-A TB3 IN5,HOLD_OEM_CONFLICT,Registered sec-7.1 residual; 2026-09-02 audit: p84 CN4-1 reads ZS1 (no numeric wire) - jacket read at CN4-1/CN3-4 required before landing
 A,Spindle discrete/analog,SPINDLE_FAULT,CN4-3,FA,7i84U-A TB3 IN14,MESA_ROUTE,
 A,Spindle discrete/analog,SPINDLE_FWD,CN4-9,SRN,7i84U-A TB3 OUT0,MESA_ROUTE,Parallel CN3-11
 A,Spindle discrete/analog,SPINDLE_REV,CN4-10,SRI,7i84U-A TB3 OUT1,MESA_ROUTE,Parallel CN3-12
