@@ -36,11 +36,11 @@ committed (repo policy).
 
 ## Why this matters — two pre-power deliverables
 
-**D5 — hardware E-stop risk assessment + schematic** is `PARTIAL`, and
+**D5 — hardware E-stop risk assessment + schematic** was **WITHDRAWN** (owner decision 2026-08-15 — the E-stop stays 100% OEM), and
 [`estop_wiring_path_asbuilt.md`](estop_wiring_path_asbuilt.md) records that the
 hardwired contactor-drop circuit **was not located** in the drawing pass. Strip C
 below carries the OEM safety-chain conductors in the cabinet. That is a **physical
-anchor for the D5 field trace** — not the circuit, but the place to start.
+anchor** — recorded for historical context only; D5 tracing is withdrawn.
 
 **D1 — as-built one-line + terminal plan** is `NOT DRAFTED`. The starter panel
 below is four 3-phase motor circuits with breakers, contactors and overloads, and
@@ -76,13 +76,8 @@ raw material D1 needs.
 > printed by the factory — not a misread of `57A` or `57`, which sit on the
 > adjacent terminals and are legible at the same time.
 >
-> **`CLAUDE.md`'s preserve list names `57` and `57A` but not `57B`.** That list is
-> the project's standing instruction on which OEM safety wires must not be
-> disturbed. It is incomplete.
->
-> **Recommended (owner decision — not applied):** add `57B` to the preserve list
-> in `CLAUDE.md`. An unrecorded safety-chain terminal is exactly what gets cut by
-> accident, and the whole point of that list is to stop that happening.
+> **`57B` is in `CLAUDE.md`'s preserve list** (added with owner approval in the
+> PR that landed this survey, 2026-08-12).
 >
 > *One thing still unread:* whether a conductor labelled `57B` lands on it. Red
 > spade lugs are visible on the left side at that row, but no wire label is
@@ -97,11 +92,11 @@ alone, not a traced circuit.** Do not act on it.
 
 | Label | Repo cross-reference |
 |---|---|
-| `INHRLS` | "INHIBIT READ LS" — listed on BBIA-1 CN5 |
-| `*DEC4` | 4-axis zero-return decel — CN5 lists `XDEC4`; marker carries the active-low asterisk |
-| `144` | "THERMAL PROTECTOR TRIP" per the CN5 list |
-| `146` | "MAIN TRANSF. OVER HEAT" per the CN5 list |
-| `151`, `152`, `160`, `161`, `162` | not yet cross-referenced |
+| `INHRLS` | "INHIBIT READ LS" — CN5-16 on dwg 4143075322 (41434WB p085); the committed `bbia1_cn_pinouts.csv` row reads `1NRAILS` and conflicts with the print (identity tracked in `project_status.md`) |
+| `*DEC4` | 4-axis zero-return decel — CN5-14 `*DEC4` "4 AXIS ZERO RETRN DEC." on dwg 4143075322 p085 (the committed pinout row reads `XYZR4`, conflicting with the print); marker carries the active-low asterisk |
+| `144` | "THERMAL TRIP PROTECTOR" — CN5-1 on dwg 4143075322 p085 (the committed pinout gloss "EXTERNAL TRIP PROTECTOR" conflicts with the print) |
+| `146` | "MAIN TRANSF. OVER HEAT" — CN5-3 on dwg 4143075322 p085 (the committed pinout gloss "OVER-RUN EMG. STOP" conflicts with the print) |
+| `151`, `152` | CN5-13 / CN5-15 on dwg 4143075322 p085 — machine-door interlock cancel / index-table (4-axis) unclamp LS. (`160`–`162` are strip A/B labels, not on strip C) |
 | `+24V`, `0G`, `P24`, `G24`, `G` | OEM 24 V rails and earth |
 
 **`P24`/`G24` on this strip is the OEM 24 V domain.** Per the standing electrical
@@ -191,8 +186,8 @@ to a motor from these photos**.
 | **Suppression** | Several `AZNR 14K201 3D` MOVs across contactor coils |
 
 **The `THR` and `OHT` relays connect to the thermal chain already on record.**
-`bbia1_cn_pinouts` gives CN5 `144` = "THERMAL PROTECTOR TRIP" and `146` = "MAIN
-TRANSF. OVER HEAT", and
+Dwg 4143075322 (41434WB p085) gives CN5-1 `144` = "THERMAL TRIP PROTECTOR" and CN5-3 `146` = "MAIN
+TRANSF. OVER HEAT" (the committed `bbia1_cn_pinouts` glosses differ and conflict with the print), and
 [`commissioning_logs/find_list_2026-08-08.md`](../docs/commissioning_logs/find_list_2026-08-08.md)
 carries `THERMAL_ALARM_CHAIN` as `X73 THR.M` series-NC `X7B ONT.M`. Tags,
 wire numbers and the element list agree — **a good sign, still not a trace.**
@@ -207,10 +202,10 @@ been established.
 ## What to do with this
 
 1. ~~Re-shoot `57B` straight-on.~~ **DONE — confirmed an OEM terminal
-   designation.** Now: **add `57B` to the `CLAUDE.md` preserve list** (owner
-   decision), and read whether a conductor lands on it.
-2. **Field-trace the safety chain from strip C** toward the contactor drop — the
-   D5 item the drawing pass could not locate.
+   designation; `57B` is in the `CLAUDE.md` preserve list (applied 2026-08-12).**
+   Remaining, owner's option only: read whether a conductor lands on it.
+2. ~~Field-trace the safety chain from strip C~~ — **withdrawn with D5 (owner
+   decision 2026-08-15)**; the E-stop chain stays 100% OEM and is not traced.
 3. **Confirm strip B is the CN5 landing** rather than assuming it from name
    overlap.
 4. **Assign the four motor circuits** to their motors and read the overload and

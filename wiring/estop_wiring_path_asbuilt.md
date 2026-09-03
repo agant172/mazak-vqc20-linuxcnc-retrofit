@@ -18,16 +18,16 @@ contactor-drop sheet was not located this pass; see [What's still needed](#whats
 > hand-annotated scans is too noisy to reliably locate a specific circuit — every
 > OCR "title" lead in this pass was mislabeled. Locating the contactor circuit
 > needs either a manual scan of the power/magnetics section (early schematic
-> sheets) or field tracing per D5.
+> sheets); the former D5 field-trace path is withdrawn (owner decision 2026-08-15).
 
 ## E-stop conductor path (as-drawn)
 
 | Stage | Signal | Location | Source sheet |
 |---|---|---|---|
-| Pushbutton | **EMB – EMC** (E-stop PB, **PB-3B**, Operating Panel; part AH25-P182A) | Operating panel | PDF p090, dwg **4143075301** (Front Side View Components Layout) |
+| Pushbutton | **EMB – EMC** (E-stop PB, **PB-3B**, Operating Panel; part AH25-P182A per `io_map_research_notes.md` — not printed on this sheet) | Operating panel | PDF p090, dwg **4143075301** (Front Side View Components Layout (2)) |
 | MS connector | **EMB → CA4 pin `a`**, **EMC → CA4 pin `b`** (CA4 = MS3102A 28-21S) | Connector fan-out | PDF p087, dwg **4143075324** (Detail Diagram — MS Connector Connection) |
-| Terminal unit | **EHB / EMB / EMC** on **CN2-40, CN3-1, CN5-4 / CN5-43 / CN5-44** | BBIA1 terminal unit | already in [`bbia1_cn_pinouts.csv`](bbia1_cn_pinouts.md) (prior extraction) |
-| Destination | **Into the hardwired safety chain — NOT a Mesa input** | new safety relay | design rule already recorded in `bbia1_cn_pinouts.md:283` |
+| Terminal unit | **EMB / EMC** on **CN2-40 / CN2-41** (→ CA4 a/b), cross-connected inside the T.U. to **CN5-4 / CN5-5** (relay-card side; CN5-5 leaves as wire **57**). Chain status to the NC is **\*ESP** on **CN3-1** → CND1-3 (→ X000) | BBIA1 terminal unit | 41434WB p084 dwg 4143075321 (CN2/CN3) + p085 dwg 4143075322 (CN5), 300 DPI re-read 2026-09-02 — supersedes the `bbia1_cn_pinouts.csv` EHB / CN5-43 / CN5-44 values, which conflict with the print |
+| Destination | **Stays in the OEM hardwired safety chain — NOT a Mesa input** (E-stop is 100% OEM, owner decision 2026-08-15; no new safety relay is fitted) | OEM chain | design rule recorded in `bbia1_cn_pinouts.md` (harvest-checklist item 5) |
 
 Adjacent on CA4 (same connector, for context): `*DECX` → pin `c`, `*DECY` → pin
 `d` (axis decel-limit inputs, active-low).
@@ -42,8 +42,9 @@ Adjacent on CA4 (same connector, for context): `*DECX` → pin `c`, `*DECY` → 
 ## Bonus finding (answers an open servo-doc question)
 
 While reading p090 (dwg 4143075301): the **spindle rotary encoder** is a
-**`MS3108B 20-29P`** connector, pin/line map **A=PA, B=SC, C=PE, H=PSH, K=OH,
-N=PA, P=SC, R=PB**. This is the connector `servo_amp_analysis.md §1.5 / §3.5`
+**`MS3108B 20-29P`** connector, pin/line map **A=PA, B=SC, C=PB, H=P5H, K=OH,
+N=\*PA, P=\*SC, R=\*PB** (N/P/R drawn overlined — complements of A/B/C;
+corroborated by dwg 4143075340, 41434WB p105). This is the connector `servo_amp_analysis.md §1.5 / §3.5`
 flags as "spindle encoder location TBD in the 7i80HDT stack" — the OEM connector
 is identified; the Mesa-side landing terminal still needs assigning in
 `current_pin_authority.csv`.
@@ -54,30 +55,30 @@ is identified; the Mesa-side landing terminal still needs assigning in
 > It shares `PA`/`PB` with the `MS3108B` map above, and that map's `K = OH`
 > (overheat) line points at a motor-mounted device, but the remaining pin names
 > disagree. **Whether these are one device or two is unresolved** — do not merge
-> the records. Note also that `N=PA` duplicates `A=PA` above, so at least one
-> entry in this transcription is likely an artifact (probably a complement).
+> the records. The 2026-09-02 re-read confirmed N/P/R carry overlines on the print —
+> they are the complement lines of A/B/C, not duplicates.
 
 ## What's still needed
 
 1. **Locate the hardwired E-stop control circuit** (main magnetic contactor
    drop + servo-ready gating).
    > **Starting point found 2026-08-13.** A cabinet terminal strip carries the
-   > safety-chain conductors — `57`, `57A`, `57B`, `58`, `59`, `60`, `EMB`, `MAR`
-   > — as a contiguous block, alongside four `S-A12` motor contactors on the same
-   > backplate. That is a **physical anchor for this trace**, not the circuit
+   > safety-chain conductors — the contiguous block `58` · `57B` · `57A` · `57` ·
+   > `60` · `EMB` · `MAR`, with `59` further up the same strip — with four `S-A12`
+   > motor contactors in the same cabinet. That is a **physical anchor for this trace**, not the circuit
    > itself. Photo inventory only, nothing metered:
    > [`cabinet_asfound_survey.md`](cabinet_asfound_survey.md).
    > **`57B` is a real OEM terminal designation** — confirmed on the marker-strip
    > insert in a sharp re-shoot, reading `58` · `57B` · `57A` · `57` · `60` with
-   > the neighbours legible at the same time. It is **not** in `CLAUDE.md`'s
-   > preserve list, which names only `57` and `57A`. Adding it is recommended and
-   > awaiting owner approval.
+   > the neighbours legible at the same time. It is in `CLAUDE.md`'s
+   > preserve list (added with owner approval in the PR that landed the cabinet
+   > survey, 2026-08-12).
 
-   Recommended: manual scan of the power/magnetics schematic sheets (the
-   transformer sheet is ~PDF p032, dwg region 4143075xxx), or resolve by
-   field-tracing the cabinet per **D5** (as-built hardwired safety schematic).
-   This is the authoritative path anyway — the OEM drawings predate this
-   machine's M-2 upgrade and must be confirmed against the cabinet.
+   **D5 is WITHDRAWN (owner decision 2026-08-15)** — the E-stop system stays
+   100% OEM and this repo directs no tracing or verification of it (see
+   `../docs/estop_safety_chain.md`). The un-located contactor-drop sheet is
+   recorded as a historical gap only. (A manual scan of the power/magnetics
+   schematic sheets, ~PDF p032 region, remains a paper-only option.)
 2. **Assign the spindle-encoder landing** on the Mesa stack in the pin authority.
 
 _This doc records schematic-derived wiring evidence only; it is not a
