@@ -7,9 +7,13 @@ docs/ladder/orient_ladder_transcription.md sheets 28/29/30:
   rung 2901       GSFTC  gear shift command (target range != confirmed position)
   rung 2902       GSFME  gear shift in-progress memory, incl. the `#HGPRS . #LGPRS`
                          branch that makes "no PRS made at all" count as mid-shift
-  rung 2905/2906  T-5 (SZS.M . #SMR . GSF.N) -> ENGS enable gear shift
-  rung 2907       GSH.M  gear-high solenoid, pickup `#HGPRS . ENGS`, seal `GSH.M`
-  rung 2910       GSL.M  gear-low solenoid, same shape
+  rung 2905/2906  T-5 -> ENGS - LADDER DISCREPANCY: corrected 2905 draws SMR
+  NO (the OEM dwells with the run memory ASSERTED); the comp requires
+  !spindle_run (bench check 28 decides)
+  rung 2907/2910  LADDER DISCREPANCY: corrected topology is
+  [HSR || (HGPRS || seal).#ENGS].#other-sol.#AL47 - HSR drives the incoming
+  solenoid directly and #ENGS HOLDS THE OUTGOING gear's solenoid; the comp
+  instead gates pickup on ENGS && !own-PRS (assertions below pin the COMP)
   rung 3001       CTL.M = GSL.M (combinational mirror, orient-lo-gear)
 
 Why this matters: rung 2905's whole purpose is that a gear solenoid may never be
@@ -103,13 +107,14 @@ def run():
         h.expect("state", 2, "mid-shift waiting on the dwell (:370)")
 
         # --- Phase 2: select high, spindle at zero speed but still commanded --
-        # Rung 2905 is `SZS.M . #SMR . GSF.N`. spindle-run (SMR) still TRUE, so
-        # the dwell must NOT accumulate even though zero speed is reported.
+        # COMP BEHAVIOR (LADDER DISCREPANCY, audit 2026-09-02): the comp blocks
+        # the dwell on spindle_run; corrected rung 2905 draws SMR NO - the OEM
+        # dwell runs with the run memory ASSERTED. Pending bench check 28.
         h.setp_many({"gear-select-hi": True, "spindle-zero-speed": True})
         h.run_ms(300)
 
         h.expect("gear-shift-enable", False,
-                 "rung 2905 `#SMR`: a live run command blocks the dwell (:293)")
+                 "COMP BEHAVIOR (ladder discrepancy): the comp blocks the dwell on spindle_run")
         h.expect_all({"gear-hi-sol": False, "gear-lo-sol": False},
                      "no ENGS, so neither pickup path (:301-304) can close")
 
@@ -120,7 +125,7 @@ def run():
         h.expect("gear-shift-enable", False,
                  "T-5 has started but not elapsed - ENGS must stay FALSE (:293-296)")
         h.expect_all({"gear-hi-sol": False, "gear-lo-sol": False},
-                     "THE POINT OF RUNG 2905: no solenoid until the dwell is served")
+                     "COMP BEHAVIOR: no solenoid until the dwell is served (corrected 2907 would drive GSH.M directly from HSR - ladder discrepancy, bench 28/30)")
         h.expect("gear-shifting", True, "target range still unconfirmed")
 
         # --- Phase 4: (c) dwell elapses -> high solenoid only -----------------

@@ -94,10 +94,11 @@
 #                     NOT per motor rev and NOT per ballscrew rev unless the
 #                     resolver is 1:1 coupled to the screw. On this machine the
 #                     resolvers are flex-coupled to the ballscrew tail with no
-#                     documented reduction, so one resolver electrical rev is
-#                     expected to equal one ballscrew rev — but that must be
-#                     verified by counting rawcounts against dial indicator
-#                     travel over multiple full revolutions before it is trusted.
+#                     documented reduction, but the detector is MULTI-POLE:
+#                     5 electrical revs per screw rev (measured 2026-08-17,
+#                     10.000 mm lead / 2.000 mm grid), so .scale = the grid
+#                     spacing 0.07874016 in - verify by counting rawcounts
+#                     against dial-indicator travel before it is trusted.
 #   .velocity-scale = conversion factor between resolver rotation speed and
 #                     machine velocity. Value 1 gives motor speed in RPS; it is
 #                     an INDEPENDENT parameter from .scale, not automatically
@@ -105,11 +106,10 @@
 #                     as machine linear velocity, set velocity-scale to the
 #                     same signed inches-per-revolution as .scale.
 #   .index-divisor  = cycles per rev of the resolver (multi-speed resolvers
-#                     have >1). Single-speed BRX is expected from the TS2014N
-#                     family argument (the K = 0.5 figure is 141E26 comparison
-#                     data — installed suffix reads TS2014N 25 E…, 2026-08-15
-#                     survey), so 1 is expected; confirm from the 25E datasheet
-#                     once obtained. The HostMot2 doc warns:
+#                     have >1). This detector is MULTI-POLE - the INI sets 5
+#                     (2026-08-17 lead/grid measurement); the old "single-speed,
+#                     1 expected" argument was wrong and never sourced (see the
+#                     corrected index-divisor block below). The HostMot2 doc warns:
 #                     'It is not appropriate to use this parameter for
 #                     index-homing of axis drives.' — see the index-enable
 #                     note further down.

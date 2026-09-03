@@ -39,7 +39,8 @@ HALUI = halui
 #####################################################################
 # 2. motmod digital I/O - REQUIRED
 #####################################################################
-# The remap uses motion.digital-out-00..08 and motion.digital-in-00..07.
+# The remap uses motion.digital-out-00..08, motion.digital-in-00..07, and the
+# permit bits digital-in-14/-15 (num_dio = 16).
 # motmod only creates 4 of each by default, so the loadrt line in
 # linuxcnc/mazak_vqc_20_40.hal must gain num_dio:
 #
@@ -91,8 +92,9 @@ REF1_Z = -5.9055
 # ref-2: clearance height - Z up, clear of the magazine (machine zero).
 REF2_Z = 0.0
 # Y positions: ref-1 = machining/park side (machine zero), ref-2 = magazine
-# side (RP2 - OUTSIDE the machining envelope; [AXIS_Y] MAX_LIMIT must be
-# +9.5000, per the ATC AREA soft-limit box LY3).
+# side (RP2 - OUTSIDE the machining envelope; [AXIS_Y] MAX_LIMIT stays +0.0394 -
+# REF2_Y is reachable only via the mazak_atc_zone authorization path, see
+# docs/y_soft_limit_atc_zone.md).
 REF1_Y = 0.0
 REF2_Y = 9.5000
 

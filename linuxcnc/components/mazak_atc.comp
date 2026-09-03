@@ -26,7 +26,10 @@ component mazak_atc "Mazak VQC 20/40 ATC confirmation layer (magazine, clamp, co
  *
  * The oriented latch (SOSA) comes from mazak_orient - see
  * docs/ladder/orient_ladder_transcription.md. Tool unclamp is gated on that
- * latch, never on raw ORA1 (ladder rung 3604).
+ * latch, never on raw ORA1. Corrected ladder (2026-09-02): SOSA sits in the
+ * step-1 permits (7103/7205/7302) and on 3604's manual pulse path; the 3604
+ * auto path is TUCME alone - gating auto unclamp on SOSA here is deliberate
+ * retrofit conservatism per the transcription's sequencing rule 1.
  *
  * SAFETY: every timer default is UNVERIFIED. The M-2 timer base is unknown
  * (ATC doc "Open questions" #4: T30 cover alarm delay and T90 footswitch
@@ -69,7 +72,7 @@ pin in s32 target_pot = 0
 pin out bit cycle_active
     "M160 TCME - ATC in progress (rung 6504).";
 pin out bit atc_barrier
-    "Y095 TCME.M barrier extend (rung 6505). Net: atc-barrier  (7i84U-B OUT6 on 7i44 channel 1, PROPOSED - device existence unverified on SN 060231).";
+    "Y095 TCME.M barrier extend (rung 6505). Net: atc-barrier  (7i84U-B OUT6 on 7i44 channel 1, FACTORY_INTERFACE - device existence still unverified on SN 060231).";
 
 //
 // Cycle selection - rungs 6509/6510/6511 (TS0 / T0 / EQTST).
@@ -145,15 +148,15 @@ pin in bit tool_unclamped = false
     "X019 TUCPRS unclamp confirm (PRS-8). Net: tool-unclamped (7i84U IN16).";
 
 pin out bit tool_unclamp_sol
-    "Y097 TUC.M (rung 3604). Net: tool-unclamp-sol (7i84U TB2 OUT10).";
+    "Y097 TUC.M (rung 3604). Net: tool-unclamp-sol (7i84U-A TB2 OUT10).";
 pin out bit tool_clamp_sol
-    "Optional dual-coil clamp output, only driven when the clamp-dual-coil  parameter is set. Net: tool-clamp-sol (7i84U TB2 OUT9 - HOLD_CONFLICT,  valve topology unverified; leave the parameter at 0 until traced).";
+    "Optional dual-coil clamp output, only driven when the clamp-dual-coil  parameter is set. Net: tool-clamp-sol (dead-end net; 7i84U-A OUT9 is  NOT_USED - SOL-10 confirmed single-coil spring-return 2026-08-13,  wiring/authority_conflicts.md sec 2 RESOLVED, no clamp coil exists).";
 pin out bit unclamp_permit
-    "Rung 3604 gate: oriented latch AND spindle stopped AND not running AND  hydraulics AND no fault. Diagnostic / remap interlock.";
+    "Retrofit unclamp gate (stricter than rung 3604's auto path, which is  TUCME.#SMR alone): oriented latch (SOSA, per the step-1 permits + sequencing  rule 1) AND spindle stopped AND not running (#SMR, rung 3604) AND hydraulics  AND no fault. Diagnostic / remap interlock.";
 pin out bit unclamp_confirmed
     "M69 (rung 3509) - unclamp commanded AND TUCPRS made.";
 pin out bit clamp_confirmed
-    "M64 (rung 3607) - TCPRS made AND the unclamp output is false. Both  terms, exactly as the ladder does it.";
+    "M64 (rung 3607) - TCPRS made AND the unclamp output is false. NOTE: the  corrected rung is THREE contacts (TCPRS . #TUCME . #TUC.M); the #TUCME  (request) term is not implemented here - see the config-audit behavior queue.";
 
 //
 // ---------------------------------------------------------------------------
@@ -172,7 +175,7 @@ pin out bit mag_cover_sol
 pin out bit cover_open_verified
     "M163 MGCOX (rung 7009) = #MGC.M * MGCORS * #AL71 * #AL74. The contact  every cycle step 1 uses.";
 pin out bit cover_closed_verified
-    "MGC.M * MGCCRS * no cover alarm. Magazine rotation interlock.";
+    "MGC.M * MGCCRS * no cover alarm. Diagnostic / remap confirmation only -  corrected rung 3408 has no cover contact.";
 
 //
 // ---------------------------------------------------------------------------
@@ -205,9 +208,9 @@ pin out bit fault_cover_open_rs
 pin out bit fault_cover_not_open
     "AL74 - commanded open, open reed switch never made.";
 pin out bit fault_spindle_tool
-    "AL75 - cycle F: SPTDPRS off when the spindle should hold a tool.";
+    "AL75 - ladder draws this on cycle F (sheet 58); this comp fires it per the  deliberate detect-gate deviation (spindle detect checked on RETURN cycles -  see the FUNCTION detect block comment).";
 pin out bit fault_mag_tool
-    "AL76 - cycle D/E: MGTDPRS off when the commanded pot should hold a tool.";
+    "AL76 - ladder draws this on cycles D and E (sheet 58); this comp fires it  per the deliberate detect-gate deviation (mag detect checked on FULL and  LOAD cycles - see the FUNCTION detect block comment).";
 pin out bit fault_tool_life
     "AL77 - tool life over (option).";
 pin out bit fault_pot_lost
@@ -241,7 +244,7 @@ param rw float unclamp_timeout = 3.0
 param rw float clamp_timeout = 3.0
     "TCPRS watchdog. UNVERIFIED engineering value.";
 param rw bit clamp_dual_coil = false
-    "Set TRUE only after the hydraulic valve is confirmed dual-coil  (wiring/authority_conflicts.md section 2). While FALSE the clamp output  stays de-energised and clamping relies on dropping the unclamp coil.";
+    "Keep FALSE: SOL-10 confirmed single-coil spring-return 2026-08-13  (authority_conflicts.md sec 2 RESOLVED). Retained only against a future  valve swap. While FALSE the clamp output  stays de-energised and clamping relies on dropping the unclamp coil.";
 param rw bit allow_manual_unclamp = true
     "Enable the manual unclamp button outside an ATC cycle (commissioning  aid). The ladder allows it in manual mode only (rung 3601, #AUT.M).";
 
@@ -501,7 +504,7 @@ FUNCTION(update)
     /* -----------------------------------------------------------------
      * Tool detect gates. DELIBERATE DEVIATION from the ladder: YM2V39L
      * draws MGTDPRS/AL76 gating cycles D and E-return (rungs 7103/7205,
-     * 5808) and SPTDPRS/AL75 gating cycle F-load (7302, 5807). Pending
+     * sheet 58) and SPTDPRS/AL75 gating cycle F-load (7302, sheet 58). Pending
      * bench verification of what X005/X05B physically sense
      * (transcription open question 6), this component instead keys each
      * check on where the tool must physically be: pot detect when a tool

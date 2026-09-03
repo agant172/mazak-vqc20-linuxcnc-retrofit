@@ -134,11 +134,18 @@ assert **what the component does**, with a `# DIVERGENCE:` comment where the
 ladder says otherwise, so a human can adjudicate rather than having a guess
 frozen into a test:
 
-- **T-0 polarity.** Rung 2304 runs the timer on `#HYD.M · SZS.M` (pump *off*);
-  the component counts while `hyd_pump_on` is *true* (`:228`). Different
-  semantics, not flagged as deliberate.
-- **T-0 magnitude.** Ladder K 201 = 20.1 s; component default 2.0 s (`:177-178`,
-  admits it is a bring-up value).
+- **T-0 polarity/magnitude — now flagged as deliberate.** Corrected reading
+  (2026-09-02): ESPT is NC — there is NO OEM power-on delay; T-0 (K 201,
+  ~20 s) is a post-pump-stop grace that DROPS the arm. The component's 2.0 s
+  on-delay is annotated in-comp as retrofit conservatism, not a rescaled T-0.
+- **New open divergences from the 2026-09-02/03 audits** (no test either way;
+  owner decisions pending — see the config-audit behavior queue): 2905 dwell
+  with SMR ASSERTED, 2907/2910 outgoing-gear solenoid hold + steady-state coil
+  hold, SOME2/UOME2 self-clear via SOSA, ORCM1 ATC bypass (TCME path), T30
+  scope on AL75/AL76, rung 3302 pot-20 encoding, MROT cover/unclamp terms.
+- **Line-ref drift note:** `mazak_orient.comp`/`mazak_atc.comp` line numbers
+  cited in scenario comments drift whenever comment blocks are edited — treat
+  them as approximate and verify against HEAD.
 - **AL47 qualification.** Rung 5510 runs T-19 on `GSFME · #SOME2` — orient-driven
   shifts are unsupervised. The component supervises any pending shift
   (documented as "strictly safer").

@@ -11,7 +11,9 @@ Ladder grounding (docs/ladder/atc_ladder_transcription.md:121-125):
     There is no separate "open" output, so "commanded open" means `!mag_cover_sol`.
   - line 122, rung 7009: MGCOX (M163) = `#MGC.M . MGCORS(X052) . #AL71 . #AL74`,
     reproduced verbatim at mazak_atc.comp:371-373 as `cover_open_verified`.
-  - lines 124-125, sheet 58, all four delayed by T30:
+  - line 123: T30 delays AL71/AL72/AL74 and AL73's MGCOONF branch only;
+    MGCHOONF and AL75-AL77 have no timer. DIVERGENCE: the comp delays all
+    four cover alarms uniformly.
         AL71 close-RS on while not commanded   -> mazak_atc.comp:356,365
         AL72 commanded closed, RS off          -> mazak_atc.comp:358,366
         AL73 open-RS on faulty                 -> mazak_atc.comp:360,367
@@ -168,8 +170,10 @@ def run():
         # DIVERGENCE-ADJACENT: transcription line 125 records AL73 only as
         # "open-RS on faulty (MGCOONF/MGCHOONF)" without naming the qualifying
         # condition; the component pins it to `sol && open_conf`
-        # (mazak_atc.comp:360).  Asserting the component's reading - the source
-        # ladder sheet 58 should be re-read before this is called verified.
+        # (mazak_atc.comp:360).  Re-read completed by the 2026-09-02 audit:
+        # AL73 splits into a T30-delayed MGCOONF path and an undelayed MGCHOONF
+        # path (transcription line 123); the comp's single delayed fault is a
+        # divergence pending owner decision.
         # =====================================================================
         h.setp_many({
             "cover-close-request": True,

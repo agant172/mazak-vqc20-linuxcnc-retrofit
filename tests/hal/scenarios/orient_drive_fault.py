@@ -22,9 +22,11 @@ propagates in one scan:
   * state = 6 while fault_any                                       (:366)
 
 # DIVERGENCE: ladder rung 2305 (docs/ladder/orient_ladder_transcription.md,
-# sheet 23) draws SSET.M as `HYD.M . PW1.M . ESPT(T-0) . #AL46` + seal - it has
-# NO external drive-fault contact, and the doc's "Derived sequence" step 1 says
-# to "Drop it only on AL46-type fault". The component deliberately adds
+# sheet 23, corrected 2026-09-02) draws SSET.M as
+# `[(HYD.M || seal).PW1.M.#ESPT || DIHT.N || TOUCH.N].#AL46` (no power-on
+# delay; T-0 is a post-pump-stop grace) - it has NO external drive-fault
+# contact, and the derived sequence drops the arm only on the pump-stop grace
+# or an AL46-type fault. The component deliberately adds
 # !drive_fault (comp header lines 26-27: "The external FR-SX fault input also
 # drops the drive arm, gear outputs, and orient command"), because the retrofit
 # feeds the FR-SX alarm in as a discrete where the M-2 did not. The assertions
@@ -84,6 +86,9 @@ def run():
         h.run_ms(500)                   # > arrival-debounce
 
         h.expect_all({
+            # DIVERGENCE: corrected rung 3003 seals SOME2 through #SOSA - on
+            # the OEM the memory self-clears once arrival latches; the comp
+            # keeps it latched.
             "orient-memory": True,
             "spindle-orient-cmd": True,
             "oriented-latch": True,

@@ -147,7 +147,7 @@ def run():
                  "the stale D10 copy is retained, only its validity flag drops")
 
         # DIVERGENCE: rung 3408 is transcribed as
-        # `MROT = #AL2? · TSME · TFP · TSINTL` (transcription line 55), with
+        # `MROT = (#AL2 || #AUT.M) · TSME · #TFP · #TSINTL` (corrected line 55), with
         # TFP/TSINTL left unexpanded; there is no literal MGCOX term in that
         # row. mazak_atc.comp:435 adds `cover_open_verified && !tool_unclamp_sol`
         # to the rotate enable. Not asserted either way here beyond the FALSE

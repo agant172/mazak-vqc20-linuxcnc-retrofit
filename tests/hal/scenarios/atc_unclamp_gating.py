@@ -15,10 +15,12 @@ linuxcnc/components/mazak_atc.comp:465-488 -
 
 Ladder authority, docs/ladder/atc_ladder_transcription.md:
 
-  rung 3604 (line 71) TUC.M (Y097) TOOL UNCLAMP =
-      [TUCPLS || F1-key path || SOSA(M92)*TUCME] * seal TUC.M
-      * #TCLPLS * #SMR(spindle-run)
-    "auto unclamp requires the oriented latch SOSA ... never while spindle runs"
+  rung 3604 (line 71, corrected 2026-09-02) TUC.M (Y097) TOOL UNCLAMP =
+      {[seal TUC.M * #TCLPLS || (F1.L || SOSA)*TUCPLS] * #TCME || TUCME} * #SMR
+    - the AUTO path is TUCME alone; SOSA gates only the manual pulse path;
+      orientation for auto unclamp is enforced upstream in the D-1/E-1/F-1
+      permits (7103/7205/7302). DIVERGENCE: the comp additionally gates the
+      auto path on oriented_latch - strictly safer, per sequencing rule 1
   rung 3509 (line 67) M69 unclamp confirmed = TUCME * TUCPRS(X019) * TUC.M(Y097)
   rung 3607 (line 73) M64 clamp confirmed   = TCPRS(X018) * #TUCME * #TUC.M
 
@@ -82,7 +84,7 @@ def run():
                      "spindle-run": False})
         h.run_ms(150)
         h.expect_all({"unclamp-permit": False, "tool-unclamp-sol": False},
-                     "A1: no SOSA oriented latch - rung 3604 auto path blocked")
+                     "A1: no SOSA oriented latch - comp's deliberate gate; the corrected ladder enforces this upstream at 7103/7205/7302, not in 3604's auto path")
 
         # A2: zero-speed confirm missing (X001 SZS.M).
         h.setp_many({"oriented-latch": True, "spindle-stopped": False})

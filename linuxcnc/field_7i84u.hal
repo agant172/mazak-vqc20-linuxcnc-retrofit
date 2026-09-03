@@ -32,8 +32,8 @@
 #####################################################################
 
 # --- IN0..IN9  (ATC + spindle, TB3 pins 1-10) ---
-net atc-y-zone         <= hm2_7i80.0.7i84.0.0.input-00   # IN0  PRS-55 Y ATC zone
-net atc-z-zone         <= hm2_7i80.0.7i84.0.0.input-01   # IN1  PRS-66 Z ATC zone
+net atc-y-zone         <= hm2_7i80.0.7i84.0.0.input-00   # IN0  PRS-55 Y ATC zone - TAP POINT UNDECIDED (2026-09-03 audit: BBIA landing cleared, candidate CN2-14 conductor); no HAL consumer yet
+net atc-z-zone         <= hm2_7i80.0.7i84.0.0.input-01   # IN1  PRS-66 Z ATC zone - TAP POINT UNDECIDED (2026-09-03 audit: candidate CN1-5 conductor); no HAL consumer yet
 # IN2..IN7 + IN9 are netted in atc_orient.hal (mag-tool-avail, spindle-tool-avail,
 # spindle-oriented, spindle-zero-speed, mag-cover-open-conf, mag-cover-closed-conf,
 # manual-unclamp-pb). Do NOT re-net them here.
@@ -196,10 +196,11 @@ net flood-coolant      => hm2_7i80.0.7i84.0.0.output-11  # OUT11 flood pump rela
 # directly, so this loopback stays in place even after the M6 remap goes live.
 net tool-prepare-loopback  iocontrol.0.tool-prepare => iocontrol.0.tool-prepared
 
-# tool-change loopback DELETED. The M6 remap in linuxcnc/remap/toolchange.ngc
-# now drives iocontrol.0.tool-changed via its M64 P5 (atc-cycle-finish) rung
-# through the mazak-atc component (see atc_orient.hal). A loopback here would
-# short-circuit the ATC sequence.
+# tool-change loopback DELETED. With the ngc-only M6 remap the iocontrol
+# tool-change handshake is never raised: the remap closes the loop itself with
+# M61 and iocontrol.0.tool-changed is intentionally left unbound (2026-09-03
+# config audit - the previous claim that mazak-atc drives it was wrong; no such
+# binding exists). A loopback here would short-circuit the ATC sequence.
 
 #####################################################################
 # 7i84U-B (7i44 port 0 sserial CHANNEL 1) inputs 0..31 - limits and homes

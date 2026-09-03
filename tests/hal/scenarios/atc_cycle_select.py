@@ -25,12 +25,14 @@ Ladder authority - docs/ladder/atc_ladder_transcription.md:
 
   D/E/F decode table (transcription lines 34-36):
     D (M271 / rung 7101)  `... #TS0 · #T0`  full change   -> cycle_select 1
-    E (M280 / rung 7203)  `...  TS0 · #T0`  load only     -> cycle_select 2
-    F (M288 / rung 7210)  `... #TS0 ·  T0`  return only   -> cycle_select 3
+    F (M288 / rung 7210)  `...  TS0 · #T0`  load only     -> cycle_select 2
+    E (M280 / rung 7203)  `... #TS0 ·  T0`  return only   -> cycle_select 3
+    (letters per the 2026-09-02 audit - the transcription had E/F swapped;
+     numeric behavior was always correct)
 
 The interesting case is (spindle_tool 0, commanded_tool 0). The ladder reaches
 the same answer by a different route: with D1 = D2 = 0, EQTST is true, and none
-of D/E/F can latch because E needs #T0, F needs #TS0 and D needs both. The
+of D/E/F can latch because E needs #TS0, F needs #T0 and D needs both. The
 component encodes that as explicit precedence - `equal` is tested first, so
 (0,0) is SKIP and never LOAD_ONLY. This scenario pins that precedence.
 
@@ -52,8 +54,8 @@ from halharness import HalSession  # noqa: E402
 MATRIX = [
     (5, 5, 0, "EQTST (rung 6511): commanded tool already in the spindle"),
     (0, 0, 0, "PRECEDENCE: equal is tested before ts0, so (0,0) is SKIP"),
-    (0, 7, 2, "TS0 (rung 6509) without T0 -> cycle E, load only"),
-    (5, 0, 3, "T0 (rung 6510) without TS0 -> cycle F, return only"),
+    (0, 7, 2, "TS0 (rung 6509) without T0 -> cycle F, load only"),
+    (5, 0, 3, "T0 (rung 6510) without TS0 -> cycle E, return only"),
     (5, 7, 1, "neither TS0 nor T0 -> cycle D, full change"),
 ]
 

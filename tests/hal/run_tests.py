@@ -141,6 +141,8 @@ def main(argv: list[str]) -> int:
             elapsed = time.time() - t0
             failures = result.failures if hasattr(result, "failures") else list(result or [])
             checks = getattr(result, "checks", 0)
+            if not failures and checks == 0:
+                failures = ["scenario ran no checks - run() returned early or returned None"]
             total_checks += checks
             if failures:
                 failed.append((name, failures))

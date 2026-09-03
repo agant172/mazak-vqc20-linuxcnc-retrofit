@@ -163,7 +163,7 @@ net spindle-enable-command => mazak-orient.spindle-run
 net spindle-fault       => mazak-orient.drive-fault
 
 # Gear range: target from commanded RPM, confirms from the PRS switches.
-net spindle-speed-abs   spindle.0.speed-out-abs => gear-range.in0
+net spindle-speed-cmd   => gear-range.in0   # spindle.0.speed-out-abs, netted in motion_7i80hdt.hal (2026-09-03 audit: the old second link on the same pin blocked HAL load)
 net gear-want-hi        gear-range.out          => gear-range-lo.in
 net gear-want-hi                                => mazak-orient.gear-select-hi
 net gear-want-lo        gear-range-lo.out       => mazak-orient.gear-select-lo
@@ -247,7 +247,7 @@ net atc-barrier         <= mazak-atc.atc-barrier
 #####################################################################
 #
 # Pin map is documented at the top of linuxcnc/remap/toolchange.ngc.
-# Requires num_dio >= 9 outputs and >= 8 inputs; the config provisions 16.
+# Requires num_dio = 16 (out-00..08 plus in-00..07 and permit bits in-14/-15).
 
 # --- NGC -> components (M62/M63/M64/M65) --------------------------------
 net atc-cycle-active    motion.digital-out-00 => mazak-atc.cycle-start
@@ -287,7 +287,7 @@ net atc-fault-mech      mazak-atc.fault-any    => atc-fault-or.in1
 net atc-fault-any       atc-fault-or.out       => motion.digital-in-06
 
 # Fault reset. Reuses the existing estop-reset net (driven by
-# iocontrol.0.user-request-enable in motion_7i80hdt.hal) so the machine-on /
+# iocontrol.0.user-request-enable in mazak_vqc_20_40.hal) so the machine-on /
 # reset button clears the latched ATC and orient alarms. Swap in a dedicated
 # panel button once one is assigned.
 net estop-reset => mazak-orient.fault-reset

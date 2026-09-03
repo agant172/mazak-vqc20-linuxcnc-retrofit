@@ -90,6 +90,9 @@ def run():
         h.run_ms(300)                     # > arrival-debounce
 
         h.expect_all({
+            # DIVERGENCE: corrected rung 3003 seals SOME2 through #SOSA - on
+            # the OEM the memory self-clears once arrival latches; the comp
+            # keeps it latched.
             "orient-memory": True,
             "spindle-orient-cmd": True,
             "oriented-latch": True,

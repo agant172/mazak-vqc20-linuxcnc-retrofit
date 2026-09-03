@@ -67,8 +67,10 @@ ORIENT_DEFAULTS = {
 #   - gear-shift-timeout 30.0 vs T-19 K 3000 -> 300 s. mazak_orient.comp:175
 #     calls the K reading ambiguous (300 s vs 30 s) and ships the 30 s-class
 #     engineering value; orient doc:112 flags the same ambiguity.
-#   - drive-arm-delay 2.0 vs T-0 K 201 -> 20.1 s. mazak_orient.comp:177 says
-#     explicitly "2.0 s is a bring-up value, NOT the transcribed 20.1 s".
+#   - drive-arm-delay 2.0: per the 2026-09-02 audit there is NO transcribed
+#     power-on delay at all - ESPT is NC and T-0 (K 201) is a ~20 s
+#     post-pump-stop grace that DROPS the arm. The comp's on-delay is a
+#     deliberate retrofit conservatism, not a rescaled T-0.
 # Both assertions below therefore encode what the COMPONENT ships, and a human
 # must adjudicate against the M-2 timer table before commissioning.
 
