@@ -93,9 +93,18 @@ this repo from directing E-stop work — owner's option, not directed work.
    and 1. If channel 1 never enumerates, unbind `7i84.0.1` nets via the
    CSV-first workflow.
 2. **X005 MGTDPRS vs X05B SPTDPRS identity** (blocks corrected E/F
-   semantics): toolholder manually in a pot at exchange vs in the spindle
-   taper; meter each input. Decides whether MAG/SPINDLE_TOOL_AVAILABLE
-   assignments survive.
+   semantics). These are **PHS-181/PHS-182 3-wire photo sensors at the
+   magazine** (wires 381/382, old CN2-13/CN6-50, Dwg 4143075409 pg 135) —
+   do NOT ohm them like dry contacts: power the sensor (24V) and meter the
+   output wire. Three states each: nothing at the station / toolholder in a
+   pot at exchange / toolholder held at the spindle taper at exchange height
+   (beam only needs the flange — drawbar stays clamped with hydraulics off).
+   Also record whether each output sinks or sources when a tool is seen
+   (sets `input-NN` vs `input-NN-not`; sserial has no invert). Outcomes:
+   names right → the ladder pairing is the anomaly; both see the exchange
+   plane from opposite sides → comp's physics gating stands; crossed →
+   rename the CSV rows and HAL nets. Photograph sensor labels first
+   (model number gives NPN/PNP and wire colors).
 3. **§7.2 ATC zone pins**: look for PRS-55/PRS-66 physically first; if
    fitted, continuity CN3-44 → PRS-55 and CN3-39 → PRS-66 (vs spindle-timer /
    oil-temp senders).
