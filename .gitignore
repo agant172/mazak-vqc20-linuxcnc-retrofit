@@ -65,3 +65,8 @@ io-dashboard/dist/
 # Regenerate instead: python3 scripts/photo_tools/group_photos.py --photos-library
 photo-grouping-report/
 photo-grouping-report-*/
+
+# halcompile output for the HAL components in linuxcnc/components/*.comp.
+# Kernel-module binaries are machine- and kernel-specific — rebuild them with
+# `halcompile --install linuxcnc/components/<name>.comp`, never commit them.
+*.so
