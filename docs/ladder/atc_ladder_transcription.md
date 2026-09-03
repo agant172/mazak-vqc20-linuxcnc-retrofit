@@ -172,11 +172,12 @@ Sequencing rules to reproduce:
 
 ## Open questions
 
-1. **Step-latch first contacts on sheets 71–73 are scan-ambiguous** (CND-n vs CND-(n−1) labels overlap at this resolution). The MEM/CND alternation and the cross-reference lists support the reading above, but verify D-5/F-4 wiring on the paper prints before trusting the last step's completion condition.
+1. **Step-latch first contacts — RESOLVED 2026-09-02** (rung-by-rung audit vs YM2V39L at 400–900 dpi): every MEM-n rung's first contact is the **same-index CND-n, normally open** (7102, 7104, 7106, 7109, 7201, 7204, 7206, 7208, 7301, 7303, 7305, 7307 all verified), and every CND-n is `MEM-(n−1) · #MEM-n · confirm` — an advance permit, not a "step done" flag. D-5/F-4 completions verified: `MEMD-4 · #MEMD-5 · #INTF2.N · (#EIA.N ‖ TLATC)` and the MEMF-3/#MEMF-4 mirror; TLATC parallels EIA.N only.
 2. **Reference points — RESOLVED 2026-08-10** (see `docs/parameters_sn060231.md`, live 2025-08-28 dump): **ref-1 (ZP1) = machine zero = ZP = (0, 0, 0)** (the home position); **ref-2 (ZP2) = ATC 2nd zero = RP = (X 0, Y +9.5000, Z −5.9055)** — the magazine exchange position — with the Z exchange floor at **LZ4 = −5.9449** (0.0394 in below RP3). These are the `[ATC]` positions the remap NGC needs; both RP2/RP3 are ✓✓ double-verified. (`RP1/RP4 = 0` → no X/4th offset.)
 3. **INTF.N / INTF2.N (X189/X18A) "interference spindle tool length 1/2"** — NC-computed tool-length interference signals selecting the A vs B prep path and gating cycle completion. The retrofit must replace this with tool-length-aware Z clearance in the remap.
 4. **MAT timer T90** (footswitch arming) and **T30** (cover alarm delay) values need the M-2 timer table, same as the orient doc's timer-base question.
 5. **30TS*2 (M406)** branches suggest the 30-tool magazine uses doubled logic on A/B chains — irrelevant for this machine if it's a 20/24-pot, but confirm magazine size before hardcoding D16.
+6. **MGTDPRS (X005) / SPTDPRS (X05B) physical identity.** With E=return and F=load as drawn, the return cycle's step-1 permit requires the "magazine tool detect" ON (7205) and the load cycle's requires the "spindle tool detect" ON (7302) — the reverse of what the names suggest. Both may sit at the exchange interface sensing a toolholder in the pot plane from either side. Bench-verify what each switch actually senses (tool in pot vs tool in taper at exchange height) before trusting MAG_TOOL_AVAILABLE / SPINDLE_TOOL_AVAILABLE semantics.
 
 ## Sources
 

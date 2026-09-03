@@ -499,7 +499,14 @@ FUNCTION(update)
     prev_unclamp = unclamp_cmd;
 
     /* -----------------------------------------------------------------
-     * Tool detect gates - AL75 (cycle F) / AL76 (cycles D and E).
+     * Tool detect gates. DELIBERATE DEVIATION from the ladder: YM2V39L
+     * draws MGTDPRS/AL76 gating cycles D and E-return (rungs 7103/7205,
+     * 5808) and SPTDPRS/AL75 gating cycle F-load (7302, 5807). Pending
+     * bench verification of what X005/X05B physically sense
+     * (transcription open question 6), this component instead keys each
+     * check on where the tool must physically be: pot detect when a tool
+     * must be in the pot (full change, load), spindle detect when a tool
+     * must be in the spindle (return).
      * ----------------------------------------------------------------- */
     detect_needed_mag = cycle_full || cycle_load_only;
     detect_needed_spindle = cycle_return_only;

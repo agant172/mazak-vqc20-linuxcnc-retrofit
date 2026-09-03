@@ -145,6 +145,15 @@ straight to `mazak-atc.target-pot`.
    `(OTR.B · MGCORS)` branch, even outside a cycle.
 7. **Clamp supervision only runs inside a cycle**, because outside one the
    spindle may legitimately sit empty with neither prox made.
+8. **Tool-detect gating follows physics, not the drawn rung pairing.** The
+   ladder pairs MGTDPRS/AL76 with cycles D and E-return (7103/7205, 5808)
+   and SPTDPRS/AL75 with cycle F-load (7302, 5807) — the reverse of what
+   the sensor names suggest. Until X005/X05B physical identity is
+   bench-verified (transcription open question 6), the component checks the
+   pot detect where a tool must be in the pot (full, load) and the spindle
+   detect where a tool must be in the spindle (return). Revisit both this
+   and the `MAG_TOOL_AVAILABLE`/`SPINDLE_TOOL_AVAILABLE` signal-map names
+   once the switches are identified on the machine.
 
 ## Placeholders — nothing here is a measured value
 
