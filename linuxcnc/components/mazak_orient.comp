@@ -67,9 +67,9 @@ pin in bit drive_fault = false
     "FR-SX alarm input. TRUE drops drive-arm, gear commands, and ORCM1.  Net: spindle-fault (7i84U-A IN14; polarity must be field-verified).";
 
 pin out bit hyd_pump_on
-    "Y096 HYD.M - hydraulic + head-lube pump contactor (rung 2302).  Net: hyd-pump-on (7i84U TB3 OUT3, PROPOSED).";
+    "Y096 HYD.M - hydraulic + head-lube pump contactor (rung 2302).  Net: hyd-pump-on (7i84U-A TB3 OUT3, FACTORY_INTERFACE).";
 pin out bit drive_arm
-    "Y092 SSET.M - spindle drive arm/permissive (rung 2305). Held once made;  dropped by AL46 or the external drive-fault input. No Mesa pin assigned.";
+    "Y092 SSET.M - spindle drive arm/permissive (rung 2305). Held once made;  dropped by AL46, the external drive-fault input, or loss of the pump  permissive (instantly - the OEM gives a ~20 s T-0 grace). No Mesa pin assigned.";
 
 //
 // ---------------------------------------------------------------------------
@@ -77,9 +77,9 @@ pin out bit drive_arm
 // ---------------------------------------------------------------------------
 //
 pin in bit orient_request = false
-    "SOME2 set condition: M19 decode, or an ATC/recess prep step (rung 3003).  Level or pulse - the component latches it.";
+    "SOME2 set condition: M19 decode or recess step RCTSTEP2 (rung 3003). The  retrofit ALSO routes ATC orients here - the ladder's separate TCME path  (rung 3004, which bypasses SOME2/#GSFME/PRS) is deliberately not reproduced;  ATC orients run the strict path. Level or pulse - the component latches it.";
 pin in bit orient_cancel = false
-    "UOME2 set condition (rung 3008): gear M-code, ATC FIN pulse, jog,  program end, or spindle start. Clears the orient memory.";
+    "UOME2 set condition (rung 3008): gear M-code, ATC FIN pulse, jog,  program end, or spindle start. Clears the orient memory. NOTE: corrected  rung 3008 gates the gear/jog/program triggers with #TCME (no cancel  mid-ATC) and all triggers with #TOUCH.N*#DIHT.N; this comp does NOT  reproduce those gates - drive this pin only from the toolchange NGC.";
 pin in bit fault_reset = false
     "RST / ALRST - rising edge clears the latched alarms AL44-AL47 and both  memories. A held input does not continuously erase new faults.";
 
@@ -93,7 +93,7 @@ pin in bit spindle_oriented = false
 pin in bit spindle_zero_speed = false
     "X001 SZS.M - FR-SX zero-speed. Net: spindle-zero-speed (7i84U IN5).";
 pin in bit spindle_run = false
-    "M78 SMR - spindle run memory (any FWD/REV command active). Blocks the  zero-speed dwell (rung 2905) and is an AL46 contributor.";
+    "M78 SMR - spindle run memory (any FWD/REV command active). This comp  requires it FALSE for the zero-speed dwell - LADDER DISCREPANCY: rung 2905  draws SMR NO (OEM dwells with the run memory asserted); see the dwell  comment and audit bench check 28.";
 
 //
 // ---------------------------------------------------------------------------
@@ -112,7 +112,7 @@ pin in bit gear_lo_conf = false
 pin out bit gear_hi_sol
     "Y00B GSH.M gear-high solenoid (rung 2907). Net: gear-hi-sol (TB3 OUT7).  Sealed while high range is selected - the solenoid holds the shift fork.";
 pin out bit gear_lo_sol
-    "Y00C GSL.M gear-low solenoid (rung 2910). Net: gear-lo-sol (TB2 OUT8).  SOL-13 identity resolved 2026-08-08 (authority_conflicts sec 6 lineage);  field wire unlanded - fit RLY-2 + suppression before energising.";
+    "Y00C GSL.M gear-low solenoid (rung 2910). Net: gear-lo-sol (TB2 OUT8).  SOL-13 identity resolved 2026-08-08 (authority_conflicts sec 1 lineage);  field wire unlanded - fit RLY-2 + suppression before energising.";
 
 //
 // ---------------------------------------------------------------------------
@@ -120,7 +120,7 @@ pin out bit gear_lo_sol
 // ---------------------------------------------------------------------------
 //
 pin out bit spindle_orient_cmd
-    "Y093 ORCM1.M orient command to the FR-SX (rung 3004).  Net: spindle-orient-cmd (7i84U-A TB3 OUT4, PROPOSED).";
+    "Y093 ORCM1.M orient command to the FR-SX (rung 3004).  Net: spindle-orient-cmd (7i84U-A TB3 OUT4, FACTORY_INTERFACE).";
 pin out bit orient_lo_gear
     "Y094 CTL.M low-gear orient (rung 3001). COMBINATIONAL MIRROR of  gear-lo-sol - not a sequenced step. Net: orient-lo-gear (TB3 OUT5).";
 pin out bit oriented_latch
@@ -167,7 +167,7 @@ pin out bit fault_any
 param rw float zero_speed_dwell = 0.3
     "T-5 (rung 2905), ladder K 3. Zero speed + no run command must persist this  long before a gear solenoid may be energised. UNVERIFIED (0.3 s assumes a  100 ms timer base).";
 param rw float arrival_debounce = 0.3
-    "T-6 (rung 3006), ladder K 3. ORA1 debounce before the oriented latch sets.  UNVERIFIED (0.3 s assumes a 100 ms timer base).";
+    "ENGINEERING ADDITION - ORA1 debounce before the oriented latch sets. The  ladder's T-6 (rung 3006, K 3) feeds only the recess-tool logic (#4809);  rung 5509 latches SOSA from RAW ORA1. UNVERIFIED base.";
 param rw float orient_timeout = 10.0
     "T-18 (rung 5504), ladder K 100. Orient commanded -> arrival watchdog  (AL45). UNVERIFIED (10 s assumes a 100 ms timer base).";
 param rw float no_cmd_alarm_delay = 1.0
@@ -175,9 +175,9 @@ param rw float no_cmd_alarm_delay = 1.0
 param rw float gear_shift_timeout = 30.0
     "T-19 (rung 5510), ladder K 3000(?) - the transcription flags this K value  as ambiguous (300 s vs 30 s). 30 s is the doc's '30 s-class' engineering  value. UNVERIFIED - measure a real shift before trusting it.";
 param rw float drive_arm_delay = 2.0
-    "T-0 (rung 2304), ladder K 201 (= 20.1 s at a 100 ms base). Power-on delay  before the drive arm is asserted. UNVERIFIED - 2.0 s is a bring-up value,  NOT the transcribed 20.1 s.";
+    "RETROFIT power-on arm delay - a deliberate conservatism, NOT a ladder  equivalence. The ladder's T-0 (rung 2304, K 201 ~ 20.1 s at a 100 ms base)  is a post-pump-stop grace (runs on #HYD.M * SZS.M) before SSET drops  (rung 2305, ESPT is NC - the OEM arms with no power-up delay). UNVERIFIED.";
 param rw float zero_speed_debounce = 0.1
-    "T-16 (rung 5501), ladder K 30. SZSK zero-speed echo debounce, used to  qualify the AL46 test so a normal spin-up does not trip it. UNVERIFIED.";
+    "ENGINEERING ADDITION qualifying the AL46 test so a spin-up cannot trip it  on one scan. Ladder AL46 (rung 5508) uses #SZS.M directly, undebounced;  T-16/SZSK (rungs 5501/2, K 30) debounce the COMPUTED zero-speed status  (M132), not the sensor. UNVERIFIED.";
 
 //
 // Internal state.
@@ -339,7 +339,8 @@ FUNCTION(update)
     spindle_orient_cmd = orcm1 ? true : false;
     prev_orcm1 = orcm1;
 
-    /* Rung 3006 T-6 - arrival debounce, then rung 5509 SOSA latch:
+    /* Rung 5509 SOSA latch (OEM: RAW ORA1 - T-6/rung 3006 feeds only the recess
+     * logic; this debounce is a retrofit engineering addition):
      * SOSA = ORA1 (debounced) OR (SOSA sealed while ORCM1 stands). */
     TMR(t_arrival, spindle_oriented, arrival_debounce);
     sosa = ELAPSED(t_arrival, arrival_debounce) || (prev_sosa && orcm1);
