@@ -71,8 +71,10 @@ o<toolchange> sub
   #<t_index>   = #<_ini[ATC]INDEX_TIMEOUT>
 
   ( Reference points - PLACEHOLDERS, see [ATC] in the INI snippet.       )
-  ( ZP1 = ref-1 = pot exchange height (Z down, toolholder in the pot)    )
-  ( ZP2 = ref-2 = clearance height    (Z up,   clear of the magazine)    )
+  ( WARNING (2026-09-03 audit): Z naming here is SWAPPED vs the ladder   )
+  ( (transcription OQ#2: ref-1/ZP1 = machine zero, ref-2/ZP2 = Z-5.9055).)
+  ( z_ref1 holds -5.9055 and z_ref2 holds 0 - the OPPOSITE of ZPZ1/ZPZ2. )
+  ( Do not map ladder ZPZn onto z_refn until the resequencing lands.     )
   #<z_ref1>    = #<_ini[ATC]REF1_Z>
   #<z_ref2>    = #<_ini[ATC]REF2_Z>
   #<y_ref1>    = #<_ini[ATC]REF1_Y>
@@ -188,7 +190,10 @@ o<toolchange> sub
   o<tc_s1_to> endif
 
   (  ------------------------------------------------------------------ )
-  (  Step 2 - Z to ref-1, unclamp (D-2 / E-2 / F-2).                     )
+  (  Step 2 - Z plunge + unclamp. GEOMETRY MISMATCH (2026-09-03 audit):  )
+  (  corrected D-2/E-2 latch ZPZ1 (Z UP) with unclamp before the move,   )
+  (  and F-2 latches ZPZ2 - the exchange is horizontal fork-entry. See   )
+  (  the config-audit behavior queue before running this live.           )
   (  The unclamp output itself is gated in HAL on the oriented latch and )
   (  zero speed (rung 3604); this only requests it.                      )
   (  ------------------------------------------------------------------ )
@@ -220,7 +225,9 @@ o<toolchange> sub
   o<tc_index> endif
 
   (  ------------------------------------------------------------------ )
-  (  Step 4 - Z to ref-1 and clamp (D-4 / E-3 / F-3).                    )
+  (  Step 4 - Z down + clamp. GEOMETRY MISMATCH (2026-09-03 audit):      )
+  (  corrected D-4/E-3/F-3 are Y-OUT moves latching ZPY1 with clamp      )
+  (  confirmed before them. See the config-audit behavior queue.         )
   (  Clamp is the de-energised state: dropping the request clamps.       )
   (  ------------------------------------------------------------------ )
   G53 G0 Z#<z_ref1>

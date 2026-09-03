@@ -131,12 +131,22 @@ Step pattern, identical in all three chains:
 
 1. T-command in AUTO/MDI → TCME; barrier out, soft-OT neglect on, NC feed held; registers latched. If commanded tool = spindle tool (EQTST) → nothing else happens.
 2. Magazine indexes to the commanded pot (shortest path) — may already have happened in parallel during machining.
-3. Prep chains drive Y and Z to reference points via ZP1/ZP2 commands; cover opens (MGC.M de-energized) and MGCOX confirms; **spindle orients (SOME2→ORCM1→ORA1→SOSA — see orient doc)**.
-4. D-1: Y at ref-2, oriented, cover open, pot tool detected → unclamp memory arms.
-5. D-2: Z descends to ref-1 (pot engages toolholder), unclamp fires (SOSA-gated), TUCPRS confirms.
-6. D-3: Z rises to ref-2 (tool stays in pot), magazine indexes old→new pot, TSME completes.
-7. D-4: Z descends again, clamp (TUC.M drops), TCPRS confirms.
-8. D-5: interference check clears, Z returns, TCME clears → **AFINPLS (M152, rung 3007)** pulse → unorient (UOME2), barrier retracts, feed hold releases.
+3. Prep chains put the axes at the D entry condition (rung 7101: `ZPY1 · ZPZ2` — Y at machine zero, **Z already DOWN at the ref-2 exchange height, −5.9055**); cover opens (MGC.M de-energized) and MGCOX confirms; **spindle orients (SOME2→ORCM1→ORA1→SOSA — see orient doc)**.
+4. D-1 (latch `ZPY2`): **Y traverses horizontally to +9.5000 at exchange height**, sliding the toolholder flange into the pot plane; oriented + cover open + pot-side detect → unclamp memory arms.
+5. D-2 (latch `ZPZ1`): unclamp fires (TUCME from D-1·#D-3), then **Z rises to machine zero** — the pot keeps the old tool; TUCPRS/M69 confirms along the way.
+6. D-3ax/D-3 (latch `ZPZ2`): with the spindle empty and up, the magazine indexes old→new pot (TSME), then **Z descends back to exchange height onto the new tool with the drawbar still open**.
+7. D-4 (latch `ZPY1`): clamp (TUC.M drops at MEMD-3), TCPRS confirms, then **Y traverses out to machine zero at exchange height** — the flange leaves the pot fingers horizontally.
+8. D-5 (latch `ZPZ1`): interference check (`#INTF2.N·(#EIA.N‖TLATC)`) clears, **Z rises**, TCME clears → **AFINPLS (M152, rung 3007)** pulse → unorient (UOME2), barrier retracts, feed hold releases.
+
+> **2026-09-03 correction:** the earlier version of this section narrated a
+> vertical-plunge exchange (Z down into the pot to unclamp, Z down again to
+> clamp) that contradicted this document's own corrected step tables and the
+> resolved reference points. The entry-condition asymmetry (D/E enter at
+> `ZPZ2`, F at `ZPZ1`) and the latch axes above are only physically coherent
+> as a **horizontal fork-entry exchange**. `linuxcnc/remap/toolchange.ngc`
+> was written from the old narrative and must be resequenced (config-audit
+> behavior queue); bench-gate: photograph a magazine pot to confirm
+> fixed-finger flange grip before any live cycle.
 
 ## HAL / LinuxCNC implementation notes
 

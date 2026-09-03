@@ -93,7 +93,7 @@ during the change (`ATCFHDME`, rung 6701) for free.
 | D-5 / F-4 | retract, close cover, `M66 P7` |
 | AFINPLS (3007) | `M64 P5` finish pulse, `M64 P7` unorient, `M65 P0` |
 | Abort / E-stop | `ON_ABORT_COMMAND` calls `on_abort.ngc`; P8 drives `cycle_abort`, P0-P7 are cleared, and no recovery motion is attempted |
-| OTNEG.N (7505) | not implemented — normal Y soft limit remains +0.0394 and `DRY_RUN=1` blocks the live change until the dedicated ATC-zone permit is implemented |
+| OTNEG.N (7505) | not implemented — normal Y soft limit remains +0.0394 and `atc-live-permit=0` (dry-run) blocks the live change until the dedicated ATC-zone permit is implemented |
 | INTF.N / INTF2.N | not implemented — plain clearance move; needs tool-length-aware Z (ATC doc open question #3) |
 
 ## Digital pin map (M62–M66)
@@ -201,7 +201,7 @@ straight to `mazak-atc.target-pot`.
    because halcompile does not reset its option table between files.
 4. Confirm the already-merged active INI/HAL settings against
    `linuxcnc/atc_orient.ini.snippet`, including `num_dio=16`, the M6 remap,
-   abort handler, `[ATC]` values, and `DRY_RUN=1`.
+   abort handler, `[ATC]` values, and the atc-live-permit dry-run gate.
 5. Start LinuxCNC with **no field power on the 7i84U-A/B outputs**. Confirm every
    pin exists and no net is double-driven (`halcmd show net`).
 6. Use a dedicated no-hardware component test configuration to drive simulated
