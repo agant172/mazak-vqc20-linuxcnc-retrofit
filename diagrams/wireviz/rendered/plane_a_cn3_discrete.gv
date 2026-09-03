@@ -58,26 +58,6 @@ graph {
     </td>
     <td port="p4r">38</td>
    </tr>
-   <tr>
-    <td>147 | ATC_ZONE_Z | HOLD</td>
-    <td sides="tbl">RD</td>
-    <td sides="tbr">
-     <table border="0" cellborder="1"><tr>
-      <td bgcolor="#FF0000" width="8" height="8" fixedsize="true"></td>
-     </tr></table>
-    </td>
-    <td port="p5r">39</td>
-   </tr>
-   <tr>
-    <td>SPTD | ATC_ZONE_Y | HOLD</td>
-    <td sides="tbl">RD</td>
-    <td sides="tbr">
-     <table border="0" cellborder="1"><tr>
-      <td bgcolor="#FF0000" width="8" height="8" fixedsize="true"></td>
-     </tr></table>
-    </td>
-    <td port="p6r">44</td>
-   </tr>
   </table>
  </td></tr>
  <tr><td>
@@ -189,50 +169,6 @@ graph {
     </td>
     <td port="p8r">M04</td>
    </tr>
-   <tr>
-    <td port="p9l">F05</td>
-    <td>F | ATC_ZONE_Z</td>
-    <td sides="tbl">RD</td>
-    <td sides="tbr">
-     <table border="0" cellborder="1"><tr>
-      <td bgcolor="#FF0000" width="8" height="8" fixedsize="true"></td>
-     </tr></table>
-    </td>
-    <td port="p9r">F05</td>
-   </tr>
-   <tr>
-    <td port="p10l">M05</td>
-    <td>M | ATC_ZONE_Z</td>
-    <td sides="tbl">RD</td>
-    <td sides="tbr">
-     <table border="0" cellborder="1"><tr>
-      <td bgcolor="#FF0000" width="8" height="8" fixedsize="true"></td>
-     </tr></table>
-    </td>
-    <td port="p10r">M05</td>
-   </tr>
-   <tr>
-    <td port="p11l">F06</td>
-    <td>F | ATC_ZONE_Y</td>
-    <td sides="tbl">RD</td>
-    <td sides="tbr">
-     <table border="0" cellborder="1"><tr>
-      <td bgcolor="#FF0000" width="8" height="8" fixedsize="true"></td>
-     </tr></table>
-    </td>
-    <td port="p11r">F06</td>
-   </tr>
-   <tr>
-    <td port="p12l">M06</td>
-    <td>M | ATC_ZONE_Y</td>
-    <td sides="tbl">RD</td>
-    <td sides="tbr">
-     <table border="0" cellborder="1"><tr>
-      <td bgcolor="#FF0000" width="8" height="8" fixedsize="true"></td>
-     </tr></table>
-    </td>
-    <td port="p12r">M06</td>
-   </tr>
   </table>
  </td></tr>
  <tr><td>
@@ -273,26 +209,6 @@ graph {
     <td sides="tbr">
      <table border="0" cellborder="1"><tr>
       <td bgcolor="#FFFF00" width="8" height="8" fixedsize="true"></td>
-     </tr></table>
-    </td>
-   </tr>
-   <tr>
-    <td port="p3l">IN1</td>
-    <td>IN1 | atc-z-zone | HOLD</td>
-    <td sides="tbl">RD</td>
-    <td sides="tbr">
-     <table border="0" cellborder="1"><tr>
-      <td bgcolor="#FF0000" width="8" height="8" fixedsize="true"></td>
-     </tr></table>
-    </td>
-   </tr>
-   <tr>
-    <td port="p4l">IN0</td>
-    <td>IN0 | atc-y-zone | HOLD</td>
-    <td sides="tbl">RD</td>
-    <td sides="tbr">
-     <table border="0" cellborder="1"><tr>
-      <td bgcolor="#FF0000" width="8" height="8" fixedsize="true"></td>
      </tr></table>
     </td>
    </tr>
@@ -360,12 +276,6 @@ graph {
 	edge [color="#000000:#ffff00:#000000"]
 	CN3:p4r:e -- OEM_CONDUCTORS:w4:w
 	OEM_CONDUCTORS:w4:e -- IR_BOUNDARY:p7l:w
-	edge [color="#000000:#ff0000:#000000"]
-	CN3:p5r:e -- OEM_CONDUCTORS:w5:w
-	OEM_CONDUCTORS:w5:e -- IR_BOUNDARY:p9l:w
-	edge [color="#000000:#ff0000:#000000"]
-	CN3:p6r:e -- OEM_CONDUCTORS:w6:w
-	OEM_CONDUCTORS:w6:e -- IR_BOUNDARY:p11l:w
 	OEM_CONDUCTORS [label=<
 <table border="0" cellspacing="0" cellpadding="0">
  <tr><td>
@@ -445,38 +355,6 @@ graph {
      </table>
     </td>
    </tr>
-   <tr>
-    <td>CN3:39:147 | ATC_ZONE_Z | HOLD</td>
-    <td>
-     5:RD:147 | ATC_ZONE_Z
-    </td>
-    <td>IR_BOUNDARY:F05:F | ATC_ZONE_Z</td>
-   </tr>
-   <tr>
-    <td colspan="3" border="0" cellspacing="0" cellpadding="0" port="w5" height="6">
-     <table cellspacing="0" cellborder="0" border="0">
-      <tr><td colspan="3" cellpadding="0" height="2" bgcolor="#000000" border="0"></td></tr>
-      <tr><td colspan="3" cellpadding="0" height="2" bgcolor="#ff0000" border="0"></td></tr>
-      <tr><td colspan="3" cellpadding="0" height="2" bgcolor="#000000" border="0"></td></tr>
-     </table>
-    </td>
-   </tr>
-   <tr>
-    <td>CN3:44:SPTD | ATC_ZONE_Y | HOLD</td>
-    <td>
-     6:RD:SPTD | ATC_ZONE_Y
-    </td>
-    <td>IR_BOUNDARY:F06:F | ATC_ZONE_Y</td>
-   </tr>
-   <tr>
-    <td colspan="3" border="0" cellspacing="0" cellpadding="0" port="w6" height="6">
-     <table cellspacing="0" cellborder="0" border="0">
-      <tr><td colspan="3" cellpadding="0" height="2" bgcolor="#000000" border="0"></td></tr>
-      <tr><td colspan="3" cellpadding="0" height="2" bgcolor="#ff0000" border="0"></td></tr>
-      <tr><td colspan="3" cellpadding="0" height="2" bgcolor="#000000" border="0"></td></tr>
-     </table>
-    </td>
-   </tr>
    <tr><td>&nbsp;</td></tr>
   </table>
  </td></tr>
@@ -493,12 +371,6 @@ graph {
 	edge [color="#000000:#ffff00:#000000"]
 	IR_BOUNDARY:p4r:e -- NEW_CONTROL_WIRING:w2:w
 	NEW_CONTROL_WIRING:w2:e -- "7i84U-A_TB3":p2l:w
-	edge [color="#000000:#ff0000:#000000"]
-	IR_BOUNDARY:p10r:e -- NEW_CONTROL_WIRING:w5:w
-	NEW_CONTROL_WIRING:w5:e -- "7i84U-A_TB3":p3l:w
-	edge [color="#000000:#ff0000:#000000"]
-	IR_BOUNDARY:p12r:e -- NEW_CONTROL_WIRING:w6:w
-	NEW_CONTROL_WIRING:w6:e -- "7i84U-A_TB3":p4l:w
 	edge [color="#000000:#ffff00:#000000"]
 	IR_BOUNDARY:p6r:e -- NEW_CONTROL_WIRING:w3:w
 	NEW_CONTROL_WIRING:w3:e -- "7i84U-B_TB3":p1l:w
@@ -580,38 +452,6 @@ graph {
      <table cellspacing="0" cellborder="0" border="0">
       <tr><td colspan="3" cellpadding="0" height="2" bgcolor="#000000" border="0"></td></tr>
       <tr><td colspan="3" cellpadding="0" height="2" bgcolor="#ffff00" border="0"></td></tr>
-      <tr><td colspan="3" cellpadding="0" height="2" bgcolor="#000000" border="0"></td></tr>
-     </table>
-    </td>
-   </tr>
-   <tr>
-    <td>IR_BOUNDARY:M05:M | ATC_ZONE_Z</td>
-    <td>
-     5:RD:ATC_ZONE_Z | atc-z-zone
-    </td>
-    <td>7i84U-A_TB3:IN1:IN1 | atc-z-zone | HOLD</td>
-   </tr>
-   <tr>
-    <td colspan="3" border="0" cellspacing="0" cellpadding="0" port="w5" height="6">
-     <table cellspacing="0" cellborder="0" border="0">
-      <tr><td colspan="3" cellpadding="0" height="2" bgcolor="#000000" border="0"></td></tr>
-      <tr><td colspan="3" cellpadding="0" height="2" bgcolor="#ff0000" border="0"></td></tr>
-      <tr><td colspan="3" cellpadding="0" height="2" bgcolor="#000000" border="0"></td></tr>
-     </table>
-    </td>
-   </tr>
-   <tr>
-    <td>IR_BOUNDARY:M06:M | ATC_ZONE_Y</td>
-    <td>
-     6:RD:ATC_ZONE_Y | atc-y-zone
-    </td>
-    <td>7i84U-A_TB3:IN0:IN0 | atc-y-zone | HOLD</td>
-   </tr>
-   <tr>
-    <td colspan="3" border="0" cellspacing="0" cellpadding="0" port="w6" height="6">
-     <table cellspacing="0" cellborder="0" border="0">
-      <tr><td colspan="3" cellpadding="0" height="2" bgcolor="#000000" border="0"></td></tr>
-      <tr><td colspan="3" cellpadding="0" height="2" bgcolor="#ff0000" border="0"></td></tr>
       <tr><td colspan="3" cellpadding="0" height="2" bgcolor="#000000" border="0"></td></tr>
      </table>
     </td>

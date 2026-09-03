@@ -1,17 +1,15 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<definition version="0.100.0" type="element" link_type="simple" width="350" height="112" hotspot_x="175" hotspot_y="56">
+<definition version="0.100.0" type="element" link_type="simple" width="350" height="100" hotspot_x="175" hotspot_y="50">
     <uuid uuid="{3a628f75-4934-5bb4-9d5e-ed4f48cf3ced}" />
     <names>
         <name lang="en">7i84U-A TB3</name>
     </names>
     <informations>Generated from the MESAC retrofit crosswalks. PRELIMINARY - NOT RELEASED FOR WIRING.</informations>
     <description>
-        <rect x="-165.0" y="-46.0" width="330" height="92" rx="0" ry="0" antialias="false" style="line-style:normal;line-weight:normal;filling:none;color:#0078a8" />
-        <line x1="-165.0" y1="-20.0" x2="165.0" y2="-20.0" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:normal;filling:none;color:#0078a8" antialias="false" />
-        <text text="7i84U-A TB3" x="-157.0" y="-28.0" rotation="0" font="Liberation Sans,8,-1,5,75,0,0,0,0,0,Bold" color="#0078a8" />
-        <text text="IN10 | IN10 | servo-fault | FV" x="-157.0" y="-1.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
-        <terminal uuid="{ad55543f-7d9b-5d61-af51-3b7471477b3b}" name="IN10" x="-165.0" y="-4.0" orientation="w" type="Generic" />
-        <text text="IN3 | IN3 | spindle-tool-avail | FV" x="-157.0" y="19.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
-        <terminal uuid="{b4263ac0-a19f-5afe-9d21-69f46c8f36c0}" name="IN3" x="-165.0" y="16.0" orientation="w" type="Generic" />
+        <rect x="-165.0" y="-40.0" width="330" height="80" rx="0" ry="0" antialias="false" style="line-style:normal;line-weight:normal;filling:none;color:#0078a8" />
+        <line x1="-165.0" y1="-14.0" x2="165.0" y2="-14.0" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:normal;filling:none;color:#0078a8" antialias="false" />
+        <text text="7i84U-A TB3" x="-157.0" y="-22.0" rotation="0" font="Liberation Sans,8,-1,5,75,0,0,0,0,0,Bold" color="#0078a8" />
+        <text text="IN3 | IN3 | spindle-tool-avail | FV" x="-157.0" y="5.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+        <terminal uuid="{b4263ac0-a19f-5afe-9d21-69f46c8f36c0}" name="IN3" x="-165.0" y="2.0" orientation="w" type="Generic" />
     </description>
 </definition>

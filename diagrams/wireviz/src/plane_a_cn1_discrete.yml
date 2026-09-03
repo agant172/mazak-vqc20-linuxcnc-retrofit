@@ -18,17 +18,14 @@ connectors:
     - 2
     - 3
     - 4
-    - 5
     - 14
     pinlabels:
     - 208 | TOOL_UNCLAMP_OK | FV
     - 209 | TOOL_CLAMP_OK | FV
     - 210 | GEAR_HI_OK | FV
     - 212 | GEAR_LO_OK | FV
-    - 232 | COOLANT_LOW | FV
     - '*DECZ | Z_HOME | FV'
     pincolors: &id001
-    - YE
     - YE
     - YE
     - YE
@@ -52,8 +49,6 @@ connectors:
     - M04
     - F05
     - M05
-    - F06
-    - M06
     pinlabels:
     - F | TOOL_UNCLAMP_OK
     - M | TOOL_UNCLAMP_OK
@@ -63,13 +58,9 @@ connectors:
     - M | GEAR_HI_OK
     - F | GEAR_LO_OK
     - M | GEAR_LO_OK
-    - F | COOLANT_LOW
-    - M | COOLANT_LOW
     - F | Z_HOME
     - M | Z_HOME
     pincolors:
-    - YE
-    - YE
     - YE
     - YE
     - YE
@@ -91,14 +82,11 @@ connectors:
     - IN16
     - IN17
     - IN18
-    - IN26
     pinlabels:
     - IN16 | tool-unclamped | FV
     - IN17 | gear-hi-conf | FV
     - IN18 | gear-lo-conf | FV
-    - IN26 | coolant-low | FV
     pincolors:
-    - YE
     - YE
     - YE
     - YE
@@ -136,13 +124,12 @@ connectors:
 cables:
   OEM_CONDUCTORS:
     type: Existing OEM conductor segments
-    wirecount: 6
+    wirecount: 5
     wirelabels:
     - 208 | TOOL_UNCLAMP_OK
     - 209 | TOOL_CLAMP_OK
     - 210 | GEAR_HI_OK
     - 212 | GEAR_LO_OK
-    - 232 | COOLANT_LOW
     - '*DECZ | Z_HOME'
     colors: *id001
     show_wirecount: false
@@ -151,13 +138,12 @@ cables:
     ignore_in_bom: true
   NEW_CONTROL_WIRING:
     type: New control-side conductors
-    wirecount: 6
+    wirecount: 5
     wirelabels:
     - TOOL_UNCLAMP_OK | tool-unclamped
     - TOOL_CLAMP_OK | tool-clamped
     - GEAR_HI_OK | gear-hi-conf
     - GEAR_LO_OK | gear-lo-conf
-    - COOLANT_LOW | coolant-low
     - Z_HOME | home-z
     colors: *id001
     show_wirecount: false
@@ -170,7 +156,6 @@ connections:
     - 2
     - 3
     - 4
-    - 5
     - 14
   - OEM_CONDUCTORS:
     - 1
@@ -178,29 +163,24 @@ connections:
     - 3
     - 4
     - 5
-    - 6
   - IR_BOUNDARY:
     - F01
     - F02
     - F03
     - F04
     - F05
-    - F06
 - - IR_BOUNDARY:
     - M01
     - M03
     - M04
-    - M05
   - NEW_CONTROL_WIRING:
     - 1
     - 3
     - 4
-    - 5
   - 7i84U-A_TB2:
     - IN16
     - IN17
     - IN18
-    - IN26
 - - IR_BOUNDARY:
     - M02
   - NEW_CONTROL_WIRING:
@@ -208,8 +188,8 @@ connections:
   - 7i84U-A_TB3:
     - IN15
 - - IR_BOUNDARY:
-    - M06
+    - M05
   - NEW_CONTROL_WIRING:
-    - 6
+    - 5
   - 7i84U-B_TB3:
     - IN8

@@ -1,11 +1,11 @@
 {
   "generated_by": "scripts/generate_wireviz_diagrams.py",
   "inputs": {
-    "wiring/plane_a_bbia1_pin_crosswalk.csv": "4b5f9aa3aafa2b230e157cc9cefc30749922e4deafdd3fac4f5f7731faa3d77c",
+    "wiring/plane_a_bbia1_pin_crosswalk.csv": "e70ac272b02956339ccb9bc50d9e8a7ceb3ce3a17a5ea5a770e707b2b412c50c",
     "wiring/plane_b_pin_crosswalk.csv": "94bc1337dc0ec7cb8773fc4b9957df362e256c530ba62028d145be1baf40a5fe"
   },
   "plane_a_accounted_pins": 320,
-  "plane_a_diagrammed_routes": 49,
+  "plane_a_diagrammed_routes": 42,
   "plane_b_cross_plane_reference_rows": 3,
   "plane_b_diagrammed_rows": 35,
   "plane_b_rows": 38,
@@ -29,42 +29,41 @@
       "source_file": "src/00_interface_overview.yml"
     },
     {
-      "routes": 6,
+      "routes": 5,
       "sheet": "Plane A - BBIA-1 CN1 discrete routes",
       "source": "wiring/plane_a_bbia1_pin_crosswalk.csv",
       "source_file": "src/plane_a_cn1_discrete.yml",
       "statuses": {
-        "ROUTE_DEFINED_FIELD_VERIFY": 6
+        "ROUTE_DEFINED_FIELD_VERIFY": 5
       }
     },
     {
-      "routes": 14,
+      "routes": 13,
       "sheet": "Plane A - BBIA-1 CN2 discrete routes",
       "source": "wiring/plane_a_bbia1_pin_crosswalk.csv",
       "source_file": "src/plane_a_cn2_discrete.yml",
       "statuses": {
         "HOLD_RESERVED": 1,
-        "ROUTE_DEFINED_FIELD_VERIFY": 13
+        "ROUTE_DEFINED_FIELD_VERIFY": 12
       }
     },
     {
-      "routes": 6,
+      "routes": 4,
       "sheet": "Plane A - BBIA-1 CN3 discrete routes",
       "source": "wiring/plane_a_bbia1_pin_crosswalk.csv",
       "source_file": "src/plane_a_cn3_discrete.yml",
       "statuses": {
-        "HOLD_OEM_CONFLICT": 2,
         "ROUTE_DEFINED_FIELD_VERIFY": 4
       }
     },
     {
-      "routes": 5,
+      "routes": 4,
       "sheet": "Plane A - BBIA-1 CN4 discrete routes",
       "source": "wiring/plane_a_bbia1_pin_crosswalk.csv",
       "source_file": "src/plane_a_cn4_discrete.yml",
       "statuses": {
         "HOLD_OEM_CONFLICT": 1,
-        "ROUTE_DEFINED_FIELD_VERIFY": 4
+        "ROUTE_DEFINED_FIELD_VERIFY": 3
       }
     },
     {
@@ -77,23 +76,23 @@
       }
     },
     {
-      "routes": 5,
+      "routes": 4,
       "sheet": "Plane A - BBIA-1 CN6 discrete routes",
       "source": "wiring/plane_a_bbia1_pin_crosswalk.csv",
       "source_file": "src/plane_a_cn6_discrete.yml",
       "statuses": {
         "HOLD_RESERVED": 1,
-        "ROUTE_DEFINED_FIELD_VERIFY": 4
+        "ROUTE_DEFINED_FIELD_VERIFY": 3
       }
     },
     {
-      "routes": 8,
+      "routes": 7,
       "sheet": "Plane A - BBIA-1 CN11 discrete routes",
       "source": "wiring/plane_a_bbia1_pin_crosswalk.csv",
       "source_file": "src/plane_a_cn11_discrete.yml",
       "statuses": {
         "HOLD_RESERVED": 1,
-        "ROUTE_DEFINED_FIELD_VERIFY": 7
+        "ROUTE_DEFINED_FIELD_VERIFY": 6
       }
     },
     {

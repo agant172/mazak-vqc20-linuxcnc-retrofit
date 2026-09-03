@@ -39,16 +39,6 @@ graph {
     <td port="p2r">8</td>
    </tr>
    <tr>
-    <td>SER | SERVO_FAULT | FV</td>
-    <td sides="tbl">YE</td>
-    <td sides="tbr">
-     <table border="0" cellborder="1"><tr>
-      <td bgcolor="#FFFF00" width="8" height="8" fixedsize="true"></td>
-     </tr></table>
-    </td>
-    <td port="p3r">27</td>
-   </tr>
-   <tr>
     <td>355 | LUBE_OK | FV</td>
     <td sides="tbl">YE</td>
     <td sides="tbr">
@@ -56,7 +46,7 @@ graph {
       <td bgcolor="#FFFF00" width="8" height="8" fixedsize="true"></td>
      </tr></table>
     </td>
-    <td port="p4r">39</td>
+    <td port="p3r">39</td>
    </tr>
    <tr>
     <td>382 | SPINDLE_TOOL_AVAILABLE | FV</td>
@@ -66,7 +56,7 @@ graph {
       <td bgcolor="#FFFF00" width="8" height="8" fixedsize="true"></td>
      </tr></table>
     </td>
-    <td port="p5r">50</td>
+    <td port="p4r">50</td>
    </tr>
   </table>
  </td></tr>
@@ -137,7 +127,7 @@ graph {
    </tr>
    <tr>
     <td port="p5l">F03</td>
-    <td>F | SERVO_FAULT</td>
+    <td>F | LUBE_OK</td>
     <td sides="tbl">YE</td>
     <td sides="tbr">
      <table border="0" cellborder="1"><tr>
@@ -148,7 +138,7 @@ graph {
    </tr>
    <tr>
     <td port="p6l">M03</td>
-    <td>M | SERVO_FAULT</td>
+    <td>M | LUBE_OK</td>
     <td sides="tbl">YE</td>
     <td sides="tbr">
      <table border="0" cellborder="1"><tr>
@@ -159,7 +149,7 @@ graph {
    </tr>
    <tr>
     <td port="p7l">F04</td>
-    <td>F | LUBE_OK</td>
+    <td>F | SPINDLE_TOOL_AVAILABLE</td>
     <td sides="tbl">YE</td>
     <td sides="tbr">
      <table border="0" cellborder="1"><tr>
@@ -170,28 +160,6 @@ graph {
    </tr>
    <tr>
     <td port="p8l">M04</td>
-    <td>M | LUBE_OK</td>
-    <td sides="tbl">YE</td>
-    <td sides="tbr">
-     <table border="0" cellborder="1"><tr>
-      <td bgcolor="#FFFF00" width="8" height="8" fixedsize="true"></td>
-     </tr></table>
-    </td>
-    <td port="p8r">M04</td>
-   </tr>
-   <tr>
-    <td port="p9l">F05</td>
-    <td>F | SPINDLE_TOOL_AVAILABLE</td>
-    <td sides="tbl">YE</td>
-    <td sides="tbr">
-     <table border="0" cellborder="1"><tr>
-      <td bgcolor="#FFFF00" width="8" height="8" fixedsize="true"></td>
-     </tr></table>
-    </td>
-    <td port="p9r">F05</td>
-   </tr>
-   <tr>
-    <td port="p10l">M05</td>
     <td>M | SPINDLE_TOOL_AVAILABLE</td>
     <td sides="tbl">YE</td>
     <td sides="tbr">
@@ -199,7 +167,7 @@ graph {
       <td bgcolor="#FFFF00" width="8" height="8" fixedsize="true"></td>
      </tr></table>
     </td>
-    <td port="p10r">M05</td>
+    <td port="p8r">M04</td>
    </tr>
   </table>
  </td></tr>
@@ -301,17 +269,7 @@ graph {
  <tr><td>
   <table border="0" cellspacing="0" cellpadding="1" cellborder="1">
    <tr>
-    <td port="p1l">IN10</td>
-    <td>IN10 | servo-fault | FV</td>
-    <td sides="tbl">YE</td>
-    <td sides="tbr">
-     <table border="0" cellborder="1"><tr>
-      <td bgcolor="#FFFF00" width="8" height="8" fixedsize="true"></td>
-     </tr></table>
-    </td>
-   </tr>
-   <tr>
-    <td port="p2l">IN3</td>
+    <td port="p1l">IN3</td>
     <td>IN3 | spindle-tool-avail | FV</td>
     <td sides="tbl">YE</td>
     <td sides="tbr">
@@ -341,9 +299,6 @@ graph {
 	edge [color="#000000:#ffff00:#000000"]
 	CN6:p4r:e -- OEM_CONDUCTORS:w4:w
 	OEM_CONDUCTORS:w4:e -- IR_BOUNDARY:p7l:w
-	edge [color="#000000:#ffff00:#000000"]
-	CN6:p5r:e -- OEM_CONDUCTORS:w5:w
-	OEM_CONDUCTORS:w5:e -- IR_BOUNDARY:p9l:w
 	OEM_CONDUCTORS [label=<
 <table border="0" cellspacing="0" cellpadding="0">
  <tr><td>
@@ -392,11 +347,11 @@ graph {
     </td>
    </tr>
    <tr>
-    <td>CN6:27:SER | SERVO_FAULT | FV</td>
+    <td>CN6:39:355 | LUBE_OK | FV</td>
     <td>
-     3:YE:SER | SERVO_FAULT
+     3:YE:355 | LUBE_OK
     </td>
-    <td>IR_BOUNDARY:F03:F | SERVO_FAULT</td>
+    <td>IR_BOUNDARY:F03:F | LUBE_OK</td>
    </tr>
    <tr>
     <td colspan="3" border="0" cellspacing="0" cellpadding="0" port="w3" height="6">
@@ -408,30 +363,14 @@ graph {
     </td>
    </tr>
    <tr>
-    <td>CN6:39:355 | LUBE_OK | FV</td>
+    <td>CN6:50:382 | SPINDLE_TOOL_AVAILABLE | FV</td>
     <td>
-     4:YE:355 | LUBE_OK
+     4:YE:382 | SPINDLE_TOOL_AVAILABLE
     </td>
-    <td>IR_BOUNDARY:F04:F | LUBE_OK</td>
+    <td>IR_BOUNDARY:F04:F | SPINDLE_TOOL_AVAILABLE</td>
    </tr>
    <tr>
     <td colspan="3" border="0" cellspacing="0" cellpadding="0" port="w4" height="6">
-     <table cellspacing="0" cellborder="0" border="0">
-      <tr><td colspan="3" cellpadding="0" height="2" bgcolor="#000000" border="0"></td></tr>
-      <tr><td colspan="3" cellpadding="0" height="2" bgcolor="#ffff00" border="0"></td></tr>
-      <tr><td colspan="3" cellpadding="0" height="2" bgcolor="#000000" border="0"></td></tr>
-     </table>
-    </td>
-   </tr>
-   <tr>
-    <td>CN6:50:382 | SPINDLE_TOOL_AVAILABLE | FV</td>
-    <td>
-     5:YE:382 | SPINDLE_TOOL_AVAILABLE
-    </td>
-    <td>IR_BOUNDARY:F05:F | SPINDLE_TOOL_AVAILABLE</td>
-   </tr>
-   <tr>
-    <td colspan="3" border="0" cellspacing="0" cellpadding="0" port="w5" height="6">
      <table cellspacing="0" cellborder="0" border="0">
       <tr><td colspan="3" cellpadding="0" height="2" bgcolor="#000000" border="0"></td></tr>
       <tr><td colspan="3" cellpadding="0" height="2" bgcolor="#ffff00" border="0"></td></tr>
@@ -453,17 +392,14 @@ graph {
 	IR_BOUNDARY:p2r:e -- NEW_CONTROL_WIRING:w1:w
 	NEW_CONTROL_WIRING:w1:e -- "7i84U-A_TB2":p1l:w
 	edge [color="#000000:#ffff00:#000000"]
-	IR_BOUNDARY:p8r:e -- NEW_CONTROL_WIRING:w4:w
-	NEW_CONTROL_WIRING:w4:e -- "7i84U-A_TB2":p2l:w
+	IR_BOUNDARY:p6r:e -- NEW_CONTROL_WIRING:w3:w
+	NEW_CONTROL_WIRING:w3:e -- "7i84U-A_TB2":p2l:w
 	edge [color="#000000:#ff0000:#000000"]
 	IR_BOUNDARY:p4r:e -- NEW_CONTROL_WIRING:w2:w
 	NEW_CONTROL_WIRING:w2:e -- "7i84U-B_TB2":p1l:w
 	edge [color="#000000:#ffff00:#000000"]
-	IR_BOUNDARY:p6r:e -- NEW_CONTROL_WIRING:w3:w
-	NEW_CONTROL_WIRING:w3:e -- "7i84U-A_TB3":p1l:w
-	edge [color="#000000:#ffff00:#000000"]
-	IR_BOUNDARY:p10r:e -- NEW_CONTROL_WIRING:w5:w
-	NEW_CONTROL_WIRING:w5:e -- "7i84U-A_TB3":p2l:w
+	IR_BOUNDARY:p8r:e -- NEW_CONTROL_WIRING:w4:w
+	NEW_CONTROL_WIRING:w4:e -- "7i84U-A_TB3":p1l:w
 	NEW_CONTROL_WIRING [label=<
 <table border="0" cellspacing="0" cellpadding="0">
  <tr><td>
@@ -512,11 +448,11 @@ graph {
     </td>
    </tr>
    <tr>
-    <td>IR_BOUNDARY:M03:M | SERVO_FAULT</td>
+    <td>IR_BOUNDARY:M03:M | LUBE_OK</td>
     <td>
-     3:YE:SERVO_FAULT | servo-fault
+     3:YE:LUBE_OK | lube-ok
     </td>
-    <td>7i84U-A_TB3:IN10:IN10 | servo-fault | FV</td>
+    <td>7i84U-A_TB2:IN25:IN25 | lube-ok | FV</td>
    </tr>
    <tr>
     <td colspan="3" border="0" cellspacing="0" cellpadding="0" port="w3" height="6">
@@ -528,30 +464,14 @@ graph {
     </td>
    </tr>
    <tr>
-    <td>IR_BOUNDARY:M04:M | LUBE_OK</td>
+    <td>IR_BOUNDARY:M04:M | SPINDLE_TOOL_AVAILABLE</td>
     <td>
-     4:YE:LUBE_OK | lube-ok
-    </td>
-    <td>7i84U-A_TB2:IN25:IN25 | lube-ok | FV</td>
-   </tr>
-   <tr>
-    <td colspan="3" border="0" cellspacing="0" cellpadding="0" port="w4" height="6">
-     <table cellspacing="0" cellborder="0" border="0">
-      <tr><td colspan="3" cellpadding="0" height="2" bgcolor="#000000" border="0"></td></tr>
-      <tr><td colspan="3" cellpadding="0" height="2" bgcolor="#ffff00" border="0"></td></tr>
-      <tr><td colspan="3" cellpadding="0" height="2" bgcolor="#000000" border="0"></td></tr>
-     </table>
-    </td>
-   </tr>
-   <tr>
-    <td>IR_BOUNDARY:M05:M | SPINDLE_TOOL_AVAILABLE</td>
-    <td>
-     5:YE:SPINDLE_TOOL_AVAILABLE | spindle-tool-avail
+     4:YE:SPINDLE_TOOL_AVAILABLE | spindle-tool-avail
     </td>
     <td>7i84U-A_TB3:IN3:IN3 | spindle-tool-avail | FV</td>
    </tr>
    <tr>
-    <td colspan="3" border="0" cellspacing="0" cellpadding="0" port="w5" height="6">
+    <td colspan="3" border="0" cellspacing="0" cellpadding="0" port="w4" height="6">
      <table cellspacing="0" cellborder="0" border="0">
       <tr><td colspan="3" cellpadding="0" height="2" bgcolor="#000000" border="0"></td></tr>
       <tr><td colspan="3" cellpadding="0" height="2" bgcolor="#ffff00" border="0"></td></tr>

@@ -45,7 +45,7 @@ connectors:
     pins:
     - IN15
     pinlabels:
-    - IN15 | PROBE_SKIP1_CAND | HOLD
+    - IN15 | probe-in | HOLD
     pincolors:
     - RD
     hide_disconnected_pins: true
@@ -68,7 +68,7 @@ cables:
     type: New control-side conductors
     wirecount: 1
     wirelabels:
-    - PROBE_SKIP1_CAND | TBD
+    - PROBE_SKIP1_CAND | probe-in
     colors: *id001
     show_wirecount: false
     notes: See crosswalk source.

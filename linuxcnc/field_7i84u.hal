@@ -51,13 +51,15 @@ net thermal-alarm      <= hm2_7i80.0.7i84.0.0.input-08   # IN8  X073 THR.M + X07
 # documentation. Bench-verify the actual ALM contact behavior against the amp
 # BEFORE these inputs are wired into the safety chain. See
 # docs/superseded_claims_2026-08-06.md #16.
-# Owner decision 2026-08-11: the OEM servo-error output (SER, CN6-27) is a
-# SINGLE combined contact for all three axes, not one alarm per axis (only one
-# SER line exists on the 50-pin CN6). It is read on IN10 and fans out to every
-# axis's OR gate below, so any servo amp fault trips all three joints. IN11 and
-# IN12 are freed to spare. Each axis still ORs this shared alarm with its own
-# resolver fault before reaching that joint's amp-fault-in.
-net servo-fault        <= hm2_7i80.0.7i84.0.0.input-10   # IN10 CN6-27 SER combined servo ALM (all axes)
+# Owner decision 2026-08-11 kept the SINGLE combined servo-alarm design: one
+# input (IN10) fans out to every axis's OR gate below, so any servo amp fault
+# trips all three joints; IN11/IN12 stay spare. 2026-09-02 AUDIT: the claimed
+# OEM source (CN6-27 "SER") was a misread - that pin is SFR SPINDLE FORWARD
+# and no SER line exists on CN6 (p85 + photo_survey_misc agree). SOURCE
+# UNLOCATED: land IN10 from the HD81/HD101 amp ALM contacts (or another real
+# combined-alarm point) after the bench trace - do NOT land CN6-27. Each axis
+# still ORs this shared alarm with its own resolver fault before amp-fault-in.
+net servo-fault        <= hm2_7i80.0.7i84.0.0.input-10   # IN10 combined servo ALM - SOURCE UNLOCATED, see note above
 net servo-fault        => resolver-fault-x.in0
 net servo-fault        => resolver-fault-y.in0
 net servo-fault        => resolver-fault-z.in0
@@ -80,7 +82,7 @@ net tool-unclamped     <= hm2_7i80.0.7i84.0.0.input-16   # IN16 PRS-8 tool-uncla
 # --- IN24..IN27  (safety chain + utility, TB2 pins 9-12) ---
 net door-interlock     <= hm2_7i80.0.7i84.0.0.input-24   # IN24 LS-140+LS-141+X01D ITMDSS series NC
 net lube-ok            <= hm2_7i80.0.7i84.0.0.input-25   # IN25 PS-5 wire 355 / X079 HLP.M; sole head-lube pressure switch
-net coolant-low        <= hm2_7i80.0.7i84.0.0.input-26   # IN26 coolant level (polarity TBD)
+net coolant-low        <= hm2_7i80.0.7i84.0.0.input-26   # IN26 coolant level - SOURCE UNLOCATED (2026-09-02 audit: CN1-5 is the 2nd -Z over-travel, not a level switch; find the tank float conductor before landing)
 # IN27 hydraulic-ok netted in atc_orient.hal.
 
 # --- IN28..IN31  (magazine + panel + estop monitor, TB2 pins 13-16) ---

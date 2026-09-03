@@ -1,29 +1,27 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<definition version="0.100.0" type="element" link_type="simple" width="350" height="232" hotspot_x="175" hotspot_y="116">
+<definition version="0.100.0" type="element" link_type="simple" width="350" height="212" hotspot_x="175" hotspot_y="106">
     <uuid uuid="{3b5af112-285f-532f-b4e9-660c5e5e5bae}" />
     <names>
         <name lang="en">BBIA-1 CN11 machine-facing connector</name>
     </names>
     <informations>Generated from the MESAC retrofit crosswalks. PRELIMINARY - NOT RELEASED FOR WIRING.</informations>
     <description>
-        <rect x="-165.0" y="-106.0" width="330" height="212" rx="0" ry="0" antialias="false" style="line-style:normal;line-weight:normal;filling:none;color:#0078a8" />
-        <line x1="-165.0" y1="-80.0" x2="165.0" y2="-80.0" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:normal;filling:none;color:#0078a8" antialias="false" />
-        <text text="BBIA-1 CN11 machine-facing connector" x="-157.0" y="-88.0" rotation="0" font="Liberation Sans,8,-1,5,75,0,0,0,0,0,Bold" color="#0078a8" />
-        <text text="3 | 710 | TOOL_UNCLAMP_SOL | FV" x="4" y="-61.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
-        <terminal uuid="{c38fb5e0-2a46-57af-bb6e-3402e637ae8a}" name="3" x="165.0" y="-64.0" orientation="e" type="Generic" />
-        <text text="4 | 712 | GEAR_HI_SOL | FV" x="4" y="-41.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
-        <terminal uuid="{f820f6a5-bfa1-58ad-8c66-bbe5279385ff}" name="4" x="165.0" y="-44.0" orientation="e" type="Generic" />
-        <text text="5 | 213 | GEAR_LO_SOL | FV" x="4" y="-21.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
-        <terminal uuid="{b9c09c1c-f9b3-5a6a-8ae8-376923c53781}" name="5" x="165.0" y="-24.0" orientation="e" type="Generic" />
-        <text text="6 | 215 | AIR_BLAST | FV" x="4" y="-1.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
-        <terminal uuid="{afb33634-261f-51c0-9e19-127784aa18e0}" name="6" x="165.0" y="-4.0" orientation="e" type="Generic" />
-        <text text="7 | 216 | WORK_AIR_BLAST | HOLD" x="4" y="19.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#d00000" />
-        <terminal uuid="{fa1df25b-4d93-5186-af07-6addca656f43}" name="7" x="165.0" y="16.0" orientation="e" type="Generic" />
-        <text text="13 | 231 | FLOOD_VALVE | FV" x="4" y="39.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
-        <terminal uuid="{20a9b0fd-3aba-528d-99d1-2bc8600d1154}" name="13" x="165.0" y="36.0" orientation="e" type="Generic" />
-        <text text="15 | 236 | COOLANT_ON | FV" x="4" y="59.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
-        <terminal uuid="{eb801789-8073-5f16-ba83-a25ff2727101}" name="15" x="165.0" y="56.0" orientation="e" type="Generic" />
-        <text text="16 | 235 | HYD_PUMP_ON | FV" x="4" y="79.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
-        <terminal uuid="{7d28799b-797f-5c4f-896e-00aeaad6966e}" name="16" x="165.0" y="76.0" orientation="e" type="Generic" />
+        <rect x="-165.0" y="-96.0" width="330" height="192" rx="0" ry="0" antialias="false" style="line-style:normal;line-weight:normal;filling:none;color:#0078a8" />
+        <line x1="-165.0" y1="-70.0" x2="165.0" y2="-70.0" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:normal;filling:none;color:#0078a8" antialias="false" />
+        <text text="BBIA-1 CN11 machine-facing connector" x="-157.0" y="-78.0" rotation="0" font="Liberation Sans,8,-1,5,75,0,0,0,0,0,Bold" color="#0078a8" />
+        <text text="3 | 710 | TOOL_UNCLAMP_SOL | FV" x="4" y="-51.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+        <terminal uuid="{c38fb5e0-2a46-57af-bb6e-3402e637ae8a}" name="3" x="165.0" y="-54.0" orientation="e" type="Generic" />
+        <text text="4 | 712 | GEAR_HI_SOL | FV" x="4" y="-31.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+        <terminal uuid="{f820f6a5-bfa1-58ad-8c66-bbe5279385ff}" name="4" x="165.0" y="-34.0" orientation="e" type="Generic" />
+        <text text="5 | 713 | GEAR_LO_SOL | FV" x="4" y="-11.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+        <terminal uuid="{b9c09c1c-f9b3-5a6a-8ae8-376923c53781}" name="5" x="165.0" y="-14.0" orientation="e" type="Generic" />
+        <text text="6 | 715 | AIR_BLAST | FV" x="4" y="9.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+        <terminal uuid="{afb33634-261f-51c0-9e19-127784aa18e0}" name="6" x="165.0" y="6.0" orientation="e" type="Generic" />
+        <text text="7 | 716 | WORK_AIR_BLAST | HOLD" x="4" y="29.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#d00000" />
+        <terminal uuid="{fa1df25b-4d93-5186-af07-6addca656f43}" name="7" x="165.0" y="26.0" orientation="e" type="Generic" />
+        <text text="13 | 731 | FLOOD_VALVE | FV" x="4" y="49.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+        <terminal uuid="{20a9b0fd-3aba-528d-99d1-2bc8600d1154}" name="13" x="165.0" y="46.0" orientation="e" type="Generic" />
+        <text text="16 | 835 | HYD_PUMP_ON | FV" x="4" y="69.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+        <terminal uuid="{7d28799b-797f-5c4f-896e-00aeaad6966e}" name="16" x="165.0" y="66.0" orientation="e" type="Generic" />
     </description>
 </definition>

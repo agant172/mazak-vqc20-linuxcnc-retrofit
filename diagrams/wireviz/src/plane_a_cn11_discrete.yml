@@ -20,24 +20,21 @@ connectors:
     - 6
     - 7
     - 13
-    - 15
     - 16
     pinlabels:
     - 710 | TOOL_UNCLAMP_SOL | FV
     - 712 | GEAR_HI_SOL | FV
-    - 213 | GEAR_LO_SOL | FV
-    - 215 | AIR_BLAST | FV
-    - 216 | WORK_AIR_BLAST | HOLD
-    - 231 | FLOOD_VALVE | FV
-    - 236 | COOLANT_ON | FV
-    - 235 | HYD_PUMP_ON | FV
+    - 713 | GEAR_LO_SOL | FV
+    - 715 | AIR_BLAST | FV
+    - 716 | WORK_AIR_BLAST | HOLD
+    - 731 | FLOOD_VALVE | FV
+    - 835 | HYD_PUMP_ON | FV
     pincolors: &id001
     - YE
     - YE
     - YE
     - YE
     - RD
-    - YE
     - YE
     - YE
     hide_disconnected_pins: true
@@ -62,8 +59,6 @@ connectors:
     - M06
     - F07
     - M07
-    - F08
-    - M08
     pinlabels:
     - F | TOOL_UNCLAMP_SOL
     - M | TOOL_UNCLAMP_SOL
@@ -77,8 +72,6 @@ connectors:
     - M | WORK_AIR_BLAST
     - F | FLOOD_VALVE
     - M | FLOOD_VALVE
-    - F | COOLANT_ON
-    - M | COOLANT_ON
     - F | HYD_PUMP_ON
     - M | HYD_PUMP_ON
     pincolors:
@@ -96,8 +89,6 @@ connectors:
     - YE
     - YE
     - YE
-    - YE
-    - YE
     hide_disconnected_pins: true
     show_pincount: false
     bgcolor_title: YE
@@ -108,13 +99,10 @@ connectors:
     pins:
     - OUT10
     - OUT8
-    - OUT11
     pinlabels:
     - OUT10 | tool-unclamp-sol | FV
     - OUT8 | gear-lo-sol | FV
-    - OUT11 | flood-coolant | FV
     pincolors:
-    - YE
     - YE
     - YE
     hide_disconnected_pins: true
@@ -160,16 +148,15 @@ connectors:
 cables:
   OEM_CONDUCTORS:
     type: Existing OEM conductor segments
-    wirecount: 8
+    wirecount: 7
     wirelabels:
     - 710 | TOOL_UNCLAMP_SOL
     - 712 | GEAR_HI_SOL
-    - 213 | GEAR_LO_SOL
-    - 215 | AIR_BLAST
-    - 216 | WORK_AIR_BLAST
-    - 231 | FLOOD_VALVE
-    - 236 | COOLANT_ON
-    - 235 | HYD_PUMP_ON
+    - 713 | GEAR_LO_SOL
+    - 715 | AIR_BLAST
+    - 716 | WORK_AIR_BLAST
+    - 731 | FLOOD_VALVE
+    - 835 | HYD_PUMP_ON
     colors: *id001
     show_wirecount: false
     notes: See crosswalk source.
@@ -177,7 +164,7 @@ cables:
     ignore_in_bom: true
   NEW_CONTROL_WIRING:
     type: New control-side conductors
-    wirecount: 8
+    wirecount: 7
     wirelabels:
     - TOOL_UNCLAMP_SOL | tool-unclamp-sol
     - GEAR_HI_SOL | gear-hi-sol
@@ -185,7 +172,6 @@ cables:
     - AIR_BLAST | air-blast
     - WORK_AIR_BLAST | TBD
     - FLOOD_VALVE | flood-valve
-    - COOLANT_ON | flood-coolant
     - HYD_PUMP_ON | hyd-pump-on
     colors: *id001
     show_wirecount: false
@@ -200,7 +186,6 @@ connections:
     - 6
     - 7
     - 13
-    - 15
     - 16
   - OEM_CONDUCTORS:
     - 1
@@ -210,7 +195,6 @@ connections:
     - 5
     - 6
     - 7
-    - 8
   - IR_BOUNDARY:
     - F01
     - F02
@@ -219,25 +203,21 @@ connections:
     - F05
     - F06
     - F07
-    - F08
 - - IR_BOUNDARY:
     - M01
     - M03
-    - M07
   - NEW_CONTROL_WIRING:
     - 1
     - 3
-    - 7
   - 7i84U-A_TB2:
     - OUT10
     - OUT8
-    - OUT11
 - - IR_BOUNDARY:
     - M02
-    - M08
+    - M07
   - NEW_CONTROL_WIRING:
     - 2
-    - 8
+    - 7
   - 7i84U-A_TB3:
     - OUT7
     - OUT3

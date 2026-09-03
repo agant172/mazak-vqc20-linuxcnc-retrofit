@@ -94,24 +94,19 @@ CN_PINOUTS_PATH = REPO_ROOT / "wiring" / "bbia1_cn_pinouts.csv"
 # sit on pins the retrofit has not claimed yet.  Expect more as the plane
 # fills, and add them with a citation rather than editing data.
 OEM_REUSED_WIRES = {
-    "231": "231 appears at CN4-1 SPINDLE ZERO SPEED (spindle sense) and CN11-13 "
-           "FLOOD COOLANT (PLC output). The CN11-13 half is corroborated by the "
-           "SSR board's 731 (+500 pattern); the CN4-1 half is CONTESTED -- dwg "
-           "4143075407 pg133 puts zero speed at wire 143 / CN3-4 and the pinout "
-           "carries that row too. OPEN, field trace required: read the jacket at "
-           "CN4-1 and CN3-4. See wiring/authority_conflicts.md sec 7.1.",
+    # Emptied 2026-09-02: the "231 reuse" dissolved with the 7->2 misread
+    # family (CN11-13 is wire 731; CN4-1 is ZS1). See authority_conflicts
+    # sec 7.5.
 }
 
 # Plane rows whose factory_wire disagrees with the OEM pinout at that
 # connector/pin, where the disagreement is a known documentation-vs-
 # documentation conflict awaiting a field trace -- not a data-entry bug.
 KNOWN_PLANE_CONFLICTS = {
-    "ATC_ZONE_Y": "dwg 4143075409 pg135 puts +LY2 (2nd +Y over travel, PRS-55) "
-                  "at CN3-44; the terminal-unit pinout puts SPTD SPINDLE TIMER "
-                  "there. See wiring/authority_conflicts.md sec 7.2.",
-    "ATC_ZONE_Z": "dwg 4143075409 pg135 puts -LZ2 (2nd -Z over travel, PRS-66) "
-                  "at CN3-39; the terminal-unit pinout puts 147 OIL TEMP "
-                  "DETECTOR there. See wiring/authority_conflicts.md sec 7.2.",
+    # Emptied 2026-09-02: sec 7.2 dissolved as a citation defect (pg135 puts
+    # +LY2 at CN2-14 and -LZ2 at CN1-5; CN3-39/44 are the tool-detector
+    # stage). ATC_ZONE_Y/Z BBIA landings cleared in the authority. See
+    # authority_conflicts sec 7.5.
 }
 
 AUTHORITY_STATES = {

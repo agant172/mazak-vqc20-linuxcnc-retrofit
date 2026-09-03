@@ -2,7 +2,7 @@
 
 **Machine:** Mazak VQC-20/40, SN 060231 (Mazatrol M-1)
 **Board:** BBIA-1 terminal unit (Mitsubishi BN624A306H01, "YM VQC-20-40/50")
-**Source:** `41434WB.pdf` — Terminal-Unit Details, drawings 4143075321 / 4113075022 / 4143015323 (sheets 84–86); confirmed against drawing 4143075304 sheet 04 (terminal-unit layout) and drawing 4143175309 sheet 78 (SSR board, CN11-SSR/CN12).
+**Source:** `41434WB.pdf` — Terminal-Unit Details, drawings 4143075321 / 4143075322 / 4143075323 (sheets 84–86); confirmed against drawing 4143075304 sheet 04 (terminal-unit layout) and drawing 4143175309 sheet 78 (SSR board, CN11-SSR/CN12).
 **See also:** [`bbia1_terminal_unit.md`](bbia1_terminal_unit.md) for the board's role in the Mesa retrofit, [`bbia1_cn_pinouts.csv`](bbia1_cn_pinouts.csv) for the machine-readable pin list.
 
 ## "Honda" family in this cabinet
@@ -33,18 +33,18 @@ So the connectors you're cutting off are HTK **MR-50** (50-pin) and **MR-20** (2
 | CN12 | MR-20 (SSR bd, MR20-AMD) | 9 populated | The SSR board's **second** connector (same drawing 4143175309/p78) — 2PC/pallet-changer output bank; wire numbers read (722A/722B/724/725A/725B/782A/782B/787A/787B on pins 1-9), **function-per-pin not yet determined** (the sheet's pallet-function key uses a separate 21-33 terminal-strip numbering that hasn't been reconciled to CN12's 1-20 connector-pin numbering) |
 
 **Note on CN11 — RESOLVED 2026-08-10, CORRECTED 2026-08-10.** There really are two things called "CN11" in the drawings:
-1. **The BBIA-1 terminal unit's own CN11** — 20 pins, drawing **4113075022, sheet 85** (`41434WB.pdf` p85). This is the actual BBIA-1 connector.
+1. **The BBIA-1 terminal unit's own CN11** — 20 pins, drawing **4143075322, sheet 85** (`41434WB.pdf` p85). This is the actual BBIA-1 connector.
 2. **The SSR board's own CN11** — a *different physical connector* that BBIA-1's CN11 routes onward to. Relabeled **`CN11-SSR`** in the CSV/tables here so it can't be confused with #1.
 
 **Correction (same day, while chasing the CN12/NOT-LOCATED signals):** CN11-SSR's pinout was re-read from its actual source page (`41434WB.pdf` p78, drawing **4143175309** — the "SSR Board" sheet with the CN11/CN12 pin tables) at 400 DPI. Two things were wrong in the original transcription:
 - **The drawing number was mistranscribed as `4143175307`** (no such drawing exists in the set — p78's title block reads 4143175309). That wrong citation had propagated into `bbia1_terminal_unit.md` and this file.
-- **CN11-SSR's wire numbers and function labels for pins 1-2 and 8-18 were wrong**, apparently misread from the dense handwritten pin table. Correcting them against a fresh read shows CN11-SSR mirrors the terminal-unit CN11's 20 functions **pin-for-pin after all** — the earlier "they do NOT line up 1:1" conclusion was itself a symptom of the misread, not a real finding. The wire-number relationship between the two sides is mostly **terminal-unit wire + 500** (e.g. pin 9: 262→762, pin 11: 235→735, pin 14: 227→727) with pins 15-16 at **+600** (236→836, 235→835) and pins 3-4 unshifted (710→710, 712→712) — consistent with a relay/contact stage renumbering the wire on its far side, the same pattern already seen elsewhere (e.g. GEAR_HI_SOL's BBIA-1 wire 712 becomes 412 at the solenoid).
+- **CN11-SSR's wire numbers and function labels for pins 1-2 and 8-18 were wrong**, apparently misread from the dense handwritten pin table. Correcting them against a fresh read shows CN11-SSR mirrors the terminal-unit CN11's 20 functions **pin-for-pin after all** — the earlier "they do NOT line up 1:1" conclusion was itself a symptom of the misread, not a real finding. **[SUPERSEDED 2026-09-02]** The "+500/+600 shift" described here was an artifact: the T.U.-side 2NN wire reads were 7→2 digit misreads of the same 7NN/8NN numbers (one cable, same numbers both ends — p85 + p140 + p78 agree, and `docs/photo_survey_misc.md`'s independent p85 read corroborates). Both CN11 tables now carry 7NN/8NN; the only real renumbering on this plane is T.U. `7NN` → solenoid-side `4NN` across the SSR/relay stage (e.g. 712→412). CN11-15's digit (736 vs 836) awaits a jacket read.
 
 There is also a **third** "CN11" referenced in earlier session notes (an alternate 25-way pallet-changer/coolant loom, dwg 03-81581-02) — narrative only, never independently read from that drawing, and not reconciled against either of the above; treat it as informational unless you confirm that loom is actually present on this machine.
 
 **CN12** was transcribed for the first time this session (previously absent from this file entirely) while tracing `ATC_BARRIER_SOL`/`TAP_COOLANT_BLAST` in `wiring/bbia1_source_dest.csv`. Pin/wire numbers are solid (same clean 400 DPI read as CN11-SSR), but which pin drives which 2PC/pallet function is still open — forcing a guess here risks repeating the CN11-SSR-style error, so it's left unconfirmed pending a dedicated pass.
 
-### BBIA-1 terminal-unit CN11 — full pinout (dwg 4113075022 sheet 85, read 2026-08-10)
+### BBIA-1 terminal-unit CN11 — full pinout (dwg 4143075322 sheet 85, read 2026-08-10)
 
 | Pin | Wire No. | Signal | Outside connec. |
 |----:|----------|--------|------------------|
@@ -316,8 +316,12 @@ CN12/NOT-LOCATED signals — pins 1-2 and 8-18 below were wrong in the original
 transcription, both the wire numbers and the function labels; see the
 correction note near the top of this file for how the error was found). The
 corrected table shows CN11-SSR mirrors the terminal-unit CN11's 20 functions
-pin-for-pin, at a wire number offset (mostly +500, pins 15-16 at +600, pins
-3-4 unshifted). Cable side is MR20-LFH; terminal side MR20-AMD.
+pin-for-pin. **2026-09-02 audit: the "wire number offset" was an artifact —
+the T.U.-side 2NN reads were 7→2 digit misreads of the same 7NN/8NN numbers
+(one cable, same numbers both ends, per p85 + p140 + p78; corroborated by
+`docs/photo_survey_misc.md`). Both tables now carry the 7NN/8NN values; only
+CN11-15 (736 on p85 vs 836 on p140/p78) awaits a jacket read.** Cable side is
+MR20-LFH; terminal side MR20-AMD.
 
 | Pin | Line/Wire No. | Signal name (load) |
 |----:|--------------|--------------------|
@@ -402,7 +406,7 @@ it.
 ## CN3 completed, CN7 and CN8 transcribed in full (2026-08-18)
 
 Read from 600 DPI renders of `41434WB.pdf` p84 (dwg 4143075321, CN3) and p86
-(dwg 4143015323, CN7/CN8); all rows appended to `bbia1_cn_pinouts.csv`.
+(dwg 4143075323, CN7/CN8); all rows appended to `bbia1_cn_pinouts.csv`.
 
 **CN3 is now 50/50 accounted.** The 26 previously-absent pins are confirmed
 **genuinely unused on the print**: pins 5–7, 16–32, 34, and 45–48 are fully
@@ -499,6 +503,6 @@ sheet's CN3 rows. Field-verify before relabeling.
 
 - Terminal-unit layout with connector count: drawing 4143075304, sheet 04.
 - CN1–CN4 per-pin tables: drawing 4143075321, sheet 84.
-- CN5, CN6, CN11 per-pin tables: drawing 4113075022, sheet 85.
-- CN7, CN8 per-pin tables (for reference): drawing 4143015323, sheet 86.
+- CN5, CN6, CN11 per-pin tables: drawing 4143075322, sheet 85.
+- CN7, CN8 per-pin tables (for reference): drawing 4143075323, sheet 86.
 - SSR-board CN11-SSR/CN12 pin tables: drawing **4143175309** ("SSR Board" sheet), sheet 78. (Earlier notes cited this as "4143175307" / "03-81581-02" — both wrong; corrected 2026-08-10.)

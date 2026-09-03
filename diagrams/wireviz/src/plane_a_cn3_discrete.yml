@@ -18,22 +18,16 @@ connectors:
     - 15
     - 37
     - 38
-    - 39
-    - 44
     pinlabels:
     - ORI C1 | SPINDLE_ORIENT_CMD | FV
     - CTL | SPINDLE_ORIENT_LOGEAR | FV
     - +LY | Y_LIMIT_PLUS | FV
     - -LZ | Z_LIMIT_MINUS | FV
-    - 147 | ATC_ZONE_Z | HOLD
-    - SPTD | ATC_ZONE_Y | HOLD
     pincolors: &id001
     - YE
     - YE
     - YE
     - YE
-    - RD
-    - RD
     hide_disconnected_pins: true
     show_pincount: false
     bgcolor_title: LB
@@ -50,10 +44,6 @@ connectors:
     - M03
     - F04
     - M04
-    - F05
-    - M05
-    - F06
-    - M06
     pinlabels:
     - F | SPINDLE_ORIENT_CMD
     - M | SPINDLE_ORIENT_CMD
@@ -63,10 +53,6 @@ connectors:
     - M | Y_LIMIT_PLUS
     - F | Z_LIMIT_MINUS
     - M | Z_LIMIT_MINUS
-    - F | ATC_ZONE_Z
-    - M | ATC_ZONE_Z
-    - F | ATC_ZONE_Y
-    - M | ATC_ZONE_Y
     pincolors:
     - YE
     - YE
@@ -76,10 +62,6 @@ connectors:
     - YE
     - YE
     - YE
-    - RD
-    - RD
-    - RD
-    - RD
     hide_disconnected_pins: true
     show_pincount: false
     bgcolor_title: YE
@@ -90,18 +72,12 @@ connectors:
     pins:
     - OUT4
     - OUT5
-    - IN1
-    - IN0
     pinlabels:
     - OUT4 | spindle-orient-cmd | FV
     - OUT5 | orient-lo-gear | FV
-    - IN1 | atc-z-zone | HOLD
-    - IN0 | atc-y-zone | HOLD
     pincolors:
     - YE
     - YE
-    - RD
-    - RD
     hide_disconnected_pins: true
     show_pincount: false
     bgcolor_title: LB
@@ -126,14 +102,12 @@ connectors:
 cables:
   OEM_CONDUCTORS:
     type: Existing OEM conductor segments
-    wirecount: 6
+    wirecount: 4
     wirelabels:
     - ORI C1 | SPINDLE_ORIENT_CMD
     - CTL | SPINDLE_ORIENT_LOGEAR
     - +LY | Y_LIMIT_PLUS
     - -LZ | Z_LIMIT_MINUS
-    - 147 | ATC_ZONE_Z
-    - SPTD | ATC_ZONE_Y
     colors: *id001
     show_wirecount: false
     notes: See crosswalk source.
@@ -141,14 +115,12 @@ cables:
     ignore_in_bom: true
   NEW_CONTROL_WIRING:
     type: New control-side conductors
-    wirecount: 6
+    wirecount: 4
     wirelabels:
     - SPINDLE_ORIENT_CMD | spindle-orient-cmd
     - SPINDLE_ORIENT_LOGEAR | orient-lo-gear
     - Y_LIMIT_PLUS | limit-y-plus
     - Z_LIMIT_MINUS | limit-z-minus
-    - ATC_ZONE_Z | atc-z-zone
-    - ATC_ZONE_Y | atc-y-zone
     colors: *id001
     show_wirecount: false
     notes: See crosswalk source.
@@ -160,37 +132,25 @@ connections:
     - 15
     - 37
     - 38
-    - 39
-    - 44
   - OEM_CONDUCTORS:
     - 1
     - 2
     - 3
     - 4
-    - 5
-    - 6
   - IR_BOUNDARY:
     - F01
     - F02
     - F03
     - F04
-    - F05
-    - F06
 - - IR_BOUNDARY:
     - M01
     - M02
-    - M05
-    - M06
   - NEW_CONTROL_WIRING:
     - 1
     - 2
-    - 5
-    - 6
   - 7i84U-A_TB3:
     - OUT4
     - OUT5
-    - IN1
-    - IN0
 - - IR_BOUNDARY:
     - M03
     - M04

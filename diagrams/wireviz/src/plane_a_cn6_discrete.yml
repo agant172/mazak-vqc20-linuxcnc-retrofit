@@ -16,19 +16,16 @@ connectors:
     pins:
     - 7
     - 8
-    - 27
     - 39
     - 50
     pinlabels:
     - SA | SERVO_READY | FV
     - WL | WORK_LIGHT | HOLD
-    - SER | SERVO_FAULT | FV
     - 355 | LUBE_OK | FV
     - 382 | SPINDLE_TOOL_AVAILABLE | FV
     pincolors: &id001
     - YE
     - RD
-    - YE
     - YE
     - YE
     hide_disconnected_pins: true
@@ -47,15 +44,11 @@ connectors:
     - M03
     - F04
     - M04
-    - F05
-    - M05
     pinlabels:
     - F | SERVO_READY
     - M | SERVO_READY
     - F | WORK_LIGHT
     - M | WORK_LIGHT
-    - F | SERVO_FAULT
-    - M | SERVO_FAULT
     - F | LUBE_OK
     - M | LUBE_OK
     - F | SPINDLE_TOOL_AVAILABLE
@@ -65,8 +58,6 @@ connectors:
     - YE
     - RD
     - RD
-    - YE
-    - YE
     - YE
     - YE
     - YE
@@ -108,13 +99,10 @@ connectors:
   7i84U-A_TB3:
     type: 7i84U-A TB3
     pins:
-    - IN10
     - IN3
     pinlabels:
-    - IN10 | servo-fault | FV
     - IN3 | spindle-tool-avail | FV
     pincolors:
-    - YE
     - YE
     hide_disconnected_pins: true
     show_pincount: false
@@ -124,11 +112,10 @@ connectors:
 cables:
   OEM_CONDUCTORS:
     type: Existing OEM conductor segments
-    wirecount: 5
+    wirecount: 4
     wirelabels:
     - SA | SERVO_READY
     - WL | WORK_LIGHT
-    - SER | SERVO_FAULT
     - 355 | LUBE_OK
     - 382 | SPINDLE_TOOL_AVAILABLE
     colors: *id001
@@ -138,11 +125,10 @@ cables:
     ignore_in_bom: true
   NEW_CONTROL_WIRING:
     type: New control-side conductors
-    wirecount: 5
+    wirecount: 4
     wirelabels:
     - SERVO_READY | servo-ready
     - WORK_LIGHT | TBD
-    - SERVO_FAULT | servo-fault
     - LUBE_OK | lube-ok
     - SPINDLE_TOOL_AVAILABLE | spindle-tool-avail
     colors: *id001
@@ -154,7 +140,6 @@ connections:
 - - CN6:
     - 7
     - 8
-    - 27
     - 39
     - 50
   - OEM_CONDUCTORS:
@@ -162,19 +147,17 @@ connections:
     - 2
     - 3
     - 4
-    - 5
   - IR_BOUNDARY:
     - F01
     - F02
     - F03
     - F04
-    - F05
 - - IR_BOUNDARY:
     - M01
-    - M04
+    - M03
   - NEW_CONTROL_WIRING:
     - 1
-    - 4
+    - 3
   - 7i84U-A_TB2:
     - IN31
     - IN25
@@ -185,11 +168,8 @@ connections:
   - 7i84U-B_TB2:
     - OUT9
 - - IR_BOUNDARY:
-    - M03
-    - M05
+    - M04
   - NEW_CONTROL_WIRING:
-    - 3
-    - 5
+    - 4
   - 7i84U-A_TB3:
-    - IN10
     - IN3

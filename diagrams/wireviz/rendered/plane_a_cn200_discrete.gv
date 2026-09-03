@@ -98,7 +98,7 @@ graph {
   <table border="0" cellspacing="0" cellpadding="1" cellborder="1">
    <tr>
     <td port="p1l">IN15</td>
-    <td>IN15 | PROBE_SKIP1_CAND | HOLD</td>
+    <td>IN15 | probe-in | HOLD</td>
     <td sides="tbl">RD</td>
     <td sides="tbr">
      <table border="0" cellborder="1"><tr>
@@ -180,9 +180,9 @@ graph {
    <tr>
     <td>IR_BOUNDARY:M01:M | PROBE_SKIP1_CAND</td>
     <td>
-     1:RD:PROBE_SKIP1_CAND | TBD
+     1:RD:PROBE_SKIP1_CAND | probe-in
     </td>
-    <td>7i84U-B_TB3:IN15:IN15 | PROBE_SKIP1_CAND | HOLD</td>
+    <td>7i84U-B_TB3:IN15:IN15 | probe-in | HOLD</td>
    </tr>
    <tr>
     <td colspan="3" border="0" cellspacing="0" cellpadding="0" port="w1" height="6">

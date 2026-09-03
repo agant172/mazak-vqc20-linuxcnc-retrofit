@@ -59,16 +59,6 @@ graph {
     <td port="p4r">4</td>
    </tr>
    <tr>
-    <td>232 | COOLANT_LOW | FV</td>
-    <td sides="tbl">YE</td>
-    <td sides="tbr">
-     <table border="0" cellborder="1"><tr>
-      <td bgcolor="#FFFF00" width="8" height="8" fixedsize="true"></td>
-     </tr></table>
-    </td>
-    <td port="p5r">5</td>
-   </tr>
-   <tr>
     <td>*DECZ | Z_HOME | FV</td>
     <td sides="tbl">YE</td>
     <td sides="tbr">
@@ -76,7 +66,7 @@ graph {
       <td bgcolor="#FFFF00" width="8" height="8" fixedsize="true"></td>
      </tr></table>
     </td>
-    <td port="p6r">14</td>
+    <td port="p5r">14</td>
    </tr>
   </table>
  </td></tr>
@@ -191,7 +181,7 @@ graph {
    </tr>
    <tr>
     <td port="p9l">F05</td>
-    <td>F | COOLANT_LOW</td>
+    <td>F | Z_HOME</td>
     <td sides="tbl">YE</td>
     <td sides="tbr">
      <table border="0" cellborder="1"><tr>
@@ -202,28 +192,6 @@ graph {
    </tr>
    <tr>
     <td port="p10l">M05</td>
-    <td>M | COOLANT_LOW</td>
-    <td sides="tbl">YE</td>
-    <td sides="tbr">
-     <table border="0" cellborder="1"><tr>
-      <td bgcolor="#FFFF00" width="8" height="8" fixedsize="true"></td>
-     </tr></table>
-    </td>
-    <td port="p10r">M05</td>
-   </tr>
-   <tr>
-    <td port="p11l">F06</td>
-    <td>F | Z_HOME</td>
-    <td sides="tbl">YE</td>
-    <td sides="tbr">
-     <table border="0" cellborder="1"><tr>
-      <td bgcolor="#FFFF00" width="8" height="8" fixedsize="true"></td>
-     </tr></table>
-    </td>
-    <td port="p11r">F06</td>
-   </tr>
-   <tr>
-    <td port="p12l">M06</td>
     <td>M | Z_HOME</td>
     <td sides="tbl">YE</td>
     <td sides="tbr">
@@ -231,7 +199,7 @@ graph {
       <td bgcolor="#FFFF00" width="8" height="8" fixedsize="true"></td>
      </tr></table>
     </td>
-    <td port="p12r">M06</td>
+    <td port="p10r">M05</td>
    </tr>
   </table>
  </td></tr>
@@ -279,16 +247,6 @@ graph {
    <tr>
     <td port="p3l">IN18</td>
     <td>IN18 | gear-lo-conf | FV</td>
-    <td sides="tbl">YE</td>
-    <td sides="tbr">
-     <table border="0" cellborder="1"><tr>
-      <td bgcolor="#FFFF00" width="8" height="8" fixedsize="true"></td>
-     </tr></table>
-    </td>
-   </tr>
-   <tr>
-    <td port="p4l">IN26</td>
-    <td>IN26 | coolant-low | FV</td>
     <td sides="tbl">YE</td>
     <td sides="tbr">
      <table border="0" cellborder="1"><tr>
@@ -386,9 +344,6 @@ graph {
 	edge [color="#000000:#ffff00:#000000"]
 	CN1:p5r:e -- OEM_CONDUCTORS:w5:w
 	OEM_CONDUCTORS:w5:e -- IR_BOUNDARY:p9l:w
-	edge [color="#000000:#ffff00:#000000"]
-	CN1:p6r:e -- OEM_CONDUCTORS:w6:w
-	OEM_CONDUCTORS:w6:e -- IR_BOUNDARY:p11l:w
 	OEM_CONDUCTORS [label=<
 <table border="0" cellspacing="0" cellpadding="0">
  <tr><td>
@@ -469,30 +424,14 @@ graph {
     </td>
    </tr>
    <tr>
-    <td>CN1:5:232 | COOLANT_LOW | FV</td>
+    <td>CN1:14:*DECZ | Z_HOME | FV</td>
     <td>
-     5:YE:232 | COOLANT_LOW
+     5:YE:*DECZ | Z_HOME
     </td>
-    <td>IR_BOUNDARY:F05:F | COOLANT_LOW</td>
+    <td>IR_BOUNDARY:F05:F | Z_HOME</td>
    </tr>
    <tr>
     <td colspan="3" border="0" cellspacing="0" cellpadding="0" port="w5" height="6">
-     <table cellspacing="0" cellborder="0" border="0">
-      <tr><td colspan="3" cellpadding="0" height="2" bgcolor="#000000" border="0"></td></tr>
-      <tr><td colspan="3" cellpadding="0" height="2" bgcolor="#ffff00" border="0"></td></tr>
-      <tr><td colspan="3" cellpadding="0" height="2" bgcolor="#000000" border="0"></td></tr>
-     </table>
-    </td>
-   </tr>
-   <tr>
-    <td>CN1:14:*DECZ | Z_HOME | FV</td>
-    <td>
-     6:YE:*DECZ | Z_HOME
-    </td>
-    <td>IR_BOUNDARY:F06:F | Z_HOME</td>
-   </tr>
-   <tr>
-    <td colspan="3" border="0" cellspacing="0" cellpadding="0" port="w6" height="6">
      <table cellspacing="0" cellborder="0" border="0">
       <tr><td colspan="3" cellpadding="0" height="2" bgcolor="#000000" border="0"></td></tr>
       <tr><td colspan="3" cellpadding="0" height="2" bgcolor="#ffff00" border="0"></td></tr>
@@ -520,14 +459,11 @@ graph {
 	IR_BOUNDARY:p8r:e -- NEW_CONTROL_WIRING:w4:w
 	NEW_CONTROL_WIRING:w4:e -- "7i84U-A_TB2":p3l:w
 	edge [color="#000000:#ffff00:#000000"]
-	IR_BOUNDARY:p10r:e -- NEW_CONTROL_WIRING:w5:w
-	NEW_CONTROL_WIRING:w5:e -- "7i84U-A_TB2":p4l:w
-	edge [color="#000000:#ffff00:#000000"]
 	IR_BOUNDARY:p4r:e -- NEW_CONTROL_WIRING:w2:w
 	NEW_CONTROL_WIRING:w2:e -- "7i84U-A_TB3":p1l:w
 	edge [color="#000000:#ffff00:#000000"]
-	IR_BOUNDARY:p12r:e -- NEW_CONTROL_WIRING:w6:w
-	NEW_CONTROL_WIRING:w6:e -- "7i84U-B_TB3":p1l:w
+	IR_BOUNDARY:p10r:e -- NEW_CONTROL_WIRING:w5:w
+	NEW_CONTROL_WIRING:w5:e -- "7i84U-B_TB3":p1l:w
 	NEW_CONTROL_WIRING [label=<
 <table border="0" cellspacing="0" cellpadding="0">
  <tr><td>
@@ -608,30 +544,14 @@ graph {
     </td>
    </tr>
    <tr>
-    <td>IR_BOUNDARY:M05:M | COOLANT_LOW</td>
+    <td>IR_BOUNDARY:M05:M | Z_HOME</td>
     <td>
-     5:YE:COOLANT_LOW | coolant-low
-    </td>
-    <td>7i84U-A_TB2:IN26:IN26 | coolant-low | FV</td>
-   </tr>
-   <tr>
-    <td colspan="3" border="0" cellspacing="0" cellpadding="0" port="w5" height="6">
-     <table cellspacing="0" cellborder="0" border="0">
-      <tr><td colspan="3" cellpadding="0" height="2" bgcolor="#000000" border="0"></td></tr>
-      <tr><td colspan="3" cellpadding="0" height="2" bgcolor="#ffff00" border="0"></td></tr>
-      <tr><td colspan="3" cellpadding="0" height="2" bgcolor="#000000" border="0"></td></tr>
-     </table>
-    </td>
-   </tr>
-   <tr>
-    <td>IR_BOUNDARY:M06:M | Z_HOME</td>
-    <td>
-     6:YE:Z_HOME | home-z
+     5:YE:Z_HOME | home-z
     </td>
     <td>7i84U-B_TB3:IN8:IN8 | home-z | FV</td>
    </tr>
    <tr>
-    <td colspan="3" border="0" cellspacing="0" cellpadding="0" port="w6" height="6">
+    <td colspan="3" border="0" cellspacing="0" cellpadding="0" port="w5" height="6">
      <table cellspacing="0" cellborder="0" border="0">
       <tr><td colspan="3" cellpadding="0" height="2" bgcolor="#000000" border="0"></td></tr>
       <tr><td colspan="3" cellpadding="0" height="2" bgcolor="#ffff00" border="0"></td></tr>

@@ -39,7 +39,7 @@ graph {
     <td port="p2r">4</td>
    </tr>
    <tr>
-    <td>213 | GEAR_LO_SOL | FV</td>
+    <td>713 | GEAR_LO_SOL | FV</td>
     <td sides="tbl">YE</td>
     <td sides="tbr">
      <table border="0" cellborder="1"><tr>
@@ -49,7 +49,7 @@ graph {
     <td port="p3r">5</td>
    </tr>
    <tr>
-    <td>215 | AIR_BLAST | FV</td>
+    <td>715 | AIR_BLAST | FV</td>
     <td sides="tbl">YE</td>
     <td sides="tbr">
      <table border="0" cellborder="1"><tr>
@@ -59,7 +59,7 @@ graph {
     <td port="p4r">6</td>
    </tr>
    <tr>
-    <td>216 | WORK_AIR_BLAST | HOLD</td>
+    <td>716 | WORK_AIR_BLAST | HOLD</td>
     <td sides="tbl">RD</td>
     <td sides="tbr">
      <table border="0" cellborder="1"><tr>
@@ -69,7 +69,7 @@ graph {
     <td port="p5r">7</td>
    </tr>
    <tr>
-    <td>231 | FLOOD_VALVE | FV</td>
+    <td>731 | FLOOD_VALVE | FV</td>
     <td sides="tbl">YE</td>
     <td sides="tbr">
      <table border="0" cellborder="1"><tr>
@@ -79,24 +79,14 @@ graph {
     <td port="p6r">13</td>
    </tr>
    <tr>
-    <td>236 | COOLANT_ON | FV</td>
+    <td>835 | HYD_PUMP_ON | FV</td>
     <td sides="tbl">YE</td>
     <td sides="tbr">
      <table border="0" cellborder="1"><tr>
       <td bgcolor="#FFFF00" width="8" height="8" fixedsize="true"></td>
      </tr></table>
     </td>
-    <td port="p7r">15</td>
-   </tr>
-   <tr>
-    <td>235 | HYD_PUMP_ON | FV</td>
-    <td sides="tbl">YE</td>
-    <td sides="tbr">
-     <table border="0" cellborder="1"><tr>
-      <td bgcolor="#FFFF00" width="8" height="8" fixedsize="true"></td>
-     </tr></table>
-    </td>
-    <td port="p8r">16</td>
+    <td port="p7r">16</td>
    </tr>
   </table>
  </td></tr>
@@ -255,7 +245,7 @@ graph {
    </tr>
    <tr>
     <td port="p13l">F07</td>
-    <td>F | COOLANT_ON</td>
+    <td>F | HYD_PUMP_ON</td>
     <td sides="tbl">YE</td>
     <td sides="tbr">
      <table border="0" cellborder="1"><tr>
@@ -266,28 +256,6 @@ graph {
    </tr>
    <tr>
     <td port="p14l">M07</td>
-    <td>M | COOLANT_ON</td>
-    <td sides="tbl">YE</td>
-    <td sides="tbr">
-     <table border="0" cellborder="1"><tr>
-      <td bgcolor="#FFFF00" width="8" height="8" fixedsize="true"></td>
-     </tr></table>
-    </td>
-    <td port="p14r">M07</td>
-   </tr>
-   <tr>
-    <td port="p15l">F08</td>
-    <td>F | HYD_PUMP_ON</td>
-    <td sides="tbl">YE</td>
-    <td sides="tbr">
-     <table border="0" cellborder="1"><tr>
-      <td bgcolor="#FFFF00" width="8" height="8" fixedsize="true"></td>
-     </tr></table>
-    </td>
-    <td port="p15r">F08</td>
-   </tr>
-   <tr>
-    <td port="p16l">M08</td>
     <td>M | HYD_PUMP_ON</td>
     <td sides="tbl">YE</td>
     <td sides="tbr">
@@ -295,7 +263,7 @@ graph {
       <td bgcolor="#FFFF00" width="8" height="8" fixedsize="true"></td>
      </tr></table>
     </td>
-    <td port="p16r">M08</td>
+    <td port="p14r">M07</td>
    </tr>
   </table>
  </td></tr>
@@ -333,16 +301,6 @@ graph {
    <tr>
     <td port="p2l">OUT8</td>
     <td>OUT8 | gear-lo-sol | FV</td>
-    <td sides="tbl">YE</td>
-    <td sides="tbr">
-     <table border="0" cellborder="1"><tr>
-      <td bgcolor="#FFFF00" width="8" height="8" fixedsize="true"></td>
-     </tr></table>
-    </td>
-   </tr>
-   <tr>
-    <td port="p3l">OUT11</td>
-    <td>OUT11 | flood-coolant | FV</td>
     <td sides="tbl">YE</td>
     <td sides="tbr">
      <table border="0" cellborder="1"><tr>
@@ -476,9 +434,6 @@ graph {
 	edge [color="#000000:#ffff00:#000000"]
 	CN11:p7r:e -- OEM_CONDUCTORS:w7:w
 	OEM_CONDUCTORS:w7:e -- IR_BOUNDARY:p13l:w
-	edge [color="#000000:#ffff00:#000000"]
-	CN11:p8r:e -- OEM_CONDUCTORS:w8:w
-	OEM_CONDUCTORS:w8:e -- IR_BOUNDARY:p15l:w
 	OEM_CONDUCTORS [label=<
 <table border="0" cellspacing="0" cellpadding="0">
  <tr><td>
@@ -527,9 +482,9 @@ graph {
     </td>
    </tr>
    <tr>
-    <td>CN11:5:213 | GEAR_LO_SOL | FV</td>
+    <td>CN11:5:713 | GEAR_LO_SOL | FV</td>
     <td>
-     3:YE:213 | GEAR_LO_SOL
+     3:YE:713 | GEAR_LO_SOL
     </td>
     <td>IR_BOUNDARY:F03:F | GEAR_LO_SOL</td>
    </tr>
@@ -543,9 +498,9 @@ graph {
     </td>
    </tr>
    <tr>
-    <td>CN11:6:215 | AIR_BLAST | FV</td>
+    <td>CN11:6:715 | AIR_BLAST | FV</td>
     <td>
-     4:YE:215 | AIR_BLAST
+     4:YE:715 | AIR_BLAST
     </td>
     <td>IR_BOUNDARY:F04:F | AIR_BLAST</td>
    </tr>
@@ -559,9 +514,9 @@ graph {
     </td>
    </tr>
    <tr>
-    <td>CN11:7:216 | WORK_AIR_BLAST | HOLD</td>
+    <td>CN11:7:716 | WORK_AIR_BLAST | HOLD</td>
     <td>
-     5:RD:216 | WORK_AIR_BLAST
+     5:RD:716 | WORK_AIR_BLAST
     </td>
     <td>IR_BOUNDARY:F05:F | WORK_AIR_BLAST</td>
    </tr>
@@ -575,9 +530,9 @@ graph {
     </td>
    </tr>
    <tr>
-    <td>CN11:13:231 | FLOOD_VALVE | FV</td>
+    <td>CN11:13:731 | FLOOD_VALVE | FV</td>
     <td>
-     6:YE:231 | FLOOD_VALVE
+     6:YE:731 | FLOOD_VALVE
     </td>
     <td>IR_BOUNDARY:F06:F | FLOOD_VALVE</td>
    </tr>
@@ -591,30 +546,14 @@ graph {
     </td>
    </tr>
    <tr>
-    <td>CN11:15:236 | COOLANT_ON | FV</td>
+    <td>CN11:16:835 | HYD_PUMP_ON | FV</td>
     <td>
-     7:YE:236 | COOLANT_ON
+     7:YE:835 | HYD_PUMP_ON
     </td>
-    <td>IR_BOUNDARY:F07:F | COOLANT_ON</td>
+    <td>IR_BOUNDARY:F07:F | HYD_PUMP_ON</td>
    </tr>
    <tr>
     <td colspan="3" border="0" cellspacing="0" cellpadding="0" port="w7" height="6">
-     <table cellspacing="0" cellborder="0" border="0">
-      <tr><td colspan="3" cellpadding="0" height="2" bgcolor="#000000" border="0"></td></tr>
-      <tr><td colspan="3" cellpadding="0" height="2" bgcolor="#ffff00" border="0"></td></tr>
-      <tr><td colspan="3" cellpadding="0" height="2" bgcolor="#000000" border="0"></td></tr>
-     </table>
-    </td>
-   </tr>
-   <tr>
-    <td>CN11:16:235 | HYD_PUMP_ON | FV</td>
-    <td>
-     8:YE:235 | HYD_PUMP_ON
-    </td>
-    <td>IR_BOUNDARY:F08:F | HYD_PUMP_ON</td>
-   </tr>
-   <tr>
-    <td colspan="3" border="0" cellspacing="0" cellpadding="0" port="w8" height="6">
      <table cellspacing="0" cellborder="0" border="0">
       <tr><td colspan="3" cellpadding="0" height="2" bgcolor="#000000" border="0"></td></tr>
       <tr><td colspan="3" cellpadding="0" height="2" bgcolor="#ffff00" border="0"></td></tr>
@@ -639,14 +578,11 @@ graph {
 	IR_BOUNDARY:p6r:e -- NEW_CONTROL_WIRING:w3:w
 	NEW_CONTROL_WIRING:w3:e -- "7i84U-A_TB2":p2l:w
 	edge [color="#000000:#ffff00:#000000"]
-	IR_BOUNDARY:p14r:e -- NEW_CONTROL_WIRING:w7:w
-	NEW_CONTROL_WIRING:w7:e -- "7i84U-A_TB2":p3l:w
-	edge [color="#000000:#ffff00:#000000"]
 	IR_BOUNDARY:p4r:e -- NEW_CONTROL_WIRING:w2:w
 	NEW_CONTROL_WIRING:w2:e -- "7i84U-A_TB3":p1l:w
 	edge [color="#000000:#ffff00:#000000"]
-	IR_BOUNDARY:p16r:e -- NEW_CONTROL_WIRING:w8:w
-	NEW_CONTROL_WIRING:w8:e -- "7i84U-A_TB3":p2l:w
+	IR_BOUNDARY:p14r:e -- NEW_CONTROL_WIRING:w7:w
+	NEW_CONTROL_WIRING:w7:e -- "7i84U-A_TB3":p2l:w
 	edge [color="#000000:#ffff00:#000000"]
 	IR_BOUNDARY:p8r:e -- NEW_CONTROL_WIRING:w4:w
 	NEW_CONTROL_WIRING:w4:e -- "7i84U-B_TB3":p1l:w
@@ -768,30 +704,14 @@ graph {
     </td>
    </tr>
    <tr>
-    <td>IR_BOUNDARY:M07:M | COOLANT_ON</td>
+    <td>IR_BOUNDARY:M07:M | HYD_PUMP_ON</td>
     <td>
-     7:YE:COOLANT_ON | flood-coolant
-    </td>
-    <td>7i84U-A_TB2:OUT11:OUT11 | flood-coolant | FV</td>
-   </tr>
-   <tr>
-    <td colspan="3" border="0" cellspacing="0" cellpadding="0" port="w7" height="6">
-     <table cellspacing="0" cellborder="0" border="0">
-      <tr><td colspan="3" cellpadding="0" height="2" bgcolor="#000000" border="0"></td></tr>
-      <tr><td colspan="3" cellpadding="0" height="2" bgcolor="#ffff00" border="0"></td></tr>
-      <tr><td colspan="3" cellpadding="0" height="2" bgcolor="#000000" border="0"></td></tr>
-     </table>
-    </td>
-   </tr>
-   <tr>
-    <td>IR_BOUNDARY:M08:M | HYD_PUMP_ON</td>
-    <td>
-     8:YE:HYD_PUMP_ON | hyd-pump-on
+     7:YE:HYD_PUMP_ON | hyd-pump-on
     </td>
     <td>7i84U-A_TB3:OUT3:OUT3 | hyd-pump-on | FV</td>
    </tr>
    <tr>
-    <td colspan="3" border="0" cellspacing="0" cellpadding="0" port="w8" height="6">
+    <td colspan="3" border="0" cellspacing="0" cellpadding="0" port="w7" height="6">
      <table cellspacing="0" cellborder="0" border="0">
       <tr><td colspan="3" cellpadding="0" height="2" bgcolor="#000000" border="0"></td></tr>
       <tr><td colspan="3" cellpadding="0" height="2" bgcolor="#ffff00" border="0"></td></tr>

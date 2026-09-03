@@ -1,23 +1,21 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<definition version="0.100.0" type="element" link_type="simple" width="350" height="172" hotspot_x="175" hotspot_y="86">
+<definition version="0.100.0" type="element" link_type="simple" width="350" height="152" hotspot_x="175" hotspot_y="76">
     <uuid uuid="{eefd4daa-9602-5cc9-b715-bb45e3d0abce}" />
     <names>
         <name lang="en">BBIA-1 CN4 machine-facing connector</name>
     </names>
     <informations>Generated from the MESAC retrofit crosswalks. PRELIMINARY - NOT RELEASED FOR WIRING.</informations>
     <description>
-        <rect x="-165.0" y="-76.0" width="330" height="152" rx="0" ry="0" antialias="false" style="line-style:normal;line-weight:normal;filling:none;color:#0078a8" />
-        <line x1="-165.0" y1="-50.0" x2="165.0" y2="-50.0" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:normal;filling:none;color:#0078a8" antialias="false" />
-        <text text="BBIA-1 CN4 machine-facing connector" x="-157.0" y="-58.0" rotation="0" font="Liberation Sans,8,-1,5,75,0,0,0,0,0,Bold" color="#0078a8" />
-        <text text="1 | 231 | SPINDLE_ZERO_SPEED | HOLD" x="4" y="-31.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#d00000" />
-        <terminal uuid="{2920a941-4292-569a-a8be-ca8eb21f50fb}" name="1" x="165.0" y="-34.0" orientation="e" type="Generic" />
-        <text text="3 | FA | SPINDLE_FAULT | FV" x="4" y="-11.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
-        <terminal uuid="{e075fd93-0b8c-55ea-8b9f-ae05808bc17c}" name="3" x="165.0" y="-14.0" orientation="e" type="Generic" />
-        <text text="9 | SRN | SPINDLE_FWD | FV" x="4" y="9.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
-        <terminal uuid="{00729365-9bd7-559e-9c16-7ad70b4ad4b5}" name="9" x="165.0" y="6.0" orientation="e" type="Generic" />
-        <text text="10 | SRI | SPINDLE_REV | FV" x="4" y="29.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
-        <terminal uuid="{62bf3737-4ecb-5adb-95a5-ac794136a1a2}" name="10" x="165.0" y="26.0" orientation="e" type="Generic" />
-        <text text="16 | SETA | SPINDLE_ORIENT_ARRIVAL | FV" x="4" y="49.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
-        <terminal uuid="{4839144d-387b-509d-a897-1d6575716288}" name="16" x="165.0" y="46.0" orientation="e" type="Generic" />
+        <rect x="-165.0" y="-66.0" width="330" height="132" rx="0" ry="0" antialias="false" style="line-style:normal;line-weight:normal;filling:none;color:#0078a8" />
+        <line x1="-165.0" y1="-40.0" x2="165.0" y2="-40.0" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:normal;filling:none;color:#0078a8" antialias="false" />
+        <text text="BBIA-1 CN4 machine-facing connector" x="-157.0" y="-48.0" rotation="0" font="Liberation Sans,8,-1,5,75,0,0,0,0,0,Bold" color="#0078a8" />
+        <text text="1 | ZS1 | SPINDLE_ZERO_SPEED | HOLD" x="4" y="-21.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#d00000" />
+        <terminal uuid="{2920a941-4292-569a-a8be-ca8eb21f50fb}" name="1" x="165.0" y="-24.0" orientation="e" type="Generic" />
+        <text text="3 | FA | SPINDLE_FAULT | FV" x="4" y="-1.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+        <terminal uuid="{e075fd93-0b8c-55ea-8b9f-ae05808bc17c}" name="3" x="165.0" y="-4.0" orientation="e" type="Generic" />
+        <text text="9 | SRN | SPINDLE_FWD | FV" x="4" y="19.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+        <terminal uuid="{00729365-9bd7-559e-9c16-7ad70b4ad4b5}" name="9" x="165.0" y="16.0" orientation="e" type="Generic" />
+        <text text="10 | SRI | SPINDLE_REV | FV" x="4" y="39.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+        <terminal uuid="{62bf3737-4ecb-5adb-95a5-ac794136a1a2}" name="10" x="165.0" y="36.0" orientation="e" type="Generic" />
     </description>
 </definition>

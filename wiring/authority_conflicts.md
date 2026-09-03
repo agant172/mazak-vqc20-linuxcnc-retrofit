@@ -604,6 +604,42 @@ warning. No change is proposed: adding them to `source_dest` would mean writing 
 (§ 5 recommends `NOT_USED`/`RESERVED`; the device may not exist on this machine). All
 three are deliberate, not dropped rows.
 
+### 7.5 The 2026-08-10 pinout transcription had a systematic misread layer — RESOLVED 2026-09-02 (owner approved)
+
+The 2026-09-02 multi-agent wiring audit re-read 41434WB p84/p85 (dwgs
+4143075321/4143075322) at 280–1000 DPI with three mutually independent readers
+(plane-A, terminal-unit, and head-device agents), corroborated by the repo's own
+earlier `docs/photo_survey_misc.md` transcription of the same sheets. Findings,
+all landed in `bbia1_cn_pinouts.csv`, the authority CSV, and the regenerated
+crosswalks/labels/diagrams:
+
+- **7→2 digit misreads (CN11 family):** the T.U.-side "2NN" wires are the same
+  7NN/8NN numbers as the SSR side — one cable, same numbers both ends. The
+  "+500/+600 shift" narrative in §7.1 item 1 is RETIRED. Only CN11-15's digit
+  (736 on p85 vs 836 on p140/p78) awaits a jacket read.
+- **§7.1 "wire 231 reuse" DISSOLVED:** CN11-13 is 731; CN4-1 is `ZS1` (drive
+  contact into relay 1246; wire 143/CN3-4 is that relay's contact into X01).
+  Both zero-speed circuits are real, different stages.
+- **§7.2 DISSOLVED as a citation defect:** pg135 puts +LY2/PRS-55 at CN2-14
+  (relay 1237/PYOT) and -LZ2/PRS-66 at CN1-5 (relay 1240/NZOT) — the
+  `source_dest` rows misquoted it as CN3-44/CN3-39. CN3-44 = SPTD spindle tool
+  detector (X5B SPTDPRS); CN3-39 = 147 tool detector (X05 MGTDPRS). ATC_ZONE_Y/Z
+  BBIA landings cleared (DEFERRED); bench tap points to be chosen at the cabinet.
+- **§7.3 refined:** CN2-14 is the 2nd +Y over-travel (+LY2), not `+LTZ`/Z-axis
+  and not a +YZ bus; `Z_LIMIT_PLUS` is genuinely unlocated; ferrule B-TB3-05
+  stays held with wrong text pending relabel.
+- **HAL-bound identity corrections (owner approved 2026-09-02):** SERVO_FAULT
+  (CN6-27 is SFR — source unlocated, re-derive at the HD amps), COOLANT_LOW
+  (CN1-5 is -LZ2 — source unlocated), DOOR_INTERLOCK (wire 341, not 238),
+  MAG_BCD_BIT0-4 + MAG_IN_POS (block de-shifted to CN2-5..9 + CN2-10/213),
+  SPINDLE_ORIENT_ARRIVAL (ORA1/ORA2, not SETA/SETB).
+- Validator allowlists `OEM_REUSED_WIRES` and `KNOWN_PLANE_CONFLICTS` emptied
+  accordingly.
+
+Closing bench items: CN11 ferrule read (settles pin 15's 736/836), CN2-14/CN1-5
+jacket read + buzz to PRS-55/PRS-66, CN6-27 label read, magazine-block buzz-out
+(PB-32 → CN2-4, PRS-21 → CN2-5, MIPRS → CN2-10), and the CN4-1/CN3-4 jacket read.
+
 ## Evidence documents
 
 - `connector_crossref.md` — OEM drawing/photo cross-reference.
