@@ -40,9 +40,9 @@ promotes `Crosswalk_Status` from `PLANNED_MATCH` to `TRACED`.
 ## Current release state
 
 The initial file contains only conservative, name-matched conductors for which
-the repo has a planned direct 7i84U destination. Every current row is
-`HOLD_SOURCE_TRACE`; these are draft labels, not permission to terminate the
-wire. Promote the crosswalk only after continuity identifies that exact cut
+the repo has a planned direct 7i84U destination. Rows are `HOLD_SOURCE_TRACE` except disputed pins, which print as
+`HOLD_DISPUTED_PIN` and are never released until their register section closes;
+these are draft labels, not permission to terminate the wire. Promote the crosswalk only after continuity identifies that exact cut
 conductor and the authority row has the required evidence.
 
 The non-printed columns preserve the OEM wire number, old Honda connector pin,

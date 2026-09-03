@@ -43,5 +43,5 @@ Z_AXIS_AMP_TERM	AC100B				100VAC supply	N	Not yet photographed
 Z_AXIS_AMP_TERM	N				DC bus negative	N	Not yet photographed
 Z_AXIS_AMP_TERM	P				DC bus positive	N	Not yet photographed
 CND2	close?				MAGAZINE COVER CLOSE (RS-19/MGCCRS; pg135 wire 219 - but BBIA pinout CN2-12/219 = MAGAZINE FWD/REV SW)	N	Dest 7i84U-A TB3 IN7 (ferrule A-TB3-08). Cover-close NOT in BBIA-1 pinout; cover-OPEN is CN2-11/wire 218. Ring out the cover-close reed switch to find its CN2/CND2 pin, then fill bbia1_source_dest.csv.
-CN2	13				wire 381 pinout label 'LUBE TIMER' - candidate for MAG_TOOL_AVAILABLE (PHS-181)?	N	Dest 7i84U-A TB3 IN2 (ferrule A-TB3-03). Wire 381 also lands CN6-37 as 'MAGAZINE OIL TOOL DETECTOR'. Ring out PHS-181 to confirm which pin is tool-available.
-CN6	37				wire 381 pinout 'MAGAZINE OIL TOOL DETECTOR' (Inside CN2-13) - candidate for MAG_TOOL_AVAILABLE (PHS-181)	N	Dest 7i84U-A TB3 IN2 (ferrule A-TB3-03). Confirm vs CN2-13 (LUBE TIMER). PHS-181 = magazine tool available; PHS-182 spindle-tool is CN6-50/wire 382.
+CN2	13				wire 381 pinout label 'LUBE TIMER' - candidate for MAG_TOOL_AVAILABLE (PHS-181)?	N	Dest 7i84U-A TB3 IN2 (ferrule A-TB3-03). Wire 381 also lands CN6-37 as 'MAGAZINE TOOL DETECTOR'. Ring out PHS-181 to confirm which pin is tool-available.
+CN6	37				wire 381 pinout 'MAGAZINE TOOL DETECTOR' (Inside CN2-13) - candidate for MAG_TOOL_AVAILABLE (PHS-181)	N	Dest 7i84U-A TB3 IN2 (ferrule A-TB3-03). Confirm vs CN2-13 (LUBE TIMER). PHS-181 = magazine tool available; PHS-182 spindle-tool is CN6-50/wire 382.

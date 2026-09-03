@@ -120,6 +120,6 @@ consume Mesa analog inputs merely to make the connector accounting total reach z
 - Mitsubishi MELDAS Series M2 Maintenance Manual BNP-A2443A / M1243-ES, Figure
   14.4-1, printed p250.
 - Mesa `docs/Mesa Manuals/7i49man.pdf`, printed pp5-7 (P4/P3/P2 terminal maps) and
-  printed p12 (resolver wiring/shield instruction).
+  printed p9 (resolver wiring/shield instruction; PDF page 12).
 - Physical resistance and ground measurements: `docs/resolver_commissioning.md`,
   2026-08-16 CNA3/4/5 session.

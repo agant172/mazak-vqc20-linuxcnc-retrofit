@@ -106,7 +106,7 @@ Retained OEM equipment:
 
 Intended 7i49 allocation:
 - RES0/1/2 — X, Y, Z resolver feedback.
-- AOUT0/1/2 — X, Y, Z axis velocity commands.
+- AOUT0/1/2 — X, Z, Y axis velocity commands (X=AOUT0, Z=AOUT1, Y=AOUT2, per mesa/current_pin_authority.csv; ordering follows the OEM drive wiring — see docs/commissioning_logs/analog_cmd_plan_2026-08-08.md).
 - AOUT3 — FR-SX spindle speed command.
 
 Do not assume any Mesa connector, firmware, assignment, resolver ratio,

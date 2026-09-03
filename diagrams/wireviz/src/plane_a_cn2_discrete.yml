@@ -26,6 +26,7 @@ connectors:
     - 13
     - 15
     - 16
+    - 38
     - 44
     pinlabels:
     - 149 | MT_UNCLAMP_PB | FV
@@ -40,8 +41,10 @@ connectors:
     - 381 | MAG_TOOL_AVAILABLE | FV
     - '*DECX | X_HOME | FV'
     - '*DECY | Y_HOME | FV'
+    - 341 | DOOR_INTERLOCK | FV
     - 149B | MT_CLAMP_PB | HOLD
     pincolors: &id001
+    - YE
     - YE
     - YE
     - YE
@@ -89,6 +92,8 @@ connectors:
     - M12
     - F13
     - M13
+    - F14
+    - M14
     pinlabels:
     - F | MT_UNCLAMP_PB
     - M | MT_UNCLAMP_PB
@@ -114,9 +119,13 @@ connectors:
     - M | X_HOME
     - F | Y_HOME
     - M | Y_HOME
+    - F | DOOR_INTERLOCK
+    - M | DOOR_INTERLOCK
     - F | MT_CLAMP_PB
     - M | MT_CLAMP_PB
     pincolors:
+    - YE
+    - YE
     - YE
     - YE
     - YE
@@ -179,6 +188,7 @@ connectors:
     - IN22
     - IN23
     - IN28
+    - IN24
     - IN30
     pinlabels:
     - IN19 | mag-bcd-bit0 | FV
@@ -187,8 +197,10 @@ connectors:
     - IN22 | mag-bcd-bit3 | FV
     - IN23 | mag-bcd-bit4 | FV
     - IN28 | mag-in-pos | FV
+    - IN24 | door-interlock | FV
     - IN30 | MT_CLAMP_PB | HOLD
     pincolors:
+    - YE
     - YE
     - YE
     - YE
@@ -220,7 +232,7 @@ connectors:
 cables:
   OEM_CONDUCTORS:
     type: Existing OEM conductor segments
-    wirecount: 13
+    wirecount: 14
     wirelabels:
     - 149 | MT_UNCLAMP_PB
     - 221 | MAG_BCD_BIT0
@@ -234,6 +246,7 @@ cables:
     - 381 | MAG_TOOL_AVAILABLE
     - '*DECX | X_HOME'
     - '*DECY | Y_HOME'
+    - 341 | DOOR_INTERLOCK
     - 149B | MT_CLAMP_PB
     colors: *id001
     show_wirecount: false
@@ -242,7 +255,7 @@ cables:
     ignore_in_bom: true
   NEW_CONTROL_WIRING:
     type: New control-side conductors
-    wirecount: 13
+    wirecount: 14
     wirelabels:
     - MT_UNCLAMP_PB | manual-unclamp-pb
     - MAG_BCD_BIT0 | mag-bcd-bit0
@@ -256,6 +269,7 @@ cables:
     - MAG_TOOL_AVAILABLE | mag-tool-avail
     - X_HOME | home-x
     - Y_HOME | home-y
+    - DOOR_INTERLOCK | door-interlock
     - MT_CLAMP_PB | TBD
     colors: *id001
     show_wirecount: false
@@ -276,6 +290,7 @@ connections:
     - 13
     - 15
     - 16
+    - 38
     - 44
   - OEM_CONDUCTORS:
     - 1
@@ -291,6 +306,7 @@ connections:
     - 11
     - 12
     - 13
+    - 14
   - IR_BOUNDARY:
     - F01
     - F02
@@ -305,6 +321,7 @@ connections:
     - F11
     - F12
     - F13
+    - F14
 - - IR_BOUNDARY:
     - M01
     - M08
@@ -328,6 +345,7 @@ connections:
     - M06
     - M07
     - M13
+    - M14
   - NEW_CONTROL_WIRING:
     - 2
     - 3
@@ -336,6 +354,7 @@ connections:
     - 6
     - 7
     - 13
+    - 14
   - 7i84U-A_TB2:
     - IN19
     - IN20
@@ -343,6 +362,7 @@ connections:
     - IN22
     - IN23
     - IN28
+    - IN24
     - IN30
 - - IR_BOUNDARY:
     - M11

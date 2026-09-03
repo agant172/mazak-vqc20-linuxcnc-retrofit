@@ -175,9 +175,11 @@ setp hm2_7i80.0.resolver.00.velocity-scale  [JOINT_0]RESOLVER_VELOCITY_SCALE
 setp hm2_7i80.0.resolver.01.velocity-scale  [JOINT_1]RESOLVER_VELOCITY_SCALE
 setp hm2_7i80.0.resolver.02.velocity-scale  [JOINT_2]RESOLVER_VELOCITY_SCALE
 
-# Index-divisor: cycles per rev of the resolver itself. TS2014N K=0.5 is a
-# single-speed BRX resolver so 1 is expected — verify against the exact suffix
-# datasheet. HostMot2 doc: 'It is not appropriate to use this parameter for
+# Index-divisor: cycles per rev of the resolver itself. The detector is
+# MULTI-POLE (M2 Maintenance Manual Table 14.3-1); the INI sets 5 (2026-08-17,
+# 10.000 mm lead / 2.000 mm grid — docs/ballscrew_lead_2026-08-17.md). The old
+# 'single-speed, 1 expected' note here was wrong and never sourced.
+# HostMot2 doc: 'It is not appropriate to use this parameter for
 # index-homing of axis drives.' Homing on this machine is switch-based
 # (HOME_USE_INDEX not set → NO), so the emulated index is not used for axis
 # position homing.

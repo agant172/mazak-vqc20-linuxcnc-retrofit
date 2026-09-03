@@ -404,19 +404,20 @@
         <elements>
             <element z="10" freezeLabel="false" prefix="X" orientation="0" x="210" y="410" type="embed://mesac_generated/plane_a_cn2_discrete__cn2.elmt" uuid="{20902d25-19c0-5195-b5e3-8b3295b2a535}">
                 <terminals>
-                    <terminal id="0" orientation="1" x="161.0" y="-114.0" />
-                    <terminal id="1" orientation="1" x="161.0" y="-94.0" />
-                    <terminal id="2" orientation="1" x="161.0" y="-74.0" />
-                    <terminal id="3" orientation="1" x="161.0" y="-54.0" />
-                    <terminal id="4" orientation="1" x="161.0" y="-34.0" />
-                    <terminal id="5" orientation="1" x="161.0" y="-14.0" />
-                    <terminal id="6" orientation="1" x="161.0" y="6.0" />
-                    <terminal id="7" orientation="1" x="161.0" y="26.0" />
-                    <terminal id="8" orientation="1" x="161.0" y="46.0" />
-                    <terminal id="9" orientation="1" x="161.0" y="66.0" />
-                    <terminal id="10" orientation="1" x="161.0" y="86.0" />
-                    <terminal id="11" orientation="1" x="161.0" y="106.0" />
-                    <terminal id="12" orientation="1" x="161.0" y="126.0" />
+                    <terminal id="0" orientation="1" x="161.0" y="-124.0" />
+                    <terminal id="1" orientation="1" x="161.0" y="-104.0" />
+                    <terminal id="2" orientation="1" x="161.0" y="-84.0" />
+                    <terminal id="3" orientation="1" x="161.0" y="-64.0" />
+                    <terminal id="4" orientation="1" x="161.0" y="-44.0" />
+                    <terminal id="5" orientation="1" x="161.0" y="-24.0" />
+                    <terminal id="6" orientation="1" x="161.0" y="-4.0" />
+                    <terminal id="7" orientation="1" x="161.0" y="16.0" />
+                    <terminal id="8" orientation="1" x="161.0" y="36.0" />
+                    <terminal id="9" orientation="1" x="161.0" y="56.0" />
+                    <terminal id="10" orientation="1" x="161.0" y="76.0" />
+                    <terminal id="11" orientation="1" x="161.0" y="96.0" />
+                    <terminal id="12" orientation="1" x="161.0" y="116.0" />
+                    <terminal id="13" orientation="1" x="161.0" y="136.0" />
                 </terminals>
                 <inputs />
                 <elementInformations>
@@ -428,32 +429,34 @@
             </element>
             <element z="11" freezeLabel="false" prefix="X" orientation="0" x="690" y="410" type="embed://mesac_generated/plane_a_cn2_discrete__ir_boundary.elmt" uuid="{c24f2e30-d149-5777-bff7-bee25cd23db8}">
                 <terminals>
-                    <terminal id="13" orientation="3" x="-161.0" y="-114.0" />
-                    <terminal id="14" orientation="1" x="161.0" y="-114.0" />
-                    <terminal id="15" orientation="3" x="-161.0" y="-94.0" />
-                    <terminal id="16" orientation="1" x="161.0" y="-94.0" />
-                    <terminal id="17" orientation="3" x="-161.0" y="-74.0" />
-                    <terminal id="18" orientation="1" x="161.0" y="-74.0" />
-                    <terminal id="19" orientation="3" x="-161.0" y="-54.0" />
-                    <terminal id="20" orientation="1" x="161.0" y="-54.0" />
-                    <terminal id="21" orientation="3" x="-161.0" y="-34.0" />
-                    <terminal id="22" orientation="1" x="161.0" y="-34.0" />
-                    <terminal id="23" orientation="3" x="-161.0" y="-14.0" />
-                    <terminal id="24" orientation="1" x="161.0" y="-14.0" />
-                    <terminal id="25" orientation="3" x="-161.0" y="6.0" />
-                    <terminal id="26" orientation="1" x="161.0" y="6.0" />
-                    <terminal id="27" orientation="3" x="-161.0" y="26.0" />
-                    <terminal id="28" orientation="1" x="161.0" y="26.0" />
-                    <terminal id="29" orientation="3" x="-161.0" y="46.0" />
-                    <terminal id="30" orientation="1" x="161.0" y="46.0" />
-                    <terminal id="31" orientation="3" x="-161.0" y="66.0" />
-                    <terminal id="32" orientation="1" x="161.0" y="66.0" />
-                    <terminal id="33" orientation="3" x="-161.0" y="86.0" />
-                    <terminal id="34" orientation="1" x="161.0" y="86.0" />
-                    <terminal id="35" orientation="3" x="-161.0" y="106.0" />
-                    <terminal id="36" orientation="1" x="161.0" y="106.0" />
-                    <terminal id="37" orientation="3" x="-161.0" y="126.0" />
-                    <terminal id="38" orientation="1" x="161.0" y="126.0" />
+                    <terminal id="14" orientation="3" x="-161.0" y="-124.0" />
+                    <terminal id="15" orientation="1" x="161.0" y="-124.0" />
+                    <terminal id="16" orientation="3" x="-161.0" y="-104.0" />
+                    <terminal id="17" orientation="1" x="161.0" y="-104.0" />
+                    <terminal id="18" orientation="3" x="-161.0" y="-84.0" />
+                    <terminal id="19" orientation="1" x="161.0" y="-84.0" />
+                    <terminal id="20" orientation="3" x="-161.0" y="-64.0" />
+                    <terminal id="21" orientation="1" x="161.0" y="-64.0" />
+                    <terminal id="22" orientation="3" x="-161.0" y="-44.0" />
+                    <terminal id="23" orientation="1" x="161.0" y="-44.0" />
+                    <terminal id="24" orientation="3" x="-161.0" y="-24.0" />
+                    <terminal id="25" orientation="1" x="161.0" y="-24.0" />
+                    <terminal id="26" orientation="3" x="-161.0" y="-4.0" />
+                    <terminal id="27" orientation="1" x="161.0" y="-4.0" />
+                    <terminal id="28" orientation="3" x="-161.0" y="16.0" />
+                    <terminal id="29" orientation="1" x="161.0" y="16.0" />
+                    <terminal id="30" orientation="3" x="-161.0" y="36.0" />
+                    <terminal id="31" orientation="1" x="161.0" y="36.0" />
+                    <terminal id="32" orientation="3" x="-161.0" y="56.0" />
+                    <terminal id="33" orientation="1" x="161.0" y="56.0" />
+                    <terminal id="34" orientation="3" x="-161.0" y="76.0" />
+                    <terminal id="35" orientation="1" x="161.0" y="76.0" />
+                    <terminal id="36" orientation="3" x="-161.0" y="96.0" />
+                    <terminal id="37" orientation="1" x="161.0" y="96.0" />
+                    <terminal id="38" orientation="3" x="-161.0" y="116.0" />
+                    <terminal id="39" orientation="1" x="161.0" y="116.0" />
+                    <terminal id="40" orientation="3" x="-161.0" y="136.0" />
+                    <terminal id="41" orientation="1" x="161.0" y="136.0" />
                 </terminals>
                 <inputs />
                 <elementInformations>
@@ -463,12 +466,12 @@
                 <dynamic_texts />
                 <texts_groups />
             </element>
-            <element z="12" freezeLabel="false" prefix="X" orientation="0" x="1170" y="250" type="embed://mesac_generated/plane_a_cn2_discrete__7i84u_a_tb3.elmt" uuid="{490be6c1-eead-558b-9b9b-d8e07de2d7c7}">
+            <element z="12" freezeLabel="false" prefix="X" orientation="0" x="1170" y="240" type="embed://mesac_generated/plane_a_cn2_discrete__7i84u_a_tb3.elmt" uuid="{490be6c1-eead-558b-9b9b-d8e07de2d7c7}">
                 <terminals>
-                    <terminal id="39" orientation="3" x="-161.0" y="-24.0" />
-                    <terminal id="40" orientation="3" x="-161.0" y="-4.0" />
-                    <terminal id="41" orientation="3" x="-161.0" y="16.0" />
-                    <terminal id="42" orientation="3" x="-161.0" y="36.0" />
+                    <terminal id="42" orientation="3" x="-161.0" y="-24.0" />
+                    <terminal id="43" orientation="3" x="-161.0" y="-4.0" />
+                    <terminal id="44" orientation="3" x="-161.0" y="16.0" />
+                    <terminal id="45" orientation="3" x="-161.0" y="36.0" />
                 </terminals>
                 <inputs />
                 <elementInformations>
@@ -480,13 +483,14 @@
             </element>
             <element z="13" freezeLabel="false" prefix="X" orientation="0" x="1170" y="430" type="embed://mesac_generated/plane_a_cn2_discrete__7i84u_a_tb2.elmt" uuid="{88602edb-e3b4-59a3-8913-dcb5b48a8afe}">
                 <terminals>
-                    <terminal id="43" orientation="3" x="-161.0" y="-54.0" />
-                    <terminal id="44" orientation="3" x="-161.0" y="-34.0" />
-                    <terminal id="45" orientation="3" x="-161.0" y="-14.0" />
-                    <terminal id="46" orientation="3" x="-161.0" y="6.0" />
-                    <terminal id="47" orientation="3" x="-161.0" y="26.0" />
-                    <terminal id="48" orientation="3" x="-161.0" y="46.0" />
-                    <terminal id="49" orientation="3" x="-161.0" y="66.0" />
+                    <terminal id="46" orientation="3" x="-161.0" y="-64.0" />
+                    <terminal id="47" orientation="3" x="-161.0" y="-44.0" />
+                    <terminal id="48" orientation="3" x="-161.0" y="-24.0" />
+                    <terminal id="49" orientation="3" x="-161.0" y="-4.0" />
+                    <terminal id="50" orientation="3" x="-161.0" y="16.0" />
+                    <terminal id="51" orientation="3" x="-161.0" y="36.0" />
+                    <terminal id="52" orientation="3" x="-161.0" y="56.0" />
+                    <terminal id="53" orientation="3" x="-161.0" y="76.0" />
                 </terminals>
                 <inputs />
                 <elementInformations>
@@ -496,10 +500,10 @@
                 <dynamic_texts />
                 <texts_groups />
             </element>
-            <element z="14" freezeLabel="false" prefix="X" orientation="0" x="1170" y="590" type="embed://mesac_generated/plane_a_cn2_discrete__7i84u_b_tb3.elmt" uuid="{beb8c3c9-5459-560e-bd45-457aa879e2fd}">
+            <element z="14" freezeLabel="false" prefix="X" orientation="0" x="1170" y="600" type="embed://mesac_generated/plane_a_cn2_discrete__7i84u_b_tb3.elmt" uuid="{beb8c3c9-5459-560e-bd45-457aa879e2fd}">
                 <terminals>
-                    <terminal id="50" orientation="3" x="-161.0" y="-4.0" />
-                    <terminal id="51" orientation="3" x="-161.0" y="16.0" />
+                    <terminal id="54" orientation="3" x="-161.0" y="-4.0" />
+                    <terminal id="55" orientation="3" x="-161.0" y="16.0" />
                 </terminals>
                 <inputs />
                 <elementInformations>
@@ -559,7 +563,11 @@
                 <segment orientation="horizontal" length="150" />
                 <sequentialNumbers />
             </conductor>
-            <conductor num="149B | MT_CLAMP_PB" bus="" condsize="3" conductor_color="" x="0" y="0" freezeLabel="false" vertical-alignment="AlignRight" conductor_section="" function="Existing OEM conductor segments" type="multi" vertirotatetext="270" tension_protocol="" dash-size="1" formula="" color2="#000000" displaytext="1" bicolor="false" horizontal-alignment="AlignBottom" onetextperfolio="0" numsize="7" text_color="#000000" cable="OEM_CONDUCTORS" horizrotatetext="0" color="#d00000" element1="{20902d25-19c0-5195-b5e3-8b3295b2a535}" element2="{c24f2e30-d149-5777-bff7-bee25cd23db8}" terminal1="{045a5a4f-22e1-506b-96d5-daed92953d18}" terminal2="{85b5bfa0-c47e-57df-8a17-e5b588b1a585}">
+            <conductor num="341 | DOOR_INTERLOCK" bus="" condsize="3" conductor_color="" x="0" y="0" freezeLabel="false" vertical-alignment="AlignRight" conductor_section="" function="Existing OEM conductor segments" type="multi" vertirotatetext="270" tension_protocol="" dash-size="1" formula="" color2="#000000" displaytext="1" bicolor="false" horizontal-alignment="AlignBottom" onetextperfolio="0" numsize="7" text_color="#000000" cable="OEM_CONDUCTORS" horizrotatetext="0" color="#a85d00" element1="{20902d25-19c0-5195-b5e3-8b3295b2a535}" element2="{c24f2e30-d149-5777-bff7-bee25cd23db8}" terminal1="{fb3f09b5-3fd9-52d5-9285-7b5e064acbd8}" terminal2="{85b5bfa0-c47e-57df-8a17-e5b588b1a585}">
+                <segment orientation="horizontal" length="150" />
+                <sequentialNumbers />
+            </conductor>
+            <conductor num="149B | MT_CLAMP_PB" bus="" condsize="3" conductor_color="" x="0" y="0" freezeLabel="false" vertical-alignment="AlignRight" conductor_section="" function="Existing OEM conductor segments" type="multi" vertirotatetext="270" tension_protocol="" dash-size="1" formula="" color2="#000000" displaytext="1" bicolor="false" horizontal-alignment="AlignBottom" onetextperfolio="0" numsize="7" text_color="#000000" cable="OEM_CONDUCTORS" horizrotatetext="0" color="#d00000" element1="{20902d25-19c0-5195-b5e3-8b3295b2a535}" element2="{c24f2e30-d149-5777-bff7-bee25cd23db8}" terminal1="{045a5a4f-22e1-506b-96d5-daed92953d18}" terminal2="{0d557bff-f813-5028-a85a-93d49f24f804}">
                 <segment orientation="horizontal" length="150" />
                 <sequentialNumbers />
             </conductor>
@@ -623,7 +631,13 @@
                 <segment orientation="horizontal" length="75" />
                 <sequentialNumbers />
             </conductor>
-            <conductor num="MT_CLAMP_PB | TBD" bus="" condsize="3" conductor_color="" x="0" y="0" freezeLabel="false" vertical-alignment="AlignRight" conductor_section="" function="New control-side conductors" type="multi" vertirotatetext="270" tension_protocol="" dash-size="1" formula="" color2="#000000" displaytext="1" bicolor="false" horizontal-alignment="AlignBottom" onetextperfolio="0" numsize="7" text_color="#000000" cable="NEW_CONTROL_WIRING" horizrotatetext="0" color="#d00000" element1="{c24f2e30-d149-5777-bff7-bee25cd23db8}" element2="{88602edb-e3b4-59a3-8913-dcb5b48a8afe}" terminal1="{c6c1a20d-846f-5f7a-89cd-35c77f44278b}" terminal2="{a2b12c0f-adcd-50ce-b110-b687c41bf234}">
+            <conductor num="DOOR_INTERLOCK | door-interlock" bus="" condsize="3" conductor_color="" x="0" y="0" freezeLabel="false" vertical-alignment="AlignRight" conductor_section="" function="New control-side conductors" type="multi" vertirotatetext="270" tension_protocol="" dash-size="1" formula="" color2="#000000" displaytext="1" bicolor="false" horizontal-alignment="AlignBottom" onetextperfolio="0" numsize="7" text_color="#000000" cable="NEW_CONTROL_WIRING" horizrotatetext="0" color="#a85d00" element1="{c24f2e30-d149-5777-bff7-bee25cd23db8}" element2="{88602edb-e3b4-59a3-8913-dcb5b48a8afe}" terminal1="{c6c1a20d-846f-5f7a-89cd-35c77f44278b}" terminal2="{d24b3b21-6125-596d-9187-0a8f0b611d68}">
+                <segment orientation="horizontal" length="75" />
+                <segment orientation="vertical" length="-40" />
+                <segment orientation="horizontal" length="75" />
+                <sequentialNumbers />
+            </conductor>
+            <conductor num="MT_CLAMP_PB | TBD" bus="" condsize="3" conductor_color="" x="0" y="0" freezeLabel="false" vertical-alignment="AlignRight" conductor_section="" function="New control-side conductors" type="multi" vertirotatetext="270" tension_protocol="" dash-size="1" formula="" color2="#000000" displaytext="1" bicolor="false" horizontal-alignment="AlignBottom" onetextperfolio="0" numsize="7" text_color="#000000" cable="NEW_CONTROL_WIRING" horizrotatetext="0" color="#d00000" element1="{c24f2e30-d149-5777-bff7-bee25cd23db8}" element2="{88602edb-e3b4-59a3-8913-dcb5b48a8afe}" terminal1="{64c0860c-6134-5eb4-b443-8103070d900a}" terminal2="{a2b12c0f-adcd-50ce-b110-b687c41bf234}">
                 <segment orientation="horizontal" length="75" />
                 <segment orientation="vertical" length="-40" />
                 <segment orientation="horizontal" length="75" />
@@ -631,13 +645,13 @@
             </conductor>
             <conductor num="X_HOME | home-x" bus="" condsize="3" conductor_color="" x="0" y="0" freezeLabel="false" vertical-alignment="AlignRight" conductor_section="" function="New control-side conductors" type="multi" vertirotatetext="270" tension_protocol="" dash-size="1" formula="" color2="#000000" displaytext="1" bicolor="false" horizontal-alignment="AlignBottom" onetextperfolio="0" numsize="7" text_color="#000000" cable="NEW_CONTROL_WIRING" horizrotatetext="0" color="#a85d00" element1="{c24f2e30-d149-5777-bff7-bee25cd23db8}" element2="{beb8c3c9-5459-560e-bd45-457aa879e2fd}" terminal1="{c34e2bde-132a-511e-b809-d9ec5232d40c}" terminal2="{6177a12c-bb5f-556e-9539-30e665b50d23}">
                 <segment orientation="horizontal" length="75" />
-                <segment orientation="vertical" length="90" />
+                <segment orientation="vertical" length="110" />
                 <segment orientation="horizontal" length="75" />
                 <sequentialNumbers />
             </conductor>
             <conductor num="Y_HOME | home-y" bus="" condsize="3" conductor_color="" x="0" y="0" freezeLabel="false" vertical-alignment="AlignRight" conductor_section="" function="New control-side conductors" type="multi" vertirotatetext="270" tension_protocol="" dash-size="1" formula="" color2="#000000" displaytext="1" bicolor="false" horizontal-alignment="AlignBottom" onetextperfolio="0" numsize="7" text_color="#000000" cable="NEW_CONTROL_WIRING" horizrotatetext="0" color="#a85d00" element1="{c24f2e30-d149-5777-bff7-bee25cd23db8}" element2="{beb8c3c9-5459-560e-bd45-457aa879e2fd}" terminal1="{8a4bb353-14bc-5104-8612-17ec395e7129}" terminal2="{bbb5be94-7efc-5804-af4e-0fb3689e8fc8}">
                 <segment orientation="horizontal" length="75" />
-                <segment orientation="vertical" length="90" />
+                <segment orientation="vertical" length="110" />
                 <segment orientation="horizontal" length="75" />
                 <sequentialNumbers />
             </conductor>
@@ -646,211 +660,227 @@
             <input x="45" y="28" text="PRELIMINARY - NOT RELEASED FOR WIRING. Yellow = defined route requiring field verification; red = HOLD or proposed; gray = retain/retire decision. Input: wiring/plane_a_bbia1_pin_crosswalk.csv." rotation="0" font="Liberation Sans,9,-1,5,75,0,0,0,0,0,Bold" color="#b00020" text_width="1600" />
         </inputs>
         <shapes>
-            <shape z="8" x1="375" y1="296" x2="525" y2="296" type="Line" closed="0" is_movable="0">
+            <shape z="8" x1="375" y1="286" x2="525" y2="286" type="Line" closed="0" is_movable="0">
                 <pen color="#a85d00" widthF="6" style="SolidLine" />
                 <brush color="#a85d00" style="NoBrush" />
             </shape>
-            <shape z="8" x1="375" y1="316" x2="525" y2="316" type="Line" closed="0" is_movable="0">
+            <shape z="8" x1="375" y1="306" x2="525" y2="306" type="Line" closed="0" is_movable="0">
                 <pen color="#a85d00" widthF="6" style="SolidLine" />
                 <brush color="#a85d00" style="NoBrush" />
             </shape>
-            <shape z="8" x1="375" y1="336" x2="525" y2="336" type="Line" closed="0" is_movable="0">
+            <shape z="8" x1="375" y1="326" x2="525" y2="326" type="Line" closed="0" is_movable="0">
                 <pen color="#a85d00" widthF="6" style="SolidLine" />
                 <brush color="#a85d00" style="NoBrush" />
             </shape>
-            <shape z="8" x1="375" y1="356" x2="525" y2="356" type="Line" closed="0" is_movable="0">
+            <shape z="8" x1="375" y1="346" x2="525" y2="346" type="Line" closed="0" is_movable="0">
                 <pen color="#a85d00" widthF="6" style="SolidLine" />
                 <brush color="#a85d00" style="NoBrush" />
             </shape>
-            <shape z="8" x1="375" y1="376" x2="525" y2="376" type="Line" closed="0" is_movable="0">
+            <shape z="8" x1="375" y1="366" x2="525" y2="366" type="Line" closed="0" is_movable="0">
                 <pen color="#a85d00" widthF="6" style="SolidLine" />
                 <brush color="#a85d00" style="NoBrush" />
             </shape>
-            <shape z="8" x1="375" y1="396" x2="525" y2="396" type="Line" closed="0" is_movable="0">
+            <shape z="8" x1="375" y1="386" x2="525" y2="386" type="Line" closed="0" is_movable="0">
                 <pen color="#a85d00" widthF="6" style="SolidLine" />
                 <brush color="#a85d00" style="NoBrush" />
             </shape>
-            <shape z="8" x1="375" y1="416" x2="525" y2="416" type="Line" closed="0" is_movable="0">
+            <shape z="8" x1="375" y1="406" x2="525" y2="406" type="Line" closed="0" is_movable="0">
                 <pen color="#a85d00" widthF="6" style="SolidLine" />
                 <brush color="#a85d00" style="NoBrush" />
             </shape>
-            <shape z="8" x1="375" y1="436" x2="525" y2="436" type="Line" closed="0" is_movable="0">
+            <shape z="8" x1="375" y1="426" x2="525" y2="426" type="Line" closed="0" is_movable="0">
                 <pen color="#a85d00" widthF="6" style="SolidLine" />
                 <brush color="#a85d00" style="NoBrush" />
             </shape>
-            <shape z="8" x1="375" y1="456" x2="525" y2="456" type="Line" closed="0" is_movable="0">
+            <shape z="8" x1="375" y1="446" x2="525" y2="446" type="Line" closed="0" is_movable="0">
                 <pen color="#a85d00" widthF="6" style="SolidLine" />
                 <brush color="#a85d00" style="NoBrush" />
             </shape>
-            <shape z="8" x1="375" y1="476" x2="525" y2="476" type="Line" closed="0" is_movable="0">
+            <shape z="8" x1="375" y1="466" x2="525" y2="466" type="Line" closed="0" is_movable="0">
                 <pen color="#a85d00" widthF="6" style="SolidLine" />
                 <brush color="#a85d00" style="NoBrush" />
             </shape>
-            <shape z="8" x1="375" y1="496" x2="525" y2="496" type="Line" closed="0" is_movable="0">
+            <shape z="8" x1="375" y1="486" x2="525" y2="486" type="Line" closed="0" is_movable="0">
                 <pen color="#a85d00" widthF="6" style="SolidLine" />
                 <brush color="#a85d00" style="NoBrush" />
             </shape>
-            <shape z="8" x1="375" y1="516" x2="525" y2="516" type="Line" closed="0" is_movable="0">
+            <shape z="8" x1="375" y1="506" x2="525" y2="506" type="Line" closed="0" is_movable="0">
                 <pen color="#a85d00" widthF="6" style="SolidLine" />
                 <brush color="#a85d00" style="NoBrush" />
             </shape>
-            <shape z="8" x1="375" y1="536" x2="525" y2="536" type="Line" closed="0" is_movable="0">
+            <shape z="8" x1="375" y1="526" x2="525" y2="526" type="Line" closed="0" is_movable="0">
+                <pen color="#a85d00" widthF="6" style="SolidLine" />
+                <brush color="#a85d00" style="NoBrush" />
+            </shape>
+            <shape z="8" x1="375" y1="546" x2="525" y2="546" type="Line" closed="0" is_movable="0">
                 <pen color="#d00000" widthF="6" style="SolidLine" />
                 <brush color="#d00000" style="NoBrush" />
             </shape>
-            <shape z="8" x1="855" y1="296" x2="930" y2="296" type="Line" closed="0" is_movable="0">
+            <shape z="8" x1="855" y1="286" x2="930" y2="286" type="Line" closed="0" is_movable="0">
                 <pen color="#a85d00" widthF="6" style="SolidLine" />
                 <brush color="#a85d00" style="NoBrush" />
             </shape>
-            <shape z="8" x1="930" y1="296" x2="930" y2="226" type="Line" closed="0" is_movable="0">
+            <shape z="8" x1="930" y1="286" x2="930" y2="216" type="Line" closed="0" is_movable="0">
                 <pen color="#a85d00" widthF="6" style="SolidLine" />
                 <brush color="#a85d00" style="NoBrush" />
             </shape>
-            <shape z="8" x1="930" y1="226" x2="1005" y2="226" type="Line" closed="0" is_movable="0">
+            <shape z="8" x1="930" y1="216" x2="1005" y2="216" type="Line" closed="0" is_movable="0">
                 <pen color="#a85d00" widthF="6" style="SolidLine" />
                 <brush color="#a85d00" style="NoBrush" />
             </shape>
-            <shape z="8" x1="855" y1="436" x2="930" y2="436" type="Line" closed="0" is_movable="0">
+            <shape z="8" x1="855" y1="426" x2="930" y2="426" type="Line" closed="0" is_movable="0">
                 <pen color="#a85d00" widthF="6" style="SolidLine" />
                 <brush color="#a85d00" style="NoBrush" />
             </shape>
-            <shape z="8" x1="930" y1="436" x2="930" y2="246" type="Line" closed="0" is_movable="0">
+            <shape z="8" x1="930" y1="426" x2="930" y2="236" type="Line" closed="0" is_movable="0">
                 <pen color="#a85d00" widthF="6" style="SolidLine" />
                 <brush color="#a85d00" style="NoBrush" />
             </shape>
-            <shape z="8" x1="930" y1="246" x2="1005" y2="246" type="Line" closed="0" is_movable="0">
+            <shape z="8" x1="930" y1="236" x2="1005" y2="236" type="Line" closed="0" is_movable="0">
                 <pen color="#a85d00" widthF="6" style="SolidLine" />
                 <brush color="#a85d00" style="NoBrush" />
             </shape>
-            <shape z="8" x1="855" y1="456" x2="930" y2="456" type="Line" closed="0" is_movable="0">
+            <shape z="8" x1="855" y1="446" x2="930" y2="446" type="Line" closed="0" is_movable="0">
                 <pen color="#a85d00" widthF="6" style="SolidLine" />
                 <brush color="#a85d00" style="NoBrush" />
             </shape>
-            <shape z="8" x1="930" y1="456" x2="930" y2="266" type="Line" closed="0" is_movable="0">
+            <shape z="8" x1="930" y1="446" x2="930" y2="256" type="Line" closed="0" is_movable="0">
                 <pen color="#a85d00" widthF="6" style="SolidLine" />
                 <brush color="#a85d00" style="NoBrush" />
             </shape>
-            <shape z="8" x1="930" y1="266" x2="1005" y2="266" type="Line" closed="0" is_movable="0">
+            <shape z="8" x1="930" y1="256" x2="1005" y2="256" type="Line" closed="0" is_movable="0">
                 <pen color="#a85d00" widthF="6" style="SolidLine" />
                 <brush color="#a85d00" style="NoBrush" />
             </shape>
-            <shape z="8" x1="855" y1="476" x2="930" y2="476" type="Line" closed="0" is_movable="0">
+            <shape z="8" x1="855" y1="466" x2="930" y2="466" type="Line" closed="0" is_movable="0">
                 <pen color="#a85d00" widthF="6" style="SolidLine" />
                 <brush color="#a85d00" style="NoBrush" />
             </shape>
-            <shape z="8" x1="930" y1="476" x2="930" y2="286" type="Line" closed="0" is_movable="0">
+            <shape z="8" x1="930" y1="466" x2="930" y2="276" type="Line" closed="0" is_movable="0">
                 <pen color="#a85d00" widthF="6" style="SolidLine" />
                 <brush color="#a85d00" style="NoBrush" />
             </shape>
-            <shape z="8" x1="930" y1="286" x2="1005" y2="286" type="Line" closed="0" is_movable="0">
+            <shape z="8" x1="930" y1="276" x2="1005" y2="276" type="Line" closed="0" is_movable="0">
                 <pen color="#a85d00" widthF="6" style="SolidLine" />
                 <brush color="#a85d00" style="NoBrush" />
             </shape>
-            <shape z="8" x1="855" y1="316" x2="930" y2="316" type="Line" closed="0" is_movable="0">
+            <shape z="8" x1="855" y1="306" x2="930" y2="306" type="Line" closed="0" is_movable="0">
                 <pen color="#a85d00" widthF="6" style="SolidLine" />
                 <brush color="#a85d00" style="NoBrush" />
             </shape>
-            <shape z="8" x1="930" y1="316" x2="930" y2="376" type="Line" closed="0" is_movable="0">
+            <shape z="8" x1="930" y1="306" x2="930" y2="366" type="Line" closed="0" is_movable="0">
                 <pen color="#a85d00" widthF="6" style="SolidLine" />
                 <brush color="#a85d00" style="NoBrush" />
             </shape>
-            <shape z="8" x1="930" y1="376" x2="1005" y2="376" type="Line" closed="0" is_movable="0">
+            <shape z="8" x1="930" y1="366" x2="1005" y2="366" type="Line" closed="0" is_movable="0">
                 <pen color="#a85d00" widthF="6" style="SolidLine" />
                 <brush color="#a85d00" style="NoBrush" />
             </shape>
-            <shape z="8" x1="855" y1="336" x2="930" y2="336" type="Line" closed="0" is_movable="0">
+            <shape z="8" x1="855" y1="326" x2="930" y2="326" type="Line" closed="0" is_movable="0">
                 <pen color="#a85d00" widthF="6" style="SolidLine" />
                 <brush color="#a85d00" style="NoBrush" />
             </shape>
-            <shape z="8" x1="930" y1="336" x2="930" y2="396" type="Line" closed="0" is_movable="0">
+            <shape z="8" x1="930" y1="326" x2="930" y2="386" type="Line" closed="0" is_movable="0">
                 <pen color="#a85d00" widthF="6" style="SolidLine" />
                 <brush color="#a85d00" style="NoBrush" />
             </shape>
-            <shape z="8" x1="930" y1="396" x2="1005" y2="396" type="Line" closed="0" is_movable="0">
+            <shape z="8" x1="930" y1="386" x2="1005" y2="386" type="Line" closed="0" is_movable="0">
                 <pen color="#a85d00" widthF="6" style="SolidLine" />
                 <brush color="#a85d00" style="NoBrush" />
             </shape>
-            <shape z="8" x1="855" y1="356" x2="930" y2="356" type="Line" closed="0" is_movable="0">
+            <shape z="8" x1="855" y1="346" x2="930" y2="346" type="Line" closed="0" is_movable="0">
                 <pen color="#a85d00" widthF="6" style="SolidLine" />
                 <brush color="#a85d00" style="NoBrush" />
             </shape>
-            <shape z="8" x1="930" y1="356" x2="930" y2="416" type="Line" closed="0" is_movable="0">
+            <shape z="8" x1="930" y1="346" x2="930" y2="406" type="Line" closed="0" is_movable="0">
                 <pen color="#a85d00" widthF="6" style="SolidLine" />
                 <brush color="#a85d00" style="NoBrush" />
             </shape>
-            <shape z="8" x1="930" y1="416" x2="1005" y2="416" type="Line" closed="0" is_movable="0">
+            <shape z="8" x1="930" y1="406" x2="1005" y2="406" type="Line" closed="0" is_movable="0">
                 <pen color="#a85d00" widthF="6" style="SolidLine" />
                 <brush color="#a85d00" style="NoBrush" />
             </shape>
-            <shape z="8" x1="855" y1="376" x2="930" y2="376" type="Line" closed="0" is_movable="0">
+            <shape z="8" x1="855" y1="366" x2="930" y2="366" type="Line" closed="0" is_movable="0">
                 <pen color="#a85d00" widthF="6" style="SolidLine" />
                 <brush color="#a85d00" style="NoBrush" />
             </shape>
-            <shape z="8" x1="930" y1="376" x2="930" y2="436" type="Line" closed="0" is_movable="0">
+            <shape z="8" x1="930" y1="366" x2="930" y2="426" type="Line" closed="0" is_movable="0">
                 <pen color="#a85d00" widthF="6" style="SolidLine" />
                 <brush color="#a85d00" style="NoBrush" />
             </shape>
-            <shape z="8" x1="930" y1="436" x2="1005" y2="436" type="Line" closed="0" is_movable="0">
+            <shape z="8" x1="930" y1="426" x2="1005" y2="426" type="Line" closed="0" is_movable="0">
                 <pen color="#a85d00" widthF="6" style="SolidLine" />
                 <brush color="#a85d00" style="NoBrush" />
             </shape>
-            <shape z="8" x1="855" y1="396" x2="930" y2="396" type="Line" closed="0" is_movable="0">
+            <shape z="8" x1="855" y1="386" x2="930" y2="386" type="Line" closed="0" is_movable="0">
                 <pen color="#a85d00" widthF="6" style="SolidLine" />
                 <brush color="#a85d00" style="NoBrush" />
             </shape>
-            <shape z="8" x1="930" y1="396" x2="930" y2="456" type="Line" closed="0" is_movable="0">
+            <shape z="8" x1="930" y1="386" x2="930" y2="446" type="Line" closed="0" is_movable="0">
                 <pen color="#a85d00" widthF="6" style="SolidLine" />
                 <brush color="#a85d00" style="NoBrush" />
             </shape>
-            <shape z="8" x1="930" y1="456" x2="1005" y2="456" type="Line" closed="0" is_movable="0">
+            <shape z="8" x1="930" y1="446" x2="1005" y2="446" type="Line" closed="0" is_movable="0">
                 <pen color="#a85d00" widthF="6" style="SolidLine" />
                 <brush color="#a85d00" style="NoBrush" />
             </shape>
-            <shape z="8" x1="855" y1="416" x2="930" y2="416" type="Line" closed="0" is_movable="0">
+            <shape z="8" x1="855" y1="406" x2="930" y2="406" type="Line" closed="0" is_movable="0">
                 <pen color="#a85d00" widthF="6" style="SolidLine" />
                 <brush color="#a85d00" style="NoBrush" />
             </shape>
-            <shape z="8" x1="930" y1="416" x2="930" y2="476" type="Line" closed="0" is_movable="0">
+            <shape z="8" x1="930" y1="406" x2="930" y2="466" type="Line" closed="0" is_movable="0">
                 <pen color="#a85d00" widthF="6" style="SolidLine" />
                 <brush color="#a85d00" style="NoBrush" />
             </shape>
-            <shape z="8" x1="930" y1="476" x2="1005" y2="476" type="Line" closed="0" is_movable="0">
+            <shape z="8" x1="930" y1="466" x2="1005" y2="466" type="Line" closed="0" is_movable="0">
                 <pen color="#a85d00" widthF="6" style="SolidLine" />
                 <brush color="#a85d00" style="NoBrush" />
             </shape>
-            <shape z="8" x1="855" y1="536" x2="930" y2="536" type="Line" closed="0" is_movable="0">
+            <shape z="8" x1="855" y1="526" x2="930" y2="526" type="Line" closed="0" is_movable="0">
+                <pen color="#a85d00" widthF="6" style="SolidLine" />
+                <brush color="#a85d00" style="NoBrush" />
+            </shape>
+            <shape z="8" x1="930" y1="526" x2="930" y2="486" type="Line" closed="0" is_movable="0">
+                <pen color="#a85d00" widthF="6" style="SolidLine" />
+                <brush color="#a85d00" style="NoBrush" />
+            </shape>
+            <shape z="8" x1="930" y1="486" x2="1005" y2="486" type="Line" closed="0" is_movable="0">
+                <pen color="#a85d00" widthF="6" style="SolidLine" />
+                <brush color="#a85d00" style="NoBrush" />
+            </shape>
+            <shape z="8" x1="855" y1="546" x2="930" y2="546" type="Line" closed="0" is_movable="0">
                 <pen color="#d00000" widthF="6" style="SolidLine" />
                 <brush color="#d00000" style="NoBrush" />
             </shape>
-            <shape z="8" x1="930" y1="536" x2="930" y2="496" type="Line" closed="0" is_movable="0">
+            <shape z="8" x1="930" y1="546" x2="930" y2="506" type="Line" closed="0" is_movable="0">
                 <pen color="#d00000" widthF="6" style="SolidLine" />
                 <brush color="#d00000" style="NoBrush" />
             </shape>
-            <shape z="8" x1="930" y1="496" x2="1005" y2="496" type="Line" closed="0" is_movable="0">
+            <shape z="8" x1="930" y1="506" x2="1005" y2="506" type="Line" closed="0" is_movable="0">
                 <pen color="#d00000" widthF="6" style="SolidLine" />
                 <brush color="#d00000" style="NoBrush" />
             </shape>
-            <shape z="8" x1="855" y1="496" x2="930" y2="496" type="Line" closed="0" is_movable="0">
+            <shape z="8" x1="855" y1="486" x2="930" y2="486" type="Line" closed="0" is_movable="0">
                 <pen color="#a85d00" widthF="6" style="SolidLine" />
                 <brush color="#a85d00" style="NoBrush" />
             </shape>
-            <shape z="8" x1="930" y1="496" x2="930" y2="586" type="Line" closed="0" is_movable="0">
+            <shape z="8" x1="930" y1="486" x2="930" y2="596" type="Line" closed="0" is_movable="0">
                 <pen color="#a85d00" widthF="6" style="SolidLine" />
                 <brush color="#a85d00" style="NoBrush" />
             </shape>
-            <shape z="8" x1="930" y1="586" x2="1005" y2="586" type="Line" closed="0" is_movable="0">
+            <shape z="8" x1="930" y1="596" x2="1005" y2="596" type="Line" closed="0" is_movable="0">
                 <pen color="#a85d00" widthF="6" style="SolidLine" />
                 <brush color="#a85d00" style="NoBrush" />
             </shape>
-            <shape z="8" x1="855" y1="516" x2="930" y2="516" type="Line" closed="0" is_movable="0">
+            <shape z="8" x1="855" y1="506" x2="930" y2="506" type="Line" closed="0" is_movable="0">
                 <pen color="#a85d00" widthF="6" style="SolidLine" />
                 <brush color="#a85d00" style="NoBrush" />
             </shape>
-            <shape z="8" x1="930" y1="516" x2="930" y2="606" type="Line" closed="0" is_movable="0">
+            <shape z="8" x1="930" y1="506" x2="930" y2="616" type="Line" closed="0" is_movable="0">
                 <pen color="#a85d00" widthF="6" style="SolidLine" />
                 <brush color="#a85d00" style="NoBrush" />
             </shape>
-            <shape z="8" x1="930" y1="606" x2="1005" y2="606" type="Line" closed="0" is_movable="0">
+            <shape z="8" x1="930" y1="616" x2="1005" y2="616" type="Line" closed="0" is_movable="0">
                 <pen color="#a85d00" widthF="6" style="SolidLine" />
                 <brush color="#a85d00" style="NoBrush" />
             </shape>
@@ -1037,10 +1067,11 @@
         <elements>
             <element z="10" freezeLabel="false" prefix="X" orientation="0" x="210" y="410" type="embed://mesac_generated/plane_a_cn4_discrete__cn4.elmt" uuid="{6cba1c7b-3b73-5576-861e-97537caa7df4}">
                 <terminals>
-                    <terminal id="0" orientation="1" x="161.0" y="-24.0" />
-                    <terminal id="1" orientation="1" x="161.0" y="-4.0" />
-                    <terminal id="2" orientation="1" x="161.0" y="16.0" />
-                    <terminal id="3" orientation="1" x="161.0" y="36.0" />
+                    <terminal id="0" orientation="1" x="161.0" y="-34.0" />
+                    <terminal id="1" orientation="1" x="161.0" y="-14.0" />
+                    <terminal id="2" orientation="1" x="161.0" y="6.0" />
+                    <terminal id="3" orientation="1" x="161.0" y="26.0" />
+                    <terminal id="4" orientation="1" x="161.0" y="46.0" />
                 </terminals>
                 <inputs />
                 <elementInformations>
@@ -1052,14 +1083,16 @@
             </element>
             <element z="11" freezeLabel="false" prefix="X" orientation="0" x="690" y="410" type="embed://mesac_generated/plane_a_cn4_discrete__ir_boundary.elmt" uuid="{ddfa8ccd-4418-5640-85e8-086961ff604c}">
                 <terminals>
-                    <terminal id="4" orientation="3" x="-161.0" y="-24.0" />
-                    <terminal id="5" orientation="1" x="161.0" y="-24.0" />
-                    <terminal id="6" orientation="3" x="-161.0" y="-4.0" />
-                    <terminal id="7" orientation="1" x="161.0" y="-4.0" />
-                    <terminal id="8" orientation="3" x="-161.0" y="16.0" />
-                    <terminal id="9" orientation="1" x="161.0" y="16.0" />
-                    <terminal id="10" orientation="3" x="-161.0" y="36.0" />
-                    <terminal id="11" orientation="1" x="161.0" y="36.0" />
+                    <terminal id="5" orientation="3" x="-161.0" y="-34.0" />
+                    <terminal id="6" orientation="1" x="161.0" y="-34.0" />
+                    <terminal id="7" orientation="3" x="-161.0" y="-14.0" />
+                    <terminal id="8" orientation="1" x="161.0" y="-14.0" />
+                    <terminal id="9" orientation="3" x="-161.0" y="6.0" />
+                    <terminal id="10" orientation="1" x="161.0" y="6.0" />
+                    <terminal id="11" orientation="3" x="-161.0" y="26.0" />
+                    <terminal id="12" orientation="1" x="161.0" y="26.0" />
+                    <terminal id="13" orientation="3" x="-161.0" y="46.0" />
+                    <terminal id="14" orientation="1" x="161.0" y="46.0" />
                 </terminals>
                 <inputs />
                 <elementInformations>
@@ -1071,10 +1104,11 @@
             </element>
             <element z="12" freezeLabel="false" prefix="X" orientation="0" x="1170" y="410" type="embed://mesac_generated/plane_a_cn4_discrete__7i84u_a_tb3.elmt" uuid="{7f0364ba-5dde-569a-808b-8792fe22527f}">
                 <terminals>
-                    <terminal id="12" orientation="3" x="-161.0" y="-24.0" />
-                    <terminal id="13" orientation="3" x="-161.0" y="-4.0" />
-                    <terminal id="14" orientation="3" x="-161.0" y="16.0" />
-                    <terminal id="15" orientation="3" x="-161.0" y="36.0" />
+                    <terminal id="15" orientation="3" x="-161.0" y="-34.0" />
+                    <terminal id="16" orientation="3" x="-161.0" y="-14.0" />
+                    <terminal id="17" orientation="3" x="-161.0" y="6.0" />
+                    <terminal id="18" orientation="3" x="-161.0" y="26.0" />
+                    <terminal id="19" orientation="3" x="-161.0" y="46.0" />
                 </terminals>
                 <inputs />
                 <elementInformations>
@@ -1102,6 +1136,10 @@
                 <segment orientation="horizontal" length="150" />
                 <sequentialNumbers />
             </conductor>
+            <conductor num="ORA1 | SPINDLE_ORIENT_ARRIVAL" bus="" condsize="3" conductor_color="" x="0" y="0" freezeLabel="false" vertical-alignment="AlignRight" conductor_section="" function="Existing OEM conductor segments" type="multi" vertirotatetext="270" tension_protocol="" dash-size="1" formula="" color2="#000000" displaytext="1" bicolor="false" horizontal-alignment="AlignBottom" onetextperfolio="0" numsize="7" text_color="#000000" cable="OEM_CONDUCTORS" horizrotatetext="0" color="#a85d00" element1="{6cba1c7b-3b73-5576-861e-97537caa7df4}" element2="{ddfa8ccd-4418-5640-85e8-086961ff604c}" terminal1="{4839144d-387b-509d-a897-1d6575716288}" terminal2="{f0d4c687-5dd8-5651-b92f-0404b9abf552}">
+                <segment orientation="horizontal" length="150" />
+                <sequentialNumbers />
+            </conductor>
             <conductor num="SPINDLE_ZERO_SPEED | spindle-zero-speed" bus="" condsize="3" conductor_color="" x="0" y="0" freezeLabel="false" vertical-alignment="AlignRight" conductor_section="" function="New control-side conductors" type="multi" vertirotatetext="270" tension_protocol="" dash-size="1" formula="" color2="#000000" displaytext="1" bicolor="false" horizontal-alignment="AlignBottom" onetextperfolio="0" numsize="7" text_color="#000000" cable="NEW_CONTROL_WIRING" horizrotatetext="0" color="#d00000" element1="{ddfa8ccd-4418-5640-85e8-086961ff604c}" element2="{7f0364ba-5dde-569a-808b-8792fe22527f}" terminal1="{752757f5-882d-56a3-bd8e-f1a9e2f2daf8}" terminal2="{94c4daa9-d0c8-586e-8a4a-89cd4577e9b6}">
                 <segment orientation="horizontal" length="150" />
                 <sequentialNumbers />
@@ -1118,40 +1156,52 @@
                 <segment orientation="horizontal" length="150" />
                 <sequentialNumbers />
             </conductor>
+            <conductor num="SPINDLE_ORIENT_ARRIVAL | spindle-oriented" bus="" condsize="3" conductor_color="" x="0" y="0" freezeLabel="false" vertical-alignment="AlignRight" conductor_section="" function="New control-side conductors" type="multi" vertirotatetext="270" tension_protocol="" dash-size="1" formula="" color2="#000000" displaytext="1" bicolor="false" horizontal-alignment="AlignBottom" onetextperfolio="0" numsize="7" text_color="#000000" cable="NEW_CONTROL_WIRING" horizrotatetext="0" color="#a85d00" element1="{ddfa8ccd-4418-5640-85e8-086961ff604c}" element2="{7f0364ba-5dde-569a-808b-8792fe22527f}" terminal1="{c57c0057-9aa7-55aa-b79c-a94c6c510a6f}" terminal2="{a23a313c-fddb-5613-aa74-a0616d0872c1}">
+                <segment orientation="horizontal" length="150" />
+                <sequentialNumbers />
+            </conductor>
         </conductors>
         <inputs>
             <input x="45" y="28" text="PRELIMINARY - NOT RELEASED FOR WIRING. Yellow = defined route requiring field verification; red = HOLD or proposed; gray = retain/retire decision. Input: wiring/plane_a_bbia1_pin_crosswalk.csv." rotation="0" font="Liberation Sans,9,-1,5,75,0,0,0,0,0,Bold" color="#b00020" text_width="1600" />
         </inputs>
         <shapes>
-            <shape z="8" x1="375" y1="386" x2="525" y2="386" type="Line" closed="0" is_movable="0">
+            <shape z="8" x1="375" y1="376" x2="525" y2="376" type="Line" closed="0" is_movable="0">
                 <pen color="#d00000" widthF="6" style="SolidLine" />
                 <brush color="#d00000" style="NoBrush" />
             </shape>
-            <shape z="8" x1="375" y1="406" x2="525" y2="406" type="Line" closed="0" is_movable="0">
+            <shape z="8" x1="375" y1="396" x2="525" y2="396" type="Line" closed="0" is_movable="0">
                 <pen color="#a85d00" widthF="6" style="SolidLine" />
                 <brush color="#a85d00" style="NoBrush" />
             </shape>
-            <shape z="8" x1="375" y1="426" x2="525" y2="426" type="Line" closed="0" is_movable="0">
+            <shape z="8" x1="375" y1="416" x2="525" y2="416" type="Line" closed="0" is_movable="0">
                 <pen color="#a85d00" widthF="6" style="SolidLine" />
                 <brush color="#a85d00" style="NoBrush" />
             </shape>
-            <shape z="8" x1="375" y1="446" x2="525" y2="446" type="Line" closed="0" is_movable="0">
+            <shape z="8" x1="375" y1="436" x2="525" y2="436" type="Line" closed="0" is_movable="0">
                 <pen color="#a85d00" widthF="6" style="SolidLine" />
                 <brush color="#a85d00" style="NoBrush" />
             </shape>
-            <shape z="8" x1="855" y1="386" x2="1005" y2="386" type="Line" closed="0" is_movable="0">
+            <shape z="8" x1="375" y1="456" x2="525" y2="456" type="Line" closed="0" is_movable="0">
+                <pen color="#a85d00" widthF="6" style="SolidLine" />
+                <brush color="#a85d00" style="NoBrush" />
+            </shape>
+            <shape z="8" x1="855" y1="376" x2="1005" y2="376" type="Line" closed="0" is_movable="0">
                 <pen color="#d00000" widthF="6" style="SolidLine" />
                 <brush color="#d00000" style="NoBrush" />
             </shape>
-            <shape z="8" x1="855" y1="406" x2="1005" y2="406" type="Line" closed="0" is_movable="0">
+            <shape z="8" x1="855" y1="396" x2="1005" y2="396" type="Line" closed="0" is_movable="0">
                 <pen color="#a85d00" widthF="6" style="SolidLine" />
                 <brush color="#a85d00" style="NoBrush" />
             </shape>
-            <shape z="8" x1="855" y1="426" x2="1005" y2="426" type="Line" closed="0" is_movable="0">
+            <shape z="8" x1="855" y1="416" x2="1005" y2="416" type="Line" closed="0" is_movable="0">
                 <pen color="#a85d00" widthF="6" style="SolidLine" />
                 <brush color="#a85d00" style="NoBrush" />
             </shape>
-            <shape z="8" x1="855" y1="446" x2="1005" y2="446" type="Line" closed="0" is_movable="0">
+            <shape z="8" x1="855" y1="436" x2="1005" y2="436" type="Line" closed="0" is_movable="0">
+                <pen color="#a85d00" widthF="6" style="SolidLine" />
+                <brush color="#a85d00" style="NoBrush" />
+            </shape>
+            <shape z="8" x1="855" y1="456" x2="1005" y2="456" type="Line" closed="0" is_movable="0">
                 <pen color="#a85d00" widthF="6" style="SolidLine" />
                 <brush color="#a85d00" style="NoBrush" />
             </shape>
@@ -1414,13 +1464,14 @@
         <elements>
             <element z="10" freezeLabel="false" prefix="X" orientation="0" x="210" y="410" type="embed://mesac_generated/plane_a_cn11_discrete__cn11.elmt" uuid="{46d6b1b2-daa0-5366-8031-89d06055e2fe}">
                 <terminals>
-                    <terminal id="0" orientation="1" x="161.0" y="-54.0" />
-                    <terminal id="1" orientation="1" x="161.0" y="-34.0" />
-                    <terminal id="2" orientation="1" x="161.0" y="-14.0" />
-                    <terminal id="3" orientation="1" x="161.0" y="6.0" />
-                    <terminal id="4" orientation="1" x="161.0" y="26.0" />
-                    <terminal id="5" orientation="1" x="161.0" y="46.0" />
-                    <terminal id="6" orientation="1" x="161.0" y="66.0" />
+                    <terminal id="0" orientation="1" x="161.0" y="-64.0" />
+                    <terminal id="1" orientation="1" x="161.0" y="-44.0" />
+                    <terminal id="2" orientation="1" x="161.0" y="-24.0" />
+                    <terminal id="3" orientation="1" x="161.0" y="-4.0" />
+                    <terminal id="4" orientation="1" x="161.0" y="16.0" />
+                    <terminal id="5" orientation="1" x="161.0" y="36.0" />
+                    <terminal id="6" orientation="1" x="161.0" y="56.0" />
+                    <terminal id="7" orientation="1" x="161.0" y="76.0" />
                 </terminals>
                 <inputs />
                 <elementInformations>
@@ -1432,20 +1483,22 @@
             </element>
             <element z="11" freezeLabel="false" prefix="X" orientation="0" x="690" y="410" type="embed://mesac_generated/plane_a_cn11_discrete__ir_boundary.elmt" uuid="{306c8659-c2e2-5f18-9a9c-3097e68c8d32}">
                 <terminals>
-                    <terminal id="7" orientation="3" x="-161.0" y="-54.0" />
-                    <terminal id="8" orientation="1" x="161.0" y="-54.0" />
-                    <terminal id="9" orientation="3" x="-161.0" y="-34.0" />
-                    <terminal id="10" orientation="1" x="161.0" y="-34.0" />
-                    <terminal id="11" orientation="3" x="-161.0" y="-14.0" />
-                    <terminal id="12" orientation="1" x="161.0" y="-14.0" />
-                    <terminal id="13" orientation="3" x="-161.0" y="6.0" />
-                    <terminal id="14" orientation="1" x="161.0" y="6.0" />
-                    <terminal id="15" orientation="3" x="-161.0" y="26.0" />
-                    <terminal id="16" orientation="1" x="161.0" y="26.0" />
-                    <terminal id="17" orientation="3" x="-161.0" y="46.0" />
-                    <terminal id="18" orientation="1" x="161.0" y="46.0" />
-                    <terminal id="19" orientation="3" x="-161.0" y="66.0" />
-                    <terminal id="20" orientation="1" x="161.0" y="66.0" />
+                    <terminal id="8" orientation="3" x="-161.0" y="-64.0" />
+                    <terminal id="9" orientation="1" x="161.0" y="-64.0" />
+                    <terminal id="10" orientation="3" x="-161.0" y="-44.0" />
+                    <terminal id="11" orientation="1" x="161.0" y="-44.0" />
+                    <terminal id="12" orientation="3" x="-161.0" y="-24.0" />
+                    <terminal id="13" orientation="1" x="161.0" y="-24.0" />
+                    <terminal id="14" orientation="3" x="-161.0" y="-4.0" />
+                    <terminal id="15" orientation="1" x="161.0" y="-4.0" />
+                    <terminal id="16" orientation="3" x="-161.0" y="16.0" />
+                    <terminal id="17" orientation="1" x="161.0" y="16.0" />
+                    <terminal id="18" orientation="3" x="-161.0" y="36.0" />
+                    <terminal id="19" orientation="1" x="161.0" y="36.0" />
+                    <terminal id="20" orientation="3" x="-161.0" y="56.0" />
+                    <terminal id="21" orientation="1" x="161.0" y="56.0" />
+                    <terminal id="22" orientation="3" x="-161.0" y="76.0" />
+                    <terminal id="23" orientation="1" x="161.0" y="76.0" />
                 </terminals>
                 <inputs />
                 <elementInformations>
@@ -1457,8 +1510,9 @@
             </element>
             <element z="12" freezeLabel="false" prefix="X" orientation="0" x="1170" y="290" type="embed://mesac_generated/plane_a_cn11_discrete__7i84u_a_tb2.elmt" uuid="{28656a45-1f27-5f1c-b231-ef741cba8a83}">
                 <terminals>
-                    <terminal id="21" orientation="3" x="-161.0" y="-4.0" />
-                    <terminal id="22" orientation="3" x="-161.0" y="16.0" />
+                    <terminal id="24" orientation="3" x="-161.0" y="-14.0" />
+                    <terminal id="25" orientation="3" x="-161.0" y="6.0" />
+                    <terminal id="26" orientation="3" x="-161.0" y="26.0" />
                 </terminals>
                 <inputs />
                 <elementInformations>
@@ -1468,10 +1522,10 @@
                 <dynamic_texts />
                 <texts_groups />
             </element>
-            <element z="13" freezeLabel="false" prefix="X" orientation="0" x="1170" y="400" type="embed://mesac_generated/plane_a_cn11_discrete__7i84u_a_tb3.elmt" uuid="{716cb469-2e3a-517b-ac13-3ce55d9b8ddc}">
+            <element z="13" freezeLabel="false" prefix="X" orientation="0" x="1170" y="410" type="embed://mesac_generated/plane_a_cn11_discrete__7i84u_a_tb3.elmt" uuid="{716cb469-2e3a-517b-ac13-3ce55d9b8ddc}">
                 <terminals>
-                    <terminal id="23" orientation="3" x="-161.0" y="-4.0" />
-                    <terminal id="24" orientation="3" x="-161.0" y="16.0" />
+                    <terminal id="27" orientation="3" x="-161.0" y="-4.0" />
+                    <terminal id="28" orientation="3" x="-161.0" y="16.0" />
                 </terminals>
                 <inputs />
                 <elementInformations>
@@ -1481,11 +1535,11 @@
                 <dynamic_texts />
                 <texts_groups />
             </element>
-            <element z="14" freezeLabel="false" prefix="X" orientation="0" x="1170" y="520" type="embed://mesac_generated/plane_a_cn11_discrete__7i84u_b_tb3.elmt" uuid="{2791b37f-631d-54d6-940c-c725b8373d68}">
+            <element z="14" freezeLabel="false" prefix="X" orientation="0" x="1170" y="530" type="embed://mesac_generated/plane_a_cn11_discrete__7i84u_b_tb3.elmt" uuid="{2791b37f-631d-54d6-940c-c725b8373d68}">
                 <terminals>
-                    <terminal id="25" orientation="3" x="-161.0" y="-14.0" />
-                    <terminal id="26" orientation="3" x="-161.0" y="6.0" />
-                    <terminal id="27" orientation="3" x="-161.0" y="26.0" />
+                    <terminal id="29" orientation="3" x="-161.0" y="-14.0" />
+                    <terminal id="30" orientation="3" x="-161.0" y="6.0" />
+                    <terminal id="31" orientation="3" x="-161.0" y="26.0" />
                 </terminals>
                 <inputs />
                 <elementInformations>
@@ -1521,7 +1575,11 @@
                 <segment orientation="horizontal" length="150" />
                 <sequentialNumbers />
             </conductor>
-            <conductor num="835 | HYD_PUMP_ON" bus="" condsize="3" conductor_color="" x="0" y="0" freezeLabel="false" vertical-alignment="AlignRight" conductor_section="" function="Existing OEM conductor segments" type="multi" vertirotatetext="270" tension_protocol="" dash-size="1" formula="" color2="#000000" displaytext="1" bicolor="false" horizontal-alignment="AlignBottom" onetextperfolio="0" numsize="7" text_color="#000000" cable="OEM_CONDUCTORS" horizrotatetext="0" color="#a85d00" element1="{46d6b1b2-daa0-5366-8031-89d06055e2fe}" element2="{306c8659-c2e2-5f18-9a9c-3097e68c8d32}" terminal1="{7d28799b-797f-5c4f-896e-00aeaad6966e}" terminal2="{75c7ae29-5cc1-53ac-984a-00bfdc65f515}">
+            <conductor num="736 | COOLANT_ON" bus="" condsize="3" conductor_color="" x="0" y="0" freezeLabel="false" vertical-alignment="AlignRight" conductor_section="" function="Existing OEM conductor segments" type="multi" vertirotatetext="270" tension_protocol="" dash-size="1" formula="" color2="#000000" displaytext="1" bicolor="false" horizontal-alignment="AlignBottom" onetextperfolio="0" numsize="7" text_color="#000000" cable="OEM_CONDUCTORS" horizrotatetext="0" color="#d00000" element1="{46d6b1b2-daa0-5366-8031-89d06055e2fe}" element2="{306c8659-c2e2-5f18-9a9c-3097e68c8d32}" terminal1="{eb801789-8073-5f16-ba83-a25ff2727101}" terminal2="{75c7ae29-5cc1-53ac-984a-00bfdc65f515}">
+                <segment orientation="horizontal" length="150" />
+                <sequentialNumbers />
+            </conductor>
+            <conductor num="835 | HYD_PUMP_ON" bus="" condsize="3" conductor_color="" x="0" y="0" freezeLabel="false" vertical-alignment="AlignRight" conductor_section="" function="Existing OEM conductor segments" type="multi" vertirotatetext="270" tension_protocol="" dash-size="1" formula="" color2="#000000" displaytext="1" bicolor="false" horizontal-alignment="AlignBottom" onetextperfolio="0" numsize="7" text_color="#000000" cable="OEM_CONDUCTORS" horizrotatetext="0" color="#a85d00" element1="{46d6b1b2-daa0-5366-8031-89d06055e2fe}" element2="{306c8659-c2e2-5f18-9a9c-3097e68c8d32}" terminal1="{7d28799b-797f-5c4f-896e-00aeaad6966e}" terminal2="{cc2ec8a3-5b1b-51c2-b42a-26b8f936654f}">
                 <segment orientation="horizontal" length="150" />
                 <sequentialNumbers />
             </conductor>
@@ -1537,13 +1595,19 @@
                 <segment orientation="horizontal" length="75" />
                 <sequentialNumbers />
             </conductor>
-            <conductor num="GEAR_HI_SOL | gear-hi-sol" bus="" condsize="3" conductor_color="" x="0" y="0" freezeLabel="false" vertical-alignment="AlignRight" conductor_section="" function="New control-side conductors" type="multi" vertirotatetext="270" tension_protocol="" dash-size="1" formula="" color2="#000000" displaytext="1" bicolor="false" horizontal-alignment="AlignBottom" onetextperfolio="0" numsize="7" text_color="#000000" cable="NEW_CONTROL_WIRING" horizrotatetext="0" color="#a85d00" element1="{306c8659-c2e2-5f18-9a9c-3097e68c8d32}" element2="{716cb469-2e3a-517b-ac13-3ce55d9b8ddc}" terminal1="{40ca62ae-f529-5ea1-ac8d-92ac7b60ae04}" terminal2="{01babf22-0951-5924-b682-028c557a8547}">
+            <conductor num="COOLANT_ON | flood-coolant" bus="" condsize="3" conductor_color="" x="0" y="0" freezeLabel="false" vertical-alignment="AlignRight" conductor_section="" function="New control-side conductors" type="multi" vertirotatetext="270" tension_protocol="" dash-size="1" formula="" color2="#000000" displaytext="1" bicolor="false" horizontal-alignment="AlignBottom" onetextperfolio="0" numsize="7" text_color="#000000" cable="NEW_CONTROL_WIRING" horizrotatetext="0" color="#d00000" element1="{306c8659-c2e2-5f18-9a9c-3097e68c8d32}" element2="{28656a45-1f27-5f1c-b231-ef741cba8a83}" terminal1="{ac26664c-9a53-57c6-ac95-2bcc4400503d}" terminal2="{009b50a4-65db-517e-b747-4d57cad13f99}">
                 <segment orientation="horizontal" length="75" />
-                <segment orientation="vertical" length="20" />
+                <segment orientation="vertical" length="-150" />
                 <segment orientation="horizontal" length="75" />
                 <sequentialNumbers />
             </conductor>
-            <conductor num="HYD_PUMP_ON | hyd-pump-on" bus="" condsize="3" conductor_color="" x="0" y="0" freezeLabel="false" vertical-alignment="AlignRight" conductor_section="" function="New control-side conductors" type="multi" vertirotatetext="270" tension_protocol="" dash-size="1" formula="" color2="#000000" displaytext="1" bicolor="false" horizontal-alignment="AlignBottom" onetextperfolio="0" numsize="7" text_color="#000000" cable="NEW_CONTROL_WIRING" horizrotatetext="0" color="#a85d00" element1="{306c8659-c2e2-5f18-9a9c-3097e68c8d32}" element2="{716cb469-2e3a-517b-ac13-3ce55d9b8ddc}" terminal1="{ac26664c-9a53-57c6-ac95-2bcc4400503d}" terminal2="{3ae154e4-e7b4-58ec-b5ba-26ba8ead6e8b}">
+            <conductor num="GEAR_HI_SOL | gear-hi-sol" bus="" condsize="3" conductor_color="" x="0" y="0" freezeLabel="false" vertical-alignment="AlignRight" conductor_section="" function="New control-side conductors" type="multi" vertirotatetext="270" tension_protocol="" dash-size="1" formula="" color2="#000000" displaytext="1" bicolor="false" horizontal-alignment="AlignBottom" onetextperfolio="0" numsize="7" text_color="#000000" cable="NEW_CONTROL_WIRING" horizrotatetext="0" color="#a85d00" element1="{306c8659-c2e2-5f18-9a9c-3097e68c8d32}" element2="{716cb469-2e3a-517b-ac13-3ce55d9b8ddc}" terminal1="{40ca62ae-f529-5ea1-ac8d-92ac7b60ae04}" terminal2="{01babf22-0951-5924-b682-028c557a8547}">
+                <segment orientation="horizontal" length="75" />
+                <segment orientation="vertical" length="40" />
+                <segment orientation="horizontal" length="75" />
+                <sequentialNumbers />
+            </conductor>
+            <conductor num="HYD_PUMP_ON | hyd-pump-on" bus="" condsize="3" conductor_color="" x="0" y="0" freezeLabel="false" vertical-alignment="AlignRight" conductor_section="" function="New control-side conductors" type="multi" vertirotatetext="270" tension_protocol="" dash-size="1" formula="" color2="#000000" displaytext="1" bicolor="false" horizontal-alignment="AlignBottom" onetextperfolio="0" numsize="7" text_color="#000000" cable="NEW_CONTROL_WIRING" horizrotatetext="0" color="#a85d00" element1="{306c8659-c2e2-5f18-9a9c-3097e68c8d32}" element2="{716cb469-2e3a-517b-ac13-3ce55d9b8ddc}" terminal1="{ab5161da-37e3-51de-aab3-4292b2924d87}" terminal2="{3ae154e4-e7b4-58ec-b5ba-26ba8ead6e8b}">
                 <segment orientation="horizontal" length="75" />
                 <segment orientation="vertical" length="-60" />
                 <segment orientation="horizontal" length="75" />
@@ -1551,19 +1615,19 @@
             </conductor>
             <conductor num="AIR_BLAST | air-blast" bus="" condsize="3" conductor_color="" x="0" y="0" freezeLabel="false" vertical-alignment="AlignRight" conductor_section="" function="New control-side conductors" type="multi" vertirotatetext="270" tension_protocol="" dash-size="1" formula="" color2="#000000" displaytext="1" bicolor="false" horizontal-alignment="AlignBottom" onetextperfolio="0" numsize="7" text_color="#000000" cable="NEW_CONTROL_WIRING" horizrotatetext="0" color="#a85d00" element1="{306c8659-c2e2-5f18-9a9c-3097e68c8d32}" element2="{2791b37f-631d-54d6-940c-c725b8373d68}" terminal1="{47d046d7-5ca4-5b5b-8fbd-bfcb0a720539}" terminal2="{f3a68c1b-1408-51d7-99e7-ffcb3b04a7e8}">
                 <segment orientation="horizontal" length="75" />
-                <segment orientation="vertical" length="90" />
+                <segment orientation="vertical" length="110" />
                 <segment orientation="horizontal" length="75" />
                 <sequentialNumbers />
             </conductor>
             <conductor num="WORK_AIR_BLAST | TBD" bus="" condsize="3" conductor_color="" x="0" y="0" freezeLabel="false" vertical-alignment="AlignRight" conductor_section="" function="New control-side conductors" type="multi" vertirotatetext="270" tension_protocol="" dash-size="1" formula="" color2="#000000" displaytext="1" bicolor="false" horizontal-alignment="AlignBottom" onetextperfolio="0" numsize="7" text_color="#000000" cable="NEW_CONTROL_WIRING" horizrotatetext="0" color="#d00000" element1="{306c8659-c2e2-5f18-9a9c-3097e68c8d32}" element2="{2791b37f-631d-54d6-940c-c725b8373d68}" terminal1="{49ec2ac4-1ad4-548b-b4a5-d1c45437ad50}" terminal2="{7a4bd06d-6f42-565d-a956-ee001ac285c2}">
                 <segment orientation="horizontal" length="75" />
-                <segment orientation="vertical" length="90" />
+                <segment orientation="vertical" length="110" />
                 <segment orientation="horizontal" length="75" />
                 <sequentialNumbers />
             </conductor>
             <conductor num="FLOOD_VALVE | flood-valve" bus="" condsize="3" conductor_color="" x="0" y="0" freezeLabel="false" vertical-alignment="AlignRight" conductor_section="" function="New control-side conductors" type="multi" vertirotatetext="270" tension_protocol="" dash-size="1" formula="" color2="#000000" displaytext="1" bicolor="false" horizontal-alignment="AlignBottom" onetextperfolio="0" numsize="7" text_color="#000000" cable="NEW_CONTROL_WIRING" horizrotatetext="0" color="#a85d00" element1="{306c8659-c2e2-5f18-9a9c-3097e68c8d32}" element2="{2791b37f-631d-54d6-940c-c725b8373d68}" terminal1="{417ba5d4-e425-5123-854f-5f0b9b9c310c}" terminal2="{ed07cadb-dada-589c-aeaf-e28938cd1efa}">
                 <segment orientation="horizontal" length="75" />
-                <segment orientation="vertical" length="90" />
+                <segment orientation="vertical" length="110" />
                 <segment orientation="horizontal" length="75" />
                 <sequentialNumbers />
             </conductor>
@@ -1572,115 +1636,131 @@
             <input x="45" y="28" text="PRELIMINARY - NOT RELEASED FOR WIRING. Yellow = defined route requiring field verification; red = HOLD or proposed; gray = retain/retire decision. Input: wiring/plane_a_bbia1_pin_crosswalk.csv." rotation="0" font="Liberation Sans,9,-1,5,75,0,0,0,0,0,Bold" color="#b00020" text_width="1600" />
         </inputs>
         <shapes>
-            <shape z="8" x1="375" y1="356" x2="525" y2="356" type="Line" closed="0" is_movable="0">
+            <shape z="8" x1="375" y1="346" x2="525" y2="346" type="Line" closed="0" is_movable="0">
                 <pen color="#a85d00" widthF="6" style="SolidLine" />
                 <brush color="#a85d00" style="NoBrush" />
             </shape>
-            <shape z="8" x1="375" y1="376" x2="525" y2="376" type="Line" closed="0" is_movable="0">
+            <shape z="8" x1="375" y1="366" x2="525" y2="366" type="Line" closed="0" is_movable="0">
                 <pen color="#a85d00" widthF="6" style="SolidLine" />
                 <brush color="#a85d00" style="NoBrush" />
             </shape>
-            <shape z="8" x1="375" y1="396" x2="525" y2="396" type="Line" closed="0" is_movable="0">
+            <shape z="8" x1="375" y1="386" x2="525" y2="386" type="Line" closed="0" is_movable="0">
                 <pen color="#a85d00" widthF="6" style="SolidLine" />
                 <brush color="#a85d00" style="NoBrush" />
             </shape>
-            <shape z="8" x1="375" y1="416" x2="525" y2="416" type="Line" closed="0" is_movable="0">
+            <shape z="8" x1="375" y1="406" x2="525" y2="406" type="Line" closed="0" is_movable="0">
                 <pen color="#a85d00" widthF="6" style="SolidLine" />
                 <brush color="#a85d00" style="NoBrush" />
             </shape>
-            <shape z="8" x1="375" y1="436" x2="525" y2="436" type="Line" closed="0" is_movable="0">
+            <shape z="8" x1="375" y1="426" x2="525" y2="426" type="Line" closed="0" is_movable="0">
                 <pen color="#d00000" widthF="6" style="SolidLine" />
                 <brush color="#d00000" style="NoBrush" />
             </shape>
-            <shape z="8" x1="375" y1="456" x2="525" y2="456" type="Line" closed="0" is_movable="0">
+            <shape z="8" x1="375" y1="446" x2="525" y2="446" type="Line" closed="0" is_movable="0">
                 <pen color="#a85d00" widthF="6" style="SolidLine" />
                 <brush color="#a85d00" style="NoBrush" />
             </shape>
-            <shape z="8" x1="375" y1="476" x2="525" y2="476" type="Line" closed="0" is_movable="0">
-                <pen color="#a85d00" widthF="6" style="SolidLine" />
-                <brush color="#a85d00" style="NoBrush" />
-            </shape>
-            <shape z="8" x1="855" y1="356" x2="930" y2="356" type="Line" closed="0" is_movable="0">
-                <pen color="#a85d00" widthF="6" style="SolidLine" />
-                <brush color="#a85d00" style="NoBrush" />
-            </shape>
-            <shape z="8" x1="930" y1="356" x2="930" y2="286" type="Line" closed="0" is_movable="0">
-                <pen color="#a85d00" widthF="6" style="SolidLine" />
-                <brush color="#a85d00" style="NoBrush" />
-            </shape>
-            <shape z="8" x1="930" y1="286" x2="1005" y2="286" type="Line" closed="0" is_movable="0">
-                <pen color="#a85d00" widthF="6" style="SolidLine" />
-                <brush color="#a85d00" style="NoBrush" />
-            </shape>
-            <shape z="8" x1="855" y1="396" x2="930" y2="396" type="Line" closed="0" is_movable="0">
-                <pen color="#a85d00" widthF="6" style="SolidLine" />
-                <brush color="#a85d00" style="NoBrush" />
-            </shape>
-            <shape z="8" x1="930" y1="396" x2="930" y2="306" type="Line" closed="0" is_movable="0">
-                <pen color="#a85d00" widthF="6" style="SolidLine" />
-                <brush color="#a85d00" style="NoBrush" />
-            </shape>
-            <shape z="8" x1="930" y1="306" x2="1005" y2="306" type="Line" closed="0" is_movable="0">
-                <pen color="#a85d00" widthF="6" style="SolidLine" />
-                <brush color="#a85d00" style="NoBrush" />
-            </shape>
-            <shape z="8" x1="855" y1="376" x2="930" y2="376" type="Line" closed="0" is_movable="0">
-                <pen color="#a85d00" widthF="6" style="SolidLine" />
-                <brush color="#a85d00" style="NoBrush" />
-            </shape>
-            <shape z="8" x1="930" y1="376" x2="930" y2="396" type="Line" closed="0" is_movable="0">
-                <pen color="#a85d00" widthF="6" style="SolidLine" />
-                <brush color="#a85d00" style="NoBrush" />
-            </shape>
-            <shape z="8" x1="930" y1="396" x2="1005" y2="396" type="Line" closed="0" is_movable="0">
-                <pen color="#a85d00" widthF="6" style="SolidLine" />
-                <brush color="#a85d00" style="NoBrush" />
-            </shape>
-            <shape z="8" x1="855" y1="476" x2="930" y2="476" type="Line" closed="0" is_movable="0">
-                <pen color="#a85d00" widthF="6" style="SolidLine" />
-                <brush color="#a85d00" style="NoBrush" />
-            </shape>
-            <shape z="8" x1="930" y1="476" x2="930" y2="416" type="Line" closed="0" is_movable="0">
-                <pen color="#a85d00" widthF="6" style="SolidLine" />
-                <brush color="#a85d00" style="NoBrush" />
-            </shape>
-            <shape z="8" x1="930" y1="416" x2="1005" y2="416" type="Line" closed="0" is_movable="0">
-                <pen color="#a85d00" widthF="6" style="SolidLine" />
-                <brush color="#a85d00" style="NoBrush" />
-            </shape>
-            <shape z="8" x1="855" y1="416" x2="930" y2="416" type="Line" closed="0" is_movable="0">
-                <pen color="#a85d00" widthF="6" style="SolidLine" />
-                <brush color="#a85d00" style="NoBrush" />
-            </shape>
-            <shape z="8" x1="930" y1="416" x2="930" y2="506" type="Line" closed="0" is_movable="0">
-                <pen color="#a85d00" widthF="6" style="SolidLine" />
-                <brush color="#a85d00" style="NoBrush" />
-            </shape>
-            <shape z="8" x1="930" y1="506" x2="1005" y2="506" type="Line" closed="0" is_movable="0">
-                <pen color="#a85d00" widthF="6" style="SolidLine" />
-                <brush color="#a85d00" style="NoBrush" />
-            </shape>
-            <shape z="8" x1="855" y1="436" x2="930" y2="436" type="Line" closed="0" is_movable="0">
+            <shape z="8" x1="375" y1="466" x2="525" y2="466" type="Line" closed="0" is_movable="0">
                 <pen color="#d00000" widthF="6" style="SolidLine" />
                 <brush color="#d00000" style="NoBrush" />
             </shape>
-            <shape z="8" x1="930" y1="436" x2="930" y2="526" type="Line" closed="0" is_movable="0">
-                <pen color="#d00000" widthF="6" style="SolidLine" />
-                <brush color="#d00000" style="NoBrush" />
-            </shape>
-            <shape z="8" x1="930" y1="526" x2="1005" y2="526" type="Line" closed="0" is_movable="0">
-                <pen color="#d00000" widthF="6" style="SolidLine" />
-                <brush color="#d00000" style="NoBrush" />
-            </shape>
-            <shape z="8" x1="855" y1="456" x2="930" y2="456" type="Line" closed="0" is_movable="0">
+            <shape z="8" x1="375" y1="486" x2="525" y2="486" type="Line" closed="0" is_movable="0">
                 <pen color="#a85d00" widthF="6" style="SolidLine" />
                 <brush color="#a85d00" style="NoBrush" />
             </shape>
-            <shape z="8" x1="930" y1="456" x2="930" y2="546" type="Line" closed="0" is_movable="0">
+            <shape z="8" x1="855" y1="346" x2="930" y2="346" type="Line" closed="0" is_movable="0">
                 <pen color="#a85d00" widthF="6" style="SolidLine" />
                 <brush color="#a85d00" style="NoBrush" />
             </shape>
-            <shape z="8" x1="930" y1="546" x2="1005" y2="546" type="Line" closed="0" is_movable="0">
+            <shape z="8" x1="930" y1="346" x2="930" y2="276" type="Line" closed="0" is_movable="0">
+                <pen color="#a85d00" widthF="6" style="SolidLine" />
+                <brush color="#a85d00" style="NoBrush" />
+            </shape>
+            <shape z="8" x1="930" y1="276" x2="1005" y2="276" type="Line" closed="0" is_movable="0">
+                <pen color="#a85d00" widthF="6" style="SolidLine" />
+                <brush color="#a85d00" style="NoBrush" />
+            </shape>
+            <shape z="8" x1="855" y1="386" x2="930" y2="386" type="Line" closed="0" is_movable="0">
+                <pen color="#a85d00" widthF="6" style="SolidLine" />
+                <brush color="#a85d00" style="NoBrush" />
+            </shape>
+            <shape z="8" x1="930" y1="386" x2="930" y2="296" type="Line" closed="0" is_movable="0">
+                <pen color="#a85d00" widthF="6" style="SolidLine" />
+                <brush color="#a85d00" style="NoBrush" />
+            </shape>
+            <shape z="8" x1="930" y1="296" x2="1005" y2="296" type="Line" closed="0" is_movable="0">
+                <pen color="#a85d00" widthF="6" style="SolidLine" />
+                <brush color="#a85d00" style="NoBrush" />
+            </shape>
+            <shape z="8" x1="855" y1="466" x2="930" y2="466" type="Line" closed="0" is_movable="0">
+                <pen color="#d00000" widthF="6" style="SolidLine" />
+                <brush color="#d00000" style="NoBrush" />
+            </shape>
+            <shape z="8" x1="930" y1="466" x2="930" y2="316" type="Line" closed="0" is_movable="0">
+                <pen color="#d00000" widthF="6" style="SolidLine" />
+                <brush color="#d00000" style="NoBrush" />
+            </shape>
+            <shape z="8" x1="930" y1="316" x2="1005" y2="316" type="Line" closed="0" is_movable="0">
+                <pen color="#d00000" widthF="6" style="SolidLine" />
+                <brush color="#d00000" style="NoBrush" />
+            </shape>
+            <shape z="8" x1="855" y1="366" x2="930" y2="366" type="Line" closed="0" is_movable="0">
+                <pen color="#a85d00" widthF="6" style="SolidLine" />
+                <brush color="#a85d00" style="NoBrush" />
+            </shape>
+            <shape z="8" x1="930" y1="366" x2="930" y2="406" type="Line" closed="0" is_movable="0">
+                <pen color="#a85d00" widthF="6" style="SolidLine" />
+                <brush color="#a85d00" style="NoBrush" />
+            </shape>
+            <shape z="8" x1="930" y1="406" x2="1005" y2="406" type="Line" closed="0" is_movable="0">
+                <pen color="#a85d00" widthF="6" style="SolidLine" />
+                <brush color="#a85d00" style="NoBrush" />
+            </shape>
+            <shape z="8" x1="855" y1="486" x2="930" y2="486" type="Line" closed="0" is_movable="0">
+                <pen color="#a85d00" widthF="6" style="SolidLine" />
+                <brush color="#a85d00" style="NoBrush" />
+            </shape>
+            <shape z="8" x1="930" y1="486" x2="930" y2="426" type="Line" closed="0" is_movable="0">
+                <pen color="#a85d00" widthF="6" style="SolidLine" />
+                <brush color="#a85d00" style="NoBrush" />
+            </shape>
+            <shape z="8" x1="930" y1="426" x2="1005" y2="426" type="Line" closed="0" is_movable="0">
+                <pen color="#a85d00" widthF="6" style="SolidLine" />
+                <brush color="#a85d00" style="NoBrush" />
+            </shape>
+            <shape z="8" x1="855" y1="406" x2="930" y2="406" type="Line" closed="0" is_movable="0">
+                <pen color="#a85d00" widthF="6" style="SolidLine" />
+                <brush color="#a85d00" style="NoBrush" />
+            </shape>
+            <shape z="8" x1="930" y1="406" x2="930" y2="516" type="Line" closed="0" is_movable="0">
+                <pen color="#a85d00" widthF="6" style="SolidLine" />
+                <brush color="#a85d00" style="NoBrush" />
+            </shape>
+            <shape z="8" x1="930" y1="516" x2="1005" y2="516" type="Line" closed="0" is_movable="0">
+                <pen color="#a85d00" widthF="6" style="SolidLine" />
+                <brush color="#a85d00" style="NoBrush" />
+            </shape>
+            <shape z="8" x1="855" y1="426" x2="930" y2="426" type="Line" closed="0" is_movable="0">
+                <pen color="#d00000" widthF="6" style="SolidLine" />
+                <brush color="#d00000" style="NoBrush" />
+            </shape>
+            <shape z="8" x1="930" y1="426" x2="930" y2="536" type="Line" closed="0" is_movable="0">
+                <pen color="#d00000" widthF="6" style="SolidLine" />
+                <brush color="#d00000" style="NoBrush" />
+            </shape>
+            <shape z="8" x1="930" y1="536" x2="1005" y2="536" type="Line" closed="0" is_movable="0">
+                <pen color="#d00000" widthF="6" style="SolidLine" />
+                <brush color="#d00000" style="NoBrush" />
+            </shape>
+            <shape z="8" x1="855" y1="446" x2="930" y2="446" type="Line" closed="0" is_movable="0">
+                <pen color="#a85d00" widthF="6" style="SolidLine" />
+                <brush color="#a85d00" style="NoBrush" />
+            </shape>
+            <shape z="8" x1="930" y1="446" x2="930" y2="556" type="Line" closed="0" is_movable="0">
+                <pen color="#a85d00" widthF="6" style="SolidLine" />
+                <brush color="#a85d00" style="NoBrush" />
+            </shape>
+            <shape z="8" x1="930" y1="556" x2="1005" y2="556" type="Line" closed="0" is_movable="0">
                 <pen color="#a85d00" widthF="6" style="SolidLine" />
                 <brush color="#a85d00" style="NoBrush" />
             </shape>
@@ -2793,108 +2873,114 @@
                 </definition>
             </element>
             <element name="plane_a_cn2_discrete__cn2.elmt">
-                <definition version="0.100.0" type="element" link_type="simple" width="350" height="332" hotspot_x="175" hotspot_y="166">
+                <definition version="0.100.0" type="element" link_type="simple" width="350" height="352" hotspot_x="175" hotspot_y="176">
                     <uuid uuid="{00f14daa-71ff-56a4-b55e-440c31a47c48}" />
                     <names>
                         <name lang="en">BBIA-1 CN2 machine-facing connector</name>
                     </names>
                     <informations>Generated from the MESAC retrofit crosswalks. PRELIMINARY - NOT RELEASED FOR WIRING.</informations>
                     <description>
-                        <rect x="-165.0" y="-156.0" width="330" height="312" rx="0" ry="0" antialias="false" style="line-style:normal;line-weight:normal;filling:none;color:#0078a8" />
-                        <line x1="-165.0" y1="-130.0" x2="165.0" y2="-130.0" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:normal;filling:none;color:#0078a8" antialias="false" />
-                        <text text="BBIA-1 CN2 machine-facing connector" x="-157.0" y="-138.0" rotation="0" font="Liberation Sans,8,-1,5,75,0,0,0,0,0,Bold" color="#0078a8" />
-                        <text text="3 | 149 | MT_UNCLAMP_PB | FV" x="4" y="-111.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
-                        <terminal uuid="{37e98a75-b183-5d4d-9ae1-dae833e0b866}" name="3" x="165.0" y="-114.0" orientation="e" type="Generic" />
-                        <text text="5 | 221 | MAG_BCD_BIT0 | FV" x="4" y="-91.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
-                        <terminal uuid="{71529acb-cb52-5c28-9834-cdca60230639}" name="5" x="165.0" y="-94.0" orientation="e" type="Generic" />
-                        <text text="6 | 222 | MAG_BCD_BIT1 | FV" x="4" y="-71.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
-                        <terminal uuid="{2941ca4d-cc3b-5108-817d-ed7fa6152453}" name="6" x="165.0" y="-74.0" orientation="e" type="Generic" />
-                        <text text="7 | 223 | MAG_BCD_BIT2 | FV" x="4" y="-51.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
-                        <terminal uuid="{d3dc508c-8d0a-55a9-9b99-4653e0524c49}" name="7" x="165.0" y="-54.0" orientation="e" type="Generic" />
-                        <text text="8 | 224 | MAG_BCD_BIT3 | FV" x="4" y="-31.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
-                        <terminal uuid="{1b8e242f-978d-541e-9f32-2bdda5cd4fe9}" name="8" x="165.0" y="-34.0" orientation="e" type="Generic" />
-                        <text text="9 | 225 | MAG_BCD_BIT4 | FV" x="4" y="-11.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
-                        <terminal uuid="{4ed919aa-dd70-5b7a-bb88-c7fa27b644b5}" name="9" x="165.0" y="-14.0" orientation="e" type="Generic" />
-                        <text text="10 | 213 | MAG_IN_POS | FV" x="4" y="9.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
-                        <terminal uuid="{d83e12ca-7188-5a6e-8b78-db6af929d8fa}" name="10" x="165.0" y="6.0" orientation="e" type="Generic" />
-                        <text text="11 | 218 | MAG_COVER_OPEN | FV" x="4" y="29.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
-                        <terminal uuid="{67585b2a-6e29-553c-8270-a3dd85c8a800}" name="11" x="165.0" y="26.0" orientation="e" type="Generic" />
-                        <text text="12 | 219 | MAG_COVER_CLOSE | FV" x="4" y="49.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
-                        <terminal uuid="{515778e3-13b8-511b-8bec-b5ba1dd28a6b}" name="12" x="165.0" y="46.0" orientation="e" type="Generic" />
-                        <text text="13 | 381 | MAG_TOOL_AVAILABLE | FV" x="4" y="69.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
-                        <terminal uuid="{48a6707c-73ea-560b-9d1f-aa4e96a6b2c8}" name="13" x="165.0" y="66.0" orientation="e" type="Generic" />
-                        <text text="15 | *DECX | X_HOME | FV" x="4" y="89.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
-                        <terminal uuid="{85458f2e-e33f-518e-ade3-1c054166933a}" name="15" x="165.0" y="86.0" orientation="e" type="Generic" />
-                        <text text="16 | *DECY | Y_HOME | FV" x="4" y="109.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
-                        <terminal uuid="{fd846c37-e7f0-5a3c-8c16-0f074c457b26}" name="16" x="165.0" y="106.0" orientation="e" type="Generic" />
-                        <text text="44 | 149B | MT_CLAMP_PB | HOLD" x="4" y="129.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#d00000" />
-                        <terminal uuid="{045a5a4f-22e1-506b-96d5-daed92953d18}" name="44" x="165.0" y="126.0" orientation="e" type="Generic" />
+                        <rect x="-165.0" y="-166.0" width="330" height="332" rx="0" ry="0" antialias="false" style="line-style:normal;line-weight:normal;filling:none;color:#0078a8" />
+                        <line x1="-165.0" y1="-140.0" x2="165.0" y2="-140.0" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:normal;filling:none;color:#0078a8" antialias="false" />
+                        <text text="BBIA-1 CN2 machine-facing connector" x="-157.0" y="-148.0" rotation="0" font="Liberation Sans,8,-1,5,75,0,0,0,0,0,Bold" color="#0078a8" />
+                        <text text="3 | 149 | MT_UNCLAMP_PB | FV" x="4" y="-121.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+                        <terminal uuid="{37e98a75-b183-5d4d-9ae1-dae833e0b866}" name="3" x="165.0" y="-124.0" orientation="e" type="Generic" />
+                        <text text="5 | 221 | MAG_BCD_BIT0 | FV" x="4" y="-101.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+                        <terminal uuid="{71529acb-cb52-5c28-9834-cdca60230639}" name="5" x="165.0" y="-104.0" orientation="e" type="Generic" />
+                        <text text="6 | 222 | MAG_BCD_BIT1 | FV" x="4" y="-81.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+                        <terminal uuid="{2941ca4d-cc3b-5108-817d-ed7fa6152453}" name="6" x="165.0" y="-84.0" orientation="e" type="Generic" />
+                        <text text="7 | 223 | MAG_BCD_BIT2 | FV" x="4" y="-61.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+                        <terminal uuid="{d3dc508c-8d0a-55a9-9b99-4653e0524c49}" name="7" x="165.0" y="-64.0" orientation="e" type="Generic" />
+                        <text text="8 | 224 | MAG_BCD_BIT3 | FV" x="4" y="-41.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+                        <terminal uuid="{1b8e242f-978d-541e-9f32-2bdda5cd4fe9}" name="8" x="165.0" y="-44.0" orientation="e" type="Generic" />
+                        <text text="9 | 225 | MAG_BCD_BIT4 | FV" x="4" y="-21.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+                        <terminal uuid="{4ed919aa-dd70-5b7a-bb88-c7fa27b644b5}" name="9" x="165.0" y="-24.0" orientation="e" type="Generic" />
+                        <text text="10 | 213 | MAG_IN_POS | FV" x="4" y="-1.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+                        <terminal uuid="{d83e12ca-7188-5a6e-8b78-db6af929d8fa}" name="10" x="165.0" y="-4.0" orientation="e" type="Generic" />
+                        <text text="11 | 218 | MAG_COVER_OPEN | FV" x="4" y="19.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+                        <terminal uuid="{67585b2a-6e29-553c-8270-a3dd85c8a800}" name="11" x="165.0" y="16.0" orientation="e" type="Generic" />
+                        <text text="12 | 219 | MAG_COVER_CLOSE | FV" x="4" y="39.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+                        <terminal uuid="{515778e3-13b8-511b-8bec-b5ba1dd28a6b}" name="12" x="165.0" y="36.0" orientation="e" type="Generic" />
+                        <text text="13 | 381 | MAG_TOOL_AVAILABLE | FV" x="4" y="59.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+                        <terminal uuid="{48a6707c-73ea-560b-9d1f-aa4e96a6b2c8}" name="13" x="165.0" y="56.0" orientation="e" type="Generic" />
+                        <text text="15 | *DECX | X_HOME | FV" x="4" y="79.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+                        <terminal uuid="{85458f2e-e33f-518e-ade3-1c054166933a}" name="15" x="165.0" y="76.0" orientation="e" type="Generic" />
+                        <text text="16 | *DECY | Y_HOME | FV" x="4" y="99.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+                        <terminal uuid="{fd846c37-e7f0-5a3c-8c16-0f074c457b26}" name="16" x="165.0" y="96.0" orientation="e" type="Generic" />
+                        <text text="38 | 341 | DOOR_INTERLOCK | FV" x="4" y="119.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+                        <terminal uuid="{fb3f09b5-3fd9-52d5-9285-7b5e064acbd8}" name="38" x="165.0" y="116.0" orientation="e" type="Generic" />
+                        <text text="44 | 149B | MT_CLAMP_PB | HOLD" x="4" y="139.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#d00000" />
+                        <terminal uuid="{045a5a4f-22e1-506b-96d5-daed92953d18}" name="44" x="165.0" y="136.0" orientation="e" type="Generic" />
                     </description>
                 </definition>
             </element>
             <element name="plane_a_cn2_discrete__ir_boundary.elmt">
-                <definition version="0.100.0" type="element" link_type="simple" width="350" height="332" hotspot_x="175" hotspot_y="166">
+                <definition version="0.100.0" type="element" link_type="simple" width="350" height="352" hotspot_x="175" hotspot_y="176">
                     <uuid uuid="{065d9ab0-caee-511e-868b-3cdb6ce7d201}" />
                     <names>
                         <name lang="en">Required interposing-relay boundary</name>
                     </names>
                     <informations>Generated from the MESAC retrofit crosswalks. PRELIMINARY - NOT RELEASED FOR WIRING.</informations>
                     <description>
-                        <rect x="-165.0" y="-156.0" width="330" height="312" rx="0" ry="0" antialias="false" style="line-style:normal;line-weight:normal;filling:none;color:#a85d00" />
-                        <line x1="-165.0" y1="-130.0" x2="165.0" y2="-130.0" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:normal;filling:none;color:#a85d00" antialias="false" />
-                        <text text="Required interposing-relay boundary" x="-157.0" y="-138.0" rotation="0" font="Liberation Sans,8,-1,5,75,0,0,0,0,0,Bold" color="#a85d00" />
-                        <text text="F01 | F | MT_UNCLAMP_PB" x="-157.0" y="-111.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
-                        <terminal uuid="{acaef58f-9bc0-58f6-bd3e-106515c7de8e}" name="F01" x="-165.0" y="-114.0" orientation="w" type="Generic" />
-                        <text text="M01 | M | MT_UNCLAMP_PB" x="4" y="-111.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
-                        <terminal uuid="{097f9fa6-a296-580a-8ba5-7f0c3a663b4c}" name="M01" x="165.0" y="-114.0" orientation="e" type="Generic" />
-                        <text text="F02 | F | MAG_BCD_BIT0" x="-157.0" y="-91.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
-                        <terminal uuid="{c8f38af4-9ecd-5f59-b45f-8b3bec30d176}" name="F02" x="-165.0" y="-94.0" orientation="w" type="Generic" />
-                        <text text="M02 | M | MAG_BCD_BIT0" x="4" y="-91.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
-                        <terminal uuid="{94b23a28-3f21-5c48-9a0e-106ea74d0307}" name="M02" x="165.0" y="-94.0" orientation="e" type="Generic" />
-                        <text text="F03 | F | MAG_BCD_BIT1" x="-157.0" y="-71.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
-                        <terminal uuid="{848e58b2-6875-5f7d-8fd5-b97fec34d900}" name="F03" x="-165.0" y="-74.0" orientation="w" type="Generic" />
-                        <text text="M03 | M | MAG_BCD_BIT1" x="4" y="-71.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
-                        <terminal uuid="{049e3fa0-35e0-5de4-b984-14adb51c613f}" name="M03" x="165.0" y="-74.0" orientation="e" type="Generic" />
-                        <text text="F04 | F | MAG_BCD_BIT2" x="-157.0" y="-51.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
-                        <terminal uuid="{04d22363-0c14-5bd9-a65e-0058fdd3db6b}" name="F04" x="-165.0" y="-54.0" orientation="w" type="Generic" />
-                        <text text="M04 | M | MAG_BCD_BIT2" x="4" y="-51.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
-                        <terminal uuid="{04f530de-191f-5f38-834b-8622e79cdb9e}" name="M04" x="165.0" y="-54.0" orientation="e" type="Generic" />
-                        <text text="F05 | F | MAG_BCD_BIT3" x="-157.0" y="-31.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
-                        <terminal uuid="{cf4a841c-8e16-5128-8342-084b02985802}" name="F05" x="-165.0" y="-34.0" orientation="w" type="Generic" />
-                        <text text="M05 | M | MAG_BCD_BIT3" x="4" y="-31.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
-                        <terminal uuid="{d463722a-e588-5062-8ce0-1b24fd208174}" name="M05" x="165.0" y="-34.0" orientation="e" type="Generic" />
-                        <text text="F06 | F | MAG_BCD_BIT4" x="-157.0" y="-11.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
-                        <terminal uuid="{a8c40064-66e6-56c2-baad-43f181df2437}" name="F06" x="-165.0" y="-14.0" orientation="w" type="Generic" />
-                        <text text="M06 | M | MAG_BCD_BIT4" x="4" y="-11.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
-                        <terminal uuid="{546411d8-4f43-5d31-a67e-b3e70af0437b}" name="M06" x="165.0" y="-14.0" orientation="e" type="Generic" />
-                        <text text="F07 | F | MAG_IN_POS" x="-157.0" y="9.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
-                        <terminal uuid="{f226b1a8-f238-54a5-8efd-cfd96445f620}" name="F07" x="-165.0" y="6.0" orientation="w" type="Generic" />
-                        <text text="M07 | M | MAG_IN_POS" x="4" y="9.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
-                        <terminal uuid="{f1bd6ffc-b6fb-5156-bbdc-c5e19bd6a813}" name="M07" x="165.0" y="6.0" orientation="e" type="Generic" />
-                        <text text="F08 | F | MAG_COVER_OPEN" x="-157.0" y="29.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
-                        <terminal uuid="{ba4ae075-c6e0-58f0-9b8a-f7f3b2052b7b}" name="F08" x="-165.0" y="26.0" orientation="w" type="Generic" />
-                        <text text="M08 | M | MAG_COVER_OPEN" x="4" y="29.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
-                        <terminal uuid="{96785050-4576-5cf1-8a38-4fa22870f0ee}" name="M08" x="165.0" y="26.0" orientation="e" type="Generic" />
-                        <text text="F09 | F | MAG_COVER_CLOSE" x="-157.0" y="49.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
-                        <terminal uuid="{e17f7ea9-4388-5e85-a400-e4f2fd57243e}" name="F09" x="-165.0" y="46.0" orientation="w" type="Generic" />
-                        <text text="M09 | M | MAG_COVER_CLOSE" x="4" y="49.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
-                        <terminal uuid="{f4f59645-b9eb-5b50-ab6b-df32796b6c8f}" name="M09" x="165.0" y="46.0" orientation="e" type="Generic" />
-                        <text text="F10 | F | MAG_TOOL_AVAILABLE" x="-157.0" y="69.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
-                        <terminal uuid="{763b80eb-1e6a-5f78-a4c6-be7ca8459373}" name="F10" x="-165.0" y="66.0" orientation="w" type="Generic" />
-                        <text text="M10 | M | MAG_TOOL_AVAILABLE" x="4" y="69.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
-                        <terminal uuid="{20728ec9-3878-510f-b6ec-cdf2fcd0fd1b}" name="M10" x="165.0" y="66.0" orientation="e" type="Generic" />
-                        <text text="F11 | F | X_HOME" x="-157.0" y="89.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
-                        <terminal uuid="{7eb3f0c2-92af-5f79-8c55-67ecb84521d2}" name="F11" x="-165.0" y="86.0" orientation="w" type="Generic" />
-                        <text text="M11 | M | X_HOME" x="4" y="89.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
-                        <terminal uuid="{c34e2bde-132a-511e-b809-d9ec5232d40c}" name="M11" x="165.0" y="86.0" orientation="e" type="Generic" />
-                        <text text="F12 | F | Y_HOME" x="-157.0" y="109.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
-                        <terminal uuid="{396d1a3d-1d85-5c35-8c6d-edeaa326c45a}" name="F12" x="-165.0" y="106.0" orientation="w" type="Generic" />
-                        <text text="M12 | M | Y_HOME" x="4" y="109.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
-                        <terminal uuid="{8a4bb353-14bc-5104-8612-17ec395e7129}" name="M12" x="165.0" y="106.0" orientation="e" type="Generic" />
-                        <text text="F13 | F | MT_CLAMP_PB" x="-157.0" y="129.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#d00000" />
-                        <terminal uuid="{85b5bfa0-c47e-57df-8a17-e5b588b1a585}" name="F13" x="-165.0" y="126.0" orientation="w" type="Generic" />
-                        <text text="M13 | M | MT_CLAMP_PB" x="4" y="129.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#d00000" />
-                        <terminal uuid="{c6c1a20d-846f-5f7a-89cd-35c77f44278b}" name="M13" x="165.0" y="126.0" orientation="e" type="Generic" />
+                        <rect x="-165.0" y="-166.0" width="330" height="332" rx="0" ry="0" antialias="false" style="line-style:normal;line-weight:normal;filling:none;color:#a85d00" />
+                        <line x1="-165.0" y1="-140.0" x2="165.0" y2="-140.0" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:normal;filling:none;color:#a85d00" antialias="false" />
+                        <text text="Required interposing-relay boundary" x="-157.0" y="-148.0" rotation="0" font="Liberation Sans,8,-1,5,75,0,0,0,0,0,Bold" color="#a85d00" />
+                        <text text="F01 | F | MT_UNCLAMP_PB" x="-157.0" y="-121.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+                        <terminal uuid="{acaef58f-9bc0-58f6-bd3e-106515c7de8e}" name="F01" x="-165.0" y="-124.0" orientation="w" type="Generic" />
+                        <text text="M01 | M | MT_UNCLAMP_PB" x="4" y="-121.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+                        <terminal uuid="{097f9fa6-a296-580a-8ba5-7f0c3a663b4c}" name="M01" x="165.0" y="-124.0" orientation="e" type="Generic" />
+                        <text text="F02 | F | MAG_BCD_BIT0" x="-157.0" y="-101.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+                        <terminal uuid="{c8f38af4-9ecd-5f59-b45f-8b3bec30d176}" name="F02" x="-165.0" y="-104.0" orientation="w" type="Generic" />
+                        <text text="M02 | M | MAG_BCD_BIT0" x="4" y="-101.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+                        <terminal uuid="{94b23a28-3f21-5c48-9a0e-106ea74d0307}" name="M02" x="165.0" y="-104.0" orientation="e" type="Generic" />
+                        <text text="F03 | F | MAG_BCD_BIT1" x="-157.0" y="-81.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+                        <terminal uuid="{848e58b2-6875-5f7d-8fd5-b97fec34d900}" name="F03" x="-165.0" y="-84.0" orientation="w" type="Generic" />
+                        <text text="M03 | M | MAG_BCD_BIT1" x="4" y="-81.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+                        <terminal uuid="{049e3fa0-35e0-5de4-b984-14adb51c613f}" name="M03" x="165.0" y="-84.0" orientation="e" type="Generic" />
+                        <text text="F04 | F | MAG_BCD_BIT2" x="-157.0" y="-61.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+                        <terminal uuid="{04d22363-0c14-5bd9-a65e-0058fdd3db6b}" name="F04" x="-165.0" y="-64.0" orientation="w" type="Generic" />
+                        <text text="M04 | M | MAG_BCD_BIT2" x="4" y="-61.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+                        <terminal uuid="{04f530de-191f-5f38-834b-8622e79cdb9e}" name="M04" x="165.0" y="-64.0" orientation="e" type="Generic" />
+                        <text text="F05 | F | MAG_BCD_BIT3" x="-157.0" y="-41.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+                        <terminal uuid="{cf4a841c-8e16-5128-8342-084b02985802}" name="F05" x="-165.0" y="-44.0" orientation="w" type="Generic" />
+                        <text text="M05 | M | MAG_BCD_BIT3" x="4" y="-41.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+                        <terminal uuid="{d463722a-e588-5062-8ce0-1b24fd208174}" name="M05" x="165.0" y="-44.0" orientation="e" type="Generic" />
+                        <text text="F06 | F | MAG_BCD_BIT4" x="-157.0" y="-21.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+                        <terminal uuid="{a8c40064-66e6-56c2-baad-43f181df2437}" name="F06" x="-165.0" y="-24.0" orientation="w" type="Generic" />
+                        <text text="M06 | M | MAG_BCD_BIT4" x="4" y="-21.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+                        <terminal uuid="{546411d8-4f43-5d31-a67e-b3e70af0437b}" name="M06" x="165.0" y="-24.0" orientation="e" type="Generic" />
+                        <text text="F07 | F | MAG_IN_POS" x="-157.0" y="-1.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+                        <terminal uuid="{f226b1a8-f238-54a5-8efd-cfd96445f620}" name="F07" x="-165.0" y="-4.0" orientation="w" type="Generic" />
+                        <text text="M07 | M | MAG_IN_POS" x="4" y="-1.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+                        <terminal uuid="{f1bd6ffc-b6fb-5156-bbdc-c5e19bd6a813}" name="M07" x="165.0" y="-4.0" orientation="e" type="Generic" />
+                        <text text="F08 | F | MAG_COVER_OPEN" x="-157.0" y="19.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+                        <terminal uuid="{ba4ae075-c6e0-58f0-9b8a-f7f3b2052b7b}" name="F08" x="-165.0" y="16.0" orientation="w" type="Generic" />
+                        <text text="M08 | M | MAG_COVER_OPEN" x="4" y="19.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+                        <terminal uuid="{96785050-4576-5cf1-8a38-4fa22870f0ee}" name="M08" x="165.0" y="16.0" orientation="e" type="Generic" />
+                        <text text="F09 | F | MAG_COVER_CLOSE" x="-157.0" y="39.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+                        <terminal uuid="{e17f7ea9-4388-5e85-a400-e4f2fd57243e}" name="F09" x="-165.0" y="36.0" orientation="w" type="Generic" />
+                        <text text="M09 | M | MAG_COVER_CLOSE" x="4" y="39.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+                        <terminal uuid="{f4f59645-b9eb-5b50-ab6b-df32796b6c8f}" name="M09" x="165.0" y="36.0" orientation="e" type="Generic" />
+                        <text text="F10 | F | MAG_TOOL_AVAILABLE" x="-157.0" y="59.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+                        <terminal uuid="{763b80eb-1e6a-5f78-a4c6-be7ca8459373}" name="F10" x="-165.0" y="56.0" orientation="w" type="Generic" />
+                        <text text="M10 | M | MAG_TOOL_AVAILABLE" x="4" y="59.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+                        <terminal uuid="{20728ec9-3878-510f-b6ec-cdf2fcd0fd1b}" name="M10" x="165.0" y="56.0" orientation="e" type="Generic" />
+                        <text text="F11 | F | X_HOME" x="-157.0" y="79.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+                        <terminal uuid="{7eb3f0c2-92af-5f79-8c55-67ecb84521d2}" name="F11" x="-165.0" y="76.0" orientation="w" type="Generic" />
+                        <text text="M11 | M | X_HOME" x="4" y="79.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+                        <terminal uuid="{c34e2bde-132a-511e-b809-d9ec5232d40c}" name="M11" x="165.0" y="76.0" orientation="e" type="Generic" />
+                        <text text="F12 | F | Y_HOME" x="-157.0" y="99.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+                        <terminal uuid="{396d1a3d-1d85-5c35-8c6d-edeaa326c45a}" name="F12" x="-165.0" y="96.0" orientation="w" type="Generic" />
+                        <text text="M12 | M | Y_HOME" x="4" y="99.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+                        <terminal uuid="{8a4bb353-14bc-5104-8612-17ec395e7129}" name="M12" x="165.0" y="96.0" orientation="e" type="Generic" />
+                        <text text="F13 | F | DOOR_INTERLOCK" x="-157.0" y="119.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+                        <terminal uuid="{85b5bfa0-c47e-57df-8a17-e5b588b1a585}" name="F13" x="-165.0" y="116.0" orientation="w" type="Generic" />
+                        <text text="M13 | M | DOOR_INTERLOCK" x="4" y="119.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+                        <terminal uuid="{c6c1a20d-846f-5f7a-89cd-35c77f44278b}" name="M13" x="165.0" y="116.0" orientation="e" type="Generic" />
+                        <text text="F14 | F | MT_CLAMP_PB" x="-157.0" y="139.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#d00000" />
+                        <terminal uuid="{0d557bff-f813-5028-a85a-93d49f24f804}" name="F14" x="-165.0" y="136.0" orientation="w" type="Generic" />
+                        <text text="M14 | M | MT_CLAMP_PB" x="4" y="139.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#d00000" />
+                        <terminal uuid="{64c0860c-6134-5eb4-b443-8103070d900a}" name="M14" x="165.0" y="136.0" orientation="e" type="Generic" />
                     </description>
                 </definition>
             </element>
@@ -2921,30 +3007,32 @@
                 </definition>
             </element>
             <element name="plane_a_cn2_discrete__7i84u_a_tb2.elmt">
-                <definition version="0.100.0" type="element" link_type="simple" width="350" height="212" hotspot_x="175" hotspot_y="106">
+                <definition version="0.100.0" type="element" link_type="simple" width="350" height="232" hotspot_x="175" hotspot_y="116">
                     <uuid uuid="{a4f08024-58f4-5257-b37f-1c3ddfb5020d}" />
                     <names>
                         <name lang="en">7i84U-A TB2</name>
                     </names>
                     <informations>Generated from the MESAC retrofit crosswalks. PRELIMINARY - NOT RELEASED FOR WIRING.</informations>
                     <description>
-                        <rect x="-165.0" y="-96.0" width="330" height="192" rx="0" ry="0" antialias="false" style="line-style:normal;line-weight:normal;filling:none;color:#0078a8" />
-                        <line x1="-165.0" y1="-70.0" x2="165.0" y2="-70.0" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:normal;filling:none;color:#0078a8" antialias="false" />
-                        <text text="7i84U-A TB2" x="-157.0" y="-78.0" rotation="0" font="Liberation Sans,8,-1,5,75,0,0,0,0,0,Bold" color="#0078a8" />
-                        <text text="IN19 | IN19 | mag-bcd-bit0 | FV" x="-157.0" y="-51.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
-                        <terminal uuid="{282ff745-8a26-575f-9fdf-99fe2efdae90}" name="IN19" x="-165.0" y="-54.0" orientation="w" type="Generic" />
-                        <text text="IN20 | IN20 | mag-bcd-bit1 | FV" x="-157.0" y="-31.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
-                        <terminal uuid="{155f0620-9585-559b-a8a2-d08fe74cd39b}" name="IN20" x="-165.0" y="-34.0" orientation="w" type="Generic" />
-                        <text text="IN21 | IN21 | mag-bcd-bit2 | FV" x="-157.0" y="-11.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
-                        <terminal uuid="{1bf72aeb-fd52-5697-bcce-7752bca4a9f4}" name="IN21" x="-165.0" y="-14.0" orientation="w" type="Generic" />
-                        <text text="IN22 | IN22 | mag-bcd-bit3 | FV" x="-157.0" y="9.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
-                        <terminal uuid="{ba85965a-d668-51d9-8885-52501c768daa}" name="IN22" x="-165.0" y="6.0" orientation="w" type="Generic" />
-                        <text text="IN23 | IN23 | mag-bcd-bit4 | FV" x="-157.0" y="29.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
-                        <terminal uuid="{8a2f17b5-e34b-5fdb-9802-0dcbf06a8494}" name="IN23" x="-165.0" y="26.0" orientation="w" type="Generic" />
-                        <text text="IN28 | IN28 | mag-in-pos | FV" x="-157.0" y="49.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
-                        <terminal uuid="{564ac0a7-531b-54b6-a406-532916d003d1}" name="IN28" x="-165.0" y="46.0" orientation="w" type="Generic" />
-                        <text text="IN30 | IN30 | MT_CLAMP_PB | HOLD" x="-157.0" y="69.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#d00000" />
-                        <terminal uuid="{a2b12c0f-adcd-50ce-b110-b687c41bf234}" name="IN30" x="-165.0" y="66.0" orientation="w" type="Generic" />
+                        <rect x="-165.0" y="-106.0" width="330" height="212" rx="0" ry="0" antialias="false" style="line-style:normal;line-weight:normal;filling:none;color:#0078a8" />
+                        <line x1="-165.0" y1="-80.0" x2="165.0" y2="-80.0" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:normal;filling:none;color:#0078a8" antialias="false" />
+                        <text text="7i84U-A TB2" x="-157.0" y="-88.0" rotation="0" font="Liberation Sans,8,-1,5,75,0,0,0,0,0,Bold" color="#0078a8" />
+                        <text text="IN19 | IN19 | mag-bcd-bit0 | FV" x="-157.0" y="-61.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+                        <terminal uuid="{282ff745-8a26-575f-9fdf-99fe2efdae90}" name="IN19" x="-165.0" y="-64.0" orientation="w" type="Generic" />
+                        <text text="IN20 | IN20 | mag-bcd-bit1 | FV" x="-157.0" y="-41.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+                        <terminal uuid="{155f0620-9585-559b-a8a2-d08fe74cd39b}" name="IN20" x="-165.0" y="-44.0" orientation="w" type="Generic" />
+                        <text text="IN21 | IN21 | mag-bcd-bit2 | FV" x="-157.0" y="-21.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+                        <terminal uuid="{1bf72aeb-fd52-5697-bcce-7752bca4a9f4}" name="IN21" x="-165.0" y="-24.0" orientation="w" type="Generic" />
+                        <text text="IN22 | IN22 | mag-bcd-bit3 | FV" x="-157.0" y="-1.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+                        <terminal uuid="{ba85965a-d668-51d9-8885-52501c768daa}" name="IN22" x="-165.0" y="-4.0" orientation="w" type="Generic" />
+                        <text text="IN23 | IN23 | mag-bcd-bit4 | FV" x="-157.0" y="19.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+                        <terminal uuid="{8a2f17b5-e34b-5fdb-9802-0dcbf06a8494}" name="IN23" x="-165.0" y="16.0" orientation="w" type="Generic" />
+                        <text text="IN28 | IN28 | mag-in-pos | FV" x="-157.0" y="39.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+                        <terminal uuid="{564ac0a7-531b-54b6-a406-532916d003d1}" name="IN28" x="-165.0" y="36.0" orientation="w" type="Generic" />
+                        <text text="IN24 | IN24 | door-interlock | FV" x="-157.0" y="59.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+                        <terminal uuid="{d24b3b21-6125-596d-9187-0a8f0b611d68}" name="IN24" x="-165.0" y="56.0" orientation="w" type="Generic" />
+                        <text text="IN30 | IN30 | MT_CLAMP_PB | HOLD" x="-157.0" y="79.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#d00000" />
+                        <terminal uuid="{a2b12c0f-adcd-50ce-b110-b687c41bf234}" name="IN30" x="-165.0" y="76.0" orientation="w" type="Generic" />
                     </description>
                 </definition>
             </element>
@@ -3055,76 +3143,84 @@
                 </definition>
             </element>
             <element name="plane_a_cn4_discrete__cn4.elmt">
-                <definition version="0.100.0" type="element" link_type="simple" width="350" height="152" hotspot_x="175" hotspot_y="76">
+                <definition version="0.100.0" type="element" link_type="simple" width="350" height="172" hotspot_x="175" hotspot_y="86">
                     <uuid uuid="{eefd4daa-9602-5cc9-b715-bb45e3d0abce}" />
                     <names>
                         <name lang="en">BBIA-1 CN4 machine-facing connector</name>
                     </names>
                     <informations>Generated from the MESAC retrofit crosswalks. PRELIMINARY - NOT RELEASED FOR WIRING.</informations>
                     <description>
-                        <rect x="-165.0" y="-66.0" width="330" height="132" rx="0" ry="0" antialias="false" style="line-style:normal;line-weight:normal;filling:none;color:#0078a8" />
-                        <line x1="-165.0" y1="-40.0" x2="165.0" y2="-40.0" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:normal;filling:none;color:#0078a8" antialias="false" />
-                        <text text="BBIA-1 CN4 machine-facing connector" x="-157.0" y="-48.0" rotation="0" font="Liberation Sans,8,-1,5,75,0,0,0,0,0,Bold" color="#0078a8" />
-                        <text text="1 | ZS1 | SPINDLE_ZERO_SPEED | HOLD" x="4" y="-21.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#d00000" />
-                        <terminal uuid="{2920a941-4292-569a-a8be-ca8eb21f50fb}" name="1" x="165.0" y="-24.0" orientation="e" type="Generic" />
-                        <text text="3 | FA | SPINDLE_FAULT | FV" x="4" y="-1.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
-                        <terminal uuid="{e075fd93-0b8c-55ea-8b9f-ae05808bc17c}" name="3" x="165.0" y="-4.0" orientation="e" type="Generic" />
-                        <text text="9 | SRN | SPINDLE_FWD | FV" x="4" y="19.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
-                        <terminal uuid="{00729365-9bd7-559e-9c16-7ad70b4ad4b5}" name="9" x="165.0" y="16.0" orientation="e" type="Generic" />
-                        <text text="10 | SRI | SPINDLE_REV | FV" x="4" y="39.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
-                        <terminal uuid="{62bf3737-4ecb-5adb-95a5-ac794136a1a2}" name="10" x="165.0" y="36.0" orientation="e" type="Generic" />
+                        <rect x="-165.0" y="-76.0" width="330" height="152" rx="0" ry="0" antialias="false" style="line-style:normal;line-weight:normal;filling:none;color:#0078a8" />
+                        <line x1="-165.0" y1="-50.0" x2="165.0" y2="-50.0" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:normal;filling:none;color:#0078a8" antialias="false" />
+                        <text text="BBIA-1 CN4 machine-facing connector" x="-157.0" y="-58.0" rotation="0" font="Liberation Sans,8,-1,5,75,0,0,0,0,0,Bold" color="#0078a8" />
+                        <text text="1 | ZS1 | SPINDLE_ZERO_SPEED | HOLD" x="4" y="-31.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#d00000" />
+                        <terminal uuid="{2920a941-4292-569a-a8be-ca8eb21f50fb}" name="1" x="165.0" y="-34.0" orientation="e" type="Generic" />
+                        <text text="3 | FA | SPINDLE_FAULT | FV" x="4" y="-11.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+                        <terminal uuid="{e075fd93-0b8c-55ea-8b9f-ae05808bc17c}" name="3" x="165.0" y="-14.0" orientation="e" type="Generic" />
+                        <text text="9 | SRN | SPINDLE_FWD | FV" x="4" y="9.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+                        <terminal uuid="{00729365-9bd7-559e-9c16-7ad70b4ad4b5}" name="9" x="165.0" y="6.0" orientation="e" type="Generic" />
+                        <text text="10 | SRI | SPINDLE_REV | FV" x="4" y="29.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+                        <terminal uuid="{62bf3737-4ecb-5adb-95a5-ac794136a1a2}" name="10" x="165.0" y="26.0" orientation="e" type="Generic" />
+                        <text text="16 | ORA1 | SPINDLE_ORIENT_ARRIVAL | FV" x="4" y="49.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+                        <terminal uuid="{4839144d-387b-509d-a897-1d6575716288}" name="16" x="165.0" y="46.0" orientation="e" type="Generic" />
                     </description>
                 </definition>
             </element>
             <element name="plane_a_cn4_discrete__ir_boundary.elmt">
-                <definition version="0.100.0" type="element" link_type="simple" width="350" height="152" hotspot_x="175" hotspot_y="76">
+                <definition version="0.100.0" type="element" link_type="simple" width="350" height="172" hotspot_x="175" hotspot_y="86">
                     <uuid uuid="{ca8e6385-cfb7-5c91-b49c-442ec45a63d9}" />
                     <names>
                         <name lang="en">Required interposing-relay boundary</name>
                     </names>
                     <informations>Generated from the MESAC retrofit crosswalks. PRELIMINARY - NOT RELEASED FOR WIRING.</informations>
                     <description>
-                        <rect x="-165.0" y="-66.0" width="330" height="132" rx="0" ry="0" antialias="false" style="line-style:normal;line-weight:normal;filling:none;color:#a85d00" />
-                        <line x1="-165.0" y1="-40.0" x2="165.0" y2="-40.0" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:normal;filling:none;color:#a85d00" antialias="false" />
-                        <text text="Required interposing-relay boundary" x="-157.0" y="-48.0" rotation="0" font="Liberation Sans,8,-1,5,75,0,0,0,0,0,Bold" color="#a85d00" />
-                        <text text="F01 | F | SPINDLE_ZERO_SPEED" x="-157.0" y="-21.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#d00000" />
-                        <terminal uuid="{ae91e99f-dc51-5329-8089-f93c828c2892}" name="F01" x="-165.0" y="-24.0" orientation="w" type="Generic" />
-                        <text text="M01 | M | SPINDLE_ZERO_SPEED" x="4" y="-21.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#d00000" />
-                        <terminal uuid="{752757f5-882d-56a3-bd8e-f1a9e2f2daf8}" name="M01" x="165.0" y="-24.0" orientation="e" type="Generic" />
-                        <text text="F02 | F | SPINDLE_FAULT" x="-157.0" y="-1.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
-                        <terminal uuid="{8c1596da-f13e-5a57-9a51-d7299fb2db8f}" name="F02" x="-165.0" y="-4.0" orientation="w" type="Generic" />
-                        <text text="M02 | M | SPINDLE_FAULT" x="4" y="-1.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
-                        <terminal uuid="{2864acf3-c527-5569-b725-0592d2c814e3}" name="M02" x="165.0" y="-4.0" orientation="e" type="Generic" />
-                        <text text="F03 | F | SPINDLE_FWD" x="-157.0" y="19.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
-                        <terminal uuid="{9c4568d4-efa4-5928-afd6-601e758dfffd}" name="F03" x="-165.0" y="16.0" orientation="w" type="Generic" />
-                        <text text="M03 | M | SPINDLE_FWD" x="4" y="19.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
-                        <terminal uuid="{403263d8-986c-5e80-b2fc-b9ac39653769}" name="M03" x="165.0" y="16.0" orientation="e" type="Generic" />
-                        <text text="F04 | F | SPINDLE_REV" x="-157.0" y="39.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
-                        <terminal uuid="{5149a70a-75a5-5077-8114-974e0d52afd5}" name="F04" x="-165.0" y="36.0" orientation="w" type="Generic" />
-                        <text text="M04 | M | SPINDLE_REV" x="4" y="39.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
-                        <terminal uuid="{a67c1c68-8d3e-5d62-8548-2abad89cfa51}" name="M04" x="165.0" y="36.0" orientation="e" type="Generic" />
+                        <rect x="-165.0" y="-76.0" width="330" height="152" rx="0" ry="0" antialias="false" style="line-style:normal;line-weight:normal;filling:none;color:#a85d00" />
+                        <line x1="-165.0" y1="-50.0" x2="165.0" y2="-50.0" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:normal;filling:none;color:#a85d00" antialias="false" />
+                        <text text="Required interposing-relay boundary" x="-157.0" y="-58.0" rotation="0" font="Liberation Sans,8,-1,5,75,0,0,0,0,0,Bold" color="#a85d00" />
+                        <text text="F01 | F | SPINDLE_ZERO_SPEED" x="-157.0" y="-31.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#d00000" />
+                        <terminal uuid="{ae91e99f-dc51-5329-8089-f93c828c2892}" name="F01" x="-165.0" y="-34.0" orientation="w" type="Generic" />
+                        <text text="M01 | M | SPINDLE_ZERO_SPEED" x="4" y="-31.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#d00000" />
+                        <terminal uuid="{752757f5-882d-56a3-bd8e-f1a9e2f2daf8}" name="M01" x="165.0" y="-34.0" orientation="e" type="Generic" />
+                        <text text="F02 | F | SPINDLE_FAULT" x="-157.0" y="-11.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+                        <terminal uuid="{8c1596da-f13e-5a57-9a51-d7299fb2db8f}" name="F02" x="-165.0" y="-14.0" orientation="w" type="Generic" />
+                        <text text="M02 | M | SPINDLE_FAULT" x="4" y="-11.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+                        <terminal uuid="{2864acf3-c527-5569-b725-0592d2c814e3}" name="M02" x="165.0" y="-14.0" orientation="e" type="Generic" />
+                        <text text="F03 | F | SPINDLE_FWD" x="-157.0" y="9.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+                        <terminal uuid="{9c4568d4-efa4-5928-afd6-601e758dfffd}" name="F03" x="-165.0" y="6.0" orientation="w" type="Generic" />
+                        <text text="M03 | M | SPINDLE_FWD" x="4" y="9.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+                        <terminal uuid="{403263d8-986c-5e80-b2fc-b9ac39653769}" name="M03" x="165.0" y="6.0" orientation="e" type="Generic" />
+                        <text text="F04 | F | SPINDLE_REV" x="-157.0" y="29.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+                        <terminal uuid="{5149a70a-75a5-5077-8114-974e0d52afd5}" name="F04" x="-165.0" y="26.0" orientation="w" type="Generic" />
+                        <text text="M04 | M | SPINDLE_REV" x="4" y="29.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+                        <terminal uuid="{a67c1c68-8d3e-5d62-8548-2abad89cfa51}" name="M04" x="165.0" y="26.0" orientation="e" type="Generic" />
+                        <text text="F05 | F | SPINDLE_ORIENT_ARRIVAL" x="-157.0" y="49.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+                        <terminal uuid="{f0d4c687-5dd8-5651-b92f-0404b9abf552}" name="F05" x="-165.0" y="46.0" orientation="w" type="Generic" />
+                        <text text="M05 | M | SPINDLE_ORIENT_ARRIVAL" x="4" y="49.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+                        <terminal uuid="{c57c0057-9aa7-55aa-b79c-a94c6c510a6f}" name="M05" x="165.0" y="46.0" orientation="e" type="Generic" />
                     </description>
                 </definition>
             </element>
             <element name="plane_a_cn4_discrete__7i84u_a_tb3.elmt">
-                <definition version="0.100.0" type="element" link_type="simple" width="350" height="152" hotspot_x="175" hotspot_y="76">
+                <definition version="0.100.0" type="element" link_type="simple" width="350" height="172" hotspot_x="175" hotspot_y="86">
                     <uuid uuid="{10d5f531-25b5-5185-bacd-d92e3621c694}" />
                     <names>
                         <name lang="en">7i84U-A TB3</name>
                     </names>
                     <informations>Generated from the MESAC retrofit crosswalks. PRELIMINARY - NOT RELEASED FOR WIRING.</informations>
                     <description>
-                        <rect x="-165.0" y="-66.0" width="330" height="132" rx="0" ry="0" antialias="false" style="line-style:normal;line-weight:normal;filling:none;color:#0078a8" />
-                        <line x1="-165.0" y1="-40.0" x2="165.0" y2="-40.0" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:normal;filling:none;color:#0078a8" antialias="false" />
-                        <text text="7i84U-A TB3" x="-157.0" y="-48.0" rotation="0" font="Liberation Sans,8,-1,5,75,0,0,0,0,0,Bold" color="#0078a8" />
-                        <text text="IN5 | IN5 | spindle-zero-speed | HOLD" x="-157.0" y="-21.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#d00000" />
-                        <terminal uuid="{94c4daa9-d0c8-586e-8a4a-89cd4577e9b6}" name="IN5" x="-165.0" y="-24.0" orientation="w" type="Generic" />
-                        <text text="IN14 | IN14 | spindle-fault | FV" x="-157.0" y="-1.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
-                        <terminal uuid="{383bcfe5-74bb-5d0f-8c94-9af969ed1e30}" name="IN14" x="-165.0" y="-4.0" orientation="w" type="Generic" />
-                        <text text="OUT0 | OUT0 | spindle-fwd | FV" x="-157.0" y="19.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
-                        <terminal uuid="{6dc84a76-4d59-55f4-9fb8-6dc69c6639de}" name="OUT0" x="-165.0" y="16.0" orientation="w" type="Generic" />
-                        <text text="OUT1 | OUT1 | spindle-rev | FV" x="-157.0" y="39.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
-                        <terminal uuid="{063f7c86-da47-5559-ad21-f54e69561720}" name="OUT1" x="-165.0" y="36.0" orientation="w" type="Generic" />
+                        <rect x="-165.0" y="-76.0" width="330" height="152" rx="0" ry="0" antialias="false" style="line-style:normal;line-weight:normal;filling:none;color:#0078a8" />
+                        <line x1="-165.0" y1="-50.0" x2="165.0" y2="-50.0" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:normal;filling:none;color:#0078a8" antialias="false" />
+                        <text text="7i84U-A TB3" x="-157.0" y="-58.0" rotation="0" font="Liberation Sans,8,-1,5,75,0,0,0,0,0,Bold" color="#0078a8" />
+                        <text text="IN5 | IN5 | spindle-zero-speed | HOLD" x="-157.0" y="-31.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#d00000" />
+                        <terminal uuid="{94c4daa9-d0c8-586e-8a4a-89cd4577e9b6}" name="IN5" x="-165.0" y="-34.0" orientation="w" type="Generic" />
+                        <text text="IN14 | IN14 | spindle-fault | FV" x="-157.0" y="-11.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+                        <terminal uuid="{383bcfe5-74bb-5d0f-8c94-9af969ed1e30}" name="IN14" x="-165.0" y="-14.0" orientation="w" type="Generic" />
+                        <text text="OUT0 | OUT0 | spindle-fwd | FV" x="-157.0" y="9.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+                        <terminal uuid="{6dc84a76-4d59-55f4-9fb8-6dc69c6639de}" name="OUT0" x="-165.0" y="6.0" orientation="w" type="Generic" />
+                        <text text="OUT1 | OUT1 | spindle-rev | FV" x="-157.0" y="29.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+                        <terminal uuid="{063f7c86-da47-5559-ad21-f54e69561720}" name="OUT1" x="-165.0" y="26.0" orientation="w" type="Generic" />
+                        <text text="IN4 | IN4 | spindle-oriented | FV" x="-157.0" y="49.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+                        <terminal uuid="{a23a313c-fddb-5613-aa74-a0616d0872c1}" name="IN4" x="-165.0" y="46.0" orientation="w" type="Generic" />
                     </description>
                 </definition>
             </element>
@@ -3281,90 +3377,98 @@
                 </definition>
             </element>
             <element name="plane_a_cn11_discrete__cn11.elmt">
-                <definition version="0.100.0" type="element" link_type="simple" width="350" height="212" hotspot_x="175" hotspot_y="106">
+                <definition version="0.100.0" type="element" link_type="simple" width="350" height="232" hotspot_x="175" hotspot_y="116">
                     <uuid uuid="{3b5af112-285f-532f-b4e9-660c5e5e5bae}" />
                     <names>
                         <name lang="en">BBIA-1 CN11 machine-facing connector</name>
                     </names>
                     <informations>Generated from the MESAC retrofit crosswalks. PRELIMINARY - NOT RELEASED FOR WIRING.</informations>
                     <description>
-                        <rect x="-165.0" y="-96.0" width="330" height="192" rx="0" ry="0" antialias="false" style="line-style:normal;line-weight:normal;filling:none;color:#0078a8" />
-                        <line x1="-165.0" y1="-70.0" x2="165.0" y2="-70.0" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:normal;filling:none;color:#0078a8" antialias="false" />
-                        <text text="BBIA-1 CN11 machine-facing connector" x="-157.0" y="-78.0" rotation="0" font="Liberation Sans,8,-1,5,75,0,0,0,0,0,Bold" color="#0078a8" />
-                        <text text="3 | 710 | TOOL_UNCLAMP_SOL | FV" x="4" y="-51.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
-                        <terminal uuid="{c38fb5e0-2a46-57af-bb6e-3402e637ae8a}" name="3" x="165.0" y="-54.0" orientation="e" type="Generic" />
-                        <text text="4 | 712 | GEAR_HI_SOL | FV" x="4" y="-31.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
-                        <terminal uuid="{f820f6a5-bfa1-58ad-8c66-bbe5279385ff}" name="4" x="165.0" y="-34.0" orientation="e" type="Generic" />
-                        <text text="5 | 713 | GEAR_LO_SOL | FV" x="4" y="-11.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
-                        <terminal uuid="{b9c09c1c-f9b3-5a6a-8ae8-376923c53781}" name="5" x="165.0" y="-14.0" orientation="e" type="Generic" />
-                        <text text="6 | 715 | AIR_BLAST | FV" x="4" y="9.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
-                        <terminal uuid="{afb33634-261f-51c0-9e19-127784aa18e0}" name="6" x="165.0" y="6.0" orientation="e" type="Generic" />
-                        <text text="7 | 716 | WORK_AIR_BLAST | HOLD" x="4" y="29.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#d00000" />
-                        <terminal uuid="{fa1df25b-4d93-5186-af07-6addca656f43}" name="7" x="165.0" y="26.0" orientation="e" type="Generic" />
-                        <text text="13 | 731 | FLOOD_VALVE | FV" x="4" y="49.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
-                        <terminal uuid="{20a9b0fd-3aba-528d-99d1-2bc8600d1154}" name="13" x="165.0" y="46.0" orientation="e" type="Generic" />
-                        <text text="16 | 835 | HYD_PUMP_ON | FV" x="4" y="69.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
-                        <terminal uuid="{7d28799b-797f-5c4f-896e-00aeaad6966e}" name="16" x="165.0" y="66.0" orientation="e" type="Generic" />
+                        <rect x="-165.0" y="-106.0" width="330" height="212" rx="0" ry="0" antialias="false" style="line-style:normal;line-weight:normal;filling:none;color:#0078a8" />
+                        <line x1="-165.0" y1="-80.0" x2="165.0" y2="-80.0" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:normal;filling:none;color:#0078a8" antialias="false" />
+                        <text text="BBIA-1 CN11 machine-facing connector" x="-157.0" y="-88.0" rotation="0" font="Liberation Sans,8,-1,5,75,0,0,0,0,0,Bold" color="#0078a8" />
+                        <text text="3 | 710 | TOOL_UNCLAMP_SOL | FV" x="4" y="-61.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+                        <terminal uuid="{c38fb5e0-2a46-57af-bb6e-3402e637ae8a}" name="3" x="165.0" y="-64.0" orientation="e" type="Generic" />
+                        <text text="4 | 712 | GEAR_HI_SOL | FV" x="4" y="-41.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+                        <terminal uuid="{f820f6a5-bfa1-58ad-8c66-bbe5279385ff}" name="4" x="165.0" y="-44.0" orientation="e" type="Generic" />
+                        <text text="5 | 713 | GEAR_LO_SOL | FV" x="4" y="-21.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+                        <terminal uuid="{b9c09c1c-f9b3-5a6a-8ae8-376923c53781}" name="5" x="165.0" y="-24.0" orientation="e" type="Generic" />
+                        <text text="6 | 715 | AIR_BLAST | FV" x="4" y="-1.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+                        <terminal uuid="{afb33634-261f-51c0-9e19-127784aa18e0}" name="6" x="165.0" y="-4.0" orientation="e" type="Generic" />
+                        <text text="7 | 716 | WORK_AIR_BLAST | HOLD" x="4" y="19.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#d00000" />
+                        <terminal uuid="{fa1df25b-4d93-5186-af07-6addca656f43}" name="7" x="165.0" y="16.0" orientation="e" type="Generic" />
+                        <text text="13 | 731 | FLOOD_VALVE | FV" x="4" y="39.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+                        <terminal uuid="{20a9b0fd-3aba-528d-99d1-2bc8600d1154}" name="13" x="165.0" y="36.0" orientation="e" type="Generic" />
+                        <text text="15 | 736 | COOLANT_ON | HOLD" x="4" y="59.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#d00000" />
+                        <terminal uuid="{eb801789-8073-5f16-ba83-a25ff2727101}" name="15" x="165.0" y="56.0" orientation="e" type="Generic" />
+                        <text text="16 | 835 | HYD_PUMP_ON | FV" x="4" y="79.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+                        <terminal uuid="{7d28799b-797f-5c4f-896e-00aeaad6966e}" name="16" x="165.0" y="76.0" orientation="e" type="Generic" />
                     </description>
                 </definition>
             </element>
             <element name="plane_a_cn11_discrete__ir_boundary.elmt">
-                <definition version="0.100.0" type="element" link_type="simple" width="350" height="212" hotspot_x="175" hotspot_y="106">
+                <definition version="0.100.0" type="element" link_type="simple" width="350" height="232" hotspot_x="175" hotspot_y="116">
                     <uuid uuid="{a971c51c-a1be-5b30-81fe-b7c574e85820}" />
                     <names>
                         <name lang="en">Required interposing-relay boundary</name>
                     </names>
                     <informations>Generated from the MESAC retrofit crosswalks. PRELIMINARY - NOT RELEASED FOR WIRING.</informations>
                     <description>
-                        <rect x="-165.0" y="-96.0" width="330" height="192" rx="0" ry="0" antialias="false" style="line-style:normal;line-weight:normal;filling:none;color:#a85d00" />
-                        <line x1="-165.0" y1="-70.0" x2="165.0" y2="-70.0" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:normal;filling:none;color:#a85d00" antialias="false" />
-                        <text text="Required interposing-relay boundary" x="-157.0" y="-78.0" rotation="0" font="Liberation Sans,8,-1,5,75,0,0,0,0,0,Bold" color="#a85d00" />
-                        <text text="F01 | F | TOOL_UNCLAMP_SOL" x="-157.0" y="-51.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
-                        <terminal uuid="{b1716e95-84b1-5f96-b0ac-99699ad722b9}" name="F01" x="-165.0" y="-54.0" orientation="w" type="Generic" />
-                        <text text="M01 | M | TOOL_UNCLAMP_SOL" x="4" y="-51.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
-                        <terminal uuid="{4bff5c40-45b0-571c-93e1-afc1e691e5a3}" name="M01" x="165.0" y="-54.0" orientation="e" type="Generic" />
-                        <text text="F02 | F | GEAR_HI_SOL" x="-157.0" y="-31.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
-                        <terminal uuid="{506f1e65-0b41-5c06-acce-46f5c06fef26}" name="F02" x="-165.0" y="-34.0" orientation="w" type="Generic" />
-                        <text text="M02 | M | GEAR_HI_SOL" x="4" y="-31.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
-                        <terminal uuid="{40ca62ae-f529-5ea1-ac8d-92ac7b60ae04}" name="M02" x="165.0" y="-34.0" orientation="e" type="Generic" />
-                        <text text="F03 | F | GEAR_LO_SOL" x="-157.0" y="-11.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
-                        <terminal uuid="{c43753fd-0a4b-5b4f-bfb9-b2a476fb71a9}" name="F03" x="-165.0" y="-14.0" orientation="w" type="Generic" />
-                        <text text="M03 | M | GEAR_LO_SOL" x="4" y="-11.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
-                        <terminal uuid="{f2f3772f-b4f5-5ddc-898c-726b44763afa}" name="M03" x="165.0" y="-14.0" orientation="e" type="Generic" />
-                        <text text="F04 | F | AIR_BLAST" x="-157.0" y="9.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
-                        <terminal uuid="{5d35d745-8321-5c8f-80de-7d0c7b0fe2b8}" name="F04" x="-165.0" y="6.0" orientation="w" type="Generic" />
-                        <text text="M04 | M | AIR_BLAST" x="4" y="9.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
-                        <terminal uuid="{47d046d7-5ca4-5b5b-8fbd-bfcb0a720539}" name="M04" x="165.0" y="6.0" orientation="e" type="Generic" />
-                        <text text="F05 | F | WORK_AIR_BLAST" x="-157.0" y="29.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#d00000" />
-                        <terminal uuid="{51ca26cf-7006-525e-9ec7-7311247bb901}" name="F05" x="-165.0" y="26.0" orientation="w" type="Generic" />
-                        <text text="M05 | M | WORK_AIR_BLAST" x="4" y="29.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#d00000" />
-                        <terminal uuid="{49ec2ac4-1ad4-548b-b4a5-d1c45437ad50}" name="M05" x="165.0" y="26.0" orientation="e" type="Generic" />
-                        <text text="F06 | F | FLOOD_VALVE" x="-157.0" y="49.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
-                        <terminal uuid="{de2fb67c-adec-5489-a652-713275c51570}" name="F06" x="-165.0" y="46.0" orientation="w" type="Generic" />
-                        <text text="M06 | M | FLOOD_VALVE" x="4" y="49.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
-                        <terminal uuid="{417ba5d4-e425-5123-854f-5f0b9b9c310c}" name="M06" x="165.0" y="46.0" orientation="e" type="Generic" />
-                        <text text="F07 | F | HYD_PUMP_ON" x="-157.0" y="69.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
-                        <terminal uuid="{75c7ae29-5cc1-53ac-984a-00bfdc65f515}" name="F07" x="-165.0" y="66.0" orientation="w" type="Generic" />
-                        <text text="M07 | M | HYD_PUMP_ON" x="4" y="69.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
-                        <terminal uuid="{ac26664c-9a53-57c6-ac95-2bcc4400503d}" name="M07" x="165.0" y="66.0" orientation="e" type="Generic" />
+                        <rect x="-165.0" y="-106.0" width="330" height="212" rx="0" ry="0" antialias="false" style="line-style:normal;line-weight:normal;filling:none;color:#a85d00" />
+                        <line x1="-165.0" y1="-80.0" x2="165.0" y2="-80.0" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:normal;filling:none;color:#a85d00" antialias="false" />
+                        <text text="Required interposing-relay boundary" x="-157.0" y="-88.0" rotation="0" font="Liberation Sans,8,-1,5,75,0,0,0,0,0,Bold" color="#a85d00" />
+                        <text text="F01 | F | TOOL_UNCLAMP_SOL" x="-157.0" y="-61.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+                        <terminal uuid="{b1716e95-84b1-5f96-b0ac-99699ad722b9}" name="F01" x="-165.0" y="-64.0" orientation="w" type="Generic" />
+                        <text text="M01 | M | TOOL_UNCLAMP_SOL" x="4" y="-61.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+                        <terminal uuid="{4bff5c40-45b0-571c-93e1-afc1e691e5a3}" name="M01" x="165.0" y="-64.0" orientation="e" type="Generic" />
+                        <text text="F02 | F | GEAR_HI_SOL" x="-157.0" y="-41.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+                        <terminal uuid="{506f1e65-0b41-5c06-acce-46f5c06fef26}" name="F02" x="-165.0" y="-44.0" orientation="w" type="Generic" />
+                        <text text="M02 | M | GEAR_HI_SOL" x="4" y="-41.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+                        <terminal uuid="{40ca62ae-f529-5ea1-ac8d-92ac7b60ae04}" name="M02" x="165.0" y="-44.0" orientation="e" type="Generic" />
+                        <text text="F03 | F | GEAR_LO_SOL" x="-157.0" y="-21.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+                        <terminal uuid="{c43753fd-0a4b-5b4f-bfb9-b2a476fb71a9}" name="F03" x="-165.0" y="-24.0" orientation="w" type="Generic" />
+                        <text text="M03 | M | GEAR_LO_SOL" x="4" y="-21.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+                        <terminal uuid="{f2f3772f-b4f5-5ddc-898c-726b44763afa}" name="M03" x="165.0" y="-24.0" orientation="e" type="Generic" />
+                        <text text="F04 | F | AIR_BLAST" x="-157.0" y="-1.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+                        <terminal uuid="{5d35d745-8321-5c8f-80de-7d0c7b0fe2b8}" name="F04" x="-165.0" y="-4.0" orientation="w" type="Generic" />
+                        <text text="M04 | M | AIR_BLAST" x="4" y="-1.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+                        <terminal uuid="{47d046d7-5ca4-5b5b-8fbd-bfcb0a720539}" name="M04" x="165.0" y="-4.0" orientation="e" type="Generic" />
+                        <text text="F05 | F | WORK_AIR_BLAST" x="-157.0" y="19.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#d00000" />
+                        <terminal uuid="{51ca26cf-7006-525e-9ec7-7311247bb901}" name="F05" x="-165.0" y="16.0" orientation="w" type="Generic" />
+                        <text text="M05 | M | WORK_AIR_BLAST" x="4" y="19.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#d00000" />
+                        <terminal uuid="{49ec2ac4-1ad4-548b-b4a5-d1c45437ad50}" name="M05" x="165.0" y="16.0" orientation="e" type="Generic" />
+                        <text text="F06 | F | FLOOD_VALVE" x="-157.0" y="39.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+                        <terminal uuid="{de2fb67c-adec-5489-a652-713275c51570}" name="F06" x="-165.0" y="36.0" orientation="w" type="Generic" />
+                        <text text="M06 | M | FLOOD_VALVE" x="4" y="39.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+                        <terminal uuid="{417ba5d4-e425-5123-854f-5f0b9b9c310c}" name="M06" x="165.0" y="36.0" orientation="e" type="Generic" />
+                        <text text="F07 | F | COOLANT_ON" x="-157.0" y="59.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#d00000" />
+                        <terminal uuid="{75c7ae29-5cc1-53ac-984a-00bfdc65f515}" name="F07" x="-165.0" y="56.0" orientation="w" type="Generic" />
+                        <text text="M07 | M | COOLANT_ON" x="4" y="59.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#d00000" />
+                        <terminal uuid="{ac26664c-9a53-57c6-ac95-2bcc4400503d}" name="M07" x="165.0" y="56.0" orientation="e" type="Generic" />
+                        <text text="F08 | F | HYD_PUMP_ON" x="-157.0" y="79.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+                        <terminal uuid="{cc2ec8a3-5b1b-51c2-b42a-26b8f936654f}" name="F08" x="-165.0" y="76.0" orientation="w" type="Generic" />
+                        <text text="M08 | M | HYD_PUMP_ON" x="4" y="79.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+                        <terminal uuid="{ab5161da-37e3-51de-aab3-4292b2924d87}" name="M08" x="165.0" y="76.0" orientation="e" type="Generic" />
                     </description>
                 </definition>
             </element>
             <element name="plane_a_cn11_discrete__7i84u_a_tb2.elmt">
-                <definition version="0.100.0" type="element" link_type="simple" width="350" height="112" hotspot_x="175" hotspot_y="56">
+                <definition version="0.100.0" type="element" link_type="simple" width="350" height="132" hotspot_x="175" hotspot_y="66">
                     <uuid uuid="{d428005f-7f30-5f5b-bde4-364a4a360cfc}" />
                     <names>
                         <name lang="en">7i84U-A TB2</name>
                     </names>
                     <informations>Generated from the MESAC retrofit crosswalks. PRELIMINARY - NOT RELEASED FOR WIRING.</informations>
                     <description>
-                        <rect x="-165.0" y="-46.0" width="330" height="92" rx="0" ry="0" antialias="false" style="line-style:normal;line-weight:normal;filling:none;color:#0078a8" />
-                        <line x1="-165.0" y1="-20.0" x2="165.0" y2="-20.0" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:normal;filling:none;color:#0078a8" antialias="false" />
-                        <text text="7i84U-A TB2" x="-157.0" y="-28.0" rotation="0" font="Liberation Sans,8,-1,5,75,0,0,0,0,0,Bold" color="#0078a8" />
-                        <text text="OUT10 | OUT10 | tool-unclamp-sol | FV" x="-157.0" y="-1.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
-                        <terminal uuid="{d556d596-689c-5abc-9dfc-b016dae8926a}" name="OUT10" x="-165.0" y="-4.0" orientation="w" type="Generic" />
-                        <text text="OUT8 | OUT8 | gear-lo-sol | FV" x="-157.0" y="19.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
-                        <terminal uuid="{83c0fd8e-dcf1-500f-9643-7cc1dd1bde6b}" name="OUT8" x="-165.0" y="16.0" orientation="w" type="Generic" />
+                        <rect x="-165.0" y="-56.0" width="330" height="112" rx="0" ry="0" antialias="false" style="line-style:normal;line-weight:normal;filling:none;color:#0078a8" />
+                        <line x1="-165.0" y1="-30.0" x2="165.0" y2="-30.0" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:normal;filling:none;color:#0078a8" antialias="false" />
+                        <text text="7i84U-A TB2" x="-157.0" y="-38.0" rotation="0" font="Liberation Sans,8,-1,5,75,0,0,0,0,0,Bold" color="#0078a8" />
+                        <text text="OUT10 | OUT10 | tool-unclamp-sol | FV" x="-157.0" y="-11.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+                        <terminal uuid="{d556d596-689c-5abc-9dfc-b016dae8926a}" name="OUT10" x="-165.0" y="-14.0" orientation="w" type="Generic" />
+                        <text text="OUT8 | OUT8 | gear-lo-sol | FV" x="-157.0" y="9.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+                        <terminal uuid="{83c0fd8e-dcf1-500f-9643-7cc1dd1bde6b}" name="OUT8" x="-165.0" y="6.0" orientation="w" type="Generic" />
+                        <text text="OUT11 | OUT11 | flood-coolant | HOLD" x="-157.0" y="29.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#d00000" />
+                        <terminal uuid="{009b50a4-65db-517e-b747-4d57cad13f99}" name="OUT11" x="-165.0" y="26.0" orientation="w" type="Generic" />
                     </description>
                 </definition>
             </element>

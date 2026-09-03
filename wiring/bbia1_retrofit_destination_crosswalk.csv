@@ -1,12 +1,11 @@
 Old_Location,Authority_ID,Disposition,Crosswalk_Status,Notes
 CN1-14,Z_HOME,MESA_DIRECT_PLANNED,PLANNED_MATCH,*DECZ / Z-axis zero-return name match; prove continuity and normal state
-CN2-4,MAG_BCD_BIT0,MESA_DIRECT_PLANNED,PLANNED_MATCH,Magazine position 1 planned as BCD bit 0; confirm bit order at pot
-CN2-5,MAG_BCD_BIT1,MESA_DIRECT_PLANNED,PLANNED_MATCH,Magazine position 2 planned as BCD bit 1; confirm bit order at pot
-CN2-6,MAG_BCD_BIT2,MESA_DIRECT_PLANNED,PLANNED_MATCH,Magazine position 4 planned as BCD bit 2; confirm bit order at pot
-CN2-7,MAG_BCD_BIT3,MESA_DIRECT_PLANNED,PLANNED_MATCH,Magazine position 8 planned as BCD bit 3; confirm bit order at pot
-CN2-8,MAG_BCD_BIT4,MESA_DIRECT_PLANNED,PLANNED_MATCH,Magazine position 10 notation planned as fifth BCD bit; confirm identity and bit order
-CN2-9,MAG_IN_POS,MESA_DIRECT_PLANNED,PLANNED_MATCH,Magazine position-OK name match; prove continuity and polarity
-CN2-14,Z_LIMIT_PLUS,MESA_DIRECT_PLANNED,PLANNED_MATCH,+LTZ / Z positive overtravel name match; retain hardware overtravel path
+CN2-5,MAG_BCD_BIT0,MESA_DIRECT_PLANNED,PLANNED_MATCH,Magazine position 1 planned as BCD bit 0 (block de-shifted 2026-09-02 per sec 7.5); confirm bit order at pot
+CN2-6,MAG_BCD_BIT1,MESA_DIRECT_PLANNED,PLANNED_MATCH,Magazine position 2 planned as BCD bit 1; confirm bit order at pot
+CN2-7,MAG_BCD_BIT2,MESA_DIRECT_PLANNED,PLANNED_MATCH,Magazine position 4 planned as BCD bit 2; confirm bit order at pot
+CN2-8,MAG_BCD_BIT3,MESA_DIRECT_PLANNED,PLANNED_MATCH,Magazine position 8 planned as BCD bit 3; confirm bit order at pot
+CN2-9,MAG_BCD_BIT4,MESA_DIRECT_PLANNED,PLANNED_MATCH,Magazine position 10 planned as fifth BCD bit; confirm identity and bit order
+CN2-10,MAG_IN_POS,MESA_DIRECT_PLANNED,PLANNED_MATCH,MAGAZINE INPOSITION (MIPRS PRS-13) wire 213; prove continuity and polarity
 CN2-15,X_HOME,MESA_DIRECT_PLANNED,PLANNED_MATCH,*DECX / X-axis zero-return name match; prove continuity and normal state
 CN2-16,Y_HOME,MESA_DIRECT_PLANNED,PLANNED_MATCH,*DECY / Y-axis zero-return name match; prove continuity and normal state
 CN3-37,Y_LIMIT_PLUS,MESA_DIRECT_PLANNED,PLANNED_MATCH,+LY / Y positive overtravel name match; retain hardware overtravel path
@@ -17,5 +16,5 @@ CN4-1,SPINDLE_ZERO_SPEED,MESA_DIRECT_PLANNED,PLANNED_MATCH,Spindle zero-speed na
 CN4-3,SPINDLE_FAULT,MESA_DIRECT_PLANNED,PLANNED_MATCH,FA/FC name match; CON1-11/-12 -> CN4-3/-4 per RECON 2026-08-08 §D, cross-confirmed against dwg 4143075403 p127; previously excluded as ambiguous spindle conductor -- promoted 2026-08-18; verify FR-SX fault contact polarity
 CN4-9,SPINDLE_FWD,MESA_DIRECT_PLANNED,PLANNED_MATCH,SRN name match; CON1-45 -> CN4-9 per RECON 2026-08-08 §D, cross-confirmed against dwg 4143075403 p127; previously excluded as ambiguous spindle conductor -- promoted 2026-08-18; verify drive-enable interlock before landing
 CN4-10,SPINDLE_REV,MESA_DIRECT_PLANNED,PLANNED_MATCH,SRI name match; CON1-46 -> CN4-10 per RECON 2026-08-08 §D, cross-confirmed against dwg 4143075403 p127; previously excluded as ambiguous spindle conductor -- promoted 2026-08-18; verify drive-enable interlock before landing
-CN4-16,SPINDLE_ORIENT_ARRIVAL,MESA_DIRECT_PLANNED,PLANNED_MATCH,OBA1/OBA2 (wire tags SETA/SETB) name match; CON1-22/-23 -> CN4-16/-17 per RECON 2026-08-08 §D, cross-confirmed against dwg 4143075403 p127; previously excluded as ambiguous spindle conductor -- promoted 2026-08-18
+CN4-16,SPINDLE_ORIENT_ARRIVAL,MESA_DIRECT_PLANNED,PLANNED_MATCH,ORA1/ORA2 (SETA/SETB were misreads - sec 7.5); CON1-22/-23 -> CN4-16/-17 per RECON 2026-08-08 §D, cross-confirmed against dwg 4143075403 p127; previously excluded as ambiguous spindle conductor -- promoted 2026-08-18
 CN6-7,SERVO_READY,MESA_DIRECT_PLANNED,PLANNED_MATCH,Servo-ready name match; confirm this is the retained combined ready contact

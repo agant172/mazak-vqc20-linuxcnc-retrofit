@@ -1,5 +1,5 @@
 {
-  "conductors": 121,
+  "conductors": 127,
   "elements": 59,
   "folios": 15,
   "generated_by": "scripts/generate_qelectrotech_project.py",
@@ -7,9 +7,9 @@
     "wiring/plane_a_bbia1_pin_crosswalk.csv",
     "wiring/plane_b_pin_crosswalk.csv"
   ],
-  "plane_a_diagrammed_routes": 42,
+  "plane_a_diagrammed_routes": 45,
   "plane_b_rows": 38,
   "project": "MESAC_VQC2040_Retrofit.qet",
-  "project_sha256": "5a80b29806f09d31155ebccff4db8b023951f7a8c29c29f705303bec67f0f5ff",
+  "project_sha256": "b5a4cc559c1ab5f7484ef6d206f5caf5fbfdc50b3f5dc2c91c7244a3c8438fcc",
   "qelectrotech_target": "0.100.0"
 }

@@ -139,6 +139,16 @@ graph {
     <td port="p12r">16</td>
    </tr>
    <tr>
+    <td>341 | DOOR_INTERLOCK | FV</td>
+    <td sides="tbl">YE</td>
+    <td sides="tbr">
+     <table border="0" cellborder="1"><tr>
+      <td bgcolor="#FFFF00" width="8" height="8" fixedsize="true"></td>
+     </tr></table>
+    </td>
+    <td port="p13r">38</td>
+   </tr>
+   <tr>
     <td>149B | MT_CLAMP_PB | HOLD</td>
     <td sides="tbl">RD</td>
     <td sides="tbr">
@@ -146,7 +156,7 @@ graph {
       <td bgcolor="#FF0000" width="8" height="8" fixedsize="true"></td>
      </tr></table>
     </td>
-    <td port="p13r">44</td>
+    <td port="p14r">44</td>
    </tr>
   </table>
  </td></tr>
@@ -437,6 +447,28 @@ graph {
    </tr>
    <tr>
     <td port="p25l">F13</td>
+    <td>F | DOOR_INTERLOCK</td>
+    <td sides="tbl">YE</td>
+    <td sides="tbr">
+     <table border="0" cellborder="1"><tr>
+      <td bgcolor="#FFFF00" width="8" height="8" fixedsize="true"></td>
+     </tr></table>
+    </td>
+    <td port="p25r">F13</td>
+   </tr>
+   <tr>
+    <td port="p26l">M13</td>
+    <td>M | DOOR_INTERLOCK</td>
+    <td sides="tbl">YE</td>
+    <td sides="tbr">
+     <table border="0" cellborder="1"><tr>
+      <td bgcolor="#FFFF00" width="8" height="8" fixedsize="true"></td>
+     </tr></table>
+    </td>
+    <td port="p26r">M13</td>
+   </tr>
+   <tr>
+    <td port="p27l">F14</td>
     <td>F | MT_CLAMP_PB</td>
     <td sides="tbl">RD</td>
     <td sides="tbr">
@@ -444,10 +476,10 @@ graph {
       <td bgcolor="#FF0000" width="8" height="8" fixedsize="true"></td>
      </tr></table>
     </td>
-    <td port="p25r">F13</td>
+    <td port="p27r">F14</td>
    </tr>
    <tr>
-    <td port="p26l">M13</td>
+    <td port="p28l">M14</td>
     <td>M | MT_CLAMP_PB</td>
     <td sides="tbl">RD</td>
     <td sides="tbr">
@@ -455,7 +487,7 @@ graph {
       <td bgcolor="#FF0000" width="8" height="8" fixedsize="true"></td>
      </tr></table>
     </td>
-    <td port="p26r">M13</td>
+    <td port="p28r">M14</td>
    </tr>
   </table>
  </td></tr>
@@ -604,7 +636,17 @@ graph {
     </td>
    </tr>
    <tr>
-    <td port="p7l">IN30</td>
+    <td port="p7l">IN24</td>
+    <td>IN24 | door-interlock | FV</td>
+    <td sides="tbl">YE</td>
+    <td sides="tbr">
+     <table border="0" cellborder="1"><tr>
+      <td bgcolor="#FFFF00" width="8" height="8" fixedsize="true"></td>
+     </tr></table>
+    </td>
+   </tr>
+   <tr>
+    <td port="p8l">IN30</td>
     <td>IN30 | MT_CLAMP_PB | HOLD</td>
     <td sides="tbl">RD</td>
     <td sides="tbr">
@@ -701,9 +743,12 @@ graph {
 	edge [color="#000000:#ffff00:#000000"]
 	CN2:p12r:e -- OEM_CONDUCTORS:w12:w
 	OEM_CONDUCTORS:w12:e -- IR_BOUNDARY:p23l:w
-	edge [color="#000000:#ff0000:#000000"]
+	edge [color="#000000:#ffff00:#000000"]
 	CN2:p13r:e -- OEM_CONDUCTORS:w13:w
 	OEM_CONDUCTORS:w13:e -- IR_BOUNDARY:p25l:w
+	edge [color="#000000:#ff0000:#000000"]
+	CN2:p14r:e -- OEM_CONDUCTORS:w14:w
+	OEM_CONDUCTORS:w14:e -- IR_BOUNDARY:p27l:w
 	OEM_CONDUCTORS [label=<
 <table border="0" cellspacing="0" cellpadding="0">
  <tr><td>
@@ -912,14 +957,30 @@ graph {
     </td>
    </tr>
    <tr>
-    <td>CN2:44:149B | MT_CLAMP_PB | HOLD</td>
+    <td>CN2:38:341 | DOOR_INTERLOCK | FV</td>
     <td>
-     13:RD:149B | MT_CLAMP_PB
+     13:YE:341 | DOOR_INTERLOCK
     </td>
-    <td>IR_BOUNDARY:F13:F | MT_CLAMP_PB</td>
+    <td>IR_BOUNDARY:F13:F | DOOR_INTERLOCK</td>
    </tr>
    <tr>
     <td colspan="3" border="0" cellspacing="0" cellpadding="0" port="w13" height="6">
+     <table cellspacing="0" cellborder="0" border="0">
+      <tr><td colspan="3" cellpadding="0" height="2" bgcolor="#000000" border="0"></td></tr>
+      <tr><td colspan="3" cellpadding="0" height="2" bgcolor="#ffff00" border="0"></td></tr>
+      <tr><td colspan="3" cellpadding="0" height="2" bgcolor="#000000" border="0"></td></tr>
+     </table>
+    </td>
+   </tr>
+   <tr>
+    <td>CN2:44:149B | MT_CLAMP_PB | HOLD</td>
+    <td>
+     14:RD:149B | MT_CLAMP_PB
+    </td>
+    <td>IR_BOUNDARY:F14:F | MT_CLAMP_PB</td>
+   </tr>
+   <tr>
+    <td colspan="3" border="0" cellspacing="0" cellpadding="0" port="w14" height="6">
      <table cellspacing="0" cellborder="0" border="0">
       <tr><td colspan="3" cellpadding="0" height="2" bgcolor="#000000" border="0"></td></tr>
       <tr><td colspan="3" cellpadding="0" height="2" bgcolor="#ff0000" border="0"></td></tr>
@@ -967,9 +1028,12 @@ graph {
 	edge [color="#000000:#ffff00:#000000"]
 	IR_BOUNDARY:p14r:e -- NEW_CONTROL_WIRING:w7:w
 	NEW_CONTROL_WIRING:w7:e -- "7i84U-A_TB2":p6l:w
-	edge [color="#000000:#ff0000:#000000"]
+	edge [color="#000000:#ffff00:#000000"]
 	IR_BOUNDARY:p26r:e -- NEW_CONTROL_WIRING:w13:w
 	NEW_CONTROL_WIRING:w13:e -- "7i84U-A_TB2":p7l:w
+	edge [color="#000000:#ff0000:#000000"]
+	IR_BOUNDARY:p28r:e -- NEW_CONTROL_WIRING:w14:w
+	NEW_CONTROL_WIRING:w14:e -- "7i84U-A_TB2":p8l:w
 	edge [color="#000000:#ffff00:#000000"]
 	IR_BOUNDARY:p22r:e -- NEW_CONTROL_WIRING:w11:w
 	NEW_CONTROL_WIRING:w11:e -- "7i84U-B_TB3":p1l:w
@@ -1184,14 +1248,30 @@ graph {
     </td>
    </tr>
    <tr>
-    <td>IR_BOUNDARY:M13:M | MT_CLAMP_PB</td>
+    <td>IR_BOUNDARY:M13:M | DOOR_INTERLOCK</td>
     <td>
-     13:RD:MT_CLAMP_PB | TBD
+     13:YE:DOOR_INTERLOCK | door-interlock
+    </td>
+    <td>7i84U-A_TB2:IN24:IN24 | door-interlock | FV</td>
+   </tr>
+   <tr>
+    <td colspan="3" border="0" cellspacing="0" cellpadding="0" port="w13" height="6">
+     <table cellspacing="0" cellborder="0" border="0">
+      <tr><td colspan="3" cellpadding="0" height="2" bgcolor="#000000" border="0"></td></tr>
+      <tr><td colspan="3" cellpadding="0" height="2" bgcolor="#ffff00" border="0"></td></tr>
+      <tr><td colspan="3" cellpadding="0" height="2" bgcolor="#000000" border="0"></td></tr>
+     </table>
+    </td>
+   </tr>
+   <tr>
+    <td>IR_BOUNDARY:M14:M | MT_CLAMP_PB</td>
+    <td>
+     14:RD:MT_CLAMP_PB | TBD
     </td>
     <td>7i84U-A_TB2:IN30:IN30 | MT_CLAMP_PB | HOLD</td>
    </tr>
    <tr>
-    <td colspan="3" border="0" cellspacing="0" cellpadding="0" port="w13" height="6">
+    <td colspan="3" border="0" cellspacing="0" cellpadding="0" port="w14" height="6">
      <table cellspacing="0" cellborder="0" border="0">
       <tr><td colspan="3" cellpadding="0" height="2" bgcolor="#000000" border="0"></td></tr>
       <tr><td colspan="3" cellpadding="0" height="2" bgcolor="#ff0000" border="0"></td></tr>

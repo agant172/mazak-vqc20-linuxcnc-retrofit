@@ -1,7 +1,7 @@
 # BBIA-1 CN1–CN6 & CN11 Wire Data — Source for the Laminated Reference Sheet
 
-Companion CSV: [`bbia1_cn_labels_epson.csv`](bbia1_cn_labels_epson.csv) — 164
-rows, one per active pin across CN1, CN2, CN3, CN4, CN5, CN6, and CN11.
+Companion CSV: [`bbia1_cn_labels_epson.csv`](bbia1_cn_labels_epson.csv) — 390
+rows, one per active pin across CN1-CN8, CN11, CN11-SSR, CN12, and CN200.
 
 ## Purpose (revised 2026-08-09)
 

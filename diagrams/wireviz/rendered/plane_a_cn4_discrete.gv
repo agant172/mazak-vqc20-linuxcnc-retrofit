@@ -58,6 +58,16 @@ graph {
     </td>
     <td port="p4r">10</td>
    </tr>
+   <tr>
+    <td>ORA1 | SPINDLE_ORIENT_ARRIVAL | FV</td>
+    <td sides="tbl">YE</td>
+    <td sides="tbr">
+     <table border="0" cellborder="1"><tr>
+      <td bgcolor="#FFFF00" width="8" height="8" fixedsize="true"></td>
+     </tr></table>
+    </td>
+    <td port="p5r">16</td>
+   </tr>
   </table>
  </td></tr>
  <tr><td>
@@ -169,6 +179,28 @@ graph {
     </td>
     <td port="p8r">M04</td>
    </tr>
+   <tr>
+    <td port="p9l">F05</td>
+    <td>F | SPINDLE_ORIENT_ARRIVAL</td>
+    <td sides="tbl">YE</td>
+    <td sides="tbr">
+     <table border="0" cellborder="1"><tr>
+      <td bgcolor="#FFFF00" width="8" height="8" fixedsize="true"></td>
+     </tr></table>
+    </td>
+    <td port="p9r">F05</td>
+   </tr>
+   <tr>
+    <td port="p10l">M05</td>
+    <td>M | SPINDLE_ORIENT_ARRIVAL</td>
+    <td sides="tbl">YE</td>
+    <td sides="tbr">
+     <table border="0" cellborder="1"><tr>
+      <td bgcolor="#FFFF00" width="8" height="8" fixedsize="true"></td>
+     </tr></table>
+    </td>
+    <td port="p10r">M05</td>
+   </tr>
   </table>
  </td></tr>
  <tr><td>
@@ -232,6 +264,16 @@ graph {
      </tr></table>
     </td>
    </tr>
+   <tr>
+    <td port="p5l">IN4</td>
+    <td>IN4 | spindle-oriented | FV</td>
+    <td sides="tbl">YE</td>
+    <td sides="tbr">
+     <table border="0" cellborder="1"><tr>
+      <td bgcolor="#FFFF00" width="8" height="8" fixedsize="true"></td>
+     </tr></table>
+    </td>
+   </tr>
   </table>
  </td></tr>
  <tr><td>
@@ -253,6 +295,9 @@ graph {
 	edge [color="#000000:#ffff00:#000000"]
 	CN4:p4r:e -- OEM_CONDUCTORS:w4:w
 	OEM_CONDUCTORS:w4:e -- IR_BOUNDARY:p7l:w
+	edge [color="#000000:#ffff00:#000000"]
+	CN4:p5r:e -- OEM_CONDUCTORS:w5:w
+	OEM_CONDUCTORS:w5:e -- IR_BOUNDARY:p9l:w
 	OEM_CONDUCTORS [label=<
 <table border="0" cellspacing="0" cellpadding="0">
  <tr><td>
@@ -332,6 +377,22 @@ graph {
      </table>
     </td>
    </tr>
+   <tr>
+    <td>CN4:16:ORA1 | SPINDLE_ORIENT_ARRIVAL | FV</td>
+    <td>
+     5:YE:ORA1 | SPINDLE_ORIENT_ARRIVAL
+    </td>
+    <td>IR_BOUNDARY:F05:F | SPINDLE_ORIENT_ARRIVAL</td>
+   </tr>
+   <tr>
+    <td colspan="3" border="0" cellspacing="0" cellpadding="0" port="w5" height="6">
+     <table cellspacing="0" cellborder="0" border="0">
+      <tr><td colspan="3" cellpadding="0" height="2" bgcolor="#000000" border="0"></td></tr>
+      <tr><td colspan="3" cellpadding="0" height="2" bgcolor="#ffff00" border="0"></td></tr>
+      <tr><td colspan="3" cellpadding="0" height="2" bgcolor="#000000" border="0"></td></tr>
+     </table>
+    </td>
+   </tr>
    <tr><td>&nbsp;</td></tr>
   </table>
  </td></tr>
@@ -354,6 +415,9 @@ graph {
 	edge [color="#000000:#ffff00:#000000"]
 	IR_BOUNDARY:p8r:e -- NEW_CONTROL_WIRING:w4:w
 	NEW_CONTROL_WIRING:w4:e -- "7i84U-A_TB3":p4l:w
+	edge [color="#000000:#ffff00:#000000"]
+	IR_BOUNDARY:p10r:e -- NEW_CONTROL_WIRING:w5:w
+	NEW_CONTROL_WIRING:w5:e -- "7i84U-A_TB3":p5l:w
 	NEW_CONTROL_WIRING [label=<
 <table border="0" cellspacing="0" cellpadding="0">
  <tr><td>
@@ -426,6 +490,22 @@ graph {
    </tr>
    <tr>
     <td colspan="3" border="0" cellspacing="0" cellpadding="0" port="w4" height="6">
+     <table cellspacing="0" cellborder="0" border="0">
+      <tr><td colspan="3" cellpadding="0" height="2" bgcolor="#000000" border="0"></td></tr>
+      <tr><td colspan="3" cellpadding="0" height="2" bgcolor="#ffff00" border="0"></td></tr>
+      <tr><td colspan="3" cellpadding="0" height="2" bgcolor="#000000" border="0"></td></tr>
+     </table>
+    </td>
+   </tr>
+   <tr>
+    <td>IR_BOUNDARY:M05:M | SPINDLE_ORIENT_ARRIVAL</td>
+    <td>
+     5:YE:SPINDLE_ORIENT_ARRIVAL | spindle-oriented
+    </td>
+    <td>7i84U-A_TB3:IN4:IN4 | spindle-oriented | FV</td>
+   </tr>
+   <tr>
+    <td colspan="3" border="0" cellspacing="0" cellpadding="0" port="w5" height="6">
      <table cellspacing="0" cellborder="0" border="0">
       <tr><td colspan="3" cellpadding="0" height="2" bgcolor="#000000" border="0"></td></tr>
       <tr><td colspan="3" cellpadding="0" height="2" bgcolor="#ffff00" border="0"></td></tr>

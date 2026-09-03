@@ -18,13 +18,16 @@ connectors:
     - 3
     - 9
     - 10
+    - 16
     pinlabels:
     - ZS1 | SPINDLE_ZERO_SPEED | HOLD
     - FA | SPINDLE_FAULT | FV
     - SRN | SPINDLE_FWD | FV
     - SRI | SPINDLE_REV | FV
+    - ORA1 | SPINDLE_ORIENT_ARRIVAL | FV
     pincolors: &id001
     - RD
+    - YE
     - YE
     - YE
     - YE
@@ -44,6 +47,8 @@ connectors:
     - M03
     - F04
     - M04
+    - F05
+    - M05
     pinlabels:
     - F | SPINDLE_ZERO_SPEED
     - M | SPINDLE_ZERO_SPEED
@@ -53,9 +58,13 @@ connectors:
     - M | SPINDLE_FWD
     - F | SPINDLE_REV
     - M | SPINDLE_REV
+    - F | SPINDLE_ORIENT_ARRIVAL
+    - M | SPINDLE_ORIENT_ARRIVAL
     pincolors:
     - RD
     - RD
+    - YE
+    - YE
     - YE
     - YE
     - YE
@@ -74,13 +83,16 @@ connectors:
     - IN14
     - OUT0
     - OUT1
+    - IN4
     pinlabels:
     - IN5 | spindle-zero-speed | HOLD
     - IN14 | spindle-fault | FV
     - OUT0 | spindle-fwd | FV
     - OUT1 | spindle-rev | FV
+    - IN4 | spindle-oriented | FV
     pincolors:
     - RD
+    - YE
     - YE
     - YE
     - YE
@@ -92,12 +104,13 @@ connectors:
 cables:
   OEM_CONDUCTORS:
     type: Existing OEM conductor segments
-    wirecount: 4
+    wirecount: 5
     wirelabels:
     - ZS1 | SPINDLE_ZERO_SPEED
     - FA | SPINDLE_FAULT
     - SRN | SPINDLE_FWD
     - SRI | SPINDLE_REV
+    - ORA1 | SPINDLE_ORIENT_ARRIVAL
     colors: *id001
     show_wirecount: false
     notes: See crosswalk source.
@@ -105,12 +118,13 @@ cables:
     ignore_in_bom: true
   NEW_CONTROL_WIRING:
     type: New control-side conductors
-    wirecount: 4
+    wirecount: 5
     wirelabels:
     - SPINDLE_ZERO_SPEED | spindle-zero-speed
     - SPINDLE_FAULT | spindle-fault
     - SPINDLE_FWD | spindle-fwd
     - SPINDLE_REV | spindle-rev
+    - SPINDLE_ORIENT_ARRIVAL | spindle-oriented
     colors: *id001
     show_wirecount: false
     notes: See crosswalk source.
@@ -122,28 +136,34 @@ connections:
     - 3
     - 9
     - 10
+    - 16
   - OEM_CONDUCTORS:
     - 1
     - 2
     - 3
     - 4
+    - 5
   - IR_BOUNDARY:
     - F01
     - F02
     - F03
     - F04
+    - F05
 - - IR_BOUNDARY:
     - M01
     - M02
     - M03
     - M04
+    - M05
   - NEW_CONTROL_WIRING:
     - 1
     - 2
     - 3
     - 4
+    - 5
   - 7i84U-A_TB3:
     - IN5
     - IN14
     - OUT0
     - OUT1
+    - IN4

@@ -1,29 +1,33 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<definition version="0.100.0" type="element" link_type="simple" width="350" height="152" hotspot_x="175" hotspot_y="76">
+<definition version="0.100.0" type="element" link_type="simple" width="350" height="172" hotspot_x="175" hotspot_y="86">
     <uuid uuid="{ca8e6385-cfb7-5c91-b49c-442ec45a63d9}" />
     <names>
         <name lang="en">Required interposing-relay boundary</name>
     </names>
     <informations>Generated from the MESAC retrofit crosswalks. PRELIMINARY - NOT RELEASED FOR WIRING.</informations>
     <description>
-        <rect x="-165.0" y="-66.0" width="330" height="132" rx="0" ry="0" antialias="false" style="line-style:normal;line-weight:normal;filling:none;color:#a85d00" />
-        <line x1="-165.0" y1="-40.0" x2="165.0" y2="-40.0" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:normal;filling:none;color:#a85d00" antialias="false" />
-        <text text="Required interposing-relay boundary" x="-157.0" y="-48.0" rotation="0" font="Liberation Sans,8,-1,5,75,0,0,0,0,0,Bold" color="#a85d00" />
-        <text text="F01 | F | SPINDLE_ZERO_SPEED" x="-157.0" y="-21.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#d00000" />
-        <terminal uuid="{ae91e99f-dc51-5329-8089-f93c828c2892}" name="F01" x="-165.0" y="-24.0" orientation="w" type="Generic" />
-        <text text="M01 | M | SPINDLE_ZERO_SPEED" x="4" y="-21.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#d00000" />
-        <terminal uuid="{752757f5-882d-56a3-bd8e-f1a9e2f2daf8}" name="M01" x="165.0" y="-24.0" orientation="e" type="Generic" />
-        <text text="F02 | F | SPINDLE_FAULT" x="-157.0" y="-1.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
-        <terminal uuid="{8c1596da-f13e-5a57-9a51-d7299fb2db8f}" name="F02" x="-165.0" y="-4.0" orientation="w" type="Generic" />
-        <text text="M02 | M | SPINDLE_FAULT" x="4" y="-1.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
-        <terminal uuid="{2864acf3-c527-5569-b725-0592d2c814e3}" name="M02" x="165.0" y="-4.0" orientation="e" type="Generic" />
-        <text text="F03 | F | SPINDLE_FWD" x="-157.0" y="19.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
-        <terminal uuid="{9c4568d4-efa4-5928-afd6-601e758dfffd}" name="F03" x="-165.0" y="16.0" orientation="w" type="Generic" />
-        <text text="M03 | M | SPINDLE_FWD" x="4" y="19.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
-        <terminal uuid="{403263d8-986c-5e80-b2fc-b9ac39653769}" name="M03" x="165.0" y="16.0" orientation="e" type="Generic" />
-        <text text="F04 | F | SPINDLE_REV" x="-157.0" y="39.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
-        <terminal uuid="{5149a70a-75a5-5077-8114-974e0d52afd5}" name="F04" x="-165.0" y="36.0" orientation="w" type="Generic" />
-        <text text="M04 | M | SPINDLE_REV" x="4" y="39.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
-        <terminal uuid="{a67c1c68-8d3e-5d62-8548-2abad89cfa51}" name="M04" x="165.0" y="36.0" orientation="e" type="Generic" />
+        <rect x="-165.0" y="-76.0" width="330" height="152" rx="0" ry="0" antialias="false" style="line-style:normal;line-weight:normal;filling:none;color:#a85d00" />
+        <line x1="-165.0" y1="-50.0" x2="165.0" y2="-50.0" end1="none" end2="none" length1="1.5" length2="1.5" style="line-style:normal;line-weight:normal;filling:none;color:#a85d00" antialias="false" />
+        <text text="Required interposing-relay boundary" x="-157.0" y="-58.0" rotation="0" font="Liberation Sans,8,-1,5,75,0,0,0,0,0,Bold" color="#a85d00" />
+        <text text="F01 | F | SPINDLE_ZERO_SPEED" x="-157.0" y="-31.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#d00000" />
+        <terminal uuid="{ae91e99f-dc51-5329-8089-f93c828c2892}" name="F01" x="-165.0" y="-34.0" orientation="w" type="Generic" />
+        <text text="M01 | M | SPINDLE_ZERO_SPEED" x="4" y="-31.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#d00000" />
+        <terminal uuid="{752757f5-882d-56a3-bd8e-f1a9e2f2daf8}" name="M01" x="165.0" y="-34.0" orientation="e" type="Generic" />
+        <text text="F02 | F | SPINDLE_FAULT" x="-157.0" y="-11.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+        <terminal uuid="{8c1596da-f13e-5a57-9a51-d7299fb2db8f}" name="F02" x="-165.0" y="-14.0" orientation="w" type="Generic" />
+        <text text="M02 | M | SPINDLE_FAULT" x="4" y="-11.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+        <terminal uuid="{2864acf3-c527-5569-b725-0592d2c814e3}" name="M02" x="165.0" y="-14.0" orientation="e" type="Generic" />
+        <text text="F03 | F | SPINDLE_FWD" x="-157.0" y="9.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+        <terminal uuid="{9c4568d4-efa4-5928-afd6-601e758dfffd}" name="F03" x="-165.0" y="6.0" orientation="w" type="Generic" />
+        <text text="M03 | M | SPINDLE_FWD" x="4" y="9.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+        <terminal uuid="{403263d8-986c-5e80-b2fc-b9ac39653769}" name="M03" x="165.0" y="6.0" orientation="e" type="Generic" />
+        <text text="F04 | F | SPINDLE_REV" x="-157.0" y="29.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+        <terminal uuid="{5149a70a-75a5-5077-8114-974e0d52afd5}" name="F04" x="-165.0" y="26.0" orientation="w" type="Generic" />
+        <text text="M04 | M | SPINDLE_REV" x="4" y="29.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+        <terminal uuid="{a67c1c68-8d3e-5d62-8548-2abad89cfa51}" name="M04" x="165.0" y="26.0" orientation="e" type="Generic" />
+        <text text="F05 | F | SPINDLE_ORIENT_ARRIVAL" x="-157.0" y="49.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+        <terminal uuid="{f0d4c687-5dd8-5651-b92f-0404b9abf552}" name="F05" x="-165.0" y="46.0" orientation="w" type="Generic" />
+        <text text="M05 | M | SPINDLE_ORIENT_ARRIVAL" x="4" y="49.0" rotation="0" font="Liberation Sans,6,-1,5,50,0,0,0,0,0,Regular" color="#a85d00" />
+        <terminal uuid="{c57c0057-9aa7-55aa-b79c-a94c6c510a6f}" name="M05" x="165.0" y="46.0" orientation="e" type="Generic" />
     </description>
 </definition>

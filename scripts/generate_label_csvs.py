@@ -21,10 +21,13 @@ DESTINATION_CROSSWALK = REPO_ROOT / "wiring" / "bbia1_retrofit_destination_cross
 # here are released as HOLD_DISPUTED_PIN instead, so the dispute survives onto
 # the label. Keyed by Old_Location; cite the register section.
 DISPUTED_CROSSWALK_PINS = {
-    "CN2-14": "wiring/authority_conflicts.md sec 7.3 — the pinout calls CN2-14 "
-              "'+LTZ Z-AXIS OVER TRAVEL', but dwg 4143075410 pg136 leaves +Z "
-              "unlabelled on the T.U. row, and CN6-12 '+LYZ +YZ OVER TRAVEL' "
-              "back-references CN2-14 as a COMBINED +Y/+Z bus. Field trace.",
+    # CN2-14 entry retired 2026-09-02 with its crosswalk row: sec 7.5 settled
+    # CN2-14 = +LY2 (2nd +Y over-travel) and Z_LIMIT_PLUS is unlocated, so the
+    # B-TB3-05 ferrule is withdrawn from the batch rather than held.
+    "CN4-1": "wiring/authority_conflicts.md sec 7.1 residual / plane_a "
+             "HOLD_OEM_CONFLICT — CN4-1 reads ZS1 (drive contact) while CN3-4 "
+             "carries wire 143 (relay stage); jacket read at both pins decides "
+             "which conductor lands IN5.",
 }
 LEGEND_OUT = REPO_ROOT / "wiring" / "labels" / "7i84u_b_terminal_legend_epson.csv"
 BBIA_OUT = REPO_ROOT / "wiring" / "labels" / "bbia1_cn_labels_epson.csv"

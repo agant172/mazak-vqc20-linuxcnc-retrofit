@@ -1,6 +1,6 @@
 # 7i84U-B TB1/TB2/TB3 Terminal Legend — Epson Label Editor Batch Import
 
-Companion CSV: [`7i84u_b_terminal_legend_epson.csv`](7i84u_b_terminal_legend_epson.csv) — 28 label rows covering all 8 TB1 power/logic/common terminals plus 20 allocated I/O terminals on 7i84U-B (7i44 sserial channel 1).
+Companion CSV: [`7i84u_b_terminal_legend_epson.csv`](7i84u_b_terminal_legend_epson.csv) — 21 label rows covering the 21 allocated I/O terminals (TB1 rows removed 2026-08-15) on 7i84U-B (7i44 sserial channel 1).
 
 Formatted for **Epson Label Editor on Windows**. The generated CSV uses Windows
 CRLF records and plain ASCII label text. These labels go on the **7i84U-B card
@@ -60,8 +60,8 @@ If you want blank ferrules pre-made for the spare terminals, add them by hand in
    `Signal`, and optional Field 4 → `HAL_Net`.
 5. Filter `Release_Status`. At present there are no `RELEASED` rows; printing
    unfiltered produces draft labels only.
-6. Preview the first few records. Long labels such as `TOUCH SENSOR BLAST
-   (SOL-35 / RLY-6)` may require 12 mm tape or omission of `HAL_Net`.
+6. Preview the first few records. Long labels such as `WORK AIR BLAST
+   (SOL-16 / RLY-6)` may require 12 mm tape or omission of `HAL_Net`.
 7. Print. The PX700 will feed one label per selected CSV row.
 
 ## Suggested print order
