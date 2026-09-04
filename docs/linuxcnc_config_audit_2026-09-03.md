@@ -45,7 +45,12 @@ Grouped by risk. Each item names its physical consequence as coded today.
    grip; D/E carry a hanging tool across the magazine at Z0. Corrected chains
    + drafted branch sequences are in the audit trail; `REF1_Z/REF2_Z` must be
    renamed in the same commit (they're inverted vs ladder ZP1/ZP2).
-   **Gated on the fork-vs-socket pot photo** (bench item 40).
+   **Gate CLEARED 2026-09-04**: owner photos + firsthand confirm fork fingers
+   with spring/detent-ball retention on both sides of each fork (several sets
+   owner-replaced). Design notes for the resequencing: clamp-before-Y-out is
+   load-bearing (the clamped spindle breaks the detents loose); consider a
+   feed-limited Y segment through the detent zone on the first live cycles,
+   and expect fresh-vs-worn detent break-away to vary.
 2. **ATC MROT terms (B1+B2).** `mag_rotate_enable` requires cover-open and
    unclamp-off — corrected rung 3408 has neither, and the mid-cycle index runs
    with unclamp energized: **every full change times out at 30 s

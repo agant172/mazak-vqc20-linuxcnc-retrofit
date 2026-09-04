@@ -145,8 +145,13 @@ Step pattern, identical in all three chains:
 > `ZPZ2`, F at `ZPZ1`) and the latch axes above are only physically coherent
 > as a **horizontal fork-entry exchange**. `linuxcnc/remap/toolchange.ngc`
 > was written from the old narrative and must be resequenced (config-audit
-> behavior queue); bench-gate: photograph a magazine pot to confirm
-> fixed-finger flange grip before any live cycle.
+> behavior queue). **CONFIRMED 2026-09-04 (owner photos + firsthand):** the
+> pots are fixed fork fingers with a **spring-loaded detent ball on each side
+> of the fork** — the flange snaps past the detents on Y-in, the detents
+> retain the holder when Z-up releases it, and Y-out breaks them loose again
+> (which is why the corrected chains clamp BEFORE the Y-out move). The owner
+> has replaced several detent sets, so break-away force may differ from worn
+> OEM units — watch the first live Y-out for drag.
 
 ## HAL / LinuxCNC implementation notes
 
