@@ -1,31 +1,27 @@
-"""Magazine BCD pot decode: weights 1/2/4/8/10, captured only while in-position.
+"""Magazine pot decode: binary weights 1/2/4/8/16, captured only while in-position.
 
-Under test: linuxcnc/components/mazak_atc.comp:383-394, the 5-bit pot decode and
+Under test: linuxcnc/components/mazak_atc.comp:388-403, the 5-bit pot decode and
 the rung-3210 sample gate.
 
-    raw_pot = bit0*1 + bit1*2 + bit2*4 + bit3*8 + bit4*10   [:383-387]
-    if (mag_in_pos) { last_pot = raw_pot; have_pot = 1; }    [:389-392]
-    pot_number = last_pot;                                   [:393]
-    pot_number_valid = have_pot;                             [:394]
+    raw_pot = bit0*1 + bit1*2 + bit2*4 + bit3*8 + bit4*16   [:393-397]
+    if (mag_in_pos) { last_pot = raw_pot; have_pot = 1; }    [:399-402]
+    pot_number = last_pot;                                   [:403]
+    pot_number_valid = have_pot;                             [:404]
 
-Ladder authority (docs/ladder/atc_ladder_transcription.md:44-45):
+Ladder authority (docs/ladder/atc_ladder_transcription.md:44-46), resolved by
+the 2026-09-04 print audit: on a 24TS/30TS magazine (this machine, CONFIRMED
+30-pot by owner photos 2026-09-04) rung 3301 is `MOV D8->D10` - a RAW COPY,
+with NO BCD->BIN conversion. The BIN instruction at rung 3211 only fires on
+15TS/20TS machines. So the pot-number sensor byte on this machine is straight
+binary: T11P/T12P/T14P/T18P = weights 1/2/4/8, T21P = weight 16 (not the
+small-magazine BCD tens-digit weight of 10). This covers 1-30 exactly
+(30 = 0b11110 = 16+8+4+2).
 
-  | 3205-3209 | TNPS1-5 (M216-M220) = pot-number BCD sensors
-  |             T11P/T12P/T14P/T18P/T21P (X008-X00C) |
-  | 3210      | MIPRS(X00D) -> MOV K2M216->D8, BIN->D10:
-  |             **capture current pot number only while in-position** |
-
-and docs/ladder/atc_component_README.md:66, which reads K2M216 as two BCD
-digits, so the fifth sensor T21P is the TENS digit (weight 10), not a binary
-weight-16 bit.
-
-*** THE WEIGHT-10 ASSUMPTION IS UNVERIFIED HARDWARE. ***
-docs/ladder/atc_component_README.md:155 lists "BCD weights 1/2/4/8/10" in the
-"Placeholders - nothing here is a measured value" table, with the outstanding
-work being "confirm T21P really is the tens digit and not a 16-weight bit".
-This scenario therefore DOCUMENTS the assumption the component currently
-encodes and locks it against silent drift. It does NOT prove what the magazine
-sensors on SN 060231 actually do. If T21P turns out to be weight 16, the
+*** THE WEIGHT-16 READING IS PRINT-SOURCED BUT STILL BENCH-UNVERIFIED. ***
+docs/ladder/atc_ladder_transcription.md line 194 records the resolution and
+the bench check that closes it: at first power, read X008-X00C at pot 16
+(expect only T21P/bit4 set), pot 20 (expect bit4+bit2), and pot 30 (expect
+all but bit0). If the physical sensor disc disagrees with the print, the
 component changes and this file changes with it.
 
 Nothing else in the repo pins this decode: scripts/validate_control_logic.py
@@ -49,27 +45,30 @@ BIT_PINS = (
     "mag-bcd-bit1",  # X009 T12P - weight 2
     "mag-bcd-bit2",  # X00A T14P - weight 4
     "mag-bcd-bit3",  # X00B T18P - weight 8
-    "mag-bcd-bit4",  # X00C T21P - weight 10 (BCD tens digit, UNVERIFIED)
+    "mag-bcd-bit4",  # X00C T21P - weight 16 (straight binary on 24TS/30TS)
 )
 
 # (bit0, bit1, bit2, bit3, bit4) -> expected pot-number, note.
-# Every expectation below is the arithmetic of mazak_atc.comp:383-387, not an
-# independent model of the hardware.
+# Every expectation below is the arithmetic of mazak_atc.comp:393-397, not an
+# independent model of the hardware - see the module docstring for the bench
+# check that closes the remaining gap between print and machine.
 PATTERNS = (
     ((0, 0, 0, 0, 0),  0, "all sensors off decodes to pot 0"),
     ((1, 0, 0, 0, 0),  1, "T11P alone = weight 1"),
     ((0, 1, 0, 0, 0),  2, "T12P alone = weight 2"),
     ((0, 0, 1, 0, 0),  4, "T14P alone = weight 4"),
-    ((1, 1, 1, 0, 0),  7, "1+2+4 units digit"),
+    ((1, 1, 1, 0, 0),  7, "1+2+4"),
     ((0, 0, 0, 1, 0),  8, "T18P alone = weight 8"),
-    ((1, 0, 0, 1, 0),  9, "8+1, top of the units digit"),
-    # The two that separate a BCD tens digit from a binary weight-16 bit:
-    # under a 16-weight reading these would be 16 and 17, not 10 and 11.
-    ((0, 0, 0, 0, 1), 10, "T21P alone = weight 10 (would be 16 if binary)"),
-    ((1, 0, 0, 0, 1), 11, "10+1 (would be 17 if T21P were weight 16)"),
-    ((1, 0, 1, 0, 1), 15, "10+4+1"),
-    ((0, 0, 0, 1, 1), 18, "10+8 (would be 24 if T21P were weight 16)"),
-    ((1, 0, 0, 1, 1), 19, "10+8+1, the largest legal 2-digit-BCD pot here"),
+    ((1, 0, 0, 1, 0),  9, "8+1"),
+    ((1, 1, 1, 1, 0), 15, "1+2+4+8, the top of the low nibble"),
+    # T21P (bit4) is the pot-16..30 bit on this machine - it is NOT a BCD
+    # tens digit, so these do not land on 10/11/etc.
+    ((0, 0, 0, 0, 1), 16, "T21P alone = weight 16 (pot 16 per the bench check)"),
+    ((1, 0, 0, 0, 1), 17, "16+1"),
+    ((1, 0, 1, 0, 1), 21, "16+4+1"),
+    ((0, 0, 0, 1, 1), 24, "16+8"),
+    ((0, 1, 0, 1, 1), 26, "16+8+2 (pot 26)"),
+    ((1, 1, 1, 1, 1), 31, "all five bits - out of the 1-30 legal range, but the decode is combinational and unranged"),
 )
 
 
@@ -81,7 +80,7 @@ def run():
     with HalSession("mazak_atc", "mazak-atc") as h:
         # Permissives up, and the cover held open-confirmed so no cover alarm
         # latches while this scenario runs. The decode itself is NOT gated on
-        # permissives (:383-394) - this is only to keep the end-state check
+        # permissives (:393-404) - this is only to keep the end-state check
         # meaningful.
         h.setp_many({
             "hydraulic-ok": True,
@@ -93,8 +92,8 @@ def run():
         # (:427-429) and the rung 3405-3407 TSOFF supervision can never fire.
         # That matters: fault_pot_lost clears have_pot (:466) and would reset
         # pot-number-valid behind our back.
-        # target-pot / commanded-tool stay 0, well inside pot-count = 20, so
-        # the rung 3504-3507 range check (:345-346) stays clear.
+        # target-pot / commanded-tool stay 0, well inside pot-count = 30, so
+        # the rung 3504-3507 range check stays clear.
 
         # ---- (c) part one: nothing captured yet -------------------------
         h.run_ms(60)
@@ -121,15 +120,6 @@ def run():
         h.expect("pot-number-valid", True,
                  "(c) part two: TRUE once an in-position sample has occurred")
 
-        # DIVERGENCE: ladder rung 3210 does `MOV K2M216->D8, BIN->D10`, i.e. a
-        # real two-digit BCD-to-binary conversion, in which a units nibble of
-        # 8+4 = 0xC is an ILLEGAL BCD digit. mazak_atc.comp:383-387 instead
-        # sums the five weights unconditionally, so that pattern yields 12 and
-        # aliases the legal encoding of 12 (tens bit + weight 2). What an M-2
-        # actually does with an illegal nibble is not recorded in the
-        # transcription, so no assertion is written for the illegal pattern
-        # here - flagged for a human to adjudicate against the real magazine.
-
         # ---- (b) rung 3210 hold behaviour -------------------------------
         # Land on a known pot in position...
         h.setp_many(_pattern_map((1, 1, 0, 0, 0)))   # 1+2 = 3
@@ -137,10 +127,10 @@ def run():
         h.expect("pot-number", 3, "captured while in position")
 
         # ...drop out of position and change every sensor. pot-number must
-        # HOLD 3: `pot_number = last_pot` (:393) and last_pot is only written
-        # inside `if (mag_in_pos)` (:389-392).
+        # HOLD 3: `pot_number = last_pot` (:403) and last_pot is only written
+        # inside `if (mag_in_pos)` (:399-402).
         h.setp("mag-in-pos", False)
-        h.setp_many(_pattern_map((1, 0, 0, 1, 1)))   # would decode to 19
+        h.setp_many(_pattern_map((1, 0, 0, 1, 1)))   # would decode to 25
         h.run_ms(60)
         h.expect("pot-number", 3,
                  "rung 3210: out of position, the last captured value holds")
@@ -150,15 +140,15 @@ def run():
         # ...come back in position and the new value is taken immediately.
         h.setp("mag-in-pos", True)
         h.run_ms(30)
-        h.expect("pot-number", 19,
-                 "rung 3210: back in position, the sample refreshes to 19")
+        h.expect("pot-number", 25,
+                 "rung 3210: back in position, the sample refreshes to 25")
 
         # One more out-of-position hold, from the far end of the range, to
         # show the hold is not specific to a small value.
         h.setp("mag-in-pos", False)
         h.setp_many(_pattern_map((0, 0, 0, 0, 0)))
         h.run_ms(60)
-        h.expect("pot-number", 19,
+        h.expect("pot-number", 25,
                  "all sensors dropped out of position must not read as pot 0")
 
         # ---- clean-state check ------------------------------------------

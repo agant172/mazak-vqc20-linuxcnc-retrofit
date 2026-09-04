@@ -41,21 +41,21 @@ The A/B/C chains (sheets 67–70) are mode-dependent preparation: they raise ref
 
 | Rung | Function |
 |---|---|
-| 3205–3209 | TNPS1–5 (M216–M220) = pot-number BCD sensors T11P/T12P/T14P/T18P/T21P (X008–X00C) |
-| 3210–3211 | 3210: `MIPRS(X00D)` → MOV K2M216→D8 (**capture only while in-position**); 3211: `(1STS ‖ 20TS)·TSME` → BIN D8→D10 |
-| 3301–3303 | 3301: `(24TS ‖ 30TS)·TSME` → MOV D8→D10; 3302: 20TS pot-20 fix (all TNPS off → MOV K20→D10); 3303: `TSME` → MOV D10→D12 |
+| 3205–3209 | TNPS1–5 (M216–M220) = pot-number sensors T11P/T12P/T14P/T18P/T21P (X008–X00C) — weights are spec-dependent: BCD 1/2/4/8/10 on 15TS/20TS, **straight binary 1/2/4/8/16 on 24TS/30TS (this machine)** |
+| 3210–3211 | 3210: `MIPRS(X00D)` → MOV K2M216→D8 (**capture only while in-position**); 3211: `(15TS ‖ 20TS)·TSME` → BIN D8→D10 (BCD→BIN, small magazines only — flag is 15TS, not 1STS; cf. GRT15 = [K15 < D17] @3504) |
+| 3301–3303 | 3301: `(24TS ‖ 30TS)·TSME` → MOV D8→D10 (**raw copy, no BIN — the 24/30-pot disc is straight binary**); 3302: `20TS·MIPRS·TSME·#TNPS1–5` → MOV K20→D10 (pot-20 all-off fix, 20TS only — inactive here); 3303: `TSME` → MOV D10→D12 |
 | 3304–3310 | T-command BCD (K2X140/K2X168) → D3/D4; LOADT selects D3, UNLOADT selects D4 → D11 → BIN → D13/D14/D15 |
 | 3311 | `TFP · [D12 < D15]` → **GRTCD (M224) "greater than command"** |
-| 3312–3315 | magazine size constant → D16 (shortest-path threshold, per 16/20/24/30-tool magazine) |
-| 3316–3319 | difference vs D16 → **MRF (M225) forward** or **MRR (M226) reverse** — shortest-path direction choice |
+| 3312–3315 | magazine size → D16 = floor(N/2)+1: 3312 15TS→K8, 3313 20TS→K11, 3314 **30TS→K16 (this machine)**, 3315 24TS→K13 (rung order is 15/20/30/24) |
+| 3316–3319 | 3316: `TFP·GRTCD` → [D13←D13−D12]; 3317: `TFP·GRTCD·[D16 > D13]` → **MRF (M225)**; 3318: `TFP·#GRTCD` → [D12←D12−D15]; 3319: `TFP·#GRTCD·[D16 > D12]` → **MRR (M226)** — same-direction when |diff| ≤ floor(N/2) (=15 here); wrap cases resolved at 3402/3403 |
 | 3401 | `MIPRS · TSME · [D14 = D10]` → **MSTP (M227) magazine stop** — commanded pot arrived |
 | 3402/3403 | FWME/REVME (M228/M229) direction memories |
 | 3404 | **TSME (M33) tool select memory** — pickup `TFP ‖ MNTS·#TCME`; hold `TSME-seal · ((AUT.M ‖ TCME)·#MSTP ‖ #MIPRS)`; all `· *RST` — "magazine is indexing" |
 | 3405–3407 | TSOFFME/T29/TSOFFAL — tool-select-off supervision (pot must stay detected; alarm M61) |
-| 3408 | **MROT (M34) magazine rotate enable** = `(#AL2 ‖ #AUT.M) · TSME · #TFP · #TSINTL` |
+| 3408 | **MROT (M34) magazine rotate enable** = `(#AL2 ‖ #AUT.M) · TSME · #TFP · #TSINTL` — TSINTL coil @3804: `{[(#ST.B.N(Y198)·TF) ‖ #TSPB(X043)]·TSINTL-seal ‖ (#TSPB·#TF)} · *RST · B/MS(M415)`; B/MS (H093.7, coil-less NC bit) is OFF in normal operation (required by the 6502/6503 `#B/MS` seals), so **TSINTL is normally OFF and #TSINTL is normally permissive** — implement as default-true internal condition, no I/O pin |
 | 3501 | **MFWD.M (Y003)** = `MROT · FWME · #MOP13 · #M213` |
 | 3502 | **MREV.M (Y002)** = `MROT · REVME · #MOP13 · #M213` |
-| 3504–3507 | GRT15/20/24/30 → T-command > magazine size → alarm 6101 |
+| 3503–3507 | 3503: `TFP` → BIN D3→D17; 3504–3507: `TFP·{15,20,24,30}TS·[K{15,20,24,30} < D17]` → GRT15/20/24/30 (M208–M211) → alarm 6101 |
 
 So the magazine is a **BCD-addressed rotary with shortest-path arithmetic done in the PLC**: read current pot from 5 BCD bits while MIPRS is made, compare against commanded pot, pick direction, run the motor until the compare equals, stop on MIPRS. Tool select can run in parallel with machining (TSME independent of TCME).
 
@@ -163,7 +163,7 @@ Mapped to the pin authority (@ c4a66a0):
 |---|---|---|
 | Y003/Y002 MFWD/MREV | magazine motor | NET_MAG_CW/CCW_SOL (existing) |
 | X00D MIPRS | pot in-position | NET_MAG_IN_POS (existing) |
-| X008–X00C T11P–T21P | pot number BCD ×5 | MAG_BCD_BIT0–4 (existing) |
+| X008–X00C T11P–T21P | pot number, straight binary ×5 (1/2/4/8/16 — NOT BCD on this 30-pot machine) | MAG_BCD_BIT0–4 (existing; treat as binary) |
 | Y097 TUC.M | unclamp solenoid | TOOL_UNCLAMP sol (existing) |
 | X019/X018 TUCPRS/TCPRS | clamp confirms | TOOL_UNCLAMP_CONF / TOOL_CLAMP_CONF (existing) |
 | Y026 MGC.M | cover solenoid (1 = close) | MAG_COVER sol (existing) |
@@ -191,7 +191,9 @@ Sequencing rules to reproduce:
 2. **Reference points — RESOLVED 2026-08-10** (see `docs/parameters_sn060231.md`, live 2025-08-28 dump): **ref-1 (ZP1) = machine zero = ZP = (0, 0, 0)** (the home position); **ref-2 (ZP2) = ATC 2nd zero = RP = (X 0, Y +9.5000, Z −5.9055)** — the magazine exchange position — with the Z exchange floor at **LZ4 = −5.9449** (0.0394 in below RP3). These are the `[ATC]` positions the remap NGC needs; both RP2/RP3 are ✓✓ double-verified. (`RP1/RP4 = 0` → no X/4th offset.)
 3. **INTF.N / INTF2.N (X189/X18A) "interference spindle tool length 1/2"** — NC-computed tool-length interference signals selecting the A vs B prep path and gating cycle completion. The retrofit must replace this with tool-length-aware Z clearance in the remap.
 4. **MAT timer T90** (footswitch arming) and **T30** (cover alarm delay) values need the M-2 timer table, same as the orient doc's timer-base question.
-5. **Magazine size — RESOLVED 2026-09-04 (owner photos IMG_0091/IMG_0097): this IS a 30-pot magazine** (number band runs 1–30). The 30TS logic applies, the **30TS*2 (M406)** doubled A/B-chain branches are live and need transcribing, D16 takes the 30-tool constant, and GRT30 is the active reject. NEW OPEN ITEM: the transcribed BCD weights 1/2/4/8/10 sum to 25 and cannot encode pots 26–30 — T21P's weight (10 vs 20, or a straight binary 1/2/4/8/16 chain, max 31) must be re-derived from the prints or the bench (record TNPS states at pots 16–19 and 26–30).
+5. **Magazine size — RESOLVED 2026-09-04 (owner photos IMG_0091/IMG_0097): this IS a 30-pot magazine** (number band runs 1–30). D16 = K16 (3314), GRT30 (3507) is the active reject.
+   **Pot encoding — RESOLVED 2026-09-04 (print audit):** on 24TS/30TS machines rung 3301 copies the sensor byte raw (MOV D8→D10, no BIN), and 3401 compares it to binary D14 — the 30-pot disc is **straight binary 1/2/4/8/16 (T21P = 16)**, max 31, covering 1–30 (26=11010, 30=11110). BCD 1/2/4/8/10 + BIN applies only to 15TS/20TS. Bench-confirm at first power: pot 16 → only T21P on (BCD would show T21P+T14P+T12P); pot 20 → T21P+T14P (not all-off); pot 30 → all but T11P.
+   **30TS*2 (M406) — RESOLVED 2026-09-04 (print audit): not a doubled-move flag.** M406 (H092.6, coil-less spec bit) occurs at 8 rungs — 6709, 6805, 6806, 6808, 6905, 6907, 7005, 7007 — in the **A, B, and C** prep chains (not just A/B). Effect: it bypasses the CND-n advance permits (which carry MOVZME + T31/T32/T58 waits), letting each step memory latch on axis-at-reference alone. It does not appear in the D/E/F chains or the NC-command rungs. Whether M406 is set on this machine is AMBIGUOUS (NC-written, unreadable with the M-2 removed) — but since it only *relaxes* the OEM wait conditions, the retrofit remap should implement the full, non-bypassed prep sequence (CND permits, MOVZME, timer waits), which is valid on both variants.
 6. **MGTDPRS (X005) / SPTDPRS (X05B) physical identity.** With E=return and F=load as drawn, the return cycle's step-1 permit requires the "magazine tool detect" ON (7205) and the load cycle's requires the "spindle tool detect" ON (7302) — the reverse of what the names suggest. Both may sit at the exchange interface sensing a toolholder in the pot plane from either side. Bench-verify what each switch actually senses (tool in pot vs tool in taper at exchange height) before trusting MAG_TOOL_AVAILABLE / SPINDLE_TOOL_AVAILABLE semantics.
 
 ## Sources

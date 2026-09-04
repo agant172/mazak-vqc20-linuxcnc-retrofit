@@ -34,9 +34,14 @@ component mazak_atc "Mazak VQC 20/40 ATC confirmation layer (magazine, clamp, co
  * SAFETY: every timer default is UNVERIFIED. The M-2 timer base is unknown
  * (ATC doc "Open questions" #4: T30 cover alarm delay and T90 footswitch
  * arming both need the M-2 timer table). pot_count defaults to 20; the REAL
- * magazine is 30 pots (owner photos 2026-09-04, set in atc_orient.hal) - and
- * the transcribed BCD weights 1/2/4/8/10 cannot reach 30 (max 25), so the
- * encoding needs re-derivation before any decode is trusted.
+ * magazine is 30 pots (owner photos 2026-09-04, set in atc_orient.hal).
+ * POT ENCODING (print-audit RESOLVED 2026-09-04): on 24TS/30TS magazines the
+ * ladder does NOT convert BCD->binary (rung 3211's BIN instruction is gated
+ * 15TS||20TS only; rung 3301 on 24TS/30TS is a raw MOV, no conversion) - the
+ * pot-number sensor byte on THIS machine is straight binary, weights
+ * 1/2/4/8/16 (T21P=16, not the small-magazine BCD weight of 10), covering
+ * 1-30. Decode below matches this. Bench-confirm before trusting: pot 16 ->
+ * only bit4 set; pot 20 -> bits 4+2; pot 30 -> all but bit0.
  */
 
 description """
@@ -109,12 +114,12 @@ pin in bit air_ok = false
 // ---------------------------------------------------------------------------
 //
 pin in bit mag_in_pos = false
-    "X00D MIPRS pot in-position. Net: mag-in-pos. The BCD pot number is only  sampled while this is true (rung 3210).";
-pin in bit mag_bcd_bit0 = false "X008 T11P - BCD weight 1.  Net: mag-bcd-bit0.";
-pin in bit mag_bcd_bit1 = false "X009 T12P - BCD weight 2.  Net: mag-bcd-bit1.";
-pin in bit mag_bcd_bit2 = false "X00A T14P - BCD weight 4.  Net: mag-bcd-bit2.";
-pin in bit mag_bcd_bit3 = false "X00B T18P - BCD weight 8.  Net: mag-bcd-bit3.";
-pin in bit mag_bcd_bit4 = false "X00C T21P - BCD weight 10. Net: mag-bcd-bit4.";
+    "X00D MIPRS pot in-position. Net: mag-in-pos. The pot number is only  sampled while this is true (rung 3210).";
+pin in bit mag_bcd_bit0 = false "X008 T11P - binary weight 1 (24TS/30TS; NOT BCD on this machine).  Net: mag-bcd-bit0.";
+pin in bit mag_bcd_bit1 = false "X009 T12P - binary weight 2.  Net: mag-bcd-bit1.";
+pin in bit mag_bcd_bit2 = false "X00A T14P - binary weight 4.  Net: mag-bcd-bit2.";
+pin in bit mag_bcd_bit3 = false "X00B T18P - binary weight 8.  Net: mag-bcd-bit3.";
+pin in bit mag_bcd_bit4 = false "X00C T21P - binary weight 16 (rung 3301: raw MOV, no BCD->BIN  conversion on 24TS/30TS). Net: mag-bcd-bit4.";
 pin in bit index_request = false
     "Start/hold an index to target-pot. From the remap  (motion.digital-out-03). Tool select may run during machining, exactly  as TSME (M33, rung 3404) is independent of TCME.";
 
@@ -234,7 +239,7 @@ pin out bit fault_any
 // ---------------------------------------------------------------------------
 //
 param rw s32 pot_count = 20
-    "Magazine size (D16 in rungs 3312-3315), used for the shortest-path  arithmetic and the tool-range check. UNVERIFIED - ATC doc open question  #5. Set to the real pot count before enabling indexing.";
+    "Magazine size (D16 in rungs 3312-3315), used for the shortest-path  arithmetic and the tool-range check. RESOLVED 2026-09-04: 30 pots  (owner photos), matching ladder D16=K16 (rung 3314, 30TS). Set in  atc_orient.hal.";
 param rw float cover_confirm_delay = 3.0
     "T30 (sheet 58) - delay before a cover command/confirm disagreement  raises AL71-AL74. UNVERIFIED, M-2 timer table not recovered.";
 param rw float pot_lost_timeout = 5.0
@@ -381,15 +386,20 @@ FUNCTION(update)
                             ? true : false;
 
     /* -----------------------------------------------------------------
-     * Sheets 32/33 - BCD pot number, valid only in position (rung 3210).
-     * K2M216 is 2-digit BCD: units 1/2/4/8 from T11P/T12P/T14P/T18P plus the
-     * tens digit bit T21P (weight 10).
+     * Sheets 32/33 - pot number, valid only in position (rung 3210).
+     * CORRECTED 2026-09-04 (print audit): on 24TS/30TS magazines (this
+     * machine, confirmed 30-pot) rung 3301 is a raw MOV with no BCD->BIN
+     * conversion - the sensor byte is straight binary, weights 1/2/4/8/16
+     * (T21P=16), covering 1-30. The small-magazine BCD reading (weight 10,
+     * needing a BIN conversion at rung 3211) applies only to 15TS/20TS and
+     * does NOT apply here. Bench-confirm before trusting: pot 16 -> only
+     * bit4 set; pot 20 -> bits 4+2; pot 30 -> all but bit0.
      * ----------------------------------------------------------------- */
     raw_pot = (mag_bcd_bit0 ?  1 : 0)
             + (mag_bcd_bit1 ?  2 : 0)
             + (mag_bcd_bit2 ?  4 : 0)
             + (mag_bcd_bit3 ?  8 : 0)
-            + (mag_bcd_bit4 ? 10 : 0);
+            + (mag_bcd_bit4 ? 16 : 0);
 
     if (mag_in_pos) {
         last_pot = raw_pot;
@@ -441,9 +451,12 @@ FUNCTION(update)
      * (cover closed, TSME independent of TCME) and during cycle D's mid-
      * exchange step with TUC.M energised (rung 3508's MEMD-1.#MEMD-3
      * window); the old cover_open_verified && !tool_unclamp_sol terms
-     * deadlocked cycle D at the D-3 index. #TSINTL's coil rung is being
-     * transcribed (bench item 41 in flight) - fold it in if it maps to a
-     * sensable input. Rungs 3501/3502 gate the direction outputs on this. */
+     * deadlocked cycle D at the D-3 index. #TSINTL RESOLVED 2026-09-04
+     * (print audit, rung 3804): TSINTL is a coil gated by B/MS (a coil-less
+     * NC-interface bit that must be OFF for a normal tool change to seal at
+     * 6502/6503) - TSINTL is therefore normally OFF and #TSINTL is normally
+     * PERMISSIVE with no field wiring involved; correctly left unmodeled
+     * here. Rungs 3501/3502 gate the direction outputs on this. */
     mag_rotate_enable = (idx_running && permissives) ? true : false;
 
     want_fwd = mag_rotate_enable && (idx_dir > 0);

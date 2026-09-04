@@ -162,10 +162,10 @@ straight to `mazak-atc.target-pot`.
 | all seven orient timers | `mazak_orient.comp` params, restated in `atc_orient.hal` | the M-2 timer base (orient doc open question #1) |
 | `cover-confirm-delay` (T30), `pot-lost-timeout` (T29) | `mazak_atc.comp` | M-2 timer table (ATC doc open question #4) |
 | `index-timeout`, `unclamp-timeout`, `clamp-timeout` | `mazak_atc.comp` | pure engineering guesses, no ladder equivalent |
-| `pot-count = 20` | `mazak_atc.comp` | the real magazine size (ATC doc open question #5) |
-| `REF1_Z=-5.9055`, `REF2_Z=0`, `REF1_Y=0`, `REF2_Y=9.5000` in | `[ATC]` in the active INI | Recovered from the live M-2 RP values; still requires reduced-rapid dry verification before motion |
+| ~~`pot-count = 20`~~ | `mazak_atc.comp` | RESOLVED 2026-09-04: owner photos confirm a 30-pot magazine; `pot-count` set to 30 in `atc_orient.hal` |
+| `REF1_Z=0`, `REF2_Z=-5.9055`, `REF1_Y=0`, `REF2_Y=9.5000` in | `[ATC]` in the active INI | Recovered from the live M-2 RP values, RESEQUENCED 2026-09-04 to match ladder ZP1/ZP2 naming; still requires reduced-rapid dry verification before motion |
 | `gear-range.in1 = 434` RPM | `atc_orient.hal` | Recovered GH3 low-range maximum; verify actual shift behavior and hysteresis |
-| BCD weights 1/2/4/8/10 | `mazak_atc.comp` | confirm T21P really is the tens digit and not a 16-weight bit |
+| ~~BCD weights 1/2/4/8/10~~ | `mazak_atc.comp` | RESOLVED 2026-09-04 (print audit): on 24TS/30TS magazines (this machine) rung 3301 is a raw copy with no BCD conversion — the sensor byte is straight binary, weights 1/2/4/8/16 (T21P=16). Component and this table updated; bench-confirm at pots 16/20/30 per `docs/ladder/atc_ladder_transcription.md` line 194 |
 | magazine direction fwd→CW | `atc_orient.hal` | `authority_conflicts.md` §3 (SOL-8A/8B) |
 | every `hm2_7i80.0.7i84.0.0.*` name | `atc_orient.hal` | `halcmd show pin hm2` against real firmware |
 | every input polarity | `atc_orient.hal` | measure normal states, then consume `input-NN` (raw) or `input-NN-not` (complement) per [sserial(9)](https://linuxcnc.org/docs/html/man/man9/sserial.9.html); no `invert_input` parameter exists |

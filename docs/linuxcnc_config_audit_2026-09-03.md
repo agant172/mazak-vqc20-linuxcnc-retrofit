@@ -56,11 +56,13 @@ fix carries a fold-in note). Item 5 (gear-solenoid topology) remains queued.**
    feed-limited Y segment through the detent zone on the first live cycles,
    and expect fresh-vs-worn detent break-away to vary.
 2. ✅ APPLIED — **ATC MROT terms (B1+B2).** Was: `mag_rotate_enable` required cover-open and
-   unclamp-off — corrected rung 3408 has neither, and the mid-cycle index runs
-   with unclamp energized: **every full change times out at 30 s
-   mid-exchange**, and background pre-select during machining is impossible.
-   Drafted fix: `idx_running && permissives` (half-step alternative recorded).
-   Gated on the TSINTL coil-rung paper read (bench item 41).
+   unclamp-off — corrected rung 3408 has neither, and the mid-cycle index ran
+   with unclamp energized: **every full change timed out at 30 s
+   mid-exchange**, and background pre-select during machining was impossible.
+   Fix: `idx_running && permissives`. TSINTL (the fourth rung-3408 term) print-
+   read 2026-09-04: it's gated by B/MS, a coil-less NC bit that must be OFF
+   for a normal tool change to seal — TSINTL is normally OFF, `#TSINTL` is
+   normally permissive, no field wiring needed. Bench item 41 CLOSED.
 3. ✅ APPLIED — **NGC P4 disarm (D3).** Was: the detect-check stayed armed across states that
    legitimately negate the detects — **every cycle self-faults AL75/AL76**
    (E's own Z-up empties the spindle while armed). Move `M65 P4` to right
@@ -86,13 +88,13 @@ fix carries a fold-in note). Item 5 (gear-solenoid topology) remains queued.**
 7. **ORCM1 seal + SOME2 self-clear (B4/D5+D7, change together).** A PRS
    flicker mid-orient momentarily drops OUT4 → FR-SX aborts/restarts the
    orient, possibly mid-ATC-approach.
-8. **ATC pot decode on the REAL 30-pot magazine.** ~~Rung 3302 pot-20 fix~~ —
-   MOOT: owner photos (2026-09-04) confirmed a **30-pot** carousel, so the
-   20TS-only rung 3302 doesn't apply (the 24/30TS path is rung 3301) and
-   pot-count is set to 30. LIVE replacement issue: the transcribed BCD
-   weights 1/2/4/8/10 max at 25 — **pots 26–30 cannot be decoded as
-   transcribed**; re-derive the T21P weight / encoding (bench item 42) and
-   check whether the 30TS*2 doubled A/B branches need transcribing.
+8. ✅ APPLIED 2026-09-04 — **ATC pot decode on the REAL 30-pot magazine.**
+   Print audit (TSINTL agent) resolved it: on 24TS/30TS magazines rung 3301
+   is a raw copy with NO BCD conversion — the sensor byte is straight binary,
+   weights 1/2/4/8/16 (T21P=16), covering 1–30. `mazak_atc.comp`'s decode and
+   `atc_bcd_decode.py` updated to weight 16; D16=K16 (30TS, rung 3314) already
+   matched the comp's `n/2` arithmetic — no change needed there. Bench item 42
+   (pots 16/20/26/30 sensor read) still closes the print-vs-machine gap.
 9. **NGC finish ordering (D4)** — clear P0 before P5 or `cycle_active`/barrier
    can re-latch and stick. **No-tool guard (D7)** — M6 with no T errors
    mid-cycle with outputs asserted.
