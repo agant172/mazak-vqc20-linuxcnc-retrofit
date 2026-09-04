@@ -178,9 +178,12 @@ same day, compile-checked + harness-tested — 12 scenarios/410 checks/0 failed)
     precondition — not independently confirmed for this new, earlier point
     in the cycle. A second peer-session review flagged that cycle F's own,
     pre-existing gap (no index at all before descending onto the new tool)
-    could be closed by generalizing this same pre-entry mechanism — not yet
-    done, left for a follow-up so this commit stayed scoped to what was
-    directed.
+    could be closed by generalizing this same pre-entry mechanism — ✅ DONE
+    2026-09-04 (peer session, commit after `35b3456`): cycle F now takes the
+    same pre-entry window with the normal target (Z to `z_clear`, P3
+    index-request → `target-pot` = iocontrol prep pocket, wait MSTP) so the
+    commanded pot is under the spindle before Y traverses in. Same
+    bench-verification caveat as the D/E leg above.
 11. **Four small ladder-vs-comp divergences — OPEN**, researched individually:
     - **(a) AL45 consequence (orient B5)** — NO BUG FOUND. The comp already
       matches the ladder's actual split (AL45 blocks/holds off ORCM1 via
