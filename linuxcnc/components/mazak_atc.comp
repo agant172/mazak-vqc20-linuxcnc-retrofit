@@ -493,9 +493,19 @@ FUNCTION(update)
     manual_ok = allow_manual_unclamp && manual_unclamp_pb && !cycle_active
                 && spindle_stopped && !spindle_run && permissives;
 
+    /* Rung 3604's manual bracket - including its OWN self-seal - is entirely
+     * enclosed by #TCME (decision-queue item 11c, applied 2026-09-04): the
+     * instant an auto cycle starts, the manual leg's hold must drop out, not
+     * just be blocked from a fresh press. Before this fix, an operator
+     * holding manual-unclamp at the moment an M6 begins could keep
+     * tool_unclamp_sol energised via prev_unclamp alone, uncoupled from the
+     * auto step chain's own clamp steps (D-4/F-3 need CLAMPED before the
+     * detent-breaking Y-out move). The auto seal (unclamp_request-driven)
+     * stays ungated here, matching the ladder's separate `|| TUCME` branch. */
     unclamp_cmd = ((unclamp_request && unclamp_gate)
                    || manual_ok
-                   || (prev_unclamp && (unclamp_request || manual_unclamp_pb)))
+                   || (prev_unclamp && unclamp_request)
+                   || (prev_unclamp && manual_unclamp_pb && !cycle_active))
                   && !spindle_run && permissives;
 
     tool_unclamp_sol = unclamp_cmd ? true : false;
