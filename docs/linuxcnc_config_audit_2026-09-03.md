@@ -250,7 +250,11 @@ Group 2 above).
       +9.5 in) — kept as-is, now documented inline in the ini, but the owner
       should re-confirm once bench item 7 resolves Y's actual switch
       direction.
-14. **BACKLASH 0.0 vs captured X 0.0005 / Y 0.0010 / Z 0.0020 — OPEN,
+14. ✅ DECIDED 2026-09-04 (owner: "hold at 0 unless I have problems") —
+    **BACKLASH held at 0.0**; reasoning recorded as INI comments on all three
+    `BACKLASH` lines (captured values kept there as reference only; measure
+    with an indicator after loop tuning). Original analysis follows.
+    **BACKLASH 0.0 vs captured X 0.0005 / Y 0.0010 / Z 0.0020 — was OPEN,
     decision_needed.** Deeper than "hold vs apply": the captured numbers are
     the M-2's own decades-old servo backlash-COMPENSATION parameters
     (photographed off the CRT, calibration date/history unknown), not a fresh
@@ -276,7 +280,17 @@ Group 2 above).
     normal-cycle-time cost to the larger number.
 16. **IN13 / IN10 / orphan safety inputs / and2.7 ordering**, split in four —
     one applied, three still open:
-    - **(a) IN13 spindle-at-speed — OPEN, decision_needed.** Confirmed bound
+    - **(a) IN13 spindle-at-speed — ✅ RESOLVED 2026-09-04 (owner: "find
+      something in the FR-SX manual").** The DRIVE has a discrete up-to-speed
+      output: FR-SX maintenance manual BCN-21735-S5 p12, connector **CON3
+      pin 15 `USO` "UP TO SPEED"**, COM pin 20, transistor ON within ±15 % of
+      commanded speed (p9), LED7 on SX-CPU lights with it. Mazak wired only
+      CON1 (dwg 4143075403), which is why the machine drawing shows nothing.
+      Applied: CSV row `SPINDLE_AT_SPEED` DEFERRED → COMMISSIONING_PENDING
+      with dest `FR-SX CON3-15`; IN13 comment in `field_7i84u.hal` rewritten;
+      `docs/frsx_maintenance_manual_notes.md` Finding 7. Polarity is bench
+      item 46. Interim: bench jumper IN13→VFIELD (no HAL `sets`, the
+      validator forbids it). Original analysis follows. Confirmed bound
       to a real input whose own inline comment says no factory FR-SX at-speed
       terminal exists ("derive in HAL, do NOT wire") — so the pin never
       asserts and every first feed after M3/S-word stalls indefinitely,
@@ -350,3 +364,10 @@ full research trail (10-agent workflow, 2026-09-04) available on request.
     and decide whether post-abort dead manual-unclamp until next M6 is
     acceptable. **pwmgen.03.offset-mode existence** on 2.9.10; `halrun -f`
     full-set smoke test once both 7i84Us enumerate.
+46. **FR-SX `USO` up-to-speed polarity (item 16a)** — with the spindle at a
+    commanded speed and LED7 UP TO SPEED lit on the SX-CPU card, meter CON3-15
+    against CON3-20 (COM); record whether the terminal pulls LOW (open
+    collector) or sources P24 (open emitter), and whether P24 is internal.
+    Then land CON3-15/20 on 7i84U-A IN13 (relay-isolated per the OEM ZS1
+    pattern unless drive COM and VFIELD ground are common) and set/omit `-not`
+    in `field_7i84u.hal` to match. Until landed, bench jumper IN13→VFIELD.

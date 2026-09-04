@@ -162,6 +162,35 @@ FR-SX, exactly as the motor PLG does.
 
 ---
 
+## Finding 7 — the up-to-speed terminal is on CON3 (2026-09-04)
+
+Config-audit item 16a asked how to derive `spindle-at-speed` because the
+machine drawing (`4143075403`) shows no FR-SX at-speed output. The drive has
+one; Mazak just never used it. **§2.4 (1) external wiring, printed page N/9
+(PDF p12):** connector **CON3** is an open-collector output block:
+
+| CON3 pin | Signal | Function |
+|---|---|---|
+| 18 | `FLO` | Fault |
+| 17 | `CDO` | Current detect |
+| 16 | `VRO` | Speed detect |
+| **15** | **`USO`** | **Up to speed** — the Finding 5 "threshold speed signal", ±15 % of preset |
+| 14 | `ZSO` | Zero speed (transistor form of the CON1 `ZS1/ZS2` contact) |
+| 1 | `TLO` | Torque limiter |
+| 19 | `ORAO` | Orient arrive (transistor form of CON1 `ORA1/ORA2`) |
+| 8–11 | `AL1/AL2/AL4/AL8` | Alarm code bits |
+| 20 | `COM` | Common for the block |
+
+`LED7 UP TO SPEED` on the SX-CPU card lights with `USO` (§5 LED list), so the
+signal can be watched before any wire is landed. The machine's own schematic
+draws only CON1 (relay contacts + command inputs), so CON3 is unpopulated on
+SN 060231 and this is a retrofit-added conductor. Consequences recorded in
+`mesa/current_pin_authority.csv` (`SPINDLE_AT_SPEED` → `COMMISSIONING_PENDING`,
+dest `FR-SX CON3-15`) and `linuxcnc/field_7i84u.hal` (IN13 comment). Polarity
+(open-collector vs open-emitter, and whether the `P24` pull-up shown is
+internal) is a bench measurement, not a paper read — the scan is too poor to
+wire from.
+
 ## Open, with the next step named
 
 | Question | Next step |

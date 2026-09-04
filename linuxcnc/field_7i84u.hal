@@ -69,7 +69,19 @@ net y-axis-fault       <= resolver-fault-y.out
 net y-axis-fault       => joint.1.amp-fault-in
 net z-axis-fault       <= resolver-fault-z.out
 net z-axis-fault       => joint.2.amp-fault-in
-net spindle-at-speed   <= hm2_7i80.0.7i84.0.0.input-13   # IN13 - CSV DEFERRED: no factory FR-SX at-speed terminal exists (Dwg 4143075403); derive at-speed in HAL, do NOT wire
+# IN13 spindle-at-speed (decision-queue item 16a, resolved 2026-09-04): the FR-SX
+# DOES have a discrete up-to-speed output - CON3 pin 15 "USO", COM on CON3-20,
+# open-collector/emitter transistor ON within +/-15% of commanded speed (FR-SX
+# maintenance manual BCN-21735-S5 p9 spec table + p12 external-wiring diagram;
+# LED7 "UP TO SPEED" on the SX-CPU card lights with it). Mazak never wired
+# CON3 (dwg 4143075403 draws CON1 only), so the old "no factory terminal"
+# note was true of the machine drawing, not the drive. Route: CON3-15/20 ->
+# IN13, via an interposing relay like the OEM's ZS1 path (or direct if drive
+# COM and field ground are common). POLARITY IS A BENCH ITEM: meter CON3-15
+# vs COM at speed with LED7 lit, then add/omit '-not' here to match.
+# Until the wire is landed, a bench jumper IN13 -> VFIELD satisfies the wait
+# (never a 'sets' here - validate_control_logic.py forbids a forced writer).
+net spindle-at-speed   <= hm2_7i80.0.7i84.0.0.input-13   # IN13 FR-SX CON3-15 USO up-to-speed (COMMISSIONING_PENDING, polarity unverified)
 net spindle-at-speed   => spindle.0.at-speed
 net spindle-fault      <= hm2_7i80.0.7i84.0.0.input-14   # IN14 FR-SX ALM
 net spindle-fault      => spindle.0.amp-fault-in
