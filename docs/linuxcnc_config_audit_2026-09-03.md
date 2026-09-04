@@ -5,22 +5,23 @@
 > transcriptions, `parameters_sn060231.md`, and the pin authority. Comment/test
 > fixes and one load-blocking bug landed in `8ec25f7`…`c72fe90`. Group 1
 > (crash-class, items 1–5) fully applied 2026-09-04. Group 2/3: items 6, 7,
-> 8, 9a, 11c, 12a, 13A, 13B, 15, 16d applied 2026-09-04 (10-agent research
-> workflow classified every remaining item; safe-to-apply ones landed same
-> day). Still open, all genuine owner decisions or bench-data gates — see
-> each item below: 9b, 10, 11a (bless-only), 11b, 11d, 12b, 13C, 13D, 14,
-> 16a, 16b, 16c. Harness green at HEAD (12 scenarios / 410 checks / 0
-> failed, LinuxCNC box 2026-09-04).
+> 8, 9a, 9b, 10, 11c, 12a, 13A, 13B, 14, 15, 16a, 16d applied 2026-09-04
+> (10-agent research workflow classified every remaining item; safe-to-apply
+> and owner-directed ones landed same day, across two concurrent sessions
+> working this repo — see items 9b/10/14/16a for the coordination notes).
+> Still open, all genuine owner decisions or bench-data gates: 11a
+> (bless-only), 11b, 11d, 12b, 13C, 13D, 16b, 16c. Harness green at HEAD
+> (12 scenarios / 410 checks / 0 failed, LinuxCNC box 2026-09-04).
 
 ## Scorecard
 
 | Domain | Verdict |
 |---|---|
 | mazak_orient.comp | Annotations accurate; gear-solenoid topology, shift_pending, ORCM1/SOME2 all **FIXED 2026-09-04** (items 5/6/7) — 2 open (11a bless-only, 11d architecture) |
-| mazak_atc.comp | Confirmation/alarm/clamp core faithful; **MROT deadlock FIXED**, manual seal-leg #TCME hole **FIXED** (11c); pot 20 unreachable **FIXED** (8) — 2 open (9b, 11b) |
-| toolchange.ngc | Pin protocol/timeouts/abort/dry-run clean; step geometry **FIXED** (1/4); finish-clear ordering **FIXED** (9a) — 1 open (10, design decision) |
-| HAL topology | Nets/loadrt/addf near-perfect; load-blocking pin-double-link **FIXED**; and2.7 ordering **FIXED** (16d) + new data-driven validator check — 3 open (16a/b/c) |
-| INI | Limits/REF/divisor/remap verified; spindle top speed **FIXED** (12a), VOLATILE_HOME + ZC latch-vel **FIXED** (13A/B), ORIENT_TIMEOUT **FIXED** (15) — 3 open (12b, 13C bench-gated, 14) |
+| mazak_atc.comp | Confirmation/alarm/clamp core faithful; **MROT deadlock FIXED**, manual seal-leg #TCME hole **FIXED** (11c), no-tool guard + return-pot staging **FIXED** (9b/10); pot 20 unreachable **FIXED** (8) — 1 open (11b, bench-gated) |
+| toolchange.ngc | Pin protocol/timeouts/abort/dry-run clean; step geometry **FIXED** (1/4); finish-clear ordering **FIXED** (9a); no-tool guard + return-pot staging **FIXED** (9b/10, bench-verify the new rotation window before trusting live) |
+| HAL topology | Nets/loadrt/addf near-perfect; load-blocking pin-double-link **FIXED**; and2.7 ordering **FIXED** (16d) + new data-driven validator check; IN13 up-to-speed source identified **FIXED** (16a) — 2 open (16b/c) |
+| INI | Limits/REF/divisor/remap verified; spindle top speed **FIXED** (12a), VOLATILE_HOME + ZC latch-vel **FIXED** (13A/B), ORIENT_TIMEOUT **FIXED** (15), BACKLASH held at 0 **DECIDED** (14) — 2 open (12b, 13C bench-gated) |
 | Test harness | Mechanics sound, suite genuinely green (410 checks/0 failed); stale ladder citations re-flagged; 0-checks silent-pass bug FIXED; new pin-execution-order check added |
 
 ## Applied without owner decision (commits `8ec25f7`…`c72fe90`)
@@ -139,30 +140,47 @@ same day, compile-checked + harness-tested — 12 scenarios/410 checks/0 failed)
    where P5 has just dropped but P0 is still high re-latches
    `cycle_active`/`atc_barrier` true with nothing left in that cycle to clear
    it — fully determined two-line swap, confirmed by independent trace of the
-   comp's own logic, not just the audit's claim. **No-tool guard (D7) — still
-   OPEN, decision_needed**, and it's more than a missing if-statement: "no
-   T-word ever issued" and "explicit T0" both resolve to integer 0 in both
-   `#<_selected_tool>` and `commanded_tool`, and BOTH files already treat
-   `==0` as the legitimate return-only cycle E — there is no existing signal
-   to distinguish the bad case from the intended one. Today a bare M6 with no
-   T-word silently runs the full return-only cycle (real hydraulic unclamp)
-   with zero validation. Needs an owner call: what new "tool-ever-prepared"
-   signal to add, what to do on failure, and whether it should also range/
-   tool-table-validate.
-10. **Return-pot staging (NGC D2) — OPEN, decision_needed.** Confirmed real by
-    direct read: no cycle stages the OLD tool's pot before unclamping, and
-    tool.tbl/RANDOM_TOOLCHANGER are both unset — this isn't a false positive
-    from an assumed fixed-pocket convention, the gap is real and, per the
-    OEM ladder itself, the D-cycle was never designed to stage a return
-    pocket either. Two options, fully laid out with file-level implementation
-    detail in the workflow research (available on request): **fixed-pocket**
-    (dedicated tool↔pot mapping, needs new NGC/HAL plumbing — a second
-    target-path pin on `mazak_atc.comp` plus an extra index leg on every full
-    change) vs. **RANDOM_TOOLCHANGER=1** (LinuxCNC tracks pocket reshuffling,
-    zero new plumbing, matches today's "drop wherever the magazine is"
-    behavior exactly). Pure operational-preference call — no bench data
-    changes the tradeoff. Currently latent (tool.tbl is still just the T0
-    placeholder) but becomes live risk the moment real tools are loaded.
+   comp's own logic, not just the audit's claim. **No-tool guard (D7) ✅
+   APPLIED 2026-09-04 (owner-directed: "flag from the T handler, abort on
+   failure, validate range and table").** First attempt tested
+   `[#<_selected_tool> LT 0]`, assuming a -1 "never selected" sentinel per a
+   general LinuxCNC docs lookup — **wrong for this build**: a peer session
+   working the same repo verified via `rs274` on the box plus the actual
+   2.9.10 source (`rs274ngc_pre.cc`) that `_selected_tool` inits to 0, not
+   -1 (it's `_selected_pocket` that carries -1, and this ngc-only remap
+   never runs the iocontrol LOAD path pocket-tracking depends on).
+   Reproduced independently before touching anything further. Real fix: a
+   HAL flip-flop (`atc-t-prepared`) SET by `iocontrol.0.tool-prepare`
+   (pulses for every T-word including T0) and RESET only by a genuine
+   cycle-finish (P5) — an abort mid-cycle leaves it set, so a retry needs
+   no fresh T-word. Read via `M66 P8 L0`. Range guard added too (0..30
+   pots); NOT full tool.tbl presence validation — LinuxCNC's own T-word
+   handling treats an unpopulated slot as a legitimate empty pocket, not a
+   fault, so there's nothing to validate against there yet.
+10. ✅ APPLIED 2026-09-04 (owner-directed: "fixed pocket") — **Return-pot
+    staging (NGC D2), fixed-pocket convention.** Pocket number == tool
+    number, no lookup needed. The existing `target-pot` HAL signal is
+    hardwired to the NEXT tool's pocket and cannot carry the outgoing
+    tool's pocket, so this added a second, independent target path:
+    `mazak_atc.comp` gained `return-pot` (fed via `M68`/`analog-out-00`/
+    `conv-float-s32.0` — motmod's default `num_aio=4` already provides
+    `motion.analog-out-00`, no loadrt change needed) and
+    `index-return-request` (P9), sharing the existing shortest-path
+    arithmetic and index-done output via an `eff_target` mux. The magazine
+    is staged to the departing tool's own pocket BEFORE entry positioning
+    (Z retracted to `z_clear` first, matching the same rotation-clearance
+    precondition the existing D-3ax index already relies on) so the tool
+    lands in its home pocket as a side effect of positioning, with no
+    second index-after-unclamp step needed. Cycle F (no outgoing tool) is
+    skipped. **FLAGGED FOR BENCH VERIFICATION** (dry-run first): the new
+    pre-entry rotation window, with Y not yet retracted from its prior
+    position, is inferred safe from the existing D-3ax index's identical
+    precondition — not independently confirmed for this new, earlier point
+    in the cycle. A second peer-session review flagged that cycle F's own,
+    pre-existing gap (no index at all before descending onto the new tool)
+    could be closed by generalizing this same pre-entry mechanism — not yet
+    done, left for a follow-up so this commit stayed scoped to what was
+    directed.
 11. **Four small ladder-vs-comp divergences — OPEN**, researched individually:
     - **(a) AL45 consequence (orient B5)** — NO BUG FOUND. The comp already
       matches the ladder's actual split (AL45 blocks/holds off ORCM1 via
