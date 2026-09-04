@@ -297,8 +297,12 @@ o<toolchange> sub
   M64 P7                     ( UOME2 - unorient                          )
   G4 P0.1
   M65 P7
-  M65 P5
+  ( P0 cleared BEFORE P5 (2026-09-04, decision-queue item 9a): mazak_atc.comp's )
+  ( cycle_active latch checks cycle_finish before cycle_start with no trailing  )
+  ( else - dropping P5 while P0 (barrier/TCME) is still high re-latches         )
+  ( cycle_active/atc_barrier true with nothing left in this cycle to clear it.  )
   M65 P0                     ( TCME off                                  )
+  M65 P5
 
   (  ------------------------------------------------------------------ )
   (  Tell the interpreter which tool is now in the spindle.              )

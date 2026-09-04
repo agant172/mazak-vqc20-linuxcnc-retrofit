@@ -138,7 +138,11 @@ addf and2.2                    servo-thread
 addf and2.3                    servo-thread
 addf and2.4                    servo-thread
 addf and2.5                    servo-thread
-addf and2.7                    servo-thread
+# and2.7 moved to atc_orient.hal (2026-09-04, decision-queue item 16d): it
+# reads mazak-orient.spindle-orient-cmd, and this file is loaded before
+# atc_orient.hal (mazak_vqc_20_40.ini HALFILE order) - addf'd here it ran
+# BEFORE mazak-orient.update every servo-thread scan, reading ORCM1 one
+# scan stale. See atc_orient.hal for its new addf position.
 addf z-brake-delay             servo-thread
 addf z-drive-drop-delay        servo-thread
 # hm2_7i80.0.write is deliberately scheduled at the end of atc_orient.hal,

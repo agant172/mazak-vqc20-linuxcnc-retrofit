@@ -124,13 +124,16 @@ def check_thread_order(files: list[Path], errors: list[str]) -> None:
         "and2.3",
         "and2.4",
         "and2.5",
-        "and2.7",
         "z-brake-delay",
         "z-drive-drop-delay",
         "atc-estop-abort",
         "atc-safety-abort-or",
         "atc-abort-or",
         "mazak-orient.update",
+        # and2.7 reads mazak-orient.spindle-orient-cmd (ORCM1) - must run
+        # after mazak-orient.update, not before it (decision-queue item 16d,
+        # applied 2026-09-04; addf moved to atc_orient.hal to match).
+        "and2.7",
         "mazak-atc.update",
         "atc-fault-or",
         "hm2_7i80.0.write",
@@ -144,6 +147,80 @@ def check_thread_order(files: list[Path], errors: list[str]) -> None:
         fail(errors, f"unsafe servo-thread order: expected {' < '.join(required)}; actual {order}")
     if order[-1] != "hm2_7i80.0.write":
         fail(errors, "hm2 write must be the final servo-thread function")
+
+
+def check_pin_execution_order(files: list[Path], errors: list[str]) -> None:
+    """Every signal's producer function must run before its consumer(s) in the
+    same servo-thread scan, or the consumer reads a stale (previous-scan)
+    value. Unlike check_thread_order's hand-authored required list - which
+    only encodes orderings someone already thought to name, and in fact
+    hardcoded the and2.7-before-mazak-orient.update bug as "required" until
+    it was found and fixed (decision-queue item 16d, 2026-09-04) - this
+    derives the constraint from actual `net <= producer` / `net => consumer`
+    pins, so it catches this bug class for any future component pair, not
+    just the one instance already found.
+    """
+    order: list[str] = []
+    for path in files:
+        for raw in path.read_text().splitlines():
+            code = active(raw)
+            m = re.match(r"addf\s+(\S+)\s+servo-thread", code)
+            if m:
+                order.append(m.group(1))
+    if not order:
+        return
+    order_index = {name: i for i, name in enumerate(order)}
+
+    def resolve_function(token: str) -> str | None:
+        # A pin token like "mazak-orient.spindle-orient-cmd" or "and2.7.out"
+        # or "estop-latch.0.fault-in" names a PIN; the addf'd FUNCTION is the
+        # instance name with its own ".update" suffix (halcompile components)
+        # or the bare instance name (single-function comps like and2/or2).
+        # Raw hm2 pins (e.g. "hm2_7i80.0.7i84.0.0.input-13") resolve to
+        # neither and are correctly skipped - they're already bracketed by
+        # the separate hm2_7i80.0.read-first/write-last invariant.
+        if "." not in token:
+            return None
+        prefix = token.rsplit(".", 1)[0]
+        if prefix + ".update" in order_index:
+            return prefix + ".update"
+        if prefix in order_index:
+            return prefix
+        return None
+
+    producers: dict[str, tuple[str, str]] = {}
+    consumers: dict[str, list[tuple[str, str]]] = defaultdict(list)
+    for path in files:
+        for lineno, raw in enumerate(path.read_text().splitlines(), 1):
+            code = active(raw)
+            m = re.match(r"net\s+(\S+)\s+(.+)", code)
+            if not m:
+                continue
+            signal, rest = m.groups()
+            if "<=" in rest:
+                token = rest.split("<=", 1)[1].split()[0]
+                if token != "sets":
+                    producers.setdefault(signal, (token, f"{path.name}:{lineno}"))
+            elif "=>" in rest:
+                target = rest.split("=>", 1)[1].split()[0]
+                consumers[signal].append((target, f"{path.name}:{lineno}"))
+
+    for signal, (producer_token, producer_loc) in sorted(producers.items()):
+        producer_fn = resolve_function(producer_token)
+        if producer_fn is None:
+            continue
+        for consumer_token, consumer_loc in consumers.get(signal, []):
+            consumer_fn = resolve_function(consumer_token)
+            if consumer_fn is None:
+                continue
+            if order_index[producer_fn] > order_index[consumer_fn]:
+                fail(
+                    errors,
+                    f"unsafe servo-thread order: signal '{signal}' is read by "
+                    f"'{consumer_fn}' ({consumer_loc}) before its producer "
+                    f"'{producer_fn}' ({producer_loc}) runs - reorder the addf "
+                    f"lines so '{producer_fn}' comes first",
+                )
 
 
 def require(text: str, needle: str, where: str, errors: list[str]) -> None:
@@ -291,6 +368,7 @@ def main() -> int:
     check_duplicate_writers(files, errors)
     check_realtime_module_loads(files, errors)
     check_thread_order(files, errors)
+    check_pin_execution_order(files, errors)
     check_safety_invariants(errors)
 
     print("scripts/validate_control_logic.py")

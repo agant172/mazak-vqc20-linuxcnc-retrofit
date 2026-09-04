@@ -48,6 +48,10 @@ addf atc-estop-abort     servo-thread
 addf atc-safety-abort-or servo-thread
 addf atc-abort-or        servo-thread
 addf mazak-orient.update servo-thread
+# and2.7 moved here from mazak_vqc_20_40.hal (2026-09-04, item 16d): must run
+# AFTER mazak-orient.update (it reads spindle-orient-cmd/ORCM1) and before
+# hm2_7i80.0.write below, its only consumer.
+addf and2.7              servo-thread
 addf mazak-atc.update    servo-thread
 addf atc-fault-or        servo-thread
 addf hm2_7i80.0.write    servo-thread
