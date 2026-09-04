@@ -91,10 +91,11 @@ def run():
         h.run_ms(500)                   # > arrival-debounce
 
         h.expect_all({
-            # DIVERGENCE: corrected rung 3003 seals SOME2 through #SOSA - on
-            # the OEM the memory self-clears once arrival latches; the comp
-            # keeps it latched.
-            "orient-memory": True,
+            # Item 7 (applied 2026-09-04): rung 3003's #SOSA self-clear is now
+            # implemented, so orient-memory drops the scan after oriented-latch
+            # sets - spindle-orient-cmd stays up regardless, held by its OWN
+            # true seal (prev_orcm1), not by orient-memory.
+            "orient-memory": False,
             "spindle-orient-cmd": True,
             "oriented-latch": True,
             "drive-arm": True,
@@ -142,9 +143,13 @@ def run():
         h.expect("drive-arm", True,
                  "re-arms immediately: t_arm still elapsed, no reset required")
         h.expect("fault-any", False, "nothing latched - drive_fault is a level input")
-        h.expect("orient-memory", True,
-                 "orient-request is still held, so SOME2 re-latches (:258)")
-        h.expect("spindle-orient-cmd", True, "ORCM1 restored (:324-331)")
+        # orient-memory pulses True for one scan (rebuilding spindle-orient-cmd's
+        # own seal) then self-clears again: spindle-oriented never dropped, so
+        # t_arrival's debounce was already elapsed - oriented-latch snaps back
+        # immediately and by the time this check runs orient-memory has
+        # cleared via its #SOSA term (item 7).
+        h.expect("orient-memory", False, "SOME2 re-latched and self-cleared again (item 7)")
+        h.expect("spindle-orient-cmd", True, "ORCM1 rebuilt fresh, now held by its own seal")
         h.expect("oriented-latch", True,
                  "ORA1 still true and debounced, so SOSA re-sets (:336-339)")
         h.expect("state", 5, "5 = ORIENTED")

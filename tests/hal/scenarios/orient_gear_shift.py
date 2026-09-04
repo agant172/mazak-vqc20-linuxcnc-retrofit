@@ -4,9 +4,13 @@ Exercises linuxcnc/components/mazak_orient.comp:269-334 against
 docs/ladder/orient_ladder_transcription.md sheets 28/29/30:
 
   rung 2808/2809  HSR / LSR mutually exclusive range memories
-  rung 2901       GSFTC  gear shift command (target range != confirmed position)
-  rung 2902       GSFME  gear shift in-progress memory, incl. the `#HGPRS . #LGPRS`
-                         branch that makes "no PRS made at all" count as mid-shift
+  rung 2901       GSFTC  gear shift command (target range != confirmed position) -
+                         FIXED 2026-09-04 (decision-queue item 6): dropped a bare
+                         `|| !any_prs` disjunct with no basis in the five-branch
+                         rung. "No PRS confirmed" alone no longer forces mid-shift -
+                         only an actual select/orient-memory edge does (comp:288-306).
+  rung 2902       GSFME  gear shift in-progress memory; reduces algebraically to
+                         GSFTC && !tgt_conf, same item-6 fix.
   rung 2905/2906  T-5 -> ENGS - LADDER DISCREPANCY: corrected 2905 draws SMR
   NO (the OEM dwells with the run memory ASSERTED); the comp requires
   !spindle_run (bench check 28 decides)
@@ -27,7 +31,8 @@ ATC/orient .comp files, none of them in this range.
 Sequence driven below, all with orient-request never asserted (so ORCM1, SOSA and
 AL44/AL45/AL46 stay out of the picture and the gear chain is observed alone):
 
-  no PRS made -> select high -> zero speed but still running -> zero speed, no run
+  no PRS made, nothing selected (no shift pending - item 6) -> select high ->
+  zero speed but still running -> zero speed, no run
   -> GSH.M picks up IMMEDIATELY on the target bit (ungated) -> dwell elapses,
   ENGS confirms -> HGPRS makes, GSH.M still held (now by its own PRS, not the
   dwell) -> both selects asserted (target held) -> select low only -> GSH.M HOLDS
@@ -84,12 +89,12 @@ def run():
 
         h.run_ms(150)   # well short of drive-arm-delay
 
-        # (a) mid_shift includes `|| !any_prs` (:287), which sits OUTSIDE every
-        # permissive - gear-shifting is TRUE with no confirm made even before
-        # the drive has armed.
+        # (a) Item 6 fix: no PRS confirmed does NOT by itself mean mid-shift -
+        # shift_pending only sets on an actual select/orient-memory edge, and
+        # none has happened yet. gear-shifting stays FALSE here.
         h.expect("drive-arm", False, "T-0 (rung 2304) has not elapsed yet")
-        h.expect("gear-shifting", True,
-                 "rung 2902 `#HGPRS . #LGPRS` branch: no PRS made = mid-shift")
+        h.expect("gear-shifting", False,
+                 "no select/orient edge has fired yet - shift_pending never set (item 6)")
         h.expect("gear-confirmed", False, "neither PRS is made")
         h.expect("gear-shift-enable", False, "T-5 cannot run: spindle not at zero speed")
         h.expect_all({"gear-hi-sol": False, "gear-lo-sol": False},
@@ -106,14 +111,15 @@ def run():
         h.expect_all({
             "hyd-pump-on": True,
             "drive-arm": True,
-            "gear-shifting": True,
+            "gear-shifting": False,
             "gear-confirmed": False,
             "gear-shift-enable": False,
             "gear-hi-sol": False,
             "gear-lo-sol": True,
             "orient-lo-gear": True,
             "fault-any": False,
-        }, "armed: gear-lo-sol picks up ungated on the default-low target (:331-334)")
+        }, "armed: gear-lo-sol picks up ungated on the default-low target (:331-334); "
+           "still no shift pending (item 6) - nothing has been commanded")
         # state 3 = a solenoid is energised (:400), not 2 - gear-lo-sol is
         # already up even though the target is still unconfirmed.
         h.expect("state", 3, "gear-lo-sol energised, ungated by the dwell (:400)")

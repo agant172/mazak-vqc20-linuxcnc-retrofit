@@ -256,7 +256,16 @@ FUNCTION(update)
      * UOME2 dominates: any cancel condition clears the memory.
      * ----------------------------------------------------------------- */
     cancel = orient_cancel || reset_pulse || !drive_arm;
-    if (cancel) {
+    /* rung 3003 SOME2 self-clear (decision-queue item 7, applied 2026-09-04):
+     * the OEM's seal runs through #SOSA, so the memory clears itself once
+     * arrival latches - it does not sit latched until a fresh cancel.
+     * oriented_latch here still carries LAST scan's SOSA (this block runs
+     * before SOSA/oriented_latch is recomputed later in this same function),
+     * matching the ladder's own scan-order lag - rung 3003 reads rung 5509's
+     * output from the previous scan too. Safe ONLY because orcm1 below no
+     * longer ANDs orient_memory unconditionally - its own true seal (prev_orcm1)
+     * is what now holds the orient command once SOME2 clears. */
+    if (cancel || oriented_latch) {
         orient_memory = false;
     } else if (orient_request) {
         orient_memory = true;   /* set + seal */
@@ -278,16 +287,27 @@ FUNCTION(update)
 
     /* Rung 2901 GSFTC: target range != confirmed position, OR the orient
      * memory is active (orient forces a gear-shift evaluation). The shift is
-     * only actually required when the target PRS is not made. */
-    if (!tgt_conf && (orient_memory || gear_select_hi || gear_select_lo
-                      || !any_prs)) {
+     * only actually required when the target PRS is not made.
+     * FIX (decision-queue item 6, applied 2026-09-04): dropped the bare
+     * "|| !any_prs" disjunct. Rung 2901 has exactly five OR branches -
+     * (mismatch . GSFTC-seal), SOME2, M38CD, M39CD, SST - none test "neither
+     * PRS confirmed". That term was the sole cause of shift_pending/mid_shift
+     * latching SUSTAINED true at power-up whenever the fork sits mid-stroke
+     * (both PRS unconfirmed, a normal transient, not a fault) with nothing
+     * commanded - feeding the AL47 watchdog below into a 30s nuisance trip
+     * with no shift ever requested. */
+    if (!tgt_conf && (orient_memory || gear_select_hi || gear_select_lo)) {
         shift_pending = 1;
     } else if (tgt_conf) {
         shift_pending = 0;
     }
 
-    /* Rung 2902 GSFME: latched while between confirmed positions. */
-    mid_shift = (shift_pending && !tgt_conf) || !any_prs;
+    /* Rung 2902 GSFME: latched while between confirmed positions. Reduces
+     * algebraically to GSFTC && !tgt_conf given HSR/LSR are mutually
+     * exclusive - the erroneous !any_prs here was the same defect duplicated
+     * (item 6). any_prs itself stays correctly used below at orcm1 (rung
+     * 3004's HGPRS/LGPRS term) - untouched by this fix. */
+    mid_shift = shift_pending && !tgt_conf;
     gear_shifting = mid_shift ? true : false;
 
     /* Rungs 2905/2906 T-5 -> ENGS: solenoids only after the zero-speed dwell.
@@ -348,16 +368,20 @@ FUNCTION(update)
     if (ELAPSED(t_gear_wd, gear_shift_timeout)) fault_gear_timeout = true;
 
     /* -----------------------------------------------------------------
-     * Sheet 30 rung 3004 - ORCM1. Requires a confirmed gear position, not
-     * mid-shift, orient memory set, no AL45/AL46, drive armed.
-     * ----------------------------------------------------------------- */
-    orcm1 = orient_memory
-            && any_prs
-            && !mid_shift
+     * Sheet 30 rung 3004 - ORCM1 (decision-queue item 7, applied 2026-09-04).
+     * TRUE SEAL: once latched, a PRS/GSFME/SOME2 flicker of ANY duration
+     * cannot drop OUT4 - the set-branch (orient_memory && any_prs &&
+     * !mid_shift) is only evaluated for the FIRST pickup scan; the OR with
+     * prev_orcm1 is the entire holding path from then on, same pattern as
+     * gear_hi_sol/gear_lo_sol's own-PRS-or-seal branch above. Drops only on
+     * AL45, AL46, a real cancel/unorient/reset, or drive-arm loss - matching
+     * rung 3004's outer AND block. This seal is what makes SOME2's self-clear
+     * (above) safe: ORCM1 no longer depends on orient_memory staying true. */
+    orcm1 = ((orient_memory && any_prs && !mid_shift) || prev_orcm1)
             && !fault_orient_timeout
             && !fault_oriented_rotating
-            && drive_arm
-            && (tgt_conf || prev_orcm1);   /* seal ORCM1.M */
+            && !cancel
+            && drive_arm;
     spindle_orient_cmd = orcm1 ? true : false;
     prev_orcm1 = orcm1;
 
