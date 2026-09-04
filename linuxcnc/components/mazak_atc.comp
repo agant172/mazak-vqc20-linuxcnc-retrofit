@@ -33,8 +33,10 @@ component mazak_atc "Mazak VQC 20/40 ATC confirmation layer (magazine, clamp, co
  *
  * SAFETY: every timer default is UNVERIFIED. The M-2 timer base is unknown
  * (ATC doc "Open questions" #4: T30 cover alarm delay and T90 footswitch
- * arming both need the M-2 timer table). pot_count defaults to 20 and MUST be
- * set to the real magazine size before indexing (ATC doc "Open questions" #5).
+ * arming both need the M-2 timer table). pot_count defaults to 20; the REAL
+ * magazine is 30 pots (owner photos 2026-09-04, set in atc_orient.hal) - and
+ * the transcribed BCD weights 1/2/4/8/10 cannot reach 30 (max 25), so the
+ * encoding needs re-derivation before any decode is trusted.
  */
 
 description """

@@ -77,9 +77,13 @@ Grouped by risk. Each item names its physical consequence as coded today.
 7. **ORCM1 seal + SOME2 self-clear (B4/D5+D7, change together).** A PRS
    flicker mid-orient momentarily drops OUT4 → FR-SX aborts/restarts the
    orient, possibly mid-ATC-approach.
-8. **ATC pot-20 fix (B4/D4).** Rung 3302's all-bits-off = pot 20 is not
-   implemented — **pot 20 is unreachable** on the default 20-pot setup
-   (update `atc_bcd_decode.py` with it; gated on bench item 42).
+8. **ATC pot decode on the REAL 30-pot magazine.** ~~Rung 3302 pot-20 fix~~ —
+   MOOT: owner photos (2026-09-04) confirmed a **30-pot** carousel, so the
+   20TS-only rung 3302 doesn't apply (the 24/30TS path is rung 3301) and
+   pot-count is set to 30. LIVE replacement issue: the transcribed BCD
+   weights 1/2/4/8/10 max at 25 — **pots 26–30 cannot be decoded as
+   transcribed**; re-derive the T21P weight / encoding (bench item 42) and
+   check whether the 30TS*2 doubled A/B branches need transcribing.
 9. **NGC finish ordering (D4)** — clear P0 before P5 or `cycle_active`/barrier
    can re-latch and stick. **No-tool guard (D7)** — M6 with no T errors
    mid-cycle with outputs asserted.

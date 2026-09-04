@@ -74,9 +74,13 @@ setp mazak-orient.drive-arm-delay     2.0     # [T-0]  K 201  rung 2304
 setp mazak-orient.zero-speed-debounce 0.1     # [T-16] K 30   rung 5501
 
 # --- ATC ---------------------------------------------------------------
-# pot-count MUST match the real magazine (ATC doc open question #5: the 30TS*2
-# branches suggest 30-tool logic exists; this machine is believed 20 or 24).
-setp mazak-atc.pot-count             20
+# pot-count = 30, CONFIRMED 2026-09-04 by owner photos of the carousel number
+# band (...24 25 26 27 29 30 1 2 3... - IMG_0091/IMG_0097): this is a 30-pot
+# magazine, so the ladder's 30TS logic (and possibly the 30TS*2 doubled A/B
+# branches) applies. NOTE: the transcribed BCD weights 1/2/4/8/10 max out at
+# 25 and cannot encode pot 30 - the T21P weight (or the whole encoding) must
+# be re-derived before any pot decode is trusted (see the bench list).
+setp mazak-atc.pot-count             30
 setp mazak-atc.cover-confirm-delay    3.0     # [T30] sheet 58 -> AL71..AL74
 setp mazak-atc.pot-lost-timeout       5.0     # [T29] rung 3406
 setp mazak-atc.index-timeout         30.0
