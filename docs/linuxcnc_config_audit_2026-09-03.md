@@ -36,9 +36,13 @@
 
 Grouped by risk. Each item names its physical consequence as coded today.
 
-### Group 1 — would crash or wreck a cycle (decide before ANY live ATC test)
+### Group 1 — would crash or wreck a cycle
 
-1. **NGC resequencing + REF rename (D1+D5).** As coded, all three cycles run a
+**Items 1–4 APPLIED 2026-09-04 (owner approved "yes go"; both gates cleared —
+fork/detents confirmed by photos+firsthand, TSINTL read in flight and the MROT
+fix carries a fold-in note). Item 5 (gear-solenoid topology) remains queued.**
+
+1. ✅ APPLIED — **NGC resequencing + REF rename (D1+D5).** Was: all three cycles ran a
    vertical plunge: cycle E re-clamps the tool it just returned then reports
    T0 (**delayed double-tool crash**); F lowers a **closed** drawbar onto the
    new tool's pull stud; D/F pull the clamped tool vertically through the pot
@@ -51,17 +55,17 @@ Grouped by risk. Each item names its physical consequence as coded today.
    load-bearing (the clamped spindle breaks the detents loose); consider a
    feed-limited Y segment through the detent zone on the first live cycles,
    and expect fresh-vs-worn detent break-away to vary.
-2. **ATC MROT terms (B1+B2).** `mag_rotate_enable` requires cover-open and
+2. ✅ APPLIED — **ATC MROT terms (B1+B2).** Was: `mag_rotate_enable` required cover-open and
    unclamp-off — corrected rung 3408 has neither, and the mid-cycle index runs
    with unclamp energized: **every full change times out at 30 s
    mid-exchange**, and background pre-select during machining is impossible.
    Drafted fix: `idx_running && permissives` (half-step alternative recorded).
    Gated on the TSINTL coil-rung paper read (bench item 41).
-3. **NGC P4 disarm (D3).** The detect-check stays armed across states that
+3. ✅ APPLIED — **NGC P4 disarm (D3).** Was: the detect-check stayed armed across states that
    legitimately negate the detects — **every cycle self-faults AL75/AL76**
    (E's own Z-up empties the spindle while armed). Move `M65 P4` to right
    after the step-1 wait.
-4. **Missing G20 (D6).** A metric caller's M6 interprets the [ATC] inches as
+4. ✅ APPLIED — **Missing G20 (D6).** Was: a metric caller's M6 interpreted the [ATC] inches as
    mm — Z stops ~144 mm high and **unclamps the tool over the table**. One
    token: `G90 G94` → `G90 G94 G20` (M70/M72 already restore caller units).
 5. **Orient gear-solenoid topology (orient B1/D3).** The comp gates pickup on

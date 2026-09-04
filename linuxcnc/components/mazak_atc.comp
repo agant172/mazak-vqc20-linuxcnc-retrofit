@@ -435,10 +435,16 @@ FUNCTION(update)
         idx_dir = idx_running ? 1 : 0;
     }
 
-    /* Rung 3408 MROT: rotation only with the cover verified open and no
-     * fault. Rungs 3501/3502 gate the two direction outputs on it. */
-    mag_rotate_enable = (idx_running && permissives && cover_open_verified
-                         && !tool_unclamp_sol) ? true : false;
+    /* Rung 3408 MROT (corrected 2026-09-02, applied 2026-09-04 owner
+     * approved): (#AL2 || #AUT.M) . TSME . #TFP . #TSINTL - NO cover and NO
+     * unclamp contact exist in the rung. The ladder indexes during machining
+     * (cover closed, TSME independent of TCME) and during cycle D's mid-
+     * exchange step with TUC.M energised (rung 3508's MEMD-1.#MEMD-3
+     * window); the old cover_open_verified && !tool_unclamp_sol terms
+     * deadlocked cycle D at the D-3 index. #TSINTL's coil rung is being
+     * transcribed (bench item 41 in flight) - fold it in if it maps to a
+     * sensable input. Rungs 3501/3502 gate the direction outputs on this. */
+    mag_rotate_enable = (idx_running && permissives) ? true : false;
 
     want_fwd = mag_rotate_enable && (idx_dir > 0);
     want_rev = mag_rotate_enable && (idx_dir < 0);

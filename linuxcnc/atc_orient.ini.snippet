@@ -87,10 +87,11 @@ ON_ABORT_COMMAND = O <on_abort> call
 # counts; see docs/parameters_sn060231.md). G53 machine coordinates, inches.
 # VERIFY with a dry run at reduced rapid before trusting - atc-live-permit stays 0.
 [ATC]
-# ref-1: pot exchange height - Z down, toolholder engaged in the pot (RP3).
-REF1_Z = -5.9055
-# ref-2: clearance height - Z up, clear of the magazine (machine zero).
-REF2_Z = 0.0
+# RESEQUENCED 2026-09-04 (owner approved): naming now matches the ladder.
+# ref-1/ZP1 = machine zero (Z clear, spindle up).
+REF1_Z = 0.0
+# ref-2/ZP2 = the ATC exchange height (RP3; LZ4 floor -5.9449 never commanded).
+REF2_Z = -5.9055
 # Y positions: ref-1 = machining/park side (machine zero), ref-2 = magazine
 # side (RP2 - OUTSIDE the machining envelope; [AXIS_Y] MAX_LIMIT stays +0.0394 -
 # REF2_Y is reachable only via the mazak_atc_zone authorization path, see

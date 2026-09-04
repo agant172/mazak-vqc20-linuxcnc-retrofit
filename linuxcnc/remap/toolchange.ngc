@@ -61,7 +61,11 @@ o<toolchange> sub
   (  Modal state and cycle decision                                      )
   (  ------------------------------------------------------------------ )
   M70                        ( save modal state, restored by M72 below  )
-  G90 G94                    ( absolute, units/min - no G91 surprises   )
+  G90 G94 G20                ( absolute, units/min, INCH - the [ATC]     )
+                             ( values are inches; without G20 a metric   )
+                             ( caller would move to Z-5.9055 MM and      )
+                             ( unclamp over the table. M72 restores the  )
+                             ( caller's units.                           )
 
   #<spindle_tool>  = #5400              ( D1 - tool currently in spindle )
   #<want_tool>     = #<_selected_tool>  ( D2 - tool commanded by T       )
@@ -70,15 +74,16 @@ o<toolchange> sub
   #<t_confirm> = #<_ini[ATC]CONFIRM_TIMEOUT>
   #<t_index>   = #<_ini[ATC]INDEX_TIMEOUT>
 
-  ( Reference points - PLACEHOLDERS, see [ATC] in the INI snippet.       )
-  ( WARNING (2026-09-03 audit): Z naming here is SWAPPED vs the ladder   )
-  ( (transcription OQ#2: ref-1/ZP1 = machine zero, ref-2/ZP2 = Z-5.9055).)
-  ( z_ref1 holds -5.9055 and z_ref2 holds 0 - the OPPOSITE of ZPZ1/ZPZ2. )
-  ( Do not map ladder ZPZn onto z_refn until the resequencing lands.     )
-  #<z_ref1>    = #<_ini[ATC]REF1_Z>
-  #<z_ref2>    = #<_ini[ATC]REF2_Z>
-  #<y_ref1>    = #<_ini[ATC]REF1_Y>
-  #<y_ref2>    = #<_ini[ATC]REF2_Y>
+  ( Reference points - RESEQUENCED 2026-09-04 (owner approved). Naming   )
+  ( now matches the ladder: ref-1/ZP1 = machine zero (0,0,0); ref-2/ZP2  )
+  ( = the ATC exchange position (Y +9.5000, Z -5.9055). Both INI copies  )
+  ( were flipped in the same commit - REF1_Z is now 0.0 and REF2_Z is    )
+  ( -5.9055. Readable aliases below; LZ4 exchange floor -5.9449 is never )
+  ( commanded.                                                           )
+  #<z_clear>   = #<_ini[ATC]REF1_Z>   ( ZP1: Z machine zero, spindle up  )
+  #<z_exch>    = #<_ini[ATC]REF2_Z>   ( ZP2: exchange height -5.9055     )
+  #<y_home>    = #<_ini[ATC]REF1_Y>   ( ZP1: Y machine zero              )
+  #<y_pot>     = #<_ini[ATC]REF2_Y>   ( ZP2: Y +9.5000, flange in fork   )
 
   ( Rung 6511 EQTST - commanded tool already in the spindle: skip.       )
   o<tc_skip> if [#<want_tool> EQ #<spindle_tool>]
@@ -157,12 +162,10 @@ o<toolchange> sub
   M64 P0                     ( TCME on - barrier out, ATC active         )
 
   (  ------------------------------------------------------------------ )
-  (  Prep: clear Z, orient the spindle, open the cover.                  )
+  (  Prep: orient the spindle, open the cover.                           )
   (  Ladder equivalent: cycles A/B/C on sheets 67-70 raise the reference )
   (  point commands and wait for the orient chain (sheet 30).            )
   (  ------------------------------------------------------------------ )
-  G53 G0 Z#<z_ref2>          ( ZP2 - clearance height first, always      )
-
   M64 P6                     ( SOME2 - orient request                    )
   M66 P5 L3 Q#<t_orient>     ( wait for the SOSA oriented latch          )
   o<tc_or_to> if [#5399 LE 0]
@@ -176,29 +179,46 @@ o<toolchange> sub
   o<tc_cov_to> endif
 
   (  ------------------------------------------------------------------ )
-  (  Step 1 - D-1 / E-1 / F-1 gate (rungs 7103 / 7205 / 7302).           )
-  (  Y to ref-2, then require: oriented latch, cover open, and the       )
-  (  correct tool detect. The component raises AL75/AL76 and drops the   )
-  (  permit if the detects disagree - nothing moves toward the pot.      )
+  (  Entry positioning - RESEQUENCED 2026-09-04 to the corrected chains. )
+  (  The exchange is HORIZONTAL fork-entry: Y slides the flange past the )
+  (  spring detent balls into the pot fingers at exchange height; Z-up   )
+  (  releases, Z-down engages; clamp always precedes the Y-out that      )
+  (  breaks the detents loose.                                           )
+  (  D/E (spindle holds a tool, rungs 7101/7203 entry ZPY1.ZPZ2): Z goes )
+  (  DOWN to exchange height first at Y home, then Y carries the tool    )
+  (  into the fork. F (spindle empty, rung 7210 entry ZPZ1.ZPY1): Y      )
+  (  traverses at Z clear, Z descends onto the new tool later.           )
   (  ------------------------------------------------------------------ )
-  G53 G0 Y#<y_ref2>
+  o<tc_entry> if [#<cycle> EQ 2]
+    G53 G0 Z#<z_clear>       ( F: spindle empty - travel at Z up         )
+    G53 G0 Y#<y_pot>         ( F-1: Y in over the commanded pot          )
+  o<tc_entry> else
+    G53 G0 Z#<z_exch>        ( D/E: Z down to exchange height at Y home  )
+    G53 G0 Y#<y_pot>         ( D-1/E-1: flange into the fork fingers     )
+  o<tc_entry> endif
 
+  (  ------------------------------------------------------------------ )
+  (  Step 1 - D-1 / E-1 / F-1 gate (rungs 7103 / 7205 / 7302).           )
+  (  Require: oriented latch, cover open, and the correct tool detect.   )
+  (  The component raises AL75/AL76 and drops the permit if the detects  )
+  (  disagree - nothing advances toward the exchange.                    )
+  (  ------------------------------------------------------------------ )
   M64 P4                     ( arm the tool-detect comparison            )
   M66 P0 L3 Q#<t_confirm>    ( wait for step1-permit                     )
   o<tc_s1_to> if [#5399 LE 0]
     (abort, ATC: step-1 gate not satisfied - orient, cover or tool detect)
   o<tc_s1_to> endif
+  M65 P4                     ( disarm immediately - 2026-09-04: leaving  )
+                             ( this armed latched AL75/AL76 on every     )
+                             ( cycle when later steps legitimately       )
+                             ( change the detect states                  )
 
   (  ------------------------------------------------------------------ )
-  (  Step 2 - Z plunge + unclamp. GEOMETRY MISMATCH (2026-09-03 audit):  )
-  (  corrected D-2/E-2 latch ZPZ1 (Z UP) with unclamp before the move,   )
-  (  and F-2 latches ZPZ2 - the exchange is horizontal fork-entry. See   )
-  (  the config-audit behavior queue before running this live.           )
-  (  The unclamp output itself is gated in HAL on the oriented latch and )
-  (  zero speed (rung 3604); this only requests it.                      )
+  (  Unclamp (all cycles). D/E: the fork holds the old tool. F: the      )
+  (  drawbar opens EMPTY so Z can descend onto the new tool's stud.      )
+  (  The output itself is gated in HAL on the oriented latch and zero    )
+  (  speed; this only requests it.                                       )
   (  ------------------------------------------------------------------ )
-  G53 G0 Z#<z_ref1>          ( pot engages the toolholder                )
-
   M64 P2                     ( TUCME - unclamp request                   )
   M66 P1 L3 Q#<t_confirm>    ( wait for M69 unclamp confirmed (TUCPRS)   )
   o<tc_unc_to> if [#5399 LE 0]
@@ -206,54 +226,68 @@ o<toolchange> sub
   o<tc_unc_to> endif
 
   (  ------------------------------------------------------------------ )
-  (  Step 3 - Z to ref-2 (tool stays in the pot), then index.            )
-  (  Load-only has no old tool to leave behind and return-only no new    )
-  (  tool to fetch, so only the full change indexes here; for load-only  )
-  (  the magazine                                                        )
-  (  was already parked on the commanded pot during machining (TSME runs )
-  (  independently of TCME, rung 3404).                                  )
+  (  Exchange - per cycle.                                               )
+  (  D (full): Z up leaves the old tool in the fork -> index to the new  )
+  (  pot -> Z back down onto the new tool -> clamp -> Y out (detents     )
+  (  break with the tool CLAMPED) -> Z up.                               )
+  (  E (return): Z up leaves the tool -> clamp EMPTY -> Y out at Z up.   )
+  (  NOTE bench item 43: if TCPRS does not make on an empty clamp, the   )
+  (  P2 wait here times out - verify before first live E cycle.          )
+  (  F (load): Z down onto the new tool (drawbar open) -> clamp -> Y out )
+  (  at exchange height -> Z up.                                         )
+  (  Return-pot staging (decision-queue item 10) is NOT yet implemented: )
+  (  D/E drop the old tool at whatever pot is present.                   )
   (  ------------------------------------------------------------------ )
-  G53 G0 Z#<z_ref2>
-
-  o<tc_index> if [#<cycle> EQ 1]
-    M64 P3                   ( index to iocontrol.0.tool-prep-pocket     )
+  o<tc_full> if [#<cycle> EQ 1]
+    G53 G0 Z#<z_clear>       ( D-2: old tool stays in the fork           )
+    M64 P3                   ( D-3ax: index to iocontrol tool-prep-pocket)
     M66 P3 L3 Q#<t_index>    ( wait for MSTP - commanded pot arrived     )
     o<tc_idx_to> if [#5399 LE 0]
       (abort, ATC: magazine did not reach the commanded pot - check MIPRS/BCD)
     o<tc_idx_to> endif
     M65 P3
-  o<tc_index> endif
+    G53 G0 Z#<z_exch>        ( D-3: down onto the new tool, drawbar open )
+    M65 P2                   ( drop TUCME - clamp the new tool           )
+    M66 P2 L3 Q#<t_confirm>  ( wait for M64 clamp confirmed (TCPRS)      )
+    o<tc_clpd_to> if [#5399 LE 0]
+      (abort, ATC: tool clamp not confirmed - check PRS-9 and hydraulics)
+    o<tc_clpd_to> endif
+    G53 G0 Y#<y_home>        ( D-4: Y out - clamped tool breaks detents  )
+    G53 G0 Z#<z_clear>       ( D-5: rise; OEM INTF2 check not yet impl.  )
+  o<tc_full> endif
+
+  o<tc_ret> if [#<cycle> EQ 3]
+    G53 G0 Z#<z_clear>       ( E-2: tool stays in the fork, spindle up   )
+    M65 P2                   ( drop TUCME - clamp EMPTY (bench item 43)  )
+    M66 P2 L3 Q#<t_confirm>  ( wait for clamp confirmed                  )
+    o<tc_clpe_to> if [#5399 LE 0]
+      (abort, ATC: empty clamp not confirmed - see bench item 43 TCPRS-empty)
+    o<tc_clpe_to> endif
+    G53 G0 Y#<y_home>        ( E-3: Y out at Z clear - nothing hanging   )
+  o<tc_ret> endif
+
+  o<tc_load> if [#<cycle> EQ 2]
+    G53 G0 Z#<z_exch>        ( F-2: down onto the new tool, drawbar open )
+    M65 P2                   ( drop TUCME - clamp the new tool           )
+    M66 P2 L3 Q#<t_confirm>  ( wait for clamp confirmed                  )
+    o<tc_clpf_to> if [#5399 LE 0]
+      (abort, ATC: tool clamp not confirmed - check PRS-9 and hydraulics)
+    o<tc_clpf_to> endif
+    G53 G0 Y#<y_home>        ( F-3: Y out - clamped tool breaks detents  )
+    G53 G0 Z#<z_clear>       ( F-4: rise; OEM INTF2 check not yet impl.  )
+  o<tc_load> endif
 
   (  ------------------------------------------------------------------ )
-  (  Step 4 - Z down + clamp. GEOMETRY MISMATCH (2026-09-03 audit):      )
-  (  corrected D-4/E-3/F-3 are Y-OUT moves latching ZPY1 with clamp      )
-  (  confirmed before them. See the config-audit behavior queue.         )
-  (  Clamp is the de-energised state: dropping the request clamps.       )
+  (  Close the cover, finish. The OEM interference check (INTF2.N /      )
+  (  EIA.N, ATC doc open question #3) is still replaced by the plain     )
+  (  clearance rises above; tool-length-aware Z clearance remains to be  )
+  (  added once the tool table is populated.                             )
   (  ------------------------------------------------------------------ )
-  G53 G0 Z#<z_ref1>
-
-  M65 P2                     ( drop TUCME - clamp                        )
-  M66 P2 L3 Q#<t_confirm>    ( wait for M64 clamp confirmed (TCPRS)      )
-  o<tc_clp_to> if [#5399 LE 0]
-    (abort, ATC: tool clamp not confirmed - check PRS-9 and hydraulics)
-  o<tc_clp_to> endif
-
-  (  ------------------------------------------------------------------ )
-  (  Step 5 - retract, close the cover, finish (D-5 / F-4).              )
-  (  The OEM interference check (INTF2.N / EIA.N, ATC doc open question  )
-  (  #3) is replaced here by a plain clearance move; tool-length-aware Z  )
-  (  clearance still has to be added once the tool table is populated.   )
-  (  ------------------------------------------------------------------ )
-  G53 G0 Z#<z_ref2>
-  G53 G0 Y#<y_ref1>
-
   M64 P1                     ( energise the cover valve = CLOSE          )
   M66 P7 L3 Q#<t_confirm>
   o<tc_cvc_to> if [#5399 LE 0]
     (abort, ATC: magazine cover did not verify closed - check AL71/AL72)
   o<tc_cvc_to> endif
-
-  M65 P4                     ( detect comparison disarmed                )
 
   ( AFINPLS (rung 3007): finish pulse clears TCME, retracts the barrier  )
   ( and - via UOME2 - releases the orient command so the spindle is free )

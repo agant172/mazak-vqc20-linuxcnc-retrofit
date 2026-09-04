@@ -29,8 +29,10 @@ both solenoids drop, mag-rotate-enable (rung 3408 MROT) drops, and
 pot-number-valid goes FALSE while pot-number itself holds its stale value.
 
 Path under test in :415-436 - magazine rotation requires index_request,
-permissives, a valid pot number, AND cover_open_verified (rung 7009 MGCOX), so
-the setup below holds mag-cover-open-conf TRUE throughout.
+permissives and a valid pot number (2026-09-04: the cover_open_verified and
+!tool_unclamp_sol terms were REMOVED from MROT per corrected rung 3408 - they
+deadlocked cycle D's mid-exchange index); the setup below still holds
+mag-cover-open-conf TRUE, now only to keep the cover alarms quiet.
 
 pot-lost-timeout is scaled 5.0 -> 0.6 s via setp; tests/hal/scenarios/
 timer_defaults.py asserts the shipped default separately.
