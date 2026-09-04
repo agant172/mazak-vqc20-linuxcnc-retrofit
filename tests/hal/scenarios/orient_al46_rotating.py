@@ -55,7 +55,11 @@ def run():
         # Rung 2302 (:224): HYD.M = MA.N * SA.N * ESP.M.
         # gear-select-lo + gear-lo-conf makes target_hi = 0 with its PRS
         # confirmed, so shift_pending stays 0 and mid_shift is false
-        # (:279-287) - no gear shift interferes and state 0 is reachable.
+        # (:279-287) - no gear shift is in progress. Under the corrected
+        # gear-solenoid topology (item 5, applied 2026-09-04) gear-lo-sol's
+        # own ungated target term (mazak_orient.comp:333) holds it up at
+        # rest whenever low is the confirmed/selected range, so idle here is
+        # state 3 (a solenoid energised), not state 0.
         h.setp_many({
             "machine-ready": True,
             "servo-ready": True,
@@ -74,9 +78,10 @@ def run():
             "drive-arm": True,
             "gear-confirmed": True,
             "gear-shifting": False,
+            "gear-lo-sol": True,
             "fault-any": False,
-            "state": 0,
-        }, "armed and idle, low range confirmed")
+            "state": 3,
+        }, "armed and idle, low range confirmed and held (:333)")
 
         # --- Phase 2: reach a legitimate oriented state ---------------------
         # Rung 3003 SOME2 latches the orient memory; rung 3004 ORCM1 asserts
@@ -117,10 +122,12 @@ def run():
                  "cancel includes !drive_arm (:255), so SOME2 is cleared")
         h.expect("oriented-latch", False,
                  "SOSA forced 0 (:338) - the ATC must lose its gate immediately")
-        # Neither solenoid is energised in this state (low range is already
-        # confirmed, so neither the pickup nor the seal branch is active).
-        # These are guard assertions on the drive_arm term at :301-304, not a
-        # demonstration of a solenoid being torn down mid-shift.
+        # gear-lo-sol was held (state 3, Phase 1) purely by its own ungated
+        # target term - but that term is still ANDed with drive_arm
+        # (mazak_orient.comp:332/334, decision-queue item 5's related B3,
+        # deliberately unchanged by this fix), so losing the drive arm here
+        # tears it down immediately. This is a guard assertion on that
+        # drive_arm term, not a demonstration of a mid-shift solenoid loss.
         h.expect_all({
             "gear-hi-sol": False,
             "gear-lo-sol": False,

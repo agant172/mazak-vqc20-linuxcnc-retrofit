@@ -4,14 +4,15 @@
 > audit of `linuxcnc/` + `tests/hal/` against the CORRECTED ladder
 > transcriptions, `parameters_sn060231.md`, and the pin authority. Comment/test
 > fixes and one load-blocking bug landed in `8ec25f7`…`c72fe90`; every change
-> that alters machine behavior is queued below for the owner. Harness green at
-> HEAD (12 scenarios / 405 checks / 0 failed, LinuxCNC box 2026-09-04).
+> that alters machine behavior is queued below for the owner, except item 5
+> (applied 2026-09-04, see Group 1). Harness green at HEAD (12 scenarios /
+> 410 checks / 0 failed, LinuxCNC box 2026-09-04).
 
 ## Scorecard
 
 | Domain | Verdict |
 |---|---|
-| mazak_orient.comp | Annotations accurate; **gear-solenoid topology implements the old misreading** — 7 behavior items |
+| mazak_orient.comp | Annotations accurate; gear-solenoid topology **FIXED 2026-09-04** (item 5) — 6 behavior items remain |
 | mazak_atc.comp | Confirmation/alarm/clamp core faithful; **MROT terms deadlock cycle D's mid-index**; pot 20 unreachable — 6 behavior items |
 | toolchange.ngc | Pin protocol/timeouts/abort/dry-run clean; **step geometry matches none of the corrected chains** — 6 behavior items |
 | HAL topology | Nets/loadrt/addf near-perfect; **one load-blocking pin-double-link (FIXED)**; 2 ordering + orphan-input items |
@@ -38,9 +39,10 @@ Grouped by risk. Each item names its physical consequence as coded today.
 
 ### Group 1 — would crash or wreck a cycle
 
-**Items 1–4 APPLIED 2026-09-04 (owner approved "yes go"; both gates cleared —
-fork/detents confirmed by photos+firsthand, TSINTL read in flight and the MROT
-fix carries a fold-in note). Item 5 (gear-solenoid topology) remains queued.**
+**Items 1–5 APPLIED 2026-09-04 (owner approved "yes go" for 1-4, then explicit
+"apply item 5"; both gates cleared — fork/detents confirmed by photos+
+firsthand, TSINTL read in flight and the MROT fix carries a fold-in note).
+Group 1 is now fully applied.**
 
 1. ✅ APPLIED — **NGC resequencing + REF rename (D1+D5).** Was: all three cycles ran a
    vertical plunge: cycle E re-clamps the tool it just returned then reports
@@ -70,15 +72,25 @@ fix carries a fold-in note). Item 5 (gear-solenoid topology) remains queued.**
 4. ✅ APPLIED — **Missing G20 (D6).** Was: a metric caller's M6 interpreted the [ATC] inches as
    mm — Z stops ~144 mm high and **unclamps the tool over the table**. One
    token: `G90 G94` → `G90 G94 G20` (M70/M72 already restore caller units).
-5. **Orient gear-solenoid topology (orient B1/D3).** The comp gates pickup on
-   `ENGS && !own-PRS` — the corrected rungs drive the commanded coil ungated
-   and **hold the OUTGOING gear's coil until the zero-speed dwell**. As coded:
-   both coils dead mid-shift with the spindle turning (fork can float out of
-   gear), no steady-state coil hold, and **CTL/OUT5 is FALSE during a
-   low-gear orient that needed no shift → FR-SX mis-orients exactly when the
-   ATC needs the latch**. Highest-value orient fix. (Related B3: whether
-   `drive_arm` belongs in the coil equations at all — faults currently release
-   the fork mid-spin, the opposite of the OEM's hold.)
+5. ✅ APPLIED 2026-09-04 — **Orient gear-solenoid topology (orient B1/D3).**
+   Was: the comp gated pickup on `ENGS && !own-PRS` — both coils dead
+   mid-shift with the spindle turning (fork can float out of gear), no
+   steady-state coil hold, and CTL/OUT5 FALSE during a low-gear orient that
+   needed no shift (FR-SX mis-orient risk). Fix (`mazak_orient.comp:306-339`):
+   commanded range now drives its own coil UNGATED off `target_hi`; the
+   OUTGOING range's coil is instead held via `(own-PRS || seal) && !ENGS`,
+   so it stays energised through the shift until the zero-speed dwell
+   releases it. Mutual interlock + `!fault_gear_timeout` unchanged. Consequence
+   confirmed by the harness: a confirmed/selected range now holds its coil
+   (and CTL/OUT5) continuously at rest instead of reading idle — `state`
+   changes from 0 to 3 in three other scenarios that park in low gear
+   (`orient_al46_rotating`, `orient_drive_fault`, `orient_reset_edge`), all
+   updated to match. **Related B3 left OPEN, deliberately unchanged**:
+   whether `drive_arm` belongs in the coil equations at all — the corrected
+   rungs carry no SSET/HYD contact, but the comp still ANDs `drive_arm` into
+   both coils (a documented ADDITION, not a reproduction), so a drive fault
+   still drops fork pressure mid-spin — the opposite of the OEM's hold. This
+   is a separate decision from item 5's topology fix and was not folded in.
 
 ### Group 2 — wrong-but-recoverable behavior / nuisance faults
 

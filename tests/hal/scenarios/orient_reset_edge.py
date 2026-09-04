@@ -72,6 +72,10 @@ def run():
             # mid_shift is false (:269-288). Without a PRS confirm mid_shift is
             # permanently true (`|| !any_prs`), which would park the machine in
             # a gear evaluation and eventually arm the AL47 watchdog.
+            # Under the corrected gear-solenoid topology (item 5, applied
+            # 2026-09-04) this also means gear-lo-sol's own ungated target
+            # term (:333) holds it energised at rest, so idle below is
+            # state 3, not state 0.
             "gear-select-lo": True,
             "gear-lo-conf": True,
             # Spindle genuinely stopped and not oriented while we arm.
@@ -86,9 +90,10 @@ def run():
             "drive-arm": True,        # rung 2305, sealed after T-0
             "gear-confirmed": True,   # PRS-12 made
             "gear-shifting": False,   # not mid-shift
+            "gear-lo-sol": True,      # held by its own ungated target term (:333)
             "fault-any": False,
-            "state": 0,               # IDLE
-        }, "armed and idle before any fault is provoked")
+            "state": 3,               # a solenoid energised, not IDLE
+        }, "armed and idle before any fault is provoked, low gear held")
 
         # --- Phase 1: raise fault-reset and LEAVE IT HIGH. ---------------
         # This is one genuine rising edge (prev_fault_reset was 0 through

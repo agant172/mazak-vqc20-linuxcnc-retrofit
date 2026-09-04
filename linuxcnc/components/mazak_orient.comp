@@ -303,13 +303,35 @@ FUNCTION(update)
     engs = ELAPSED(t_dwell, zero_speed_dwell);
     gear_shift_enable = engs ? true : false;
 
-    /* Rungs 2907/2910. Pickup path = (#PRS * ENGS); seal holds the solenoid
-     * while its range stays selected, so the fork stays engaged.
-     * Interlocked against each other and blocked by AL47. */
-    hi = target_hi && !prev_lo_sol && !fault_gear_timeout && drive_arm
-         && ((engs && !gear_hi_conf) || prev_hi_sol);
-    lo = !target_hi && !prev_hi_sol && !fault_gear_timeout && drive_arm
-         && ((engs && !gear_lo_conf) || prev_lo_sol);
+    /* Rungs 2907/2910 (corrected topology applied 2026-09-04, decision-queue
+     * item 5, owner-approved):
+     *   GSH.M = [HSR || (HGPRS || seal-GSH) . #ENGS] . #GSL.M . #AL47
+     *   GSL.M = [LSR || (LGPRS || seal-GSL) . #ENGS] . #GSH.M . #AL47
+     * The COMMANDED range drives its own coil UNGATED (no dwell wait) - the
+     * instant its target bit is set, that solenoid is asking to pick up.
+     * The OUTGOING range's coil is instead held by its own PRS-or-seal term
+     * ANDed with #ENGS, so it stays energised through the shift - fork
+     * pressure never drops with the spindle still turning - until the
+     * zero-speed dwell (ENGS) completes. The mutual `!prev_*_sol` interlock
+     * is what actually sequences the handoff: the incoming coil cannot pick
+     * up until the outgoing coil's hold term drops, even though its own
+     * target term is already true. One servo-thread scan with both coils
+     * off can occur right at the handoff - safe, matches the spring-center
+     * valve's neutral position, not a race.
+     * This also fixes D3c: a low-gear orient that needs no shift now holds
+     * GSL.M (and so CTL/OUT5, rung 3001) continuously at rest, instead of
+     * only during an active shift with the pre-audit gating below.
+     *
+     * drive_arm is intentionally still ANDed in here - the corrected rungs
+     * carry no SSET/HYD contact, so this remains a deliberate ADDITION, not
+     * a reproduction (audit item 5, related B3 - separate, still-open
+     * decision on whether a fork mid-spin should lose hydraulic hold on a
+     * drive fault; left unchanged pending that decision). AL47
+     * (fault_gear_timeout) still blocks both, matching the ladder. */
+    hi = ((target_hi) || ((gear_hi_conf || prev_hi_sol) && !engs))
+         && !prev_lo_sol && !fault_gear_timeout && drive_arm;
+    lo = ((!target_hi) || ((gear_lo_conf || prev_lo_sol) && !engs))
+         && !prev_hi_sol && !fault_gear_timeout && drive_arm;
     if (hi && lo) { hi = 0; lo = 0; }   /* belt and braces - never both */
     gear_hi_sol = hi ? true : false;
     gear_lo_sol = lo ? true : false;
