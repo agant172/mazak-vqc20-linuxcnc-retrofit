@@ -75,6 +75,8 @@ pin in s32 commanded_tool = 0
     "D2 - commanded tool (0 = unload only). From  iocontrol.0.tool-prep-number.";
 pin in s32 target_pot = 0
     "Pocket holding commanded_tool, from the tool table. 1..pot-count.  0 = no index required.";
+pin in s32 return_pot = 0
+    "Item 10 (fixed-pocket, applied 2026-09-04): pocket to stage the  OUTGOING tool to before unclamp on cycles D/E, fed from the remap via  M68 E0 Q<value> -> motion.analog-out-00 -> conv-float-s32.0. Fixed-pocket  convention - pocket number == tool number, no table lookup needed.  1..pot-count. 0 = no return-stage requested.";
 
 pin out bit cycle_active
     "M160 TCME - ATC in progress (rung 6504).";
@@ -122,6 +124,8 @@ pin in bit mag_bcd_bit3 = false "X00B T18P - binary weight 8.  Net: mag-bcd-bit3
 pin in bit mag_bcd_bit4 = false "X00C T21P - binary weight 16 (rung 3301: raw MOV, no BCD->BIN  conversion on 24TS/30TS). Net: mag-bcd-bit4.";
 pin in bit index_request = false
     "Start/hold an index to target-pot. From the remap  (motion.digital-out-03). Tool select may run during machining, exactly  as TSME (M33, rung 3404) is independent of TCME.";
+pin in bit index_return_request = false
+    "Item 10 (applied 2026-09-04): start/hold an index to return-pot  instead of target-pot. From the remap (motion.digital-out-09). Mutually  exclusive with index-request in practice - only one leg of a cycle ever  asks to index at a time - and shares the same index-done output and the  same shortest-path arithmetic.";
 
 pin out bit mag_fwd_sol
     "Y003 MFWD.M (rung 3501). DIRECTION UNVERIFIED -  wiring/authority_conflicts.md section 3 has SOL-8A as CCW/forward and  SOL-8B as CW/reverse, unconfirmed. Net: mag-cw-sol (see linuxcnc/atc_orient.hal).";
@@ -292,6 +296,7 @@ FUNCTION(update)
 {
     int ts0, t0, equal, permissives, faulted, reset_pulse;
     int raw_pot, diff, n, want_fwd, want_rev, at_target;
+    int any_index_req, eff_target;
     int unclamp_gate, unclamp_cmd, manual_ok;
     int detect_needed_mag, detect_needed_spindle;
 
@@ -352,8 +357,11 @@ FUNCTION(update)
     cycle_load_only   = (cycle_select == 2);
     cycle_return_only = (cycle_select == 3);
 
-    /* Rungs 3504-3507 - commanded tool / pot beyond the magazine size. */
-    if (commanded_tool > n || target_pot > n || target_pot < 0)
+    /* Rungs 3504-3507 - commanded tool / pot beyond the magazine size.
+     * return_pot bounds added for item 10 (2026-09-04) - same class of
+     * check, a garbled/out-of-range return-stage target is a real fault. */
+    if (commanded_tool > n || target_pot > n || target_pot < 0
+        || return_pot > n || return_pot < 0)
         fault_tool_range = true;
 
     /* -----------------------------------------------------------------
@@ -412,13 +420,21 @@ FUNCTION(update)
      * Sheets 33/34 - shortest-path index.
      * Rungs 3311-3319: compare current with commanded, difference against the
      * magazine-size constant, choose forward or reverse.
+     * Item 10 (2026-09-04): index_return_request drives the SAME arithmetic
+     * and the SAME index-done output toward return_pot instead of
+     * target_pot - eff_target picks whichever is active. The two requests
+     * are mutually exclusive in practice (only one leg of a cycle ever asks
+     * to index at a time), so sharing one state machine is safe.
      * ----------------------------------------------------------------- */
-    at_target = have_pot && target_pot > 0 && (last_pot == target_pot)
+    any_index_req = index_request || index_return_request;
+    eff_target = index_return_request ? return_pot : target_pot;
+
+    at_target = have_pot && eff_target > 0 && (last_pot == eff_target)
                 && mag_in_pos;
 
     diff = 0;
-    if (have_pot && target_pot > 0) {
-        diff = target_pot - last_pot;
+    if (have_pot && eff_target > 0) {
+        diff = eff_target - last_pot;
         while (diff < 0)  diff += n;
         while (diff >= n) diff -= n;
         /* diff is now the forward distance; take the short way round. */
@@ -427,21 +443,21 @@ FUNCTION(update)
         index_distance = 0;
     }
 
-    if (!index_request || !permissives || cycle_abort) {
+    if (!any_index_req || !permissives || cycle_abort) {
         idx_running = 0;
         idx_dir = 0;
-        if (!index_request) idx_complete = 0;
+        if (!any_index_req) idx_complete = 0;
     } else if (at_target) {
         idx_running = 0;
         idx_dir = 0;
         idx_complete = 1;               /* M227 MSTP - rung 3401 */
-    } else if (have_pot && target_pot > 0 && !idx_complete) {
+    } else if (have_pot && eff_target > 0 && !idx_complete) {
         idx_running = 1;
         idx_dir = (index_distance >= 0) ? 1 : -1;
     } else {
         /* No valid pot number yet: creep forward until MIPRS gives us one.
          * Rung 3404 TSME behaves the same way - it runs until MSTP. */
-        idx_running = (target_pot > 0 && !idx_complete) ? 1 : 0;
+        idx_running = (eff_target > 0 && !idx_complete) ? 1 : 0;
         idx_dir = idx_running ? 1 : 0;
     }
 

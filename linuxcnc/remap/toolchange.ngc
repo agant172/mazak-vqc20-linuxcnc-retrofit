@@ -37,6 +37,7 @@
 (    P6  orient-req           -> mazak-orient.orient-request (SOME2)     )
 (    P7  orient-cancel        -> mazak-orient.orient-cancel  (UOME2)     )
 (    P8  atc-abort-request    -> mazak-atc.cycle-abort                     )
+(    P9  atc-index-return-req -> mazak-atc.index-return-request (item 10))
 (                                                                        )
 (  INPUTS   M66 P<n> L3 Q<sec> waits for HIGH, result in #5399           )
 (           (#5399 = 1 satisfied, -1 timed out)                          )
@@ -48,11 +49,15 @@
 (    P5  spindle-oriented-lat <- mazak-orient.oriented-latch   (SOSA)    )
 (    P6  atc-fault-any        <- OR of both components' fault-any        )
 (    P7  atc-cover-closed-ok  <- mazak-atc.cover-closed-verified         )
+(    P8  atc-t-prepared       <- atc-t-prepared.out (item 9b, read L0,   )
+(                                 not waited)                            )
 (                                                                        )
 (  The target pocket is NOT passed through a digital pin: it is netted   )
 (  straight from iocontrol.0.tool-prep-pocket to mazak-atc.target-pot.   )
-(  If a future step needs an arbitrary numeric handoff, use              )
-(  M68 E0 Q<value> -> motion.analog-out-00 -> conv_float_s32.            )
+(  The return pocket (item 10, below) uses the numeric handoff:          )
+(  M68 E0 Q<value> -> motion.analog-out-00 -> conv-float-s32.0 ->        )
+(  mazak-atc.return-pot. motion.analog-out-00 exists at motmod's default )
+(  num_aio=4 - no loadrt EMCMOT change was needed for this.              )
 (  ==================================================================== )
 
 o<toolchange> sub
@@ -69,6 +74,51 @@ o<toolchange> sub
 
   #<spindle_tool>  = #5400              ( D1 - tool currently in spindle )
   #<want_tool>     = #<_selected_tool>  ( D2 - tool commanded by T       )
+
+  (  ------------------------------------------------------------------ )
+  (  No-tool guard (decision-queue item 9b, owner-directed 2026-09-04).  )
+  (  CORRECTED: an earlier version of this guard tested                 )
+  (  [#<_selected_tool> LT 0], assuming a -1 sentinel before any T-word  )
+  (  - WRONG for this LinuxCNC build. Verified two ways (peer session,   )
+  (  cross-checked here independently via rs274): #<_selected_tool> inits)
+  (  to 0, not -1 (rs274ngc_pre.cc's synch() only writes selected_tool   )
+  (  from convert_tool_select, i.e. on an actual T-word; it is           )
+  (  #<_selected_pocket> that inits to -1, and this ngc-only remap never )
+  (  runs the iocontrol LOAD path that pocket tracking depends on). A    )
+  (  bare M6 with no T-word previously fell through to want_tool=0's     )
+  (  cycle-E branch and ran the full return cycle - a real hydraulic     )
+  (  unclamp of whatever tool sat in the spindle - with zero validation. )
+  (                                                                      )
+  (  Real fix: a HAL flip-flop (atc-t-prepared, linuxcnc/atc_orient.hal) )
+  (  SET by iocontrol.0.tool-prepare (pulses for every T-word including  )
+  (  T0) and RESET only by a genuine cycle-finish (P5) - so an abort      )
+  (  mid-cycle leaves it set and a retry does not need a fresh T-word.   )
+  (  The one known gap: an EQTST skip (commanded tool already in the      )
+  (  spindle) returns before P5 ever asserts, so the flag stays set on   )
+  (  the OLD T-word after a skip - but a subsequent bare M6 under that   )
+  (  exact condition reads the same stale want_tool/spindle_tool and     )
+  (  EQTST-skips again too, so it is provably harmless, not silently     )
+  (  unsafe. Checked immediately after the T-word is read, before any    )
+  (  output asserts or any motion.                                      )
+  (  ------------------------------------------------------------------ )
+  M66 P8 L0                  ( read atc-t-prepared; #5399 = 0 means no T-word prepared )
+  o<tc_no_t> if [#5399 EQ 0]
+    (abort, ATC: M6 called with no T-word ever prepared - a bare M6 must not run. Issue T<n> (or T0 for return-only) before M6.)
+  o<tc_no_t> endif
+
+  ( Range guard: this magazine holds 30 pots (owner photo-confirmed       )
+  ( 2026-09-04; mazak_atc.comp's pot-count parameter is the live source - )
+  ( update the 30 below if that ever changes). NGC has no accessible      )
+  ( lookup into tool.tbl for the PREPARED-but-not-yet-loaded tool (only   )
+  ( the CURRENT tool's row is exposed, via #5400-series) - LinuxCNC's own )
+  ( T-word handling also does not error on an unlisted tool.tbl entry (an )
+  ( unpopulated slot is native "empty pocket", not a fault), so this is a )
+  ( bounds check only, not table-presence validation. mazak_atc.comp's    )
+  ( own fault_tool_range remains the authoritative downstream check on    )
+  ( the physical target-pot HAL signal.                                   )
+  o<tc_t_range> if [#<want_tool> GT 30]
+    (abort, ATC: T#<want_tool> is out of range - this magazine holds 30 pots (T1-T30, or T0 for return-only))
+  o<tc_t_range> endif
 
   #<t_orient>  = #<_ini[ATC]ORIENT_TIMEOUT>
   #<t_confirm> = #<_ini[ATC]CONFIRM_TIMEOUT>
@@ -153,6 +203,7 @@ o<toolchange> sub
   M65 P6
   M65 P7
   M65 P8
+  M65 P9
 
   (  ------------------------------------------------------------------ )
   (  Cycle entry - sheet 65. TCME extends the barrier and holds feed.    )
@@ -160,6 +211,41 @@ o<toolchange> sub
   (  already paused inside the remap.                                    )
   (  ------------------------------------------------------------------ )
   M64 P0                     ( TCME on - barrier out, ATC active         )
+
+  (  ------------------------------------------------------------------ )
+  (  Return-pot staging (decision-queue item 10, owner-directed           )
+  (  2026-09-04, FIXED-POCKET convention: pocket number == tool number,   )
+  (  no table lookup needed). Cycles D (full change) and E (return only)  )
+  (  both return the tool currently in the spindle to ITS OWN pocket -    )
+  (  indexing the magazine BEFORE the tool is deposited there, so the     )
+  (  return happens as a natural side effect of positioning rather than   )
+  (  a second move after the fact (mazak-atc.target-pot is hardwired to   )
+  (  the NEXT tool's pocket and cannot carry the outgoing tool's pocket -  )
+  (  return-pot is a second, independent target for exactly this reason). )
+  (  Cycle F (load only) has no outgoing tool and is skipped.             )
+  (                                                                       )
+  (  Magazine rotation does not require the cover open (rung 3408 MROT,   )
+  (  corrected 2026-09-02, indexes during machining with the cover        )
+  (  closed) - but DOES require Z clearance, the same precondition the    )
+  (  existing D-3ax index below already relies on (it runs right after    )
+  (  a Z-clear move, at :270-ish). Retracting Z here first, before Y has   )
+  (  moved anywhere for this cycle, matches that same precedent.          )
+  (  BENCH-VERIFY before trusting on the real machine (dry-run first,     )
+  (  per this file's header): confirm the magazine can rotate freely at   )
+  (  z-clear height regardless of Y position - this is inferred from the  )
+  (  existing D-3ax placement, not independently bench-confirmed for      )
+  (  this NEW earlier-in-cycle window.                                    )
+  (  ------------------------------------------------------------------ )
+  o<tc_return_stage> if [#<cycle> NE 2]
+    G53 G0 Z#<z_clear>         ( safety retract before any rotation       )
+    M68 E0 Q#<spindle_tool>    ( hand the return pocket to HAL             )
+    M64 P9                     ( index-return-request                     )
+    M66 P3 L3 Q#<t_index>      ( wait for MSTP - return pocket arrived    )
+    o<tc_ret_idx_to> if [#5399 LE 0]
+      (abort, ATC: magazine did not reach the return pocket T#<spindle_tool> - check MIPRS/BCD)
+    o<tc_ret_idx_to> endif
+    M65 P9
+  o<tc_return_stage> endif
 
   (  ------------------------------------------------------------------ )
   (  Prep: orient the spindle, open the cover.                           )
@@ -235,8 +321,10 @@ o<toolchange> sub
   (  P2 wait here times out - verify before first live E cycle.          )
   (  F (load): Z down onto the new tool (drawbar open) -> clamp -> Y out )
   (  at exchange height -> Z up.                                         )
-  (  Return-pot staging (decision-queue item 10) is NOT yet implemented: )
-  (  D/E drop the old tool at whatever pot is present.                   )
+  (  Return-pot staging (decision-queue item 10, applied 2026-09-04) has  )
+  (  already run above, before entry positioning - D/E deposit the old   )
+  (  tool at ITS OWN pocket as a side effect of that pre-staging, not a  )
+  (  step here.                                                          )
   (  ------------------------------------------------------------------ )
   o<tc_full> if [#<cycle> EQ 1]
     G53 G0 Z#<z_clear>       ( D-2: old tool stays in the fork           )

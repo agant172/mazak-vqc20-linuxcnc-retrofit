@@ -12,6 +12,7 @@ o<on_abort> sub
   ( energise-to-close, so P1 off removes power rather than commanding )
   ( an unverified motion. Mechanical state must be inspected by operator. )
   M65 P3
+  M65 P9                     ( item 10: stop a mid-flight return-pot index )
   M65 P2
   M65 P4
   M65 P1

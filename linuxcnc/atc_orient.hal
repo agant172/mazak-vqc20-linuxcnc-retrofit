@@ -41,17 +41,30 @@ loadrt comp names=gear-range
 loadrt not  names=gear-range-lo,atc-estop-abort
 # The ATC or2 gates are loaded with the watchdog instance in
 # mazak_vqc_20_40.hal so the real-time module is loaded exactly once.
+loadrt conv_float_s32 count=1
+# conv-float-s32.0: item 10 (2026-09-04) return-pot numeric handoff -
+# motion.analog-out-00 (M68 E0 Q<value>, toolchange.ngc) -> mazak-atc.return-pot.
+# motion.analog-out-00 exists at motmod's default num_aio=4 - no loadrt
+# EMCMOT change needed.
+loadrt flipflop names=atc-t-prepared
+# atc-t-prepared: item 9b (2026-09-04, corrected). SET by iocontrol.0.tool-
+# prepare (pulses for every T-word including T0); RESET only by a genuine
+# cycle-finish (P5), so an abort mid-cycle leaves it set and a retry does
+# not need a fresh T-word. Read (not waited) via M66 P8 L0 in toolchange.ngc.
 
 addf gear-range          servo-thread
 addf gear-range-lo       servo-thread
 addf atc-estop-abort     servo-thread
 addf atc-safety-abort-or servo-thread
 addf atc-abort-or        servo-thread
+addf atc-t-prepared      servo-thread
 addf mazak-orient.update servo-thread
 # and2.7 moved here from mazak_vqc_20_40.hal (2026-09-04, item 16d): must run
 # AFTER mazak-orient.update (it reads spindle-orient-cmd/ORCM1) and before
 # hm2_7i80.0.write below, its only consumer.
 addf and2.7              servo-thread
+# conv-float-s32.0 must run before mazak-atc.update, which reads its output.
+addf conv-float-s32.0    servo-thread
 addf mazak-atc.update    servo-thread
 addf atc-fault-or        servo-thread
 addf hm2_7i80.0.write    servo-thread
@@ -85,6 +98,10 @@ setp mazak-orient.zero-speed-debounce 0.1     # [T-16] K 30   rung 5501
 # 25 and cannot encode pot 30 - the T21P weight (or the whole encoding) must
 # be re-derived before any pot decode is trusted (see the bench list).
 setp mazak-atc.pot-count             30
+# Clamp (not wrap) an out-of-s32-range return-pot value - item 10, 2026-09-04.
+# mazak-atc.fault-tool-range already bounds-checks 0..pot-count; this just
+# keeps a garbled float from wrapping into a plausible-looking wrong pocket.
+setp conv-float-s32.0.clamp          true
 setp mazak-atc.cover-confirm-delay    3.0     # [T30] sheet 58 -> AL71..AL74
 setp mazak-atc.pot-lost-timeout       5.0     # [T29] rung 3406
 setp mazak-atc.index-timeout         30.0
@@ -201,6 +218,7 @@ net spindle-oriented-latch => mazak-atc.oriented-latch
 net tool-number-in-spindle iocontrol.0.tool-number      => mazak-atc.spindle-tool
 net tool-prep-number       iocontrol.0.tool-prep-number => mazak-atc.commanded-tool
 net tool-prep-pocket       iocontrol.0.tool-prep-pocket => mazak-atc.target-pot
+net atc-return-pot         conv-float-s32.0.out         => mazak-atc.return-pot
 
 # Spindle / permissives.
 net spindle-zero-speed  => mazak-atc.spindle-stopped
@@ -255,7 +273,7 @@ net atc-barrier         <= mazak-atc.atc-barrier
 #####################################################################
 #
 # Pin map is documented at the top of linuxcnc/remap/toolchange.ngc.
-# Requires num_dio = 16 (out-00..08 plus in-00..07 and permit bits in-14/-15).
+# Requires num_dio = 16 (out-00..09 plus in-00..07 and permit bits in-14/-15).
 
 # --- NGC -> components (M62/M63/M64/M65) --------------------------------
 net atc-cycle-active    motion.digital-out-00 => mazak-atc.cycle-start
@@ -264,9 +282,16 @@ net atc-unclamp-req     motion.digital-out-02 => mazak-atc.unclamp-request
 net atc-index-req       motion.digital-out-03 => mazak-atc.index-request
 net atc-detect-check    motion.digital-out-04 => mazak-atc.tool-detect-check
 net atc-cycle-finish    motion.digital-out-05 => mazak-atc.cycle-finish
+net atc-cycle-finish                          => atc-t-prepared.reset
 net orient-req          motion.digital-out-06 => mazak-orient.orient-request
 net orient-cancel-req   motion.digital-out-07 => mazak-orient.orient-cancel
 net atc-abort-request   motion.digital-out-08 => atc-abort-or.in0
+# Item 10 (2026-09-04): return-pot staging. index-return-request shares
+# atc-index-done (P3) as its wait input below - only one of index-req/
+# index-return-req is ever asserted at a time, so there is no ambiguity
+# about which operation's completion is being awaited.
+net atc-index-return-req motion.digital-out-09 => mazak-atc.index-return-request
+net atc-return-pot-raw   motion.analog-out-00  => conv-float-s32.0.in
 
 # E-stop and an indicated FR-SX fault are independent ATC-abort sources.
 # Operator/program aborts set P8 through remap/on_abort.ngc and leave it
@@ -300,6 +325,13 @@ net atc-fault-any       atc-fault-or.out       => motion.digital-in-06
 # panel button once one is assigned.
 net estop-reset => mazak-orient.fault-reset
 net estop-reset => mazak-atc.fault-reset
+
+# Item 9b (2026-09-04, corrected): T-prepared latch. tool-prepare-loopback
+# is defined in field_7i84u.hal (iocontrol.0.tool-prepare -> tool-prepared,
+# pulses for every T-word including T0) and extended here with a second
+# consumer. atc-t-prepared.reset is wired above, alongside atc-cycle-finish.
+net tool-prepare-loopback => atc-t-prepared.set
+net atc-t-prepared-status atc-t-prepared.out => motion.digital-in-08
 
 #####################################################################
 # Physical commissioning holds
