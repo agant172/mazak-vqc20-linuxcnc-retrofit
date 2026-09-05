@@ -175,7 +175,11 @@ net spindle-run-output => hm2_7i80.0.7i84.0.0.output-02  # OUT2  FR-SX RUN/STOP
 # DK-427 to develop torque. If a drive-ready feedback contact from the DK-427
 # is later wired to a 7i84U input, add an and2 between z-brake-delay.out and
 # output-06 (both delayed request AND drive-ready must be TRUE to release the
-# brake). Also add a SERVO_READY row to mesa/current_pin_authority.csv.
+# brake). NOTE (2026-09-05 audit): a combined SERVO_READY signal already
+# exists (mesa/current_pin_authority.csv, 7i84U-A TB2 IN31, CN6-7) -- it may
+# already be exactly this drive-ready contact, just not wired into this gate
+# yet. Confirm before adding a new row; this comment previously (incorrectly)
+# asked to add one that already exists.
 #
 # The 100 ms figure is a placeholder pending measurement of the DK-427 torque
 # build-up time and the SOL-201 brake solenoid drop-out time per
@@ -259,7 +263,7 @@ net limit-z-plus  => joint.2.pos-lim-sw-in
 net limit-z-minus <= hm2_7i80.0.7i84.0.1.input-05-not   # Z_LIMIT_MINUS (NC contact)
 net limit-z-minus => joint.2.neg-lim-sw-in
 
-net home-x <= hm2_7i80.0.7i84.0.1.input-06        # LS-42 assumed
+net home-x <= hm2_7i80.0.7i84.0.1.input-06        # LS-42 confirmed 2026-08-09 (see mesa/current_pin_authority.csv X_HOME)
 net home-x => joint.0.home-sw-in
 net home-y <= hm2_7i80.0.7i84.0.1.input-07        # LS-52 assumed
 net home-y => joint.1.home-sw-in
