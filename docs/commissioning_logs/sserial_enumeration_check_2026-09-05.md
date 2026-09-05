@@ -152,3 +152,64 @@ re-run this same recipe with no HAL changes needed.
 scope check in the staged commissioning sequence) and any of 7i84U-A's TB3
 field wiring — this only proves the card answers on smart-serial, not that
 any input/output is correctly landed.
+
+## Update 2026-09-05 (later) — TB3 input liveness check, and a real gotcha
+
+**Goal:** confirm a live 24V signal on a physical TB3 input actually reaches
+`hm2_7i80.0.7i84.0.0.input-NN` in HAL, using the IN13 bench jumper called
+for in `docs/bench_procedure_2026-09-05.md` item 46
+(`spindle-at-speed` ← TB3 pin 14 → VFIELDA/field-power positive, per the
+TB3 pinout table in `docs/Mesa Manuals/7i84uman.pdf` p.3-4: TB3 pin N =
+`INPUTn-1`, e.g. TB3 pin 14 = INPUT13).
+
+**Result: PASS, after finding a real hardware gotcha — see below.**
+`input-00` and `input-13` both correctly read TRUE with 24V applied at
+TB3-1/TB3-14 respectively (return to TB1 pin 6 or 8, both are the same
+GROUND/COMMON net per the manual, p.3). This also independently confirms
+the TB3-pin-to-`input-NN` mapping used throughout the pin authority CSV.
+
+**The gotcha — first attempts read FALSE despite everything being wired
+correctly:**
+
+1. VIN alone (already powered from the earlier enumeration check) gets the
+   card talking on smart-serial, but does **not** power the field I/O
+   engine. VFIELDA (TB1-3/4) and VFIELDB (TB1-1/2) are separate rails that
+   power the input threshold comparators and outputs (manual p.8, "VIN AND
+   FIELD POWER SUPPLY" / "SPLIT FIELD POWER"). Owner wired TB1 pins 1-5 all
+   to the same 24V bench supply — the manual's recommended default when
+   split field power isn't being used — so this was not the actual fault,
+   but it's worth stating plainly for next time: **VIN, VFIELDA, and
+   VFIELDB all need power, not just VIN**, or field I/O will not work even
+   though the card enumerates fine.
+2. Even with VIN + VFIELDA + VFIELDB all correctly powered at 24V, a
+   correct 24V signal at two different TB3 input pins (IN0 and IN13, ruling
+   out a single bad channel), with confirmed continuity/voltage at the pin
+   and the terminal block seated, **still read FALSE.** The card's own
+   status LEDs (manual p.11) explained why: CR2 (VIN), CR5 (field I/O
+   fault — correctly off), and CR7 (RS-422 power) were all normal, but
+   **CR6 (Field I/O activity) was not blinking at all** — the card's field
+   I/O engine was not cycling, separate from and invisible to the
+   smart-serial transport layer (which reported healthy `fault-count`/
+   `port_state`/`fieldvoltagea`/`fieldvoltageb` values throughout, because
+   those are transport-layer, not the actual I/O process-data stream).
+3. **Fix: a full power cycle of the card** — de-energize all of TB1 pins
+   1-5 (VFIELDB, VFIELDA, VIN) together, wait, then reapply together —
+   cleared whatever stuck internal state had the field I/O engine idle.
+   After the cycle, a fresh `hm2_eth` reload showed `fault-count` reset to
+   `0` (previously frozen at `0xCF` = 207 across the whole session,
+   including through the power cycle itself — worth noting the fault
+   counter did **not** visibly react to the cycle either, so don't rely on
+   it alone to confirm a reset happened) and both test inputs read
+   correctly on the first read after reload.
+
+**Takeaway for next time (7i84U-B bring-up, or if 7i84U-A ever needs
+re-powering):** if smart-serial enumerates cleanly (channel shows up,
+`fault-count` stable, `fieldvoltagea`/`b` non-zero) but **no input ever
+registers no matter what's applied**, check CR6 on the card before
+suspecting the wiring. If CR6 isn't blinking, power-cycle the whole card
+(all of TB1 1-5 together) and reload the host driver fresh — don't just
+`halcmd unload all` and reload without also confirming `halcmd show
+thread` shows *zero* threads first; reloading `threads` while a stale one
+still exists throws `HAL: ERROR: duplicate thread name` and leaves the
+input pins frozen at power-up defaults, which looks identical to "still
+not working" if you don't check for it.
