@@ -105,6 +105,7 @@ See [`architecture_decision.md`](architecture_decision.md) for the full rational
 
 ### In progress
 - **All interface hardware is on hand as of 2026-08-17** (owner, at the machine): 7i80HDT, 7i49, 7i44, 7i84U-A, 7i84U-B, and the 50-pin IDC cables that were the last blocker. The 7i80HDT is on the network at 10.10.10.121 (192.168.1.121 until the 2026-08-23 renumber) and flashed with `7i80hdt_rmsvss6_8.bin`; the daughter cards and both 7i84U remotes are **not yet seated, wired, or enumerated** — no card other than the 7i80HDT has been proven present by `readhmid` or `halcmd show pin hm2`. Procurement is no longer the gate; the physical install is.
+- **2026-09-05 (at the machine): 7i84U-B is not yet in hand (on order); 7i84U-A is wired on the bench, near-permanent.** Ran bench-check item #1 from `ladder_signal_audit_2026-09-02.md` as far as it goes with one card: `readhmid`/`--sserial` still byte-identical to the 2026-08-13 baseline, and a read-only `hm2_eth` load (production config string, no outputs enabled) shows **zero `hm2_7i80.0.7i84.*` pins** — 7i84U-A is not enumerating on smart-serial port 0 channel 0. Full record and next physical checks (VIN power at TB1 pin 5, cable seating) in [`commissioning_logs/sserial_enumeration_check_2026-09-05.md`](commissioning_logs/sserial_enumeration_check_2026-09-05.md). Re-run once VIN is confirmed powered; re-run again for channel 1 once 7i84U-B arrives and is wired.
 - Collecting cabinet photos.
 
 ### Not started
