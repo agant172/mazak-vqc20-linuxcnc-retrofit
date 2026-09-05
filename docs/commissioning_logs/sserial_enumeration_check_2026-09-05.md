@@ -7,9 +7,11 @@
 > to stay unenumerated regardless of channel 0's outcome.
 
 **Machine:** Mazak VQC 20/40B, SN 060231
-**Date:** 2026-09-05
+**Date:** 2026-09-05 (first pass), updated same day after VIN was powered
 **Where run:** OptiPlex 7050 (`LinuxCNC`), at the machine
-**Result:** **7i84U-A did not enumerate** on HostMot2 smart-serial port 0, channel 0.
+**Result:** First pass: **7i84U-A did not enumerate.** After VIN was confirmed
+powered at TB1 pin 5, re-run: **7i84U-A enumerates correctly** on HostMot2
+smart-serial port 0, channel 0. See [Update](#update-2026-09-05-vin-powered-7i84u-a-enumerates) below.
 
 ---
 
@@ -117,3 +119,36 @@ arrives and is wired; just re-run this same check.
   simply unpowered VIN or an unseated cable, both untested here.
 - No outputs were enabled and nothing on the machine could move as a result
   of this run.
+
+## Update 2026-09-05 — VIN powered, 7i84U-A enumerates
+
+Owner confirmed VIN power to 7i84U-A at the bench. Re-ran both checks:
+
+- `mesaflash --readhmid` / `--sserial`: unchanged, still byte-identical to
+  the 2026-08-13 baseline (`--sserial` only ever reports the local SSLBP
+  port, not remote boards — it is not the right tool to prove this).
+- `hm2_eth` load via `halrun` (same production config string, read-only, no
+  outputs enabled): **succeeded.**
+  - `Board hm2_7i80.0.7i84.0.0 Hardware Mode 0 = standard` — a real
+    handshake, not a fallback default.
+  - Boot-time pin dump now shows P3 pins 048/052/053 as
+    `Smart Serial Interface #0` rx0/tx0/txen0, replacing the generic
+    `IOPort` label from the first pass.
+  - `show pin hm2_7i80.0.7i84` now lists the full pin set: `input-00`
+    through `input-31` (+ `-not` complements) and `output-00` through
+    `output-15` — 32 DI / 16 DO, matching the 7i84U-A spec in
+    `docs/architecture_decision.md`.
+  - All inputs read FALSE / `-not` TRUE, all outputs FALSE — expected with
+    no field devices wired yet and no `setp` issued.
+  - Channel 1 (`hm2_7i80.0.7i84.0.1.*`) correctly did **not** appear —
+    7i84U-B is still not in hand.
+
+**Conclusion:** VIN was the missing piece. Bench-check item #1 in
+`docs/ladder_signal_audit_2026-09-02.md` is now closed for channel 0;
+channel 1 stays open until 7i84U-B is on hand and wired, at which point
+re-run this same recipe with no HAL changes needed.
+
+**Still not proven by this run:** the 7i49/resolver interface (needs the
+scope check in the staged commissioning sequence) and any of 7i84U-A's TB3
+field wiring — this only proves the card answers on smart-serial, not that
+any input/output is correctly landed.

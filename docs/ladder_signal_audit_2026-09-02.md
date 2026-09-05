@@ -86,11 +86,18 @@ means of settling open transcription claims, per the owner decision that bars
 this repo from directing E-stop work — owner's option, not directed work.
 
 ### A. Multimeter / continuity at the cabinet
-1. **7i84U enumeration** (settles the card question): seat 7i49 on P1, 7i44 on
-   P3, both 7i84Us connected **with VIN powered**; `mesaflash --device ETHER
-   --addr 10.10.10.121 --sserial` + readhmid; diff vs
-   `mesa/firmware/readhmid_2026-08-13.txt`; expect sserial port 0 channels 0
-   and 1. If channel 1 never enumerates, unbind `7i84.0.1` nets via the
+1. **7i84U enumeration** (settles the card question) — **channel 0 DONE
+   2026-09-05**: with 7i84U-A wired on the bench and VIN confirmed powered,
+   `halcmd show pin hm2` shows `hm2_7i80.0.7i84.0.0.*` fully enumerated (32
+   DI / 16 DO). See
+   [`commissioning_logs/sserial_enumeration_check_2026-09-05.md`](commissioning_logs/sserial_enumeration_check_2026-09-05.md).
+   **Channel 1 still open** — 7i84U-B is not yet in hand; re-run the same
+   check once it arrives and is wired. (Original procedure, for reference:
+   seat 7i49 on P1, 7i44 on P3, both 7i84Us connected **with VIN powered**;
+   `mesaflash --device ETHER --addr 10.10.10.121 --sserial` + readhmid; diff
+   vs `mesa/firmware/readhmid_2026-08-13.txt`; expect sserial port 0
+   channels 0 and 1.) If channel 1 never enumerates once wired, unbind
+   `7i84.0.1` nets via the
    CSV-first workflow.
 2. **X005 MGTDPRS vs X05B SPTDPRS identity** (blocks corrected E/F
    semantics). These are **PHS-181/PHS-182 3-wire photo sensors at the
