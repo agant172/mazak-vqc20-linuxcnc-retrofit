@@ -426,3 +426,13 @@ full research trail (10-agent workflow, 2026-09-04) available on request.
     then read `hm2_7i80.0.7i84.0.0.input-08` — expected TRUE (NC closed).
     The `Thermal OK` LED on the warning panel should be green. Companion
     reads for the same panel: bench items 8 (door, IN24) and 11 (PS-5, IN25).
+48. **X005 MGTDPRS vs X05B SPTDPRS identity (item 11b)** — the phone page
+    carried this as its own #46 since 2026-09-04, colliding with the USO item
+    above; renumbered 48 on 2026-09-05 so both lists agree. Extends bench
+    item 2 (the sink/source read): which sensor sees a tool in the pot and
+    which sees a tool at the taper decides whether AL75/AL76 arm by cycle
+    letter (ladder) or by physical location (comp). Full procedure:
+    `docs/bench_procedure_2026-09-05.md` §1.
+
+**Step-by-step procedures with circuit locations for every open item:
+`docs/bench_procedure_2026-09-05.md` (2026-09-05).**
