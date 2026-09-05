@@ -2,5 +2,15 @@
 # Loaded by mazak_vqc_20_40.ini (POSTGUI_HALFILE) AFTER the GUI starts.
 # Connect halui.* / pyvcp.* / gladevcp.* pins here — they do not exist until the GUI
 # is up, so they cannot go in the main HAL files.
-#
-# (stub — add GUI signal connections here once the panel/pendant is defined)
+
+# --- Warning panel (panel_warnings.xml, [DISPLAY] PYVCP) ---
+# OWNER DECISION 2026-09-05 (config-audit item 16c): these three safety-chain
+# inputs are WARNING-ONLY - an LED each, no interlock consequence. Signals are
+# produced in field_7i84u.hal; this file only adds the panel as a consumer.
+# LED is GREEN when the input reads TRUE (believed = NC chain closed = healthy).
+# Polarity unverified on all three: bench items 47 (IN8) / 8 (IN24) / 11 (IN25).
+net thermal-alarm    => pyvcp.thermal-ok
+net door-interlock   => pyvcp.door-closed
+net lube-ok          => pyvcp.lube-ok
+
+# (add further halui.* / panel connections here once the pendant/HMI is defined)

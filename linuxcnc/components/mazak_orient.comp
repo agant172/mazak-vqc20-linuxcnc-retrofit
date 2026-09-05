@@ -398,7 +398,11 @@ FUNCTION(update)
      * Sheet 55 supervision.
      * ----------------------------------------------------------------- */
 
-    /* AL45 (rung 5507): commanded, T-18 elapsed, never arrived. */
+    /* AL45 (rung 5507): commanded, T-18 elapsed, never arrived.
+     * OWNER BLESSED AS-IS 2026-09-05 (config-audit item 11a): AL45 only holds
+     * off ORCM1 (via fault_orient_timeout in the orcm1 AND block); it does NOT
+     * drop drive_arm. That split matches the ladder - only AL46 and the drive
+     * fault take the arm down. Not an omission; do not "fix" it. */
     TMR(t_orient_wd, orcm1 && !sosa, orient_timeout);
     if (ELAPSED(t_orient_wd, orient_timeout)) fault_orient_timeout = true;
 

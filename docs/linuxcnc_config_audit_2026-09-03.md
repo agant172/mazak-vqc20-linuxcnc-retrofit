@@ -9,19 +9,21 @@
 > (10-agent research workflow classified every remaining item; safe-to-apply
 > and owner-directed ones landed same day, across two concurrent sessions
 > working this repo — see items 9b/10/14/16a for the coordination notes).
-> Still open, all genuine owner decisions or bench-data gates: 11a
-> (bless-only), 11b, 11d, 12b, 13C, 13D, 16b, 16c. Harness green at HEAD
-> (12 scenarios / 410 checks / 0 failed, LinuxCNC box 2026-09-04).
+> 2026-09-05: owner blessed 11a and 13D as-is and decided 16c = warning-only
+> (all three landed same day, see the items). Still open, all genuine owner
+> decisions or bench-data gates: 11b, 11d, 12b, 13C, 16b, plus orient B3 (noted
+> under item 5). Harness green at HEAD (12 scenarios / 410 checks / 0 failed,
+> LinuxCNC box 2026-09-05).
 
 ## Scorecard
 
 | Domain | Verdict |
 |---|---|
-| mazak_orient.comp | Annotations accurate; gear-solenoid topology, shift_pending, ORCM1/SOME2 all **FIXED 2026-09-04** (items 5/6/7) — 2 open (11a bless-only, 11d architecture) |
+| mazak_orient.comp | Annotations accurate; gear-solenoid topology, shift_pending, ORCM1/SOME2 all **FIXED 2026-09-04** (items 5/6/7); AL45/AL46 split **BLESSED** (11a) — 1 open (11d architecture) |
 | mazak_atc.comp | Confirmation/alarm/clamp core faithful; **MROT deadlock FIXED**, manual seal-leg #TCME hole **FIXED** (11c), no-tool guard + return-pot staging **FIXED** (9b/10); pot 20 unreachable **FIXED** (8) — 1 open (11b, bench-gated) |
 | toolchange.ngc | Pin protocol/timeouts/abort/dry-run clean; step geometry **FIXED** (1/4); finish-clear ordering **FIXED** (9a); no-tool guard + return-pot staging **FIXED** (9b/10, bench-verify the new rotation window before trusting live) |
-| HAL topology | Nets/loadrt/addf near-perfect; load-blocking pin-double-link **FIXED**; and2.7 ordering **FIXED** (16d) + new data-driven validator check; IN13 up-to-speed source identified **FIXED** (16a) — 2 open (16b/c) |
-| INI | Limits/REF/divisor/remap verified; spindle top speed **FIXED** (12a), VOLATILE_HOME + ZC latch-vel **FIXED** (13A/B), ORIENT_TIMEOUT **FIXED** (15), BACKLASH held at 0 **DECIDED** (14) — 2 open (12b, 13C bench-gated) |
+| HAL topology | Nets/loadrt/addf near-perfect; load-blocking pin-double-link **FIXED**; and2.7 ordering **FIXED** (16d) + new data-driven validator check; IN13 up-to-speed source identified **FIXED** (16a); orphan safety inputs **DECIDED warning-only** (16c, pyvcp panel) — 1 open (16b) |
+| INI | Limits/REF/divisor/remap verified; spindle top speed **FIXED** (12a), VOLATILE_HOME + ZC latch-vel **FIXED** (13A/B), ORIENT_TIMEOUT **FIXED** (15), BACKLASH held at 0 **DECIDED** (14), HOME_SEQUENCE order **BLESSED** (13D) — 2 open (12b, 13C bench-gated) |
 | Test harness | Mechanics sound, suite genuinely green (410 checks/0 failed); stale ladder citations re-flagged; 0-checks silent-pass bug FIXED; new pin-execution-order check added |
 
 ## Applied without owner decision (commits `8ec25f7`…`c72fe90`)
@@ -184,11 +186,14 @@ same day, compile-checked + harness-tested — 12 scenarios/410 checks/0 failed)
     index-request → `target-pot` = iocontrol prep pocket, wait MSTP) so the
     commanded pot is under the spindle before Y traverses in. Same
     bench-verification caveat as the D/E leg above.
-11. **Four small ladder-vs-comp divergences — OPEN**, researched individually:
-    - **(a) AL45 consequence (orient B5)** — NO BUG FOUND. The comp already
-      matches the ladder's actual split (AL45 blocks/holds off ORCM1 via
-      `fault_orient_timeout`; only AL46 drops `drive_arm`). Needs only an
-      owner "bless as-is" to formally close, no code change.
+11. **Four small ladder-vs-comp divergences** — (a) and (c) closed, (b) and
+    (d) still open:
+    - **(a) AL45 consequence (orient B5)** — ✅ BLESSED AS-IS 2026-09-05
+      (owner: "bless 11a as-is"). NO BUG FOUND. The comp already matches the
+      ladder's actual split (AL45 blocks/holds off ORCM1 via
+      `fault_orient_timeout`; only AL46 drops `drive_arm`). Comment-only
+      change: the AL45 block in `mazak_orient.comp` now records the blessing
+      so a future reader does not re-open it as a suspected omission.
     - **(b) AL75/76 timer scope (ATC B5)** — `needs_bench_data`. The ladder
       arms the two alarms by cycle identity (AL76 gates D+E, AL75 gates only
       F); the comp instead keys by "where a tool must physically be" (AL76
@@ -262,15 +267,15 @@ Group 2 above).
       drives an axis at search velocity into a hard mechanical stop with no
       deceleration switch to catch it. Bench item 7 (dog check) is the only
       thing that resolves this.
-    - **(D) `HOME_SEQUENCE` order — OPEN, decision to document, not bench
-      data.** No source states a required order; the OEM's own NC issues one
+    - **(D) `HOME_SEQUENCE` order — ✅ BLESSED AS-IS 2026-09-05** (owner:
+      "bless 13D as-is"). No source states a required order; the OEM's own NC issues one
       all-axis "REF.1 RETURN ALL" command, so the M-2 never sequenced axes at
       all. Current order (Z=0, X=1, Y=2) already matches sound VMC practice
       (Z retracts before horizontal search) and is specifically relevant
       because Y's positive travel reaches into the ATC magazine zone (RP2 =
-      +9.5 in) — kept as-is, now documented inline in the ini, but the owner
-      should re-confirm once bench item 7 resolves Y's actual switch
-      direction.
+      +9.5 in) — kept as-is, documented inline in the ini. Bench item 7
+      (Y's actual switch direction) still needs to agree with this ordering;
+      if it does not, the ordering is re-opened, not the blessing.
 14. ✅ DECIDED 2026-09-04 (owner: "hold at 0 unless I have problems") —
     **BACKLASH held at 0.0**; reasoning recorded as INI comments on all three
     `BACKLASH` lines (captured values kept there as reference only; measure
@@ -332,15 +337,30 @@ Group 2 above).
       it before the real ALM contact is landed and bench-verified risks
       locking in the wrong sense on a signal that trips E-stop on all three
       axes (either constant false E-stops or masking a real fault).
-    - **(c) Orphan safety inputs — OPEN, decision_needed per signal (expected,
-      does not gate the others).** `thermal-alarm`, `door-interlock`,
-      `lube-ok` are each read from a real physical input every scan and
-      drive absolutely nothing downstream — confirmed by grep, zero
-      consumers anywhere in the HAL set. Real, live safety gap. Each needs an
-      owner decision on consequence (spindle-only interlock via
-      `logic.spindle-permit-and`, vs. full E-stop via `watchdog-fault-or` —
-      needs a new OR stage either way, vs. HMI-warning-only for `lube-ok`
-      given it's the sole lube switch with no redundancy).
+    - **(c) Orphan safety inputs — ✅ DECIDED 2026-09-05, WARNING-ONLY for
+      all three** (owner: "16c warning only"). `thermal-alarm`,
+      `door-interlock`, `lube-ok` were each read from a real physical input
+      every scan and drove nothing downstream. Applied: a pyvcp side panel
+      (`linuxcnc/panel_warnings.xml`, loaded via `[DISPLAY] PYVCP`) with one
+      LED per signal, netted in `postgui.hal`; the three nets in
+      `field_7i84u.hal` carry an OWNER DECISION comment. No interlock
+      consequence: none of the three feeds `spindle-permit-and`,
+      `watchdog-fault-or`, or motion.
+      **DELIBERATE DEVIATION from the OEM PLC** (recorded, not hidden): the
+      M-2 raised halting alarms for all three — AL55 door interlock (rung
+      5701, AUTO mode), AL56 head lube (5702), AL57 transformer overheat
+      (5703, which also feeds the ITX/Y/Z.N axis interlocks at 4302-4304).
+      Defensible because the hardwired door lock and the motor
+      thermal/contactor protection stay 100 % OEM (power/E-stop out of scope,
+      2026-08-15) — the PLC alarms were a second layer, and that second layer
+      is now an operator indication instead of a stop. Upgrading any one of
+      them to an interlock later is a one-net change into the existing
+      `spindle-permit-and` / `watchdog-fault-or` stages.
+      LED sense: panel shows GREEN when the input reads TRUE (NC chain
+      healthy = closed = TRUE is the *believed* sense for all three). Polarity
+      is unverified on all three inputs — bench items 8 (door), 11 (PS-5
+      lube) and new 47 (thermal chain) confirm it; if a chain reads inverted,
+      add `-not` on the net, do not flip the panel colours.
     - **(d) and2.7 ordering (ORCM1 one scan stale) ✅ APPLIED 2026-09-04,
       verified two ways** (line-order trace AND a scratch-copy negative
       test that reproduced the exact "unsafe servo-thread order" failure
@@ -392,3 +412,9 @@ full research trail (10-agent workflow, 2026-09-04) available on request.
     Then land CON3-15/20 on 7i84U-A IN13 (relay-isolated per the OEM ZS1
     pattern unless drive COM and VFIELD ground are common) and set/omit `-not`
     in `field_7i84u.hal` to match. Until landed, bench jumper IN13→VFIELD.
+47. **Thermal chain IN8 normal-state polarity (item 16c)** — with the machine
+    cold and the main transformer/motor thermal contacts healthy, meter
+    X073 THR.M + X07B ONT.M in series (T.U CN5-1 / wire 144) for continuity,
+    then read `hm2_7i80.0.7i84.0.0.input-08` — expected TRUE (NC closed).
+    The `Thermal OK` LED on the warning panel should be green. Companion
+    reads for the same panel: bench items 8 (door, IN24) and 11 (PS-5, IN25).

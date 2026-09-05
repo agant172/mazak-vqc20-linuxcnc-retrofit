@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<!-- Mazak VQC 20/40 warning panel - pyvcp, loaded by [DISPLAY] PYVCP in
+     mazak_vqc_20_40.ini and shown in the AXIS side pane.
+     OWNER DECISION 2026-09-05 (config-audit item 16c): thermal / door / lube
+     are WARNING-ONLY - indication, no interlock. See postgui.hal for the nets.
+     LED sense: on_color (green) = input TRUE = believed healthy (NC chain
+     closed). If a bench read shows a chain inverted, fix it with -not on the
+     net in field_7i84u.hal - do not swap the colours here. -->
+<pyvcp>
+  <labelframe text="Machine warnings (indication only)">
+    <font>("Helvetica", 11)</font>
+    <table>
+      <tablerow/>
+      <led>
+        <halpin>"thermal-ok"</halpin>
+        <size>20</size>
+        <on_color>"green"</on_color>
+        <off_color>"red"</off_color>
+      </led>
+      <label><text>"Thermal OK (IN8: motor thermal + transformer OHT)"</text></label>
+      <tablerow/>
+      <led>
+        <halpin>"door-closed"</halpin>
+        <size>20</size>
+        <on_color>"green"</on_color>
+        <off_color>"red"</off_color>
+      </led>
+      <label><text>"Door closed (IN24: LS-140 + LS-141 + ITMDSS)"</text></label>
+      <tablerow/>
+      <led>
+        <halpin>"lube-ok"</halpin>
+        <size>20</size>
+        <on_color>"green"</on_color>
+        <off_color>"red"</off_color>
+      </led>
+      <label><text>"Head lube pressure OK (IN25: PS-5)"</text></label>
+    </table>
+    <label><text>"Red = input FALSE. Polarity unverified until bench 8/11/47."</text>
+      <font>("Helvetica", 9)</font></label>
+  </labelframe>
+</pyvcp>

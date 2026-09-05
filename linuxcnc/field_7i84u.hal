@@ -37,7 +37,14 @@ net atc-z-zone         <= hm2_7i80.0.7i84.0.0.input-01   # IN1  PRS-66 Z ATC zon
 # IN2..IN7 + IN9 are netted in atc_orient.hal (mag-tool-avail, spindle-tool-avail,
 # spindle-oriented, spindle-zero-speed, mag-cover-open-conf, mag-cover-closed-conf,
 # manual-unclamp-pb). Do NOT re-net them here.
-net thermal-alarm      <= hm2_7i80.0.7i84.0.0.input-08   # IN8  X073 THR.M + X07B ONT.M series NC
+# OWNER DECISION 2026-09-05 (config-audit item 16c): thermal-alarm, door-interlock
+# and lube-ok are WARNING-ONLY. Sole consumer is the pyvcp LED panel
+# (panel_warnings.xml, netted in postgui.hal). DELIBERATE DEVIATION from the OEM
+# PLC, which raised halting alarms AL57/AL55/AL56 - the hardwired door lock and
+# motor thermal protection stay OEM, so this second layer is indication only.
+# Polarity of all three inputs is UNVERIFIED (bench items 47 / 8 / 11); if a
+# chain reads inverted, add -not here, do not recolour the panel.
+net thermal-alarm      <= hm2_7i80.0.7i84.0.0.input-08   # IN8  X073 THR.M + X07B ONT.M series NC; WARNING-ONLY (item 16c), consumer in postgui.hal
 
 # --- IN10, IN11/IN12 spare, IN13..IN15  (servo/spindle/tool clamp, TB3 pins 11-16) ---
 # amp-fault-in: if TRUE, motion module immediately aborts and enters E-stop.
@@ -92,8 +99,8 @@ net tool-unclamped     <= hm2_7i80.0.7i84.0.0.input-16   # IN16 PRS-8 tool-uncla
 # IN17-IN23 netted in atc_orient.hal (gear-hi-conf/gear-lo-conf/mag-bcd-bit0..4).
 
 # --- IN24..IN27  (safety chain + utility, TB2 pins 9-12) ---
-net door-interlock     <= hm2_7i80.0.7i84.0.0.input-24   # IN24 LS-140+LS-141+X01D ITMDSS series NC
-net lube-ok            <= hm2_7i80.0.7i84.0.0.input-25   # IN25 PS-5 wire 355 / X079 HLP.M; sole head-lube pressure switch
+net door-interlock     <= hm2_7i80.0.7i84.0.0.input-24   # IN24 LS-140+LS-141+X01D ITMDSS series NC; WARNING-ONLY (item 16c, see IN8 note), consumer in postgui.hal
+net lube-ok            <= hm2_7i80.0.7i84.0.0.input-25   # IN25 PS-5 wire 355 / X079 HLP.M; sole head-lube pressure switch; WARNING-ONLY (item 16c, see IN8 note), consumer in postgui.hal
 net coolant-low        <= hm2_7i80.0.7i84.0.0.input-26   # IN26 coolant level - SOURCE UNLOCATED (2026-09-02 audit: CN1-5 is the 2nd -Z over-travel, not a level switch; find the tank float conductor before landing)
 # IN27 hydraulic-ok netted in atc_orient.hal.
 
