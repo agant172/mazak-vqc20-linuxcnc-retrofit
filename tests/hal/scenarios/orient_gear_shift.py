@@ -43,16 +43,14 @@ drive-arm-delay is scaled 2.0 -> 0.8 s and zero-speed-dwell 0.3 -> 1.0 s via set
 so the "not yet" and "now" sides of the dwell can each be observed with margin.
 tests/hal/scenarios/timer_defaults.py asserts the shipped defaults separately.
 
-# DIVERGENCE: ladder rungs 2907/2910 draw GSH.M / GSL.M as
+# RESOLVED (B3, owner 2026-09-05): ladder rungs 2907/2910 draw GSH.M / GSL.M as
 # `HSR . #GSL.M . #AL47 [. #10000S]` gated by `(#PRS . ENGS)` or seal - there is
-# NO SSET/drive-arm contact in either rung. The component adds `&& drive_arm` to
-# the whole expression (mazak_orient.comp:328-331), which is deliberate per the
-# component header lines 26-27 ("The external FR-SX fault input also drops the
-# drive arm, gear outputs, and orient command") but is an addition to the
-# transcribed logic, not a reproduction of it. This is decision-queue item 5's
-# related B3, left unchanged and still open - a human should decide whether a
-# fork mid-spin should really lose hydraulic hold on a drive fault, and whether
-# the ladder transcription should carry a matching annotation either way.
+# NO SSET/drive-arm contact in either rung. The component used to add
+# `&& drive_arm` to the whole expression (an addition, not a reproduction); that
+# term was removed 2026-09-05 so the coils now reproduce the rungs. Observable
+# here: the default-low coil is up from the first scan, BEFORE the drive arms
+# (Phase 1 (a) below), and it is not torn down by a drive fault or AL46
+# (orient_drive_fault / orient_al46_rotating assert that side).
 
 Note (declared reduction, not a divergence): rungs 2808/2809 are two sealed,
 mutually interlocked coils; the component collapses them to the single
@@ -97,8 +95,12 @@ def run():
                  "no select/orient edge has fired yet - shift_pending never set (item 6)")
         h.expect("gear-confirmed", False, "neither PRS is made")
         h.expect("gear-shift-enable", False, "T-5 cannot run: spindle not at zero speed")
-        h.expect_all({"gear-hi-sol": False, "gear-lo-sol": False},
-                     "no solenoid before ENGS")
+        # B3 (2026-09-05): no drive_arm term in the coil equations any more,
+        # so the default-low target's ungated term closes gear-lo-sol from
+        # the very first scan, pump/arm or not (rung 2910 has no SSET/HYD
+        # contact). Harmless with no hydraulic pressure yet; same as OEM LSR.
+        h.expect_all({"gear-hi-sol": False, "gear-lo-sol": True},
+                     "B3: default-low coil commanded before the arm - the rung has no arm contact")
 
         h.run_ms(1500)  # cumulative >> drive-arm-delay
 

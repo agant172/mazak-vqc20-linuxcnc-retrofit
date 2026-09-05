@@ -9,17 +9,17 @@
 > (10-agent research workflow classified every remaining item; safe-to-apply
 > and owner-directed ones landed same day, across two concurrent sessions
 > working this repo — see items 9b/10/14/16a for the coordination notes).
-> 2026-09-05: owner blessed 11a and 13D as-is and decided 16c = warning-only
-> (all three landed same day, see the items). Still open, all genuine owner
-> decisions or bench-data gates: 11b, 11d, 12b, 13C, 16b, plus orient B3 (noted
-> under item 5). Harness green at HEAD (12 scenarios / 410 checks / 0 failed,
-> LinuxCNC box 2026-09-05).
+> 2026-09-05: owner blessed 11a and 13D as-is, decided 16c = warning-only,
+> applied orient B3 (drive_arm out of the gear-coil equations) and accepted 11d
+> as-is. **The desk queue is now empty** — everything still open is
+> bench-gated: 11b, 12b, 13C, 16b. Harness green at HEAD (12 scenarios / 410
+> checks / 0 failed, LinuxCNC box 2026-09-05).
 
 ## Scorecard
 
 | Domain | Verdict |
 |---|---|
-| mazak_orient.comp | Annotations accurate; gear-solenoid topology, shift_pending, ORCM1/SOME2 all **FIXED 2026-09-04** (items 5/6/7); AL45/AL46 split **BLESSED** (11a) — 1 open (11d architecture) |
+| mazak_orient.comp | Annotations accurate; gear-solenoid topology, shift_pending, ORCM1/SOME2 all **FIXED 2026-09-04** (items 5/6/7); AL45/AL46 split **BLESSED** (11a); drive_arm out of coil equations **APPLIED** (B3); TCME **ACCEPTED as-is** (11d) — 0 open |
 | mazak_atc.comp | Confirmation/alarm/clamp core faithful; **MROT deadlock FIXED**, manual seal-leg #TCME hole **FIXED** (11c), no-tool guard + return-pot staging **FIXED** (9b/10); pot 20 unreachable **FIXED** (8) — 1 open (11b, bench-gated) |
 | toolchange.ngc | Pin protocol/timeouts/abort/dry-run clean; step geometry **FIXED** (1/4); finish-clear ordering **FIXED** (9a); no-tool guard + return-pot staging **FIXED** (9b/10, bench-verify the new rotation window before trusting live) |
 | HAL topology | Nets/loadrt/addf near-perfect; load-blocking pin-double-link **FIXED**; and2.7 ordering **FIXED** (16d) + new data-driven validator check; IN13 up-to-speed source identified **FIXED** (16a); orphan safety inputs **DECIDED warning-only** (16c, pyvcp panel) — 1 open (16b) |
@@ -92,12 +92,17 @@ Group 1 is now fully applied.**
    (and CTL/OUT5) continuously at rest instead of reading idle — `state`
    changes from 0 to 3 in three other scenarios that park in low gear
    (`orient_al46_rotating`, `orient_drive_fault`, `orient_reset_edge`), all
-   updated to match. **Related B3 left OPEN, deliberately unchanged**:
-   whether `drive_arm` belongs in the coil equations at all — the corrected
-   rungs carry no SSET/HYD contact, but the comp still ANDs `drive_arm` into
-   both coils (a documented ADDITION, not a reproduction), so a drive fault
-   still drops fork pressure mid-spin — the opposite of the OEM's hold. This
-   is a separate decision from item 5's topology fix and was not folded in.
+   updated to match. **Related B3 — ✅ APPLIED 2026-09-05** (owner: "apply
+   B3"): `drive_arm` removed from both coil equations
+   (`mazak_orient.comp`, rungs 2907/2910 carry no SSET/HYD contact). A drive
+   fault, AL46 or the pump-stop grace no longer drops fork pressure with the
+   spindle possibly still turning — the coil holds, as the OEM did; only the
+   handoff sequence and AL47 drop a coil. Observable side effects, all
+   asserted in the harness: the default-low coil is commanded from the first
+   scan before the arm (no pressure yet, harmless, same as OEM LSR), and
+   `gear-lo-sol` stays TRUE through the fault phases of
+   `orient_drive_fault` / `orient_al46_rotating` (state still 6, FAULT wins
+   the priority ladder). Three scenarios updated.
 
 ### Group 2 — wrong-but-recoverable behavior / nuisance faults
 
@@ -213,8 +218,11 @@ same day, compile-checked + harness-tested — 12 scenarios/410 checks/0 failed)
       alone, uncoupled from the auto step chain (risking a Y-out move before
       the tool is actually clamped). Fixed: split the seal into its auto half
       (unchanged, ungated) and manual half (now `&& !cycle_active`).
-    - **(d) ATC-bypass/TCME input (orient B6)** — OPEN, architecture call, not
-      urgent. TCME is entirely unimplemented in `mazak_orient.comp` — no pin,
+    - **(d) ATC-bypass/TCME input (orient B6)** — ✅ ACCEPTED AS-IS 2026-09-05
+      (owner: "leave 11d as-is"). Current NGC-level discipline stands; no
+      `tcme` pin will be added. **Re-open trigger:** any change that wires a
+      jog, gear-select or pendant path into the orient-cancel pulse (P7) must
+      revisit this first. Original analysis kept below. TCME is entirely unimplemented in `mazak_orient.comp` — no pin,
       no net anywhere. Two ladder behaviors depend on it: the SOME2/GSFME
       bypass during an ATC-triggered orient (not reproducing this is SAFER,
       not a gap) and the `#TCME` gate on UOME2's cancel triggers (stops a

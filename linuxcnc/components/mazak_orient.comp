@@ -23,8 +23,11 @@ component mazak_orient "Mazak VQC 20/40 spindle gear-shift + orient state machin
  *   6. Three watchdogs: orient timeout (AL45), oriented-while-rotating (AL46,
  *      hard fault - drops the drive arm and the orient command), oriented with
  *      no command (AL44, warning). Gear shift has its own watchdog (AL47).
- *      The external FR-SX fault input also drops the drive arm, gear outputs,
- *      and orient command; HAL separately aborts the ATC on that input.
+ *      The external FR-SX fault input also drops the drive arm and the orient
+ *      command; HAL separately aborts the ATC on that input. The gear
+ *      solenoids are NOT dropped by the arm (B3, owner 2026-09-05): rungs
+ *      2907/2910 carry no SSET/HYD contact, so the fork keeps hydraulic hold
+ *      through a drive fault exactly as the OEM did.
  *
  * NOT MODELLED HERE (belongs in HAL/G-code, see linuxcnc/atc_orient.hal):
  *   - M38/M39 decode and the HSR/LSR range memories: the retrofit derives the
@@ -342,16 +345,25 @@ FUNCTION(update)
      * GSL.M (and so CTL/OUT5, rung 3001) continuously at rest, instead of
      * only during an active shift with the pre-audit gating below.
      *
-     * drive_arm is intentionally still ANDed in here - the corrected rungs
-     * carry no SSET/HYD contact, so this remains a deliberate ADDITION, not
-     * a reproduction (audit item 5, related B3 - separate, still-open
-     * decision on whether a fork mid-spin should lose hydraulic hold on a
-     * drive fault; left unchanged pending that decision). AL47
-     * (fault_gear_timeout) still blocks both, matching the ladder. */
+     * B3 APPLIED 2026-09-05 (owner: "apply B3"): drive_arm is NO LONGER in
+     * these equations. The corrected rungs carry no SSET/HYD contact, so the
+     * pre-B3 `&& drive_arm` was an addition that made a drive fault (or AL46,
+     * or the pump-stop grace) drop BOTH coils with the spindle possibly still
+     * turning - the opposite of the OEM's hold. Now the coils reproduce the
+     * rungs: the fork keeps its hydraulic hold through a fault, and the
+     * only things that drop a coil are the handoff sequence itself and AL47
+     * (fault_gear_timeout), matching the ladder. Consequences to know:
+     *   - the default-low coil is energised from the first scan, before the
+     *     pump/arm (harmless: no hydraulic pressure yet, same as OEM LSR);
+     *   - state reads 3 (a coil held) instead of 0 whenever idle in a gear;
+     *   - if hydraulics are lost the coil stays commanded; HYD.M dropping is
+     *     what removes fork pressure, not the coil (also OEM behaviour).
+     * Mechanical stop of the spindle is the drive's/E-stop's job, not the
+     * gear valve's. */
     hi = ((target_hi) || ((gear_hi_conf || prev_hi_sol) && !engs))
-         && !prev_lo_sol && !fault_gear_timeout && drive_arm;
+         && !prev_lo_sol && !fault_gear_timeout;
     lo = ((!target_hi) || ((gear_lo_conf || prev_lo_sol) && !engs))
-         && !prev_hi_sol && !fault_gear_timeout && drive_arm;
+         && !prev_hi_sol && !fault_gear_timeout;
     if (hi && lo) { hi = 0; lo = 0; }   /* belt and braces - never both */
     gear_hi_sol = hi ? true : false;
     gear_lo_sol = lo ? true : false;

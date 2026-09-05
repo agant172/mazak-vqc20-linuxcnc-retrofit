@@ -15,8 +15,8 @@ propagates in one scan:
 
   * cancel  = orient_cancel || reset_pulse || !drive_arm            (:255)
               -> orient_memory cleared (:256-257) and sosa forced 0 (:338)
-  * gear_hi_sol / gear_lo_sol each require `drive_arm` in both the pickup
-    and the seal branch                                             (:301-304)
+  * gear_hi_sol / gear_lo_sol are NOT affected (B3, 2026-09-05): the coil
+    equations carry no drive_arm term, matching rungs 2907/2910
   * orcm1 requires `drive_arm`                                      (:329)
   * fault_any = drive_fault || ...                                  (:360)
   * state = 6 while fault_any                                       (:366)
@@ -115,17 +115,16 @@ def run():
                  "SOSA forced 0 by cancel (:338) - the ATC must lose its gate")
         h.expect("spindle-orient-cmd", False,
                  "ORCM1 requires drive_arm (:329)")
-        # gear-lo-sol was held (state 3, Phase 1) purely by its own ungated
-        # target term - but that term is still ANDed with drive_arm
-        # (mazak_orient.comp:332/334, decision-queue item 5's related B3,
-        # deliberately unchanged by this fix), so losing the drive arm here
-        # tears it down immediately. These are guard assertions on that
-        # `drive_arm` term, not a demonstration of a solenoid torn down
-        # mid-shift.
+        # B3 APPLIED 2026-09-05: the coil equations no longer contain
+        # drive_arm (rungs 2907/2910 have no SSET/HYD contact), so the
+        # low-gear coil KEEPS its hold through the drive fault - the fork
+        # stays pressed into gear while the spindle may still be coasting,
+        # exactly the OEM behaviour. Only the handoff sequence and AL47 can
+        # drop a coil now.
         h.expect_all({
             "gear-hi-sol": False,
-            "gear-lo-sol": False,
-        }, "no gear solenoid may be held under a drive fault")
+            "gear-lo-sol": True,
+        }, "B3: gear coil holds through a drive fault (no arm term in rung 2910)")
         h.expect("fault-any", True, "aggregate ORs the external drive fault (:360)")
         h.expect("state", 6, "6 = FAULT (:366)")
 

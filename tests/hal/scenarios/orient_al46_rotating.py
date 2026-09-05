@@ -123,16 +123,13 @@ def run():
                  "cancel includes !drive_arm (:255), so SOME2 is cleared")
         h.expect("oriented-latch", False,
                  "SOSA forced 0 (:338) - the ATC must lose its gate immediately")
-        # gear-lo-sol was held (state 3, Phase 1) purely by its own ungated
-        # target term - but that term is still ANDed with drive_arm
-        # (mazak_orient.comp:332/334, decision-queue item 5's related B3,
-        # deliberately unchanged by this fix), so losing the drive arm here
-        # tears it down immediately. This is a guard assertion on that
-        # drive_arm term, not a demonstration of a mid-shift solenoid loss.
+        # B3 APPLIED 2026-09-05: no drive_arm term in the coil equations, so
+        # AL46 dropping SSET does NOT drop the low-gear coil - rung 2910 has
+        # no SSET contact, and the OEM held the fork in gear through AL46.
         h.expect_all({
             "gear-hi-sol": False,
-            "gear-lo-sol": False,
-        }, "no gear solenoid may be held under AL46")
+            "gear-lo-sol": True,
+        }, "B3: gear coil holds through AL46 (no arm term in rung 2910)")
         h.expect("fault-any", True, "aggregate ORs AL46 (:360)")
         h.expect("state", 6, "6 = FAULT (:366)")
 
