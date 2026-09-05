@@ -6,7 +6,7 @@ window.MAZAK_DATA = {
   "machine": "Mazak VQC-20/40",
   "serial": "060231",
   "architecture": "LinuxCNC + Mesa 7i80HDT (Ethernet FPGA host) + 7i44 on P3 (HostMot2 sserial port 0 channels 0/1 to 7i84U-A/B) + 7i49 on P1 (resolver + analog outs); P2 unused/spare (confirmed 2026-08-13 by readhmid)",
-  "generated": "2026-09-05 09:38 UTC",
+  "generated": "2026-09-05 12:41 UTC",
   "source_repo": "mazak-vqc20-linuxcnc-retrofit",
   "authority_file": "mesa/current_pin_authority.csv",
   "epson_ferrule_file": "wiring/labels/bbia1_mesa_end_ferrules_epson.csv",
@@ -1804,7 +1804,7 @@ window.MAZAK_DATA = {
    "direction_label": "Input (digital)",
    "subsystem": "ATC interlock",
    "machine_subsystem": "ATC",
-   "status": "FACTORY_INTERFACE",
+   "status": "DEFERRED",
    "field_point": "PRS-55 Y ATC zone",
    "dest_connector": "",
    "dest_pin": "",
@@ -1881,7 +1881,7 @@ window.MAZAK_DATA = {
    "direction_label": "Input (digital)",
    "subsystem": "ATC interlock",
    "machine_subsystem": "ATC",
-   "status": "FACTORY_INTERFACE",
+   "status": "DEFERRED",
    "field_point": "PRS-66 Z ATC zone",
    "dest_connector": "",
    "dest_pin": "",
@@ -2584,8 +2584,8 @@ window.MAZAK_DATA = {
    "factory_wire": "144",
    "bbia_class": "plane",
    "designations": [],
-   "primary_source": "element_list_crosswalk_2026-07-27 + open_issues.md §3 (2026-08-03)",
-   "cleanup_notes": "Series-wired NC X073 THR.M + X07B ONT.M; alarm-only, not in E-stop chain; field continuity and polarity remain unverified. | [RECON 2026-08-08 §A: element list confirms X073 THR.M + X07B ONT.M — two NC signals, series on 060231] | [LOCATED 2026-08-08: X73 THR.M (T.U CN5-1, TB1; motor thermal + circuit protector trip) series-NC X7B ONT.M (T.U CN5-3, OHT; main transformer overheat), Dwg 4143075407 pg133] | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/estop_ladder_transcription.md] | [2026-09-05 OWNER DECISION (config-audit item 16c): WARNING-ONLY. Sole consumer is the pyvcp LED panel (linuxcnc/panel_warnings.xml via postgui.hal); no interlock consequence. Deliberate deviation from OEM PLC alarm AL57. Polarity still unverified - bench item 47.]",
+   "primary_source": "element_list_crosswalk_2026-07-27 + wiring/authority_conflicts.md (open_issues.md does not exist, per docs/claim_audit_2026-08-07.md item 17)",
+   "cleanup_notes": "Series-wired NC X073 THR.M + X07B ONT.M; alarm-only, not in E-stop chain; field continuity and polarity remain unverified. | [RECON 2026-08-08 §A: element list confirms X073 THR.M + X07B ONT.M — two NC signals, series on 060231] | [LOCATED 2026-08-08: X73 THR.M (T.U CN5-1, TB1; motor thermal + circuit protector trip) series-NC X7B ONT.M (T.U CN5-3, OHT; main transformer overheat), Dwg 4143075407 pg133] | [LADDER-REF CORRECTED 2026-09-05: docs/ladder/interlocks_ladder_transcription.md lines 34-53 (AL57 main-transformer-overheat rung); estop_ladder_transcription.md does not cover THR.M/ONT.M/AL57] | [2026-09-05 OWNER DECISION (config-audit item 16c): WARNING-ONLY. Sole consumer is the pyvcp LED panel (linuxcnc/panel_warnings.xml via postgui.hal); no interlock consequence. Deliberate deviation from OEM PLC alarm AL57. Polarity still unverified - bench item 47.]",
    "location": "Unknown — trace in cabinet",
    "location_note": "",
    "expected": {
@@ -2645,7 +2645,7 @@ window.MAZAK_DATA = {
      "note": "net thermal-alarm    => pyvcp.thermal-ok"
     },
     {
-     "file": "element_list_crosswalk_2026-07-27 + open_issues.md §3 (2026-08-03)",
+     "file": "element_list_crosswalk_2026-07-27 + wiring/authority_conflicts.md (open_issues.md does not exist, per docs/claim_audit_2026-08-07.md item 17)",
      "lines": "",
      "note": "primary_source column in the authority table"
     }
@@ -3081,14 +3081,14 @@ window.MAZAK_DATA = {
    "subsystem": "Spindle safety",
    "machine_subsystem": "Spindle drive",
    "status": "FACTORY_INTERFACE",
-   "field_point": "FR-SX fault output",
+   "field_point": "FR-SX FA/FC \"controller normal\" (drive-ready) output -- active HIGH when healthy; sense inversion for use as \"fault\" is unresolved, see cleanup_notes",
    "dest_connector": "CN4",
    "dest_pin": "3",
    "factory_wire": "FA",
    "bbia_class": "plane",
    "designations": [],
    "primary_source": "archived_wiring_map",
-   "cleanup_notes": "Confirm VFD terminal and polarity | [RECON 2026-08-08 §D: FR-SX FA(t11)/FC(t12) 'controller normal' -> CN4-3/CN4-4 (digits verify)] | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/spindle_run_ladder_transcription.md]",
+   "cleanup_notes": "Confirm VFD terminal and polarity. CN4-3/4 identity confirmed but the IN14 sense inversion is UNRESOLVED: FA/FC is a \"controller normal\" (active-HIGH when healthy) signal per this row's own RECON citation and docs/ladder/spindle_run_ladder_transcription.md, yet field_7i84u.hal binds IN14 raw (no -not) and this row's field_point_or_load previously read \"fault output\". docs/bench_procedure_2026-09-05.md item 10 states this decides the IN14 spindle-fault inversion -- resolve before commissioning. | [RECON 2026-08-08 §D: FR-SX FA(t11)/FC(t12) 'controller normal' -> CN4-3/CN4-4 (digits verify)] | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/spindle_run_ladder_transcription.md] | [AUDIT 2026-09-05: field_point_or_load corrected from \"fault output\" to reflect active-HIGH-healthy sense; see above]",
    "location": "Spindle/servo bay — FR-SX fault output terminal",
    "location_note": "",
    "expected": {
@@ -4208,8 +4208,8 @@ window.MAZAK_DATA = {
     "DS-1",
     "DS-2"
    ],
-   "primary_source": "archived_wiring_map + open_issues.md §3 (2026-08-03)",
-   "cleanup_notes": "Series-wired 2026-08-03: X01D ITMDSS consolidated with LS-140/141 pair. Choose door-open versus door-closed net after normal state is measured. | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/estop_ladder_transcription.md] | [2026-09-02 AUDIT (owner approved): factory wire corrected 238 -> 341 per dwg 4143075321 p84 (CN2-38 = 341 MACHINE DOOR INTERLOCK, corroborated by CN6-23 = 341 on p85 at 400 DPI); wire 238 is CN2-36 TOOL LENGTH MEASURE DEC. Companion CN2-39/CN6-24 = 340 door interlock 2.] | [2026-09-05 OWNER DECISION (config-audit item 16c): WARNING-ONLY. Sole consumer is the pyvcp LED panel (linuxcnc/panel_warnings.xml via postgui.hal); no interlock consequence. Deliberate deviation from OEM PLC alarm AL55. Polarity still unverified - bench item 8.]",
+   "primary_source": "mesa/current_pin_authority.csv (historical) + wiring/authority_conflicts.md (archived_wiring_map/open_issues.md do not exist, per docs/claim_audit_2026-08-07.md item 17)",
+   "cleanup_notes": "Series-wired 2026-08-03: X01D ITMDSS consolidated with LS-140/141 pair. Choose door-open versus door-closed net after normal state is measured. | [LADDER-REF CORRECTED 2026-09-05: docs/ladder/interlocks_ladder_transcription.md lines 16-29 (AL55 machine-door-interlock rung, X01D ITMDSS.M); estop_ladder_transcription.md does not cover this alarm] | [2026-09-02 AUDIT (owner approved): factory wire corrected 238 -> 341 per dwg 4143075321 p84 (CN2-38 = 341 MACHINE DOOR INTERLOCK, corroborated by CN6-23 = 341 on p85 at 400 DPI); wire 238 is CN2-36 TOOL LENGTH MEASURE DEC. Companion CN2-39/CN6-24 = 340 door interlock 2.] | [2026-09-05 OWNER DECISION (config-audit item 16c): WARNING-ONLY. Sole consumer is the pyvcp LED panel (linuxcnc/panel_warnings.xml via postgui.hal); no interlock consequence. Deliberate deviation from OEM PLC alarm AL55. Polarity still unverified - bench item 8.]",
    "location": "Machine door — interlock switch",
    "location_note": "LS-141 (P24-341); LS-140 (P24-340, 2PC option). DS-1/DS-2 feed a relay ahead of the main contactor.",
    "expected": {
@@ -4269,7 +4269,7 @@ window.MAZAK_DATA = {
      "note": "net door-interlock   => pyvcp.door-closed"
     },
     {
-     "file": "archived_wiring_map + open_issues.md §3 (2026-08-03)",
+     "file": "mesa/current_pin_authority.csv (historical) + wiring/authority_conflicts.md (archived_wiring_map/open_issues.md do not exist, per docs/claim_audit_2026-08-07.md item 17)",
      "lines": "",
      "note": "primary_source column in the authority table"
     }
@@ -4396,8 +4396,8 @@ window.MAZAK_DATA = {
    "factory_wire": "",
    "bbia_class": "exception",
    "designations": [],
-   "primary_source": "archived_wiring_map",
-   "cleanup_notes": "Net name follows HAL (polarity assumption: low = warning). Verify normal-state polarity in cabinet before promoting. | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/coolant_ladder_transcription.md] | [2026-09-02 AUDIT (owner approved): dwg 4143075321 p84 reads CN1-5 = -LZ2 \"2nd -Z OVER TRAVEL\" (corroborated by CN6-13 = -LZ2 on p85); \"232 / 2nd-S LEVEL\" was a misread of \"-LZ2 / 2nd -Z TRAVEL\". No coolant-level conductor exists on the TU sheets — locate the real level-switch conductor in the cabinet before landing IN26. BBIA landing cleared.]",
+   "primary_source": "mesa/current_pin_authority.csv (historical) -- archived_wiring_map does not exist, per docs/claim_audit_2026-08-07.md item 17",
+   "cleanup_notes": "Net name follows HAL (polarity assumption: low = warning). Verify normal-state polarity in cabinet before promoting. | [LADDER-REF UNSUPPORTED 2026-09-05: coolant_ladder_transcription.md is output-side scope only (M-code->solenoid); it does not document any coolant-level input. No ladder transcription currently covers this signal -- source still needed.] | [2026-09-02 AUDIT (owner approved): dwg 4143075321 p84 reads CN1-5 = -LZ2 \"2nd -Z OVER TRAVEL\" (corroborated by CN6-13 = -LZ2 on p85); \"232 / 2nd-S LEVEL\" was a misread of \"-LZ2 / 2nd -Z TRAVEL\". No coolant-level conductor exists on the TU sheets — locate the real level-switch conductor in the cabinet before landing IN26. BBIA landing cleared.]",
    "location": "Unknown — trace in cabinet",
    "location_note": "",
    "expected": {
@@ -4439,7 +4439,7 @@ window.MAZAK_DATA = {
      "note": "net coolant-low        <= hm2_7i80.0.7i84.0.0.input-26   # IN26 coolant level - SOURCE UNLOCATED (2026-09-02 audit: CN1-5 is the 2nd -Z over-travel, not a level switch; find the tank float conductor before landing)"
     },
     {
-     "file": "archived_wiring_map",
+     "file": "mesa/current_pin_authority.csv (historical) -- archived_wiring_map does not exist, per docs/claim_audit_2026-08-07.md item 17",
      "lines": "",
      "note": "primary_source column in the authority table"
     }
@@ -4471,8 +4471,8 @@ window.MAZAK_DATA = {
    "factory_wire": "",
    "bbia_class": "exception",
    "designations": [],
-   "primary_source": "phase2_plan",
-   "cleanup_notes": "This supersedes stale signal_map.csv TB5 IN16 row | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/estop_ladder_transcription.md]",
+   "primary_source": "docs/project_status.md -- phase2_plan does not exist, per docs/claim_audit_2026-08-07.md item 17",
+   "cleanup_notes": "This supersedes stale signal_map.csv TB5 IN16 row | [LADDER-REF UNSUPPORTED 2026-09-05: no docs/ladder/*.md transcription mentions a hydraulic pressure switch or SPS-8T. Citation should be removed or a real source identified.]",
    "location": "Hydraulic power unit — Sanwa SPS-8T-PC-20 pressure switch",
    "location_note": "",
    "expected": {
@@ -4532,7 +4532,7 @@ window.MAZAK_DATA = {
      "note": "net hydraulic-ok        => mazak-atc.hydraulic-ok"
     },
     {
-     "file": "phase2_plan",
+     "file": "docs/project_status.md -- phase2_plan does not exist, per docs/claim_audit_2026-08-07.md item 17",
      "lines": "",
      "note": "primary_source column in the authority table"
     }
@@ -4565,7 +4565,7 @@ window.MAZAK_DATA = {
    "bbia_class": "exception",
    "designations": [],
    "primary_source": "archived_wiring_map",
-   "cleanup_notes": "Displaced 2026-07-27: IN28 reclaimed for MAG_IN_POS (mandatory ATC input). Pendant WHB04B is the current cycle-start path; no 7i84U-B terminal is assigned unless the physical panel button is deliberately restored to scope.",
+   "cleanup_notes": "Displaced 2026-07-27: IN28 reclaimed for MAG_IN_POS (mandatory ATC input). Pendant WHB04B is the planned cycle-start path but is not yet implemented (linuxcnc/pendant_whb04b.hal is entirely commented-out placeholder code pending driver install/verification); no 7i84U-B terminal is assigned unless the physical panel button is deliberately restored to scope.",
    "location": "Operating panel A/B — cycle start pushbutton",
    "location_note": "",
    "expected": {
@@ -4729,7 +4729,7 @@ window.MAZAK_DATA = {
    "designations": [
     "RS-C"
    ],
-   "primary_source": "front_control_panel_wiring.md §6.5 + open_issues.md §3 (2026-08-03)",
+   "primary_source": "wiring/authority_conflicts.md (front_control_panel_wiring.md/open_issues.md do not exist, per docs/claim_audit_2026-08-07.md item 17; precise backing source for this row still needs confirmation)",
    "cleanup_notes": "OEM MAR relay aux contact via interposing relay (Omron G2R-1-SND-DC24 or Phoenix PLC-RSC-24DC/21) driven from EHB bus. OEM/new-side boundary: dry contact only, no OEM P24 into 7i84U common. This is the sole software E-stop monitor; OEM hardware chain remains authoritative. | [LOCATED 2026-08-08: EMERGENCY STOP X00 *ESP via EMS/MAR relay, Dwg 4143075407 pg133. Mesa IN29 = status monitor only; keep hardwired, do NOT wire as normal input] | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/estop_ladder_transcription.md] | [OWNER DECISION 2026-08-15 (AG): the machine's AC/DC power circuits and the entire E-stop system stay 100% original OEM -- no commissioning, tracing, or verification of any power circuit in this conversion. The interposing monitor relay (coil tap from the OEM EHB bus) is therefore NOT being installed; this row is DEFERRED, not wired. The HAL net stays in place so the control logic remains testable; with the input unwired, estop-monitor reads FALSE and the software chain stays tripped, which fails safe.]",
    "location": "Unknown — trace in cabinet",
    "location_note": "",
@@ -4790,7 +4790,7 @@ window.MAZAK_DATA = {
      "note": "net estop-monitor      <= hm2_7i80.0.7i84.0.0.input-29   # IN29 OEM MAR aux via interposing relay"
     },
     {
-     "file": "front_control_panel_wiring.md §6.5 + open_issues.md §3 (2026-08-03)",
+     "file": "wiring/authority_conflicts.md (front_control_panel_wiring.md/open_issues.md do not exist, per docs/claim_audit_2026-08-07.md item 17; precise backing source for this row still needs confirmation)",
      "lines": "",
      "note": "primary_source column in the authority table"
     }
@@ -5747,7 +5747,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 189,
+     "line": 193,
      "text": "net z-brake-release    <= z-brake-delay.out",
      "commented": false,
      "producers": [
@@ -5758,7 +5758,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 190,
+     "line": 194,
      "text": "net z-brake-release    => hm2_7i80.0.7i84.0.0.output-06  # OUT6  N1J-L2-201 Z brake release",
      "commented": false,
      "producers": [],
@@ -5805,12 +5805,12 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "189",
+     "lines": "193",
      "note": "net z-brake-release    <= z-brake-delay.out"
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "190",
+     "lines": "194",
      "note": "net z-brake-release    => hm2_7i80.0.7i84.0.0.output-06  # OUT6  N1J-L2-201 Z brake release"
     },
     {
@@ -6133,7 +6133,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 195,
+     "line": 199,
      "text": "net tool-unclamp-sol   => hm2_7i80.0.7i84.0.0.output-10  # OUT10 RLY-4 to SOL-10",
      "commented": false,
      "producers": [],
@@ -6164,7 +6164,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "195",
+     "lines": "199",
      "note": "net tool-unclamp-sol   => hm2_7i80.0.7i84.0.0.output-10  # OUT10 RLY-4 to SOL-10"
     },
     {
@@ -6209,7 +6209,7 @@ window.MAZAK_DATA = {
     "TB-51",
     "CB-4"
    ],
-   "primary_source": "archived_wiring_map",
+   "primary_source": "mesa/current_pin_authority.csv (historical) -- archived_wiring_map does not exist, per docs/claim_audit_2026-08-07.md item 17",
    "cleanup_notes": "May need interposing relay | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/coolant_ladder_transcription.md] | [2026-09-02 AUDIT: wire 236 is a misread (2NN family retired), but the corrected digit is AMBIGUOUS — p85 reads 736, p140/p78 read 836. Jacket read at CN11-15 decides; factory wire left blank until then.]",
    "location": "Coolant pump — contactor / SOL-31 flood valve",
    "location_note": "SOL-31 confirmed on the TB-51 diagram (pg 100). Motor circuit is CB-4 + CMS overload (OL-CM4A), 350 W 4-pole.",
@@ -6230,7 +6230,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 196,
+     "line": 200,
      "text": "net flood-coolant      <= iocontrol.0.coolant-flood",
      "commented": false,
      "producers": [
@@ -6241,7 +6241,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 197,
+     "line": 201,
      "text": "net flood-coolant      => hm2_7i80.0.7i84.0.0.output-11  # OUT11 flood pump relay",
      "commented": false,
      "producers": [],
@@ -6261,16 +6261,16 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "196",
+     "lines": "200",
      "note": "net flood-coolant      <= iocontrol.0.coolant-flood"
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "197",
+     "lines": "201",
      "note": "net flood-coolant      => hm2_7i80.0.7i84.0.0.output-11  # OUT11 flood pump relay"
     },
     {
-     "file": "archived_wiring_map",
+     "file": "mesa/current_pin_authority.csv (historical) -- archived_wiring_map does not exist, per docs/claim_audit_2026-08-07.md item 17",
      "lines": "",
      "note": "primary_source column in the authority table"
     }
@@ -6302,7 +6302,7 @@ window.MAZAK_DATA = {
    "factory_wire": "",
    "bbia_class": "spare",
    "designations": [],
-   "primary_source": "archived_wiring_map",
+   "primary_source": "mesa/current_pin_authority.csv (historical) -- archived_wiring_map does not exist, per docs/claim_audit_2026-08-07.md item 17",
    "cleanup_notes": "[ELIMINATED 2026-08-09: owner confirms no mist coolant system. HOLD_CONFLICT void; 7i84U-A TB2 OUT12 now available. The commented iocontrol.0.coolant-mist net can be removed from the HAL.]",
    "location": "Unknown — trace in cabinet",
    "location_note": "",
@@ -6326,7 +6326,7 @@ window.MAZAK_DATA = {
      "note": "Current wiring authority row"
     },
     {
-     "file": "archived_wiring_map",
+     "file": "mesa/current_pin_authority.csv (historical) -- archived_wiring_map does not exist, per docs/claim_audit_2026-08-07.md item 17",
      "lines": "",
      "note": "primary_source column in the authority table"
     }
@@ -6893,7 +6893,7 @@ window.MAZAK_DATA = {
     "OT+X"
    ],
    "primary_source": "field_7i84u.hal",
-   "cleanup_notes": "NC contact consumed through input-00-not; promote to FIELD_VERIFIED after continuity and fail-open test | [LOCATED 2026-08-09: +X OVER TRAVEL X20 *+LX wire 1-45, Dwg 4143075410 (Motion Switch Input 4) pg136] | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/interlocks_ladder_transcription.md]",
+   "cleanup_notes": "NC contact consumed through input-00-not; promote to FIELD_VERIFIED after continuity and fail-open test | [LOCATED 2026-08-09: +X OVER TRAVEL X20 *+LX wire 1-45, Dwg 4143075410 (Motion Switch Input 4) pg136] | [AUDIT 2026-09-05: dropped LADDER-REF to docs/ladder/interlocks_ladder_transcription.md -- that document covers the door interlock (AL55) and a generic axis guard interlock (ITX/Y/Z from unidentified field devices X030-032/X080-082), not the physical overtravel limit switches. No ladder transcription currently documents these switches; the Dwg 4143075410 p136 citation above remains the sole source.]",
    "location": "X axis way — positive overtravel switch",
    "location_note": "OT+X",
    "expected": {
@@ -6913,7 +6913,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 241,
+     "line": 245,
      "text": "#     net limit-x-plus <= hm2_7i80.0.7i84.0.1.input-00-not",
      "commented": true,
      "producers": [
@@ -6924,7 +6924,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 249,
+     "line": 253,
      "text": "net limit-x-plus  <= hm2_7i80.0.7i84.0.1.input-00-not   # X_LIMIT_PLUS  (NC contact)",
      "commented": false,
      "producers": [
@@ -6935,7 +6935,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 250,
+     "line": 254,
      "text": "net limit-x-plus  => joint.0.pos-lim-sw-in",
      "commented": false,
      "producers": [],
@@ -6955,17 +6955,17 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "241",
+     "lines": "245",
      "note": "commented out — #     net limit-x-plus <= hm2_7i80.0.7i84.0.1.input-00-not"
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "249",
+     "lines": "253",
      "note": "net limit-x-plus  <= hm2_7i80.0.7i84.0.1.input-00-not   # X_LIMIT_PLUS  (NC contact)"
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "250",
+     "lines": "254",
      "note": "net limit-x-plus  => joint.0.pos-lim-sw-in"
     },
     {
@@ -7004,7 +7004,7 @@ window.MAZAK_DATA = {
     "OT-X"
    ],
    "primary_source": "field_7i84u.hal",
-   "cleanup_notes": "NC contact consumed through input-01-not; promote to FIELD_VERIFIED after continuity and fail-open test | [LOCATED 2026-08-09: -X OVER TRAVEL X21 *-LX wire 1-46, Dwg 4143075410 (Motion Switch Input 4) pg136] | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/interlocks_ladder_transcription.md]",
+   "cleanup_notes": "NC contact consumed through input-01-not; promote to FIELD_VERIFIED after continuity and fail-open test | [LOCATED 2026-08-09: -X OVER TRAVEL X21 *-LX wire 1-46, Dwg 4143075410 (Motion Switch Input 4) pg136] | [AUDIT 2026-09-05: dropped LADDER-REF to docs/ladder/interlocks_ladder_transcription.md -- that document covers the door interlock (AL55) and a generic axis guard interlock (ITX/Y/Z from unidentified field devices X030-032/X080-082), not the physical overtravel limit switches. No ladder transcription currently documents these switches; the Dwg 4143075410 p136 citation above remains the sole source.]",
    "location": "X axis way — negative overtravel switch",
    "location_note": "OT-X",
    "expected": {
@@ -7024,7 +7024,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 251,
+     "line": 255,
      "text": "net limit-x-minus <= hm2_7i80.0.7i84.0.1.input-01-not   # X_LIMIT_MINUS (NC contact)",
      "commented": false,
      "producers": [
@@ -7035,7 +7035,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 252,
+     "line": 256,
      "text": "net limit-x-minus => joint.0.neg-lim-sw-in",
      "commented": false,
      "producers": [],
@@ -7055,12 +7055,12 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "251",
+     "lines": "255",
      "note": "net limit-x-minus <= hm2_7i80.0.7i84.0.1.input-01-not   # X_LIMIT_MINUS (NC contact)"
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "252",
+     "lines": "256",
      "note": "net limit-x-minus => joint.0.neg-lim-sw-in"
     },
     {
@@ -7099,7 +7099,7 @@ window.MAZAK_DATA = {
     "OT+Y"
    ],
    "primary_source": "field_7i84u.hal",
-   "cleanup_notes": "NC contact consumed through input-02-not; promote to FIELD_VERIFIED after continuity and fail-open test | [LOCATED 2026-08-09: +Y OVER TRAVEL X22 *+LY wire 1-47, Dwg 4143075410 (Motion Switch Input 4) pg136] | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/interlocks_ladder_transcription.md]",
+   "cleanup_notes": "NC contact consumed through input-02-not; promote to FIELD_VERIFIED after continuity and fail-open test | [LOCATED 2026-08-09: +Y OVER TRAVEL X22 *+LY wire 1-47, Dwg 4143075410 (Motion Switch Input 4) pg136] | [AUDIT 2026-09-05: dropped LADDER-REF to docs/ladder/interlocks_ladder_transcription.md -- that document covers the door interlock (AL55) and a generic axis guard interlock (ITX/Y/Z from unidentified field devices X030-032/X080-082), not the physical overtravel limit switches. No ladder transcription currently documents these switches; the Dwg 4143075410 p136 citation above remains the sole source.]",
    "location": "Y axis way — positive overtravel switch",
    "location_note": "OT+Y",
    "expected": {
@@ -7119,7 +7119,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 253,
+     "line": 257,
      "text": "net limit-y-plus  <= hm2_7i80.0.7i84.0.1.input-02-not   # Y_LIMIT_PLUS  (NC contact)",
      "commented": false,
      "producers": [
@@ -7130,7 +7130,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 254,
+     "line": 258,
      "text": "net limit-y-plus  => joint.1.pos-lim-sw-in",
      "commented": false,
      "producers": [],
@@ -7164,12 +7164,12 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "253",
+     "lines": "257",
      "note": "net limit-y-plus  <= hm2_7i80.0.7i84.0.1.input-02-not   # Y_LIMIT_PLUS  (NC contact)"
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "254",
+     "lines": "258",
      "note": "net limit-y-plus  => joint.1.pos-lim-sw-in"
     },
     {
@@ -7213,7 +7213,7 @@ window.MAZAK_DATA = {
     "OT-Y"
    ],
    "primary_source": "field_7i84u.hal",
-   "cleanup_notes": "NC contact consumed through input-03-not; promote to FIELD_VERIFIED after continuity and fail-open test | [LOCATED 2026-08-09: -Y OVER TRAVEL X23 *-LY wire 1-48, Dwg 4143075410 (Motion Switch Input 4) pg136] | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/interlocks_ladder_transcription.md]",
+   "cleanup_notes": "NC contact consumed through input-03-not; promote to FIELD_VERIFIED after continuity and fail-open test | [LOCATED 2026-08-09: -Y OVER TRAVEL X23 *-LY wire 1-48, Dwg 4143075410 (Motion Switch Input 4) pg136] | [AUDIT 2026-09-05: dropped LADDER-REF to docs/ladder/interlocks_ladder_transcription.md -- that document covers the door interlock (AL55) and a generic axis guard interlock (ITX/Y/Z from unidentified field devices X030-032/X080-082), not the physical overtravel limit switches. No ladder transcription currently documents these switches; the Dwg 4143075410 p136 citation above remains the sole source.]",
    "location": "Y axis way — negative overtravel switch",
    "location_note": "OT-Y",
    "expected": {
@@ -7233,7 +7233,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 255,
+     "line": 259,
      "text": "net limit-y-minus <= hm2_7i80.0.7i84.0.1.input-03-not   # Y_LIMIT_MINUS (NC contact)",
      "commented": false,
      "producers": [
@@ -7244,7 +7244,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 256,
+     "line": 260,
      "text": "net limit-y-minus => joint.1.neg-lim-sw-in",
      "commented": false,
      "producers": [],
@@ -7264,12 +7264,12 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "255",
+     "lines": "259",
      "note": "net limit-y-minus <= hm2_7i80.0.7i84.0.1.input-03-not   # Y_LIMIT_MINUS (NC contact)"
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "256",
+     "lines": "260",
      "note": "net limit-y-minus => joint.1.neg-lim-sw-in"
     },
     {
@@ -7308,7 +7308,7 @@ window.MAZAK_DATA = {
     "OT+Z"
    ],
    "primary_source": "field_7i84u.hal",
-   "cleanup_notes": "NC contact consumed through input-04-not; promote to FIELD_VERIFIED after continuity and fail-open test | [LOCATED 2026-08-09: +Z OVER TRAVEL X24 *+LZ wire 1-49, Dwg 4143075410 (Motion Switch Input 4) pg136] | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/interlocks_ladder_transcription.md]",
+   "cleanup_notes": "NC contact consumed through input-04-not; promote to FIELD_VERIFIED after continuity and fail-open test | [LOCATED 2026-08-09: +Z OVER TRAVEL X24 *+LZ wire 1-49, Dwg 4143075410 (Motion Switch Input 4) pg136] | [AUDIT 2026-09-05: dropped LADDER-REF to docs/ladder/interlocks_ladder_transcription.md -- that document covers the door interlock (AL55) and a generic axis guard interlock (ITX/Y/Z from unidentified field devices X030-032/X080-082), not the physical overtravel limit switches. No ladder transcription currently documents these switches; the Dwg 4143075410 p136 citation above remains the sole source.]",
    "location": "Z axis way — positive overtravel switch",
    "location_note": "OT+Z",
    "expected": {
@@ -7328,7 +7328,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 257,
+     "line": 261,
      "text": "net limit-z-plus  <= hm2_7i80.0.7i84.0.1.input-04-not   # Z_LIMIT_PLUS  (NC contact)",
      "commented": false,
      "producers": [
@@ -7339,7 +7339,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 258,
+     "line": 262,
      "text": "net limit-z-plus  => joint.2.pos-lim-sw-in",
      "commented": false,
      "producers": [],
@@ -7359,12 +7359,12 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "257",
+     "lines": "261",
      "note": "net limit-z-plus  <= hm2_7i80.0.7i84.0.1.input-04-not   # Z_LIMIT_PLUS  (NC contact)"
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "258",
+     "lines": "262",
      "note": "net limit-z-plus  => joint.2.pos-lim-sw-in"
     },
     {
@@ -7403,7 +7403,7 @@ window.MAZAK_DATA = {
     "OT-Z"
    ],
    "primary_source": "field_7i84u.hal",
-   "cleanup_notes": "NC contact consumed through input-05-not; promote to FIELD_VERIFIED after continuity and fail-open test | [LOCATED 2026-08-09: -Z OVER TRAVEL X25 *-LZ wire 1-50, Dwg 4143075410 (Motion Switch Input 4) pg136. Physical LS switch designator not on this sheet - bench-verify] | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/interlocks_ladder_transcription.md]",
+   "cleanup_notes": "NC contact consumed through input-05-not; promote to FIELD_VERIFIED after continuity and fail-open test | [LOCATED 2026-08-09: -Z OVER TRAVEL X25 *-LZ wire 1-50, Dwg 4143075410 (Motion Switch Input 4) pg136. Physical LS switch designator not on this sheet - bench-verify] | [AUDIT 2026-09-05: dropped LADDER-REF to docs/ladder/interlocks_ladder_transcription.md -- that document covers the door interlock (AL55) and a generic axis guard interlock (ITX/Y/Z from unidentified field devices X030-032/X080-082), not the physical overtravel limit switches. No ladder transcription currently documents these switches; the Dwg 4143075410 p136 citation above remains the sole source.]",
    "location": "Z axis way — negative overtravel switch",
    "location_note": "OT-Z",
    "expected": {
@@ -7423,7 +7423,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 259,
+     "line": 263,
      "text": "net limit-z-minus <= hm2_7i80.0.7i84.0.1.input-05-not   # Z_LIMIT_MINUS (NC contact)",
      "commented": false,
      "producers": [
@@ -7434,7 +7434,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 260,
+     "line": 264,
      "text": "net limit-z-minus => joint.2.neg-lim-sw-in",
      "commented": false,
      "producers": [],
@@ -7468,12 +7468,12 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "259",
+     "lines": "263",
      "note": "net limit-z-minus <= hm2_7i80.0.7i84.0.1.input-05-not   # Z_LIMIT_MINUS (NC contact)"
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "260",
+     "lines": "264",
      "note": "net limit-z-minus => joint.2.neg-lim-sw-in"
     },
     {
@@ -7517,7 +7517,7 @@ window.MAZAK_DATA = {
     "LS-42"
    ],
    "primary_source": "field_7i84u.hal",
-   "cleanup_notes": "NO contact; was ACCEPTED_VERIFY - promote to TRACED after physical continuity + fail-open test | [LOCATED 2026-08-09: LS-42 X zero-return decel, X28 *DECX wire 1-16 (home reference), Dwg 4143075410 (Motion Switch Input 4) pg136 + pg91] | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/homing_ladder_transcription.md]",
+   "cleanup_notes": "NO contact; was ACCEPTED_VERIFY - promote to TRACED after physical continuity + fail-open test | [LOCATED 2026-08-09: LS-42 X zero-return decel, X28 *DECX wire 1-16 (home reference), Dwg 4143075410 (Motion Switch Input 4) pg136 + pg91] | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/homing_ladder_transcription.md] | [AUDIT 2026-09-05: linuxcnc/field_7i84u.hal:262 comment still read \"LS-42 assumed\", contradicting this row's \"confirmed\" tag -- HAL comment corrected same date]",
    "location": "X axis — zero-return switch",
    "location_note": "LS-42 (axis 1 zero return; which axis still to be cross-referenced)",
    "expected": {
@@ -7537,8 +7537,8 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 262,
-     "text": "net home-x <= hm2_7i80.0.7i84.0.1.input-06        # LS-42 assumed",
+     "line": 266,
+     "text": "net home-x <= hm2_7i80.0.7i84.0.1.input-06        # LS-42 confirmed 2026-08-09 (see mesa/current_pin_authority.csv X_HOME)",
      "commented": false,
      "producers": [
       "hm2_7i80.0.7i84.0.1.input-06"
@@ -7548,7 +7548,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 263,
+     "line": 267,
      "text": "net home-x => joint.0.home-sw-in",
      "commented": false,
      "producers": [],
@@ -7582,12 +7582,12 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "262",
-     "note": "net home-x <= hm2_7i80.0.7i84.0.1.input-06        # LS-42 assumed"
+     "lines": "266",
+     "note": "net home-x <= hm2_7i80.0.7i84.0.1.input-06        # LS-42 confirmed 2026-08-09 (see mesa/current_pin_authority.csv X_HOME)"
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "263",
+     "lines": "267",
      "note": "net home-x => joint.0.home-sw-in"
     },
     {
@@ -7651,7 +7651,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 264,
+     "line": 268,
      "text": "net home-y <= hm2_7i80.0.7i84.0.1.input-07        # LS-52 assumed",
      "commented": false,
      "producers": [
@@ -7662,7 +7662,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 265,
+     "line": 269,
      "text": "net home-y => joint.1.home-sw-in",
      "commented": false,
      "producers": [],
@@ -7696,12 +7696,12 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "264",
+     "lines": "268",
      "note": "net home-y <= hm2_7i80.0.7i84.0.1.input-07        # LS-52 assumed"
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "265",
+     "lines": "269",
      "note": "net home-y => joint.1.home-sw-in"
     },
     {
@@ -7766,7 +7766,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 266,
+     "line": 270,
      "text": "net home-z <= hm2_7i80.0.7i84.0.1.input-08        # LS-62 confirmed TB-51",
      "commented": false,
      "producers": [
@@ -7777,7 +7777,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 267,
+     "line": 271,
      "text": "net home-z => joint.2.home-sw-in",
      "commented": false,
      "producers": [],
@@ -7811,12 +7811,12 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "266",
+     "lines": "270",
      "note": "net home-z <= hm2_7i80.0.7i84.0.1.input-08        # LS-62 confirmed TB-51"
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "267",
+     "lines": "271",
      "note": "net home-z => joint.2.home-sw-in"
     },
     {
@@ -7878,7 +7878,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 272,
+     "line": 276,
      "text": "net air-ok <= hm2_7i80.0.7i84.0.1.input-09",
      "commented": false,
      "producers": [
@@ -7909,7 +7909,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "272",
+     "lines": "276",
      "note": "net air-ok <= hm2_7i80.0.7i84.0.1.input-09"
     },
     {
@@ -9113,7 +9113,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 334,
+     "line": 338,
      "text": "net x-enable     <= and2.0.out",
      "commented": false,
      "producers": [
@@ -9124,7 +9124,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 335,
+     "line": 339,
      "text": "net x-enable     => hm2_7i80.0.7i84.0.1.output-00   # X servo S-ON to MELDAS DK-427",
      "commented": false,
      "producers": [],
@@ -9171,12 +9171,12 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "334",
+     "lines": "338",
      "note": "net x-enable     <= and2.0.out"
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "335",
+     "lines": "339",
      "note": "net x-enable     => hm2_7i80.0.7i84.0.1.output-00   # X servo S-ON to MELDAS DK-427"
     },
     {
@@ -9268,7 +9268,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 340,
+     "line": 344,
      "text": "net y-enable     <= and2.1.out",
      "commented": false,
      "producers": [
@@ -9279,7 +9279,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 341,
+     "line": 345,
      "text": "net y-enable     => hm2_7i80.0.7i84.0.1.output-01   # Y servo S-ON to MELDAS DK-427",
      "commented": false,
      "producers": [],
@@ -9326,12 +9326,12 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "340",
+     "lines": "344",
      "note": "net y-enable     <= and2.1.out"
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "341",
+     "lines": "345",
      "note": "net y-enable     => hm2_7i80.0.7i84.0.1.output-01   # Y servo S-ON to MELDAS DK-427"
     },
     {
@@ -9398,7 +9398,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 348,
+     "line": 352,
      "text": "net z-enable     <= z-drive-drop-delay.out",
      "commented": false,
      "producers": [
@@ -9409,7 +9409,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 349,
+     "line": 353,
      "text": "net z-enable     => hm2_7i80.0.7i84.0.1.output-02   # Z servo S-ON to MELDAS DK-427",
      "commented": false,
      "producers": [],
@@ -9429,12 +9429,12 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "348",
+     "lines": "352",
      "note": "net z-enable     <= z-drive-drop-delay.out"
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "349",
+     "lines": "353",
      "note": "net z-enable     => hm2_7i80.0.7i84.0.1.output-02   # Z servo S-ON to MELDAS DK-427"
     },
     {
@@ -9492,7 +9492,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 355,
+     "line": 359,
      "text": "net air-blast          => hm2_7i80.0.7i84.0.1.output-03  # SOL-15 spindle air blast via RLY-5",
      "commented": false,
      "producers": [],
@@ -9512,7 +9512,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "355",
+     "lines": "359",
      "note": "net air-blast          => hm2_7i80.0.7i84.0.1.output-03  # SOL-15 spindle air blast via RLY-5"
     },
     {
@@ -9774,7 +9774,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 368,
+     "line": 372,
      "text": "net flood-valve        => hm2_7i80.0.7i84.0.1.output-07  # PLC Y011 FCL (SOL-31); driver TBD - candidate: follow flood-coolant net with pump",
      "commented": false,
      "producers": [],
@@ -9794,7 +9794,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "368",
+     "lines": "372",
      "note": "net flood-valve        => hm2_7i80.0.7i84.0.1.output-07  # PLC Y011 FCL (SOL-31); driver TBD - candidate: follow flood-coolant net with pump"
     },
     {
@@ -10345,7 +10345,7 @@ window.MAZAK_DATA = {
    "hal_refs": [
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 297,
+     "line": 301,
      "text": "# net probe-in <= hm2_7i80.0.7i84.0.1.input-15-not",
      "commented": true,
      "producers": [
@@ -10356,7 +10356,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 298,
+     "line": 302,
      "text": "# net probe-in => motion.probe-input",
      "commented": true,
      "producers": [],
@@ -10371,12 +10371,12 @@ window.MAZAK_DATA = {
    "sources": [
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "297",
+     "lines": "301",
      "note": "commented out — # net probe-in <= hm2_7i80.0.7i84.0.1.input-15-not"
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "lines": "298",
+     "lines": "302",
      "note": "commented out — # net probe-in => motion.probe-input"
     }
    ],
@@ -10520,13 +10520,13 @@ window.MAZAK_DATA = {
    "refs": [
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 297,
+     "line": 301,
      "commented": true,
      "text": "# net probe-in <= hm2_7i80.0.7i84.0.1.input-15-not"
     },
     {
      "file": "linuxcnc/field_7i84u.hal",
-     "line": 298,
+     "line": 302,
      "commented": true,
      "text": "# net probe-in => motion.probe-input"
     }
