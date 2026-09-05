@@ -213,3 +213,54 @@ thread` shows *zero* threads first; reloading `threads` while a stale one
 still exists throws `HAL: ERROR: duplicate thread name` and leaves the
 input pins frozen at power-up defaults, which looks identical to "still
 not working" if you don't check for it.
+
+## Update 2026-09-05 (later still) — TB2 inputs confirmed, and a second gotcha
+
+Continued the same live-jumper check onto TB2 (IN16-31), using the same
+24V/TB1-8 return pair validated above. Confirmed correct on the first
+real attempt for each:
+
+| Input | TB2 pin | Signal | Result |
+|---|---|---|---|
+| IN16 | 1 | `tool-unclamped` (PRS-8) | TRUE with jumper, FALSE off |
+| IN17 | 2 | `gear-hi-conf` (PRS-10 HGPRS) | TRUE with jumper, FALSE off |
+| IN18 | 3 | `gear-lo-conf` (PRS-12 LGPRS) | TRUE with jumper, FALSE off |
+| IN19 | 4 | `mag-bcd-bit0` (X008 T11P) | TRUE with jumper, FALSE off |
+| IN20 | 5 | `mag-bcd-bit1` (X009 T12P) | TRUE with jumper, FALSE off |
+
+**Second gotcha, much smaller than the CR6 one:** the first attempt at
+IN17/IN18 read FALSE across several retries, with card health (fault-count,
+field voltage, thread liveness) all still fine — looked like a repeat of
+the earlier mystery. Widening the watch to IN15-20 at once (instead of just
+the one pin being tested) immediately showed why: the jumper had landed on
+**TB3 pin 16 (`INPUT15`, last pin of the TB3 block)**, one physical
+terminal short of true **TB2 pin 1 (`INPUT16`)**. TB3 and TB2 are two
+separate 24-pin blocks sitting immediately next to each other on the card
+with no gap or label to mark the boundary, so "one past the end of TB3"
+looks identical to "the start of TB2" by feel/eye. Moving one terminal over
+fixed it immediately, and every input tested after that landed correctly
+on the first try.
+
+**Takeaway:** when a live-wiring check across a block boundary (TB3→TB2,
+or in general any two adjacent Mesa terminal blocks) doesn't register,
+widen the HAL watch to a few pins on both sides of the intended one before
+assuming a deeper fault — a one-terminal block-boundary slip reads
+identically to "nothing is working" until you see which pin actually
+moved.
+
+**Tool note for future bench sessions:** to watch a pin change live without
+needing a second party polling it, either
+`watch -n 0.2 halcmd getp <hal-pin-name>` (live-refreshing terminal) or
+`halmeter pin <hal-pin-name>` (a small floating indicator window) work
+directly against the same live HAL session — no special setup needed
+beyond the driver already being loaded per Step 2 above.
+
+**Session end state (verified by direct pin sweep, not assumed):** HAL
+session left loaded (`hostmot2` + `hm2_eth`, no HAL config file, no outputs
+ever touched). **IN15 reads TRUE** — the single jumper wire used throughout
+this session ended up resting on TB3 pin 16 (`tool-clamped`) from the last
+TB2-boundary test, not on TB3 pin 14. Every other TB3/TB2 input tested
+(IN0, IN10, IN13, IN16-20) reads FALSE/unwired. **The IN13 bench jumper for
+`spindle-at-speed` (item 46) is therefore NOT currently active** — if that
+interim state is still wanted, the jumper needs to be moved from TB3-16
+back to TB3-14 in a future session.
