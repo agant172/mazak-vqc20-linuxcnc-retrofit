@@ -264,3 +264,10 @@ TB2-boundary test, not on TB3 pin 14. Every other TB3/TB2 input tested
 `spindle-at-speed` (item 46) is therefore NOT currently active** — if that
 interim state is still wanted, the jumper needs to be moved from TB3-16
 back to TB3-14 in a future session.
+
+**Correction, same day, later session:** the jumper was moved back. A fresh
+pin sweep of the still-loaded HAL session shows `input-13 = TRUE`,
+`input-15 = FALSE`, confirmed against the physical jumper (owner verified
+TB3 pin 14 is the one currently powered). The "session end state" paragraph
+above is superseded — the IN13 bench jumper for item 46 (`spindle-at-speed`)
+**is currently active** as originally intended.
