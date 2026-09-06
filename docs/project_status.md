@@ -79,8 +79,10 @@ See [`architecture_decision.md`](architecture_decision.md) for the full rational
 - **7i80HDT + 7i44 + 7i49 + 7i84U-A + 7i84U-B architecture selected.**
 - 7i49 resolver feedback interface selected (plain 7i49, 5 kHz baseline).
 - Tamagawa TS2014N resolvers identified on-machine (July 2026 photo survey).
-- The 132-row I/O workbook is generated from the current authority CSV
-  (`bom/Mazak_VQC_20-40_Retrofit_IO_Workbook.xlsx`).
+- ~~The 132-row I/O workbook is generated from the current authority CSV~~ — all
+  three Excel workbooks were legacy snapshots that were never regenerated; archived to
+  `archive/workbooks/` 2026-09-06 (owner decision). Current views are the I/O Navigator
+  and `wiring/labels/`.
 - HAL/INI bring-up skeleton drafted (`linuxcnc/`) — updated to new stack 2026-08-06.
 - Mesa firmware/HAL-pin checklist drafted (`mesa/mesa_firmware_checklist.md`).
 - Cabinet photo checklist drafted (`docs/cabinet_photo_checklist.md`).

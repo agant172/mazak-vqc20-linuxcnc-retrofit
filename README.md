@@ -166,7 +166,6 @@ they are static checks and do not replace a LinuxCNC load test or fault injectio
 - [background/frsx_orient_detector_capture.md](background/frsx_orient_detector_capture.md) — how to determine which detector the FR-SX orients from: trace the PLG cable first, photograph the drive's configuration hardware, and treat the MDS-CH parameter numbers as possibly inapplicable.
 - [background/parameter_recovery.md](background/parameter_recovery.md) — M-2 parameter recovery: SN 060231 values are NOT in the manuals; capture checklist + fallback measurement procedure.
 - [io-dashboard/README.md](io-dashboard/README.md) — I/O/commissioning workspace: use, records, live polling, and data regeneration.
-- [bom/Mazak_VQC_20-40_Retrofit_IO_Workbook.xlsx](bom/Mazak_VQC_20-40_Retrofit_IO_Workbook.xlsx) — generated 132-row Excel snapshot of the current pin authority; `mesa/current_pin_authority.csv` remains authoritative.
 
 ## References
 

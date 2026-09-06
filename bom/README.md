@@ -1,13 +1,13 @@
 # Bill of Materials / Parts Planning
 
-## I/O workbook
+## I/O workbook — archived
 
-- [`Mazak_VQC_20-40_Retrofit_IO_Workbook.xlsx`](Mazak_VQC_20-40_Retrofit_IO_Workbook.xlsx)
-  — generated Excel snapshot of all 132 rows in
-  [`../mesa/current_pin_authority.csv`](../mesa/current_pin_authority.csv), with
-  formula-driven authority summaries and the selected 7i80HDT / 7i44 / 7i49 /
-  two-7i84U architecture. The CSV remains the source of truth; regenerate the
-  workbook after authority changes rather than editing assignments only in Excel.
+The 132-row Excel snapshot (`Mazak_VQC_20-40_Retrofit_IO_Workbook.xlsx`, 2026-08-15)
+was archived to [`../archive/workbooks/`](../archive/workbooks/) on 2026-09-06. It
+predates the 124-row authority and the two-plane conductor tables and was never
+regenerated. `../mesa/current_pin_authority.csv` is the source of truth; the
+generated, always-current views are the I/O Navigator (`io-dashboard/`) and the
+label/wire-sheet set under `../wiring/labels/`.
 
 ## Planned core Mesa stack (to confirm before purchase)
 
