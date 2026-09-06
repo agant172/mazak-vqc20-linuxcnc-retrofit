@@ -33,7 +33,7 @@
 | `docs/` root + `docs/ladder/` | 55 | 27 | 25 | 3 | 0 | 0 |
 | logs, manuals, shelf, `bom/`, root, `.claude/` | ~68 | 11 | 34 | 12 (10 already on a shelf) | 1 | 10 (stale) |
 | `wiring/`, `mesa/` | 38 | 12 | 16 | 4 (1 by banner) | 0 | 6 (5 current, 1 stale) |
-| `diagrams/` | 125 | 0 | 2 | 0 | 0 | 123 (**all stale**) |
+| `diagrams/` | 125 | 0 | 2 | 0 | **125 — removed 2026-09-06 (owner)** | 123 (all stale) |
 | `scripts/`, `io-dashboard/`, `tests/`, `linuxcnc/`, `.github/` | 122 | 82 | 23 | 16 (8 already in `retired/`) | 0 | 1 (current) |
 
 Two things dominate: **nothing load-bearing was mis-filed** — the spine, CI, the
@@ -74,15 +74,16 @@ paragraphs) · `tests/hal/README.md` (405 → 407 checks).
 
 ## Owner decisions — recorded as checkboxes in `project_status.md`
 
-1. **`diagrams/` (125 files) is entirely stale and uncovered by CI.** Both the WireViz
-   and QElectroTech sets draw ORC1 / `SPINDLE_ORIENT_CMD` (CN3-14 → 7i84U-A OUT4) as a
-   red HOLD that was released 2026-09-03; the WireViz manifest's Plane A input hash
-   never matched any committed crosswalk. Recommendation: **keep WireViz only**
-   (browser-viewable, manifest records input hashes), drop the 62-file QElectroTech
-   set (never hand-edited; bakes a `/Users/andygant/…` path into the XML), and either
-   add `generate_interface_crosswalks.py` + `generate_wireviz_diagrams.py` to the CI
-   gate or stop committing rendered output. `generate_qelectrotech_project.py` imports
-   the WireViz script, so the WireViz *script* stays either way.
+1. **`diagrams/` (125 files) — REMOVED 2026-09-06, owner decision.** Both sets were
+   stale (ORC1 / `SPINDLE_ORIENT_CMD` drawn as a HOLD released 2026-09-03; the WireViz
+   manifest's input hash never matched a committed crosswalk) and, more to the point,
+   the owner never liked the output: "they look terrible and are scattered over dozens
+   of pages." Both generators (`generate_wireviz_diagrams.py`,
+   `generate_qelectrotech_project.py`) deleted with the work product; git history keeps
+   them. **The BBIA-1 wire reference sheet is the troubleshooting quick reference for
+   now**; a condensed physical-diagram format that fits on a sheet or two is still an
+   open exploration, no tool chosen. `generate_interface_crosswalks.py` and the Plane A
+   crosswalk CSV stay — decision 3 still applies to them.
 2. **`docs/manual_set/*.pdf` (Rev B manual, 8 PDFs) is stale and knowingly wrong.**
    Built 2026-08-07 from a 132-row authority, *before* the two 2026-08-23 builder
    fixes that removed retracted P1/P2/P3 claims; the PDFs were never rebuilt. CI builds
@@ -105,9 +106,9 @@ paragraphs) · `tests/hal/README.md` (405 → 407 checks).
    relocating to `claude-config` or `project-docs`, then dropping `.gitignore:58-65`.
 6. **`scripts/host_status/retired/` (8 files)** — nothing installed, nothing runs it;
    could move under `archive/` with two link edits. Left in place (lower risk).
-7. **7i84U-B: on hand or on order?** `project_status.md` "Closed" section says all
-   hardware including 7i84U-B was on hand 2026-08-17; the 2026-09-05 bench record says
-   it is on order. One is wrong — owner's word needed.
+7. **7i84U-B: on order — owner confirmed 2026-09-06.** Only 7i84U-A is on the bench.
+   The `project_status.md` "Closed" line claiming all hardware on hand 2026-08-17 was
+   wrong and is now annotated.
 8. **Photo counts disagree** across the governance docs (723 / 936 / 1142). Pick the
    rclone figure in `CLAUDE.md` (1142 objects, 2026-08-23) and align the other two.
 9. **`docs/cabinet_photo_checklist.md:34`** assigns the 7i80HDT jumpers wrong
