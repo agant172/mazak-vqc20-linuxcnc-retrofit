@@ -1,6 +1,6 @@
 # BBIA-1 CN1–CN6 & CN11 Detailed Pinouts
 
-**Machine:** Mazak VQC-20/40, SN 060231 (Mazatrol M-1)
+**Machine:** Mazak VQC-20/40, SN 060231 (Mazatrol M-2)
 **Board:** BBIA-1 terminal unit (Mitsubishi BN624A306H01, "YM VQC-20-40/50")
 **Source:** `41434WB.pdf` — Terminal-Unit Details, drawings 4143075321 / 4143075322 / 4143075323 (sheets 84–86); confirmed against drawing 4143075304 sheet 04 (terminal-unit layout) and drawing 4143175309 sheet 78 (SSR board, CN11-SSR/CN12).
 **See also:** [`bbia1_terminal_unit.md`](bbia1_terminal_unit.md) for the board's role in the Mesa retrofit, [`bbia1_cn_pinouts.csv`](bbia1_cn_pinouts.csv) for the machine-readable pin list.

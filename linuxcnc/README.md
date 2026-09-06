@@ -62,7 +62,7 @@ The confirmed retrofit architecture is:
 > signed off.
 
 
-1. Confirm 7i80HDT detection over Ethernet: host static IP, `ping 10.10.10.121`, `mesaflash --device 7i80hdt --addr 10.10.10.121 --readhmid`, and `hm2_eth` HAL loading. The dedicated-NIC pinning, coalescing/offload settings, multi-hour latency-under-load test, and packet-error-into-motion-permit HAL wiring are documented in [`../docs/hm2_eth_nic_validation.md`](../docs/hm2_eth_nic_validation.md); commissioning must not enable drives until that acceptance passes.
+1. Confirm 7i80HDT detection over Ethernet: host static IP, `ping 10.10.10.121`, `mesaflash --device ETHER --addr 10.10.10.121 --readhmid`, and `hm2_eth` HAL loading. The dedicated-NIC pinning, coalescing/offload settings, multi-hour latency-under-load test, and packet-error-into-motion-permit HAL wiring are documented in [`../docs/hm2_eth_nic_validation.md`](../docs/hm2_eth_nic_validation.md); commissioning must not enable drives until that acceptance passes.
 3. Confirm resolver wiring with drives disabled. **The installed suffix has no published datasheet** — `TS2014N25E8-1` (X) / `TS2014N25E3-1` (Y) were built to Mitsubishi spec BKO-NC6062(A) and never appeared in a Tamagawa catalogue (search 2026-08-16). The E26 figures (10 Vrms / 4.5 kHz / K = 0.5, rotor DC 121 Ω, stator DC 69 Ω) are a **different suffix** and are not a check on this one; PCW has flagged some TS2014 variants as 7i49-incompatible. Ohmmeter the winding pairs before power — measured 2026-08-16 as one 35 Ω winding and a matched 105–109 Ω pair, which identifies the windings but **not** which to excite — then run the bench tests in [`../docs/resolver_commissioning.md`](../docs/resolver_commissioning.md#power-off-bench-identification-replaces-the-datasheet-gate) to settle drive direction, transformation ratio, and whether the unit is 1× or 5×. Then set the 7i49 to 5 kHz excitation (closest to the 4.5 kHz spec; the Tamagawa page publishes no frequency tolerance, so verify on scope rather than by tolerance calc), confirm the 7i49 is the sole excitation source, scope RESDRV excitation and RESSIN/RESCOS amplitude and phase at rest and under motion, then verify counts, direction, shielding, and scale.
 4. Confirm 7i49 analog command wiring with drives disabled or inhibited. Verify zero command voltage and output polarity on AOUT0/1/2 (X/Z/Y) and AOUT3 (FR-SX spindle).
 5. Confirm 7i84U-B wiring: limits (NC) on TB3 IN0-5, homes (NO) on TB3 IN6-8, air-pressure permissive on TB3 IN9, probe on TB3 IN15, X/Y/Z drive enables on TB3 OUT0-2, and the proposed single-coil cover command on TB2 OUT8. Ohmmeter each input path before deciding whether to consume `input-NN` (raw) or `input-NN-not` (complement) in HAL. Per [sserial(9)](https://linuxcnc.org/docs/html/man/man9/sserial.9.html), sserial cards expose both spellings for every input and there is no `invert_input` parameter; the probe uses the opto-isolated 7i84U input rather than bare P2 GPIO.
@@ -85,7 +85,7 @@ The confirmed retrofit architecture is:
 
 ## Safety notes
 
-- The OEM hardwired E-stop chain stays 100% original and remains the sole safety function (owner decision 2026-08-15). Do not rely on LinuxCNC/HAL alone for E-stop safety. LinuxCNC only monitors the OEM MAR-MON contact via an interposing relay on 7i84U-A TB2 IN29.
+- The OEM hardwired E-stop chain stays 100% original and remains the sole safety function (owner decision 2026-08-15). Do not rely on LinuxCNC/HAL alone for E-stop safety. The `ESTOP_MONITOR` input (7i84U-A TB2 IN29) is **DEFERRED** (owner decision 2026-08-15): no interposing relay is installed, the input is unwired and reads FALSE, and the software chain fails safe.
 - Treat all `active-high`, `active-low`, `NO`, and `NC` assumptions in these files as placeholders until measured.
 - Use interposing relays or output modules where coil/load current exceeds Mesa output ratings or where isolation is needed. All 7i84U-B TB3 outputs to legacy 100 VAC solenoids (SOL-35/61/62 on OUT3/4/5) must use interposing relays (RLY-5/6/7).
 - Add flyback diodes, RC snubbers, or surge suppression appropriate to each coil type.
@@ -93,12 +93,10 @@ The confirmed retrofit architecture is:
 - Resolver wiring may follow the original Meldas M2 / TRA scheme (two-phase excitation into the stator, phase read from the rotor), which is the opposite of the 7i49's single-excitation / sin-cos-amplitude reading. Identify winding pairs with an ohmmeter before power; do not assume wire names. **The W2 jumper does not help the X/Y/Z axis channels** — per the 7i49 manual, W2 down halves reference drive on channels 3/4/5 only, and X/Y/Z live on channels 0/1/2. If the axis-channel return is far off the ~1 V RMS target, escalate to Mesa (PCW) for review of the specific TS2014N suffix rather than adding dividers or 7i49HV hardware.
 - Every OEM-to-retrofit digital crossing (including the OEM E-stop chain monitor) uses an interposing relay dry contact.
 
-## `phase1-draft-2026-08-07/`
+## Phase 1 draft (2026-08-07) — archived
 
-A **superseded** Phase 1 commissioning draft (minimal motion + safety), recovered
-2026-08-21 from the retired `~/Projects/Mazak-Local` tree. **Historical only — do
-not load.** Its `hm2_7i80.0.*` pin names are placeholders by its own admission, and
-it predates the live config here by ten days. It sits in a subdirectory so
-`scripts/validate_authority.py`, which globs `linuxcnc/*.hal`, does not check it —
-correct for placeholder pins, and the reason it must not be promoted as-is.
-See [`phase1-draft-2026-08-07/README.md`](phase1-draft-2026-08-07/README.md).
+The superseded Phase 1 commissioning draft recovered from the retired
+`~/Projects/Mazak-Local` tree now lives at
+[`../archive/linuxcnc/phase1-draft-2026-08-07/`](../archive/linuxcnc/phase1-draft-2026-08-07/)
+(moved 2026-09-06). **Historical only — do not load.** Its `hm2_7i80.0.*` pin
+names are placeholders by its own admission.

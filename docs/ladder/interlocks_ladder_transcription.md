@@ -6,7 +6,7 @@
 **Machine:** Mazak VQC-20/40 SN 060231 (Mazatrol M-2)
 **Source:** `YM2V39L.pdf` / `VQC20-40_060231_Ladder_Diagrams.pdf`, drawing 4136081801, 94 sheets.
 **Extracted:** 2026-08-10. Numbering: cross-ref `SSLL` = sheet·line; PDF page = sheet + 1.
-Complements `estop_ladder_transcription.md` (both feed the D5 safety chain).
+Complements `estop_ladder_transcription.md` (both belonged to the D5 safety-chain deliverable, withdrawn 2026-08-15 — the E-stop chain is out of scope).
 
 ## Signals (from the element list)
 

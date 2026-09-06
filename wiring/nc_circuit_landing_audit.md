@@ -2,6 +2,14 @@
 
 ROLE: AUDIT
 Date: 2026-08-18
+
+> **Read with two later corrections (banner added 2026-09-06).** (1) The method
+> below cites `wiring/bbia1_retrofit_destination_crosswalk.csv`; that file was
+> retired 2026-09-05 and is archived — the pin authority's `dest_connector`/`dest_pin`
+> is now the only landing record. (2) CN2-14 is read here as `+LTZ` (Z over-travel);
+> the 2026-09-02 audit refined it to `+LY2`, the second +Y over-travel, and
+> `Z_LIMIT_PLUS` is unlocated (`authority_conflicts.md` § 7.5). The gap inventory
+> itself is still the reference `docs/project_status.md` cites.
 Scope: every wire-carrying pin on the connectors leaving the old NC (BBIA-1 CN1–CN8, CN11/CN11-SSR/CN12, and Plane B: CNA3/4/5 resolvers + FR-SX CON1/CON2/CNA/CNAA)
 
 **Method.** Every wire-carrying pin (blank/not-used pins per `wiring/bbia1_cn_pinouts.csv` skipped) was classified into one of seven dispositions by cross-referencing the pinout CSV against `mesa/current_pin_authority.csv`, `wiring/bbia1_retrofit_destination_crosswalk.csv`, `wiring/bbia1_source_dest.csv`, `wiring/plane_a_bbia1_pin_crosswalk.csv`, `wiring/connector_crossref.md`, `wiring/authority_conflicts.md`, `INTERFACE_ARCHITECTURE.md`, the live `linuxcnc/*.hal` nets, and the owner-decision registers (`docs/project_status.md`, `docs/io_capacity_reconciliation.md`). Every pin initially classified GAP or UNCLEAR then received an adversarial verification pass that actively tried to refute the gap by finding a landing or a documented disposition anywhere in the repo (archived crosswalks included). Three of those verification passes overturned the classifier (CN6-3 → RETIRED_OOS, CN6-25 → POWER_COMMON, CON1-14 → DUPLICATE_PATH of CN4-6); every other gap survived refutation and is reported below as CONFIRMED.

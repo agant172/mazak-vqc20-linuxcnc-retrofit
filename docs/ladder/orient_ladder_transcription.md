@@ -2,7 +2,7 @@
 
 **Machine:** Mazak VQC 20/40, SN 060231 · Mazatrol M-2 sequence diagram 4136081801
 **Source:** `VQC20-40_060231_Ladder_Diagrams.pdf` — sheets 23, 28, 29, 30, 55 (PDF pages = sheet + 1)
-**Purpose:** confirm ORCM1 / CTL / SSET sequencing before writing the LinuxCNC ATC/orient HAL component. Supports PROPOSED pins from commit c4a66a0.
+**Purpose:** confirm ORCM1 / CTL / SSET sequencing before writing the LinuxCNC ATC/orient HAL component. Supports pins first added as PROPOSED in commit c4a66a0 (now `FACTORY_INTERFACE` in the authority).
 **Convention:** `#` prefix = normally-closed contact of that element. `]/[` = NC contact. Rung numbers = sheet×100 + line.
 
 ## The short version

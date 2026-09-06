@@ -10,8 +10,8 @@ Do not execute this plan until the completed sheet is independently reviewed.
 
 - [ ] D1 as-built one-line/terminal plan signed.
 - [ ] D4 I/O checkout signed for the selected axis, limits, fault, S-ON, and
-      E-stop monitor.
-- [ ] D5 hardwired E-stop chain and fault-injection evidence signed.
+      E-stop monitor. *(`ESTOP_MONITOR` is DEFERRED — input unwired, reads FALSE, fails safe; owner decision 2026-08-15.)*
+- ~~D5 hardwired E-stop chain and fault-injection evidence signed.~~ **Withdrawn 2026-08-15** — the E-stop chain stays 100 % OEM and out of scope (`docs/estop_safety_chain.md`).
 - [ ] D7 enable/fault/Z-brake timing evidence signed for the selected axis.
 - [ ] D8 resolver record and signed scale complete.
 - [ ] D11 physical travel, limit locations, and measured stop margin complete.

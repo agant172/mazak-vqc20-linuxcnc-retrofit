@@ -192,8 +192,10 @@ Four sources are authoritative, in priority order:
      addressing, connector pinouts, power requirements.
    - `7i80hdtman.pdf` (7I80HDT) — installed host-board connectors and power.
    - `7i49man.pdf` (7I49) — resolver and analog terminal maps and shield rule.
-   The 7i44 manual remains link-only; commit it before relying on a new 7i44
-   claim not already covered by the current authority. Do NOT cite
+   The 7i44 manual (`7i44man.pdf`) was committed 2026-08-21 with its SHA-256 in
+   `docs/Mesa Manuals/README.md`. `7i80hdman.pdf` (the older Xilinx 7i80HD manual)
+   is also committed — the *wrong* manual for this card except as the only source
+   for the SV6_7I49 config description; see that README's caveat. Do NOT cite
    7i97T/7i97 manuals: the 7i97T architecture is RETRACTED
    (`docs/superseded_claims_2026-08-06.md`) and the local 7i97T manual was
    deliberately removed in Rev B.
@@ -487,7 +489,7 @@ writes `PROPOSED`, not `ELECTRICALLY_VERIFIED`
 | Working copy — **all three machines** | `~/mazak-vqc20-linuxcnc-retrofit` | `scripts/host_status/install_repo_pull.sh` |
 | Control NIC | `10.10.10.1/24`; interface name `enp0s31f6` **unverified** — confirm with `ip -o link show` | `linuxcnc/README.md`, `docs/hm2_eth_nic_validation.md` |
 | Mesa 7i80HDT | `10.10.10.121` (static) | same |
-| SSH to the OptiPlex | `ssh linuxcnc` → `andy@linuxcnc.tail2a912f.ts.net`, over Tailscale, **key auth only** | `~/.ssh/config` on each Mac |
+| SSH to the OptiPlex | `ssh linuxcnc` → `andy@linuxcnc.tail2a912f.ts.net`, over Tailscale, **key auth** (password auth was still enabled per `sudo sshd -T` on 2026-09-06 — see the `ssh-to-optiplex` skill; keys are what every documented login uses) | `~/.ssh/config` on each Mac |
 | Keys authorized on the OptiPlex (inbound: Mac → OptiPlex) | **iMac** `SHA256:tjYw8rTkarNYK8r/uxvQskP78Y4ADFx+8U5fBWKsQag` (`andygant@imac`, added 2026-08-16). **MacBook Pro: unknown — check.** | `andy@linuxcnc:~/.ssh/authorized_keys` |
 | OptiPlex key on the Macs (outbound: OptiPlex → Mac) | `andy@LinuxCNC` is authorized on **both** — MacBook 2026-08-21, **iMac 2026-08-22**. The Mac accounts are `andygant@`, not `andy@`. | each Mac's `~/.ssh/authorized_keys` |
 

@@ -1,5 +1,11 @@
 # FR-SX speed, gear, and orient state diagram
 
+> **Status column is stale (flagged 2026-09-06).** ORCM1 / CTL / ORA1 / SZS are
+> `FACTORY_INTERFACE` in `mesa/current_pin_authority.csv`, not `PROPOSED`; there is no
+> `SSET` row; and `drive_arm` was removed from the gear-coil equations on 2026-09-05
+> (`docs/handoff_2026-09-05.md` § B3). The state machine itself is unchanged; the
+> `mazak_orient.comp` source and its `tests/hal/scenarios/orient_*` are the current model.
+
 Status: active software model documented; exact FR-SX model/terminals,
 polarities, timer base, and physical timing remain unverified.
 

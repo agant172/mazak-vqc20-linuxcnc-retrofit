@@ -580,6 +580,12 @@ blank — correct, but because the pin is contested, not because the crosswalk i
 record of a claim still worth testing at the cabinet, and would silently drop the ferrule
 row. Retire it once the field trace lands.
 
+> **Update 2026-09-06:** the paragraphs above describe the 2026-08-17 state. Since then:
+> § 7.5 (2026-09-02) settled CN2-14 = `+LY2` and withdrew the `B-TB3-05` ferrule from the
+> batch; the crosswalk was retired 2026-09-05 (archived at `archive/crosswalk/`), and
+> `generate_label_csvs.py` now builds the ferrule set from the pin authority, so no
+> CN2-14 row can reach a label. The only disputed ferrule today is CN4-1 (§ 7.1).
+
 *Resolution test:* with the machine de-energized and a human at the cabinet, buzz
 `CN2-14` for continuity to the +Z over-travel limit switch, and separately to `CN6-12`.
 Continuity to *both* the +Y and +Z limits confirms the combined-bus reading.
@@ -627,8 +633,8 @@ crosswalks/labels/diagrams:
   detector (X5B SPTDPRS); CN3-39 = 147 tool detector (X05 MGTDPRS). ATC_ZONE_Y/Z
   BBIA landings cleared (DEFERRED); bench tap points to be chosen at the cabinet.
 - **§7.3 refined:** CN2-14 is the 2nd +Y over-travel (+LY2), not `+LTZ`/Z-axis
-  and not a +YZ bus; `Z_LIMIT_PLUS` is genuinely unlocated; ferrule B-TB3-05
-  stays held with wrong text pending relabel.
+  and not a +YZ bus; `Z_LIMIT_PLUS` is genuinely unlocated; the B-TB3-05 ferrule was
+  withdrawn from the batch (crosswalk row retired), so no relabel is pending.
 - **HAL-bound identity corrections (owner approved 2026-09-02):** SERVO_FAULT
   (CN6-27 is SFR — source unlocated, re-derive at the HD amps), COOLANT_LOW
   (CN1-5 is -LZ2 — source unlocated), DOOR_INTERLOCK (wire 341, not 238),

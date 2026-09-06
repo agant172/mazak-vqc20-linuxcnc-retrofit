@@ -1,0 +1,404 @@
+path,size,last_commit,inbound_refs,in_spine,role,refs
+.claude/skills/new-machine-setup/SKILL.md,1703,2026-08-22,1,,,CLAUDE.md
+.claude/skills/ssh-to-optiplex/SKILL.md,1780,2026-08-17,1,,,CLAUDE.md
+.gitattributes,133,2026-09-02,0,,,
+.github/workflows/authority-gate.yml,1748,2026-08-23,3,yes,,CLAUDE.md INSTALL_SPINE.md io-dashboard/project_data.js
+.gitignore,2222,2026-09-02,3,,,CLAUDE.md docs/handoff_photo_tools_2026-08-25.md scripts/photo_tools/README.md
+CLAUDE.md,37245,2026-09-03,22,yes,+superseded-ish-banner,.claude/skills/new-machine-setup/SKILL.md .claude/skills/ssh-to-optiplex/SKILL.md .gitignore INSTALL_SPINE.md INTERFACE_ARCHITECTURE.md README.md background/frsx_orient_detector_capture.md docs/authority_hierarchy.md
+INSTALL_SPINE.md,11768,2026-09-05,43,,,CLAUDE.md README.md background/README.md docs/README_photo_sorting.md docs/architecture_decision.md docs/authority_hierarchy.md docs/cabinet_photo_checklist.md docs/claim_audit_2026-08-07.md
+INTERFACE_ARCHITECTURE.md,22169,2026-09-05,10,yes,,CLAUDE.md INSTALL_SPINE.md docs/project_status.md io-dashboard/app.js io-dashboard/tools/generate_data.py scripts/consolidate_bbia_authority.py scripts/validate_authority.py wiring/authority_conflicts.md
+README.md,19565,2026-08-23,43,yes,,.gitignore CLAUDE.md INSTALL_SPINE.md INTERFACE_ARCHITECTURE.md background/frsx_orient_detector_capture.md background/mesa_pcw_bitfile_inquiry.md background/parameter_recovery.md background/parameters_factory1985_vs_live_reconciliation.md
+archive/README.md,1338,2026-09-05,44,yes,+superseded-ish-banner,.gitignore CLAUDE.md INSTALL_SPINE.md INTERFACE_ARCHITECTURE.md README.md background/frsx_orient_detector_capture.md background/mesa_pcw_bitfile_inquiry.md background/parameter_recovery.md
+archive/crosswalk/bbia1_retrofit_destination_crosswalk.csv,6626,2026-09-05,7,yes,,INSTALL_SPINE.md INTERFACE_ARCHITECTURE.md archive/README.md scripts/generate_label_csvs.py wiring/authority_conflicts.md wiring/labels/bbia1_mesa_end_ferrules_epson.md wiring/nc_circuit_landing_audit.md
+archive/crosswalk/element_dashboard_crosswalk.csv,46950,2026-08-07,4,,,archive/README.md archive/crosswalk/element_dashboard_crosswalk_summary.md wiring/electrical_diagram_index.md wiring/nc_circuit_landing_audit.md
+archive/crosswalk/element_dashboard_crosswalk_summary.md,3313,2026-08-23,2,,+superseded-ish-banner,docs/frsx_orient_model.md docs/superseded_claims_2026-08-06.md
+background/README.md,3248,2026-08-15,44,yes,+superseded-ish-banner,.gitignore CLAUDE.md INSTALL_SPINE.md INTERFACE_ARCHITECTURE.md README.md background/frsx_orient_detector_capture.md background/mesa_pcw_bitfile_inquiry.md background/parameter_recovery.md
+background/frsx_orient_detector_capture.md,8493,2026-08-15,4,,BACKGROUND +superseded-ish-banner,README.md background/README.md docs/frsx_orient_model.md docs/spindle_motor_plg_encoder.md
+background/mesa_pcw_bitfile_inquiry.md,7127,2026-08-23,2,,BACKGROUND +superseded-ish-banner,background/README.md docs/spindle_motor_plg_encoder.md
+background/parameter_recovery.md,9929,2026-08-21,11,,BACKGROUND,README.md background/README.md background/frsx_orient_detector_capture.md background/parameters_factory1985_vs_live_reconciliation.md docs/ballscrew_lead_2026-08-17.md docs/parameters_sn060231.md docs/pre_power_deliverables.md docs/resolver_commissioning.md
+background/parameters_factory1985_vs_live_reconciliation.md,7743,2026-08-21,3,,BACKGROUND +superseded-ish-banner,background/README.md docs/ballscrew_lead_2026-08-17.md docs/crt_screen_survey_2026-08-21.md
+bom/Mazak_VQC_20-40_Retrofit_IO_Workbook.xlsx,25934,2026-08-15,4,,,README.md bom/README.md docs/project_status.md wiring/README.md
+bom/README.md,11194,2026-08-23,44,yes,+superseded-ish-banner,.gitignore CLAUDE.md INSTALL_SPINE.md INTERFACE_ARCHITECTURE.md README.md background/frsx_orient_detector_capture.md background/mesa_pcw_bitfile_inquiry.md background/parameter_recovery.md
+diagrams/qelectrotech/MESAC_VQC2040_Retrofit.qet,402616,2026-09-03,3,,,diagrams/qelectrotech/README.md diagrams/qelectrotech/manifest.json scripts/generate_qelectrotech_project.py
+diagrams/qelectrotech/README.md,2167,2026-08-18,44,yes,,.gitignore CLAUDE.md INSTALL_SPINE.md INTERFACE_ARCHITECTURE.md README.md background/frsx_orient_detector_capture.md background/mesa_pcw_bitfile_inquiry.md background/parameter_recovery.md
+diagrams/qelectrotech/elements/00_interface_overview__bbia_plane_a.elmt,1320,2026-08-18,1,,,diagrams/qelectrotech/MESAC_VQC2040_Retrofit.qet
+diagrams/qelectrotech/elements/00_interface_overview__cna_plane_b.elmt,1326,2026-08-18,1,,,diagrams/qelectrotech/MESAC_VQC2040_Retrofit.qet
+diagrams/qelectrotech/elements/00_interface_overview__linuxcnc.elmt,1549,2026-08-18,1,,,diagrams/qelectrotech/MESAC_VQC2040_Retrofit.qet
+diagrams/qelectrotech/elements/00_interface_overview__mesa_7i49.elmt,1599,2026-08-18,1,,,diagrams/qelectrotech/MESAC_VQC2040_Retrofit.qet
+diagrams/qelectrotech/elements/00_interface_overview__mesa_7i84.elmt,1571,2026-08-18,1,,,diagrams/qelectrotech/MESAC_VQC2040_Retrofit.qet
+diagrams/qelectrotech/elements/00_interface_overview__relay_boundary.elmt,1651,2026-08-18,1,,,diagrams/qelectrotech/MESAC_VQC2040_Retrofit.qet
+diagrams/qelectrotech/elements/plane_a_cn11_discrete__7i84u_a_tb2.elmt,1830,2026-09-03,1,,,diagrams/qelectrotech/MESAC_VQC2040_Retrofit.qet
+diagrams/qelectrotech/elements/plane_a_cn11_discrete__7i84u_a_tb3.elmt,1529,2026-09-02,1,,,diagrams/qelectrotech/MESAC_VQC2040_Retrofit.qet
+diagrams/qelectrotech/elements/plane_a_cn11_discrete__7i84u_b_tb3.elmt,1818,2026-09-02,1,,,diagrams/qelectrotech/MESAC_VQC2040_Retrofit.qet
+diagrams/qelectrotech/elements/plane_a_cn11_discrete__cn11.elmt,3209,2026-09-03,1,,,diagrams/qelectrotech/MESAC_VQC2040_Retrofit.qet
+diagrams/qelectrotech/elements/plane_a_cn11_discrete__ir_boundary.elmt,5384,2026-09-03,1,,,diagrams/qelectrotech/MESAC_VQC2040_Retrofit.qet
+diagrams/qelectrotech/elements/plane_a_cn1_discrete__7i84u_a_tb2.elmt,1820,2026-09-03,1,,,diagrams/qelectrotech/MESAC_VQC2040_Retrofit.qet
+diagrams/qelectrotech/elements/plane_a_cn1_discrete__7i84u_a_tb3.elmt,1243,2026-09-02,1,,,diagrams/qelectrotech/MESAC_VQC2040_Retrofit.qet
+diagrams/qelectrotech/elements/plane_a_cn1_discrete__7i84u_b_tb3.elmt,1234,2026-09-02,1,,,diagrams/qelectrotech/MESAC_VQC2040_Retrofit.qet
+diagrams/qelectrotech/elements/plane_a_cn1_discrete__cn1.elmt,2373,2026-09-03,1,,,diagrams/qelectrotech/MESAC_VQC2040_Retrofit.qet
+diagrams/qelectrotech/elements/plane_a_cn1_discrete__ir_boundary.elmt,3730,2026-09-03,1,,,diagrams/qelectrotech/MESAC_VQC2040_Retrofit.qet
+diagrams/qelectrotech/elements/plane_a_cn200_discrete__7i84u_b_tb3.elmt,1241,2026-09-03,1,,,diagrams/qelectrotech/MESAC_VQC2040_Retrofit.qet
+diagrams/qelectrotech/elements/plane_a_cn200_discrete__cn200.elmt,1293,2026-09-02,1,,,diagrams/qelectrotech/MESAC_VQC2040_Retrofit.qet
+diagrams/qelectrotech/elements/plane_a_cn200_discrete__ir_boundary.elmt,1557,2026-09-02,1,,,diagrams/qelectrotech/MESAC_VQC2040_Retrofit.qet
+diagrams/qelectrotech/elements/plane_a_cn2_discrete__7i84u_a_tb2.elmt,3257,2026-09-03,1,,,diagrams/qelectrotech/MESAC_VQC2040_Retrofit.qet
+diagrams/qelectrotech/elements/plane_a_cn2_discrete__7i84u_a_tb3.elmt,2117,2026-09-02,1,,,diagrams/qelectrotech/MESAC_VQC2040_Retrofit.qet
+diagrams/qelectrotech/elements/plane_a_cn2_discrete__7i84u_b_tb3.elmt,1513,2026-09-02,1,,,diagrams/qelectrotech/MESAC_VQC2040_Retrofit.qet
+diagrams/qelectrotech/elements/plane_a_cn2_discrete__cn2.elmt,4877,2026-09-03,1,,,diagrams/qelectrotech/MESAC_VQC2040_Retrofit.qet
+diagrams/qelectrotech/elements/plane_a_cn2_discrete__ir_boundary.elmt,8695,2026-09-03,1,,,diagrams/qelectrotech/MESAC_VQC2040_Retrofit.qet
+diagrams/qelectrotech/elements/plane_a_cn3_discrete__7i84u_a_tb3.elmt,1541,2026-09-03,1,,,diagrams/qelectrotech/MESAC_VQC2040_Retrofit.qet
+diagrams/qelectrotech/elements/plane_a_cn3_discrete__7i84u_b_tb3.elmt,1526,2026-09-02,1,,,diagrams/qelectrotech/MESAC_VQC2040_Retrofit.qet
+diagrams/qelectrotech/elements/plane_a_cn3_discrete__cn3.elmt,2129,2026-09-03,1,,,diagrams/qelectrotech/MESAC_VQC2040_Retrofit.qet
+diagrams/qelectrotech/elements/plane_a_cn3_discrete__ir_boundary.elmt,3228,2026-09-03,1,,,diagrams/qelectrotech/MESAC_VQC2040_Retrofit.qet
+diagrams/qelectrotech/elements/plane_a_cn4_discrete__7i84u_a_tb3.elmt,2397,2026-09-03,1,,,diagrams/qelectrotech/MESAC_VQC2040_Retrofit.qet
+diagrams/qelectrotech/elements/plane_a_cn4_discrete__cn4.elmt,2396,2026-09-03,1,,,diagrams/qelectrotech/MESAC_VQC2040_Retrofit.qet
+diagrams/qelectrotech/elements/plane_a_cn4_discrete__ir_boundary.elmt,3772,2026-09-03,1,,,diagrams/qelectrotech/MESAC_VQC2040_Retrofit.qet
+diagrams/qelectrotech/elements/plane_a_cn4_spindle_analog__7i49_p3.elmt,1657,2026-09-02,1,,,diagrams/qelectrotech/MESAC_VQC2040_Retrofit.qet
+diagrams/qelectrotech/elements/plane_a_cn4_spindle_analog__cn4.elmt,1877,2026-09-02,1,,,diagrams/qelectrotech/MESAC_VQC2040_Retrofit.qet
+diagrams/qelectrotech/elements/plane_a_cn4_spindle_analog__hold_termination.elmt,1323,2026-09-02,1,,,diagrams/qelectrotech/MESAC_VQC2040_Retrofit.qet
+diagrams/qelectrotech/elements/plane_a_cn5_discrete__7i84u_a_tb3.elmt,1241,2026-09-02,1,,,diagrams/qelectrotech/MESAC_VQC2040_Retrofit.qet
+diagrams/qelectrotech/elements/plane_a_cn5_discrete__cn5.elmt,1285,2026-09-02,1,,,diagrams/qelectrotech/MESAC_VQC2040_Retrofit.qet
+diagrams/qelectrotech/elements/plane_a_cn5_discrete__ir_boundary.elmt,1563,2026-09-02,1,,,diagrams/qelectrotech/MESAC_VQC2040_Retrofit.qet
+diagrams/qelectrotech/elements/plane_a_cn6_discrete__7i84u_a_tb2.elmt,1525,2026-09-02,1,,,diagrams/qelectrotech/MESAC_VQC2040_Retrofit.qet
+diagrams/qelectrotech/elements/plane_a_cn6_discrete__7i84u_a_tb3.elmt,1246,2026-09-03,1,,,diagrams/qelectrotech/MESAC_VQC2040_Retrofit.qet
+diagrams/qelectrotech/elements/plane_a_cn6_discrete__7i84u_b_tb2.elmt,1243,2026-09-02,1,,,diagrams/qelectrotech/MESAC_VQC2040_Retrofit.qet
+diagrams/qelectrotech/elements/plane_a_cn6_discrete__cn6.elmt,2108,2026-09-03,1,,,diagrams/qelectrotech/MESAC_VQC2040_Retrofit.qet
+diagrams/qelectrotech/elements/plane_a_cn6_discrete__ir_boundary.elmt,3200,2026-09-03,1,,,diagrams/qelectrotech/MESAC_VQC2040_Retrofit.qet
+diagrams/qelectrotech/elements/plane_b_axis_velocity_commands__7i49_p3.elmt,1500,2026-09-02,1,,,diagrams/qelectrotech/MESAC_VQC2040_Retrofit.qet
+diagrams/qelectrotech/elements/plane_b_axis_velocity_commands__7i49_p4.elmt,2052,2026-09-02,1,,,diagrams/qelectrotech/MESAC_VQC2040_Retrofit.qet
+diagrams/qelectrotech/elements/plane_b_axis_velocity_commands__tbd.elmt,2910,2026-09-02,1,,,diagrams/qelectrotech/MESAC_VQC2040_Retrofit.qet
+diagrams/qelectrotech/elements/plane_b_cna10_legacy_load_display__cna10.elmt,2385,2026-09-02,1,,,diagrams/qelectrotech/MESAC_VQC2040_Retrofit.qet
+diagrams/qelectrotech/elements/plane_b_cna10_legacy_load_display__hold_termination.elmt,2506,2026-09-02,1,,,diagrams/qelectrotech/MESAC_VQC2040_Retrofit.qet
+diagrams/qelectrotech/elements/plane_b_x_resolver__7i49_p4.elmt,2896,2026-09-02,1,,,diagrams/qelectrotech/MESAC_VQC2040_Retrofit.qet
+diagrams/qelectrotech/elements/plane_b_x_resolver__cna3.elmt,3037,2026-09-02,1,,,diagrams/qelectrotech/MESAC_VQC2040_Retrofit.qet
+diagrams/qelectrotech/elements/plane_b_x_resolver__hold_termination.elmt,1320,2026-09-02,1,,,diagrams/qelectrotech/MESAC_VQC2040_Retrofit.qet
+diagrams/qelectrotech/elements/plane_b_x_resolver__new_cable_shields.elmt,1352,2026-09-02,1,,,diagrams/qelectrotech/MESAC_VQC2040_Retrofit.qet
+diagrams/qelectrotech/elements/plane_b_y_resolver__7i49_p4.elmt,2917,2026-09-02,1,,,diagrams/qelectrotech/MESAC_VQC2040_Retrofit.qet
+diagrams/qelectrotech/elements/plane_b_y_resolver__cna4.elmt,3037,2026-09-02,1,,,diagrams/qelectrotech/MESAC_VQC2040_Retrofit.qet
+diagrams/qelectrotech/elements/plane_b_y_resolver__hold_termination.elmt,1320,2026-09-02,1,,,diagrams/qelectrotech/MESAC_VQC2040_Retrofit.qet
+diagrams/qelectrotech/elements/plane_b_y_resolver__new_cable_shields.elmt,1352,2026-09-02,1,,,diagrams/qelectrotech/MESAC_VQC2040_Retrofit.qet
+diagrams/qelectrotech/elements/plane_b_z_resolver__7i49_p3.elmt,2896,2026-09-02,1,,,diagrams/qelectrotech/MESAC_VQC2040_Retrofit.qet
+diagrams/qelectrotech/elements/plane_b_z_resolver__cna5.elmt,3037,2026-09-02,1,,,diagrams/qelectrotech/MESAC_VQC2040_Retrofit.qet
+diagrams/qelectrotech/elements/plane_b_z_resolver__hold_termination.elmt,1320,2026-09-02,1,,,diagrams/qelectrotech/MESAC_VQC2040_Retrofit.qet
+diagrams/qelectrotech/elements/plane_b_z_resolver__new_cable_shields.elmt,1352,2026-09-02,1,,,diagrams/qelectrotech/MESAC_VQC2040_Retrofit.qet
+diagrams/qelectrotech/manifest.json,448,2026-09-03,7,,,diagrams/qelectrotech/README.md diagrams/wireviz/README.md docs/manual_set/README.md scripts/build_manual_set.py scripts/create_wiring_workbook.py scripts/generate_qelectrotech_project.py scripts/generate_wireviz_diagrams.py
+diagrams/wireviz/README.md,2673,2026-08-20,44,yes,,.gitignore CLAUDE.md INSTALL_SPINE.md INTERFACE_ARCHITECTURE.md README.md background/frsx_orient_detector_capture.md background/mesa_pcw_bitfile_inquiry.md background/parameter_recovery.md
+diagrams/wireviz/index.html,5685,2026-09-03,5,,,.gitignore diagrams/wireviz/README.md io-dashboard/README.md io-dashboard/tools/build_standalone.py scripts/generate_wireviz_diagrams.py
+diagrams/wireviz/manifest.json,5239,2026-09-03,7,,,diagrams/qelectrotech/README.md diagrams/wireviz/README.md docs/manual_set/README.md scripts/build_manual_set.py scripts/create_wiring_workbook.py scripts/generate_qelectrotech_project.py scripts/generate_wireviz_diagrams.py
+diagrams/wireviz/rendered/00_interface_overview.gv,14465,2026-08-20,0,,,
+diagrams/wireviz/rendered/00_interface_overview.html,34053,2026-08-20,2,,,diagrams/wireviz/README.md diagrams/wireviz/index.html
+diagrams/wireviz/rendered/00_interface_overview.svg,32565,2026-08-20,1,,,diagrams/wireviz/index.html
+diagrams/wireviz/rendered/plane_a_cn11_discrete.gv,26663,2026-09-03,0,,,
+diagrams/wireviz/rendered/plane_a_cn11_discrete.html,73461,2026-09-03,1,,,diagrams/wireviz/index.html
+diagrams/wireviz/rendered/plane_a_cn11_discrete.svg,72041,2026-09-03,1,,,diagrams/wireviz/index.html
+diagrams/wireviz/rendered/plane_a_cn1_discrete.gv,18652,2026-09-03,0,,,
+diagrams/wireviz/rendered/plane_a_cn1_discrete.html,50032,2026-09-03,1,,,diagrams/wireviz/index.html
+diagrams/wireviz/rendered/plane_a_cn1_discrete.svg,48615,2026-09-03,1,,,diagrams/wireviz/index.html
+diagrams/wireviz/rendered/plane_a_cn200_discrete.gv,6730,2026-09-03,0,,,
+diagrams/wireviz/rendered/plane_a_cn200_discrete.html,15362,2026-09-03,1,,,diagrams/wireviz/index.html
+diagrams/wireviz/rendered/plane_a_cn200_discrete.svg,13939,2026-09-03,1,,,diagrams/wireviz/index.html
+diagrams/wireviz/rendered/plane_a_cn2_discrete.gv,42610,2026-09-03,0,,,
+diagrams/wireviz/rendered/plane_a_cn2_discrete.html,123556,2026-09-03,1,,,diagrams/wireviz/index.html
+diagrams/wireviz/rendered/plane_a_cn2_discrete.svg,122139,2026-09-03,1,,,diagrams/wireviz/index.html
+diagrams/wireviz/rendered/plane_a_cn3_discrete.gv,15498,2026-09-03,0,,,
+diagrams/wireviz/rendered/plane_a_cn3_discrete.html,41487,2026-09-03,1,,,diagrams/wireviz/index.html
+diagrams/wireviz/rendered/plane_a_cn3_discrete.svg,40070,2026-09-03,1,,,diagrams/wireviz/index.html
+diagrams/wireviz/rendered/plane_a_cn4_discrete.gv,17395,2026-09-03,0,,,
+diagrams/wireviz/rendered/plane_a_cn4_discrete.html,47860,2026-09-03,1,,,diagrams/wireviz/index.html
+diagrams/wireviz/rendered/plane_a_cn4_discrete.svg,46443,2026-09-03,1,,,diagrams/wireviz/index.html
+diagrams/wireviz/rendered/plane_a_cn4_spindle_analog.gv,7635,2026-08-20,0,,,
+diagrams/wireviz/rendered/plane_a_cn4_spindle_analog.html,18172,2026-08-20,1,,,diagrams/wireviz/index.html
+diagrams/wireviz/rendered/plane_a_cn4_spindle_analog.svg,16740,2026-08-20,1,,,diagrams/wireviz/index.html
+diagrams/wireviz/rendered/plane_a_cn5_discrete.gv,6732,2026-08-20,0,,,
+diagrams/wireviz/rendered/plane_a_cn5_discrete.html,15599,2026-08-20,1,,,diagrams/wireviz/index.html
+diagrams/wireviz/rendered/plane_a_cn5_discrete.svg,14182,2026-08-20,1,,,diagrams/wireviz/index.html
+diagrams/wireviz/rendered/plane_a_cn6_discrete.gv,16069,2026-09-03,0,,,
+diagrams/wireviz/rendered/plane_a_cn6_discrete.html,42132,2026-09-03,1,,,diagrams/wireviz/index.html
+diagrams/wireviz/rendered/plane_a_cn6_discrete.svg,40715,2026-09-03,1,,,diagrams/wireviz/index.html
+diagrams/wireviz/rendered/plane_b_axis_velocity_commands.gv,11515,2026-08-20,0,,,
+diagrams/wireviz/rendered/plane_b_axis_velocity_commands.html,29117,2026-08-20,1,,,diagrams/wireviz/index.html
+diagrams/wireviz/rendered/plane_b_axis_velocity_commands.svg,27644,2026-08-20,1,,,diagrams/wireviz/index.html
+diagrams/wireviz/rendered/plane_b_cna10_legacy_load_display.gv,9449,2026-08-20,0,,,
+diagrams/wireviz/rendered/plane_b_cna10_legacy_load_display.html,24663,2026-08-20,1,,,diagrams/wireviz/index.html
+diagrams/wireviz/rendered/plane_b_cna10_legacy_load_display.svg,23214,2026-08-20,1,,,diagrams/wireviz/index.html
+diagrams/wireviz/rendered/plane_b_x_resolver.gv,14998,2026-08-20,0,,,
+diagrams/wireviz/rendered/plane_b_x_resolver.html,38256,2026-08-20,1,,,diagrams/wireviz/index.html
+diagrams/wireviz/rendered/plane_b_x_resolver.svg,36816,2026-08-20,1,,,diagrams/wireviz/index.html
+diagrams/wireviz/rendered/plane_b_y_resolver.gv,15026,2026-08-20,0,,,
+diagrams/wireviz/rendered/plane_b_y_resolver.html,38317,2026-08-20,1,,,diagrams/wireviz/index.html
+diagrams/wireviz/rendered/plane_b_y_resolver.svg,36877,2026-08-20,1,,,diagrams/wireviz/index.html
+diagrams/wireviz/rendered/plane_b_z_resolver.gv,14998,2026-08-20,0,,,
+diagrams/wireviz/rendered/plane_b_z_resolver.html,38490,2026-08-20,1,,,diagrams/wireviz/index.html
+diagrams/wireviz/rendered/plane_b_z_resolver.svg,37050,2026-08-20,1,,,diagrams/wireviz/index.html
+diagrams/wireviz/src/00_interface_overview.yml,3895,2026-08-20,1,,,diagrams/wireviz/manifest.json
+diagrams/wireviz/src/plane_a_cn11_discrete.yml,4844,2026-09-03,1,,,diagrams/wireviz/manifest.json
+diagrams/wireviz/src/plane_a_cn1_discrete.yml,3926,2026-09-03,1,,,diagrams/wireviz/manifest.json
+diagrams/wireviz/src/plane_a_cn200_discrete.yml,2207,2026-09-03,1,,,diagrams/wireviz/manifest.json
+diagrams/wireviz/src/plane_a_cn2_discrete.yml,6660,2026-09-03,1,,,diagrams/wireviz/manifest.json
+diagrams/wireviz/src/plane_a_cn3_discrete.yml,3466,2026-09-03,1,,,diagrams/wireviz/manifest.json
+diagrams/wireviz/src/plane_a_cn4_discrete.yml,3450,2026-09-03,1,,,diagrams/wireviz/manifest.json
+diagrams/wireviz/src/plane_a_cn4_spindle_analog.yml,2398,2026-08-20,1,,,diagrams/wireviz/manifest.json
+diagrams/wireviz/src/plane_a_cn5_discrete.yml,2205,2026-08-20,1,,,diagrams/wireviz/manifest.json
+diagrams/wireviz/src/plane_a_cn6_discrete.yml,3661,2026-09-03,1,,,diagrams/wireviz/manifest.json
+diagrams/wireviz/src/plane_b_axis_velocity_commands.yml,2910,2026-08-20,1,,,diagrams/wireviz/manifest.json
+diagrams/wireviz/src/plane_b_cna10_legacy_load_display.yml,2332,2026-08-20,1,,,diagrams/wireviz/manifest.json
+diagrams/wireviz/src/plane_b_x_resolver.yml,3488,2026-08-20,1,,,diagrams/wireviz/manifest.json
+diagrams/wireviz/src/plane_b_y_resolver.yml,3509,2026-08-20,1,,,diagrams/wireviz/manifest.json
+diagrams/wireviz/src/plane_b_z_resolver.yml,3488,2026-08-20,1,,,diagrams/wireviz/manifest.json
+docs/LinuxCNC_Setup_HowTo.docx,16374,2026-07-20,0,,,
+docs/Mesa Manuals/7i44man.pdf,114865,2026-08-21,2,,,docs/Mesa Manuals/README.md docs/superseded_claims_2026-08-06.md
+docs/Mesa Manuals/7i49man.pdf,349064,2026-08-18,17,,,CLAUDE.md README.md docs/Mesa Manuals/README.md docs/architecture_decision.md docs/commissioning_logs/analog_cmd_plan_2026-08-08.md docs/grounding_shielding_plan.md docs/project_status.md docs/resolver_commissioning.md
+docs/Mesa Manuals/7i80hdman.pdf,243514,2026-08-13,7,,,docs/Mesa Manuals/README.md docs/cabinet_photo_checklist.md docs/pre_power_deliverables.md docs/project_status.md docs/superseded_claims_2026-08-06.md mesa/firmware/README.md mesa/mesa_firmware_checklist.md
+docs/Mesa Manuals/7i80hdtman.pdf,252929,2026-08-17,3,,,CLAUDE.md bom/README.md docs/Mesa Manuals/README.md
+docs/Mesa Manuals/7i84uman.pdf,258036,2026-07-09,12,,,CLAUDE.md docs/Mesa Manuals/README.md docs/claim_audit_2026-08-07.md docs/commissioning_logs/find_list_2026-08-08.md docs/commissioning_logs/sserial_enumeration_check_2026-09-05.md docs/io_capacity_reconciliation.md docs/smart_serial_latency.md io-dashboard/commissioning.js
+docs/Mesa Manuals/README.md,2124,2026-08-21,44,yes,+superseded-ish-banner,.gitignore CLAUDE.md INSTALL_SPINE.md INTERFACE_ARCHITECTURE.md README.md background/frsx_orient_detector_capture.md background/mesa_pcw_bitfile_inquiry.md background/parameter_recovery.md
+docs/OEM Manuals/Mitsubishi_FR-SX_Spindle_Drive_Maintenance_Manual_BCN-21735-S5.pdf,4096730,2026-08-12,5,,,docs/frsx_maintenance_manual_notes.md docs/frsx_orient_model.md docs/servo_amp_analysis.md io-dashboard/data.js mesa/current_pin_authority.csv
+docs/README_photo_sorting.md,5153,2026-08-21,13,,GOVERNANCE +superseded-ish-banner,CLAUDE.md README.md background/frsx_orient_detector_capture.md docs/dc_bus_stop_fault.md docs/feedback_nameplate_survey_2026-08-15.md docs/handoff_photo_tools_2026-08-25.md docs/parameters_sn060231.md docs/photo_drive_layout_2026-08-21.md
+docs/architecture_decision.md,20357,2026-08-23,13,,REFERENCE +superseded-ish-banner,README.md background/README.md docs/commissioning_logs/sserial_enumeration_check_2026-09-05.md docs/feedback_nameplate_survey_2026-08-15.md docs/grounding_shielding_plan.md docs/project_status.md docs/servo_amp_analysis.md docs/servo_commissioning.md
+docs/authority_hierarchy.md,16254,2026-08-15,13,,GOVERNANCE,.github/workflows/authority-gate.yml CLAUDE.md docs/commissioning_logs/sserial_enumeration_check_2026-09-05.md docs/ladder_signal_audit_2026-09-02.md docs/pin_authority_audit_2026-09-05.md docs/superseded_claims_2026-08-06.md io-dashboard/project_data.js linuxcnc/README.md
+docs/ballscrew_lead_2026-08-17.md,19003,2026-08-17,7,,,docs/feed_drive_parts_2026-08-17.md docs/project_status.md docs/resolver_commissioning.md docs/superseded_claims_2026-08-06.md handoff.md linuxcnc/mazak_vqc_20_40.ini linuxcnc/motion_7i80hdt.hal
+docs/bench_procedure_2026-09-05.md,24256,2026-09-05,7,,SHOP PROCEDURE,docs/commissioning_logs/sserial_enumeration_check_2026-09-05.md docs/handoff_2026-09-04.md docs/handoff_2026-09-05.md docs/linuxcnc_config_audit_2026-09-03.md docs/pin_authority_audit_2026-09-05.md io-dashboard/data.js mesa/current_pin_authority.csv
+docs/cabinet_photo_checklist.md,5350,2026-08-23,7,,REFERENCE,README.md docs/ladder_signal_audit_2026-09-02.md docs/pre_power_deliverables.md docs/project_status.md linuxcnc/README.md mesa/mesa_firmware_checklist.md wiring/README.md
+docs/claim_audit_2026-08-07.md,17021,2026-08-23,7,,PROVENANCE +superseded-ish-banner,docs/commissioning_logs/sserial_enumeration_check_2026-09-05.md docs/pin_authority_audit_2026-09-05.md docs/pre_power_deliverables.md docs/spindle_motor_plg_encoder.md docs/superseded_claims_2026-08-06.md io-dashboard/data.js mesa/current_pin_authority.csv
+docs/commissioning_logs/analog_cmd_plan_2026-08-08.md,5758,2026-09-05,3,yes,,CLAUDE.md INSTALL_SPINE.md wiring/authority_conflicts.md
+docs/commissioning_logs/find_list_2026-08-08.md,6777,2026-08-09,3,yes,+superseded-ish-banner,INSTALL_SPINE.md docs/spindle_motor_plg_encoder.md wiring/cabinet_asfound_survey.md
+docs/commissioning_logs/halrun_component_harness_2026-08-16.md,5123,2026-08-16,1,,,docs/project_status.md
+docs/commissioning_logs/mazak_commissioning_records_07-08-2026.json,1191,2026-08-15,0,,,
+docs/commissioning_logs/servo_period_bench_2026-08-21/README.md,4782,2026-08-23,43,yes,,.gitignore CLAUDE.md INSTALL_SPINE.md INTERFACE_ARCHITECTURE.md README.md background/frsx_orient_detector_capture.md background/mesa_pcw_bitfile_inquiry.md background/parameter_recovery.md
+docs/commissioning_logs/servo_period_bench_2026-08-21/bench.hal,859,2026-08-23,5,,,docs/commissioning_logs/servo_period_bench_2026-08-21/README.md docs/commissioning_logs/servo_period_bench_2026-08-21/p.hal docs/commissioning_logs/servo_period_bench_2026-08-21/run_bench.hal docs/commissioning_logs/servo_period_bench_2026-08-21/soak.hal docs/commissioning_logs/servo_period_bench_2026-08-21/steady.hal
+docs/commissioning_logs/servo_period_bench_2026-08-21/confirm2ms.sh,715,2026-08-21,1,,,docs/commissioning_logs/servo_period_bench_2026-08-21/README.md
+docs/commissioning_logs/servo_period_bench_2026-08-21/core_test.log,893,2026-08-21,2,,,docs/commissioning_logs/servo_period_bench_2026-08-21/README.md docs/commissioning_logs/servo_period_bench_2026-08-21/core_test.sh
+docs/commissioning_logs/servo_period_bench_2026-08-21/core_test.sh,1437,2026-08-21,1,,,docs/commissioning_logs/servo_period_bench_2026-08-21/README.md
+docs/commissioning_logs/servo_period_bench_2026-08-21/iso.sh,950,2026-08-21,1,,,docs/commissioning_logs/servo_period_bench_2026-08-21/README.md
+docs/commissioning_logs/servo_period_bench_2026-08-21/p.hal,64,2026-08-21,2,,,docs/commissioning_logs/servo_period_bench_2026-08-21/README.md tests/hal/halharness.py
+docs/commissioning_logs/servo_period_bench_2026-08-21/run_bench.hal,137,2026-08-21,1,,,docs/commissioning_logs/servo_period_bench_2026-08-21/README.md
+docs/commissioning_logs/servo_period_bench_2026-08-21/soak.hal,100,2026-08-21,0,,,
+docs/commissioning_logs/servo_period_bench_2026-08-21/soak.log,5339,2026-08-21,1,,,docs/commissioning_logs/servo_period_bench_2026-08-21/README.md
+docs/commissioning_logs/servo_period_bench_2026-08-21/steady.hal,145,2026-08-21,1,,,docs/commissioning_logs/servo_period_bench_2026-08-21/README.md
+docs/commissioning_logs/servo_period_bench_2026-08-21/sweep.sh,734,2026-08-21,1,,,docs/commissioning_logs/servo_period_bench_2026-08-21/README.md
+docs/commissioning_logs/servo_period_bench_2026-08-21/wifi_test.log,1098,2026-08-21,2,,,docs/commissioning_logs/servo_period_bench_2026-08-21/README.md docs/commissioning_logs/servo_period_bench_2026-08-21/wifi_test.sh
+docs/commissioning_logs/servo_period_bench_2026-08-21/wifi_test.sh,2199,2026-08-21,1,,,docs/commissioning_logs/servo_period_bench_2026-08-21/README.md
+docs/commissioning_logs/sserial_enumeration_check_2026-09-05.md,14311,2026-09-05,2,,BENCH-CHECK RECORD,docs/ladder_signal_audit_2026-09-02.md docs/project_status.md
+docs/crt_screen_survey_2026-08-21.md,5048,2026-08-21,1,,REFERENCE,docs/photo_gap_mining_2026-08-21.md
+docs/dc_bus_stop_fault.md,14732,2026-08-15,6,yes,,INSTALL_SPINE.md docs/frsx_orient_model.md docs/pre_power_deliverables.md docs/project_status.md docs/superseded_claims_2026-08-06.md scripts/build_manual_set.py
+docs/diagnosis_screens_2025-06-27.md,5788,2026-08-21,3,,REFERENCE,docs/crt_screen_survey_2026-08-21.md docs/parameters_sn060231.md docs/usb_video_drive_search_2026-08-21.md
+docs/estop_safety_chain.md,2043,2026-08-15,17,yes,+superseded-ish-banner,INSTALL_SPINE.md INTERFACE_ARCHITECTURE.md docs/claim_audit_2026-08-07.md docs/dc_bus_stop_fault.md docs/frsx_orient_model.md docs/hm2_eth_nic_validation.md docs/ladder/estop_ladder_transcription.md docs/ladder/interlocks_ladder_transcription.md
+docs/feed_drive_parts_2026-08-17.md,8415,2026-08-17,2,,,docs/ballscrew_lead_2026-08-17.md docs/project_status.md
+docs/feedback_nameplate_survey_2026-08-15.md,14621,2026-08-21,14,,,README.md bom/README.md docs/architecture_decision.md docs/ballscrew_lead_2026-08-17.md docs/feed_drive_parts_2026-08-17.md docs/photo_gap_mining_2026-08-21.md docs/photo_reindex_2026-08-21.md docs/resolver_commissioning.md
+docs/first_move_plan.md,5143,2026-08-15,7,yes,,INSTALL_SPINE.md README.md docs/pre_power_deliverables.md docs/project_status.md docs/resolver_commissioning.md scripts/build_manual_set.py wiring/nc_circuit_landing_audit.md
+docs/frsx_maintenance_manual_notes.md,10165,2026-09-04,11,,REFERENCE,CLAUDE.md README.md background/README.md background/frsx_orient_detector_capture.md docs/bench_procedure_2026-09-05.md docs/frsx_orient_model.md docs/handoff_2026-09-04.md docs/linuxcnc_config_audit_2026-09-03.md
+docs/frsx_orient_model.md,16641,2026-08-15,18,,BACKGROUND +superseded-ish-banner,background/README.md background/frsx_orient_detector_capture.md docs/claim_audit_2026-08-07.md docs/frsx_maintenance_manual_notes.md docs/frsx_state_diagram.md docs/pre_power_deliverables.md docs/project_status.md docs/spindle_motor_plg_encoder.md
+docs/frsx_state_diagram.md,3589,2026-08-07,2,yes,,INSTALL_SPINE.md docs/pre_power_deliverables.md
+docs/grounding_shielding_plan.md,9096,2026-08-18,11,yes,,INSTALL_SPINE.md bom/README.md docs/claim_audit_2026-08-07.md docs/pre_power_deliverables.md docs/project_status.md docs/resolver_commissioning.md docs/spindle_motor_plg_encoder.md io-dashboard/commissioning.js
+docs/handoff_2026-09-04.md,11856,2026-09-05,1,,,docs/handoff_2026-09-05.md
+docs/handoff_2026-09-05.md,5950,2026-09-05,0,,+superseded-ish-banner,
+docs/handoff_photo_tools_2026-08-25.md,5868,2026-08-25,0,,,
+docs/hm2_eth_nic_validation.md,16391,2026-08-23,10,yes,,CLAUDE.md INSTALL_SPINE.md docs/claim_audit_2026-08-07.md docs/commissioning_logs/servo_period_bench_2026-08-21/README.md docs/pre_power_deliverables.md docs/project_status.md linuxcnc/README.md linuxcnc/mazak_vqc_20_40.hal
+docs/io_capacity_reconciliation.md,4620,2026-08-10,13,,,archive/crosswalk/element_dashboard_crosswalk_summary.md docs/architecture_decision.md docs/claim_audit_2026-08-07.md docs/pre_power_deliverables.md docs/project_status.md io-dashboard/data.js io-dashboard/project_data.js linuxcnc/field_7i84u.hal
+docs/ladder/atc_component_README.md,15511,2026-09-04,9,yes,,INSTALL_SPINE.md README.md docs/commissioning_logs/halrun_component_harness_2026-08-16.md linuxcnc/atc_orient.hal linuxcnc/atc_orient.ini.snippet tests/hal/README.md tests/hal/scenarios/atc_tool_range.py tests/hal/scenarios/atc_unclamp_gating.py
+docs/ladder/atc_ladder_transcription.md,20663,2026-09-04,19,yes,,INSTALL_SPINE.md docs/bench_procedure_2026-09-05.md docs/ladder/atc_component_README.md docs/linuxcnc_config_audit_2026-09-03.md docs/y_soft_limit_atc_zone.md io-dashboard/data.js linuxcnc/atc_orient.hal linuxcnc/components/mazak_atc.comp
+docs/ladder/coolant_ladder_transcription.md,4576,2026-09-02,4,,BACKGROUND,docs/ladder/probe_mms_ladder_transcription.md io-dashboard/data.js mesa/current_pin_authority.csv wiring/plane_a_bbia1_pin_crosswalk.csv
+docs/ladder/estop_ladder_transcription.md,7284,2026-09-02,9,,BACKGROUND,docs/estop_safety_chain.md docs/ladder/coolant_ladder_transcription.md docs/ladder/homing_ladder_transcription.md docs/ladder/interlocks_ladder_transcription.md docs/ladder/probe_mms_ladder_transcription.md docs/pin_authority_audit_2026-09-05.md io-dashboard/data.js mesa/current_pin_authority.csv
+docs/ladder/homing_ladder_transcription.md,4732,2026-09-02,6,,BACKGROUND,docs/bench_procedure_2026-09-05.md docs/linuxcnc_config_audit_2026-09-03.md io-dashboard/data.js linuxcnc/mazak_vqc_20_40.ini mesa/current_pin_authority.csv wiring/plane_a_bbia1_pin_crosswalk.csv
+docs/ladder/interlocks_ladder_transcription.md,4950,2026-09-02,5,,BACKGROUND,docs/pin_authority_audit_2026-09-05.md io-dashboard/data.js mesa/current_pin_authority.csv wiring/nc_circuit_landing_audit.md wiring/plane_a_bbia1_pin_crosswalk.csv
+docs/ladder/orient_ladder_transcription.md,12620,2026-09-02,18,yes,,INSTALL_SPINE.md docs/frsx_orient_model.md docs/ladder/atc_component_README.md docs/ladder/atc_ladder_transcription.md docs/ladder/coolant_ladder_transcription.md docs/ladder/spindle_run_ladder_transcription.md io-dashboard/data.js linuxcnc/atc_orient.hal
+docs/ladder/probe_mms_ladder_transcription.md,5103,2026-09-02,3,,BACKGROUND,docs/ladder/estop_ladder_transcription.md io-dashboard/data.js mesa/current_pin_authority.csv
+docs/ladder/spindle_run_ladder_transcription.md,4756,2026-09-02,4,,BACKGROUND,docs/pin_authority_audit_2026-09-05.md io-dashboard/data.js mesa/current_pin_authority.csv wiring/plane_a_bbia1_pin_crosswalk.csv
+docs/ladder_signal_audit_2026-09-02.md,12942,2026-09-05,4,,AUDIT RECORD +superseded-ish-banner,docs/commissioning_logs/sserial_enumeration_check_2026-09-05.md docs/handoff_2026-09-04.md docs/project_status.md docs/wiring_audit_2026-09-03.md
+docs/linuxcnc_config_audit_2026-09-03.md,30862,2026-09-05,3,,,docs/bench_procedure_2026-09-05.md docs/handoff_2026-09-04.md docs/handoff_2026-09-05.md
+docs/manual_set/Mazak_VQC2040_Complete_Manual_RevB.pdf,128008,2026-08-07,3,,,docs/manual_set/README.md docs/manual_set/manifest.json scripts/build_manual_set.py
+docs/manual_set/README.md,2171,2026-08-23,44,yes,+superseded-ish-banner,.gitignore CLAUDE.md INSTALL_SPINE.md INTERFACE_ARCHITECTURE.md README.md background/frsx_orient_detector_capture.md background/mesa_pcw_bitfile_inquiry.md background/parameter_recovery.md
+docs/manual_set/Vol0_Master_Guide_and_TOC.pdf,12043,2026-08-07,3,,,docs/manual_set/README.md docs/manual_set/manifest.json scripts/build_manual_set.py
+docs/manual_set/Vol1_Overview_and_Safety.pdf,14816,2026-08-07,3,,,docs/manual_set/README.md docs/manual_set/manifest.json scripts/build_manual_set.py
+docs/manual_set/Vol2_Operation_Manual.pdf,14405,2026-08-07,3,,,docs/manual_set/README.md docs/manual_set/manifest.json scripts/build_manual_set.py
+docs/manual_set/Vol3_Mesa_Conversion_Manual.pdf,20233,2026-08-07,3,,,docs/manual_set/README.md docs/manual_set/manifest.json scripts/build_manual_set.py
+docs/manual_set/Vol4_Wiring_Diagrams_and_IO_Reference.pdf,37231,2026-08-07,3,,,docs/manual_set/README.md docs/manual_set/manifest.json scripts/build_manual_set.py
+docs/manual_set/Vol5_Maintenance_and_Troubleshooting.pdf,15403,2026-08-07,3,,,docs/manual_set/README.md docs/manual_set/manifest.json scripts/build_manual_set.py
+docs/manual_set/Vol6_Reference_Glossary_Index.pdf,16192,2026-08-07,3,,,docs/manual_set/README.md docs/manual_set/manifest.json scripts/build_manual_set.py
+docs/manual_set/manifest.json,1457,2026-08-07,7,,,diagrams/qelectrotech/README.md diagrams/wireviz/README.md docs/manual_set/README.md scripts/build_manual_set.py scripts/create_wiring_workbook.py scripts/generate_qelectrotech_project.py scripts/generate_wireviz_diagrams.py
+docs/parameters_sn060231.md,9111,2026-08-21,21,yes,,INSTALL_SPINE.md README.md background/README.md background/frsx_orient_detector_capture.md background/parameter_recovery.md background/parameters_factory1985_vs_live_reconciliation.md docs/bench_procedure_2026-09-05.md docs/crt_screen_survey_2026-08-21.md
+docs/photo_drive_layout_2026-08-21.md,4938,2026-08-21,7,,GOVERNANCE +superseded-ish-banner,CLAUDE.md docs/README_photo_sorting.md docs/diagnosis_screens_2025-06-27.md docs/parameters_sn060231.md docs/photo_gap_mining_2026-08-21.md docs/photo_reindex_2026-08-21.md photos/README.md
+docs/photo_gap_mining_2026-08-21.md,8131,2026-08-21,1,,REFERENCE,docs/README_photo_sorting.md
+docs/photo_reindex_2026-08-21.md,5656,2026-08-21,1,,REFERENCE,docs/feedback_nameplate_survey_2026-08-15.md
+docs/photo_survey_misc.md,45385,2026-08-15,24,,REFERENCE,CLAUDE.md README.md background/frsx_orient_detector_capture.md docs/README_photo_sorting.md docs/commissioning_logs/analog_cmd_plan_2026-08-08.md docs/crt_screen_survey_2026-08-21.md docs/feed_drive_parts_2026-08-17.md docs/frsx_maintenance_manual_notes.md
+docs/pin_authority_audit_2026-09-05.md,6432,2026-09-05,0,,AUDIT RECORD,
+docs/pre_power_deliverables.md,28373,2026-08-15,20,yes,GOVERNANCE,CLAUDE.md INSTALL_SPINE.md docs/authority_hierarchy.md docs/ballscrew_lead_2026-08-17.md docs/commissioning_logs/halrun_component_harness_2026-08-16.md docs/estop_safety_chain.md docs/grounding_shielding_plan.md docs/io_capacity_reconciliation.md
+docs/project_status.md,60409,2026-09-05,23,,+superseded-ish-banner,CLAUDE.md README.md background/frsx_orient_detector_capture.md background/mesa_pcw_bitfile_inquiry.md docs/ballscrew_lead_2026-08-17.md docs/claim_audit_2026-08-07.md docs/commissioning_logs/sserial_enumeration_check_2026-09-05.md docs/feed_drive_parts_2026-08-17.md
+docs/resolver_commissioning.md,33300,2026-08-21,21,yes,,CLAUDE.md INSTALL_SPINE.md INTERFACE_ARCHITECTURE.md README.md background/parameter_recovery.md bom/README.md docs/architecture_decision.md docs/ballscrew_lead_2026-08-17.md
+docs/restore_rollback_package.md,3299,2026-08-15,2,yes,,INSTALL_SPINE.md docs/pre_power_deliverables.md
+docs/servo_amp_analysis.md,26288,2026-08-23,12,,REFERENCE +superseded-ish-banner,CLAUDE.md background/README.md background/frsx_orient_detector_capture.md docs/bench_procedure_2026-09-05.md docs/frsx_maintenance_manual_notes.md docs/ladder/orient_ladder_transcription.md docs/spindle_motor_plg_encoder.md io-dashboard/data.js
+docs/servo_commissioning.md,13654,2026-08-15,14,yes,,INSTALL_SPINE.md docs/architecture_decision.md docs/claim_audit_2026-08-07.md docs/commissioning_logs/analog_cmd_plan_2026-08-08.md docs/first_move_plan.md docs/grounding_shielding_plan.md docs/pre_power_deliverables.md docs/project_status.md
+docs/smart_serial_latency.md,4676,2026-08-15,8,,REFERENCE,background/README.md docs/claim_audit_2026-08-07.md docs/dc_bus_stop_fault.md docs/hm2_eth_nic_validation.md docs/pre_power_deliverables.md docs/project_status.md docs/superseded_claims_2026-08-06.md linuxcnc/field_7i84u.hal
+docs/spindle_motor_plg_encoder.md,27444,2026-08-23,19,,REFERENCE +superseded-ish-banner,INTERFACE_ARCHITECTURE.md README.md background/README.md background/frsx_orient_detector_capture.md docs/README_photo_sorting.md docs/frsx_maintenance_manual_notes.md docs/frsx_orient_model.md docs/photo_drive_layout_2026-08-21.md
+docs/ssd_firmware_plan.md,7342,2026-08-23,2,,,docs/project_status.md scripts/health/README.md
+docs/stop_timing_budget.md,3446,2026-08-15,4,yes,,INSTALL_SPINE.md docs/ladder/estop_ladder_transcription.md docs/pre_power_deliverables.md linuxcnc/field_7i84u.hal
+docs/superseded_claims_2026-08-06.md,18049,2026-08-23,13,,+superseded-ish-banner,CLAUDE.md background/README.md bom/README.md docs/Mesa Manuals/README.md docs/architecture_decision.md docs/frsx_orient_model.md docs/linuxcnc_config_audit_2026-09-03.md docs/project_status.md
+docs/usb_video_drive_search_2026-08-21.md,4149,2026-08-21,3,,REFERENCE,docs/crt_screen_survey_2026-08-21.md docs/diagnosis_screens_2025-06-27.md docs/feedback_nameplate_survey_2026-08-15.md
+docs/wiring_audit_2026-09-03.md,6701,2026-09-03,1,,AUDIT RECORD,docs/handoff_2026-09-04.md
+docs/y_soft_limit_atc_zone.md,11108,2026-08-15,6,,REFERENCE,background/README.md docs/ladder/homing_ladder_transcription.md docs/pre_power_deliverables.md docs/project_status.md linuxcnc/atc_orient.ini.snippet linuxcnc/mazak_vqc_20_40.ini
+handoff.md,6831,2026-08-17,3,,,bom/README.md docs/feed_drive_parts_2026-08-17.md docs/project_status.md
+io-dashboard/README.md,17739,2026-08-23,44,yes,,.gitignore CLAUDE.md INSTALL_SPINE.md INTERFACE_ARCHITECTURE.md README.md background/frsx_orient_detector_capture.md background/mesa_pcw_bitfile_inquiry.md background/parameter_recovery.md
+io-dashboard/app.js,45176,2026-08-13,4,,,io-dashboard/README.md io-dashboard/commissioning.js io-dashboard/index.html io-dashboard/tools/build_standalone.py
+io-dashboard/commissioning.css,14529,2026-08-10,3,,,io-dashboard/README.md io-dashboard/index.html io-dashboard/tools/build_standalone.py
+io-dashboard/commissioning.js,31217,2026-08-10,4,,,io-dashboard/README.md io-dashboard/index.html io-dashboard/project.js io-dashboard/tools/build_standalone.py
+io-dashboard/data.js,366084,2026-09-05,15,,,.github/workflows/authority-gate.yml CLAUDE.md README.md background/README.md docs/commissioning_logs/analog_cmd_plan_2026-08-08.md docs/handoff_2026-09-04.md docs/handoff_2026-09-05.md io-dashboard/README.md
+io-dashboard/deploy/mazak-io-navigator.service,2073,2026-08-10,1,,,io-dashboard/README.md
+io-dashboard/index.html,12304,2026-08-11,5,,,.gitignore diagrams/wireviz/README.md io-dashboard/README.md io-dashboard/tools/build_standalone.py scripts/generate_wireviz_diagrams.py
+io-dashboard/project.css,4637,2026-08-09,2,,,io-dashboard/index.html io-dashboard/tools/build_standalone.py
+io-dashboard/project.js,6165,2026-08-09,2,,,io-dashboard/index.html io-dashboard/tools/build_standalone.py
+io-dashboard/project_data.js,10065,2026-08-23,3,,,io-dashboard/index.html io-dashboard/project.js io-dashboard/tools/build_standalone.py
+io-dashboard/serve_live.py,7439,2026-07-27,5,,,README.md io-dashboard/README.md io-dashboard/app.js io-dashboard/deploy/mazak-io-navigator.service scripts/host_status/retired/mazak-status.sh
+io-dashboard/styles.css,29584,2026-08-11,3,,,io-dashboard/README.md io-dashboard/index.html io-dashboard/tools/build_standalone.py
+io-dashboard/tools/build_standalone.py,6318,2026-08-16,2,,,.gitignore io-dashboard/README.md
+io-dashboard/tools/enrichment.py,37027,2026-08-23,3,,,docs/project_status.md io-dashboard/README.md wiring/authority_conflicts.md
+io-dashboard/tools/generate_data.py,21329,2026-08-23,8,yes,,.github/workflows/authority-gate.yml CLAUDE.md INSTALL_SPINE.md INTERFACE_ARCHITECTURE.md README.md io-dashboard/README.md io-dashboard/data.js io-dashboard/index.html
+linuxcnc/README.md,12383,2026-08-23,43,yes,,.gitignore CLAUDE.md INSTALL_SPINE.md INTERFACE_ARCHITECTURE.md README.md background/frsx_orient_detector_capture.md background/mesa_pcw_bitfile_inquiry.md background/parameter_recovery.md
+linuxcnc/atc_orient.hal,19505,2026-09-04,26,yes,,INSTALL_SPINE.md docs/authority_hierarchy.md docs/frsx_orient_model.md docs/ladder/atc_component_README.md docs/linuxcnc_config_audit_2026-09-03.md docs/parameters_sn060231.md docs/smart_serial_latency.md docs/y_soft_limit_atc_zone.md
+linuxcnc/atc_orient.ini.snippet,6535,2026-09-04,4,,,background/parameter_recovery.md docs/ladder/atc_component_README.md linuxcnc/mazak_vqc_20_40.ini linuxcnc/remap/toolchange.ngc
+linuxcnc/components/mazak_atc.comp,31343,2026-09-04,19,yes,,INSTALL_SPINE.md docs/commissioning_logs/halrun_component_harness_2026-08-16.md docs/ladder/atc_component_README.md docs/linuxcnc_config_audit_2026-09-03.md docs/project_status.md linuxcnc/atc_orient.hal linuxcnc/atc_orient.ini.snippet linuxcnc/remap/toolchange.ngc
+linuxcnc/components/mazak_orient.comp,24604,2026-09-05,22,yes,,INSTALL_SPINE.md background/frsx_orient_detector_capture.md docs/bench_procedure_2026-09-05.md docs/commissioning_logs/halrun_component_harness_2026-08-16.md docs/frsx_maintenance_manual_notes.md docs/frsx_orient_model.md docs/handoff_2026-09-04.md docs/handoff_2026-09-05.md
+linuxcnc/field_7i84u.hal,24078,2026-09-05,31,yes,,INSTALL_SPINE.md background/README.md docs/authority_hierarchy.md docs/bench_procedure_2026-09-05.md docs/frsx_maintenance_manual_notes.md docs/frsx_orient_model.md docs/handoff_2026-09-04.md docs/linuxcnc_config_audit_2026-09-03.md
+linuxcnc/mazak_vqc_20_40.hal,22440,2026-09-04,24,,,docs/claim_audit_2026-08-07.md docs/commissioning_logs/servo_period_bench_2026-08-21/bench.hal docs/commissioning_logs/sserial_enumeration_check_2026-09-05.md docs/estop_safety_chain.md docs/frsx_orient_model.md docs/hm2_eth_nic_validation.md docs/linuxcnc_config_audit_2026-09-03.md docs/project_status.md
+linuxcnc/mazak_vqc_20_40.ini,16715,2026-09-05,20,,,docs/bench_procedure_2026-09-05.md docs/claim_audit_2026-08-07.md docs/frsx_orient_model.md docs/handoff_2026-09-04.md docs/pre_power_deliverables.md docs/y_soft_limit_atc_zone.md io-dashboard/README.md io-dashboard/tools/generate_data.py
+linuxcnc/motion_7i80hdt.hal,28641,2026-09-03,18,yes,,INSTALL_SPINE.md docs/bench_procedure_2026-09-05.md docs/claim_audit_2026-08-07.md docs/frsx_orient_model.md docs/superseded_claims_2026-08-06.md io-dashboard/data.js io-dashboard/tools/enrichment.py io-dashboard/tools/generate_data.py
+linuxcnc/panel_warnings.xml,1581,2026-09-05,8,,,docs/handoff_2026-09-04.md docs/handoff_2026-09-05.md docs/linuxcnc_config_audit_2026-09-03.md io-dashboard/data.js linuxcnc/field_7i84u.hal linuxcnc/mazak_vqc_20_40.ini linuxcnc/postgui.hal mesa/current_pin_authority.csv
+linuxcnc/pendant_whb04b.hal,1361,2026-07-05,8,,,docs/pin_authority_audit_2026-09-05.md docs/project_status.md io-dashboard/data.js io-dashboard/tools/generate_data.py linuxcnc/README.md linuxcnc/mazak_vqc_20_40.ini mesa/current_pin_authority.csv wiring/nc_circuit_landing_audit.md
+linuxcnc/phase1-draft-2026-08-07/README.md,2434,2026-08-21,44,yes,HISTORICAL +superseded-ish-banner,.gitignore CLAUDE.md INSTALL_SPINE.md INTERFACE_ARCHITECTURE.md README.md background/frsx_orient_detector_capture.md background/mesa_pcw_bitfile_inquiry.md background/parameter_recovery.md
+linuxcnc/phase1-draft-2026-08-07/mazak_commissioning_ALL_dryrun.json,106201,2026-08-21,1,,,linuxcnc/phase1-draft-2026-08-07/README.md
+linuxcnc/phase1-draft-2026-08-07/phase1.ini,3348,2026-08-21,1,,,linuxcnc/phase1-draft-2026-08-07/README.md
+linuxcnc/phase1-draft-2026-08-07/phase1_field.hal,3646,2026-08-21,3,,,linuxcnc/phase1-draft-2026-08-07/README.md linuxcnc/phase1-draft-2026-08-07/phase1.ini linuxcnc/phase1-draft-2026-08-07/phase1_main.hal
+linuxcnc/phase1-draft-2026-08-07/phase1_main.hal,7019,2026-08-23,3,,,linuxcnc/phase1-draft-2026-08-07/README.md linuxcnc/phase1-draft-2026-08-07/phase1.ini linuxcnc/phase1-draft-2026-08-07/phase1_field.hal
+linuxcnc/phase1-draft-2026-08-07/tool.tbl,69,2026-08-21,7,,,docs/linuxcnc_config_audit_2026-09-03.md linuxcnc/atc_orient.ini.snippet linuxcnc/mazak_vqc_20_40.ini linuxcnc/phase1-draft-2026-08-07/README.md linuxcnc/phase1-draft-2026-08-07/phase1.ini linuxcnc/remap/toolchange.ngc scripts/build_manual_set.py
+linuxcnc/postgui.hal,905,2026-09-05,10,,,docs/handoff_2026-09-04.md docs/handoff_2026-09-05.md docs/linuxcnc_config_audit_2026-09-03.md io-dashboard/data.js io-dashboard/tools/generate_data.py linuxcnc/atc_orient.ini.snippet linuxcnc/field_7i84u.hal linuxcnc/mazak_vqc_20_40.ini
+linuxcnc/remap/on_abort.ngc,918,2026-09-04,6,,,docs/ladder/atc_component_README.md linuxcnc/atc_orient.hal linuxcnc/atc_orient.ini.snippet linuxcnc/mazak_vqc_20_40.ini linuxcnc/remap/toolchange.ngc scripts/validate_control_logic.py
+linuxcnc/remap/toolchange.ngc,25630,2026-09-04,13,yes,,INSTALL_SPINE.md background/parameter_recovery.md docs/handoff_2026-09-04.md docs/ladder/atc_component_README.md docs/ladder/atc_ladder_transcription.md docs/linuxcnc_config_audit_2026-09-03.md docs/y_soft_limit_atc_zone.md linuxcnc/atc_orient.hal
+linuxcnc/tool.tbl,242,2026-07-05,7,,,docs/linuxcnc_config_audit_2026-09-03.md linuxcnc/atc_orient.ini.snippet linuxcnc/mazak_vqc_20_40.ini linuxcnc/phase1-draft-2026-08-07/README.md linuxcnc/phase1-draft-2026-08-07/phase1.ini linuxcnc/remap/toolchange.ngc scripts/build_manual_set.py
+mesa/README.md,5317,2026-08-15,44,yes,,.gitignore CLAUDE.md INSTALL_SPINE.md INTERFACE_ARCHITECTURE.md README.md background/frsx_orient_detector_capture.md background/mesa_pcw_bitfile_inquiry.md background/parameter_recovery.md
+mesa/current_pin_authority.csv,68272,2026-09-05,77,yes,,CLAUDE.md INSTALL_SPINE.md INTERFACE_ARCHITECTURE.md README.md archive/README.md archive/crosswalk/element_dashboard_crosswalk_summary.md background/README.md background/mesa_pcw_bitfile_inquiry.md
+mesa/firmware/7i80hdt_rmsvss6_8.bin,678650,2026-08-13,18,,,README.md background/mesa_pcw_bitfile_inquiry.md bom/README.md docs/architecture_decision.md docs/commissioning_logs/sserial_enumeration_check_2026-09-05.md docs/pre_power_deliverables.md docs/project_status.md docs/spindle_motor_plg_encoder.md
+mesa/firmware/PIN_RMSVSS6_8_72.vhd,11429,2026-08-11,4,,,background/mesa_pcw_bitfile_inquiry.md mesa/firmware/README.md mesa/firmware/SHA256SUMS mesa/mesa_firmware_checklist.md
+mesa/firmware/README.md,6642,2026-08-23,44,yes,,.gitignore CLAUDE.md INSTALL_SPINE.md INTERFACE_ARCHITECTURE.md README.md background/frsx_orient_detector_capture.md background/mesa_pcw_bitfile_inquiry.md background/parameter_recovery.md
+mesa/firmware/SHA256SUMS,175,2026-08-11,3,,,background/mesa_pcw_bitfile_inquiry.md mesa/mesa_firmware_checklist.md scripts/build_manual_set.py
+mesa/firmware/readhmid_2026-08-13.txt,7572,2026-08-13,8,,,README.md docs/commissioning_logs/sserial_enumeration_check_2026-09-05.md docs/ladder_signal_audit_2026-09-02.md docs/pre_power_deliverables.md docs/project_status.md docs/superseded_claims_2026-08-06.md mesa/firmware/README.md mesa/mesa_firmware_checklist.md
+mesa/firmware/sserial_2026-08-13.txt,83,2026-08-13,3,,,docs/commissioning_logs/sserial_enumeration_check_2026-09-05.md mesa/firmware/README.md mesa/mesa_firmware_checklist.md
+mesa/mesa_firmware_checklist.md,20964,2026-08-23,19,,,README.md background/mesa_pcw_bitfile_inquiry.md bom/README.md docs/architecture_decision.md docs/cabinet_photo_checklist.md docs/claim_audit_2026-08-07.md docs/hm2_eth_nic_validation.md docs/pre_power_deliverables.md
+notes/.gitkeep,0,2026-08-15,0,,,
+notes/fable_ladder_audit_prompt.md,5142,2026-09-02,1,,+superseded-ish-banner,docs/handoff_2026-09-04.md
+photos/README.md,1057,2026-08-21,44,yes,,.gitignore CLAUDE.md INSTALL_SPINE.md INTERFACE_ARCHITECTURE.md README.md background/frsx_orient_detector_capture.md background/mesa_pcw_bitfile_inquiry.md background/parameter_recovery.md
+scripts/backup/README.md,12171,2026-08-23,44,yes,+superseded-ish-banner,.gitignore CLAUDE.md INSTALL_SPINE.md INTERFACE_ARCHITECTURE.md README.md background/frsx_orient_detector_capture.md background/mesa_pcw_bitfile_inquiry.md background/parameter_recovery.md
+scripts/backup/gcode_backup.sh,4348,2026-08-23,4,,,scripts/backup/README.md scripts/backup/gcode_backup_remote.sh scripts/backup/install_gcode_backup.sh scripts/backup/mazak-gcode-backup.service
+scripts/backup/gcode_backup_remote.sh,3686,2026-08-23,1,,,scripts/backup/install_gcode_backup.sh
+scripts/backup/install_gcode_backup.sh,7268,2026-08-23,3,,,scripts/backup/README.md scripts/backup/gcode_backup.sh scripts/backup/mazak-gcode-backup.service
+scripts/backup/install_photos_backup.sh,2770,2026-08-23,1,,,scripts/backup/README.md
+scripts/backup/mazak-gcode-backup-remote.service,943,2026-08-23,2,,,scripts/backup/install_gcode_backup.sh scripts/health/backup_watch.py
+scripts/backup/mazak-gcode-backup-remote.timer,566,2026-08-23,3,,,docs/project_status.md scripts/backup/README.md scripts/backup/install_gcode_backup.sh
+scripts/backup/mazak-gcode-backup.service,1558,2026-08-23,5,,,docs/project_status.md docs/ssd_firmware_plan.md scripts/backup/README.md scripts/backup/install_gcode_backup.sh scripts/health/backup_watch.py
+scripts/backup/mazak-gcode-backup.timer,467,2026-08-23,3,,,docs/project_status.md scripts/backup/README.md scripts/backup/install_gcode_backup.sh
+scripts/backup/mazak-photos-backup.service,1045,2026-08-23,2,,,scripts/backup/install_photos_backup.sh scripts/health/backup_watch.py
+scripts/backup/mazak-photos-backup.timer,333,2026-08-23,2,,,scripts/backup/README.md scripts/backup/install_photos_backup.sh
+scripts/backup/mazak-video-projects-backup.service,1264,2026-08-23,2,,,scripts/backup/install_gcode_backup.sh scripts/health/backup_watch.py
+scripts/backup/mazak-video-projects-backup.timer,371,2026-08-23,2,,,scripts/backup/README.md scripts/backup/install_gcode_backup.sh
+scripts/backup/photos_backup.sh,4745,2026-08-23,2,,,scripts/backup/README.md scripts/backup/install_photos_backup.sh
+scripts/backup/video_projects_backup.sh,4764,2026-08-23,1,,,scripts/backup/install_gcode_backup.sh
+scripts/build_manual_set.py,82216,2026-08-23,4,,,.github/workflows/authority-gate.yml CLAUDE.md background/README.md docs/manual_set/README.md
+scripts/consolidate_bbia_authority.py,9453,2026-08-17,4,,,INTERFACE_ARCHITECTURE.md scripts/validate_authority.py wiring/authority_conflicts.md wiring/nc_connector_inventory.md
+scripts/create_wiring_workbook.py,11980,2026-09-05,1,,,wiring/README.md
+scripts/generate_interface_crosswalks.py,10816,2026-08-18,2,,,wiring/README.md wiring/interface_plane_crosswalk.md
+scripts/generate_label_csvs.py,12325,2026-09-05,12,yes,,.github/workflows/authority-gate.yml CLAUDE.md INSTALL_SPINE.md INTERFACE_ARCHITECTURE.md archive/README.md docs/authority_hierarchy.md scripts/validate_authority.py wiring/README.md
+scripts/generate_qelectrotech_project.py,29544,2026-08-18,2,,,diagrams/qelectrotech/README.md diagrams/qelectrotech/manifest.json
+scripts/generate_wire_reference_sheet.py,9040,2026-09-05,7,yes,,.github/workflows/authority-gate.yml CLAUDE.md INSTALL_SPINE.md wiring/README.md wiring/labels/bbia1_cn_labels_epson.md wiring/labels/bbia1_mesa_end_ferrules_epson.md wiring/labels/bbia1_wire_reference_sheet.html
+scripts/generate_wireviz_diagrams.py,29198,2026-08-20,4,,,diagrams/wireviz/README.md diagrams/wireviz/index.html diagrams/wireviz/manifest.json scripts/generate_qelectrotech_project.py
+scripts/health/README.md,10315,2026-08-23,44,yes,,.gitignore CLAUDE.md INSTALL_SPINE.md INTERFACE_ARCHITECTURE.md README.md background/frsx_orient_detector_capture.md background/mesa_pcw_bitfile_inquiry.md background/parameter_recovery.md
+scripts/health/backup_watch.py,5307,2026-08-23,0,,,
+scripts/health/com.andygant.mazak-smart-collect.plist,945,2026-08-23,0,,,
+scripts/health/install_health.sh,4988,2026-08-23,2,,,scripts/health/README.md scripts/health/install_health_macos.sh
+scripts/health/install_health_macos.sh,2303,2026-08-23,0,,,
+scripts/health/mazak-backup-watch.service,370,2026-08-23,0,,,
+scripts/health/mazak-backup-watch.timer,309,2026-08-23,1,,,scripts/health/README.md
+scripts/health/mazak-netpath-log.service,620,2026-08-23,1,,,scripts/health/install_health.sh
+scripts/health/mazak-netpath-log.timer,171,2026-08-23,2,,,scripts/health/README.md scripts/health/install_health.sh
+scripts/health/mazak-notify-failure@.service,239,2026-08-23,0,,,
+scripts/health/mazak-repo-guard.service,712,2026-08-23,0,,,
+scripts/health/mazak-repo-guard.timer,254,2026-08-23,2,,,CLAUDE.md scripts/health/README.md
+scripts/health/mazak-smart-collect.service,723,2026-08-23,3,,,docs/ssd_firmware_plan.md scripts/health/backup_watch.py scripts/health/install_health.sh
+scripts/health/mazak-smart-collect.timer,313,2026-08-23,2,,,scripts/health/README.md scripts/health/install_health.sh
+scripts/health/netpath_log.sh,3511,2026-08-23,1,,,scripts/health/install_health.sh
+scripts/health/netpath_report.py,7972,2026-08-23,1,,,scripts/health/install_health.sh
+scripts/health/notify.sh,1869,2026-08-23,6,,,scripts/health/README.md scripts/health/backup_watch.py scripts/health/install_health.sh scripts/health/notify_failure.sh scripts/health/repo_guard.sh scripts/health/smart_alert.sh
+scripts/health/notify_failure.sh,1540,2026-08-23,0,,,
+scripts/health/orphans_acknowledged.txt,2121,2026-08-23,2,,,scripts/health/README.md scripts/health/repo_guard.sh
+scripts/health/repo_guard.sh,5189,2026-08-23,1,,,scripts/health/orphans_acknowledged.txt
+scripts/health/smart_alert.sh,2347,2026-08-23,2,,,scripts/health/README.md scripts/health/install_health.sh
+scripts/health/smart_collect.py,9476,2026-08-23,3,,,scripts/health/README.md scripts/health/install_health.sh scripts/health/install_health_macos.sh
+scripts/health/switch_mesa_subnet.sh,3556,2026-08-23,1,,,docs/project_status.md
+scripts/host_status/README.md,7557,2026-08-23,44,yes,+superseded-ish-banner,.gitignore CLAUDE.md INSTALL_SPINE.md INTERFACE_ARCHITECTURE.md README.md background/frsx_orient_detector_capture.md background/mesa_pcw_bitfile_inquiry.md background/parameter_recovery.md
+scripts/host_status/install_repo_pull.sh,3518,2026-08-17,4,,,CLAUDE.md scripts/host_status/README.md scripts/host_status/mazak-repo-pull.service scripts/host_status/repo_pull.sh
+scripts/host_status/mazak-repo-pull.service,1448,2026-08-17,6,,,scripts/backup/mazak-video-projects-backup.service scripts/health/README.md scripts/host_status/README.md scripts/host_status/install_repo_pull.sh scripts/host_status/repo_pull.sh scripts/host_status/retired/README.md
+scripts/host_status/mazak-repo-pull.timer,440,2026-08-17,5,,,CLAUDE.md scripts/backup/README.md scripts/backup/mazak-gcode-backup.timer scripts/host_status/README.md scripts/host_status/install_repo_pull.sh
+scripts/host_status/repo_pull.sh,2538,2026-08-17,4,,,CLAUDE.md scripts/host_status/README.md scripts/host_status/install_repo_pull.sh scripts/host_status/mazak-repo-pull.service
+scripts/host_status/retired/README.md,2929,2026-08-17,44,yes,+superseded-ish-banner,.gitignore CLAUDE.md INSTALL_SPINE.md INTERFACE_ARCHITECTURE.md README.md background/frsx_orient_detector_capture.md background/mesa_pcw_bitfile_inquiry.md background/parameter_recovery.md
+scripts/host_status/retired/mazak-retention,8782,2026-08-17,4,,,scripts/host_status/retired/README.md scripts/host_status/retired/mazak-retention.service scripts/host_status/retired/mazak-retention.timer scripts/host_status/retired/mazak-status.sh
+scripts/host_status/retired/mazak-retention.service,590,2026-08-17,2,,,scripts/host_status/retired/README.md scripts/host_status/retired/mazak-retention.timer
+scripts/host_status/retired/mazak-retention.timer,644,2026-08-17,1,,,scripts/host_status/retired/README.md
+scripts/host_status/retired/mazak-status.service,1259,2026-08-17,2,,,scripts/host_status/retired/README.md scripts/host_status/retired/mazak-status.timer
+scripts/host_status/retired/mazak-status.sh,14127,2026-08-17,2,,,scripts/host_status/retired/README.md scripts/host_status/retired/mazak-status.service
+scripts/host_status/retired/mazak-status.timer,1157,2026-08-17,2,,,scripts/host_status/retired/README.md scripts/host_status/retired/mazak-status.sh
+scripts/host_status/retired/mazak-watchdog,2131,2026-08-17,3,,,scripts/host_status/retired/README.md scripts/host_status/retired/mazak-status.service scripts/host_status/retired/mazak-status.sh
+scripts/photo_tools/README.md,12573,2026-08-25,44,yes,+superseded-ish-banner,.gitignore CLAUDE.md INSTALL_SPINE.md INTERFACE_ARCHITECTURE.md README.md background/frsx_orient_detector_capture.md background/mesa_pcw_bitfile_inquiry.md background/parameter_recovery.md
+scripts/photo_tools/group_photos.py,42789,2026-08-25,4,,,.gitignore docs/handoff_photo_tools_2026-08-25.md scripts/photo_tools/README.md scripts/photo_tools/test_group_photos.py
+scripts/photo_tools/imageio.py,10380,2026-08-25,0,,,
+scripts/photo_tools/metadata.py,9073,2026-08-25,0,,,
+scripts/photo_tools/photos_library.py,18912,2026-08-25,3,,,docs/handoff_photo_tools_2026-08-25.md scripts/photo_tools/README.md scripts/photo_tools/test_photos_library.py
+scripts/photo_tools/test_group_photos.py,14810,2026-08-25,2,,,docs/handoff_photo_tools_2026-08-25.md scripts/photo_tools/README.md
+scripts/photo_tools/test_photos_library.py,26212,2026-08-25,2,,,docs/handoff_photo_tools_2026-08-25.md scripts/photo_tools/README.md
+scripts/validate_authority.py,39374,2026-09-03,26,yes,,.claude/skills/new-machine-setup/SKILL.md .github/workflows/authority-gate.yml CLAUDE.md INSTALL_SPINE.md INTERFACE_ARCHITECTURE.md README.md archive/crosswalk/element_dashboard_crosswalk_summary.md docs/authority_hierarchy.md
+scripts/validate_control_logic.py,19979,2026-09-04,24,yes,,.github/workflows/authority-gate.yml CLAUDE.md INSTALL_SPINE.md README.md archive/crosswalk/element_dashboard_crosswalk_summary.md docs/authority_hierarchy.md docs/estop_safety_chain.md docs/handoff_2026-09-04.md
+tests/hal/README.md,8429,2026-09-03,43,yes,,.gitignore CLAUDE.md INSTALL_SPINE.md INTERFACE_ARCHITECTURE.md README.md background/frsx_orient_detector_capture.md background/mesa_pcw_bitfile_inquiry.md background/parameter_recovery.md
+tests/hal/halharness.py,7992,2026-08-15,1,,,tests/hal/README.md
+tests/hal/install_components.sh,1527,2026-08-15,4,,,docs/commissioning_logs/halrun_component_harness_2026-08-16.md docs/ladder/atc_component_README.md tests/hal/README.md tests/hal/run_tests.py
+tests/hal/run_tests.py,5916,2026-09-03,9,,,docs/commissioning_logs/halrun_component_harness_2026-08-16.md docs/handoff_2026-09-04.md docs/handoff_2026-09-05.md docs/ladder/atc_component_README.md docs/linuxcnc_config_audit_2026-09-03.md tests/hal/README.md tests/hal/halharness.py tests/hal/install_components.sh
+tests/hal/scenarios/atc_bcd_decode.py,7911,2026-09-04,1,,,docs/linuxcnc_config_audit_2026-09-03.md
+tests/hal/scenarios/atc_clamp_timeout.py,4581,2026-08-15,1,,,tests/hal/scenarios/timer_defaults.py
+tests/hal/scenarios/atc_cover_faults.py,11731,2026-09-03,0,,,
+tests/hal/scenarios/atc_cycle_select.py,6613,2026-09-03,0,,,
+tests/hal/scenarios/atc_pot_lost.py,8501,2026-09-04,0,,,
+tests/hal/scenarios/atc_tool_range.py,9152,2026-08-15,0,,,
+tests/hal/scenarios/atc_unclamp_gating.py,10969,2026-09-03,0,,,
+tests/hal/scenarios/orient_al46_rotating.py,8940,2026-09-05,0,,,
+tests/hal/scenarios/orient_drive_fault.py,7795,2026-09-05,0,,,
+tests/hal/scenarios/orient_gear_shift.py,14898,2026-09-05,0,,,
+tests/hal/scenarios/orient_reset_edge.py,9073,2026-09-04,0,,,
+tests/hal/scenarios/timer_defaults.py,6493,2026-09-03,9,,,tests/hal/README.md tests/hal/scenarios/atc_clamp_timeout.py tests/hal/scenarios/atc_cover_faults.py tests/hal/scenarios/atc_pot_lost.py tests/hal/scenarios/atc_unclamp_gating.py tests/hal/scenarios/orient_al46_rotating.py tests/hal/scenarios/orient_drive_fault.py tests/hal/scenarios/orient_gear_shift.py
+tests/ngc/rs274_check.sh,969,2026-09-04,2,,,docs/handoff_2026-09-04.md docs/handoff_2026-09-05.md
+wiring/MESAC_Wiring_Crosswalk.xlsx,98792,2026-09-03,2,,,scripts/create_wiring_workbook.py wiring/README.md
+wiring/MESAC_Wiring_Crosswalk_VisioImport.csv,10089,2026-09-02,2,,,docs/wiring_audit_2026-09-03.md wiring/README.md
+wiring/Mazak_Wiring_Master_7i80HDT_7i44_7i49_7i84U_Current_Authority - Overview.csv,1501,2026-09-02,0,,,
+wiring/Mazak_Wiring_Master_7i80HDT_7i44_7i49_7i84U_Current_Authority.xlsx,25927,2026-08-15,1,,,wiring/README.md
+wiring/README.md,10585,2026-09-02,44,yes,,.gitignore CLAUDE.md INSTALL_SPINE.md INTERFACE_ARCHITECTURE.md README.md background/frsx_orient_detector_capture.md background/mesa_pcw_bitfile_inquiry.md background/parameter_recovery.md
+wiring/authority_conflicts.md,42510,2026-09-05,35,yes,INSTALL-CORE,CLAUDE.md INSTALL_SPINE.md INTERFACE_ARCHITECTURE.md README.md archive/README.md docs/authority_hierarchy.md docs/claim_audit_2026-08-07.md docs/ladder/atc_component_README.md
+wiring/bbia1_cn_pinouts.csv,23001,2026-09-03,25,yes,,CLAUDE.md INSTALL_SPINE.md INTERFACE_ARCHITECTURE.md docs/bench_procedure_2026-09-05.md docs/handoff_2026-09-05.md docs/spindle_motor_plg_encoder.md io-dashboard/data.js io-dashboard/tools/generate_data.py
+wiring/bbia1_cn_pinouts.md,28798,2026-09-03,12,yes,,INSTALL_SPINE.md docs/project_status.md io-dashboard/data.js io-dashboard/project_data.js mesa/current_pin_authority.csv wiring/README.md wiring/authority_conflicts.md wiring/bbia1_terminal_unit.md
+wiring/bbia1_continuity_trace_worksheet.csv,4225,2026-09-03,2,,,wiring/authority_conflicts.md wiring/nc_connector_inventory.md
+wiring/bbia1_source_dest.csv,19249,2026-09-05,15,yes,,INSTALL_SPINE.md INTERFACE_ARCHITECTURE.md docs/project_status.md docs/servo_amp_analysis.md io-dashboard/tools/generate_data.py scripts/consolidate_bbia_authority.py scripts/create_wiring_workbook.py scripts/validate_authority.py
+wiring/bbia1_terminal_unit.md,10038,2026-09-03,10,yes,,CLAUDE.md INSTALL_SPINE.md INTERFACE_ARCHITECTURE.md io-dashboard/data.js wiring/README.md wiring/authority_conflicts.md wiring/bbia1_cn_pinouts.md wiring/bbia1_source_dest.csv
+wiring/cabinet_asfound_survey.md,13548,2026-09-02,8,,REFERENCE +superseded-ish-banner,README.md docs/README_photo_sorting.md docs/bench_procedure_2026-09-05.md docs/photo_gap_mining_2026-08-21.md docs/project_status.md wiring/README.md wiring/estop_wiring_path_asbuilt.md wiring/head_valve_hardware.md
+wiring/connector_crossref.md,21502,2026-09-03,17,,REFERENCE,CLAUDE.md INTERFACE_ARCHITECTURE.md background/README.md io-dashboard/README.md io-dashboard/data.js io-dashboard/tools/enrichment.py linuxcnc/phase1-draft-2026-08-07/mazak_commissioning_ALL_dryrun.json mesa/current_pin_authority.csv
+wiring/electrical_diagram_index.md,9213,2026-09-02,4,,REFERENCE,docs/ladder/orient_ladder_transcription.md wiring/README.md wiring/authority_conflicts.md wiring/cabinet_asfound_survey.md
+wiring/estop_wiring_path_asbuilt.md,5786,2026-09-02,4,,,docs/ladder/estop_ladder_transcription.md docs/spindle_motor_plg_encoder.md wiring/cabinet_asfound_survey.md wiring/electrical_diagram_index.md
+wiring/head_device_placard.md,8872,2026-09-02,11,,REFERENCE,README.md background/README.md docs/photo_gap_mining_2026-08-21.md docs/spindle_motor_plg_encoder.md io-dashboard/data.js mesa/current_pin_authority.csv wiring/README.md wiring/authority_conflicts.md
+wiring/head_valve_hardware.md,18722,2026-09-02,12,,REFERENCE,README.md background/README.md docs/README_photo_sorting.md docs/photo_drive_layout_2026-08-21.md docs/photo_gap_mining_2026-08-21.md io-dashboard/data.js mesa/current_pin_authority.csv wiring/README.md
+wiring/interface_plane_crosswalk.md,7259,2026-09-03,5,yes,INSTALLATION INDEX / HOLD DOCUMENT +superseded-ish-banner,INSTALL_SPINE.md docs/project_status.md wiring/README.md wiring/electrical_diagram_index.md wiring/reconciled_pin_crosswalk_2026-08-18.md
+wiring/io_map_research_notes.md,19985,2026-09-02,11,,BACKGROUND +superseded-ish-banner,background/README.md docs/authority_hierarchy.md docs/superseded_claims_2026-08-06.md io-dashboard/README.md io-dashboard/data.js io-dashboard/tools/enrichment.py wiring/README.md wiring/authority_conflicts.md
+wiring/labels/7i84u_b_terminal_legend_epson.csv,1862,2026-09-03,4,,,scripts/generate_label_csvs.py scripts/validate_authority.py wiring/README.md wiring/labels/7i84u_b_terminal_legend_epson.md
+wiring/labels/7i84u_b_terminal_legend_epson.md,6704,2026-09-03,3,,,docs/dc_bus_stop_fault.md io-dashboard/commissioning.js wiring/README.md
+wiring/labels/bbia1_cn_labels_epson.csv,13311,2026-09-03,5,,,scripts/generate_label_csvs.py scripts/generate_wire_reference_sheet.py wiring/README.md wiring/labels/bbia1_cn_labels_epson.md wiring/labels/bbia1_mesa_end_ferrules_epson.md
+wiring/labels/bbia1_cn_labels_epson.md,2254,2026-09-03,1,,+superseded-ish-banner,wiring/README.md
+wiring/labels/bbia1_ferrule_trace_worksheet.html,12469,2026-09-05,2,,,scripts/generate_wire_reference_sheet.py wiring/labels/bbia1_mesa_end_ferrules_epson.md
+wiring/labels/bbia1_mesa_end_ferrules_epson.csv,5491,2026-09-05,10,,,io-dashboard/README.md io-dashboard/data.js io-dashboard/tools/generate_data.py scripts/generate_label_csvs.py scripts/generate_wire_reference_sheet.py wiring/README.md wiring/authority_conflicts.md wiring/labels/bbia1_cn_labels_epson.md
+wiring/labels/bbia1_mesa_end_ferrules_epson.md,5267,2026-09-05,2,,+superseded-ish-banner,wiring/README.md wiring/labels/bbia1_cn_labels_epson.md
+wiring/labels/bbia1_wire_reference_sheet.html,50010,2026-09-05,3,,,scripts/generate_wire_reference_sheet.py wiring/README.md wiring/labels/bbia1_cn_labels_epson.md
+wiring/nc_circuit_landing_audit.md,40757,2026-08-19,2,,+superseded-ish-banner,docs/project_status.md wiring/README.md
+wiring/nc_connector_inventory.md,9051,2026-09-02,4,,ACCOUNTING,docs/project_status.md wiring/README.md wiring/bbia1_cn_pinouts.md wiring/nc_circuit_landing_audit.md
+wiring/plane_a_bbia1_pin_crosswalk.csv,97587,2026-09-03,31,,,diagrams/qelectrotech/MESAC_VQC2040_Retrofit.qet diagrams/qelectrotech/manifest.json diagrams/wireviz/manifest.json diagrams/wireviz/rendered/00_interface_overview.html diagrams/wireviz/rendered/plane_a_cn11_discrete.html diagrams/wireviz/rendered/plane_a_cn1_discrete.html diagrams/wireviz/rendered/plane_a_cn200_discrete.html diagrams/wireviz/rendered/plane_a_cn2_discrete.html
+wiring/plane_b_pin_crosswalk.csv,11497,2026-09-03,29,yes,,CLAUDE.md INSTALL_SPINE.md INTERFACE_ARCHITECTURE.md diagrams/qelectrotech/MESAC_VQC2040_Retrofit.qet diagrams/qelectrotech/manifest.json diagrams/wireviz/manifest.json diagrams/wireviz/rendered/00_interface_overview.html diagrams/wireviz/rendered/plane_b_axis_velocity_commands.html
+wiring/reconciled_pin_crosswalk_2026-08-18.csv,6587,2026-09-03,2,,,notes/fable_ladder_audit_prompt.md wiring/reconciled_pin_crosswalk_2026-08-18.md
+wiring/reconciled_pin_crosswalk_2026-08-18.md,7548,2026-08-20,0,,,

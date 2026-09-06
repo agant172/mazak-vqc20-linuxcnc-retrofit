@@ -40,7 +40,7 @@ VQC 20/40 retrofit. Evidence-state taxonomy defined in
   existing green breakout PCB, addressed as `hm2_7i80.0.7i84.0.0.*`.
 - **7i84U-B on 7i44 sserial channel 1** — 32/16 remote field I/O for X/Y/Z
   limits, X/Y/Z homes, X/Y/Z drive enables, relay-driven loads, and the
-  Renishaw MP-3 probe SKIP1 (input-15), addressed as `hm2_7i80.0.7i84.0.1.*`.
+  Renishaw MP-3 probe SKIP1 (input-15 — **RESERVED**, `hal_net none`, owner decision 2026-08-21; the terminal is held, not wired), addressed as `hm2_7i80.0.7i84.0.1.*`.
   See `current_pin_authority.csv` for the exact TB2/TB3 pin map.
 - **Firmware bitfile**: `7i80hdt_rmsvss6_8.bin`, flashed 2026-08-11. **Layout,
   identity, and upstream source all CONFIRMED**: two independent `readhmid`
@@ -64,7 +64,7 @@ VQC 20/40 retrofit. Evidence-state taxonomy defined in
 ## Current Authority Rules
 
 - Use **7i84U-B on 7i44 sserial channel 1** for X/Y/Z limits (TB3 IN0-5),
-  X/Y/Z homes (TB3 IN6-8), air permissive (TB3 IN9), the Renishaw MP-3
+  X/Y/Z homes (TB3 IN6-8), air permissive (TB3 IN9), the (reserved, unwired) Renishaw MP-3
   probe (TB3 IN15), X/Y/Z drive enables (TB3 OUT0-2), relay-driven loads
   (TB3 OUT3-7), and the proposed cover-close command (TB2 OUT8). **7i84U-A
   TB2 IN29** (`ESTOP_MONITOR`) is DEFERRED — no interposing relay is installed

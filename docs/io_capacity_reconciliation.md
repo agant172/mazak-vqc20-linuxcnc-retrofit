@@ -34,7 +34,7 @@ calculation:
 
 - `IN9` — `AIR_OK`, fail-inhibited ATC pressure permissive.
 - `OUT8` — `MAG_COVER_CLOSE_SOL`, proposed single-coil cover command.
-- `OUT9` — `WORK_LIGHT`, proposed 100VAC work light via interposing relay RLY-8.
+- `OUT9` — `WORK_LIGHT`, RESERVED (deferred) 100VAC work light via interposing relay RLY-8.
 
 The former `43 DI + 25 DO` text reached the same numbers incorrectly by
 counting aggregate spare-range rows as occupied channels. Those aggregate

@@ -81,7 +81,7 @@ sudo MAZAK_USER=andy \
 
 ## Fetch authentication
 
-The repo is private (owner decision 2026-08-16), so the fetch needs a key — and a
+The repo has been public since 2026-08-22 (it was private 2026-08-16 → 08-22), but the fetch still uses the SSH remote and a key — and a
 timer-launched shell has **no ssh-agent**. The unit therefore names the key explicitly
 via `GIT_SSH_COMMAND`, with `IdentitiesOnly=yes` and `BatchMode=yes` so a failure is a
 clean error instead of a hung prompt. The key must be **passphrase-free**; the

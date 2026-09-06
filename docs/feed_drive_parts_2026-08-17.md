@@ -10,7 +10,7 @@ OptiPlex, filed under its Mazak publication number — nothing in the filename s
 **How this was read:** the PDF is a pure image scan — **1,552 characters of text layer across
 all 298 pages**, all of it front matter. Everything below was read by rendering pages to PNG
 (`pdftoppm -r 130 -png -f N -l N`) and looking at them. Grep and OCR return nothing useful
-here; see trap #1 in [`../handoff.md`](../handoff.md).
+here; see trap #1 in [`../background/handoff.md`](../background/handoff.md).
 
 **Page mapping:** section `N-1` is at PDF page ≈ `2N + 9` (drawing), `N-2` at `2N + 10`
 (parts table). Confirmed against the footers, which print `- N-n-E -`. Drift is a page or

@@ -4,7 +4,7 @@
 
 
 _Applies to two 7i84U remotes on 7i44 channels 0 and 1, HostMot2 smart-serial
-port 0, with a 1 kHz LinuxCNC servo thread._
+port 0. Written for a 1 kHz servo thread; the INI now runs 2 ms (`SERVO_PERIOD = 2000000`) after the 2026-08-21 hm2_eth bench (`docs/commissioning_logs/servo_period_bench_2026-08-21/`), which halves the sample rate but not the conclusions._
 
 ## Verified facts
 

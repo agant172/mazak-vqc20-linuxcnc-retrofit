@@ -116,7 +116,7 @@ The original **Meldas M2 / TRA** resolver wiring may run the resolver "backwards
 - Therefore **LinuxCNC + the 7i49 on P1 own the resolver excitation outright.** The **7i49 must be the sole resolver excitation source** — confirm nothing else is still driving the resolver windings before energizing the 7i49.
 - **LinuxCNC's PID is the outer position loop; the TRA velocity loop is the inner loop.** Commission with the FF1-first procedure in [`servo_commissioning.md`](servo_commissioning.md): confirm zero-command null at each 7i49 AOUT_N, measure volts-per-speed with a small controlled `pid.N.bias` while all gains/feed-forwards remain zero and `MAX_OUTPUT` is clamped, set per-axis `OUTPUT_SCALE = 10 × (measured speed per volt)` so `pid.output` is in user units per second (PID(9) requirement), then return bias to zero, add FF1, then P, and only add I/D if the residual behavior demands it. The zero-gain settings and fail-off output holds are commissioning interlocks, not proof of a safe live configuration.
 
-## Remaining checks before final hardware purchase
+## Remaining checks before final hardware purchase (record — procurement closed 2026-08-17)
 
 - Confirm exact 7i80HDT and 7i44 part numbers and board revisions from Mesa (buy list).
 - Firmware `7i80hdt_rmsvss6_8.bin` is flashed and its layout, identity, and upstream source are all confirmed: two independent `readhmid` reads (2026-08-11 flash-time, 2026-08-13 re-check, byte-identical) plus a recorded SHA-256, and the binary sourced directly from Peter Wallace at Mesa Electronics (`freeby.mesanet.com/7i80hdt_rmsvss6_8.zip`, 2026-08-11) — see [`../mesa/mesa_firmware_checklist.md`](../mesa/mesa_firmware_checklist.md#bitfile-provenance-verification-procedure).

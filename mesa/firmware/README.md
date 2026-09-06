@@ -33,8 +33,9 @@ verification procedure: [`../mesa_firmware_checklist.md`](../mesa_firmware_check
   redundant with this file).
 - `sserial_2026-08-13.txt` — `mesaflash --device 7i80hdt --addr 192.168.1.121 --sserial`
   output, captured 2026-08-13. Shows the SSLBP port itself (v1.43, 8 channels,
-  2.5 MBd) with no 7i84U remote identity strings yet — expected, since no
-  7i84U is currently powered/cabled to the board.
+  2.5 MBd) with no 7i84U remote identity strings yet — expected on 2026-08-13, when no
+  7i84U was powered/cabled to the board. (7i84U-A enumerated on channel 0 on 2026-09-05;
+  `--sserial` never lists remotes anyway — see `docs/commissioning_logs/sserial_enumeration_check_2026-09-05.md`.)
 
 ## D3 status: all five acceptance items closed (2026-08-13)
 

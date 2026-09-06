@@ -81,6 +81,10 @@
 
 ## Consolidated bench-check list (one shop session, machine de-energized unless noted)
 
+> **Numbering note (2026-09-06):** item numbers are now owned by
+> `docs/bench_procedure_2026-09-05.md` and the phone page; 46 = USO polarity,
+> 47 = IN8 thermal chain, 48 = X005/X05B identity (renumbered 2026-09-05).
+
 Ordered so cabinet work clusters together. E-stop items are listed as the only
 means of settling open transcription claims, per the owner decision that bars
 this repo from directing E-stop work — owner's option, not directed work.

@@ -181,7 +181,7 @@ not the old stepper config). Evidence on hand:
   re-check (2026-08-13, [`firmware/readhmid_2026-08-13.txt`](firmware/readhmid_2026-08-13.txt)). Also
   see [`firmware/sserial_2026-08-13.txt`](firmware/sserial_2026-08-13.txt) (SSLBP port 0, v1.43,
   8 channels, 2.5 MBd — no remote 7i84U identity strings returned yet, consistent
-  with no 7i84U currently powered/cabled, not by itself a fault).
+  with no 7i84U powered/cabled at the time — 2026-08-13; 7i84U-A enumerated on channel 0 once VIN was powered, 2026-09-05, see `docs/commissioning_logs/sserial_enumeration_check_2026-09-05.md`).
 - **Confirmed layout** (from the readback, not the earlier "expected" list this
   section used to carry): P1 = ResolverMod (1) + PWM (6); P2 = `IOPort None`
   on all 24 pins (bare GPIO, unused); P3 = SSerial (8 channels, port 0). No

@@ -59,7 +59,7 @@ will not start without them. Installing them is integration step 3 in
 
 `loadrt` resolves the installed `.so`, never the `.comp` in the repo. An edited
 component that has not been reinstalled would therefore be skipped silently: the
-suite would exercise the *previous* build and report 405 green checks while the
+suite would exercise the *previous* build and report 407 green checks while the
 source it claims to cover is untested. A false pass is worse than no test.
 
 `install_components.sh` records the SHA-256 of each `.comp` it built from, and

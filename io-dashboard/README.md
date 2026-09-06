@@ -142,7 +142,7 @@ unit file).
 
 Everything above needs either the shop LAN or an account on your tailnet, so
 none of it helps you show the workspace to a machinist, a supplier, or anyone
-else off the network — and the repo is private (2026-08-16), so a GitHub link
+else off the network — and when this was written the repo was private (2026-08-16; public since 2026-08-22), so a GitHub link
 will not work either.
 
 ```bash
@@ -160,8 +160,9 @@ rebuild it, don't commit it.
 - **No live poll.** There is no `serve_live.py` behind it, so the Live button is
   hidden and the header reads *Static snapshot* instead of *Planning mode*. The
   Observed column stays empty.
-- **No source links.** `REPO_BLOB` is emptied, because a private-repo blob URL
-  404s for every viewer who is not a collaborator.
+- **No source links.** `REPO_BLOB` is emptied — originally because a private-repo blob URL
+  404s for non-collaborators. The repo is public since 2026-08-22, so this stripping is now
+  optional; kept for offline viewing.
 - **Frozen data.** The banner carries the commit and build date; anyone reading
   it later needs that to know whether it predates the change they are asking
   about. Rebuild and re-share after any authority change.
@@ -275,9 +276,9 @@ Expected states come from explicit repo evidence, and every value carries its ba
 | `wiring/labels/bbia1_mesa_end_ferrules_epson.csv` | Draft short Epson codes for conservative BBIA cut-wire matches; release status is preserved. |
 | `mesa/signal_map.csv` | **Stale.** Surfaced only as "do not use" context in the detail panel. |
 
-Current snapshot: **132 rows**, all from the authority, with 4 registered conflicts,
-0 HAL-only orphan nets, and 1 authority net missing from HAL (`work-light`, planned but not yet
-wired — see `tools/generate_data.py` output for the live count).
+Current snapshot (2026-09-06): **124 authority rows / 125 signals**, 4 registered conflicts,
+1 HAL-only orphan net (`probe-in`, commented out in `field_7i84u.hal`), and 0 authority nets
+missing from HAL — see `tools/generate_data.py` output for the live count.
 
 ---
 

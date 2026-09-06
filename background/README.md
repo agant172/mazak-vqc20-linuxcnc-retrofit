@@ -17,6 +17,7 @@ path is [`INSTALL_SPINE.md`](../INSTALL_SPINE.md).
 | [`mesa_pcw_bitfile_inquiry.md`](mesa_pcw_bitfile_inquiry.md) | Historical: the pre-order bitfile inquiry to Mesa. The bitfile was received, verified, and committed (`mesa/firmware/`). |
 | [`parameter_recovery.md`](parameter_recovery.md) | The recovery checklist that led to the live capture. Current values live in [`docs/parameters_sn060231.md`](../docs/parameters_sn060231.md). |
 | [`parameters_factory1985_vs_live_reconciliation.md`](parameters_factory1985_vs_live_reconciliation.md) | Settled conclusion: the 1985 factory sheet must not be used as current values. |
+| [`handoff.md`](handoff.md) | The 2026-08-17 resolver-thread handoff (moved from the repo root 2026-09-06). Every settled row is now carried, with the same citations, in [`docs/resolver_commissioning.md`](../docs/resolver_commissioning.md) and [`docs/ballscrew_lead_2026-08-17.md`](../docs/ballscrew_lead_2026-08-17.md); later session handoffs are dated `docs/handoff_YYYY-MM-DD.md`. Kept for its "traps" section and the source-document inventory. |
 
 ## Background that stays where it is (pinned by citations)
 
