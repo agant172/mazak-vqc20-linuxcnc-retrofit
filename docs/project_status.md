@@ -2,9 +2,11 @@
 
 _Last updated: 2026-09-06_
 
-> Newest records: [`handoff_2026-09-05.md`](handoff_2026-09-05.md) (session handoff),
-> [`pin_authority_audit_2026-09-05.md`](pin_authority_audit_2026-09-05.md) (open items in
-> its "Open items" section), [`wiring_audit_2026-09-03.md`](wiring_audit_2026-09-03.md),
+> Newest records: [`pin_authority_audit_2026-09-06.md`](pin_authority_audit_2026-09-06.md)
+> (signal-map re-audit after the 7i49 label fix and crosswalk retirement; one new bench
+> item — MANUAL_TOOL_UNCLAMP_PB wire 149 vs 149A), [`handoff_2026-09-05.md`](handoff_2026-09-05.md)
+> (session handoff), [`pin_authority_audit_2026-09-05.md`](pin_authority_audit_2026-09-05.md),
+> [`wiring_audit_2026-09-03.md`](wiring_audit_2026-09-03.md),
 > and [`repo_relevance_audit_2026-09-06.md`](repo_relevance_audit_2026-09-06.md).
 
 ## Scope decision — power and E-stop stay original (owner, 2026-08-15)
