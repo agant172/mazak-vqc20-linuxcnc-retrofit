@@ -21,15 +21,15 @@ td.hold{color:#000;font-size:7.5pt;font-style:italic}
 @page{size:letter;margin:0.4in}
 </style></head><body>
 <h1>BBIA-1 Wire Reference — Mazak VQC-20/40 SN 060231</h1>
-<p class='sub'>Generated 2026-09-05 from repo commit 0a767e6 (wiring/labels/*.csv). Regenerate with scripts/generate_wire_reference_sheet.py after any label CSV change — do not hand-edit this sheet.</p>
+<p class='sub'>Generated 2026-09-05 from repo commit c5a1692 (wiring/labels/*.csv). Regenerate with scripts/generate_wire_reference_sheet.py after any label CSV change — do not hand-edit this sheet.</p>
 <div class='warn'>REFERENCE ONLY — NOT PERMISSION TO TERMINATE. Mesa landings marked HOLD are planned assignments pending continuity trace and terminal verification (see wiring/labels/*.md release rules). The hardwired E-stop chain is not represented here.</div>
 <div class='cols'>
 <h2>CN1 — 20 conductors</h2>
 <table><tr><th>Wire</th><th>Pin</th><th>Signal</th><th>Mesa landing</th></tr>
-<tr><td class='wire'>208</td><td class='pin'>1</td><td>TOOL UNCLAMP</td><td class='hold'>&mdash;</td></tr>
-<tr><td class='wire'>209</td><td class='pin'>2</td><td>TOOL CLAMP</td><td class='hold'>&mdash;</td></tr>
-<tr><td class='wire'>210</td><td class='pin'>3</td><td>HIGH GEAR</td><td class='hold'>&mdash;</td></tr>
-<tr><td class='wire'>212</td><td class='pin'>4</td><td>LOW GEAR</td><td class='hold'>&mdash;</td></tr>
+<tr><td class='wire'>208</td><td class='pin'>1</td><td>TOOL UNCLAMP</td><td class='mesa'>A-TB2-01 <span class='hold'>HOLD</span></td></tr>
+<tr><td class='wire'>209</td><td class='pin'>2</td><td>TOOL CLAMP</td><td class='mesa'>A-TB3-16 <span class='hold'>HOLD</span></td></tr>
+<tr><td class='wire'>210</td><td class='pin'>3</td><td>HIGH GEAR</td><td class='mesa'>A-TB2-02 <span class='hold'>HOLD</span></td></tr>
+<tr><td class='wire'>212</td><td class='pin'>4</td><td>LOW GEAR</td><td class='mesa'>A-TB2-03 <span class='hold'>HOLD</span></td></tr>
 <tr><td class='wire'>-LZ2</td><td class='pin'>5</td><td>2nd -Z OVER TRAVEL</td><td class='hold'>&mdash;</td></tr>
 <tr><td class='wire'>355</td><td class='pin'>6</td><td>HEAD LUBE PRESSURE</td><td class='hold'>&mdash;</td></tr>
 <tr><td class='wire'>0G</td><td class='pin'>7</td><td>DC24V COM (-) NC</td><td class='hold'>&mdash;</td></tr>
@@ -51,7 +51,7 @@ td.hold{color:#000;font-size:7.5pt;font-style:italic}
 <table><tr><th>Wire</th><th>Pin</th><th>Signal</th><th>Mesa landing</th></tr>
 <tr><td class='wire'>362</td><td class='pin'>1</td><td>WAY LUBE WARNING TIMER</td><td class='hold'>&mdash;</td></tr>
 <tr><td class='wire'>351</td><td class='pin'>2</td><td>MACHINE POWER SUPPLY (X78 MPWS.M; fed by PS-1 hydraulic pressure switch per p133)</td><td class='hold'>&mdash;</td></tr>
-<tr><td class='wire'>149</td><td class='pin'>3</td><td>TOOL UNCLAMP (FOOT SW)</td><td class='hold'>&mdash;</td></tr>
+<tr><td class='wire'>149</td><td class='pin'>3</td><td>TOOL UNCLAMP (FOOT SW)</td><td class='mesa'>A-TB3-10 <span class='hold'>HOLD</span></td></tr>
 <tr><td class='wire'>150</td><td class='pin'>4</td><td>MANUAL MAGAZINE ROTATE PB (X07 TSPB.M)</td><td class='hold'>&mdash;</td></tr>
 <tr><td class='wire'>221</td><td class='pin'>5</td><td>MAGAZINE POSITION 1</td><td class='mesa'>A-TB2-04 <span class='hold'>HOLD</span></td></tr>
 <tr><td class='wire'>222</td><td class='pin'>6</td><td>MAGAZINE POSITION 2</td><td class='mesa'>A-TB2-05 <span class='hold'>HOLD</span></td></tr>
@@ -59,9 +59,9 @@ td.hold{color:#000;font-size:7.5pt;font-style:italic}
 <tr><td class='wire'>224</td><td class='pin'>8</td><td>MAGAZINE POSITION 8</td><td class='mesa'>A-TB2-07 <span class='hold'>HOLD</span></td></tr>
 <tr><td class='wire'>225</td><td class='pin'>9</td><td>MAGAZINE POSITION 10</td><td class='mesa'>A-TB2-08 <span class='hold'>HOLD</span></td></tr>
 <tr><td class='wire'>213</td><td class='pin'>10</td><td>MAGAZINE INPOSITION (MIPRS PRS-13)</td><td class='mesa'>A-TB2-13 <span class='hold'>HOLD</span></td></tr>
-<tr><td class='wire'>218</td><td class='pin'>11</td><td>MAGAZINE COVER OPEN</td><td class='hold'>&mdash;</td></tr>
-<tr><td class='wire'>219</td><td class='pin'>12</td><td>MAGAZINE COVER CLOSE (RS-19 MGCCRS X53)</td><td class='hold'>&mdash;</td></tr>
-<tr><td class='wire'>381</td><td class='pin'>13</td><td>TOOL DETECTOR (PHS-181; p85 CN6-37 reads 391 - jacket read decides)</td><td class='hold'>&mdash;</td></tr>
+<tr><td class='wire'>218</td><td class='pin'>11</td><td>MAGAZINE COVER OPEN</td><td class='mesa'>A-TB3-07 <span class='hold'>HOLD</span></td></tr>
+<tr><td class='wire'>219</td><td class='pin'>12</td><td>MAGAZINE COVER CLOSE (RS-19 MGCCRS X53)</td><td class='mesa'>A-TB3-08 <span class='hold'>HOLD</span></td></tr>
+<tr><td class='wire'>381</td><td class='pin'>13</td><td>TOOL DETECTOR (PHS-181; p85 CN6-37 reads 391 - jacket read decides)</td><td class='mesa'>A-TB3-03 <span class='hold'>HOLD</span></td></tr>
 <tr><td class='wire'>+LY2</td><td class='pin'>14</td><td>2nd +Y OVER TRAVEL (PRS-55; to relay 1237/PYOT)</td><td class='hold'>&mdash;</td></tr>
 <tr><td class='wire'>*DECX</td><td class='pin'>15</td><td>X-AXIS ZERO RETURN DEC</td><td class='mesa'>B-TB3-07 <span class='hold'>HOLD</span></td></tr>
 <tr><td class='wire'>*DECY</td><td class='pin'>16</td><td>Y-AXIS ZERO RETURN DEC</td><td class='mesa'>B-TB3-08 <span class='hold'>HOLD</span></td></tr>
@@ -86,13 +86,13 @@ td.hold{color:#000;font-size:7.5pt;font-style:italic}
 <tr><td class='wire'>343</td><td class='pin'>35</td><td>TOOL MEASURING ARM RETRACT</td><td class='hold'>&mdash;</td></tr>
 <tr><td class='wire'>238</td><td class='pin'>36</td><td>TOOL LENGTH MEASURE DEC.</td><td class='hold'>&mdash;</td></tr>
 <tr><td class='wire'>239</td><td class='pin'>37</td><td>TOOL MEASURE SKIP</td><td class='hold'>&mdash;</td></tr>
-<tr><td class='wire'>341</td><td class='pin'>38</td><td>MACHINE DOOR INTERLOCK</td><td class='hold'>&mdash;</td></tr>
+<tr><td class='wire'>341</td><td class='pin'>38</td><td>MACHINE DOOR INTERLOCK</td><td class='mesa'>A-TB2-09 <span class='hold'>HOLD</span></td></tr>
 <tr><td class='wire'>340</td><td class='pin'>39</td><td>MACHINE DOOR INTERLOCK 2</td><td class='hold'>&mdash;</td></tr>
 <tr><td class='wire'>EMB</td><td class='pin'>40</td><td>EMERGENCY STOP</td><td class='hold'>&mdash;</td></tr>
 <tr><td class='wire'>EMC</td><td class='pin'>41</td><td>EMG STOP 2nd</td><td class='hold'>&mdash;</td></tr>
 <tr><td class='wire'>382</td><td class='pin'>42</td><td>SPINDLE TOOL DETECTOR</td><td class='hold'>&mdash;</td></tr>
 <tr><td class='wire'>G24</td><td class='pin'>43</td><td>DC24V -COM (ELECTRICAL CAB)</td><td class='hold'>&mdash;</td></tr>
-<tr><td class='wire'>149B</td><td class='pin'>44</td><td>TOOL CLAMP FOOT SWITCH</td><td class='hold'>&mdash;</td></tr>
+<tr><td class='wire'>149B</td><td class='pin'>44</td><td>TOOL CLAMP FOOT SWITCH</td><td class='mesa'>A-TB2-15 <span class='hold'>HOLD</span></td></tr>
 <tr><td class='wire'>CH24</td><td class='pin'>45</td><td>HEAD LUBE PRESS ALARM</td><td class='hold'>&mdash;</td></tr>
 <tr><td class='wire'>SP29</td><td class='pin'>46</td><td>SPARE (INPUT)</td><td class='hold'>&mdash;</td></tr>
 <tr><td class='wire'>SP30</td><td class='pin'>47</td><td>SPARE (OUTPUT)</td><td class='hold'>&mdash;</td></tr>
@@ -178,7 +178,7 @@ td.hold{color:#000;font-size:7.5pt;font-style:italic}
 </table>
 <h2>CN5 — 20 conductors</h2>
 <table><tr><th>Wire</th><th>Pin</th><th>Signal</th><th>Mesa landing</th></tr>
-<tr><td class='wire'>144</td><td class='pin'>1</td><td>THERMAL TRIP PROTECTOR</td><td class='hold'>&mdash;</td></tr>
+<tr><td class='wire'>144</td><td class='pin'>1</td><td>THERMAL TRIP PROTECTOR</td><td class='mesa'>A-TB3-09 <span class='hold'>HOLD</span></td></tr>
 <tr><td class='wire'>RST</td><td class='pin'>2</td><td>RESET OUT</td><td class='hold'>&mdash;</td></tr>
 <tr><td class='wire'>146</td><td class='pin'>3</td><td>MAIN TRANSF. OVER HEAT</td><td class='hold'>&mdash;</td></tr>
 <tr><td class='wire'>EMB</td><td class='pin'>4</td><td>EMG STOP</td><td class='hold'>&mdash;</td></tr>
@@ -208,7 +208,7 @@ td.hold{color:#000;font-size:7.5pt;font-style:italic}
 <tr><td class='wire'></td><td class='pin'>5</td><td>(not used - blank on source table)</td><td class='hold'>&mdash;</td></tr>
 <tr><td class='wire'></td><td class='pin'>6</td><td>(not used - blank on source table)</td><td class='hold'>&mdash;</td></tr>
 <tr><td class='wire'>SA</td><td class='pin'>7</td><td>SERVO READY</td><td class='mesa'>A-TB2-16 <span class='hold'>HOLD</span></td></tr>
-<tr><td class='wire'>WL</td><td class='pin'>8</td><td>WORK LIGHT</td><td class='hold'>&mdash;</td></tr>
+<tr><td class='wire'>WL</td><td class='pin'>8</td><td>WORK LIGHT</td><td class='mesa'>B-TB2-18 <span class='hold'>HOLD</span></td></tr>
 <tr><td class='wire'>SSET</td><td class='pin'>9</td><td>SPINDLE SET</td><td class='hold'>&mdash;</td></tr>
 <tr><td class='wire'>CTL</td><td class='pin'>10</td><td>LOW GEAR SELECT</td><td class='hold'>&mdash;</td></tr>
 <tr><td class='wire'>OTR</td><td class='pin'>11</td><td>OVER TRAVEL RELEASE</td><td class='hold'>&mdash;</td></tr>
@@ -239,7 +239,7 @@ td.hold{color:#000;font-size:7.5pt;font-style:italic}
 <tr><td class='wire'></td><td class='pin'>36</td><td>(not used - blank on source table)</td><td class='hold'>&mdash;</td></tr>
 <tr><td class='wire'>381</td><td class='pin'>37</td><td>MAGAZINE TOOL DETECTOR (p85 reads 391; p84 CN2-13 + p135 read 381 - jacket read decides)</td><td class='hold'>&mdash;</td></tr>
 <tr><td class='wire'></td><td class='pin'>38</td><td>(not used - row slashed out on source table)</td><td class='hold'>&mdash;</td></tr>
-<tr><td class='wire'>355</td><td class='pin'>39</td><td>HEAD LUBE PRESSURE</td><td class='hold'>&mdash;</td></tr>
+<tr><td class='wire'>355</td><td class='pin'>39</td><td>HEAD LUBE PRESSURE</td><td class='mesa'>A-TB2-10 <span class='hold'>HOLD</span></td></tr>
 <tr><td class='wire'></td><td class='pin'>40</td><td>(not used - blank on source table)</td><td class='hold'>&mdash;</td></tr>
 <tr><td class='wire'>0G</td><td class='pin'>41</td><td>DC24V COM (NC)</td><td class='hold'>&mdash;</td></tr>
 <tr><td class='wire'>0G</td><td class='pin'>42</td><td>DC24V COM (NC)</td><td class='hold'>&mdash;</td></tr>
@@ -250,7 +250,7 @@ td.hold{color:#000;font-size:7.5pt;font-style:italic}
 <tr><td class='wire'>0G</td><td class='pin'>47</td><td>DC24V COM (NC)</td><td class='hold'>&mdash;</td></tr>
 <tr><td class='wire'></td><td class='pin'>48</td><td>(not used - blank on source table)</td><td class='hold'>&mdash;</td></tr>
 <tr><td class='wire'></td><td class='pin'>49</td><td>(not used - blank on source table)</td><td class='hold'>&mdash;</td></tr>
-<tr><td class='wire'>382</td><td class='pin'>50</td><td>SPINDLE TOOL DETECTOR</td><td class='hold'>&mdash;</td></tr>
+<tr><td class='wire'>382</td><td class='pin'>50</td><td>SPINDLE TOOL DETECTOR</td><td class='mesa'>A-TB3-04 <span class='hold'>HOLD</span></td></tr>
 </table>
 <h2>CN7 — 50 conductors</h2>
 <table><tr><th>Wire</th><th>Pin</th><th>Signal</th><th>Mesa landing</th></tr>
@@ -362,20 +362,20 @@ td.hold{color:#000;font-size:7.5pt;font-style:italic}
 <table><tr><th>Wire</th><th>Pin</th><th>Signal</th><th>Mesa landing</th></tr>
 <tr><td class='wire'>708B</td><td class='pin'>1</td><td>MAGAZINE CW (REV)</td><td class='hold'>&mdash;</td></tr>
 <tr><td class='wire'>708A</td><td class='pin'>2</td><td>MAGAZINE CCW (FOR)</td><td class='hold'>&mdash;</td></tr>
-<tr><td class='wire'>710</td><td class='pin'>3</td><td>TOOL UNCLAMP</td><td class='hold'>&mdash;</td></tr>
-<tr><td class='wire'>712</td><td class='pin'>4</td><td>GEAR SHIFT HIGH</td><td class='hold'>&mdash;</td></tr>
-<tr><td class='wire'>713</td><td class='pin'>5</td><td>GEAR SHIFT LOW</td><td class='hold'>&mdash;</td></tr>
-<tr><td class='wire'>715</td><td class='pin'>6</td><td>SPINDLE AIR BLAST</td><td class='hold'>&mdash;</td></tr>
-<tr><td class='wire'>716</td><td class='pin'>7</td><td>WORK AIR BLAST</td><td class='hold'>&mdash;</td></tr>
+<tr><td class='wire'>710</td><td class='pin'>3</td><td>TOOL UNCLAMP</td><td class='mesa'>A-TB2-19 <span class='hold'>HOLD</span></td></tr>
+<tr><td class='wire'>712</td><td class='pin'>4</td><td>GEAR SHIFT HIGH</td><td class='mesa'>A-TB3-24 <span class='hold'>HOLD</span></td></tr>
+<tr><td class='wire'>713</td><td class='pin'>5</td><td>GEAR SHIFT LOW</td><td class='mesa'>A-TB2-17 <span class='hold'>HOLD</span></td></tr>
+<tr><td class='wire'>715</td><td class='pin'>6</td><td>SPINDLE AIR BLAST</td><td class='mesa'>B-TB3-20 <span class='hold'>HOLD</span></td></tr>
+<tr><td class='wire'>716</td><td class='pin'>7</td><td>WORK AIR BLAST</td><td class='mesa'>B-TB3-21 <span class='hold'>HOLD</span></td></tr>
 <tr><td class='wire'>717</td><td class='pin'>8</td><td>MIST COOLANT</td><td class='hold'>&mdash;</td></tr>
 <tr><td class='wire'>762</td><td class='pin'>9</td><td>TOOL MEASURING ARM EXTEND</td><td class='hold'>&mdash;</td></tr>
 <tr><td class='wire'>761</td><td class='pin'>10</td><td>AIR JET</td><td class='hold'>&mdash;</td></tr>
 <tr><td class='wire'>735</td><td class='pin'>11</td><td>DUST INHALE ELIMINATE</td><td class='hold'>&mdash;</td></tr>
 <tr><td class='wire'>736</td><td class='pin'>12</td><td>OIL HOLE</td><td class='hold'>&mdash;</td></tr>
-<tr><td class='wire'>731</td><td class='pin'>13</td><td>FLOOD COOLANT</td><td class='hold'>&mdash;</td></tr>
+<tr><td class='wire'>731</td><td class='pin'>13</td><td>FLOOD COOLANT</td><td class='mesa'>B-TB3-24 <span class='hold'>HOLD</span></td></tr>
 <tr><td class='wire'>727</td><td class='pin'>14</td><td>MAGAZINE COVER CLOSE</td><td class='hold'>&mdash;</td></tr>
-<tr><td class='wire'>736</td><td class='pin'>15</td><td>FLOOD COOLANT MOTOR STARTER (p85 reads 736; p140/p78 read 836 - jacket read decides)</td><td class='hold'>&mdash;</td></tr>
-<tr><td class='wire'>835</td><td class='pin'>16</td><td>HYDR. PUMP HEAD LUBE PUMP</td><td class='hold'>&mdash;</td></tr>
+<tr><td class='wire'>736</td><td class='pin'>15</td><td>FLOOD COOLANT MOTOR STARTER (p85 reads 736; p140/p78 read 836 - jacket read decides)</td><td class='mesa'>A-TB2-20 <span class='hold'>HOLD</span></td></tr>
+<tr><td class='wire'>835</td><td class='pin'>16</td><td>HYDR. PUMP HEAD LUBE PUMP</td><td class='mesa'>A-TB3-20 <span class='hold'>HOLD</span></td></tr>
 <tr><td class='wire'></td><td class='pin'>17</td><td>(not used)</td><td class='hold'>&mdash;</td></tr>
 <tr><td class='wire'></td><td class='pin'>18</td><td>(not used)</td><td class='hold'>&mdash;</td></tr>
 <tr><td class='wire'>0G</td><td class='pin'>19</td><td>DC24V -COM (NC)</td><td class='hold'>&mdash;</td></tr>

@@ -6,7 +6,7 @@ window.MAZAK_DATA = {
   "machine": "Mazak VQC-20/40",
   "serial": "060231",
   "architecture": "LinuxCNC + Mesa 7i80HDT (Ethernet FPGA host) + 7i44 on P3 (HostMot2 sserial port 0 channels 0/1 to 7i84U-A/B) + 7i49 on P1 (resolver + analog outs); P2 unused/spare (confirmed 2026-08-13 by readhmid)",
-  "generated": "2026-09-06 05:31 UTC",
+  "generated": "2026-09-06 05:49 UTC",
   "source_repo": "mazak-vqc20-linuxcnc-retrofit",
   "authority_file": "mesa/current_pin_authority.csv",
   "epson_ferrule_file": "wiring/labels/bbia1_mesa_end_ferrules_epson.csv",
@@ -2011,7 +2011,21 @@ window.MAZAK_DATA = {
     }
    ],
    "setp_refs": [],
-   "epson_ferrules": [],
+   "epson_ferrules": [
+    {
+     "label_text": "A-TB3-03",
+     "wire": "381",
+     "old_location": "CN2-13",
+     "signal": "TOOL DETECTOR (PHS-181; p85 CN6-37 reads 391 - jacket read decides)",
+     "mesa_card": "7i84U-A",
+     "connector": "TB3",
+     "logical_channel": "IN2",
+     "physical_pin": "TB3-03",
+     "crosswalk_status": "PLANNED_MATCH",
+     "release_status": "HOLD_SOURCE_TRACE",
+     "source_line": 21
+    }
+   ],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -2032,6 +2046,11 @@ window.MAZAK_DATA = {
      "file": "phase2_plan",
      "lines": "",
      "note": "primary_source column in the authority table"
+    },
+    {
+     "file": "wiring/labels/bbia1_mesa_end_ferrules_epson.csv",
+     "lines": "21",
+     "note": "Epson Mesa-end ferrule A-TB3-03; HOLD_SOURCE_TRACE"
     }
    ],
    "conflicts": [],
@@ -2107,7 +2126,21 @@ window.MAZAK_DATA = {
     }
    ],
    "setp_refs": [],
-   "epson_ferrules": [],
+   "epson_ferrules": [
+    {
+     "label_text": "A-TB3-04",
+     "wire": "382",
+     "old_location": "CN6-50",
+     "signal": "SPINDLE TOOL DETECTOR",
+     "mesa_card": "7i84U-A",
+     "connector": "TB3",
+     "logical_channel": "IN3",
+     "physical_pin": "TB3-04",
+     "crosswalk_status": "PLANNED_MATCH",
+     "release_status": "HOLD_SOURCE_TRACE",
+     "source_line": 22
+    }
+   ],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -2128,6 +2161,11 @@ window.MAZAK_DATA = {
      "file": "phase2_plan",
      "lines": "",
      "note": "primary_source column in the authority table"
+    },
+    {
+     "file": "wiring/labels/bbia1_mesa_end_ferrules_epson.csv",
+     "lines": "22",
+     "note": "Epson Mesa-end ferrule A-TB3-04; HOLD_SOURCE_TRACE"
     }
    ],
    "conflicts": [],
@@ -2441,7 +2479,21 @@ window.MAZAK_DATA = {
     }
    ],
    "setp_refs": [],
-   "epson_ferrules": [],
+   "epson_ferrules": [
+    {
+     "label_text": "A-TB3-07",
+     "wire": "218",
+     "old_location": "CN2-11",
+     "signal": "MAGAZINE COVER OPEN",
+     "mesa_card": "7i84U-A",
+     "connector": "TB3",
+     "logical_channel": "IN6",
+     "physical_pin": "TB3-07",
+     "crosswalk_status": "PLANNED_MATCH",
+     "release_status": "HOLD_SOURCE_TRACE",
+     "source_line": 23
+    }
+   ],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -2462,6 +2514,11 @@ window.MAZAK_DATA = {
      "file": "element_list_crosswalk_2026-07-27",
      "lines": "",
      "note": "primary_source column in the authority table"
+    },
+    {
+     "file": "wiring/labels/bbia1_mesa_end_ferrules_epson.csv",
+     "lines": "23",
+     "note": "Epson Mesa-end ferrule A-TB3-07; HOLD_SOURCE_TRACE"
     }
    ],
    "conflicts": [],
@@ -2534,7 +2591,21 @@ window.MAZAK_DATA = {
     }
    ],
    "setp_refs": [],
-   "epson_ferrules": [],
+   "epson_ferrules": [
+    {
+     "label_text": "A-TB3-08",
+     "wire": "219",
+     "old_location": "CN2-12",
+     "signal": "MAGAZINE COVER CLOSE (RS-19 MGCCRS X53)",
+     "mesa_card": "7i84U-A",
+     "connector": "TB3",
+     "logical_channel": "IN7",
+     "physical_pin": "TB3-08",
+     "crosswalk_status": "PLANNED_MATCH",
+     "release_status": "HOLD_SOURCE_TRACE",
+     "source_line": 24
+    }
+   ],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -2555,6 +2626,11 @@ window.MAZAK_DATA = {
      "file": "element_list_crosswalk_2026-07-27",
      "lines": "",
      "note": "primary_source column in the authority table"
+    },
+    {
+     "file": "wiring/labels/bbia1_mesa_end_ferrules_epson.csv",
+     "lines": "24",
+     "note": "Epson Mesa-end ferrule A-TB3-08; HOLD_SOURCE_TRACE"
     }
    ],
    "conflicts": [],
@@ -2627,7 +2703,21 @@ window.MAZAK_DATA = {
     }
    ],
    "setp_refs": [],
-   "epson_ferrules": [],
+   "epson_ferrules": [
+    {
+     "label_text": "A-TB3-09",
+     "wire": "144",
+     "old_location": "CN5-1",
+     "signal": "THERMAL TRIP PROTECTOR",
+     "mesa_card": "7i84U-A",
+     "connector": "TB3",
+     "logical_channel": "IN8",
+     "physical_pin": "TB3-09",
+     "crosswalk_status": "PLANNED_MATCH",
+     "release_status": "HOLD_SOURCE_TRACE",
+     "source_line": 25
+    }
+   ],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -2648,6 +2738,11 @@ window.MAZAK_DATA = {
      "file": "element_list_crosswalk_2026-07-27 + wiring/authority_conflicts.md (open_issues.md does not exist, per docs/claim_audit_2026-08-07.md item 17)",
      "lines": "",
      "note": "primary_source column in the authority table"
+    },
+    {
+     "file": "wiring/labels/bbia1_mesa_end_ferrules_epson.csv",
+     "lines": "25",
+     "note": "Epson Mesa-end ferrule A-TB3-09; HOLD_SOURCE_TRACE"
     }
    ],
    "conflicts": [],
@@ -2720,7 +2815,21 @@ window.MAZAK_DATA = {
     }
    ],
    "setp_refs": [],
-   "epson_ferrules": [],
+   "epson_ferrules": [
+    {
+     "label_text": "A-TB3-10",
+     "wire": "149",
+     "old_location": "CN2-3",
+     "signal": "TOOL UNCLAMP (FOOT SW)",
+     "mesa_card": "7i84U-A",
+     "connector": "TB3",
+     "logical_channel": "IN9",
+     "physical_pin": "TB3-10",
+     "crosswalk_status": "PLANNED_MATCH",
+     "release_status": "HOLD_SOURCE_TRACE",
+     "source_line": 26
+    }
+   ],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -2741,6 +2850,11 @@ window.MAZAK_DATA = {
      "file": "element_list_crosswalk_2026-07-27",
      "lines": "",
      "note": "primary_source column in the authority table"
+    },
+    {
+     "file": "wiring/labels/bbia1_mesa_end_ferrules_epson.csv",
+     "lines": "26",
+     "note": "Epson Mesa-end ferrule A-TB3-10; HOLD_SOURCE_TRACE"
     }
    ],
    "conflicts": [],
@@ -3295,7 +3409,21 @@ window.MAZAK_DATA = {
     }
    ],
    "setp_refs": [],
-   "epson_ferrules": [],
+   "epson_ferrules": [
+    {
+     "label_text": "A-TB3-16",
+     "wire": "209",
+     "old_location": "CN1-2",
+     "signal": "TOOL CLAMP",
+     "mesa_card": "7i84U-A",
+     "connector": "TB3",
+     "logical_channel": "IN15",
+     "physical_pin": "TB3-16",
+     "crosswalk_status": "PLANNED_MATCH",
+     "release_status": "HOLD_SOURCE_TRACE",
+     "source_line": 27
+    }
+   ],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -3316,6 +3444,11 @@ window.MAZAK_DATA = {
      "file": "archived_wiring_map",
      "lines": "",
      "note": "primary_source column in the authority table"
+    },
+    {
+     "file": "wiring/labels/bbia1_mesa_end_ferrules_epson.csv",
+     "lines": "27",
+     "note": "Epson Mesa-end ferrule A-TB3-16; HOLD_SOURCE_TRACE"
     }
    ],
    "conflicts": [],
@@ -3390,7 +3523,21 @@ window.MAZAK_DATA = {
     }
    ],
    "setp_refs": [],
-   "epson_ferrules": [],
+   "epson_ferrules": [
+    {
+     "label_text": "A-TB2-01",
+     "wire": "208",
+     "old_location": "CN1-1",
+     "signal": "TOOL UNCLAMP",
+     "mesa_card": "7i84U-A",
+     "connector": "TB2",
+     "logical_channel": "IN16",
+     "physical_pin": "TB2-01",
+     "crosswalk_status": "PLANNED_MATCH",
+     "release_status": "HOLD_SOURCE_TRACE",
+     "source_line": 28
+    }
+   ],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -3411,6 +3558,11 @@ window.MAZAK_DATA = {
      "file": "archived_wiring_map",
      "lines": "",
      "note": "primary_source column in the authority table"
+    },
+    {
+     "file": "wiring/labels/bbia1_mesa_end_ferrules_epson.csv",
+     "lines": "28",
+     "note": "Epson Mesa-end ferrule A-TB2-01; HOLD_SOURCE_TRACE"
     }
    ],
    "conflicts": [],
@@ -3485,7 +3637,21 @@ window.MAZAK_DATA = {
     }
    ],
    "setp_refs": [],
-   "epson_ferrules": [],
+   "epson_ferrules": [
+    {
+     "label_text": "A-TB2-02",
+     "wire": "210",
+     "old_location": "CN1-3",
+     "signal": "HIGH GEAR",
+     "mesa_card": "7i84U-A",
+     "connector": "TB2",
+     "logical_channel": "IN17",
+     "physical_pin": "TB2-02",
+     "crosswalk_status": "PLANNED_MATCH",
+     "release_status": "HOLD_SOURCE_TRACE",
+     "source_line": 29
+    }
+   ],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -3506,6 +3672,11 @@ window.MAZAK_DATA = {
      "file": "archived_wiring_map",
      "lines": "",
      "note": "primary_source column in the authority table"
+    },
+    {
+     "file": "wiring/labels/bbia1_mesa_end_ferrules_epson.csv",
+     "lines": "29",
+     "note": "Epson Mesa-end ferrule A-TB2-02; HOLD_SOURCE_TRACE"
     }
    ],
    "conflicts": [],
@@ -3583,7 +3754,21 @@ window.MAZAK_DATA = {
     }
    ],
    "setp_refs": [],
-   "epson_ferrules": [],
+   "epson_ferrules": [
+    {
+     "label_text": "A-TB2-03",
+     "wire": "212",
+     "old_location": "CN1-4",
+     "signal": "LOW GEAR",
+     "mesa_card": "7i84U-A",
+     "connector": "TB2",
+     "logical_channel": "IN18",
+     "physical_pin": "TB2-03",
+     "crosswalk_status": "PLANNED_MATCH",
+     "release_status": "HOLD_SOURCE_TRACE",
+     "source_line": 30
+    }
+   ],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -3604,6 +3789,11 @@ window.MAZAK_DATA = {
      "file": "archived_wiring_map",
      "lines": "",
      "note": "primary_source column in the authority table"
+    },
+    {
+     "file": "wiring/labels/bbia1_mesa_end_ferrules_epson.csv",
+     "lines": "30",
+     "note": "Epson Mesa-end ferrule A-TB2-03; HOLD_SOURCE_TRACE"
     }
    ],
    "conflicts": [],
@@ -4251,7 +4441,21 @@ window.MAZAK_DATA = {
     }
    ],
    "setp_refs": [],
-   "epson_ferrules": [],
+   "epson_ferrules": [
+    {
+     "label_text": "A-TB2-09",
+     "wire": "341",
+     "old_location": "CN2-38",
+     "signal": "MACHINE DOOR INTERLOCK",
+     "mesa_card": "7i84U-A",
+     "connector": "TB2",
+     "logical_channel": "IN24",
+     "physical_pin": "TB2-09",
+     "crosswalk_status": "PLANNED_MATCH",
+     "release_status": "HOLD_SOURCE_TRACE",
+     "source_line": 31
+    }
+   ],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -4272,6 +4476,11 @@ window.MAZAK_DATA = {
      "file": "mesa/current_pin_authority.csv (historical) + wiring/authority_conflicts.md (archived_wiring_map/open_issues.md do not exist, per docs/claim_audit_2026-08-07.md item 17)",
      "lines": "",
      "note": "primary_source column in the authority table"
+    },
+    {
+     "file": "wiring/labels/bbia1_mesa_end_ferrules_epson.csv",
+     "lines": "31",
+     "note": "Epson Mesa-end ferrule A-TB2-09; HOLD_SOURCE_TRACE"
     }
    ],
    "conflicts": [],
@@ -4346,7 +4555,21 @@ window.MAZAK_DATA = {
     }
    ],
    "setp_refs": [],
-   "epson_ferrules": [],
+   "epson_ferrules": [
+    {
+     "label_text": "A-TB2-10",
+     "wire": "355",
+     "old_location": "CN6-39",
+     "signal": "HEAD LUBE PRESSURE",
+     "mesa_card": "7i84U-A",
+     "connector": "TB2",
+     "logical_channel": "IN25",
+     "physical_pin": "TB2-10",
+     "crosswalk_status": "PLANNED_MATCH",
+     "release_status": "HOLD_SOURCE_TRACE",
+     "source_line": 32
+    }
+   ],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -4367,6 +4590,11 @@ window.MAZAK_DATA = {
      "file": "Dwg 4143075338 pg100 + Dwg 4143075407 pg133 + owner machine confirmation 2026-08-09",
      "lines": "",
      "note": "primary_source column in the authority table"
+    },
+    {
+     "file": "wiring/labels/bbia1_mesa_end_ferrules_epson.csv",
+     "lines": "32",
+     "note": "Epson Mesa-end ferrule A-TB2-10; HOLD_SOURCE_TRACE"
     }
    ],
    "conflicts": [],
@@ -4833,7 +5061,21 @@ window.MAZAK_DATA = {
    "consumers": [],
    "hal_refs": [],
    "setp_refs": [],
-   "epson_ferrules": [],
+   "epson_ferrules": [
+    {
+     "label_text": "A-TB2-15",
+     "wire": "149B",
+     "old_location": "CN2-44",
+     "signal": "TOOL CLAMP FOOT SWITCH",
+     "mesa_card": "7i84U-A",
+     "connector": "TB2",
+     "logical_channel": "IN30",
+     "physical_pin": "TB2-15",
+     "crosswalk_status": "PLANNED_MATCH",
+     "release_status": "HOLD_SOURCE_TRACE",
+     "source_line": 40
+    }
+   ],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -4844,6 +5086,11 @@ window.MAZAK_DATA = {
      "file": "element_list_crosswalk_2026-07-27 + open_issues.md §3 (2026-08-03)",
      "lines": "",
      "note": "primary_source column in the authority table"
+    },
+    {
+     "file": "wiring/labels/bbia1_mesa_end_ferrules_epson.csv",
+     "lines": "40",
+     "note": "Epson Mesa-end ferrule A-TB2-15; HOLD_SOURCE_TRACE"
     }
    ],
    "conflicts": [],
@@ -5425,7 +5672,21 @@ window.MAZAK_DATA = {
     }
    ],
    "setp_refs": [],
-   "epson_ferrules": [],
+   "epson_ferrules": [
+    {
+     "label_text": "A-TB3-20",
+     "wire": "835",
+     "old_location": "CN11-16",
+     "signal": "HYDR. PUMP HEAD LUBE PUMP",
+     "mesa_card": "7i84U-A",
+     "connector": "TB3",
+     "logical_channel": "OUT3",
+     "physical_pin": "TB3-20",
+     "crosswalk_status": "PLANNED_MATCH",
+     "release_status": "HOLD_SOURCE_TRACE",
+     "source_line": 33
+    }
+   ],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -5446,6 +5707,11 @@ window.MAZAK_DATA = {
      "file": "element_list_crosswalk_2026-07-27",
      "lines": "",
      "note": "primary_source column in the authority table"
+    },
+    {
+     "file": "wiring/labels/bbia1_mesa_end_ferrules_epson.csv",
+     "lines": "33",
+     "note": "Epson Mesa-end ferrule A-TB3-20; HOLD_SOURCE_TRACE"
     }
    ],
    "conflicts": [],
@@ -5903,7 +6169,21 @@ window.MAZAK_DATA = {
     }
    ],
    "setp_refs": [],
-   "epson_ferrules": [],
+   "epson_ferrules": [
+    {
+     "label_text": "A-TB3-24",
+     "wire": "712",
+     "old_location": "CN11-4",
+     "signal": "GEAR SHIFT HIGH",
+     "mesa_card": "7i84U-A",
+     "connector": "TB3",
+     "logical_channel": "OUT7",
+     "physical_pin": "TB3-24",
+     "crosswalk_status": "PLANNED_MATCH",
+     "release_status": "HOLD_SOURCE_TRACE",
+     "source_line": 34
+    }
+   ],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -5924,6 +6204,11 @@ window.MAZAK_DATA = {
      "file": "phase2_plan",
      "lines": "",
      "note": "primary_source column in the authority table"
+    },
+    {
+     "file": "wiring/labels/bbia1_mesa_end_ferrules_epson.csv",
+     "lines": "34",
+     "note": "Epson Mesa-end ferrule A-TB3-24; HOLD_SOURCE_TRACE"
     }
    ],
    "conflicts": [],
@@ -6000,7 +6285,21 @@ window.MAZAK_DATA = {
     }
    ],
    "setp_refs": [],
-   "epson_ferrules": [],
+   "epson_ferrules": [
+    {
+     "label_text": "A-TB2-17",
+     "wire": "713",
+     "old_location": "CN11-5",
+     "signal": "GEAR SHIFT LOW",
+     "mesa_card": "7i84U-A",
+     "connector": "TB2",
+     "logical_channel": "OUT8",
+     "physical_pin": "TB2-17",
+     "crosswalk_status": "PLANNED_MATCH",
+     "release_status": "HOLD_SOURCE_TRACE",
+     "source_line": 35
+    }
+   ],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -6021,6 +6320,11 @@ window.MAZAK_DATA = {
      "file": "phase2_plan",
      "lines": "",
      "note": "primary_source column in the authority table"
+    },
+    {
+     "file": "wiring/labels/bbia1_mesa_end_ferrules_epson.csv",
+     "lines": "35",
+     "note": "Epson Mesa-end ferrule A-TB2-17; HOLD_SOURCE_TRACE"
     }
    ],
    "conflicts": [],
@@ -6155,7 +6459,21 @@ window.MAZAK_DATA = {
     }
    ],
    "setp_refs": [],
-   "epson_ferrules": [],
+   "epson_ferrules": [
+    {
+     "label_text": "A-TB2-19",
+     "wire": "710",
+     "old_location": "CN11-3",
+     "signal": "TOOL UNCLAMP",
+     "mesa_card": "7i84U-A",
+     "connector": "TB2",
+     "logical_channel": "OUT10",
+     "physical_pin": "TB2-19",
+     "crosswalk_status": "PLANNED_MATCH",
+     "release_status": "HOLD_SOURCE_TRACE",
+     "source_line": 36
+    }
+   ],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -6176,6 +6494,11 @@ window.MAZAK_DATA = {
      "file": "phase2_plan",
      "lines": "",
      "note": "primary_source column in the authority table"
+    },
+    {
+     "file": "wiring/labels/bbia1_mesa_end_ferrules_epson.csv",
+     "lines": "36",
+     "note": "Epson Mesa-end ferrule A-TB2-19; HOLD_SOURCE_TRACE"
     }
    ],
    "conflicts": [],
@@ -6252,7 +6575,21 @@ window.MAZAK_DATA = {
     }
    ],
    "setp_refs": [],
-   "epson_ferrules": [],
+   "epson_ferrules": [
+    {
+     "label_text": "A-TB2-20",
+     "wire": "736",
+     "old_location": "CN11-15",
+     "signal": "FLOOD COOLANT MOTOR STARTER (p85 reads 736; p140/p78 read 836 - jacket read decides)",
+     "mesa_card": "7i84U-A",
+     "connector": "TB2",
+     "logical_channel": "OUT11",
+     "physical_pin": "TB2-20",
+     "crosswalk_status": "PLANNED_MATCH",
+     "release_status": "HOLD_SOURCE_TRACE",
+     "source_line": 37
+    }
+   ],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -6273,6 +6610,11 @@ window.MAZAK_DATA = {
      "file": "mesa/current_pin_authority.csv (historical) -- archived_wiring_map does not exist, per docs/claim_audit_2026-08-07.md item 17",
      "lines": "",
      "note": "primary_source column in the authority table"
+    },
+    {
+     "file": "wiring/labels/bbia1_mesa_end_ferrules_epson.csv",
+     "lines": "37",
+     "note": "Epson Mesa-end ferrule A-TB2-20; HOLD_SOURCE_TRACE"
     }
    ],
    "conflicts": [],
@@ -9503,7 +9845,21 @@ window.MAZAK_DATA = {
     }
    ],
    "setp_refs": [],
-   "epson_ferrules": [],
+   "epson_ferrules": [
+    {
+     "label_text": "B-TB3-20",
+     "wire": "715",
+     "old_location": "CN11-6",
+     "signal": "SPINDLE AIR BLAST",
+     "mesa_card": "7i84U-B",
+     "connector": "TB3",
+     "logical_channel": "OUT3",
+     "physical_pin": "TB3-20",
+     "crosswalk_status": "PLANNED_MATCH",
+     "release_status": "HOLD_SOURCE_TRACE",
+     "source_line": 38
+    }
+   ],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -9519,6 +9875,11 @@ window.MAZAK_DATA = {
      "file": "field_7i84u.hal",
      "lines": "",
      "note": "primary_source column in the authority table"
+    },
+    {
+     "file": "wiring/labels/bbia1_mesa_end_ferrules_epson.csv",
+     "lines": "38",
+     "note": "Epson Mesa-end ferrule B-TB3-20; HOLD_SOURCE_TRACE"
     }
    ],
    "conflicts": [],
@@ -9569,7 +9930,21 @@ window.MAZAK_DATA = {
    "consumers": [],
    "hal_refs": [],
    "setp_refs": [],
-   "epson_ferrules": [],
+   "epson_ferrules": [
+    {
+     "label_text": "B-TB3-21",
+     "wire": "716",
+     "old_location": "CN11-7",
+     "signal": "WORK AIR BLAST",
+     "mesa_card": "7i84U-B",
+     "connector": "TB3",
+     "logical_channel": "OUT4",
+     "physical_pin": "TB3-21",
+     "crosswalk_status": "PLANNED_MATCH",
+     "release_status": "HOLD_SOURCE_TRACE",
+     "source_line": 41
+    }
+   ],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -9580,6 +9955,11 @@ window.MAZAK_DATA = {
      "file": "field_7i84u.hal",
      "lines": "",
      "note": "primary_source column in the authority table"
+    },
+    {
+     "file": "wiring/labels/bbia1_mesa_end_ferrules_epson.csv",
+     "lines": "41",
+     "note": "Epson Mesa-end ferrule B-TB3-21; HOLD_SOURCE_TRACE"
     }
    ],
    "conflicts": [],
@@ -9785,7 +10165,21 @@ window.MAZAK_DATA = {
     }
    ],
    "setp_refs": [],
-   "epson_ferrules": [],
+   "epson_ferrules": [
+    {
+     "label_text": "B-TB3-24",
+     "wire": "731",
+     "old_location": "CN11-13",
+     "signal": "FLOOD COOLANT",
+     "mesa_card": "7i84U-B",
+     "connector": "TB3",
+     "logical_channel": "OUT7",
+     "physical_pin": "TB3-24",
+     "crosswalk_status": "PLANNED_MATCH",
+     "release_status": "HOLD_SOURCE_TRACE",
+     "source_line": 39
+    }
+   ],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -9801,6 +10195,11 @@ window.MAZAK_DATA = {
      "file": "element_list_crosswalk_2026-07-27",
      "lines": "",
      "note": "primary_source column in the authority table"
+    },
+    {
+     "file": "wiring/labels/bbia1_mesa_end_ferrules_epson.csv",
+     "lines": "39",
+     "note": "Epson Mesa-end ferrule B-TB3-24; HOLD_SOURCE_TRACE"
     }
    ],
    "conflicts": [],
@@ -9936,7 +10335,21 @@ window.MAZAK_DATA = {
    "consumers": [],
    "hal_refs": [],
    "setp_refs": [],
-   "epson_ferrules": [],
+   "epson_ferrules": [
+    {
+     "label_text": "B-TB2-18",
+     "wire": "WL",
+     "old_location": "CN6-8",
+     "signal": "WORK LIGHT",
+     "mesa_card": "7i84U-B",
+     "connector": "TB2",
+     "logical_channel": "OUT9",
+     "physical_pin": "TB2-18",
+     "crosswalk_status": "PLANNED_MATCH",
+     "release_status": "HOLD_SOURCE_TRACE",
+     "source_line": 42
+    }
+   ],
    "sources": [
     {
      "file": "mesa/current_pin_authority.csv",
@@ -9947,6 +10360,11 @@ window.MAZAK_DATA = {
      "file": "wiring/bbia1_cn_pinouts.md",
      "lines": "",
      "note": "primary_source column in the authority table"
+    },
+    {
+     "file": "wiring/labels/bbia1_mesa_end_ferrules_epson.csv",
+     "lines": "42",
+     "note": "Epson Mesa-end ferrule B-TB2-18; HOLD_SOURCE_TRACE"
     }
    ],
    "conflicts": [],

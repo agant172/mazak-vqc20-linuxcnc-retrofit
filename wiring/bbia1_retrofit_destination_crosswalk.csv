@@ -18,3 +18,25 @@ CN4-9,SPINDLE_FWD,MESA_DIRECT_PLANNED,PLANNED_MATCH,SRN name match; CON1-45 -> C
 CN4-10,SPINDLE_REV,MESA_DIRECT_PLANNED,PLANNED_MATCH,SRI name match; CON1-46 -> CN4-10 per RECON 2026-08-08 §D, cross-confirmed against dwg 4143075403 p127; previously excluded as ambiguous spindle conductor -- promoted 2026-08-18; verify drive-enable interlock before landing
 CN4-16,SPINDLE_ORIENT_ARRIVAL,MESA_DIRECT_PLANNED,PLANNED_MATCH,ORA1/ORA2 (SETA/SETB were misreads - sec 7.5); CON1-22/-23 -> CN4-16/-17 per RECON 2026-08-08 §D, cross-confirmed against dwg 4143075403 p127; previously excluded as ambiguous spindle conductor -- promoted 2026-08-18
 CN6-7,SERVO_READY,MESA_DIRECT_PLANNED,PLANNED_MATCH,Servo-ready name match; confirm this is the retained combined ready contact
+CN2-13,MAG_TOOL_AVAILABLE,MESA_DIRECT_PLANNED,PLANNED_MATCH,PHS-181 tool detector wire 381 (p85 CN6-37 reads 391 - jacket read decides); 3-wire photo sensor - bench item 48 settles X005/X05B identity and sink/source
+CN6-50,SPINDLE_TOOL_AVAILABLE,MESA_DIRECT_PLANNED,PLANNED_MATCH,PHS-182 spindle tool detector wire 382 (internal link CN2-42); 3-wire photo sensor - bench item 48
+CN2-11,MAG_COVER_OPEN_CONF,MESA_DIRECT_PLANNED,PLANNED_MATCH,MAGAZINE COVER OPEN wire 218; prove continuity and normal state
+CN2-12,MAG_COVER_CLOSE_CONF,MESA_DIRECT_PLANNED,PLANNED_MATCH,MAGAZINE COVER CLOSE RS-19 (X53) wire 219; prove continuity and normal state
+CN5-1,THERMAL_ALARM_CHAIN,MESA_DIRECT_PLANNED,PLANNED_MATCH,THERMAL TRIP PROTECTOR wire 144 (X073 + X07B series NC chain); bench item 47 sets IN8 sense
+CN2-3,MANUAL_TOOL_UNCLAMP_PB,MESA_DIRECT_PLANNED,PLANNED_MATCH,TOOL UNCLAMP foot switch wire 149; prove continuity and normal state
+CN1-2,TOOL_CLAMP_CONF,MESA_DIRECT_PLANNED,PLANNED_MATCH,TOOL CLAMP confirm wire 209; prove continuity and normal state
+CN1-1,TOOL_UNCLAMP_CONF,MESA_DIRECT_PLANNED,PLANNED_MATCH,TOOL UNCLAMP confirm PRS-8 wire 208; prove continuity and normal state
+CN1-3,GEAR_HI_CONF,MESA_DIRECT_PLANNED,PLANNED_MATCH,HIGH GEAR PRS-10 HGPRS wire 210 (CA3-C); bench item 28 rest state
+CN1-4,GEAR_LO_CONF,MESA_DIRECT_PLANNED,PLANNED_MATCH,LOW GEAR PRS-12 LGPRS wire 212 (CA3-D); bench item 28 rest state
+CN2-38,DOOR_INTERLOCK,MESA_DIRECT_PLANNED,PLANNED_MATCH,MACHINE DOOR INTERLOCK ch1 wire 341 (CA4-U; LS-140 + LS-141 + X01D series); bench item 8 sets IN24 sense
+CN6-39,LUBE_OK,MESA_DIRECT_PLANNED,PLANNED_MATCH,HEAD LUBE PRESSURE PS-5 wire 355 return G24 - must cross the interposing-relay boundary; bench item 11
+CN11-16,HYD_PUMP_ON,MESA_DIRECT_PLANNED,PLANNED_MATCH,HYDR. PUMP / HEAD LUBE PUMP starter wire 835; output - interposing relay required before energizing
+CN11-4,GEAR_HI_SOL,MESA_DIRECT_PLANNED,PLANNED_MATCH,GEAR SHIFT HIGH SOL-12 wire 712 via RLY-1 (authority_conflicts sec 1); bench item 44 coil hold
+CN11-5,GEAR_LO_SOL,MESA_DIRECT_PLANNED,PLANNED_MATCH,GEAR SHIFT LOW SOL-13 wire 713 via RLY-2 (not yet fitted); bench item 44 coil hold
+CN11-3,TOOL_UNCLAMP_SOL,MESA_DIRECT_PLANNED,PLANNED_MATCH,TOOL UNCLAMP SOL-10 single-coil valve wire 710 (authority_conflicts sec 2); interposing relay required
+CN11-15,COOLANT_ON,MESA_DIRECT_PLANNED,PLANNED_MATCH,FLOOD COOLANT MOTOR STARTER (p85 reads 736; p140/p78 read 836 - jacket read decides); interposing relay required
+CN11-6,AIR_BLAST,MESA_DIRECT_PLANNED,PLANNED_MATCH,SPINDLE AIR BLAST wire 715 (authority_conflicts sec 5 placard-corroborated); interposing relay required
+CN11-13,FLOOD_VALVE,MESA_DIRECT_PLANNED,PLANNED_MATCH,FLOOD COOLANT valve wire 731; interposing relay required
+CN2-44,MANUAL_TOOL_CLAMP_PB,MESA_DIRECT_PLANNED,PLANNED_MATCH,TOOL CLAMP FOOT SWITCH wire 149B; RESERVED in authority - landing recorded but not yet HAL-bound
+CN11-7,WORK_AIR_BLAST,MESA_DIRECT_PLANNED,PLANNED_MATCH,WORK AIR BLAST wire 716 (authority_conflicts sec 5); RESERVED in authority - not yet HAL-bound
+CN6-8,WORK_LIGHT,MESA_DIRECT_PLANNED,PLANNED_MATCH,WORK LIGHT wire WL (OEM-corroborated only); RESERVED in authority - not yet HAL-bound
