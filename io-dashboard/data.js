@@ -6,7 +6,7 @@ window.MAZAK_DATA = {
   "machine": "Mazak VQC-20/40",
   "serial": "060231",
   "architecture": "LinuxCNC + Mesa 7i80HDT (Ethernet FPGA host) + 7i44 on P3 (HostMot2 sserial port 0 channels 0/1 to 7i84U-A/B) + 7i49 on P1 (resolver + analog outs); P2 unused/spare (confirmed 2026-08-13 by readhmid)",
-  "generated": "2026-09-06 06:27 UTC",
+  "generated": "2026-09-06 07:04 UTC",
   "source_repo": "mazak-vqc20-linuxcnc-retrofit",
   "authority_file": "mesa/current_pin_authority.csv",
   "epson_ferrule_file": "wiring/labels/bbia1_mesa_end_ferrules_epson.csv",
@@ -636,7 +636,7 @@ window.MAZAK_DATA = {
    "bbia_class": "exception",
    "designations": [],
    "primary_source": "motion_7i80hdt.hal",
-   "cleanup_notes": "Current target leaves P2 empty and requests num_encoders=0. Identify encoder model/electrical format and select a compatible receiver/daughter interface plus IDROM-proven pins before allocation. | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/spindle_run_ladder_transcription.md] | [2026-08-12: STILL UNBOUND. The spindle MOTOR built-in PLG was identified from nameplate photos (Tamagawa TS1526N55 optical, 512 counts/turn, DC +/-15V, 9-pin AMP-350720-1) but it is the FR-SX drive's own detector, not this row - do not allocate it to Mesa and do not parallel-tap it. Whether the schematics' machine-side SPINDLE ENCODER (MS3108B 20-29P, dwg 4143075301 p090) is a separate device remains open. See docs/spindle_motor_plg_encoder.md] | [2026-08-12 DECIDED (owner): UNBOUND is now SETTLED, not pending. LinuxCNC does not read spindle position - orient is FR-SX internal (ORCM1/ORA1), speed supervision is discrete (SZS IN5 / speed-reach IN13), and tapping uses a floating holder so needs only FWD/REV + dwell. No rigid tapping or G33 in scope. Do not open this row again without a scoped project: an encoder on the SPINDLE side of the 2-speed gearbox, a receiver (P2 is bare 3.3V GPIO), and possibly a new bitfile] | [IDENTIFIED 2026-08-15 (AG, nameplate photo): Tamagawa TS1526N55, 512 c/t, DC +/-15 V. Identification only -- num_encoders=0 stays the settled design decision (2026-08-12); no Mesa input exists for a +/-15 V-supplied device and none is being scoped. See docs/feedback_nameplate_survey_2026-08-15.md]",
+   "cleanup_notes": "Current target leaves P2 empty and requests num_encoders=0. Identify encoder model/electrical format and select a compatible receiver/daughter interface plus IDROM-proven pins before allocation. | [2026-08-12: STILL UNBOUND. The spindle MOTOR built-in PLG was identified from nameplate photos (Tamagawa TS1526N55 optical, 512 counts/turn, DC +/-15V, 9-pin AMP-350720-1) but it is the FR-SX drive's own detector, not this row - do not allocate it to Mesa and do not parallel-tap it. Whether the schematics' machine-side SPINDLE ENCODER (MS3108B 20-29P, dwg 4143075301 p090) is a separate device remains open. See docs/spindle_motor_plg_encoder.md] | [2026-08-12 DECIDED (owner): UNBOUND is now SETTLED, not pending. LinuxCNC does not read spindle position - orient is FR-SX internal (ORCM1/ORA1), speed supervision is discrete (SZS IN5 / speed-reach IN13), and tapping uses a floating holder so needs only FWD/REV + dwell. No rigid tapping or G33 in scope. Do not open this row again without a scoped project: an encoder on the SPINDLE side of the 2-speed gearbox, a receiver (P2 is bare 3.3V GPIO), and possibly a new bitfile] | [IDENTIFIED 2026-08-15 (AG, nameplate photo): Tamagawa TS1526N55, 512 c/t, DC +/-15 V. Identification only -- num_encoders=0 stays the settled design decision (2026-08-12); no Mesa input exists for a +/-15 V-supplied device and none is being scoped. See docs/feedback_nameplate_survey_2026-08-15.md]",
    "location": "Spindle head — machine-side A/B/Z encoder if fitted",
    "location_note": "Unassigned: part, electrical format, and receiver/interface are not confirmed. The confirmed rmsvss6_8 firmware has no Encoder module at all.",
    "expected": {
@@ -1814,7 +1814,7 @@ window.MAZAK_DATA = {
     "PRS-55"
    ],
    "primary_source": "archived_wiring_map",
-   "cleanup_notes": "RESOLVED - field_7i84u.hal binds atc-y-zone to input-00 | [RECON 2026-08-08 §F: PRS-55 (+Y 2nd, +LY2) confirmed by Dwg 4143075409 (Motion Switch Input 3)] | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/atc_ladder_transcription.md] | [2026-09-02 AUDIT (owner approved): sec-7.2 dissolves as a citation defect — pg135 shows +LY2/PRS-55 at T.U. CN2-14 (to relay coil 1237/PYOT, no PLC input), NOT CN3-44; p84+p134 give CN3-44 = SPTD SPINDLE TOOL DETECTOR (X5B SPTDPRS, inside CND4-26). The Y ATC-zone switch feeds a relay leg with no BBIA input pin — tap point for IN0 must be chosen at the bench (candidate: CN2-14 conductor). BBIA landing cleared; status DEFERRED pending bench.]",
+   "cleanup_notes": "RESOLVED - field_7i84u.hal binds atc-y-zone to input-00 | [RECON 2026-08-08 §F: PRS-55 (+Y 2nd, +LY2) confirmed by Dwg 4143075409 (Motion Switch Input 3)] | [2026-09-02 AUDIT (owner approved): sec-7.2 dissolves as a citation defect — pg135 shows +LY2/PRS-55 at T.U. CN2-14 (to relay coil 1237/PYOT, no PLC input), NOT CN3-44; p84+p134 give CN3-44 = SPTD SPINDLE TOOL DETECTOR (X5B SPTDPRS, inside CND4-26). The Y ATC-zone switch feeds a relay leg with no BBIA input pin — tap point for IN0 must be chosen at the bench (candidate: CN2-14 conductor). BBIA landing cleared; status DEFERRED pending bench.]",
    "location": "Y axis — tool-change zone prox",
    "location_note": "PRS-55. Switch may not physically exist — confirm.",
    "expected": {
@@ -1891,7 +1891,7 @@ window.MAZAK_DATA = {
     "PRS-66"
    ],
    "primary_source": "archived_wiring_map",
-   "cleanup_notes": "RESOLVED - field_7i84u.hal binds atc-z-zone to input-01 | [RECON 2026-08-08 §F: PRS-66 (-Z 2nd, -LZ2) confirmed by Dwg 4143075409 (Motion Switch Input 3)] | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/atc_ladder_transcription.md] | [2026-09-02 AUDIT (owner approved): sec-7.2 dissolves as a citation defect — pg135 shows -LZ2/PRS-66 at T.U. CN1-5 (to relay coil 1240/NZOT, no PLC input), NOT CN3-39; p84+p134 give CN3-39 = wire 147 TOOL DETECTOR (X05 MGTDPRS, inside CND1-7). The Z ATC-zone switch feeds a relay leg with no BBIA input pin — tap point for IN1 must be chosen at the bench (candidate: CN1-5 conductor). BBIA landing cleared; status DEFERRED pending bench.]",
+   "cleanup_notes": "RESOLVED - field_7i84u.hal binds atc-z-zone to input-01 | [RECON 2026-08-08 §F: PRS-66 (-Z 2nd, -LZ2) confirmed by Dwg 4143075409 (Motion Switch Input 3)] | [2026-09-02 AUDIT (owner approved): sec-7.2 dissolves as a citation defect — pg135 shows -LZ2/PRS-66 at T.U. CN1-5 (to relay coil 1240/NZOT, no PLC input), NOT CN3-39; p84+p134 give CN3-39 = wire 147 TOOL DETECTOR (X05 MGTDPRS, inside CND1-7). The Z ATC-zone switch feeds a relay leg with no BBIA input pin — tap point for IN1 must be chosen at the bench (candidate: CN1-5 conductor). BBIA landing cleared; status DEFERRED pending bench.]",
    "location": "Z axis — tool-change zone prox",
    "location_note": "PRS-66. Switch may not physically exist — confirm.",
    "expected": {
@@ -2196,7 +2196,7 @@ window.MAZAK_DATA = {
    "bbia_class": "plane",
    "designations": [],
    "primary_source": "element_list_crosswalk_2026-07-27",
-   "cleanup_notes": "ATC cannot cycle without orient; confirm FR-SX terminal and polarity | [RECON 2026-08-08 §A: element list confirms X003 ORA1 'ORIENT ARRIVAL' (ladder 3006/4810/5509) on 060231] | [RECON 2026-08-08 §D: FR-SX OBA1(t22)/OBA2(t23) -> CN4-16/CN4-17 (digits verify)] | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/spindle_run_ladder_transcription.md] | [2026-09-02 AUDIT (owner approved): factory wire corrected SETA -> ORA1 per dwg 4143075321 p84 at 560 DPI (CN4-16 = ORA1 \"SPINDLE ORIENT ARRIVAL\"), corroborated by dwg 4143075403 p127 (CON1-22/23 OBA1/OBA2 -> CN4-16/-17). \"SETA/set A\" was a misread; CN4-17 = ORA2. Resolves this row's earlier LOW CONFIDENCE flag in the ladder's favor.]",
+   "cleanup_notes": "ATC cannot cycle without orient; confirm FR-SX terminal and polarity | [RECON 2026-08-08 §A: element list confirms X003 ORA1 'ORIENT ARRIVAL' (ladder 3006/4810/5509) on 060231] | [RECON 2026-08-08 §D: FR-SX OBA1(t22)/OBA2(t23) -> CN4-16/CN4-17 (digits verify)] | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/orient_ladder_transcription.md] | [2026-09-02 AUDIT (owner approved): factory wire corrected SETA -> ORA1 per dwg 4143075321 p84 at 560 DPI (CN4-16 = ORA1 \"SPINDLE ORIENT ARRIVAL\"), corroborated by dwg 4143075403 p127 (CON1-22/23 OBA1/OBA2 -> CN4-16/-17). \"SETA/set A\" was a misread; CN4-17 = ORA2. Resolves this row's earlier LOW CONFIDENCE flag in the ladder's favor.]",
    "location": "Unknown — trace in cabinet",
    "location_note": "",
    "expected": {
@@ -2661,7 +2661,7 @@ window.MAZAK_DATA = {
    "bbia_class": "plane",
    "designations": [],
    "primary_source": "element_list_crosswalk_2026-07-27 + wiring/authority_conflicts.md (open_issues.md does not exist, per docs/claim_audit_2026-08-07.md item 17)",
-   "cleanup_notes": "Series-wired NC X073 THR.M + X07B ONT.M; alarm-only, not in E-stop chain; field continuity and polarity remain unverified. | [RECON 2026-08-08 §A: element list confirms X073 THR.M + X07B ONT.M — two NC signals, series on 060231] | [LOCATED 2026-08-08: X73 THR.M (T.U CN5-1, TB1; motor thermal + circuit protector trip) series-NC X7B ONT.M (T.U CN5-3, OHT; main transformer overheat), Dwg 4143075407 pg133] | [LADDER-REF CORRECTED 2026-09-05: docs/ladder/interlocks_ladder_transcription.md lines 34-53 (AL57 main-transformer-overheat rung); estop_ladder_transcription.md does not cover THR.M/ONT.M/AL57] | [2026-09-05 OWNER DECISION (config-audit item 16c): WARNING-ONLY. Sole consumer is the pyvcp LED panel (linuxcnc/panel_warnings.xml via postgui.hal); no interlock consequence. Deliberate deviation from OEM PLC alarm AL57. Polarity still unverified - bench item 47.]",
+   "cleanup_notes": "Series-wired NC X073 THR.M + X07B ONT.M; alarm-only, not in E-stop chain; field continuity and polarity remain unverified. | [RECON 2026-08-08 §A: element list confirms X073 THR.M + X07B ONT.M — two NC signals, series on 060231] | [LOCATED 2026-08-08: X73 THR.M (T.U CN5-1, TB1; motor thermal + circuit protector trip) series-NC X7B ONT.M (T.U CN5-3, OHT; main transformer overheat), Dwg 4143075407 pg133] | [LADDER-REF CORRECTION 2026-09-06: docs/ladder/interlocks_ladder_transcription.md lines 34-53 do NOT transcribe the AL57 rung -- line 35 only names AL57 as existing on sheet 57/rung 5703, and lines 39-58 cover a different rung (sheet 43 axis interlocks) that consumes AL57, not the rung that drives it. The AL57 trip condition (X073 THR.M + X07B ONT.M -> AL57) is transcribed nowhere in docs/ladder/*.md; confirmed instead directly against YM2V39L.pdf p.58 (drawing 4136081801, sheet 57, rung 3/SSLL 5703), which shows OHT.M(X07B)/THR.M(X073) driving AL57, matching this row. estop_ladder_transcription.md still does not cover THR.M/ONT.M/AL57.] | [2026-09-05 OWNER DECISION (config-audit item 16c): WARNING-ONLY. Sole consumer is the pyvcp LED panel (linuxcnc/panel_warnings.xml via postgui.hal); no interlock consequence. Deliberate deviation from OEM PLC alarm AL57. Polarity still unverified - bench item 47.]",
    "location": "Unknown — trace in cabinet",
    "location_note": "",
    "expected": {
@@ -2773,7 +2773,7 @@ window.MAZAK_DATA = {
    "bbia_class": "plane",
    "designations": [],
    "primary_source": "element_list_crosswalk_2026-07-27",
-   "cleanup_notes": "Commissioning aid; pairs with MANUAL_TOOL_CLAMP_PB on IN30 (TCFS X01B reinstated 2026-08-03 after single-7i84U plan freed pins). | [RECON 2026-08-08 §A: element list confirms X01A TUCFS.M 'MNL TOOL UNCLAMP FS (VQC20)' on 060231] | [RECON 2026-08-08: FOOT switch confirmed (owner + mnemonic TUCFS=Tool UnClamp Foot Switch); BBIA1 wire 149 'TOOL UNCLAMP (FOOT SW)' 7-23] | [LOCATED 2026-08-08: X1A TUCF.M foot switch, wire 149A, T.U CN2-3, Dwg 4143075407 pg133] | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/atc_ladder_transcription.md]",
+   "cleanup_notes": "Commissioning aid; pairs with MANUAL_TOOL_CLAMP_PB on IN30 (TCFS X01B reinstated 2026-08-03 after single-7i84U plan freed pins). | [RECON 2026-08-08 §A: element list confirms X01A TUCFS.M 'MNL TOOL UNCLAMP FS (VQC20)' on 060231] | [RECON 2026-08-08: FOOT switch confirmed (owner + mnemonic TUCFS=Tool UnClamp Foot Switch); BBIA1 wire 149 'TOOL UNCLAMP (FOOT SW)' 7-23] | [LOCATED 2026-08-08: X1A TUCF.M foot switch, wire 149A, T.U CN2-3, Dwg 4143075407 pg133] | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/atc_ladder_transcription.md] | [2026-09-06 AUDIT: AMBIGUOUS -- this row's own notes disagree on the wire suffix: the 2026-08-08 RECON note reads wire 149 (matching wiring/bbia1_cn_pinouts.csv CN2-3), but the more specific 2026-08-08 LOCATED note (Dwg 4143075407 pg133, T.U CN2-3) reads 149A -- paralleling sibling MANUAL_TOOL_CLAMP_PB's confirmed 149B for the split pair at this footswitch junction. factory_wire currently carries the less-specific 149; a jacket read at T.U CN2-3 decides whether it should be 149A. NOT resolved here -- bench item.]",
    "location": "Unknown — trace in cabinet",
    "location_note": "",
    "expected": {
@@ -2884,8 +2884,8 @@ window.MAZAK_DATA = {
    "factory_wire": "",
    "bbia_class": "exception",
    "designations": [],
-   "primary_source": "archived_wiring_map",
-   "cleanup_notes": "Owner decision 2026-08-11 (AG): OEM SER is ONE combined servo-error contact for all axes (only one SER line on the 50-pin CN6) not per-axis; IN10 fans out to all three joint amp-faults; IN11/IN12 freed to spare. Bench-verify HD81/HD101 ALM polarity before enabling | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/estop_ladder_transcription.md] | [2026-09-02 AUDIT (owner approved): dwg 4143075322 p85 reads CN6-27 = SFR SPINDLE FORWARD (CN6-28/29/30 = SRV/SMR/ORCH1); no SER line exists on CN6 — the only servo status line is CN6-7 SA SERVO READY. Independently corroborated by docs/photo_survey_misc.md's read of the same sheet. IN10 + servo-fault net stay reserved; re-derive the servo-error source, most likely directly at the HD81/HD101 amp ALM contacts. BBIA landing cleared.]",
+   "primary_source": "mesa/current_pin_authority.csv (historical) -- archived_wiring_map does not exist, per docs/claim_audit_2026-08-07.md item 17",
+   "cleanup_notes": "Owner decision 2026-08-11 (AG): OEM SER is ONE combined servo-error contact for all axes (only one SER line on the 50-pin CN6) not per-axis; IN10 fans out to all three joint amp-faults; IN11/IN12 freed to spare. Bench-verify HD81/HD101 ALM polarity before enabling | [LADDER-REF UNSUPPORTED 2026-09-06: estop_ladder_transcription.md documents only SERVO READY (SA.M/Y098, sheet 23 line 7); it does not cover a servo fault/alarm signal, consistent with this row's own 2026-09-02 finding that no SER line exists on CN6. No ladder transcription covers SER/ALM -- source still needed.] | [2026-09-02 AUDIT (owner approved): dwg 4143075322 p85 reads CN6-27 = SFR SPINDLE FORWARD (CN6-28/29/30 = SRV/SMR/ORCH1); no SER line exists on CN6 — the only servo status line is CN6-7 SA SERVO READY. Independently corroborated by docs/photo_survey_misc.md's read of the same sheet. IN10 + servo-fault net stay reserved; re-derive the servo-error source, most likely directly at the HD81/HD101 amp ALM contacts. BBIA landing cleared.]",
    "location": "Unknown — trace in cabinet",
    "location_note": "",
    "expected": {
@@ -2979,7 +2979,7 @@ window.MAZAK_DATA = {
      "note": "net servo-fault        => resolver-fault-z.in0"
     },
     {
-     "file": "archived_wiring_map",
+     "file": "mesa/current_pin_authority.csv (historical) -- archived_wiring_map does not exist, per docs/claim_audit_2026-08-07.md item 17",
      "lines": "",
      "note": "primary_source column in the authority table"
     }
@@ -3005,14 +3005,14 @@ window.MAZAK_DATA = {
    "subsystem": "Spare",
    "machine_subsystem": "Spare",
    "status": "SPARE",
-   "field_point": "Spare — freed 2026-08-11 when servo ALM consolidated to the single combined SER line on IN10 (owner decision AG)",
+   "field_point": "Spare — freed 2026-08-11 when servo ALM consolidated onto the single combined alarm input IN10 (owner decision AG); the CN6-27 'SER' wire identity behind that decision was retracted 2026-09-02 (see SERVO_FAULT row)",
    "dest_connector": "",
    "dest_pin": "",
    "factory_wire": "",
    "bbia_class": "spare",
    "designations": [],
-   "primary_source": "archived_wiring_map",
-   "cleanup_notes": "Was Y_DRIVE_FAULT; no separate per-axis servo alarm exists (single CN6-27 SER). Available for reuse",
+   "primary_source": "mesa/current_pin_authority.csv (historical) -- archived_wiring_map does not exist, per docs/claim_audit_2026-08-07.md item 17",
+   "cleanup_notes": "Was Y_DRIVE_FAULT; owner decision 2026-08-11 kept the single combined servo-alarm design (IN10) so IN11 stays spare. 2026-09-02 AUDIT: the claimed OEM source for that line (CN6-27 'SER') was a misread — CN6-27 is SFR SPINDLE FORWARD and no SER line exists on CN6; source unlocated, see SERVO_FAULT row and linuxcnc/field_7i84u.hal. Available for reuse.",
    "location": "Unknown — trace in cabinet",
    "location_note": "",
    "expected": {
@@ -3035,7 +3035,7 @@ window.MAZAK_DATA = {
      "note": "Current wiring authority row"
     },
     {
-     "file": "archived_wiring_map",
+     "file": "mesa/current_pin_authority.csv (historical) -- archived_wiring_map does not exist, per docs/claim_audit_2026-08-07.md item 17",
      "lines": "",
      "note": "primary_source column in the authority table"
     }
@@ -3056,14 +3056,14 @@ window.MAZAK_DATA = {
    "subsystem": "Spare",
    "machine_subsystem": "Spare",
    "status": "SPARE",
-   "field_point": "Spare — freed 2026-08-11 when servo ALM consolidated to the single combined SER line on IN10 (owner decision AG)",
+   "field_point": "Spare — freed 2026-08-11 when servo ALM consolidated onto the single combined alarm input IN10 (owner decision AG); the CN6-27 'SER' wire identity behind that decision was retracted 2026-09-02 (see SERVO_FAULT row)",
    "dest_connector": "",
    "dest_pin": "",
    "factory_wire": "",
    "bbia_class": "spare",
    "designations": [],
-   "primary_source": "archived_wiring_map",
-   "cleanup_notes": "Was Z_DRIVE_FAULT; no separate per-axis servo alarm exists (single CN6-27 SER). Available for reuse",
+   "primary_source": "mesa/current_pin_authority.csv (historical) -- archived_wiring_map does not exist, per docs/claim_audit_2026-08-07.md item 17",
+   "cleanup_notes": "Was Z_DRIVE_FAULT; owner decision 2026-08-11 kept the single combined servo-alarm design (IN10) so IN12 stays spare. 2026-09-02 AUDIT: the claimed OEM source for that line (CN6-27 'SER') was a misread — CN6-27 is SFR SPINDLE FORWARD and no SER line exists on CN6; source unlocated, see SERVO_FAULT row and linuxcnc/field_7i84u.hal. Available for reuse.",
    "location": "Unknown — trace in cabinet",
    "location_note": "",
    "expected": {
@@ -3086,7 +3086,7 @@ window.MAZAK_DATA = {
      "note": "Current wiring authority row"
     },
     {
-     "file": "archived_wiring_map",
+     "file": "mesa/current_pin_authority.csv (historical) -- archived_wiring_map does not exist, per docs/claim_audit_2026-08-07.md item 17",
      "lines": "",
      "note": "primary_source column in the authority table"
     }
@@ -3114,7 +3114,7 @@ window.MAZAK_DATA = {
    "bbia_class": "exception",
    "designations": [],
    "primary_source": "Mitsubishi_FR-SX_Spindle_Drive_Maintenance_Manual_BCN-21735-S5.pdf",
-   "cleanup_notes": "Confirm VFD terminal and polarity | [RECON 2026-08-08: spindle-drive sheet Dwg 4143075403 shows only zero-speed/controller-normal/orient-arrival; NO discrete at-speed output. Derive at-speed in HAL (commanded-vs-actual threshold). Do NOT wire.] | [RECON 2026-08-08 follow-up: status COMMISSIONING_PENDING -> DEFERRED; no field wire, derived in HAL] | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/spindle_run_ladder_transcription.md] | [RESOLVED 2026-09-04 (owner decision, config-audit item 16a): the DRIVE has a discrete up-to-speed output that the MACHINE drawing never used. FR-SX maintenance manual BCN-21735-S5 p12 external-wiring diagram, connector CON3 (open-collector block: FLO-18 fault, CDO-17 current detect, VRO-16 speed detect, USO-15 UP TO SPEED, ZSO-14 zero speed, TLO-1, ORAO-19, AL1..AL8 pins 8-11, COM-20); p9 spec table: threshold speed signal transistor ON within +/-15% of preset speed; LED7 UP TO SPEED on SX-CPU lights with it. dwg 4143075403 draws CON1 only, so CON3 is unpopulated on SN 060231 - this is a retrofit-added conductor, no factory wire. Status DEFERRED -> COMMISSIONING_PENDING. Land via interposing relay (OEM ZS1 pattern) or direct if FR-SX COM and VFIELD ground are common (owner 24V design). POLARITY UNVERIFIED - bench: meter CON3-15 vs CON3-20 at speed with LED7 lit, then set/omit -not in field_7i84u.hal. Interim bench jumper IN13->VFIELD, never a HAL sets.]",
+   "cleanup_notes": "Confirm VFD terminal and polarity | [RECON 2026-08-08: spindle-drive sheet Dwg 4143075403 shows only zero-speed/controller-normal/orient-arrival; NO discrete at-speed output. Derive at-speed in HAL (commanded-vs-actual threshold). Do NOT wire.] | [RECON 2026-08-08 follow-up: status COMMISSIONING_PENDING -> DEFERRED; no field wire, derived in HAL] | [RESOLVED 2026-09-04 (owner decision, config-audit item 16a): the DRIVE has a discrete up-to-speed output that the MACHINE drawing never used. FR-SX maintenance manual BCN-21735-S5 p12 external-wiring diagram, connector CON3 (open-collector block: FLO-18 fault, CDO-17 current detect, VRO-16 speed detect, USO-15 UP TO SPEED, ZSO-14 zero speed, TLO-1, ORAO-19, AL1..AL8 pins 8-11, COM-20); p9 spec table: threshold speed signal transistor ON within +/-15% of preset speed; LED7 UP TO SPEED on SX-CPU lights with it. dwg 4143075403 draws CON1 only, so CON3 is unpopulated on SN 060231 - this is a retrofit-added conductor, no factory wire. Status DEFERRED -> COMMISSIONING_PENDING. Land via interposing relay (OEM ZS1 pattern) or direct if FR-SX COM and VFIELD ground are common (owner 24V design). POLARITY UNVERIFIED - bench: meter CON3-15 vs CON3-20 at speed with LED7 lit, then set/omit -not in field_7i84u.hal. Interim bench jumper IN13->VFIELD, never a HAL sets.]",
    "location": "Spindle/servo bay — FR-SX speed-reach output terminal",
    "location_note": "",
    "expected": {
@@ -4792,7 +4792,7 @@ window.MAZAK_DATA = {
    "factory_wire": "",
    "bbia_class": "exception",
    "designations": [],
-   "primary_source": "archived_wiring_map",
+   "primary_source": "mesa/current_pin_authority.csv (historical) -- archived_wiring_map does not exist, per docs/claim_audit_2026-08-07.md item 17",
    "cleanup_notes": "Displaced 2026-07-27: IN28 reclaimed for MAG_IN_POS (mandatory ATC input). Pendant WHB04B is the planned cycle-start path but is not yet implemented (linuxcnc/pendant_whb04b.hal is entirely commented-out placeholder code pending driver install/verification); no 7i84U-B terminal is assigned unless the physical panel button is deliberately restored to scope.",
    "location": "Operating panel A/B — cycle start pushbutton",
    "location_note": "",
@@ -4816,7 +4816,7 @@ window.MAZAK_DATA = {
      "note": "Current wiring authority row"
     },
     {
-     "file": "archived_wiring_map",
+     "file": "mesa/current_pin_authority.csv (historical) -- archived_wiring_map does not exist, per docs/claim_audit_2026-08-07.md item 17",
      "lines": "",
      "note": "primary_source column in the authority table"
     }
@@ -5120,7 +5120,7 @@ window.MAZAK_DATA = {
    "factory_wire": "SA",
    "bbia_class": "plane",
    "designations": [],
-   "primary_source": "archived_wiring_map",
+   "primary_source": "mesa/current_pin_authority.csv (historical) -- archived_wiring_map does not exist, per docs/claim_audit_2026-08-07.md item 17",
    "cleanup_notes": "Wire before first motion if available | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/estop_ladder_transcription.md]",
    "location": "Servo bay — drives-ready relay contact",
    "location_note": "",
@@ -5212,7 +5212,7 @@ window.MAZAK_DATA = {
      "note": "net servo-ready                           => mazak-orient.servo-ready"
     },
     {
-     "file": "archived_wiring_map",
+     "file": "mesa/current_pin_authority.csv (historical) -- archived_wiring_map does not exist, per docs/claim_audit_2026-08-07.md item 17",
      "lines": "",
      "note": "primary_source column in the authority table"
     },
@@ -5742,7 +5742,7 @@ window.MAZAK_DATA = {
    "bbia_class": "plane",
    "designations": [],
    "primary_source": "element_list_crosswalk_2026-07-27",
-   "cleanup_notes": "Gated by spindle-motion-permit; validate ladder sequence exact drive terminal relay topology and polarity before landing the field wire | [RECON 2026-08-08 §A: element list confirms Y093 ORCM1.M 'SPINDLE ORIENT COMMAND' (.M not .MV) on 060231] | [RECON 2026-08-08 §D: FR-SX CTM] | [LOCATED 2026-08-08: ORC1 CON1-25 wire 4-12 T.U CN3-14, Dwg 4143075408 pg134] | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/spindle_run_ladder_transcription.md] | [2026-09-02 AUDIT (owner approved): mnemonic corrected 'ORI C1' -> ORC1 per p84 (both CN3-14 and CN4-12 cells) + p134 (relay ORC 1226) — same misread family as sec 7.5]",
+   "cleanup_notes": "Gated by spindle-motion-permit; validate ladder sequence exact drive terminal relay topology and polarity before landing the field wire | [RECON 2026-08-08 §A: element list confirms Y093 ORCM1.M 'SPINDLE ORIENT COMMAND' (.M not .MV) on 060231] | [RECON 2026-08-08 §D: FR-SX CTM] | [LOCATED 2026-08-08: ORC1 CON1-25 wire 4-12 T.U CN3-14, Dwg 4143075408 pg134] | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/orient_ladder_transcription.md] | [2026-09-02 AUDIT (owner approved): mnemonic corrected 'ORI C1' -> ORC1 per p84 (both CN3-14 and CN4-12 cells) + p134 (relay ORC 1226) — same misread family as sec 7.5]",
    "location": "Unknown — trace in cabinet",
    "location_note": "",
    "expected": {
@@ -5856,7 +5856,7 @@ window.MAZAK_DATA = {
    "bbia_class": "plane",
    "designations": [],
    "primary_source": "element_list_crosswalk_2026-07-27",
-   "cleanup_notes": "Verify in ladder whether required in high gear too | [RECON 2026-08-08 §A: element list confirms Y094 CTL.M 'LOW GEAR ORIENT' — low-gear-specific on 060231] | [RECON 2026-08-08 §D: FR-SX GTL] | [LOCATED 2026-08-08: CTL 'LOW GEAR ORIENT' CON1-27 wire 4-13 T.U CN3-15, Dwg 4143075408 pg134 - confirms low-gear orient assist] | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/spindle_run_ladder_transcription.md]",
+   "cleanup_notes": "Verify in ladder whether required in high gear too | [RECON 2026-08-08 §A: element list confirms Y094 CTL.M 'LOW GEAR ORIENT' — low-gear-specific on 060231] | [RECON 2026-08-08 §D: FR-SX GTL] | [LOCATED 2026-08-08: CTL 'LOW GEAR ORIENT' CON1-27 wire 4-13 T.U CN3-15, Dwg 4143075408 pg134 - confirms low-gear orient assist] | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/orient_ladder_transcription.md]",
    "location": "Unknown — trace in cabinet",
    "location_note": "",
    "expected": {
@@ -6875,7 +6875,7 @@ window.MAZAK_DATA = {
    "factory_wire": "",
    "bbia_class": "spare",
    "designations": [],
-   "primary_source": "archived_wiring_map",
+   "primary_source": "mesa/current_pin_authority.csv (historical) -- archived_wiring_map does not exist, per docs/claim_audit_2026-08-07.md item 17",
    "cleanup_notes": "Confirm load and behavior | [2026-08-09: RESERVED, hal_net none (was alarm-out) - optional load unconfirmed; restore net when alarm device is chosen]",
    "location": "Operating panel — alarm light or horn",
    "location_note": "",
@@ -6899,7 +6899,7 @@ window.MAZAK_DATA = {
      "note": "Current wiring authority row"
     },
     {
-     "file": "archived_wiring_map",
+     "file": "mesa/current_pin_authority.csv (historical) -- archived_wiring_map does not exist, per docs/claim_audit_2026-08-07.md item 17",
      "lines": "",
      "note": "primary_source column in the authority table"
     }
@@ -6919,7 +6919,7 @@ window.MAZAK_DATA = {
    "direction_label": "Link (smart-serial)",
    "subsystem": "Field I/O",
    "machine_subsystem": "Field I/O link",
-   "status": "FACTORY_LINK",
+   "status": "DEFERRED",
    "field_point": "7i84U-B RJ45 pin 2 RX+",
    "dest_connector": "7i84U-B RJ45",
    "dest_pin": "2",
@@ -6927,7 +6927,7 @@ window.MAZAK_DATA = {
    "bbia_class": "power-internal",
    "designations": [],
    "primary_source": "mesa_firmware_checklist.md",
-   "cleanup_notes": "7i44 channel 1 to 7i84U-B CN0 under HostMot2 port 0; RS-422 differential pair | [MESA-CONFIRMED 2026-08-08: matches 7i84U J1 RJ-45 pinout (7i84uman.pdf: p1 RXA/p2 RXB/p3 TXA/p6 TXB/p4-5 GND/p7-8 +5V, 568B colors); straight CAT5 to 7i44; plug-in cable, no continuity trace needed] | [READY 2026-08-09: factory-link acceptance applies to two distinct plug-in segments: Mesa 50-pin IDC from 7i80HDT P3 to 7i44, then CAT5 smart-serial from 7i44 to the identified 7i84U channel. Inspect assembly identity, keying/orientation, seating, strain relief, and visible condition; verify expected smart-serial enumeration without communication or watchdog faults. Do not continuity-audit or re-terminate individual conductors.]",
+   "cleanup_notes": "[2026-09-06 AUDIT: authority_status FACTORY_LINK downgraded to DEFERRED -- 7i84U-B is not yet in hand (docs/project_status.md: on order, confirmed by owner 2026-09-06); channel 1 correctly did not enumerate on the 2026-09-05 bench check. Re-promote to FACTORY_LINK once 7i84U-B is received and channel 1 enumeration is verified per the READY procedure below.] 7i44 channel 1 to 7i84U-B CN0 under HostMot2 port 0; RS-422 differential pair | [MESA-CONFIRMED 2026-08-08: matches 7i84U J1 RJ-45 pinout (7i84uman.pdf: p1 RXA/p2 RXB/p3 TXA/p6 TXB/p4-5 GND/p7-8 +5V, 568B colors); straight CAT5 to 7i44; plug-in cable, no continuity trace needed] | [READY 2026-08-09: factory-link acceptance applies to two distinct plug-in segments: Mesa 50-pin IDC from 7i80HDT P3 to 7i44, then CAT5 smart-serial from 7i44 to the identified 7i84U channel. Inspect assembly identity, keying/orientation, seating, strain relief, and visible condition; verify expected smart-serial enumeration without communication or watchdog faults. Do not continuity-audit or re-terminate individual conductors.]",
    "location": "Control cabinet — 7i80HDT P3 to 7i44 by Mesa 50-pin IDC; 7i44 channel 1 to 7i84U-B CN0/RJ45 by CAT5 smart-serial",
    "location_note": "Factory plug-in link: inspect identity, keying/orientation, seating, strain relief, and visible condition; verify clean smart-serial enumeration. Do not continuity-audit or re-terminate individual conductors.",
    "expected": {
@@ -6970,7 +6970,7 @@ window.MAZAK_DATA = {
    "direction_label": "Link (smart-serial)",
    "subsystem": "Field I/O",
    "machine_subsystem": "Field I/O link",
-   "status": "FACTORY_LINK",
+   "status": "DEFERRED",
    "field_point": "7i84U-B RJ45 pin 1 RX-",
    "dest_connector": "7i84U-B RJ45",
    "dest_pin": "1",
@@ -6978,7 +6978,7 @@ window.MAZAK_DATA = {
    "bbia_class": "power-internal",
    "designations": [],
    "primary_source": "mesa_firmware_checklist.md",
-   "cleanup_notes": "RS-422 differential pair | [MESA-CONFIRMED 2026-08-08: matches 7i84U J1 RJ-45 pinout (7i84uman.pdf: p1 RXA/p2 RXB/p3 TXA/p6 TXB/p4-5 GND/p7-8 +5V, 568B colors); straight CAT5 to 7i44; plug-in cable, no continuity trace needed] | [READY 2026-08-09: factory-link acceptance applies to two distinct plug-in segments: Mesa 50-pin IDC from 7i80HDT P3 to 7i44, then CAT5 smart-serial from 7i44 to the identified 7i84U channel. Inspect assembly identity, keying/orientation, seating, strain relief, and visible condition; verify expected smart-serial enumeration without communication or watchdog faults. Do not continuity-audit or re-terminate individual conductors.]",
+   "cleanup_notes": "[2026-09-06 AUDIT: authority_status FACTORY_LINK downgraded to DEFERRED -- 7i84U-B is not yet in hand (docs/project_status.md: on order, confirmed by owner 2026-09-06); channel 1 correctly did not enumerate on the 2026-09-05 bench check. Re-promote to FACTORY_LINK once 7i84U-B is received and channel 1 enumeration is verified per the READY procedure below.] RS-422 differential pair | [MESA-CONFIRMED 2026-08-08: matches 7i84U J1 RJ-45 pinout (7i84uman.pdf: p1 RXA/p2 RXB/p3 TXA/p6 TXB/p4-5 GND/p7-8 +5V, 568B colors); straight CAT5 to 7i44; plug-in cable, no continuity trace needed] | [READY 2026-08-09: factory-link acceptance applies to two distinct plug-in segments: Mesa 50-pin IDC from 7i80HDT P3 to 7i44, then CAT5 smart-serial from 7i44 to the identified 7i84U channel. Inspect assembly identity, keying/orientation, seating, strain relief, and visible condition; verify expected smart-serial enumeration without communication or watchdog faults. Do not continuity-audit or re-terminate individual conductors.]",
    "location": "Control cabinet — 7i80HDT P3 to 7i44 by Mesa 50-pin IDC; 7i44 channel 1 to 7i84U-B CN0/RJ45 by CAT5 smart-serial",
    "location_note": "Factory plug-in link: inspect identity, keying/orientation, seating, strain relief, and visible condition; verify clean smart-serial enumeration. Do not continuity-audit or re-terminate individual conductors.",
    "expected": {
@@ -7021,7 +7021,7 @@ window.MAZAK_DATA = {
    "direction_label": "Link (smart-serial)",
    "subsystem": "Field I/O",
    "machine_subsystem": "Field I/O link",
-   "status": "FACTORY_LINK",
+   "status": "DEFERRED",
    "field_point": "7i84U-B RJ45 pin 6 TX+",
    "dest_connector": "7i84U-B RJ45",
    "dest_pin": "6",
@@ -7029,7 +7029,7 @@ window.MAZAK_DATA = {
    "bbia_class": "power-internal",
    "designations": [],
    "primary_source": "mesa_firmware_checklist.md",
-   "cleanup_notes": "RS-422 differential pair | [MESA-CONFIRMED 2026-08-08: matches 7i84U J1 RJ-45 pinout (7i84uman.pdf: p1 RXA/p2 RXB/p3 TXA/p6 TXB/p4-5 GND/p7-8 +5V, 568B colors); straight CAT5 to 7i44; plug-in cable, no continuity trace needed] | [READY 2026-08-09: factory-link acceptance applies to two distinct plug-in segments: Mesa 50-pin IDC from 7i80HDT P3 to 7i44, then CAT5 smart-serial from 7i44 to the identified 7i84U channel. Inspect assembly identity, keying/orientation, seating, strain relief, and visible condition; verify expected smart-serial enumeration without communication or watchdog faults. Do not continuity-audit or re-terminate individual conductors.]",
+   "cleanup_notes": "[2026-09-06 AUDIT: authority_status FACTORY_LINK downgraded to DEFERRED -- 7i84U-B is not yet in hand (docs/project_status.md: on order, confirmed by owner 2026-09-06); channel 1 correctly did not enumerate on the 2026-09-05 bench check. Re-promote to FACTORY_LINK once 7i84U-B is received and channel 1 enumeration is verified per the READY procedure below.] RS-422 differential pair | [MESA-CONFIRMED 2026-08-08: matches 7i84U J1 RJ-45 pinout (7i84uman.pdf: p1 RXA/p2 RXB/p3 TXA/p6 TXB/p4-5 GND/p7-8 +5V, 568B colors); straight CAT5 to 7i44; plug-in cable, no continuity trace needed] | [READY 2026-08-09: factory-link acceptance applies to two distinct plug-in segments: Mesa 50-pin IDC from 7i80HDT P3 to 7i44, then CAT5 smart-serial from 7i44 to the identified 7i84U channel. Inspect assembly identity, keying/orientation, seating, strain relief, and visible condition; verify expected smart-serial enumeration without communication or watchdog faults. Do not continuity-audit or re-terminate individual conductors.]",
    "location": "Control cabinet — 7i80HDT P3 to 7i44 by Mesa 50-pin IDC; 7i44 channel 1 to 7i84U-B CN0/RJ45 by CAT5 smart-serial",
    "location_note": "Factory plug-in link: inspect identity, keying/orientation, seating, strain relief, and visible condition; verify clean smart-serial enumeration. Do not continuity-audit or re-terminate individual conductors.",
    "expected": {
@@ -7072,7 +7072,7 @@ window.MAZAK_DATA = {
    "direction_label": "Link (smart-serial)",
    "subsystem": "Field I/O",
    "machine_subsystem": "Field I/O link",
-   "status": "FACTORY_LINK",
+   "status": "DEFERRED",
    "field_point": "7i84U-B RJ45 pin 3 TX-",
    "dest_connector": "7i84U-B RJ45",
    "dest_pin": "3",
@@ -7080,7 +7080,7 @@ window.MAZAK_DATA = {
    "bbia_class": "power-internal",
    "designations": [],
    "primary_source": "mesa_firmware_checklist.md",
-   "cleanup_notes": "RS-422 differential pair | [MESA-CONFIRMED 2026-08-08: matches 7i84U J1 RJ-45 pinout (7i84uman.pdf: p1 RXA/p2 RXB/p3 TXA/p6 TXB/p4-5 GND/p7-8 +5V, 568B colors); straight CAT5 to 7i44; plug-in cable, no continuity trace needed] | [READY 2026-08-09: factory-link acceptance applies to two distinct plug-in segments: Mesa 50-pin IDC from 7i80HDT P3 to 7i44, then CAT5 smart-serial from 7i44 to the identified 7i84U channel. Inspect assembly identity, keying/orientation, seating, strain relief, and visible condition; verify expected smart-serial enumeration without communication or watchdog faults. Do not continuity-audit or re-terminate individual conductors.]",
+   "cleanup_notes": "[2026-09-06 AUDIT: authority_status FACTORY_LINK downgraded to DEFERRED -- 7i84U-B is not yet in hand (docs/project_status.md: on order, confirmed by owner 2026-09-06); channel 1 correctly did not enumerate on the 2026-09-05 bench check. Re-promote to FACTORY_LINK once 7i84U-B is received and channel 1 enumeration is verified per the READY procedure below.] RS-422 differential pair | [MESA-CONFIRMED 2026-08-08: matches 7i84U J1 RJ-45 pinout (7i84uman.pdf: p1 RXA/p2 RXB/p3 TXA/p6 TXB/p4-5 GND/p7-8 +5V, 568B colors); straight CAT5 to 7i44; plug-in cable, no continuity trace needed] | [READY 2026-08-09: factory-link acceptance applies to two distinct plug-in segments: Mesa 50-pin IDC from 7i80HDT P3 to 7i44, then CAT5 smart-serial from 7i44 to the identified 7i84U channel. Inspect assembly identity, keying/orientation, seating, strain relief, and visible condition; verify expected smart-serial enumeration without communication or watchdog faults. Do not continuity-audit or re-terminate individual conductors.]",
    "location": "Control cabinet — 7i80HDT P3 to 7i44 by Mesa 50-pin IDC; 7i44 channel 1 to 7i84U-B CN0/RJ45 by CAT5 smart-serial",
    "location_note": "Factory plug-in link: inspect identity, keying/orientation, seating, strain relief, and visible condition; verify clean smart-serial enumeration. Do not continuity-audit or re-terminate individual conductors.",
    "expected": {
@@ -7123,7 +7123,7 @@ window.MAZAK_DATA = {
    "direction_label": "Link (smart-serial)",
    "subsystem": "Field I/O",
    "machine_subsystem": "Field I/O link",
-   "status": "FACTORY_LINK",
+   "status": "DEFERRED",
    "field_point": "7i84U-B RJ45 pin 4/5 ground",
    "dest_connector": "7i84U-B RJ45",
    "dest_pin": "4/5",
@@ -7131,7 +7131,7 @@ window.MAZAK_DATA = {
    "bbia_class": "power-internal",
    "designations": [],
    "primary_source": "mesa_firmware_checklist.md",
-   "cleanup_notes": "Factory-link signal ground; cable construction is not field-modified | [MESA-CONFIRMED 2026-08-08: matches 7i84U J1 RJ-45 pinout (7i84uman.pdf: p1 RXA/p2 RXB/p3 TXA/p6 TXB/p4-5 GND/p7-8 +5V, 568B colors); straight CAT5 to 7i44] | [READY 2026-08-09: two distinct plug-in segments: Mesa 50-pin IDC from 7i80HDT P3 to 7i44, then CAT5 smart-serial from 7i44 channel 1 to 7i84U-B. Inspect assembly identity, keying/orientation, seating, strain relief, and visible condition; verify expected smart-serial enumeration without communication or watchdog faults. Do not continuity-audit or re-terminate individual conductors.]",
+   "cleanup_notes": "[2026-09-06 AUDIT: authority_status FACTORY_LINK downgraded to DEFERRED -- 7i84U-B is not yet in hand (docs/project_status.md: on order, confirmed by owner 2026-09-06); channel 1 correctly did not enumerate on the 2026-09-05 bench check. Re-promote to FACTORY_LINK once 7i84U-B is received and channel 1 enumeration is verified per the READY procedure below.] Factory-link signal ground; cable construction is not field-modified | [MESA-CONFIRMED 2026-08-08: matches 7i84U J1 RJ-45 pinout (7i84uman.pdf: p1 RXA/p2 RXB/p3 TXA/p6 TXB/p4-5 GND/p7-8 +5V, 568B colors); straight CAT5 to 7i44] | [READY 2026-08-09: two distinct plug-in segments: Mesa 50-pin IDC from 7i80HDT P3 to 7i44, then CAT5 smart-serial from 7i44 channel 1 to 7i84U-B. Inspect assembly identity, keying/orientation, seating, strain relief, and visible condition; verify expected smart-serial enumeration without communication or watchdog faults. Do not continuity-audit or re-terminate individual conductors.]",
    "location": "Control cabinet — 7i80HDT P3 to 7i44 by Mesa 50-pin IDC; 7i44 channel 1 to 7i84U-B CN0/RJ45 by CAT5 smart-serial",
    "location_note": "Factory plug-in link: inspect identity, keying/orientation, seating, strain relief, and visible condition; verify clean smart-serial enumeration. Do not continuity-audit or re-terminate individual conductors.",
    "expected": {
@@ -7174,7 +7174,7 @@ window.MAZAK_DATA = {
    "direction_label": "Link (smart-serial)",
    "subsystem": "Field I/O",
    "machine_subsystem": "Field I/O link",
-   "status": "FACTORY_LINK",
+   "status": "DEFERRED",
    "field_point": "7i84U-B RJ45 pin 7/8 +5V",
    "dest_connector": "7i84U-B RJ45",
    "dest_pin": "7/8",
@@ -7182,7 +7182,7 @@ window.MAZAK_DATA = {
    "bbia_class": "power-internal",
    "designations": [],
    "primary_source": "mesa_firmware_checklist.md",
-   "cleanup_notes": "Serial power for 7i84U-B logic | [MESA-CONFIRMED 2026-08-08: matches 7i84U J1 RJ-45 pinout (7i84uman.pdf: p1 RXA/p2 RXB/p3 TXA/p6 TXB/p4-5 GND/p7-8 +5V, 568B colors); straight CAT5 to 7i44; plug-in cable, no continuity trace needed] | [READY 2026-08-09: factory-link acceptance applies to two distinct plug-in segments: Mesa 50-pin IDC from 7i80HDT P3 to 7i44, then CAT5 smart-serial from 7i44 to the identified 7i84U channel. Inspect assembly identity, keying/orientation, seating, strain relief, and visible condition; verify expected smart-serial enumeration without communication or watchdog faults. Do not continuity-audit or re-terminate individual conductors.]",
+   "cleanup_notes": "[2026-09-06 AUDIT: authority_status FACTORY_LINK downgraded to DEFERRED -- 7i84U-B is not yet in hand (docs/project_status.md: on order, confirmed by owner 2026-09-06); channel 1 correctly did not enumerate on the 2026-09-05 bench check. Re-promote to FACTORY_LINK once 7i84U-B is received and channel 1 enumeration is verified per the READY procedure below.] Serial power for 7i84U-B logic | [MESA-CONFIRMED 2026-08-08: matches 7i84U J1 RJ-45 pinout (7i84uman.pdf: p1 RXA/p2 RXB/p3 TXA/p6 TXB/p4-5 GND/p7-8 +5V, 568B colors); straight CAT5 to 7i44; plug-in cable, no continuity trace needed] | [READY 2026-08-09: factory-link acceptance applies to two distinct plug-in segments: Mesa 50-pin IDC from 7i80HDT P3 to 7i44, then CAT5 smart-serial from 7i44 to the identified 7i84U channel. Inspect assembly identity, keying/orientation, seating, strain relief, and visible condition; verify expected smart-serial enumeration without communication or watchdog faults. Do not continuity-audit or re-terminate individual conductors.]",
    "location": "Control cabinet — 7i80HDT P3 to 7i44 by Mesa 50-pin IDC; 7i44 channel 1 to 7i84U-B CN0/RJ45 by CAT5 smart-serial",
    "location_note": "Factory plug-in link: inspect identity, keying/orientation, seating, strain relief, and visible condition; verify clean smart-serial enumeration. Do not continuity-audit or re-terminate individual conductors.",
    "expected": {
@@ -8200,7 +8200,7 @@ window.MAZAK_DATA = {
    "bbia_class": "exception",
    "designations": [],
    "primary_source": "field_7i84u.hal",
-   "cleanup_notes": "Raw input and fail-inhibited default; verify switch exists and closes on healthy pressure before live M6 | [LADDER-REF 2026-08-10 (approved AG): docs/ladder/atc_ladder_transcription.md]",
+   "cleanup_notes": "Raw input and fail-inhibited default; verify switch exists and closes on healthy pressure before live M6 | [2026-09-06 AUDIT: dropped LADDER-REF to docs/ladder/atc_ladder_transcription.md -- that file has no air-pressure-switch content (only an unrelated ZPAXX/ZPAX table row); air-blast solenoid OUTPUTS live in coolant_ladder_transcription.md but no transcription documents this INPUT. Source still needed before promotion.]",
    "location": "Unknown — trace in cabinet",
    "location_note": "",
    "expected": {
@@ -10682,7 +10682,7 @@ window.MAZAK_DATA = {
    "name": "P2 Gpio Spare",
    "board": "7i80HDT",
    "connector": "P2 GPIO (bare, no daughter card)",
-   "channel": "TBD_FROM_IDROM",
+   "channel": "gpio.024-gpio.047",
    "hal_net": "",
    "direction": "GPIO",
    "direction_label": "GPIO",
@@ -10696,7 +10696,7 @@ window.MAZAK_DATA = {
    "bbia_class": "spare",
    "designations": [],
    "primary_source": "mesa_firmware_checklist.md",
-   "cleanup_notes": "P2 is unused/spare in this configuration. Actual GPIO indices depend on the verified bitfile/IDROM. Do NOT wire 24V field signals to bare P2; use isolated field I/O.",
+   "cleanup_notes": "P2 is unused/spare in this configuration. GPIO indices confirmed as gpio.024-gpio.047 by two independent readhmid reads (2026-08-11 flash-time, 2026-08-13 re-check, byte-identical) [mesa_firmware_checklist.md]. Do NOT wire 24V field signals to bare P2; use isolated field I/O.",
    "location": "Unknown — trace in cabinet",
    "location_note": "",
    "expected": {
