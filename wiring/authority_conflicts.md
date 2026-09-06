@@ -533,8 +533,9 @@ and the two rows move to the § 3 exception list as unlocated.
 
 ### 7.3 `CN2-14` → `Z_LIMIT_PLUS` is CONTESTED — and it is already on a printed label
 
-[`bbia1_retrofit_destination_crosswalk.csv`](bbia1_retrofit_destination_crosswalk.csv)
-maps `CN2-14` → `Z_LIMIT_PLUS`. `bbia1_source_dest.csv:66` instead records
+[`bbia1_retrofit_destination_crosswalk.csv`](../archive/crosswalk/bbia1_retrofit_destination_crosswalk.csv)
+(retired 2026-09-05, archived; the ferrule generator now reads the pin authority directly)
+mapped `CN2-14` → `Z_LIMIT_PLUS`. `bbia1_source_dest.csv:66` instead records
 `Z_LIMIT_PLUS` as **NOT INDIVIDUALLY LOCATED** (2026-08-10, dwg 4143075410 pg136 —
 "+Z OVER TRAVEL (`*+LZ`) with NO connector-box label on the T.U. row. Needs field
 trace"), and `INTERFACE_ARCHITECTURE.md` § 3b item 4 lists +Z among the four unlocated

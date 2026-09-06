@@ -146,9 +146,11 @@ Recorded so it is not forgotten, and explicitly **not** part of routine work:
 
 - The `INTERFACE_ARCHITECTURE.md` § 5 consolidation — one row per conductor,
   keyed on factory wire number, in the pin authority.
-- Retiring `wiring/bbia1_retrofit_destination_crosswalk.csv` (redundant with
-  the source/dest CSV + pin authority, but currently an input to
-  `scripts/generate_label_csvs.py` — retiring it requires a script change).
+- ~~Retiring `wiring/bbia1_retrofit_destination_crosswalk.csv`~~ — **done
+  2026-09-05 (owner approved).** `scripts/generate_label_csvs.py` now derives the
+  Mesa-end ferrules from the pin authority's `dest_connector`/`dest_pin`; the file
+  is archived at `archive/crosswalk/`. It had drifted to 19 rows against 41
+  landings, which is what the printed wire reference sheet was showing.
 - Clearing stale `cleanup_notes` in the pin authority that describe HAL edits
   already made, then regenerating.
 

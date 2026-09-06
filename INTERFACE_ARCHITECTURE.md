@@ -151,9 +151,9 @@ Consequences that remove work:
   for the **45 rows that cross Plane A**. `wiring/bbia1_source_dest.csv` (66 rows)
   remains the curated, provenance-bearing **input** to that join, and
   `wiring/bbia1_cn_pinouts.csv` (205 rows) remains the immutable OEM reference both
-  are checked against. `wiring/bbia1_retrofit_destination_crosswalk.csv` (41 data
-  rows as of 2026-09-05 — brought level with the authority so the printed wire
-  reference sheet shows every Plane A landing) is superseded but retained — see § 5. Status of each consolidation step is in
+  are checked against. `wiring/bbia1_retrofit_destination_crosswalk.csv` was
+  **retired 2026-09-05** and archived at `archive/crosswalk/`; the ferrule/wire-sheet
+  generator now reads the authority's `dest_connector`/`dest_pin` directly — see § 5. Status of each consolidation step is in
   Section 5.
 
 ---
@@ -266,10 +266,12 @@ coordinate — rows `source_dest` marks as off-plane stay blank.
 it is the **input**, and it is the only place the `source_provenance` strings live
 ("RESOLVED 2026-08-10: Dwg 4143075409 pg135 …"). Regenerating it from the authority
 would destroy the evidence that justifies the authority. It stays a curated source.
-`bbia1_retrofit_destination_crosswalk.csv` is largely redundant — its data rows
-duplicate the authority (all 41 as of 2026-09-05; the 22 added that day were copied
-from the authority's `dest_connector`/`dest_pin`, not derived independently) — but one
-row (`CN2-14` → `Z_LIMIT_PLUS`) *contradicted* it at the time of writing, and
+**Crosswalk retired 2026-09-05 (owner approved):** `scripts/generate_label_csvs.py`
+now derives every Mesa-end ferrule from the authority, and the file lives at
+`archive/crosswalk/bbia1_retrofit_destination_crosswalk.csv`. The paragraph below is
+the pre-retirement reasoning, kept as written.
+`bbia1_retrofit_destination_crosswalk.csv` was largely redundant — 13 of its 14 data rows
+duplicated the authority — but the 14th (`CN2-14` → `Z_LIMIT_PLUS`) *contradicted* it, and
 the contradiction is **live**: the OEM pinout positively records `CN2-14` = `+LTZ`
 Z-AXIS OVER TRAVEL, while a later sheet leaves +Z unlabelled and a third row hints the
 conductor is a combined +Y/+Z bus. The file is **retained until the +Z over-travel field

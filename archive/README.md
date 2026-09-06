@@ -14,3 +14,13 @@ the discovery worksheet used to draft field-I/O rows into
 Archived (not deleted) because ~12 authority rows still cite it as their origin.
 It stays `PROPOSED`-grade evidence: a cross-walk inference, not a cabinet
 measurement. Do not treat anything here as verified.
+
+### `bbia1_retrofit_destination_crosswalk.csv` (retired 2026-09-05)
+
+Was the input `scripts/generate_label_csvs.py` used to decide which BBIA-1
+conductors got a Mesa-end ferrule, and therefore what the printed wire reference
+sheet showed in its "Mesa landing" column. It drifted: 19 rows while
+`mesa/current_pin_authority.csv` carried 41 Plane A landings. The generator now
+reads the authority's `dest_connector`/`dest_pin` directly, so there is nothing to
+keep in step. Kept for the `Notes` column (per-row trace hints, 2026-08 to
+2026-09-05) and for `authority_conflicts.md` § 7.3, which cites it.

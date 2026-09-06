@@ -145,7 +145,7 @@ def build_trace_worksheet() -> str:
         f"<p class='sub'>Mazak VQC-20/40 SN 060231 &middot; Generated {stamp} from repo "
         f"commit {head} (wiring/labels/bbia1_mesa_end_ferrules_epson.csv). One row per "
         "planned Mesa-end ferrule. Record results here, then update the crosswalk "
-        "(Crosswalk_Status PLANNED_MATCH &rarr; TRACED) and commit.</p>",
+        "(set the row&#39;s authority_status in mesa/current_pin_authority.csv to a verified state) and commit.</p>",
         "<div class='warn'>MACHINE POWER OFF AND LOCKED OUT for all continuity work. "
         "A completed row proves wire identity only — it is NOT permission to terminate "
         "or energize; release still follows the authority row's evidence state.</div>",

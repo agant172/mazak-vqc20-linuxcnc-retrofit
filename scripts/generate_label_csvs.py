@@ -6,20 +6,25 @@ from __future__ import annotations
 import argparse
 import csv
 import io
+import re
 from pathlib import Path
 
 SCRIPT_DIR = Path(__file__).resolve().parent
 REPO_ROOT = SCRIPT_DIR.parent
 AUTHORITY = REPO_ROOT / "mesa" / "current_pin_authority.csv"
 BBIA_SOURCE = REPO_ROOT / "wiring" / "bbia1_cn_pinouts.csv"
-DESTINATION_CROSSWALK = REPO_ROOT / "wiring" / "bbia1_retrofit_destination_crosswalk.csv"
+# Mesa-end ferrules are derived straight from the authority's dest_connector /
+# dest_pin (2026-09-05). The former input, bbia1_retrofit_destination_crosswalk.csv,
+# drifted to 19 rows while the authority had 41 landings and is archived at
+# archive/crosswalk/. A landing counts as TRACED when its authority_status is one
+# of VERIFIED_STATES -- there is no separate trace register to keep in step.
 
-# Crosswalk pins where two OEM sources disagree about what is on the conductor.
-# Every crosswalk row already carries the blanket HOLD_SOURCE_TRACE, which makes
+# BBIA-1 pins where two OEM sources disagree about what is on the conductor.
+# Every untraced landing already carries the blanket HOLD_SOURCE_TRACE, which makes
 # a disputed pin indistinguishable from a corroborated one on the printed
 # ferrule -- and these end up on a physical label at the cabinet. Rows listed
 # here are released as HOLD_DISPUTED_PIN instead, so the dispute survives onto
-# the label. Keyed by Old_Location; cite the register section.
+# the label. Keyed by BBIA-1 location (CNx-pin); cite the register section.
 DISPUTED_CROSSWALK_PINS = {
     # CN2-14 entry retired 2026-09-02 with its crosswalk row: sec 7.5 settled
     # CN2-14 = +LY2 (2nd +Y over-travel) and Z_LIMIT_PLUS is unlocated, so the
@@ -144,43 +149,60 @@ def bbia_rows() -> list[dict[str, str]]:
     ]
 
 
+def plane_a_landing(row: dict[str, str]) -> str | None:
+    """Return "CNx-pin" for an authority row landed on a BBIA-1 connector, else None.
+
+    dest_connector is free text and may carry an "OEM " decoration (WORK_LIGHT);
+    Plane B rows use CNA connectors and pin ranges, which do not match.
+    """
+    connector = (row.get("dest_connector") or "").strip()
+    if connector.upper().startswith("OEM "):
+        connector = connector[4:].strip()
+    pin = (row.get("dest_pin") or "").strip()
+    if not re.fullmatch(r"CN\d+", connector) or not re.fullmatch(r"\d+", pin):
+        return None
+    return f"{connector}-{pin}"
+
+
 def mesa_ferrule_rows() -> list[dict[str, str]]:
-    """Build the conservative direct-to-Mesa subset of cut BBIA conductors."""
-    authority = {row["signal_id"]: row for row in read_csv(AUTHORITY)}
+    """Every 7i84U input/output the authority lands on a BBIA-1 conductor.
+
+    One row per (BBIA-1 pin -> Mesa terminal) hop, read directly from
+    current_pin_authority.csv so the printed ferrule set and the wire reference
+    sheet can never lag the authority. Refuses a pin absent from the OEM pinout
+    and two signals claiming one pin.
+    """
     sources = {row["Location"]: row for row in bbia_rows()}
     rows: list[dict[str, str]] = []
-    seen: set[str] = set()
-    for crosswalk in read_csv(DESTINATION_CROSSWALK):
-        location = crosswalk["Old_Location"]
-        if location in seen:
-            raise ValueError(f"duplicate retrofit destination crosswalk row {location}")
-        seen.add(location)
-        if crosswalk["Disposition"] != "MESA_DIRECT_PLANNED":
+    seen: dict[str, str] = {}
+    for target in read_csv(AUTHORITY):
+        if target["mesa_card"] not in {"7i84U-A", "7i84U-B"} or target["direction"] not in {"IN", "OUT"}:
             continue
+        if target["authority_status"] == "SPARE":
+            continue
+        location = plane_a_landing(target)
+        if location is None:
+            continue
+        if location in seen:
+            raise ValueError(
+                f"two authority rows land on BBIA-1 {location}: {seen[location]} and {target['signal_id']}")
+        seen[location] = target["signal_id"]
         source = sources.get(location)
         if source is None:
-            raise ValueError(f"retrofit crosswalk source {location} is absent from BBIA pinouts")
-        target = authority.get(crosswalk["Authority_ID"])
-        if target is None:
-            raise ValueError(f"retrofit crosswalk target {crosswalk['Authority_ID']} is absent from authority")
-        if target["mesa_card"] not in {"7i84U-A", "7i84U-B"} or target["direction"] not in {"IN", "OUT"}:
-            raise ValueError(f"retrofit crosswalk target {crosswalk['Authority_ID']} is not direct 7i84U I/O")
-        if target["authority_status"] == "SPARE":
-            raise ValueError(f"retrofit crosswalk target {crosswalk['Authority_ID']} is SPARE")
+            raise ValueError(f"{target['signal_id']} lands on {location}, which is absent from BBIA pinouts")
         physical = physical_pin(target["connector"], target["pin_channel"])
         card_short = "A" if target["mesa_card"] == "7i84U-A" else "B"
         # Full connector-id format per e328799: board letter + full connector
         # + 1-based physical pin, e.g. "A-TB3-06", "B-TB3-09".
         label = f"{card_short}-{physical}"
-        crosswalk_status = crosswalk["Crosswalk_Status"]
-        if crosswalk_status not in {"PLANNED_MATCH", "TRACED"}:
-            raise ValueError(f"unsupported crosswalk status {crosswalk_status} at {location}")
+        traced = target["authority_status"] in VERIFIED_STATES
+        crosswalk_status = "TRACED" if traced else "PLANNED_MATCH"
         if location in DISPUTED_CROSSWALK_PINS:
-            # A disputed pin is never released, even if it is later marked
-            # TRACED -- the trace is what resolves the dispute, and until the
-            # register section is closed the label must say so.
+            # A disputed pin is never released, even once traced -- the trace is
+            # what resolves the dispute, and until the register section is
+            # closed the label must say so.
             final_release = "HOLD_DISPUTED_PIN"
-        elif crosswalk_status != "TRACED":
+        elif not traced:
             final_release = "HOLD_SOURCE_TRACE"
         else:
             final_release = release_status(target["authority_status"])
@@ -198,6 +220,12 @@ def mesa_ferrule_rows() -> list[dict[str, str]]:
             "Crosswalk_Status": crosswalk_status,
             "Release_Status": final_release,
         })
+
+    def order(row: dict[str, str]) -> tuple[int, int]:
+        connector, pin = row["Old_Location"].split("-")
+        return int(connector[2:]), int(pin)
+
+    rows.sort(key=order)
     return rows
 
 

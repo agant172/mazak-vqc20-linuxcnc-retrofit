@@ -6,7 +6,7 @@ window.MAZAK_DATA = {
   "machine": "Mazak VQC-20/40",
   "serial": "060231",
   "architecture": "LinuxCNC + Mesa 7i80HDT (Ethernet FPGA host) + 7i44 on P3 (HostMot2 sserial port 0 channels 0/1 to 7i84U-A/B) + 7i49 on P1 (resolver + analog outs); P2 unused/spare (confirmed 2026-08-13 by readhmid)",
-  "generated": "2026-09-06 05:49 UTC",
+  "generated": "2026-09-06 05:58 UTC",
   "source_repo": "mazak-vqc20-linuxcnc-retrofit",
   "authority_file": "mesa/current_pin_authority.csv",
   "epson_ferrule_file": "wiring/labels/bbia1_mesa_end_ferrules_epson.csv",
@@ -2023,7 +2023,7 @@ window.MAZAK_DATA = {
      "physical_pin": "TB3-03",
      "crosswalk_status": "PLANNED_MATCH",
      "release_status": "HOLD_SOURCE_TRACE",
-     "source_line": 21
+     "source_line": 16
     }
    ],
    "sources": [
@@ -2049,7 +2049,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "wiring/labels/bbia1_mesa_end_ferrules_epson.csv",
-     "lines": "21",
+     "lines": "16",
      "note": "Epson Mesa-end ferrule A-TB3-03; HOLD_SOURCE_TRACE"
     }
    ],
@@ -2138,7 +2138,7 @@ window.MAZAK_DATA = {
      "physical_pin": "TB3-04",
      "crosswalk_status": "PLANNED_MATCH",
      "release_status": "HOLD_SOURCE_TRACE",
-     "source_line": 22
+     "source_line": 34
     }
    ],
    "sources": [
@@ -2164,7 +2164,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "wiring/labels/bbia1_mesa_end_ferrules_epson.csv",
-     "lines": "22",
+     "lines": "34",
      "note": "Epson Mesa-end ferrule A-TB3-04; HOLD_SOURCE_TRACE"
     }
    ],
@@ -2250,7 +2250,7 @@ window.MAZAK_DATA = {
      "physical_pin": "TB3-05",
      "crosswalk_status": "PLANNED_MATCH",
      "release_status": "HOLD_SOURCE_TRACE",
-     "source_line": 19
+     "source_line": 29
     }
    ],
    "sources": [
@@ -2276,7 +2276,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "wiring/labels/bbia1_mesa_end_ferrules_epson.csv",
-     "lines": "19",
+     "lines": "29",
      "note": "Epson Mesa-end ferrule A-TB3-05; HOLD_SOURCE_TRACE"
     }
    ],
@@ -2374,7 +2374,7 @@ window.MAZAK_DATA = {
      "physical_pin": "TB3-06",
      "crosswalk_status": "PLANNED_MATCH",
      "release_status": "HOLD_DISPUTED_PIN",
-     "source_line": 15
+     "source_line": 25
     }
    ],
    "sources": [
@@ -2405,7 +2405,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "wiring/labels/bbia1_mesa_end_ferrules_epson.csv",
-     "lines": "15",
+     "lines": "25",
      "note": "Epson Mesa-end ferrule A-TB3-06; HOLD_DISPUTED_PIN"
     }
    ],
@@ -2491,7 +2491,7 @@ window.MAZAK_DATA = {
      "physical_pin": "TB3-07",
      "crosswalk_status": "PLANNED_MATCH",
      "release_status": "HOLD_SOURCE_TRACE",
-     "source_line": 23
+     "source_line": 14
     }
    ],
    "sources": [
@@ -2517,7 +2517,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "wiring/labels/bbia1_mesa_end_ferrules_epson.csv",
-     "lines": "23",
+     "lines": "14",
      "note": "Epson Mesa-end ferrule A-TB3-07; HOLD_SOURCE_TRACE"
     }
    ],
@@ -2603,7 +2603,7 @@ window.MAZAK_DATA = {
      "physical_pin": "TB3-08",
      "crosswalk_status": "PLANNED_MATCH",
      "release_status": "HOLD_SOURCE_TRACE",
-     "source_line": 24
+     "source_line": 15
     }
    ],
    "sources": [
@@ -2629,7 +2629,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "wiring/labels/bbia1_mesa_end_ferrules_epson.csv",
-     "lines": "24",
+     "lines": "15",
      "note": "Epson Mesa-end ferrule A-TB3-08; HOLD_SOURCE_TRACE"
     }
    ],
@@ -2715,7 +2715,7 @@ window.MAZAK_DATA = {
      "physical_pin": "TB3-09",
      "crosswalk_status": "PLANNED_MATCH",
      "release_status": "HOLD_SOURCE_TRACE",
-     "source_line": 25
+     "source_line": 30
     }
    ],
    "sources": [
@@ -2741,7 +2741,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "wiring/labels/bbia1_mesa_end_ferrules_epson.csv",
-     "lines": "25",
+     "lines": "30",
      "note": "Epson Mesa-end ferrule A-TB3-09; HOLD_SOURCE_TRACE"
     }
    ],
@@ -2827,7 +2827,7 @@ window.MAZAK_DATA = {
      "physical_pin": "TB3-10",
      "crosswalk_status": "PLANNED_MATCH",
      "release_status": "HOLD_SOURCE_TRACE",
-     "source_line": 26
+     "source_line": 7
     }
    ],
    "sources": [
@@ -2853,7 +2853,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "wiring/labels/bbia1_mesa_end_ferrules_epson.csv",
-     "lines": "26",
+     "lines": "7",
      "note": "Epson Mesa-end ferrule A-TB3-10; HOLD_SOURCE_TRACE"
     }
    ],
@@ -3292,7 +3292,7 @@ window.MAZAK_DATA = {
      "physical_pin": "TB3-15",
      "crosswalk_status": "PLANNED_MATCH",
      "release_status": "HOLD_SOURCE_TRACE",
-     "source_line": 16
+     "source_line": 26
     }
    ],
    "sources": [
@@ -3333,7 +3333,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "wiring/labels/bbia1_mesa_end_ferrules_epson.csv",
-     "lines": "16",
+     "lines": "26",
      "note": "Epson Mesa-end ferrule A-TB3-15; HOLD_SOURCE_TRACE"
     }
    ],
@@ -3421,7 +3421,7 @@ window.MAZAK_DATA = {
      "physical_pin": "TB3-16",
      "crosswalk_status": "PLANNED_MATCH",
      "release_status": "HOLD_SOURCE_TRACE",
-     "source_line": 27
+     "source_line": 3
     }
    ],
    "sources": [
@@ -3447,7 +3447,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "wiring/labels/bbia1_mesa_end_ferrules_epson.csv",
-     "lines": "27",
+     "lines": "3",
      "note": "Epson Mesa-end ferrule A-TB3-16; HOLD_SOURCE_TRACE"
     }
    ],
@@ -3535,7 +3535,7 @@ window.MAZAK_DATA = {
      "physical_pin": "TB2-01",
      "crosswalk_status": "PLANNED_MATCH",
      "release_status": "HOLD_SOURCE_TRACE",
-     "source_line": 28
+     "source_line": 2
     }
    ],
    "sources": [
@@ -3561,7 +3561,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "wiring/labels/bbia1_mesa_end_ferrules_epson.csv",
-     "lines": "28",
+     "lines": "2",
      "note": "Epson Mesa-end ferrule A-TB2-01; HOLD_SOURCE_TRACE"
     }
    ],
@@ -3649,7 +3649,7 @@ window.MAZAK_DATA = {
      "physical_pin": "TB2-02",
      "crosswalk_status": "PLANNED_MATCH",
      "release_status": "HOLD_SOURCE_TRACE",
-     "source_line": 29
+     "source_line": 4
     }
    ],
    "sources": [
@@ -3675,7 +3675,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "wiring/labels/bbia1_mesa_end_ferrules_epson.csv",
-     "lines": "29",
+     "lines": "4",
      "note": "Epson Mesa-end ferrule A-TB2-02; HOLD_SOURCE_TRACE"
     }
    ],
@@ -3766,7 +3766,7 @@ window.MAZAK_DATA = {
      "physical_pin": "TB2-03",
      "crosswalk_status": "PLANNED_MATCH",
      "release_status": "HOLD_SOURCE_TRACE",
-     "source_line": 30
+     "source_line": 5
     }
    ],
    "sources": [
@@ -3792,7 +3792,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "wiring/labels/bbia1_mesa_end_ferrules_epson.csv",
-     "lines": "30",
+     "lines": "5",
      "note": "Epson Mesa-end ferrule A-TB2-03; HOLD_SOURCE_TRACE"
     }
    ],
@@ -3880,7 +3880,7 @@ window.MAZAK_DATA = {
      "physical_pin": "TB2-04",
      "crosswalk_status": "PLANNED_MATCH",
      "release_status": "HOLD_SOURCE_TRACE",
-     "source_line": 3
+     "source_line": 8
     }
    ],
    "sources": [
@@ -3906,7 +3906,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "wiring/labels/bbia1_mesa_end_ferrules_epson.csv",
-     "lines": "3",
+     "lines": "8",
      "note": "Epson Mesa-end ferrule A-TB2-04; HOLD_SOURCE_TRACE"
     }
    ],
@@ -3994,7 +3994,7 @@ window.MAZAK_DATA = {
      "physical_pin": "TB2-05",
      "crosswalk_status": "PLANNED_MATCH",
      "release_status": "HOLD_SOURCE_TRACE",
-     "source_line": 4
+     "source_line": 9
     }
    ],
    "sources": [
@@ -4020,7 +4020,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "wiring/labels/bbia1_mesa_end_ferrules_epson.csv",
-     "lines": "4",
+     "lines": "9",
      "note": "Epson Mesa-end ferrule A-TB2-05; HOLD_SOURCE_TRACE"
     }
    ],
@@ -4108,7 +4108,7 @@ window.MAZAK_DATA = {
      "physical_pin": "TB2-06",
      "crosswalk_status": "PLANNED_MATCH",
      "release_status": "HOLD_SOURCE_TRACE",
-     "source_line": 5
+     "source_line": 10
     }
    ],
    "sources": [
@@ -4134,7 +4134,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "wiring/labels/bbia1_mesa_end_ferrules_epson.csv",
-     "lines": "5",
+     "lines": "10",
      "note": "Epson Mesa-end ferrule A-TB2-06; HOLD_SOURCE_TRACE"
     }
    ],
@@ -4222,7 +4222,7 @@ window.MAZAK_DATA = {
      "physical_pin": "TB2-07",
      "crosswalk_status": "PLANNED_MATCH",
      "release_status": "HOLD_SOURCE_TRACE",
-     "source_line": 6
+     "source_line": 11
     }
    ],
    "sources": [
@@ -4248,7 +4248,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "wiring/labels/bbia1_mesa_end_ferrules_epson.csv",
-     "lines": "6",
+     "lines": "11",
      "note": "Epson Mesa-end ferrule A-TB2-07; HOLD_SOURCE_TRACE"
     }
    ],
@@ -4336,7 +4336,7 @@ window.MAZAK_DATA = {
      "physical_pin": "TB2-08",
      "crosswalk_status": "PLANNED_MATCH",
      "release_status": "HOLD_SOURCE_TRACE",
-     "source_line": 7
+     "source_line": 12
     }
    ],
    "sources": [
@@ -4362,7 +4362,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "wiring/labels/bbia1_mesa_end_ferrules_epson.csv",
-     "lines": "7",
+     "lines": "12",
      "note": "Epson Mesa-end ferrule A-TB2-08; HOLD_SOURCE_TRACE"
     }
    ],
@@ -4453,7 +4453,7 @@ window.MAZAK_DATA = {
      "physical_pin": "TB2-09",
      "crosswalk_status": "PLANNED_MATCH",
      "release_status": "HOLD_SOURCE_TRACE",
-     "source_line": 31
+     "source_line": 19
     }
    ],
    "sources": [
@@ -4479,7 +4479,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "wiring/labels/bbia1_mesa_end_ferrules_epson.csv",
-     "lines": "31",
+     "lines": "19",
      "note": "Epson Mesa-end ferrule A-TB2-09; HOLD_SOURCE_TRACE"
     }
    ],
@@ -4567,7 +4567,7 @@ window.MAZAK_DATA = {
      "physical_pin": "TB2-10",
      "crosswalk_status": "PLANNED_MATCH",
      "release_status": "HOLD_SOURCE_TRACE",
-     "source_line": 32
+     "source_line": 33
     }
    ],
    "sources": [
@@ -4593,7 +4593,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "wiring/labels/bbia1_mesa_end_ferrules_epson.csv",
-     "lines": "32",
+     "lines": "33",
      "note": "Epson Mesa-end ferrule A-TB2-10; HOLD_SOURCE_TRACE"
     }
    ],
@@ -4898,7 +4898,7 @@ window.MAZAK_DATA = {
      "physical_pin": "TB2-13",
      "crosswalk_status": "PLANNED_MATCH",
      "release_status": "HOLD_SOURCE_TRACE",
-     "source_line": 8
+     "source_line": 13
     }
    ],
    "sources": [
@@ -4924,7 +4924,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "wiring/labels/bbia1_mesa_end_ferrules_epson.csv",
-     "lines": "8",
+     "lines": "13",
      "note": "Epson Mesa-end ferrule A-TB2-13; HOLD_SOURCE_TRACE"
     }
    ],
@@ -5073,7 +5073,7 @@ window.MAZAK_DATA = {
      "physical_pin": "TB2-15",
      "crosswalk_status": "PLANNED_MATCH",
      "release_status": "HOLD_SOURCE_TRACE",
-     "source_line": 40
+     "source_line": 20
     }
    ],
    "sources": [
@@ -5089,7 +5089,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "wiring/labels/bbia1_mesa_end_ferrules_epson.csv",
-     "lines": "40",
+     "lines": "20",
      "note": "Epson Mesa-end ferrule A-TB2-15; HOLD_SOURCE_TRACE"
     }
    ],
@@ -5187,7 +5187,7 @@ window.MAZAK_DATA = {
      "physical_pin": "TB2-16",
      "crosswalk_status": "PLANNED_MATCH",
      "release_status": "HOLD_SOURCE_TRACE",
-     "source_line": 20
+     "source_line": 31
     }
    ],
    "sources": [
@@ -5218,7 +5218,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "wiring/labels/bbia1_mesa_end_ferrules_epson.csv",
-     "lines": "20",
+     "lines": "31",
      "note": "Epson Mesa-end ferrule A-TB2-16; HOLD_SOURCE_TRACE"
     }
    ],
@@ -5304,7 +5304,7 @@ window.MAZAK_DATA = {
      "physical_pin": "TB3-17",
      "crosswalk_status": "PLANNED_MATCH",
      "release_status": "HOLD_SOURCE_TRACE",
-     "source_line": 17
+     "source_line": 27
     }
    ],
    "sources": [
@@ -5330,7 +5330,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "wiring/labels/bbia1_mesa_end_ferrules_epson.csv",
-     "lines": "17",
+     "lines": "27",
      "note": "Epson Mesa-end ferrule A-TB3-17; HOLD_SOURCE_TRACE"
     }
    ],
@@ -5418,7 +5418,7 @@ window.MAZAK_DATA = {
      "physical_pin": "TB3-18",
      "crosswalk_status": "PLANNED_MATCH",
      "release_status": "HOLD_SOURCE_TRACE",
-     "source_line": 18
+     "source_line": 28
     }
    ],
    "sources": [
@@ -5444,7 +5444,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "wiring/labels/bbia1_mesa_end_ferrules_epson.csv",
-     "lines": "18",
+     "lines": "28",
      "note": "Epson Mesa-end ferrule A-TB3-18; HOLD_SOURCE_TRACE"
     }
    ],
@@ -5684,7 +5684,7 @@ window.MAZAK_DATA = {
      "physical_pin": "TB3-20",
      "crosswalk_status": "PLANNED_MATCH",
      "release_status": "HOLD_SOURCE_TRACE",
-     "source_line": 33
+     "source_line": 42
     }
    ],
    "sources": [
@@ -5710,7 +5710,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "wiring/labels/bbia1_mesa_end_ferrules_epson.csv",
-     "lines": "33",
+     "lines": "42",
      "note": "Epson Mesa-end ferrule A-TB3-20; HOLD_SOURCE_TRACE"
     }
    ],
@@ -5796,7 +5796,7 @@ window.MAZAK_DATA = {
      "physical_pin": "TB3-21",
      "crosswalk_status": "PLANNED_MATCH",
      "release_status": "HOLD_SOURCE_TRACE",
-     "source_line": 13
+     "source_line": 21
     }
    ],
    "sources": [
@@ -5822,7 +5822,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "wiring/labels/bbia1_mesa_end_ferrules_epson.csv",
-     "lines": "13",
+     "lines": "21",
      "note": "Epson Mesa-end ferrule A-TB3-21; HOLD_SOURCE_TRACE"
     }
    ],
@@ -5910,7 +5910,7 @@ window.MAZAK_DATA = {
      "physical_pin": "TB3-22",
      "crosswalk_status": "PLANNED_MATCH",
      "release_status": "HOLD_SOURCE_TRACE",
-     "source_line": 14
+     "source_line": 22
     }
    ],
    "sources": [
@@ -5936,7 +5936,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "wiring/labels/bbia1_mesa_end_ferrules_epson.csv",
-     "lines": "14",
+     "lines": "22",
      "note": "Epson Mesa-end ferrule A-TB3-22; HOLD_SOURCE_TRACE"
     }
    ],
@@ -6181,7 +6181,7 @@ window.MAZAK_DATA = {
      "physical_pin": "TB3-24",
      "crosswalk_status": "PLANNED_MATCH",
      "release_status": "HOLD_SOURCE_TRACE",
-     "source_line": 34
+     "source_line": 36
     }
    ],
    "sources": [
@@ -6207,7 +6207,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "wiring/labels/bbia1_mesa_end_ferrules_epson.csv",
-     "lines": "34",
+     "lines": "36",
      "note": "Epson Mesa-end ferrule A-TB3-24; HOLD_SOURCE_TRACE"
     }
    ],
@@ -6297,7 +6297,7 @@ window.MAZAK_DATA = {
      "physical_pin": "TB2-17",
      "crosswalk_status": "PLANNED_MATCH",
      "release_status": "HOLD_SOURCE_TRACE",
-     "source_line": 35
+     "source_line": 37
     }
    ],
    "sources": [
@@ -6323,7 +6323,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "wiring/labels/bbia1_mesa_end_ferrules_epson.csv",
-     "lines": "35",
+     "lines": "37",
      "note": "Epson Mesa-end ferrule A-TB2-17; HOLD_SOURCE_TRACE"
     }
    ],
@@ -6471,7 +6471,7 @@ window.MAZAK_DATA = {
      "physical_pin": "TB2-19",
      "crosswalk_status": "PLANNED_MATCH",
      "release_status": "HOLD_SOURCE_TRACE",
-     "source_line": 36
+     "source_line": 35
     }
    ],
    "sources": [
@@ -6497,7 +6497,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "wiring/labels/bbia1_mesa_end_ferrules_epson.csv",
-     "lines": "36",
+     "lines": "35",
      "note": "Epson Mesa-end ferrule A-TB2-19; HOLD_SOURCE_TRACE"
     }
    ],
@@ -6587,7 +6587,7 @@ window.MAZAK_DATA = {
      "physical_pin": "TB2-20",
      "crosswalk_status": "PLANNED_MATCH",
      "release_status": "HOLD_SOURCE_TRACE",
-     "source_line": 37
+     "source_line": 41
     }
    ],
    "sources": [
@@ -6613,7 +6613,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "wiring/labels/bbia1_mesa_end_ferrules_epson.csv",
-     "lines": "37",
+     "lines": "41",
      "note": "Epson Mesa-end ferrule A-TB2-20; HOLD_SOURCE_TRACE"
     }
    ],
@@ -7495,7 +7495,7 @@ window.MAZAK_DATA = {
      "physical_pin": "TB3-03",
      "crosswalk_status": "PLANNED_MATCH",
      "release_status": "HOLD_SOURCE_TRACE",
-     "source_line": 11
+     "source_line": 23
     }
    ],
    "sources": [
@@ -7521,7 +7521,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "wiring/labels/bbia1_mesa_end_ferrules_epson.csv",
-     "lines": "11",
+     "lines": "23",
      "note": "Epson Mesa-end ferrule B-TB3-03; HOLD_SOURCE_TRACE"
     }
    ],
@@ -7799,7 +7799,7 @@ window.MAZAK_DATA = {
      "physical_pin": "TB3-06",
      "crosswalk_status": "PLANNED_MATCH",
      "release_status": "HOLD_SOURCE_TRACE",
-     "source_line": 12
+     "source_line": 24
     }
    ],
    "sources": [
@@ -7825,7 +7825,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "wiring/labels/bbia1_mesa_end_ferrules_epson.csv",
-     "lines": "12",
+     "lines": "24",
      "note": "Epson Mesa-end ferrule B-TB3-06; HOLD_SOURCE_TRACE"
     }
    ],
@@ -7913,7 +7913,7 @@ window.MAZAK_DATA = {
      "physical_pin": "TB3-07",
      "crosswalk_status": "PLANNED_MATCH",
      "release_status": "HOLD_SOURCE_TRACE",
-     "source_line": 9
+     "source_line": 17
     }
    ],
    "sources": [
@@ -7939,7 +7939,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "wiring/labels/bbia1_mesa_end_ferrules_epson.csv",
-     "lines": "9",
+     "lines": "17",
      "note": "Epson Mesa-end ferrule B-TB3-07; HOLD_SOURCE_TRACE"
     }
    ],
@@ -8027,7 +8027,7 @@ window.MAZAK_DATA = {
      "physical_pin": "TB3-08",
      "crosswalk_status": "PLANNED_MATCH",
      "release_status": "HOLD_SOURCE_TRACE",
-     "source_line": 10
+     "source_line": 18
     }
    ],
    "sources": [
@@ -8053,7 +8053,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "wiring/labels/bbia1_mesa_end_ferrules_epson.csv",
-     "lines": "10",
+     "lines": "18",
      "note": "Epson Mesa-end ferrule B-TB3-08; HOLD_SOURCE_TRACE"
     }
    ],
@@ -8142,7 +8142,7 @@ window.MAZAK_DATA = {
      "physical_pin": "TB3-09",
      "crosswalk_status": "PLANNED_MATCH",
      "release_status": "HOLD_SOURCE_TRACE",
-     "source_line": 2
+     "source_line": 6
     }
    ],
    "sources": [
@@ -8168,7 +8168,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "wiring/labels/bbia1_mesa_end_ferrules_epson.csv",
-     "lines": "2",
+     "lines": "6",
      "note": "Epson Mesa-end ferrule B-TB3-09; HOLD_SOURCE_TRACE"
     }
    ],
@@ -9942,7 +9942,7 @@ window.MAZAK_DATA = {
      "physical_pin": "TB3-21",
      "crosswalk_status": "PLANNED_MATCH",
      "release_status": "HOLD_SOURCE_TRACE",
-     "source_line": 41
+     "source_line": 39
     }
    ],
    "sources": [
@@ -9958,7 +9958,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "wiring/labels/bbia1_mesa_end_ferrules_epson.csv",
-     "lines": "41",
+     "lines": "39",
      "note": "Epson Mesa-end ferrule B-TB3-21; HOLD_SOURCE_TRACE"
     }
    ],
@@ -10177,7 +10177,7 @@ window.MAZAK_DATA = {
      "physical_pin": "TB3-24",
      "crosswalk_status": "PLANNED_MATCH",
      "release_status": "HOLD_SOURCE_TRACE",
-     "source_line": 39
+     "source_line": 40
     }
    ],
    "sources": [
@@ -10198,7 +10198,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "wiring/labels/bbia1_mesa_end_ferrules_epson.csv",
-     "lines": "39",
+     "lines": "40",
      "note": "Epson Mesa-end ferrule B-TB3-24; HOLD_SOURCE_TRACE"
     }
    ],
@@ -10347,7 +10347,7 @@ window.MAZAK_DATA = {
      "physical_pin": "TB2-18",
      "crosswalk_status": "PLANNED_MATCH",
      "release_status": "HOLD_SOURCE_TRACE",
-     "source_line": 42
+     "source_line": 32
     }
    ],
    "sources": [
@@ -10363,7 +10363,7 @@ window.MAZAK_DATA = {
     },
     {
      "file": "wiring/labels/bbia1_mesa_end_ferrules_epson.csv",
-     "lines": "42",
+     "lines": "32",
      "note": "Epson Mesa-end ferrule B-TB2-18; HOLD_SOURCE_TRACE"
     }
    ],

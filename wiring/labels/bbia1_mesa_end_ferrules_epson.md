@@ -82,11 +82,17 @@ verified. A separate new 24 V conductor runs from 7i84U-B TB3 physical pin 20
 
 ## Maintaining the batch
 
-The source crosswalk is
-[`bbia1_retrofit_destination_crosswalk.csv`](../bbia1_retrofit_destination_crosswalk.csv).
-Add a row only when the old connector location and intended authority signal are
-supported by repo evidence. The generator derives the physical pin and refuses
-missing, spare, non-7i84U, or duplicate source assignments.
+**There is no separate source file to maintain (since 2026-09-05).** The batch is
+derived straight from `mesa/current_pin_authority.csv`: every 7i84U-A/B input or
+output whose `dest_connector`/`dest_pin` names a BBIA-1 `CNx-pin` gets a ferrule.
+To add or move a landing, edit the authority row. A landing counts as `TRACED`
+once the row's `authority_status` is a verified state; until then it prints
+`HOLD`. The generator derives the physical pin and refuses a pin absent from the
+OEM pinout, a `SPARE` row, or two signals claiming one pin.
+
+The former input, `bbia1_retrofit_destination_crosswalk.csv`, had drifted to 19
+rows while the authority carried 41 landings; it is archived at
+[`archive/crosswalk/`](../../archive/crosswalk/) for provenance only.
 
 ```bash
 python3 scripts/generate_label_csvs.py --write

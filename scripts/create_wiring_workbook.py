@@ -100,7 +100,6 @@ def build_workbook() -> None:
     plane_b = read_csv(ROOT / "wiring" / "plane_b_pin_crosswalk.csv")
     source_dest = read_csv(ROOT / "wiring" / "bbia1_source_dest.csv")
     pinouts = read_csv(ROOT / "wiring" / "bbia1_cn_pinouts.csv")
-    dest = read_csv(ROOT / "wiring" / "bbia1_retrofit_destination_crosswalk.csv")
     manifest_path = ROOT / "diagrams" / "wireviz" / "manifest.json"
     import json
     manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
@@ -129,9 +128,9 @@ def build_workbook() -> None:
     if pinouts:
         f = list(pinouts[0].keys())
         sheets.append(("BBIA Pinouts", rows_from_records(pinouts, f), [18, 14, 14, 24, 24, 60], {}))
-    if dest:
-        f = list(dest[0].keys())
-        sheets.append(("BBIA Destinations", rows_from_records(dest, f), [18, 18, 18, 24, 28, 22, 28, 70], {}))
+    # The "BBIA Destinations" sheet was retired 2026-09-05: its source CSV drifted
+    # behind the authority and is archived; the Mesa-end ferrule CSV now derives
+    # every Plane A landing from current_pin_authority.csv directly.
 
     # Visio's Create Diagram from Data wizard works best with a simple,
     # normalized table: one row per connection and stable IDs for each end.
