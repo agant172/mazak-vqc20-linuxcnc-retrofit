@@ -640,6 +640,33 @@ Closing bench items: CN11 ferrule read (settles pin 15's 736/836), CN2-14/CN1-5
 jacket read + buzz to PRS-55/PRS-66, CN6-27 label read, magazine-block buzz-out
 (PB-32 → CN2-4, PRS-21 → CN2-5, MIPRS → CN2-10), and the CN4-1/CN3-4 jacket read.
 
+## 8. 7i49 connector labels — "P1" was wrong for every analog and resolver row
+
+**RESOLVED 2026-09-05 from the Mesa manual — documentation-only, no OEM wiring involved.**
+
+- **Conflict:** all six `AOUT*` rows in `mesa/current_pin_authority.csv` carried
+  `connector = P1 Analog TB`, and all six `RES*` rows carried `P1 Resolver channel`,
+  while the same rows' `cleanup_notes` cited terminal numbers on **P3 and P4**
+  (`P4-20 AOUT0`, `P3-24 AOUT3`, …). Three different connector names for one field.
+- **Resolution:** `docs/Mesa Manuals/7i49man.pdf` V1.2 pp. 5–7 (terminal-block
+  tables) and the board photo on p. 3 settle it. The 7i49 has **no** analog or
+  resolver terminals on P1 — P1/J1 is the 50-pin controller header to the ribbon
+  cable. All resolver and analog I/O is on three 24-pin 3.5 mm pluggable screw-terminal
+  blocks: **P4 = channels 0/1, P3 = channels 2/3, P2 = channels 4/5**. The
+  `cleanup_notes` terminal numbers were already right; only the `connector` column
+  was wrong. All twelve rows now read `P4/P3/P2 Servo Amp/Resolver TB` with a manual
+  citation appended, and `wiring/bbia1_source_dest.csv`'s `mesa_destination` text was
+  corrected to match.
+- **Side finding worth knowing at the bench:** AOUT channels follow OEM drive order
+  (X=0, Z=1, Y=2) but resolver channels follow axis order (X=0, Y=1, Z=2), so **only X
+  has its resolver and its command on the same block (P4)**. Y resolver → P4, Y command →
+  P3. Z resolver → P3, Z command → P4. Per-block table:
+  `docs/commissioning_logs/analog_cmd_plan_2026-08-08.md`.
+- **Also corrected:** `analog_cmd_plan_2026-08-08.md` had described P2/P3/P4 as
+  "50-pin connectors"; they are 24-pin terminal blocks.
+- **Still open:** a photo of the physical card confirming the silkscreen matches the
+  V1.2 manual (the manual is 2011; the card in hand could be a later art revision).
+
 ## Evidence documents
 
 - `connector_crossref.md` — OEM drawing/photo cross-reference.
