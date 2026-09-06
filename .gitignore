@@ -70,3 +70,11 @@ photo-grouping-report-*/
 # Kernel-module binaries are machine- and kernel-specific — rebuild them with
 # `halcompile --install linuxcnc/components/<name>.comp`, never commit them.
 *.so
+
+# Rev B manual set — build output of scripts/build_manual_set.py (PDFs, manifest,
+# README). Removed from the tree 2026-09-06 (owner decision): the committed copy was
+# built 2026-08-07 from a 132-row authority, before two builder fixes for retracted
+# P1/P2/P3 claims, and was never rebuilt — CI only smoke-builds to a temp dir and
+# never compared. Build locally when a printed set is wanted:
+#   python3 scripts/build_manual_set.py            (writes docs/manual_set/)
+docs/manual_set/

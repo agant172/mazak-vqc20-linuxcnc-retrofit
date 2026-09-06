@@ -84,7 +84,7 @@ paragraphs) · `tests/hal/README.md` (405 → 407 checks).
    now**; a condensed physical-diagram format that fits on a sheet or two is still an
    open exploration, no tool chosen. `generate_interface_crosswalks.py` and the Plane A
    crosswalk CSV stay — decision 3 still applies to them.
-2. **`docs/manual_set/*.pdf` (Rev B manual, 8 PDFs) is stale and knowingly wrong.**
+2. **`docs/manual_set/` — REMOVED from the tree and git-ignored 2026-09-06 (owner).** The rest of this item is the reasoning as found: the Rev B PDFs were stale and knowingly wrong.
    Built 2026-08-07 from a 132-row authority, *before* the two 2026-08-23 builder
    fixes that removed retracted P1/P2/P3 claims; the PDFs were never rebuilt. CI builds
    to a temp dir as a smoke test and never compares. Recommendation: stop committing
