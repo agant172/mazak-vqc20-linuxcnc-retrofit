@@ -1,0 +1,17 @@
+{
+  "name": "Mazak VQC 20/40 LinuxCNC Retrofit",
+  "install": "python3 -m pip install --user reportlab pypdf",
+  "terminals": [
+    {
+      "name": "io-dashboard",
+      "command": "cd io-dashboard && python3 -m http.server 8765",
+      "description": "Offline I/O navigator + commissioning workspace (static). Open http://127.0.0.1:8765/ . The live /api/io bridge (serve_live.py) is machine-only and not started here."
+    }
+  ],
+  "ports": [
+    {
+      "name": "io-dashboard",
+      "port": 8765
+    }
+  ]
+}
