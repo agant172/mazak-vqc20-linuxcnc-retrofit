@@ -271,3 +271,50 @@ pin sweep of the still-loaded HAL session shows `input-13 = TRUE`,
 TB3 pin 14 is the one currently powered). The "session end state" paragraph
 above is superseded — the IN13 bench jumper for item 46 (`spindle-at-speed`)
 **is currently active** as originally intended.
+
+## Update 2026-10-14 — 7i84U-B arrived; both cards enumerate on channels 0 and 1
+
+**Session type:** OptiPlex, at the machine, owner at the bench. Same read-only
+`halrun` recipe as Step 2 (`loadrt hostmot2` + `loadrt hm2_eth ...
+sserial_port_0=00000000`, no HAL config, no outputs touched). LinuxCNC not running.
+
+**Sequence, in order:**
+
+1. **First probe, field power off:** 7i80HDT answered (`readhmid` clean,
+   SSerial v43, 8 ch, 2.5 Mbaud) but **zero** `7i84.*` pins and P3 fell back to
+   plain `IOPort` — the driver releases the sserial pins when no remote
+   answers. Same signature as the 2026-09-05 first pass. Cause was simply that
+   TB1 was not yet powered.
+2. **Power on, second probe:** 7i84U-A back on channel 0 (80 pins). The new
+   card showed **CR5 red steady** and nothing on any channel. Per 7i84U manual
+   p.11, CR5 red at power-up is the *expected* watchdog-fault state until the
+   host clears it — it is a symptom of "host never reached me", not a card
+   fault. Owner confirmed CR2 (VIN) and CR7 (RJ45 5 V) both lit.
+3. **Third probe:** new card enumerated as **`hm2_7i80.0.7i84.0.2`** — it was
+   plugged into the 7i44's channel-2 jack, one over from channel 1. Every
+   7i84U-B binding in the repo is `7i84.0.1.*`, so the cable was moved rather
+   than the HAL.
+4. **Fourth probe, after the cable move:** `Board hm2_7i80.0.7i84.0.1 Hardware
+   Mode 0 = standard`, 80 pins on channel 1, 80 on channel 0, channels 2–7
+   empty. P3-03/-13/-15 now instantiate as `rx1`/`tx1`/`txen1`. No
+   power-cycle was needed for the move; the link re-negotiated on reload.
+
+**Result:** **7i84U-A = channel 0, 7i84U-B = channel 1**, both reporting the
+standard 7i84 hardware mode with software modes `input_output`,
+`io_analog_fieldvoltage`, `io_encoder_analog`. The A/B identities match
+`docs/architecture_decision.md` and every `hm2_7i80.0.7i84.0.1.*` net in
+`linuxcnc/` is now backed by real hardware. `mesaflash --sserial` on this
+build prints only the port header (version/channels/baud) and never lists
+remotes, so it cannot be used to tell which channel a card is on — use the
+`halrun` pin dump.
+
+**Observation, not yet investigated:** every `7i84.0.0.input-*` and
+`7i84.0.1.input-*` read FALSE in this session, including `input-13`. The IN13
+bench jumper for `spindle-at-speed` (item 46) that the 2026-09-05 correction
+left active is therefore no longer powered, or TB1/TB3 on card A was
+re-terminated since. Check before relying on it.
+
+**What this does not prove:** nothing about 7i84U-B's TB3/TB2 field wiring
+(none is connected), nothing about the 7i49, and nothing about outputs. The
+7i44's RJ45 jacks are not labelled by channel in `7i44man.pdf`; the
+channel-2 slip above is the evidence for "count jacks from card A's".
